@@ -107,7 +107,7 @@
             name="phone"
             id="phoneInput"
             value="+380"
-            pattern="^\+380\d{9}$"
+            pattern="^\+380(39|50|63|66|67|68|73|77|91|92|93|94|95|96|97|98|99)\d{7}$"
             maxlength="13"
             placeholder="+380XXXXXXXXX"
             required
