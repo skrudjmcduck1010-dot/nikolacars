@@ -402,7 +402,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ====== PHONE validation (UA mobile) ======
-  const uaPhoneRegex = /^\+380(39|50|63|66|67|68|73|91|92|93|94|95|96|97|98|99)\d{7}$/;
+  const uaPhoneRegex = /^\+380(39|50|63|66|67|68|73|77|91|92|93|94|95|96|97|98|99)\d{7}$/;
 
   // ====== Bind each call form (one per slide) ======
   document.querySelectorAll('form.call-form[data-call-form="1"]').forEach(form => {

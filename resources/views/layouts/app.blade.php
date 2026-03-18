@@ -323,7 +323,7 @@ document.addEventListener('DOMContentLoaded', function(){
     const digits = phoneInput.value.replace(/\D/g,'');
     const fullPhone = '+380' + digits;
 
-    const uaPhoneRegex = /^\+380(39|50|63|66|67|68|73|91|92|93|94|95|96|97|98|99)\d{7}$/;
+    const uaPhoneRegex = /^\+380(39|50|63|66|67|68|73|77|91|92|93|94|95|96|97|98|99)\d{7}$/;
     if (!uaPhoneRegex.test(fullPhone)) {
       alert(i18n.invalidPhone);
       phoneInput.focus();

@@ -508,7 +508,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const fullPhone = '+380' + digits;
 
     // Только украинские мобильные коды
-    const uaPhoneRegex = /^\+380(39|50|63|66|67|68|73|91|92|93|94|95|96|97|98|99)\d{7}$/;
+    const uaPhoneRegex = /^\+380(39|50|63|66|67|68|73|77|91|92|93|94|95|96|97|98|99)\d{7}$/;
 
     if (!uaPhoneRegex.test(fullPhone)) {
       alert(@json($isRu ? 'Введите корректный украинский номер (9 цифр после +380)' : 'Введіть коректний український номер (9 цифр після +380)'));
