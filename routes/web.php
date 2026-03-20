@@ -91,6 +91,21 @@ Route::get('/ru/services/tesla-service/', function () {
     ]);
 });
 
+Route::get('/services/tesla-battery-repair', function () {
+    return view('services.tesla-battery-repair', [
+        'pageTitle' => 'Ремонт батарей Tesla – NikolaCars',
+        'metaDescription' => 'Ремонт батарей Tesla в Киеве: диагностика, восстановление модулей, балансировка и обслуживание высоковольтной батареи.'
+    ]);
+});
+
+Route::get('/ru/services/tesla-battery-repair', function () {
+    return view('services.tesla-battery-repair', [
+        'locale' => 'ru',
+        'pageTitle' => 'Ремонт батарей Tesla – NikolaCars',
+        'metaDescription' => 'Ремонт батарей Tesla в Киеве: диагностика, восстановление модулей, балансировка и обслуживание высоковольтной батареи.'
+    ]);
+});
+
 Route::get('/services/vidnovlennya-sertyfikativ-tesla/', function () {
     return view('services.vidnovlennya-sertyfikativ-tesla', [
         'pageTitle' => 'Відновлення сертифікатів Tesla – NikolaCars',

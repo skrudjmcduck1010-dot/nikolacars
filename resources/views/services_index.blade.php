@@ -88,6 +88,21 @@
           </span>
         </a>
 
+        <!-- Ремонт батарей -->
+        <a href="{{ $isRu ? '/ru/services/tesla-battery-repair' : '/services/tesla-battery-repair' }}" class="service-box">
+          <div class="service-icon">🔋</div>
+          <h3>{{ $isRu ? 'РЕМОНТ БАТАРЕЙ TESLA' : 'РЕМОНТ БАТАРЕЙ TESLA' }}</h3>
+          <p>
+            {{ $isRu
+              ? 'Диагностика и ремонт высоковольтной батареи Tesla: проверка модулей, балансировка и восстановление ресурса.'
+              : 'Діагностика та ремонт високовольтної батареї Tesla: перевірка модулів, балансування та відновлення ресурсу.'
+            }}
+          </p>
+          <span class="service-link">
+            {{ $isRu ? 'Читать далее' : 'Читати далі' }}
+          </span>
+        </a>
+
         <!-- Запчасти -->
         <a href="https://nikolacars.com.ua/ua/" class="service-box" target="_blank" rel="noopener noreferrer">
           <div class="service-icon">🧩</div>
