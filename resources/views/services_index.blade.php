@@ -88,6 +88,21 @@
           </span>
         </a>
 
+        <!-- Запчасти -->
+        <a href="https://nikolacars.com.ua/ua/" class="service-box" target="_blank" rel="noopener noreferrer">
+          <div class="service-icon">🧩</div>
+          <h3>{{ $isRu ? 'ЗАПЧАСТИ TESLA' : 'ЗАПЧАСТИНИ TESLA' }}</h3>
+          <p>
+            {{ $isRu
+              ? 'Оригинальные и проверенные запчасти Tesla: быстрый подбор, консультация и доставка по Украине.'
+              : 'Оригінальні та перевірені запчастини Tesla: швидкий підбір, консультація та доставка по Україні.'
+            }}
+          </p>
+          <span class="service-link">
+            {{ $isRu ? 'Перейти в каталог' : 'Перейти в каталог' }}
+          </span>
+        </a>
+
       </div>
 
     </div>
