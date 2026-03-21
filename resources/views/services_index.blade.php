@@ -2,6 +2,7 @@
 
 @php
   $isRu = (($locale ?? 'uk') === 'ru');
+  $targetedServices = config('targeted_services', []);
 @endphp
 
 @section('title', $isRu ? 'Услуги NikolaCars — сервис Tesla в Киеве' : 'Послуги NikolaCars — сервіс Tesla в Києві')
@@ -147,6 +148,20 @@
             {{ $isRu ? 'Перейти в каталог' : 'Перейти в каталог' }}
           </span>
         </a>
+
+        @foreach($targetedServices as $service)
+          <a href="{{ $isRu ? '/ru/services/' . $service['slug'] . '/' : '/services/' . $service['slug'] . '/' }}" class="service-box">
+            <div class="service-icon">{{ $service['icon'] }}</div>
+            <h3>{{ mb_strtoupper($isRu ? $service['name_ru'] : $service['name_uk']) }}</h3>
+            <p>
+              {{ $isRu
+                ? 'Целевая услуга Tesla: «' . $service['name_ru'] . '» для Tesla Model 3, Model Y, Model X и Model S.'
+                : 'Цільова послуга Tesla: «' . $service['name_uk'] . '» для Tesla Model 3, Model Y, Model X та Model S.'
+              }}
+            </p>
+            <span class="service-link">{{ $isRu ? 'Читать далее' : 'Читати далі' }}</span>
+          </a>
+        @endforeach
 
       </div>
 
