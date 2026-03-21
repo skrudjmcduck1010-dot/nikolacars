@@ -107,6 +107,175 @@
     </div>
   </div>
 
+  <section class="reviews">
+    <div class="container">
+      <div class="reviews-head">
+        <div class="reviews-kicker">{{ $isRu ? 'Что говорят о нас наши счастливые клиенты' : 'Що говорять про нас наші щасливі клієнти' }}</div>
+        <h2 class="reviews-title">{{ $isRu ? 'ОТЗЫВЫ' : 'ВІДГУКИ' }}</h2>
+        <div class="reviews-lines"><span></span><span></span></div>
+      </div>
+
+      <div class="reviews-slider" id="reviewsSlider" aria-label="{{ $isRu ? 'Отзывы' : 'Відгуки' }}">
+        <button class="reviews-arrow prev" type="button" aria-label="Previous">‹</button>
+        <button class="reviews-arrow next" type="button" aria-label="Next">›</button>
+
+        <div class="reviews-viewport">
+          <div class="reviews-track">
+            {{-- отзывы оставляем как есть --}}
+            {{-- 1 --}}
+            <article class="review">
+              <div class="review-bubble">
+                <div class="review-quote" aria-hidden="true">“</div>
+                <div class="review-text">
+                  В марте 2020 года заказал машину TESLA Model S из Америки. Ранее не имел дела с американскими авто,
+                  потому не рискнул выбирать машину самостоятельно. Мои требования к машине были минимальны, так как все
+                  упиралось в цену. Остановил выбор на 60ке 2014 года. Ребята скинули несколько вариантов и мы определились.
+                  Уже в начале мая машина была в Киеве. Ремонт занял около месяца, повреждения были незначительные. Готовую
+                  машину мне передали в эксплуатацию в июне. С выбором явно не ошибся, тесла это нереальный автомобиль.
+                  Спасибо nikolacars за то что помогли мне с пригоном, ремонтом и прошивками и уложились в мой бюджет.
+                  Следующую теслу буду заказывать только с вами.
+                </div>
+              </div>
+
+              <div class="review-person">
+                <div class="review-avatar">
+                  <img src="/images/reviews/egor.jpg" alt="Егор Титов">
+                </div>
+                <div class="review-meta">
+                  <div class="review-name">ЕГОР ТИТОВ</div>
+                  <div class="review-car">Tesla Model S</div>
+                </div>
+              </div>
+            </article>
+
+            {{-- 2 --}}
+            <article class="review">
+              <div class="review-bubble">
+                <div class="review-quote" aria-hidden="true">“</div>
+                <div class="review-text">
+                  Спасибо сервису НИКОЛАКАРЗ за то что помогли осуществить мою давнюю мечту, и мужественно выдержали мою
+                  дотошность и внимание к мелочам. Теперь я счастливая обладательница лучшего автомобиля в мире TESLA model 3
+                </div>
+              </div>
+
+              <div class="review-person">
+                <div class="review-avatar">
+                  <img src="/images/reviews/yula.jpg" alt="Юла">
+                </div>
+                <div class="review-meta">
+                  <div class="review-name">ЮЛА</div>
+                  <div class="review-car">Tesla Model 3</div>
+                </div>
+              </div>
+            </article>
+
+            {{-- 3 --}}
+            <article class="review">
+              <div class="review-bubble">
+                <div class="review-quote" aria-hidden="true">“</div>
+                <div class="review-text">
+                  Давно хотів Tesla. Але ціна БУ автомобіля в Україні мене не втомлювала зовсім. Вирішив подивитися на
+                  аукціонах в Америці, і знайшов кілька варіантів 3-ки які сподобалися. Досвіду пригону машин у мене немає,
+                  і я почав пошуки компанії які цим займаються. Порадили nikolacars, зідзвонились, прикинули вартість і
+                  вирішив працювати з ними. Загалом готовий автомобіль був у мене вже через 4 місяці з дати покупки на
+                  аукціоні. Вибором машини і посередником задоволений на всі 100. Рекомендую!
+                </div>
+              </div>
+
+              <div class="review-person">
+                <div class="review-avatar">
+                  <img src="/images/reviews/yuriy.jpg" alt="Юрій">
+                </div>
+                <div class="review-meta">
+                  <div class="review-name">ЮРІЙ</div>
+                  <div class="review-car">Tesla Model S</div>
+                </div>
+              </div>
+            </article>
+
+            {{-- 4 --}}
+            <article class="review">
+              <div class="review-bubble">
+                <div class="review-quote" aria-hidden="true">“</div>
+                <div class="review-text">
+                  Тесла це автомобіль, який спробувавши одного разу полюбиш назавжди. Прискорення за 4,6 секунди до 100,
+                  відмінно тримає дорогу, дуже тиха, шикарний дизайн і якість матеріалів на вищому рівні. На одному заряді
+                  спокійно катаюся по Києву тиждень. Мінусів поки що не побачив. Машину замовляв через Nikolacars, вони самі
+                  підібрали машину в Америці, пригнали в Україну, повністю займалися ремонтом і встановили всі прошивки.
+                  Все швидко, якісно і не дорого. Сервісом залишився дуже задоволений, всім рекомендую NIKOLACARS.
+                </div>
+              </div>
+
+              <div class="review-person">
+                <div class="review-avatar">
+                  <img src="/images/reviews/denis.jpg" alt="Денис Б">
+                </div>
+                <div class="review-meta">
+                  <div class="review-name">ДЕНИС Б</div>
+                  <div class="review-car">Tesla Model S</div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="reviews-dots" aria-label="Pagination"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contacts">
+    <div class="container">
+      <div class="contacts-head">
+        <div class="contacts-kicker">{{ $isRu ? 'Связь с нами' : "Звʼязок з нами" }}</div>
+        <h2 class="contacts-title">{{ $isRu ? 'НАШИ КОНТАКТЫ' : 'НАШІ КОНТАКТИ' }}</h2>
+        <div class="contacts-lines"><span></span><span></span></div>
+      </div>
+
+      <div class="contacts-grid">
+        {{-- LEFT --}}
+        <div class="contacts-card">
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div>
+              <div class="contact-label">{{ $isRu ? 'АДРЕС' : 'АДРЕСА' }}</div>
+              <div class="contact-value">{{ $isRu ? 'г. Киев, ул. Коллекторная, 30' : 'м. Київ, вул. Колекторна, 30' }}</div>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div>
+              <div class="contact-label">ТЕЛЕФОН</div>
+              <div class="contact-value">
+                <a href="tel:+380975120255">+38 (097) 512 02 55</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <div>
+              <div class="contact-label">EMAIL</div>
+              <div class="contact-value">
+                <a href="mailto:nikola.carsua@gmail.com">nikola.carsua@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {{-- RIGHT --}}
+        <div class="contacts-map">
+          <iframe
+            src="https://www.google.com/maps?q=Київ,+вулиця+Колекторна,+30&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="service-final">
     <div class="container">
       <div class="service-final-content">
@@ -247,5 +416,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
+
+<script src="/assets/js/reviews.js" defer></script>
 @endpush
 @endsection
