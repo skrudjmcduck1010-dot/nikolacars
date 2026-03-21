@@ -103,6 +103,36 @@
           </span>
         </a>
 
+        <!-- Ремонт ручки -->
+        <a href="{{ $isRu ? '/ru/services/repair-tesla-door-handle/' : '/services/repair-tesla-door-handle/' }}" class="service-box">
+          <div class="service-icon">🚪</div>
+          <h3>{{ $isRu ? 'РЕМОНТ РУЧКИ TESLA' : 'РЕМОНТ РУЧКИ TESLA' }}</h3>
+          <p>
+            {{ $isRu
+              ? 'Замена и ремонт ручки двери Tesla: устранение заеданий, восстановление привода и калибровка механизма.'
+              : 'Заміна та ремонт ручки дверей Tesla: усунення заїдань, відновлення приводу та калібрування механізму.'
+            }}
+          </p>
+          <span class="service-link">
+            {{ $isRu ? 'Читать далее' : 'Читати далі' }}
+          </span>
+        </a>
+
+        <!-- Ремонт подрамника -->
+        <a href="{{ $isRu ? '/ru/services/tesla-subframe-repair/' : '/services/tesla-subframe-repair/' }}" class="service-box">
+          <div class="service-icon">🧰</div>
+          <h3>{{ $isRu ? 'РЕМОНТ ПОДРАМНИКА TESLA' : 'РЕМОНТ ПІДРАМНИКА TESLA' }}</h3>
+          <p>
+            {{ $isRu
+              ? 'Диагностика и ремонт подрамника Tesla после ударов и износа: проверка геометрии и восстановление ходовой.'
+              : 'Діагностика та ремонт підрамника Tesla після ударів і зносу: перевірка геометрії та відновлення ходової.'
+            }}
+          </p>
+          <span class="service-link">
+            {{ $isRu ? 'Читать далее' : 'Читати далі' }}
+          </span>
+        </a>
+
         <!-- Запчасти -->
         <a href="https://nikolacars.com.ua/ua/" class="service-box" target="_blank" rel="noopener noreferrer">
           <div class="service-icon">🧩</div>
