@@ -64,6 +64,37 @@ Route::get('/ru/', function () {
 
 
 Route::post('/lead/callback', [LeadController::class, 'callback'])->name('lead.callback');
+
+$targetedServices = collect(config('targeted_services', []))->keyBy('slug');
+$targetedServiceSlugPattern = $targetedServices
+    ->keys()
+    ->map(fn (string $slug) => preg_quote($slug, '/'))
+    ->implode('|');
+
+Route::get('/services/{slug}/', function (string $slug) use ($targetedServices) {
+    $service = $targetedServices->get($slug);
+    abort_unless($service, 404);
+    $viewPath = 'services.targeted.' . $slug;
+    abort_unless(view()->exists($viewPath), 404);
+
+    return view($viewPath, [
+        'pageTitle' => $service['name_uk'] . ' – NikolaCars',
+        'metaDescription' => $service['name_uk'] . ' у Києві для Tesla Model 3, Tesla Model Y, Tesla Model X, Tesla Model S.',
+    ]);
+})->where('slug', $targetedServiceSlugPattern);
+
+Route::get('/ru/services/{slug}/', function (string $slug) use ($targetedServices) {
+    $service = $targetedServices->get($slug);
+    abort_unless($service, 404);
+    $viewPath = 'services.targeted.' . $slug;
+    abort_unless(view()->exists($viewPath), 404);
+
+    return view($viewPath, [
+        'locale' => 'ru',
+        'pageTitle' => $service['name_ru'] . ' – NikolaCars',
+        'metaDescription' => $service['name_ru'] . ' в Киеве для Tesla Model 3, Tesla Model Y, Tesla Model X, Tesla Model S.',
+    ]);
+})->where('slug', $targetedServiceSlugPattern);
 /*
 |--------------------------------------------------------------------------
 | TEMP 404 (пока нет других страниц)
