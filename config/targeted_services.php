@@ -3,7 +3,6 @@
 return [
     ['slug' => 'tesla-navigation-firmware', 'icon' => '🗺️', 'name_ru' => 'Прошивка навигации Tesla', 'name_uk' => 'Прошивка навігації Tesla'],
     ['slug' => 'tesla-drive-unit-oil-repair', 'icon' => '🛢️', 'name_ru' => 'Замена и ремонт масла в редукторе Tesla', 'name_uk' => 'Заміна та ремонт мастила в редукторі Tesla'],
-    ['slug' => 'tesla-firmware-update', 'icon' => '💻', 'name_ru' => 'Обновление прошивки Tesla', 'name_uk' => 'Оновлення прошивки Tesla'],
     ['slug' => 'tesla-computer-diagnostics', 'icon' => '🧪', 'name_ru' => 'Компьютерная диагностика Tesla', 'name_uk' => 'Комп’ютерна діагностика Tesla'],
     ['slug' => 'tesla-pre-purchase-inspection', 'icon' => '🔍', 'name_ru' => 'Проверка Tesla перед покупкой', 'name_uk' => 'Перевірка Tesla перед купівлею'],
     ['slug' => 'tesla-tegra-intel-upgrade', 'icon' => '🧠', 'name_ru' => 'Tesla: замена и ремонт Tegra на Intel', 'name_uk' => 'Tesla: заміна та ремонт Tegra на Intel'],
