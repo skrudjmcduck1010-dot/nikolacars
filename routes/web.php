@@ -91,6 +91,22 @@ Route::get('/ru/services/tesla-service/', function () {
     ]);
 });
 
+
+Route::get('/services/tesla-electricmotor-repair', function () {
+    return view('services.tesla-electricmotor-repair', [
+        'pageTitle' => 'Ремонт електромотора Tesla Model S – NikolaCars',
+        'metaDescription' => 'Ремонт електромотора Tesla Model S у Києві: діагностика, відновлення drive unit, ремонт інвертора та тестування під навантаженням.'
+    ]);
+});
+
+Route::get('/ru/services/tesla-electricmotor-repair', function () {
+    return view('services.tesla-electricmotor-repair', [
+        'locale' => 'ru',
+        'pageTitle' => 'Ремонт электромотора Tesla Model S – NikolaCars',
+        'metaDescription' => 'Ремонт электромотора Tesla Model S в Киеве: диагностика, восстановление drive unit, ремонт инвертора и тестирование под нагрузкой.'
+    ]);
+});
+
 Route::get('/services/tesla-battery-repair', function () {
     return view('services.tesla-battery-repair', [
         'pageTitle' => 'Ремонт батарей Tesla – NikolaCars',
