@@ -44,7 +44,7 @@
               </div>
 
               <div class="call-form-grid">
-                <input class="call-input" type="text" name="name" placeholder="{{ $isRu ? 'Ваше имя*' : \"Ваше ім'я*\" }}" required>
+                <input class="call-input" type="text" name="name" placeholder="{{ $isRu ? 'Ваше имя*' : 'Ваше ім’я*' }}" required>
 
                 <div class="phone-field">
                   <span class="phone-prefix">+380</span>
