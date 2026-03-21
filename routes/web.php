@@ -122,6 +122,36 @@ Route::get('/ru/services/tesla-battery-repair', function () {
     ]);
 });
 
+Route::get('/services/repair-tesla-door-handle/', function () {
+    return view('services.repair-tesla-door-handle', [
+        'pageTitle' => 'Заміна та ремонт ручки Tesla – NikolaCars',
+        'metaDescription' => 'Заміна та ремонт ручки дверей Tesla у Києві: діагностика, відновлення механізму, калібрування та встановлення.'
+    ]);
+});
+
+Route::get('/ru/services/repair-tesla-door-handle/', function () {
+    return view('services.repair-tesla-door-handle', [
+        'locale' => 'ru',
+        'pageTitle' => 'Замена и ремонт ручки Tesla – NikolaCars',
+        'metaDescription' => 'Замена и ремонт ручки дверей Tesla в Киеве: диагностика, восстановление механизма и калибровка.'
+    ]);
+});
+
+Route::get('/services/tesla-subframe-repair/', function () {
+    return view('services.tesla-subframe-repair', [
+        'pageTitle' => 'Заміна та ремонт підрамника Tesla – NikolaCars',
+        'metaDescription' => 'Заміна та ремонт підрамника Tesla у Києві: перевірка геометрії, відновлення кріплень, встановлення і контроль ходової.'
+    ]);
+});
+
+Route::get('/ru/services/tesla-subframe-repair/', function () {
+    return view('services.tesla-subframe-repair', [
+        'locale' => 'ru',
+        'pageTitle' => 'Замена и ремонт подрамника Tesla – NikolaCars',
+        'metaDescription' => 'Замена и ремонт подрамника Tesla в Киеве: диагностика геометрии, восстановление креплений и безопасная установка.'
+    ]);
+});
+
 Route::get('/services/vidnovlennya-sertyfikativ-tesla/', function () {
     return view('services.vidnovlennya-sertyfikativ-tesla', [
         'pageTitle' => 'Відновлення сертифікатів Tesla – NikolaCars',
