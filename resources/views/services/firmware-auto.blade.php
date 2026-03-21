@@ -384,6 +384,20 @@
         }}
       </p>
 
+      <h2>
+        {{ $isRu
+          ? 'Прошивки Tesla / Тесла: Tesla Model 3, Tesla Model Y, Tesla Model X, Tesla Model S'
+          : 'Прошивки Tesla / Тесла: Tesla Model 3, Tesla Model Y, Tesla Model X, Tesla Model S'
+        }}
+      </h2>
+
+      <p>
+        {{ $isRu
+          ? 'Делаем прошивки для Tesla Model 3, Tesla Model Y, Tesla Model X и Tesla Model S. Работаем с авто Тесла из США и Европы: Tesla/Тесла получает корректное обновление ПО, адаптацию систем и восстановление полного функционала.'
+          : 'Робимо прошивки для Tesla Model 3, Tesla Model Y, Tesla Model X та Tesla Model S. Працюємо з авто Тесла зі США та Європи: Tesla/Тесла отримує коректне оновлення ПЗ, адаптацію систем і відновлення повного функціоналу.'
+        }}
+      </p>
+
       <p>
         {{ $isRu
           ? 'NikolaCars — компания, которая предоставляет услуги по обновлению и прошивке автомобилей Tesla в Киеве на профессиональном уровне и с максимальной ответственностью.'
