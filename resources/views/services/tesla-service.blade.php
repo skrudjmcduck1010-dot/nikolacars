@@ -315,7 +315,15 @@
     <div class="container">
       <div class="service-final-content">
         @if($isTargetedPage)
-          <h2>{{ $isRu ? ($serviceData['final_title_ru'] ?? $serviceData['name_ru']) : ($serviceData['final_title_uk'] ?? $serviceData['name_uk']) }}</h2>
+          @php
+            $isRuFinalHeadingException = in_array(($serviceData['slug'] ?? ''), [
+              'tesla-navigation-firmware',
+              'tesla-drive-unit-oil-repair',
+            ], true);
+          @endphp
+          @if(!$isRu || $isRuFinalHeadingException)
+            <h2>{{ $isRu ? ($serviceData['final_title_ru'] ?? $serviceData['name_ru']) : ($serviceData['final_title_uk'] ?? $serviceData['name_uk']) }}</h2>
+          @endif
           {!! $isRu ? ($serviceData['final_html_ru'] ?? '') : ($serviceData['final_html_uk'] ?? '') !!}
         @else
 
