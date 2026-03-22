@@ -79,7 +79,7 @@
   <div class="footer-title-line"></div>
 
   <div class="footer-links">
-    <a href="{{ $isRu ? '/ru/services/prigon-tesla-usa/' : '/services/prigon-tesla-usa/' }}">» {{ $isRu ? 'Пригон из США' : 'Пригін зі США' }}</a>
+    <a href="{{ $isRu ? '/ru/services/prigon-tesla-usa' : '/services/prigon-tesla-usa' }}">» {{ $isRu ? 'Пригон из США' : 'Пригін зі США' }}</a>
     <a href="{{ $isRu ? '/ru/services/tesla-service/' : '/services/tesla-service/' }}">» {{ $isRu ? 'Обслуживание авто' : 'Обслуговування авто' }}</a>
     <a href="{{ $isRu ? '/ru/services/vidnovlennya-sertyfikativ-tesla/' : '/services/vidnovlennya-sertyfikativ-tesla/' }}">» {{ $isRu ? 'Восстановление сертификатов' : 'Відновлення сертифікатів' }}</a>
     <a href="{{ $isRu ? '/ru/services/firmware-auto/' : '/services/firmware-auto/' }}">» {{ $isRu ? 'Прошивка авто' : 'Прошивка авто' }}</a>
