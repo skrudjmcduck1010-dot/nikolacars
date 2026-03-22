@@ -5,22 +5,13 @@
   $serviceData = $serviceData ?? null;
   $isTargetedPage = is_array($serviceData);
   $serviceName = $isTargetedPage ? ($isRu ? $serviceData['name_ru'] : $serviceData['name_uk']) : null;
+  $metaTitle = $isTargetedPage ? ($isRu ? ($serviceData['meta_title_ru'] ?? ($serviceData['name_ru'] . ' — NikolaCars')) : ($serviceData['meta_title_uk'] ?? ($serviceData['name_uk'] . ' — NikolaCars'))) : null;
+  $metaDescription = $isTargetedPage ? ($isRu ? ($serviceData['meta_description_ru'] ?? ($serviceData['name_ru'] . ' в Киеве. Профильный сервис Tesla для Tesla Model 3, Tesla Model Y, Tesla Model X и Tesla Model S.')) : ($serviceData['meta_description_uk'] ?? ($serviceData['name_uk'] . ' у Києві. Профільний сервіс Tesla для Tesla Model 3, Tesla Model Y, Tesla Model X та Tesla Model S.'))) : null;
 @endphp
 
-@section('title', $isRu
-  ? ($isTargetedPage ? $serviceData['name_ru'] . ' — NikolaCars' : 'Услуги 🛠️ NikolaCars — всё для авто Tesla')
-  : ($isTargetedPage ? $serviceData['name_uk'] . ' — NikolaCars' : 'Послуги 🛠️ NikolaCars — все для авто Tesla')
-)
+@section('title', $isTargetedPage ? $metaTitle : ($isRu ? 'Услуги 🛠️ NikolaCars — всё для авто Tesla' : 'Послуги 🛠️ NikolaCars — все для авто Tesla'))
 
-@section('description', $isRu
-  ? ($isTargetedPage
-      ? $serviceData['name_ru'] . ' в Киеве. Профильный сервис Tesla для Tesla Model 3, Tesla Model Y, Tesla Model X и Tesla Model S.'
-      : 'Услуги 🚗 Подбор и доставка автомобилей Tesla в Украину под ключ. Обслуживание на нашем СТО, прошивка авто. Ваши желания — наши решения.')
-  : ($isTargetedPage
-      ? $serviceData['name_uk'] . ' у Києві. Профільний сервіс Tesla для Tesla Model 3, Tesla Model Y, Tesla Model X та Tesla Model S.'
-      : 'Послуги 🚗 Підбір та доставка автомобілів Tesla в Україну під ключ. Обслуговування на нашому СТО, Прошивка авто. Ваші бажання — Наші рішення.')
-)
-
+@section('description', $isTargetedPage ? $metaDescription : ($isRu ? 'Услуги 🚗 Подбор и доставка автомобилей Tesla в Украину под ключ. Обслуживание на нашем СТО, прошивка авто. Ваши желания — наши решения.' : 'Послуги 🚗 Підбір та доставка автомобілів Tesla в Україну під ключ. Обслуговування на нашому СТО, Прошивка авто. Ваші бажання — Наші рішення.'))
 @section('content')
 <section class="service-hero">
   <div class="hero-wrap">
