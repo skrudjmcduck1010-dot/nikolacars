@@ -30,7 +30,7 @@
       <div class="services-grid">
 
         <!-- Пригон -->
-        <a href="{{ $isRu ? '/ru/services/prigon-tesla-usa/' : '/services/prigon-tesla-usa/' }}" class="service-box">
+        <a href="{{ $isRu ? '/ru/services/prigon-tesla-usa' : '/services/prigon-tesla-usa' }}" class="service-box">
           <div class="service-icon">🚗</div>
           <h3>{{ $isRu ? 'ПРИГОН ИЗ США' : 'ПРИГІН З США' }}</h3>
           <p>

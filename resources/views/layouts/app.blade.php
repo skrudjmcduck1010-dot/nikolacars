@@ -159,7 +159,7 @@
         </a>
 
         <div class="dropdown-menu">
-          <a href="{{ $loc === 'ru' ? '/ru/services/prigon-tesla-usa/' : '/services/prigon-tesla-usa/' }}">{{ $L['srv1'] }}</a>
+          <a href="{{ $loc === 'ru' ? '/ru/services/prigon-tesla-usa' : '/services/prigon-tesla-usa' }}">{{ $L['srv1'] }}</a>
           <a href="{{ $loc === 'ru' ? '/ru/services/tesla-service/' : '/services/tesla-service/' }}">{{ $L['srv2'] }}</a>
           <a href="{{ $loc === 'ru' ? '/ru/services/vidnovlennya-sertyfikativ-tesla/' : '/services/vidnovlennya-sertyfikativ-tesla/' }}">{{ $L['srv3'] }}</a>
           <a href="{{ $loc === 'ru' ? '/ru/services/firmware-auto/' : '/services/firmware-auto/' }}">{{ $L['srv4'] }}</a>
