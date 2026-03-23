@@ -14,7 +14,7 @@ return [
     ['slug' => 'tesla-horn-repair', 'icon' => '📯', 'name_ru' => 'Замена и ремонт клаксона Tesla', 'name_uk' => 'Заміна та ремонт клаксона Tesla'],
     ['slug' => 'tesla-camera-repair', 'icon' => '📷', 'name_ru' => 'Замена и ремонт камеры Tesla', 'name_uk' => 'Заміна та ремонт камери Tesla'],
     ['slug' => 'tesla-console-display-repair', 'icon' => '🖥️', 'name_ru' => 'Замена и ремонт консоли и дисплея Tesla', 'name_uk' => 'Заміна та ремонт консолі й дисплея Tesla'],
-    ['slug' => 'tesla-model-s-contactor-repair', 'icon' => '⚡', 'name_ru' => 'Замена и ремонт контакторов Tesla Model S', 'name_uk' => 'Заміна та ремонт контакторів Tesla Model S'],
+    ['slug' => 'tesla-model-s-contactor-repair', 'icon' => '⚡', 'name_ru' => 'Замена и ремонт контакторов Tesla Model S', 'name_uk' => 'Ремонт контакторів Tesla Model S'],
     ['slug' => 'tesla-wiper-replacement', 'icon' => '🧽', 'name_ru' => 'Замена щеток Tesla', 'name_uk' => 'Заміна щіток Tesla'],
     ['slug' => 'tesla-heater-repair', 'icon' => '♨️', 'name_ru' => 'Замена и ремонт хитера Tesla', 'name_uk' => 'Заміна та ремонт хітера Tesla'],
     ['slug' => 'tesla-12v-battery-replacement', 'icon' => '🔋', 'name_ru' => 'Замена аккумулятора 12V Tesla', 'name_uk' => 'Заміна акумулятора 12V Tesla'],
