@@ -229,6 +229,10 @@
       </div>
     </div>
 
+    @php
+      $targetedServices = config('targeted_services', []);
+    @endphp
+
     <div class="services-grid">
       <a href="{{ $isRu ? '/ru/services/prigon-tesla-usa' : '/services/prigon-tesla-usa' }}" class="service-card">
         <div class="service-icon">🚗</div>
@@ -278,6 +282,42 @@
         <div class="service-more">{{ $isRu ? 'Читать далее' : 'Читати далі' }}</div>
       </a>
 
+      <a href="{{ $isRu ? '/ru/services/tesla-battery-repair/' : '/services/tesla-battery-repair/' }}" class="service-card">
+        <div class="service-icon">🔋</div>
+        <div class="service-title">{{ $isRu ? 'РЕМОНТ БАТАРЕЙ TESLA' : 'РЕМОНТ БАТАРЕЙ TESLA' }}</div>
+        <div class="service-text">
+          {{ $isRu
+            ? 'Диагностика и ремонт высоковольтной батареи Tesla: проверка модулей, балансировка и восстановление ресурса.'
+            : 'Діагностика та ремонт високовольтної батареї Tesla: перевірка модулів, балансування та відновлення ресурсу.'
+          }}
+        </div>
+        <div class="service-more">{{ $isRu ? 'Читать далее' : 'Читати далі' }}</div>
+      </a>
+
+      <a href="{{ $isRu ? '/ru/services/repair-tesla-door-handle/' : '/services/repair-tesla-door-handle/' }}" class="service-card">
+        <div class="service-icon">🚪</div>
+        <div class="service-title">{{ $isRu ? 'РЕМОНТ РУЧКИ TESLA' : 'РЕМОНТ РУЧКИ TESLA' }}</div>
+        <div class="service-text">
+          {{ $isRu
+            ? 'Замена и ремонт ручки двери Tesla: устранение заеданий, восстановление привода и калибровка механизма.'
+            : 'Заміна та ремонт ручки дверей Tesla: усунення заїдань, відновлення приводу та калібрування механізму.'
+          }}
+        </div>
+        <div class="service-more">{{ $isRu ? 'Читать далее' : 'Читати далі' }}</div>
+      </a>
+
+      <a href="{{ $isRu ? '/ru/services/tesla-subframe-repair/' : '/services/tesla-subframe-repair/' }}" class="service-card">
+        <div class="service-icon">🧰</div>
+        <div class="service-title">{{ $isRu ? 'РЕМОНТ ПОДРАМНИКА TESLA' : 'РЕМОНТ ПІДРАМНИКА TESLA' }}</div>
+        <div class="service-text">
+          {{ $isRu
+            ? 'Диагностика и ремонт подрамника Tesla после ударов и износа: проверка геометрии и восстановление ходовой.'
+            : 'Діагностика та ремонт підрамника Tesla після ударів і зносу: перевірка геометрії та відновлення ходової.'
+          }}
+        </div>
+        <div class="service-more">{{ $isRu ? 'Читать далее' : 'Читати далі' }}</div>
+      </a>
+
       <a href="https://nikolacars.com.ua/ua/" class="service-card" target="_blank" rel="noopener noreferrer">
         <div class="service-icon">🧩</div>
         <div class="service-title">{{ $isRu ? 'ЗАПЧАСТИ TESLA' : 'ЗАПЧАСТИНИ TESLA' }}</div>
@@ -289,6 +329,20 @@
         </div>
         <div class="service-more">{{ $isRu ? 'Перейти в каталог' : 'Перейти в каталог' }}</div>
       </a>
+
+      @foreach($targetedServices as $service)
+        <a href="{{ $isRu ? '/ru/services/' . $service['slug'] . '/' : '/services/' . $service['slug'] . '/' }}" class="service-card">
+          <div class="service-icon">{{ $service['icon'] }}</div>
+          <div class="service-title">{{ mb_strtoupper($isRu ? $service['name_ru'] : $service['name_uk']) }}</div>
+          <div class="service-text">
+            {{ $isRu
+              ? 'Целевая услуга Tesla: «' . $service['name_ru'] . '» для Tesla Model 3, Model Y, Model X и Model S.'
+              : 'Цільова послуга Tesla: «' . $service['name_uk'] . '» для Tesla Model 3, Model Y, Model X та Model S.'
+            }}
+          </div>
+          <div class="service-more">{{ $isRu ? 'Читать далее' : 'Читати далі' }}</div>
+        </a>
+      @endforeach
     </div>
   </div>
 </section>

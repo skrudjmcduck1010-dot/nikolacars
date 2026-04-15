@@ -669,9 +669,13 @@ main{
 .services-lines span:last-child{ width:60px; }
 
 .services-grid{
-  display:grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 40px;
+  display:flex;
+  gap: 24px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  padding: 10px 4px 16px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
 }
 
 .service-card{
@@ -680,6 +684,9 @@ main{
   text-align:center;
   color:#111;
   transition: all .25s ease;
+  flex: 0 0 320px;
+  min-height: 100%;
+  scroll-snap-align: start;
 }
 
 .service-card:hover{
@@ -718,16 +725,28 @@ main{
   color:#d62828;
 }
 
-/* адаптив */
-@media (max-width: 1200px){
-  .services-grid{
-    grid-template-columns: repeat(2, 1fr);
-  }
+.services-grid::-webkit-scrollbar{
+  height: 8px;
 }
 
+.services-grid::-webkit-scrollbar-track{
+  background:#ededed;
+  border-radius: 999px;
+}
+
+.services-grid::-webkit-scrollbar-thumb{
+  background:#c7c7c7;
+  border-radius: 999px;
+}
+
+.services-grid::-webkit-scrollbar-thumb:hover{
+  background:#b2b2b2;
+}
+
+/* адаптив */
 @media (max-width: 640px){
-  .services-grid{
-    grid-template-columns: 1fr;
+  .service-card{
+    flex-basis: 84vw;
   }
 }
 
