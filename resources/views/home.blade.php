@@ -233,7 +233,11 @@
       $targetedServices = config('targeted_services', []);
     @endphp
 
-    <div class="services-grid">
+    <div class="services-carousel" data-services-carousel>
+      <button class="services-arrow prev" type="button" aria-label="{{ $isRu ? 'Предыдущие услуги' : 'Попередні послуги' }}">‹</button>
+      <button class="services-arrow next" type="button" aria-label="{{ $isRu ? 'Следующие услуги' : 'Наступні послуги' }}">›</button>
+
+      <div class="services-grid" data-services-track>
       <a href="{{ $isRu ? '/ru/services/prigon-tesla-usa' : '/services/prigon-tesla-usa' }}" class="service-card">
         <div class="service-icon">🚗</div>
         <div class="service-title">{{ $isRu ? 'ПРИГОН ИЗ США' : 'ПРИГІН З США' }}</div>
@@ -343,6 +347,7 @@
           <div class="service-more">{{ $isRu ? 'Читать далее' : 'Читати далі' }}</div>
         </a>
       @endforeach
+      </div>
     </div>
   </div>
 </section>
@@ -548,6 +553,51 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // ====== Services carousel (4 visible cards on desktop) ======
+  const servicesCarousel = document.querySelector('[data-services-carousel]');
+  if (servicesCarousel) {
+    const track = servicesCarousel.querySelector('[data-services-track]');
+    const prevBtn = servicesCarousel.querySelector('.services-arrow.prev');
+    const nextBtn = servicesCarousel.querySelector('.services-arrow.next');
+
+    const getStep = () => {
+      const firstCard = track?.querySelector('.service-card');
+      if (!firstCard || !track) return 0;
+
+      const cardStyles = window.getComputedStyle(firstCard);
+      const marginRight = parseFloat(cardStyles.marginRight) || 0;
+      const gap = parseFloat(window.getComputedStyle(track).columnGap || window.getComputedStyle(track).gap) || 0;
+      return firstCard.getBoundingClientRect().width + marginRight + gap;
+    };
+
+    const updateArrowState = () => {
+      if (!track || !prevBtn || !nextBtn) return;
+
+      const maxScrollLeft = track.scrollWidth - track.clientWidth - 1;
+      prevBtn.disabled = track.scrollLeft <= 0;
+      nextBtn.disabled = track.scrollLeft >= maxScrollLeft;
+    };
+
+    const slideTrack = (direction) => {
+      if (!track) return;
+
+      const step = getStep();
+      if (!step) return;
+
+      track.scrollBy({
+        left: direction * step,
+        behavior: 'smooth',
+      });
+    };
+
+    prevBtn?.addEventListener('click', () => slideTrack(-1));
+    nextBtn?.addEventListener('click', () => slideTrack(1));
+    track?.addEventListener('scroll', updateArrowState, { passive: true });
+    window.addEventListener('resize', updateArrowState);
+
+    updateArrowState();
+  }
 });
 </script>
 @endpush

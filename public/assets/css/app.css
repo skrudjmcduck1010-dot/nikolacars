@@ -678,13 +678,55 @@ main{
   -webkit-overflow-scrolling: touch;
 }
 
+.services-carousel{
+  position: relative;
+  padding: 0 52px;
+}
+
+.services-arrow{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:40px;
+  height:40px;
+  border:none;
+  border-radius:50%;
+  background:#111;
+  color:#fff;
+  font-size:28px;
+  line-height:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition:opacity .2s ease, background .2s ease;
+  z-index:3;
+}
+
+.services-arrow:hover{
+  background:#d62828;
+}
+
+.services-arrow:disabled{
+  opacity:.35;
+  cursor:not-allowed;
+}
+
+.services-arrow.prev{
+  left:0;
+}
+
+.services-arrow.next{
+  right:0;
+}
+
 .service-card{
   background:#f7f7f7;
   padding: 42px 32px 38px;
   text-align:center;
   color:#111;
   transition: all .25s ease;
-  flex: 0 0 320px;
+  flex: 0 0 calc((100% - 72px) / 4);
   min-height: 100%;
   scroll-snap-align: start;
 }
@@ -745,8 +787,24 @@ main{
 
 /* адаптив */
 @media (max-width: 640px){
+  .services-carousel{
+    padding: 0 34px;
+  }
+
+  .services-arrow{
+    width:30px;
+    height:30px;
+    font-size:22px;
+  }
+
   .service-card{
-    flex-basis: 84vw;
+    flex-basis: calc((100% - 24px) / 2);
+  }
+}
+
+@media (max-width: 480px){
+  .service-card{
+    flex-basis: 100%;
   }
 }
 
