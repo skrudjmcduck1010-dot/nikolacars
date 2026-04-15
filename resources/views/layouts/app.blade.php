@@ -12,7 +12,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon.png') }}">
   <link rel="apple-touch-icon" href="{{ asset('favicon.png') }}">
 
-  <link rel="stylesheet" href="/assets/css/app.css?v=7">
+  <link rel="stylesheet" href="/assets/css/app.css?v=8">
 </head>
 
 <body>
