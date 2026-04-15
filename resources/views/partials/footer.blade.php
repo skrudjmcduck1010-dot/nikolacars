@@ -94,24 +94,6 @@
 </div>
 
 
-      {{-- Col 3 --}}
-      <div class="footer-col">
-        <div class="footer-title">{{ $isRu ? 'ПОСЛЕДНИЕ НОВОСТИ' : 'НЕЩОДАВНІ НОВИНИ' }}</div>
-        <div class="footer-title-line"></div>
-
-        <div class="footer-news">
-          <a href="{{ $isRu ? '/ru/news/tesla-crossover-usa/' : '/news/tesla-crossover-usa/' }}">
-            {{ $isRu ? 'Tesla кроссовер под ключ из США' : 'Тесла кросовер під ключ із США' }}
-          </a>
-          <a href="{{ $isRu ? '/ru/news/cheap-model/' : '/news/cheap-model/' }}">
-            {{ $isRu ? 'Сколько стоит самая дешёвая модель Tesla?' : 'Скільки коштує найдешевша модель Tesla?' }}
-          </a>
-          <a href="{{ $isRu ? '/ru/news/tesla-plaid/' : '/news/tesla-plaid/' }}">
-            {{ $isRu ? 'Про Tesla Plaid' : 'Про Tesla Plaid' }}
-          </a>
-        </div>
-      </div>
-
     </div>
   </div>
 
