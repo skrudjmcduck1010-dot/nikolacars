@@ -2301,32 +2301,32 @@ main{
    SERVICES PAGE GRID
 ================================ */
 
-.services-header {
+.page-simple .services-header {
   text-align: center;
   margin-bottom: 50px;
 }
 
-.services-subtitle {
+.page-simple .services-subtitle {
   color: #999;
   margin: 0 0 10px;
   font-size: 16px;
 }
 
-.services-title {
+.page-simple .services-title {
   font-size: 48px;
   font-weight: 900;
   margin: 0;
   text-transform: uppercase;
 }
 
-.services-divider {
+.page-simple .services-divider {
   width: 80px;
   height: 3px;
   background: #e53935;
   margin: 20px auto 0;
 }
 
-.services-grid {
+.page-simple .services-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
@@ -2348,25 +2348,25 @@ main{
   transform: translateY(-5px);
 }
 
-.service-icon {
+.page-simple .service-icon {
   font-size: 40px;
   margin-bottom: 20px;
 }
 
-.service-box h3 {
+.page-simple .service-box h3 {
   font-size: 20px;
   font-weight: 800;
   margin: 0 0 15px;
 }
 
-.service-box p {
+.page-simple .service-box p {
   font-size: 15px;
   color: #666;
   line-height: 1.6;
   margin-bottom: 20px;
 }
 
-.service-link {
+.page-simple .service-link {
   font-size: 14px;
   color: #999;
 }
@@ -2374,13 +2374,13 @@ main{
 /* Responsive */
 
 @media (max-width: 1200px) {
-  .services-grid {
+  .page-simple .services-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 768px) {
-  .services-grid {
+  .page-simple .services-grid {
     grid-template-columns: 1fr;
   }
 }
