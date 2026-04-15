@@ -45,7 +45,7 @@
         </a>
 
         <!-- Обслуживание -->
-        <a href="{{ $isRu ? '/ru/services/tesla-service/' : '/services/tesla-service/' }}" class="service-box">
+        <a href="{{ $isRu ? '/ru/services/tesla-service' : '/services/tesla-service' }}" class="service-box">
           <div class="service-icon">🛠️</div>
           <h3>{{ $isRu ? 'ОБСЛУЖИВАНИЕ TESLA' : 'ОБСЛУГОВУВАННЯ АВТО' }}</h3>
           <p>
@@ -60,7 +60,7 @@
         </a>
 
         <!-- Прошивка -->
-        <a href="{{ $isRu ? '/ru/services/firmware-auto/' : '/services/firmware-auto/' }}" class="service-box">
+        <a href="{{ $isRu ? '/ru/services/firmware-auto' : '/services/firmware-auto' }}" class="service-box">
           <div class="service-icon">💻</div>
           <h3>{{ $isRu ? 'ПРОШИВКА TESLA' : 'ПРОШИВКА АВТО' }}</h3>
           <p>
@@ -75,7 +75,7 @@
         </a>
 
         <!-- Сертификаты -->
-        <a href="{{ $isRu ? '/ru/services/vidnovlennya-sertyfikativ-tesla/' : '/services/vidnovlennya-sertyfikativ-tesla/' }}" class="service-box">
+        <a href="{{ $isRu ? '/ru/services/vidnovlennya-sertyfikativ-tesla' : '/services/vidnovlennya-sertyfikativ-tesla' }}" class="service-box">
           <div class="service-icon">🔐</div>
           <h3>{{ $isRu ? 'ВОССТАНОВЛЕНИЕ СЕРТИФИКАТОВ' : 'ВІДНОВЛЕННЯ СЕРТИФІКАТІВ' }}</h3>
           <p>
@@ -105,7 +105,7 @@
         </a>
 
         <!-- Ремонт ручки -->
-        <a href="{{ $isRu ? '/ru/services/repair-tesla-door-handle/' : '/services/repair-tesla-door-handle/' }}" class="service-box">
+        <a href="{{ $isRu ? '/ru/services/repair-tesla-door-handle' : '/services/repair-tesla-door-handle' }}" class="service-box">
           <div class="service-icon">🚪</div>
           <h3>{{ $isRu ? 'РЕМОНТ РУЧКИ TESLA' : 'РЕМОНТ РУЧКИ TESLA' }}</h3>
           <p>
@@ -120,7 +120,7 @@
         </a>
 
         <!-- Ремонт подрамника -->
-        <a href="{{ $isRu ? '/ru/services/tesla-subframe-repair/' : '/services/tesla-subframe-repair/' }}" class="service-box">
+        <a href="{{ $isRu ? '/ru/services/tesla-subframe-repair' : '/services/tesla-subframe-repair' }}" class="service-box">
           <div class="service-icon">🧰</div>
           <h3>{{ $isRu ? 'РЕМОНТ ПОДРАМНИКА TESLA' : 'РЕМОНТ ПІДРАМНИКА TESLA' }}</h3>
           <p>
@@ -150,7 +150,7 @@
         </a>
 
         @foreach($targetedServices as $service)
-          <a href="{{ $isRu ? '/ru/services/' . $service['slug'] . '/' : '/services/' . $service['slug'] . '/' }}" class="service-box">
+          <a href="{{ $isRu ? '/ru/services/' . $service['slug'] : '/services/' . $service['slug'] }}" class="service-box">
             <div class="service-icon">{{ $service['icon'] }}</div>
             <h3>{{ mb_strtoupper($isRu ? $service['name_ru'] : $service['name_uk']) }}</h3>
             <p>
