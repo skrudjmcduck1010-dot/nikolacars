@@ -51,9 +51,53 @@
         $brokenCount = $productStatuses->filter(fn (array $status): bool => $status['key'] === 'broken')->count();
         $productName = fn ($product): string => trim((string) ($product->sourcePartCatalogItem?->name_ua ?: $product->sourcePartCatalogItem?->name_ru ?: $product->name));
         $readableCategoryPath = fn (?string $value, bool $stripNumericPrefixes = false): string => $donorPartPresenter->readableCategoryPath($value, $stripNumericPrefixes, true);
-        $productCategoryOption = fn ($product): array => $donorPartPresenter->mobileProductCategoryOption($donorCar, $product);
+        $productCategoryMirrorItem = fn ($product) => ($nikolaCarsProductItemsByProductId ?? collect())->get((int) $product->id);
+        $productCategoryOption = function ($product) use ($donorPartPresenter, $donorCar, $productCategoryMirrorItem): array {
+            $mirrorItem = $productCategoryMirrorItem($product);
+
+            if (! $mirrorItem) {
+                return $donorPartPresenter->mobileProductCategoryOption($donorCar, $product);
+            }
+
+            $categoryPath = $donorPartPresenter->categoryPath(
+                $donorPartPresenter->categoryForDonor($donorCar, $mirrorItem),
+                'preferred',
+                true,
+            );
+            $rawPath = $donorPartPresenter->catalogRawCategoryPath($mirrorItem, true);
+            $label = collect([$categoryPath, $rawPath])
+                ->map(fn (?string $path): string => trim((string) collect(preg_split('/\s*(?:\/|>|\\\\)\s*/u', (string) $path) ?: [])->filter()->first()))
+                ->first(fn (string $part): bool => $part !== '') ?: '';
+            $label = $donorPartPresenter->readableCategoryText($label, true, true);
+
+            return [
+                'key' => $label !== '' ? 'label:'.md5(mb_strtolower($label, 'UTF-8')) : '',
+                'label' => $label,
+            ];
+        };
         $saleCategoryOption = fn ($sale): array => $donorPartPresenter->mobileSaleCategoryOption($donorCar, $sale);
-        $productCategoryLabel = fn ($product): string => $donorPartPresenter->mobileProductCategoryLabel($donorCar, $product);
+        $productCategoryLabel = function ($product) use ($donorPartPresenter, $donorCar, $productCategoryMirrorItem): string {
+            $mirrorItem = $productCategoryMirrorItem($product);
+
+            if ($mirrorItem) {
+                $categoryPath = $donorPartPresenter->categoryPath(
+                    $donorPartPresenter->categoryForDonor($donorCar, $mirrorItem),
+                    'preferred',
+                    true,
+                );
+
+                if ($categoryPath !== '') {
+                    return $categoryPath;
+                }
+
+                $rawPath = $donorPartPresenter->catalogRawCategoryPath($mirrorItem, true);
+                if ($rawPath !== '') {
+                    return $rawPath;
+                }
+            }
+
+            return $donorPartPresenter->mobileProductCategoryLabel($donorCar, $product);
+        };
         $saleCategoryLabel = fn ($sale): string => $donorPartPresenter->mobileSaleCategoryLabel($donorCar, $sale);
         $partCategoryOptions = $products
             ->map($productCategoryOption)
@@ -156,7 +200,7 @@
                     $product->sourcePartCatalogItem?->name,
                     $product->sourcePartCatalogItem?->name_ru,
                     $product->sourcePartCatalogItem?->name_ua,
-                    $product->category?->name,
+                    $categoryLabel,
                     $damageNote($product),
                 ])->filter()->implode(' ');
             @endphp

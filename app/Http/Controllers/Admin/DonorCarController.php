@@ -958,10 +958,13 @@ class DonorCarController extends Controller
                 ->orderByDesc('id'),
         ]);
 
+        $nikolaCarsProductItemsByProductId = $this->nikolaCarsProductMirrorItemsByProductId($donorCar->products);
+
         return view('admin.mobile.parts.show', [
             'donorCar' => $donorCar,
             'damageOptions' => $this->mobilePartDamageOptions(),
             'smallPartNumbers' => $this->smallPartNumbers(),
+            'nikolaCarsProductItemsByProductId' => $nikolaCarsProductItemsByProductId,
         ]);
     }
 

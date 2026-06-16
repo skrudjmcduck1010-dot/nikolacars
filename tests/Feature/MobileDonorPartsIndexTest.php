@@ -106,7 +106,7 @@ class MobileDonorPartsIndexTest extends TestCase
             'depth' => 1,
             'code' => '10',
             'name' => 'BODY',
-            'name_ru' => 'РљСѓР·РѕРІ',
+            'name_ru' => 'Кузов',
             'model_name' => 'Model Y',
         ]);
         $electricalCatalogCategory = PartCatalogCategory::query()->create([
@@ -115,7 +115,7 @@ class MobileDonorPartsIndexTest extends TestCase
             'depth' => 1,
             'code' => '40',
             'name' => 'ELECTRICAL',
-            'name_ru' => 'Р­Р»РµРєС‚СЂРёРєР°',
+            'name_ru' => 'Электрика',
             'model_name' => 'Model Y',
         ]);
         $officialUncheckedItem = PartCatalogItem::query()->create([
@@ -140,12 +140,12 @@ class MobileDonorPartsIndexTest extends TestCase
             'name' => 'Broken official part',
         ]);
         $bodyCategory = Category::query()->create([
-            'name' => 'РљСѓР·РѕРІ',
+            'name' => 'Кузов',
             'slug' => 'body',
             'is_active' => true,
         ]);
         $electricalCategory = Category::query()->create([
-            'name' => 'Р­Р»РµРєС‚СЂРёРєР°',
+            'name' => 'Электрика',
             'slug' => 'electrical',
             'is_active' => true,
         ]);
@@ -302,7 +302,7 @@ class MobileDonorPartsIndexTest extends TestCase
             ->before('</a>')
             ->toString();
 
-        $this->assertStringContainsString('<span class="tag">3 С€С‚.</span>', $donorCard);
+        $this->assertStringContainsString('<span class="tag">3 шт.</span>', $donorCard);
 
         $showResponse = $this->actingAs($user)
             ->get(route('admin.mobile.donor-cars.parts.show', $donorCar))
@@ -313,8 +313,8 @@ class MobileDonorPartsIndexTest extends TestCase
             ->assertSee('Checked official part')
             ->assertSee(route('admin.mobile.donor-cars.products.edit', [$donorCar, $uncheckedProduct]), false)
             ->assertSee(route('admin.mobile.donor-cars.products.edit', [$donorCar, $checkedProduct]), false)
-            ->assertSee('0 С„РѕС‚Рѕ')
-            ->assertSee('2 С„РѕС‚Рѕ')
+            ->assertSee('0 фото')
+            ->assertSee('2 фото')
             ->assertSee('/nikolacars/prod/checked-main.jpg', false)
             ->assertDontSee('/storage//nikolacars/prod/checked-main.jpg', false)
             ->assertSee('Broken official part')
@@ -326,8 +326,8 @@ class MobileDonorPartsIndexTest extends TestCase
             ->assertSee('data-mobile-parts-category', false)
             ->assertSee('data-mobile-parts-category-option', false)
             ->assertSee('type="checkbox"', false)
-            ->assertSee('РљСѓР·РѕРІ')
-            ->assertSee('Р­Р»РµРєС‚СЂРёРєР°')
+            ->assertSee('Кузов')
+            ->assertSee('Электрика')
             ->assertSee('Sold Category')
             ->assertSee('part-card--danger', false)
             ->assertSee('part-card--success', false)
@@ -338,7 +338,7 @@ class MobileDonorPartsIndexTest extends TestCase
                 '150.00 USD',
                 '10.00 USD',
             ])
-            ->assertDontSee('Р”РѕР±Р°РІР»РµРЅР°');
+            ->assertDontSee('Добавлена');
         $saleCard = str($showResponse->getContent())
             ->after('data-part-status="sold"')
             ->before('</article>')
@@ -346,6 +346,178 @@ class MobileDonorPartsIndexTest extends TestCase
 
         $this->assertStringContainsString('hidden', $saleCard);
         $this->assertStringContainsString("status !== 'sold'", $showResponse->getContent());
+    }
+
+    public function test_mobile_donor_parts_show_uses_nikolacars_product_mirror_category_over_product_import_category(): void
+    {
+        $user = User::factory()->create([
+            'role' => User::ROLE_ADMIN,
+            'is_active' => true,
+        ]);
+        $donorCar = DonorCar::query()->create([
+            'vin' => '5YJMOBILECAT0001',
+            'brand' => 'Tesla',
+            'model' => 'Model 3',
+            'year' => 2020,
+            'status' => DonorCar::STATUS_AT_STO,
+        ]);
+        $productCategory = Category::query()->create([
+            'name' => 'Donor imports',
+            'slug' => 'mobile-donor-imports',
+            'is_active' => true,
+            'sort_order' => 1,
+        ]);
+        $legacyCatalogItem = PartCatalogItem::query()->create([
+            'source' => 'tesla_official',
+            'source_url' => 'tesla-official://mobile-legacy-donor-import-category',
+            'part_number' => '1101751-S0-B',
+            'name' => 'Legacy mobile donor import category item',
+        ]);
+        $product = Product::query()->create([
+            'sku' => 'NC-MOBILE-MIRROR-CATEGORY',
+            'external_sku' => '1101751-S0-B',
+            'name' => 'Mobile right upper rail',
+            'slug' => 'mobile-right-upper-rail',
+            'donor_car_id' => $donorCar->id,
+            'category_id' => $productCategory->id,
+            'source_part_catalog_item_id' => $legacyCatalogItem->id,
+            'storage_status' => Product::STORAGE_STATUS_ON_DONOR,
+            'condition_type' => 'used',
+            'used_condition' => 'good',
+            'condition_grade' => 'A',
+            'notes' => 'Без повреждений',
+            'testing_status' => 'not_tested',
+            'unit' => 'pcs',
+            'selling_price' => 100,
+            'currency' => 'USD',
+            'is_active' => true,
+        ]);
+        $undefinedCategory = PartCatalogCategory::query()->create([
+            'source' => 'nikolacars',
+            'source_url' => 'nikolacars://tesla-category/mobile-undefined-import-overridden',
+            'depth' => 0,
+            'name' => 'Не определено',
+            'name_ru' => 'Не определено',
+            'name_ua' => 'Не определено',
+        ]);
+        PartCatalogItem::query()->create([
+            'part_catalog_category_id' => $undefinedCategory->id,
+            'source' => 'nikolacars',
+            'source_url' => 'nikolacars://donor-product/'.$product->id,
+            'part_number' => '1101751-S0-B',
+            'name' => 'Mobile right upper rail',
+            'main_category_name' => 'Не определено',
+            'raw_attributes' => [
+                'product_id' => $product->id,
+                'donor_vin' => $donorCar->vin,
+                'category_display' => 'Не определено',
+                'category_path' => 'Не определено',
+            ],
+        ]);
+
+        $response = $this->actingAs($user)
+            ->get(route('admin.mobile.donor-cars.parts.show', $donorCar))
+            ->assertOk()
+            ->assertSeeText('Не определено');
+        $card = str($response->getContent())
+            ->after('id="part-'.$product->id.'"')
+            ->before('</article>')
+            ->toString();
+        $visibleText = preg_replace('/<[^>]+>/', ' ', $card);
+
+        $this->assertStringContainsString('NC-MOBILE-MIRROR-CATEGORY', $visibleText);
+        $this->assertStringContainsString('Не определено', $visibleText);
+        $this->assertStringNotContainsString('Donor imports', $visibleText);
+    }
+
+    public function test_mobile_donor_parts_show_prefers_localized_nikolacars_category_tree_over_raw_mirror_category(): void
+    {
+        $user = User::factory()->create([
+            'role' => User::ROLE_ADMIN,
+            'is_active' => true,
+        ]);
+        $donorCar = DonorCar::query()->create([
+            'vin' => '5YJMOBILEHV00001',
+            'brand' => 'Tesla',
+            'model' => 'Model 3',
+            'year' => 2020,
+            'status' => DonorCar::STATUS_AT_STO,
+        ]);
+        $root = PartCatalogCategory::query()->create([
+            'source' => 'nikolacars',
+            'source_url' => 'nikolacars://tesla-category/mobile-model-3',
+            'depth' => 0,
+            'name' => 'Model 3',
+            'name_ru' => 'Model 3',
+        ]);
+        $battery = PartCatalogCategory::query()->create([
+            'source' => 'nikolacars',
+            'source_url' => 'nikolacars://tesla-category/mobile-hv-battery',
+            'parent_id' => $root->id,
+            'depth' => 1,
+            'code' => '16',
+            'name' => 'HV Battery System',
+            'name_ru' => 'Высоковольтная батарея',
+        ]);
+        $assembly = PartCatalogCategory::query()->create([
+            'source' => 'nikolacars',
+            'source_url' => 'nikolacars://tesla-category/mobile-hv-battery-assembly',
+            'parent_id' => $battery->id,
+            'depth' => 2,
+            'code' => '1601',
+            'name' => 'HV Battery Assembly',
+            'name_ru' => 'Высоковольтная батарея',
+        ]);
+        $leaf = PartCatalogCategory::query()->create([
+            'source' => 'nikolacars',
+            'source_url' => 'nikolacars://tesla-category/mobile-high-voltage-battery-assembly',
+            'parent_id' => $assembly->id,
+            'depth' => 3,
+            'name' => 'High Voltage Battery Assembly',
+            'name_ru' => 'Высоковольтная батарея',
+        ]);
+        $product = Product::query()->create([
+            'sku' => 'NC-MOBILE-HV-BATTERY',
+            'external_sku' => '1080000-00-A',
+            'name' => 'Основна батарея 75 kWh Long Range',
+            'slug' => 'mobile-hv-battery',
+            'donor_car_id' => $donorCar->id,
+            'storage_status' => Product::STORAGE_STATUS_ON_DONOR,
+            'condition_type' => 'used',
+            'used_condition' => 'good',
+            'condition_grade' => 'A',
+            'notes' => 'Без повреждений',
+            'testing_status' => 'not_tested',
+            'unit' => 'pcs',
+            'selling_price' => 100,
+            'currency' => 'USD',
+            'is_active' => true,
+        ]);
+        PartCatalogItem::query()->create([
+            'part_catalog_category_id' => $leaf->id,
+            'source' => 'nikolacars',
+            'source_url' => 'nikolacars://donor-product/'.$product->id,
+            'part_number' => '1080000-00-A',
+            'name' => 'Основна батарея 75 kWh Long Range',
+            'raw_attributes' => [
+                'product_id' => $product->id,
+                'donor_vin' => $donorCar->vin,
+                'category_display' => 'Hv battery system / Hv battery assembly / High voltage battery assembly',
+                'category_path' => 'Hv battery system / Hv battery assembly / High voltage battery assembly',
+            ],
+        ]);
+
+        $response = $this->actingAs($user)
+            ->get(route('admin.mobile.donor-cars.parts.show', $donorCar))
+            ->assertOk();
+        $card = str($response->getContent())
+            ->after('id="part-'.$product->id.'"')
+            ->before('</article>')
+            ->toString();
+        $visibleText = preg_replace('/<[^>]+>/', ' ', $card);
+
+        $this->assertStringContainsString('16 - Высоковольтная батарея / 1601 - Высоковольтная батарея / Высоковольтная батарея', $visibleText);
+        $this->assertStringNotContainsString('Hv battery system / Hv battery assembly / High voltage battery assembly', $visibleText);
     }
 
     public function test_mobile_donor_part_damage_status_can_be_changed(): void
@@ -417,10 +589,10 @@ class MobileDonorPartsIndexTest extends TestCase
             ->get(route('admin.mobile.donor-cars.parts.show', $donorCar))
             ->assertOk()
             ->assertSee('data-mobile-part-damage-select', false)
-            ->assertSee('<option value="'.$unknown.'" selected>Р’С‹Р±СЂР°С‚СЊ СЃС‚Р°С‚СѓСЃ</option>', false)
+            ->assertSee('<option value="'.$unknown.'" selected>Выбрать статус</option>', false)
             ->assertDontSee('value="" disabled', false)
             ->assertSee(route('admin.mobile.donor-cars.products.damage-status.update', [$donorCar, $product]), false)
-            ->assertDontSee('РќРµРїСЂРёРіРѕРґРЅС‹Рµ 1');
+            ->assertDontSee('Непригодные 1');
     }
 
     public function test_mobile_donor_part_damage_status_records_checked_timestamp(): void
@@ -622,7 +794,7 @@ class MobileDonorPartsIndexTest extends TestCase
         $this->assertSame("\u{041F}\u{0435}\u{0440}\u{0435}\u{0434}\u{043D}\u{0456}\u{0439} \u{0431}\u{0430}\u{043C}\u{043F}\u{0435}\u{0440}", $mirror->name_ua);
         $this->assertSame('Google Translate', data_get($mirror->raw_attributes, 'name_source_site_ru'));
         $this->assertSame('Google Translate', data_get($mirror->raw_attributes, 'name_source_site_ua'));
-        $this->assertSame('donor_status_google_translate', data_get($mirror->raw_attributes, 'name_source_type_ua'));
+        $this->assertSame('tesla_official_google_translate', data_get($mirror->raw_attributes, 'name_source_type_ua'));
         Http::assertSentCount(2);
     }
 
@@ -708,7 +880,7 @@ class MobileDonorPartsIndexTest extends TestCase
         $this->assertSame('Google Translate', data_get($mirror->raw_attributes, 'name_source_site_ru'));
         $this->assertSame('Google Translate', data_get($mirror->raw_attributes, 'name_source_site_ua'));
         $this->assertSame('donor_status_google_translate', data_get($mirror->raw_attributes, 'name_source_type_ru'));
-        $this->assertSame('donor_status_google_translate', data_get($mirror->raw_attributes, 'name_source_type_ua'));
+        $this->assertSame('tesla_official_google_translate', data_get($mirror->raw_attributes, 'name_source_type_ua'));
         Http::assertSentCount(1);
     }
 
@@ -794,7 +966,8 @@ class MobileDonorPartsIndexTest extends TestCase
         $this->assertSame($sourceNameUa, $mirror->name_ua);
         $this->assertSame('Google Translate', data_get($mirror->raw_attributes, 'name_source_site_ru'));
         $this->assertSame('donor_status_catalog_match', data_get($mirror->raw_attributes, 'name_source_type_ua'));
-        Http::assertSentCount(1);
+        Http::assertSent(fn ($request): bool => ($request->data()['q'] ?? null) === $sourceNameUa
+            && ($request->data()['target'] ?? null) === 'ru');
     }
 
     public function test_mobile_donor_part_photo_can_be_added_from_card(): void
@@ -847,7 +1020,7 @@ class MobileDonorPartsIndexTest extends TestCase
             ->assertOk()
             ->assertSee('data-mobile-part-photo-input', false)
             ->assertSee('capture="environment"', false)
-            ->assertSee('2 С„РѕС‚Рѕ')
+            ->assertSee('2 фото')
             ->assertSee(route('admin.mobile.donor-cars.products.photos.store', [$donorCar, $product]), false);
     }
 
@@ -1089,7 +1262,7 @@ class MobileDonorPartsIndexTest extends TestCase
             'depth' => 1,
             'code' => '10',
             'name' => 'BODY',
-            'name_ru' => 'РљСѓР·РѕРІ',
+            'name_ru' => 'Кузов',
             'model_name' => 'Model 3',
         ]);
         $catalogItem = PartCatalogItem::query()->create([
@@ -1098,8 +1271,8 @@ class MobileDonorPartsIndexTest extends TestCase
             'source_url' => 'https://parts.tesla.test/edit',
             'part_number' => 'TESLA-EDIT',
             'name' => 'Edit official part',
-            'name_ru' => 'РЎС‚Р°СЂРѕРµ RU',
-            'name_ua' => 'РЎС‚Р°СЂРµ UA',
+            'name_ru' => 'Старое RU',
+            'name_ua' => 'Старе UA',
             'scheme_number' => '7',
             'raw_attributes' => [
                 'system_group_image_urls' => ['tesla-official/resources-images/node-detail.png'],
@@ -1128,13 +1301,13 @@ class MobileDonorPartsIndexTest extends TestCase
         $this->actingAs($user)
             ->get(route('admin.mobile.donor-cars.products.edit', [$donorCar, $product]))
             ->assertOk()
-            ->assertSee('РќР°Р·РІР°РЅРёРµ RU')
-            ->assertSee('РќР°Р·РІР°РЅРёРµ РЈРљР ')
-            ->assertSee('РђСЂС‚РёРєСѓР»')
-            ->assertSee('РЎС‚Р°С‚СѓСЃ')
-            ->assertSee('РЎС…РµРјР° СѓР·Р»Р°')
-            ->assertSee('РЎРґРµР»Р°С‚СЊ С„РѕС‚Рѕ')
-            ->assertSee('Р—Р°РіСЂСѓР·РёС‚СЊ')
+            ->assertSee('Название RU')
+            ->assertSee('Название УКР')
+            ->assertSee('Артикул')
+            ->assertSee('Статус')
+            ->assertSee('Схема узла')
+            ->assertSee('Сделать фото')
+            ->assertSee('Загрузить')
             ->assertSee('data-mobile-edit-photo-name="photo"', false)
             ->assertDontSee('type="file" name="photo"', false)
             ->assertSee('/nikolacars/prod/main.jpg', false)
@@ -1152,8 +1325,8 @@ class MobileDonorPartsIndexTest extends TestCase
 
         $this->actingAs($user)
             ->patch(route('admin.mobile.donor-cars.products.update', [$donorCar, $product]), [
-                'name_ru' => 'РќРѕРІРѕРµ RU',
-                'name_ua' => 'РќРѕРІРµ UA',
+                'name_ru' => 'Новое RU',
+                'name_ua' => 'Нове UA',
                 'external_sku' => 'TESLA-EDIT-NEW',
                 'damage_note' => $broken,
             ])
@@ -1164,7 +1337,7 @@ class MobileDonorPartsIndexTest extends TestCase
         $this->assertSame('TESLA-EDIT-NEW', $product->external_sku);
         $this->assertSame($broken, $product->notes);
         $this->assertSame('used', $product->condition_type);
-        $this->assertSame('РќРѕРІРѕРµ RU', $catalogItem->name_ru);
-        $this->assertSame('РќРѕРІРµ UA', $catalogItem->name_ua);
+        $this->assertSame('Новое RU', $catalogItem->name_ru);
+        $this->assertSame('Нове UA', $catalogItem->name_ua);
     }
 }
