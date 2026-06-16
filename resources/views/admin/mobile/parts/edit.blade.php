@@ -1,0 +1,650 @@
+@extends('layouts.mobile', [
+    'heading' => 'Редактирование',
+    'subheading' => collect([$donorCar->display_vin, $product->external_sku ?: $product->sku])->filter()->join(' · '),
+])
+
+@section('content')
+    @php
+        $photoUrl = fn (?string $path): ?string => \App\Support\PublicStorageUrl::url($path);
+        $donorPartPresenter = app(\App\View\Admin\DonorCars\DonorPartDisplayPresenter::class);
+        $catalogItem = $product->sourcePartCatalogItem;
+        $productImages = $donorPartPresenter->productImages($product);
+        $isTeslaDownloadedImage = fn (?string $path): bool => $donorPartPresenter->isTeslaDownloadedImage($path);
+        $catalogSchemeImages = $donorPartPresenter->catalogSchemeImages($catalogItem);
+        $catalogSchemePosition = $donorPartPresenter->catalogSchemePosition($catalogItem);
+        $categoryPreviewUrl = $photoUrl($catalogItem?->category?->preview_image_url);
+        $currentDamage = old('damage_note', array_key_exists((string) $product->notes, $damageOptions) ? (string) $product->notes : array_key_first($damageOptions));
+    @endphp
+
+    <section class="mobile-actions">
+        <a class="btn btn-secondary" href="{{ route('admin.mobile.donor-cars.parts.show', $donorCar) }}#part-{{ $product->id }}">Назад</a>
+        <a class="btn btn-secondary" href="{{ route('admin.donor-cars.show', $donorCar) }}#part-{{ $product->id }}">ПК</a>
+    </section>
+
+    <form method="POST" action="{{ route('admin.mobile.donor-cars.products.update', [$donorCar, $product]) }}" class="form-grid">
+        @csrf
+        @method('PATCH')
+
+        <section class="panel form-grid">
+            <div>
+                <label for="part-name-ru">Название RU</label>
+                <input id="part-name-ru" name="name_ru" value="{{ old('name_ru', $catalogItem?->name_ru ?: $product->name) }}" autocomplete="off">
+                @error('name_ru')<div class="error">{{ $message }}</div>@enderror
+            </div>
+
+            <div>
+                <label for="part-name-ua">Название УКР</label>
+                <input id="part-name-ua" name="name_ua" value="{{ old('name_ua', $catalogItem?->name_ua) }}" autocomplete="off">
+                @error('name_ua')<div class="error">{{ $message }}</div>@enderror
+            </div>
+
+            @unless($catalogItem)
+                <div class="help">У этой запчасти нет связанной позиции каталога. RU/УКР название будет использовано как обычное название товара.</div>
+            @endunless
+
+            <div>
+                <label for="part-external-sku">Артикул</label>
+                <input id="part-external-sku" name="external_sku" value="{{ old('external_sku', $product->external_sku) }}" autocomplete="off">
+                @error('external_sku')<div class="error">{{ $message }}</div>@enderror
+            </div>
+
+            <div>
+                <label for="part-damage">Статус</label>
+                <select id="part-damage" name="damage_note" required>
+                    @foreach($damageOptions as $damageValue => $damageLabel)
+                        <option value="{{ $damageValue }}" @selected((string) $currentDamage === (string) $damageValue)>{{ $damageLabel }}</option>
+                    @endforeach
+                </select>
+                @error('damage_note')<div class="error">{{ $message }}</div>@enderror
+            </div>
+        </section>
+
+        <div class="sticky-actions">
+            <button type="submit" class="btn-block">Сохранить</button>
+        </div>
+    </form>
+
+    <section class="panel form-grid">
+        <div class="donor-card__top">
+            <div>
+                <div class="donor-card__vin">Фото</div>
+                <div class="donor-card__meta">{{ $productImages->count() }} шт.</div>
+            </div>
+            <form method="POST" action="{{ route('admin.mobile.donor-cars.products.photos.store', [$donorCar, $product]) }}" enctype="multipart/form-data" class="photo-actions" data-mobile-edit-photo-form>
+                @csrf
+                <input type="hidden" name="return_to" value="edit">
+                <input id="edit-part-camera-photo" type="file" accept="image/*" capture="environment" hidden data-mobile-edit-photo-input data-mobile-edit-photo-name="photo">
+                <input id="edit-part-gallery-photo" type="file" accept="image/*" hidden data-mobile-edit-photo-input data-mobile-edit-photo-name="photo">
+                <label class="btn" for="edit-part-camera-photo">Сделать фото</label>
+                <label class="btn btn-secondary" for="edit-part-gallery-photo">Загрузить</label>
+            </form>
+        </div>
+
+        @if($productImages->isNotEmpty())
+            @if($productImages->count() > 1)
+                <form method="POST" action="{{ route('admin.mobile.donor-cars.products.photos.order', [$donorCar, $product]) }}" hidden data-mobile-photo-order-form>
+                    @csrf
+                    @method('PATCH')
+                </form>
+            @endif
+
+            <div class="mobile-photo-grid" data-mobile-photo-sortable>
+                @foreach($productImages as $photo)
+                    @if($photoUrl($photo))
+                        <div class="mobile-photo-tile" data-mobile-photo-tile data-photo="{{ $photo }}">
+                            <img src="{{ $photoUrl($photo) }}" alt="Фото {{ $product->name }}">
+                            <button type="button" class="mobile-photo-open" data-mobile-photo-open aria-label="&#1054;&#1090;&#1082;&#1088;&#1099;&#1090;&#1100; &#1092;&#1086;&#1090;&#1086;"></button>
+                            @if($productImages->count() > 1)
+                                <button type="button" class="mobile-photo-drag-handle" aria-label="&#1055;&#1077;&#1088;&#1077;&#1090;&#1072;&#1097;&#1080;&#1090;&#1100; &#1092;&#1086;&#1090;&#1086;" data-mobile-photo-drag-handle>
+                                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                        <path d="M9 5h2v2H9V5Zm4 0h2v2h-2V5ZM9 9h2v2H9V9Zm4 0h2v2h-2V9Zm-4 4h2v2H9v-2Zm4 0h2v2h-2v-2Zm-4 4h2v2H9v-2Zm4 0h2v2h-2v-2Z" />
+                                    </svg>
+                                </button>
+                            @endif
+                            @if($isTeslaDownloadedImage($photo))
+                                <span class="tag mobile-photo-source-tag">tesla.com</span>
+                            @else
+                                <form method="POST" action="{{ route('admin.mobile.donor-cars.products.photos.destroy', [$donorCar, $product]) }}" class="mobile-photo-delete-form" data-mobile-photo-delete-form>
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" name="photo" value="{{ $photo }}">
+                                    <button type="submit" class="mobile-photo-delete-button" aria-label="&#1059;&#1076;&#1072;&#1083;&#1080;&#1090;&#1100; &#1092;&#1086;&#1090;&#1086;">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                            <path d="M9 3h6l1 2h4v2H4V5h4l1-2Zm1 6h2v9h-2V9Zm4 0h2v9h-2V9ZM7 9h2v10h6V9h2v12H7V9Z" />
+                                        </svg>
+                                    </button>
+                                </form>
+                            @endif
+                            @if($photo === $product->main_image)
+                                <span class="tag">Главное</span>
+                            @endif
+                        </div>
+                    @endif
+                @endforeach
+            </div>
+
+            <div class="mobile-photo-viewer" data-mobile-photo-viewer role="dialog" aria-modal="true" aria-label="&#1060;&#1086;&#1090;&#1086;" hidden>
+                <div class="mobile-photo-viewer__bar">
+                    <div class="mobile-photo-viewer__counter" data-mobile-photo-viewer-counter></div>
+                    <button type="button" class="mobile-photo-viewer__close" data-mobile-photo-viewer-close aria-label="&#1047;&#1072;&#1082;&#1088;&#1099;&#1090;&#1100; &#1092;&#1086;&#1090;&#1086;">&times;</button>
+                </div>
+                <div class="mobile-photo-viewer__frame" data-mobile-photo-viewer-frame>
+                    <button type="button" class="mobile-photo-viewer__nav mobile-photo-viewer__nav--prev" data-mobile-photo-viewer-prev aria-label="&#1055;&#1088;&#1077;&#1076;&#1099;&#1076;&#1091;&#1097;&#1077;&#1077; &#1092;&#1086;&#1090;&#1086;">&#8249;</button>
+                    <img class="mobile-photo-viewer__image" data-mobile-photo-viewer-image alt="">
+                    <button type="button" class="mobile-photo-viewer__nav mobile-photo-viewer__nav--next" data-mobile-photo-viewer-next aria-label="&#1057;&#1083;&#1077;&#1076;&#1091;&#1102;&#1097;&#1077;&#1077; &#1092;&#1086;&#1090;&#1086;">&#8250;</button>
+                </div>
+                <div class="mobile-photo-viewer__hint" data-mobile-photo-viewer-hint></div>
+            </div>
+        @else
+            <div class="empty">Фото этой запчасти пока нет.</div>
+        @endif
+    </section>
+
+    <section class="panel form-grid">
+        <div>
+            <div class="donor-card__vin">Схема узла</div>
+            @if($catalogSchemePosition !== '')
+                <div class="donor-card__meta">Позиция на схеме: {{ $catalogSchemePosition }}</div>
+            @endif
+        </div>
+
+        @if($catalogSchemeImages->isNotEmpty())
+            <div class="mobile-photo-grid mobile-photo-grid--scheme">
+                @foreach($catalogSchemeImages as $schemeImage)
+                    @if($photoUrl($schemeImage))
+                        <div class="mobile-photo-tile mobile-photo-tile--scheme">
+                            <img src="{{ $photoUrl($schemeImage) }}" alt="Схема {{ $product->external_sku ?: $product->sku }}">
+                        </div>
+                    @endif
+                @endforeach
+            </div>
+        @else
+            <div class="empty">Схема узла не найдена.</div>
+        @endif
+    </section>
+
+    <script>
+        (() => {
+            const schemeFallbackSrc = @json($categoryPreviewUrl);
+            const schemeGrid = document.querySelector('.mobile-photo-grid--scheme');
+            const updateSchemeEmptyState = () => {
+                if (! schemeGrid) {
+                    return;
+                }
+
+                const visibleTiles = Array.from(schemeGrid.querySelectorAll('.mobile-photo-tile--scheme'))
+                    .filter((tile) => ! tile.hidden);
+
+                if (visibleTiles.length > 0 || schemeGrid.nextElementSibling?.hasAttribute('data-mobile-scheme-empty')) {
+                    return;
+                }
+
+                const empty = document.createElement('div');
+                empty.className = 'empty';
+                empty.setAttribute('data-mobile-scheme-empty', '');
+                empty.textContent = '\u0421\u0445\u0435\u043c\u0430 \u0443\u0437\u043b\u0430 \u043d\u0435 \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u043b\u0430\u0441\u044c.';
+                schemeGrid.after(empty);
+            };
+            const hideSchemeImage = (image) => {
+                image.closest('.mobile-photo-tile--scheme')?.setAttribute('hidden', '');
+                updateSchemeEmptyState();
+            };
+            const useSchemeFallback = (image) => {
+                if (schemeFallbackSrc && image.src !== schemeFallbackSrc) {
+                    image.src = schemeFallbackSrc;
+                    return;
+                }
+
+                hideSchemeImage(image);
+            };
+
+            document.querySelectorAll('.mobile-photo-tile--scheme img').forEach((image) => {
+                image.addEventListener('error', () => useSchemeFallback(image), { once: true });
+
+                if (image.complete && image.naturalWidth === 0) {
+                    useSchemeFallback(image);
+                }
+            });
+
+            document.querySelectorAll('[data-mobile-edit-photo-input]').forEach((input) => {
+                input.addEventListener('change', () => {
+                    if (input.files?.length > 0) {
+                        input.form?.querySelectorAll('[data-mobile-edit-photo-input]').forEach((field) => {
+                            if (field === input) {
+                                field.setAttribute('name', field.dataset.mobileEditPhotoName || 'photo');
+                            } else {
+                                field.removeAttribute('name');
+                                field.value = '';
+                            }
+                        });
+                        input.form?.submit();
+                    }
+                });
+            });
+
+            const viewer = document.querySelector('[data-mobile-photo-viewer]');
+            if (viewer) {
+                const viewerImage = viewer.querySelector('[data-mobile-photo-viewer-image]');
+                const viewerFrame = viewer.querySelector('[data-mobile-photo-viewer-frame]');
+                const viewerCounter = viewer.querySelector('[data-mobile-photo-viewer-counter]');
+                const viewerHint = viewer.querySelector('[data-mobile-photo-viewer-hint]');
+                const closeButton = viewer.querySelector('[data-mobile-photo-viewer-close]');
+                const prevButton = viewer.querySelector('[data-mobile-photo-viewer-prev]');
+                const nextButton = viewer.querySelector('[data-mobile-photo-viewer-next]');
+                const photos = Array.from(document.querySelectorAll('[data-mobile-photo-open]'))
+                    .map((button) => {
+                        const image = button.closest('[data-mobile-photo-tile]')?.querySelector('img');
+
+                        return {
+                            button,
+                            src: image?.currentSrc || image?.src || '',
+                            alt: image?.alt || '',
+                        };
+                    })
+                    .filter((photo) => photo.src !== '');
+                const hasMultiplePhotos = photos.length > 1;
+                let currentPhotoIndex = 0;
+                let lastFocusedElement = null;
+                let touchStartX = null;
+                let touchStartY = null;
+
+                const normalizePhotoIndex = (index) => {
+                    if (photos.length === 0) {
+                        return 0;
+                    }
+
+                    return (index + photos.length) % photos.length;
+                };
+
+                const showPhoto = (index) => {
+                    if (photos.length === 0 || ! viewerImage) {
+                        return;
+                    }
+
+                    currentPhotoIndex = normalizePhotoIndex(index);
+                    const photo = photos[currentPhotoIndex];
+                    viewerImage.src = photo.src;
+                    viewerImage.alt = photo.alt;
+
+                    if (viewerCounter) {
+                        viewerCounter.textContent = hasMultiplePhotos ? `${currentPhotoIndex + 1} / ${photos.length}` : '';
+                    }
+                };
+
+                const showRelativePhoto = (step) => {
+                    if (! hasMultiplePhotos) {
+                        return;
+                    }
+
+                    showPhoto(currentPhotoIndex + step);
+                };
+
+                const closeViewer = () => {
+                    viewer.hidden = true;
+                    document.body.classList.remove('is-mobile-photo-viewer-open');
+                    viewerImage?.removeAttribute('src');
+
+                    if (lastFocusedElement instanceof HTMLElement) {
+                        lastFocusedElement.focus({ preventScroll: true });
+                    }
+                };
+
+                const openViewer = (index) => {
+                    if (photos.length === 0) {
+                        return;
+                    }
+
+                    lastFocusedElement = document.activeElement;
+                    showPhoto(index);
+                    viewer.hidden = false;
+                    document.body.classList.add('is-mobile-photo-viewer-open');
+                    closeButton?.focus({ preventScroll: true });
+                };
+
+                [prevButton, nextButton, viewerCounter, viewerHint].forEach((element) => {
+                    if (element) {
+                        element.hidden = ! hasMultiplePhotos;
+                    }
+                });
+
+                if (viewerHint && hasMultiplePhotos) {
+                    viewerHint.textContent = '\u0421\u0432\u0430\u0439\u043f \u0432\u043b\u0435\u0432\u043e \u0438\u043b\u0438 \u0432\u043f\u0440\u0430\u0432\u043e';
+                }
+
+                photos.forEach((photo, index) => {
+                    photo.button.addEventListener('click', () => openViewer(index));
+                });
+
+                closeButton?.addEventListener('click', closeViewer);
+                prevButton?.addEventListener('click', () => showRelativePhoto(-1));
+                nextButton?.addEventListener('click', () => showRelativePhoto(1));
+
+                viewer.addEventListener('click', (event) => {
+                    if (event.target === viewer || event.target === viewerFrame) {
+                        closeViewer();
+                    }
+                });
+
+                document.addEventListener('keydown', (event) => {
+                    if (viewer.hidden) {
+                        return;
+                    }
+
+                    if (event.key === 'Escape') {
+                        closeViewer();
+                    } else if (event.key === 'ArrowLeft') {
+                        showRelativePhoto(-1);
+                    } else if (event.key === 'ArrowRight') {
+                        showRelativePhoto(1);
+                    }
+                });
+
+                viewerFrame?.addEventListener('touchstart', (event) => {
+                    if (event.touches.length !== 1) {
+                        touchStartX = null;
+                        touchStartY = null;
+                        return;
+                    }
+
+                    touchStartX = event.touches[0].clientX;
+                    touchStartY = event.touches[0].clientY;
+                }, { passive: true });
+
+                viewerFrame?.addEventListener('touchend', (event) => {
+                    if (! hasMultiplePhotos || touchStartX === null || touchStartY === null || event.changedTouches.length !== 1) {
+                        return;
+                    }
+
+                    const dx = event.changedTouches[0].clientX - touchStartX;
+                    const dy = event.changedTouches[0].clientY - touchStartY;
+                    touchStartX = null;
+                    touchStartY = null;
+
+                    if (Math.abs(dx) < 48 || Math.abs(dx) < Math.abs(dy) * 1.4) {
+                        return;
+                    }
+
+                    showRelativePhoto(dx < 0 ? 1 : -1);
+                }, { passive: true });
+            }
+
+            const sortable = document.querySelector('[data-mobile-photo-sortable]');
+            const orderForm = document.querySelector('[data-mobile-photo-order-form]');
+            const photoOrder = () => Array.from(sortable?.querySelectorAll('[data-mobile-photo-tile]') || [])
+                .map((tile) => tile.dataset.photo || '')
+                .filter(Boolean);
+            const mainPhotoLabel = '\u0413\u043b\u0430\u0432\u043d\u043e\u0435';
+
+            if (sortable && orderForm) {
+                let draggedTile = null;
+                let dragPreview = null;
+                let dropTarget = null;
+                let dragOffsetX = 0;
+                let dragOffsetY = 0;
+                let pendingDragPoint = null;
+                let moveFrame = null;
+                let startOrder = [];
+
+                const clearDropTarget = () => {
+                    dropTarget?.classList.remove('is-drop-target');
+                    dropTarget = null;
+                };
+
+                const findDropTarget = (point) => {
+                    const targetTile = document.elementFromPoint(point.clientX, point.clientY)?.closest('[data-mobile-photo-tile]');
+
+                    if (targetTile && targetTile !== draggedTile && sortable.contains(targetTile)) {
+                        return targetTile;
+                    }
+
+                    const sortableRect = sortable.getBoundingClientRect();
+                    const edgeSlack = 42;
+                    const isNearSortable = point.clientX >= sortableRect.left - edgeSlack
+                        && point.clientX <= sortableRect.right + edgeSlack
+                        && point.clientY >= sortableRect.top - edgeSlack
+                        && point.clientY <= sortableRect.bottom + edgeSlack;
+
+                    if (! isNearSortable) {
+                        return null;
+                    }
+
+                    return Array.from(sortable.querySelectorAll('[data-mobile-photo-tile]'))
+                        .filter((tile) => tile !== draggedTile)
+                        .map((tile) => {
+                            const rect = tile.getBoundingClientRect();
+                            const centerX = rect.left + rect.width / 2;
+                            const centerY = rect.top + rect.height / 2;
+
+                            return {
+                                tile,
+                                distance: Math.hypot(point.clientX - centerX, point.clientY - centerY),
+                            };
+                        })
+                        .sort((a, b) => a.distance - b.distance)[0]?.tile || null;
+                };
+
+                const moveDragPreview = (clientX, clientY) => {
+                    if (! dragPreview) {
+                        return;
+                    }
+
+                    const x = Math.round(clientX - dragOffsetX);
+                    const y = Math.round(clientY - dragOffsetY);
+                    dragPreview.style.transform = `translate3d(${x}px, ${y}px, 0) scale(1.04)`;
+                };
+
+                const removeDragPreview = () => {
+                    dragPreview?.remove();
+                    dragPreview = null;
+                };
+
+                const createDragPreview = (tile, event) => {
+                    const rect = tile.getBoundingClientRect();
+                    dragOffsetX = event.clientX - rect.left;
+                    dragOffsetY = event.clientY - rect.top;
+                    dragPreview = tile.cloneNode(true);
+                    dragPreview.classList.remove('is-dragging', 'is-drop-target');
+                    dragPreview.classList.add('mobile-photo-drag-preview');
+                    dragPreview.setAttribute('aria-hidden', 'true');
+                    dragPreview.removeAttribute('data-mobile-photo-tile');
+                    dragPreview.removeAttribute('data-photo');
+                    dragPreview.querySelectorAll('[data-mobile-photo-open], [data-mobile-photo-drag-handle], [data-mobile-photo-delete-form]').forEach((element) => element.remove());
+                    dragPreview.style.width = `${rect.width}px`;
+                    dragPreview.style.height = `${rect.height}px`;
+                    document.body.appendChild(dragPreview);
+                    moveDragPreview(event.clientX, event.clientY);
+                };
+
+                const updateMainPhotoBadge = () => {
+                    sortable.querySelectorAll('.mobile-photo-tile > .tag:not(.mobile-photo-source-tag)').forEach((badge) => badge.remove());
+
+                    const firstTile = sortable.querySelector('[data-mobile-photo-tile]');
+                    if (! firstTile) {
+                        return;
+                    }
+
+                    const badge = document.createElement('span');
+                    badge.className = 'tag mobile-photo-main-tag';
+                    badge.dataset.mobilePhotoMainBadge = '1';
+                    badge.textContent = mainPhotoLabel;
+                    firstTile.appendChild(badge);
+                };
+
+                const submitPhotoOrder = async (photos) => {
+                    orderForm.querySelectorAll('[data-mobile-photo-order-input]').forEach((input) => input.remove());
+                    photos.forEach((photo) => {
+                        const input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = 'photos[]';
+                        input.value = photo;
+                        input.dataset.mobilePhotoOrderInput = '1';
+                        orderForm.appendChild(input);
+                    });
+
+                    try {
+                        const response = await fetch(orderForm.action, {
+                            method: orderForm.method || 'POST',
+                            body: new FormData(orderForm),
+                            credentials: 'same-origin',
+                            headers: {
+                                'Accept': 'application/json',
+                                'X-Requested-With': 'XMLHttpRequest',
+                            },
+                        });
+
+                        if (! response.ok) {
+                            throw new Error(`Photo order save failed: ${response.status}`);
+                        }
+                    } catch (error) {
+                        window.location.reload();
+                    }
+                };
+
+                const applyDragMove = (point) => {
+                    if (! draggedTile) {
+                        return;
+                    }
+
+                    moveDragPreview(point.clientX, point.clientY);
+                    const targetTile = findDropTarget(point);
+                    if (! targetTile) {
+                        clearDropTarget();
+                        return;
+                    }
+
+                    if (dropTarget !== targetTile) {
+                        clearDropTarget();
+                        dropTarget = targetTile;
+                        dropTarget.classList.add('is-drop-target');
+                    }
+
+                };
+
+                const applyDrop = (point) => {
+                    const targetTile = findDropTarget(point);
+                    if (! targetTile || ! draggedTile) {
+                        return;
+                    }
+
+                    const tiles = Array.from(sortable.querySelectorAll('[data-mobile-photo-tile]'));
+                    const draggedIndex = tiles.indexOf(draggedTile);
+                    const targetIndex = tiles.indexOf(targetTile);
+
+                    if (draggedIndex < 0 || targetIndex < 0 || draggedIndex === targetIndex) {
+                        return;
+                    }
+
+                    sortable.insertBefore(draggedTile, draggedIndex < targetIndex ? targetTile.nextSibling : targetTile);
+                };
+
+                const queueDragMove = (event) => {
+                    pendingDragPoint = {
+                        clientX: event.clientX,
+                        clientY: event.clientY,
+                    };
+                    if (moveFrame !== null) {
+                        return;
+                    }
+
+                    moveFrame = window.requestAnimationFrame(() => {
+                        const pointToApply = pendingDragPoint;
+                        pendingDragPoint = null;
+                        moveFrame = null;
+
+                        if (pointToApply) {
+                            applyDragMove(pointToApply);
+                        }
+                    });
+                };
+
+                const flushDragMove = () => {
+                    if (moveFrame !== null) {
+                        window.cancelAnimationFrame(moveFrame);
+                        moveFrame = null;
+                    }
+
+                    const pointToApply = pendingDragPoint;
+                    pendingDragPoint = null;
+
+                    if (pointToApply) {
+                        applyDragMove(pointToApply);
+                    }
+                };
+
+                const finishDrag = (handle, event) => {
+                    if (! draggedTile) {
+                        return;
+                    }
+
+                    flushDragMove();
+                    applyDrop({
+                        clientX: event.clientX,
+                        clientY: event.clientY,
+                    });
+                    draggedTile.classList.remove('is-dragging');
+                    draggedTile.style.pointerEvents = '';
+                    sortable.classList.remove('is-sorting');
+                    clearDropTarget();
+                    removeDragPreview();
+
+                    if (handle?.hasPointerCapture?.(event.pointerId)) {
+                        handle.releasePointerCapture(event.pointerId);
+                    }
+
+                    const nextOrder = photoOrder();
+                    const hasChanged = startOrder.join('\n') !== nextOrder.join('\n');
+                    draggedTile = null;
+                    startOrder = [];
+
+                    if (! hasChanged) {
+                        return;
+                    }
+
+                    updateMainPhotoBadge();
+                    submitPhotoOrder(nextOrder);
+                };
+
+                sortable.querySelectorAll('[data-mobile-photo-drag-handle]').forEach((handle) => {
+                    handle.addEventListener('pointerdown', (event) => {
+                        if (event.button && event.button !== 0) {
+                            return;
+                        }
+
+                        draggedTile = handle.closest('[data-mobile-photo-tile]');
+                        if (! draggedTile) {
+                            return;
+                        }
+
+                        event.preventDefault();
+                        startOrder = photoOrder();
+                        draggedTile.classList.add('is-dragging');
+                        draggedTile.style.pointerEvents = 'none';
+                        sortable.classList.add('is-sorting');
+                        createDragPreview(draggedTile, event);
+                        handle.setPointerCapture?.(event.pointerId);
+                    });
+
+                    handle.addEventListener('pointermove', (event) => {
+                        if (! draggedTile) {
+                            return;
+                        }
+
+                        event.preventDefault();
+                        queueDragMove(event);
+                    });
+
+                    handle.addEventListener('pointerup', (event) => finishDrag(handle, event));
+                    handle.addEventListener('pointercancel', (event) => finishDrag(handle, event));
+                });
+            }
+
+            document.querySelectorAll('[data-mobile-photo-delete-form]').forEach((form) => {
+                form.addEventListener('submit', (event) => {
+                    if (! window.confirm('\u0423\u0434\u0430\u043b\u0438\u0442\u044c \u044d\u0442\u043e \u0444\u043e\u0442\u043e?')) {
+                        event.preventDefault();
+                    }
+                });
+            });
+        })();
+    </script>
+@endsection

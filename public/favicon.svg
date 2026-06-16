@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="NikolaCars">
+  <rect width="64" height="64" rx="12" fill="#e30613"/>
+  <path fill="#fff" d="M14 16h10l16 24V16h10v32H40L24 24v24H14z"/>
+  <path fill="#111827" fill-opacity=".16" d="M50 16v32H40l-4-6h8V16z"/>
+</svg>

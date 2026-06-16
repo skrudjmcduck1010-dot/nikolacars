@@ -1,0 +1,12 @@
+{
+  "appId": "com.nikolacars.warehouse",
+  "appName": "NikolaCars Warehouse",
+  "webDir": "public",
+  "server": {
+    "url": "https://sklad.nikolacars.kiev.ua",
+    "cleartext": false
+  },
+  "android": {
+    "path": "android"
+  }
+}
