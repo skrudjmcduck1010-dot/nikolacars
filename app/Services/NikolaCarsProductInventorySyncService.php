@@ -10,6 +10,7 @@ use App\Support\NikolaCarsNomenclatureNameCleaner;
 use App\Support\PartCatalogRawAttributes;
 use App\Support\ProductPhotoNormalizer;
 use App\Support\PublicStorageUrl;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
@@ -105,6 +106,66 @@ class NikolaCarsProductInventorySyncService
         app(NikolaCarsTeslaCategoryResolver::class)->resolveItem($item->fresh() ?? $item);
 
         return ['saved' => true, 'deleted' => false, 'item' => $item];
+    }
+
+    public function syncProductsLinkedToSourceCatalogItem(PartCatalogItem $sourceCatalogItem): array
+    {
+        if ($sourceCatalogItem->source !== 'tesla_official') {
+            return ['products_seen' => 0, 'items_saved' => 0, 'items_deleted' => 0];
+        }
+
+        $partPrefix = $this->teslaPartPrefix($sourceCatalogItem->part_number);
+
+        $mirrorItems = PartCatalogItem::query()
+            ->where('source', self::SOURCE)
+            ->where(function ($query) use ($partPrefix, $sourceCatalogItem): void {
+                $query->where(function ($query) use ($sourceCatalogItem): void {
+                    $query
+                        ->whereRaw($this->jsonValueExpression('raw_attributes', '$.source_catalog_item_id', true).' = ?', [(int) $sourceCatalogItem->id])
+                        ->whereRaw($this->jsonValueExpression('raw_attributes', '$.source_catalog_source').' = ?', ['tesla_official']);
+                });
+
+                if ($partPrefix !== null) {
+                    $query->orWhereRaw('upper(trim(part_number)) like ?', [$partPrefix.'%']);
+                }
+            })
+            ->get(['id', 'raw_attributes', 'part_number']);
+
+        if ($mirrorItems->isEmpty()) {
+            return ['products_seen' => 0, 'items_saved' => 0, 'items_deleted' => 0];
+        }
+
+        $mirrorItemIds = $mirrorItems->pluck('id')->map(fn (mixed $id): int => (int) $id)->all();
+        $productIds = $mirrorItems
+            ->map(fn (PartCatalogItem $item): mixed => data_get($item->raw_attributes, 'product_id'))
+            ->filter(fn (mixed $id): bool => is_numeric($id))
+            ->map(fn (mixed $id): int => (int) $id)
+            ->merge(Product::query()
+                ->whereIn('source_part_catalog_item_id', $mirrorItemIds)
+                ->pluck('id')
+                ->map(fn (mixed $id): int => (int) $id))
+            ->unique()
+            ->values();
+
+        $stats = ['products_seen' => 0, 'items_saved' => 0, 'items_deleted' => 0];
+
+        if ($productIds->isEmpty()) {
+            return $stats;
+        }
+
+        Product::query()
+            ->with($this->relations())
+            ->whereKey($productIds->all())
+            ->orderBy('id')
+            ->get()
+            ->each(function (Product $product) use (&$stats): void {
+                $stats['products_seen']++;
+                $result = $this->syncProduct($product);
+                $stats['items_saved'] += $result['saved'] ? 1 : 0;
+                $stats['items_deleted'] += $result['deleted'] ? 1 : 0;
+            });
+
+        return $stats;
     }
 
     public function markDonorDamageCheckedAt(
@@ -212,11 +273,7 @@ class NikolaCarsProductInventorySyncService
 
     protected function fillDonorProductLocalizedNames(Product $product): void
     {
-        if ($product->donor_car_id === null) {
-            return;
-        }
-
-        app(DonorProductLocalizedNameAutofillService::class)->fillMissingNames($product);
+        // Localized names are static now; only explicit manual edits may change them.
     }
 
     public function isSellableProduct(Product $product): bool
@@ -279,11 +336,16 @@ class NikolaCarsProductInventorySyncService
     protected function payload(Product $product, PartCatalogCategory $category, ?PartCatalogItem $existingItem = null): array
     {
         $sourceItem = $product->sourcePartCatalogItem;
-        $sourceCatalogItem = $this->sourceCatalogItem($product, $sourceItem, $existingItem);
         $partNumber = trim((string) ($product->external_sku ?: $sourceItem?->part_number ?: $product->sku));
+        $sourceCatalogItem = $this->sourceCatalogItem($product, $sourceItem, $existingItem);
+        $officialLocalizedNameSourceItem = $this->officialLocalizedNameSourceItem($partNumber, $sourceItem, $sourceCatalogItem);
+
+        if (! $sourceCatalogItem instanceof PartCatalogItem && $officialLocalizedNameSourceItem instanceof PartCatalogItem) {
+            $sourceCatalogItem = $officialLocalizedNameSourceItem;
+        }
+
         $name = trim((string) ($product->name ?: $sourceItem?->name ?: $partNumber));
         $quantity = $this->catalogQuantity($product);
-        $categoryDisplay = $this->categoryDisplay($product, $existingItem);
         $imageUrls = $this->imageUrls($product);
         $donorCar = $product->donorCar;
         $sourceType = $this->sourceType($product);
@@ -293,63 +355,33 @@ class NikolaCarsProductInventorySyncService
             : ($sourceItem?->source === self::SOURCE
                 ? $this->rawAttributes($sourceItem)
                 : []);
-        $manualCreateHasRuName = data_get($existingRawAttributes, 'manual_create_has_ru_name');
-        $manualCreateNameRu = trim((string) data_get($existingRawAttributes, 'manual_create_name_ru', ''));
-        $nameRu = $manualCreateHasRuName === false
-            ? ''
-            : ($manualCreateNameRu !== '' ? $manualCreateNameRu : $this->localizedNameCandidate($sourceItem?->name_ru, $product->name));
-        $shouldPreserveExistingNameRu = $manualCreateHasRuName !== false;
+        $officialLocalizedNameLocales = $this->officialLocalizedNameLocales($officialLocalizedNameSourceItem);
+        if ($officialLocalizedNameLocales !== []) {
+            $existingRawAttributes = $this->withoutLocalizedNameSourceAttributes($existingRawAttributes, $officialLocalizedNameLocales);
+        }
+        unset($existingRawAttributes['category_display'], $existingRawAttributes['category_path']);
+
+        $nameRu = $this->staticLocalizedName($existingItem, $sourceItem, $officialLocalizedNameSourceItem, 'name_ru');
         $isNomenclatureProduct = $this->isNomenclatureProduct($product, $existingRawAttributes);
-        $nameUa = $isNomenclatureProduct
-            ? (NikolaCarsNomenclatureNameCleaner::cleanName($product->name, $partNumber) ?: $name)
-            : $this->localizedNameCandidate($sourceItem?->name_ua, $product->name);
-        $existingRawAttributes = $this->withMirroredLocalizedNameSources($existingRawAttributes, $sourceItem, [
-            'name_ru' => $nameRu,
-            'name_ua' => $nameUa,
-        ]);
-
-        if ($isNomenclatureProduct) {
-            $hasDistinctRuName = data_get($existingRawAttributes, 'nikolacars_has_distinct_ru_name');
-            $isTranslatedFromUa = data_get($existingRawAttributes, 'nikolacars_ru_translated_from_ua') === true;
-            $nameRu = $hasDistinctRuName === false && ! $isTranslatedFromUa
-                ? ''
-                : (NikolaCarsNomenclatureNameCleaner::cleanName($nameRu, $partNumber) ?: $nameRu);
-            $shouldPreserveExistingNameRu = $shouldPreserveExistingNameRu
-                && ($hasDistinctRuName !== false || $isTranslatedFromUa);
-            $existingRawAttributes = $this->withoutLocalizedNameSource($existingRawAttributes, 'ua');
-        }
-
-        if ($shouldPreserveExistingNameRu) {
-            $nameRu = $this->preserveExistingLocalizedName($existingItem, 'name_ru', $nameRu);
-        }
-
-        $nameUa = $this->preserveExistingLocalizedName($existingItem, 'name_ua', $nameUa);
-        $nameRu = $this->preserveManuallyLockedLocalizedName($existingItem, 'name_ru', $nameRu);
-        $nameUa = $this->preserveManuallyLockedLocalizedName($existingItem, 'name_ua', $nameUa);
-        $existingRawAttributes = $this->withoutEmptyManualNameLocks($existingItem, $existingRawAttributes, [
-            'name_ru' => $nameRu,
-            'name_ua' => $nameUa,
-        ]);
-        [$nameRu, $nameUa, $existingRawAttributes, $manualNameLockColumnPayload] = $this->withInheritedManualNameLocks(
-            $partNumber,
+        $nameUa = $this->staticLocalizedName($existingItem, $sourceItem, $officialLocalizedNameSourceItem, 'name_ua');
+        $localizedNameSourceAttributes = $this->localizedNameSourceAttributes(
             $existingItem,
-            $nameRu,
-            $nameUa,
-            $existingRawAttributes
+            $sourceItem,
+            $officialLocalizedNameSourceItem,
+            ['name_ru' => $nameRu, 'name_ua' => $nameUa]
         );
 
-        return [
+        if (! $existingItem instanceof PartCatalogItem && $isNomenclatureProduct && $nameUa === '') {
+            $nameUa = NikolaCarsNomenclatureNameCleaner::cleanName($product->name, $partNumber) ?: '';
+        }
+
+        $payload = [
             'part_catalog_category_id' => $category->id,
             'source' => self::SOURCE,
             'part_number' => $partNumber !== '' ? $partNumber : null,
             'name' => $name !== '' ? $name : $product->sku,
             'name_ru' => $nameRu !== '' ? $nameRu : null,
             'name_ua' => $nameUa !== '' ? $nameUa : null,
-            ...$this->emptyManualNameLockColumnPayload($existingItem, [
-                'name_ru' => $nameRu,
-                'name_ua' => $nameUa,
-            ]),
-            ...$manualNameLockColumnPayload,
             'price_amount' => $product->selling_price,
             'currency' => $product->currency ?: 'USD',
             'model_label' => $donorCar?->display_model ?: $product->generation ?: $product->model,
@@ -361,7 +393,7 @@ class NikolaCarsProductInventorySyncService
             'condition' => $product->condition_type,
             'quality' => $product->donor_car_id !== null ? trim((string) $product->notes) : null,
             'availability' => app(NikolaCarsInventoryService::class)->availability($quantity),
-            'raw_attributes' => array_replace($existingRawAttributes, array_filter([
+            'raw_attributes' => array_replace($existingRawAttributes, $localizedNameSourceAttributes, array_filter([
                 'code' => $this->catalogCode($product, $existingRawAttributes),
                 'product_id' => $product->id,
                 'source_type' => $sourceType,
@@ -373,8 +405,6 @@ class NikolaCarsProductInventorySyncService
                 ])->filter()->implode(' ')) : null,
                 'donor_damage_status' => $product->donor_car_id !== null ? trim((string) $product->notes) : null,
                 'donor_damage_status_changed_by' => $product->donor_car_id !== null ? $product->donor_damage_status_changed_by : null,
-                'category_display' => $categoryDisplay,
-                'category_path' => $categoryDisplay,
                 'stock_quantity' => $quantity,
                 'storage_status' => $product->storage_status,
                 'purchase_item_ids' => $product->purchaseItems->pluck('id')->values()->all(),
@@ -387,6 +417,42 @@ class NikolaCarsProductInventorySyncService
             ], fn (mixed $value): bool => $value !== null && $value !== '' && $value !== [])),
             'source_updated_at' => now(),
         ];
+
+        if ($officialLocalizedNameLocales !== []) {
+            foreach (['ru' => 'name_ru_manually_locked_at', 'ua' => 'name_ua_manually_locked_at'] as $locale => $lockColumn) {
+                if (! in_array($locale, $officialLocalizedNameLocales, true)) {
+                    continue;
+                }
+
+                if (Schema::hasColumn('part_catalog_items', $lockColumn)) {
+                    $hasRawLock = data_get($existingRawAttributes, 'manual_name_locks.'.$locale) !== null;
+                    $hasColumnLock = $existingItem instanceof PartCatalogItem && $existingItem->{$lockColumn} !== null;
+
+                    if (! $hasRawLock && ! $hasColumnLock) {
+                        $payload[$lockColumn] = null;
+                    }
+                }
+            }
+        }
+
+        return $payload;
+    }
+
+    protected function withoutLocalizedNameSourceAttributes(array $rawAttributes, array $locales): array
+    {
+        foreach ($locales as $locale) {
+            foreach (['site', 'url', 'item_id', 'type', 'marker'] as $sourceKey) {
+                unset($rawAttributes['name_source_'.$sourceKey.'_'.$locale]);
+            }
+        }
+
+        if (in_array('ru', $locales, true)) {
+            foreach (['site', 'url', 'item_id', 'type', 'marker'] as $sourceKey) {
+                unset($rawAttributes['name_source_'.$sourceKey]);
+            }
+        }
+
+        return $rawAttributes;
     }
 
     protected function sourceCatalogItem(Product $product, ?PartCatalogItem $sourceItem, ?PartCatalogItem $existingItem): ?PartCatalogItem
@@ -430,149 +496,156 @@ class NikolaCarsProductInventorySyncService
             ->first();
     }
 
-    protected function preserveExistingLocalizedName(?PartCatalogItem $existingItem, string $column, string $candidate): string
+    protected function jsonValueExpression(string $column, string $path, bool $numeric = false): string
     {
-        $existing = trim((string) $existingItem?->{$column});
+        $driver = DB::connection()->getDriverName();
 
-        if ($existing === '') {
-            return $candidate;
-        }
-
-        if ($candidate === '') {
-            return $existing;
-        }
-
-        return $this->looksLocalizedName($existing) && ! $this->looksLocalizedName($candidate)
-            ? $existing
-            : $candidate;
+        return match ($driver) {
+            'pgsql' => $numeric
+                ? "cast({$column}::jsonb #>> '{".trim(str_replace('$.', '', $path), '.')."}' as integer)"
+                : "{$column}::jsonb #>> '{".trim(str_replace('$.', '', $path), '.')."}'",
+            'sqlite' => $numeric
+                ? "cast(json_extract({$column}, '{$path}') as integer)"
+                : "json_extract({$column}, '{$path}')",
+            default => $numeric
+                ? "cast(json_unquote(json_extract({$column}, '{$path}')) as unsigned)"
+                : "json_unquote(json_extract({$column}, '{$path}'))",
+        };
     }
 
-    protected function preserveManuallyLockedLocalizedName(?PartCatalogItem $existingItem, string $column, string $candidate): string
-    {
-        if (! $existingItem instanceof PartCatalogItem) {
-            return $candidate;
-        }
-
-        if (! app(PartCatalogManualNameService::class)->isLocked($existingItem, $column)) {
-            return $candidate;
-        }
-
-        $existing = trim((string) $existingItem->{$column});
-
-        return $existing !== '' ? $existing : $candidate;
-    }
-
-    protected function withoutEmptyManualNameLocks(?PartCatalogItem $existingItem, array $rawAttributes, array $names): array
-    {
-        if (! $existingItem instanceof PartCatalogItem) {
-            return $rawAttributes;
-        }
-
-        foreach (['ru' => 'name_ru', 'ua' => 'name_ua'] as $locale => $column) {
-            if (! app(PartCatalogManualNameService::class)->isLocked($existingItem, $column)) {
-                continue;
-            }
-
-            if (trim((string) $existingItem->{$column}) !== '' || trim((string) ($names[$column] ?? '')) === '') {
-                continue;
-            }
-
-            unset($rawAttributes['manual_name_locks'][$locale]);
-        }
-
-        if (($rawAttributes['manual_name_locks'] ?? null) === []) {
-            unset($rawAttributes['manual_name_locks']);
-        }
-
-        return $rawAttributes;
-    }
-
-    protected function emptyManualNameLockColumnPayload(?PartCatalogItem $existingItem, array $names): array
-    {
-        if (! $existingItem instanceof PartCatalogItem) {
-            return [];
-        }
-
-        $payload = [];
-
-        foreach (['name_ru' => 'name_ru_manually_locked_at', 'name_ua' => 'name_ua_manually_locked_at'] as $column => $lockColumn) {
-            if (! app(PartCatalogManualNameService::class)->isLocked($existingItem, $column)) {
-                continue;
-            }
-
-            if (trim((string) $existingItem->{$column}) !== '' || trim((string) ($names[$column] ?? '')) === '') {
-                continue;
-            }
-
-            if (Schema::hasColumn('part_catalog_items', $lockColumn)) {
-                $payload[$lockColumn] = null;
-            }
-        }
-
-        return $payload;
-    }
-
-    protected function withInheritedManualNameLocks(
+    protected function officialLocalizedNameSourceItem(
         string $partNumber,
+        ?PartCatalogItem $sourceItem,
+        ?PartCatalogItem $sourceCatalogItem
+    ): ?PartCatalogItem {
+        if ($sourceCatalogItem instanceof PartCatalogItem && $sourceCatalogItem->source === 'tesla_official') {
+            return $sourceCatalogItem;
+        }
+
+        if ($sourceItem instanceof PartCatalogItem && $sourceItem->source !== self::SOURCE) {
+            return null;
+        }
+
+        if ($partNumber === '') {
+            return null;
+        }
+
+        $match = app(NikolaCarsOfficialPartMatcher::class)->match($partNumber);
+
+        return $match->officialItem instanceof PartCatalogItem
+            ? $match->officialItem
+            : null;
+    }
+
+    protected function staticLocalizedName(
         ?PartCatalogItem $existingItem,
-        string $nameRu,
-        string $nameUa,
-        array $rawAttributes
-    ): array {
-        $manualNames = app(PartCatalogManualNameService::class);
-        $lockedNames = $manualNames->lockedNameValuesForPartNumber($partNumber, $existingItem?->id);
-        $lockColumnPayload = [];
+        ?PartCatalogItem $sourceItem,
+        ?PartCatalogItem $officialLocalizedNameSourceItem,
+        string $column
+    ): string {
+        if ($officialLocalizedNameSourceItem instanceof PartCatalogItem) {
+            $officialName = trim((string) $officialLocalizedNameSourceItem->{$column});
 
-        foreach (['ru' => 'name_ru', 'ua' => 'name_ua'] as $locale => $column) {
-            if (! array_key_exists($column, $lockedNames)) {
-                continue;
-            }
-
-            if ($existingItem instanceof PartCatalogItem
-                && $manualNames->isLocked($existingItem, $column)
-                && trim((string) $existingItem->{$column}) !== '') {
-                continue;
-            }
-
-            $value = trim((string) $lockedNames[$column]['value']);
-            if ($value === '') {
-                continue;
-            }
-
-            if ($column === 'name_ru') {
-                $nameRu = $value;
-            } else {
-                $nameUa = $value;
-            }
-
-            $lockedAt = $lockedNames[$column]['locked_at'] ?? now();
-            $rawAttributes['manual_name_locks'][$locale] = (string) $lockedAt;
-
-            $lockColumn = $column === 'name_ru' ? 'name_ru_manually_locked_at' : 'name_ua_manually_locked_at';
-            if (Schema::hasColumn('part_catalog_items', $lockColumn)) {
-                $lockColumnPayload[$lockColumn] = $lockedAt;
+            if ($officialName !== '') {
+                return $officialName;
             }
         }
 
-        return [$nameRu, $nameUa, $rawAttributes, $lockColumnPayload];
-    }
+        foreach ([$existingItem, $sourceItem] as $item) {
+            if (! $item instanceof PartCatalogItem || $item->source !== self::SOURCE) {
+                continue;
+            }
 
-    protected function localizedNameCandidate(?string ...$candidates): string
-    {
-        foreach ($candidates as $candidate) {
-            $candidate = trim((string) $candidate);
-
-            if ($candidate !== '' && $this->looksLocalizedName($candidate)) {
-                return $candidate;
+            $name = trim((string) $item->{$column});
+            if ($name !== '') {
+                return $name;
             }
         }
 
         return '';
     }
 
-    protected function looksLocalizedName(string $name): bool
+    protected function officialLocalizedNameLocales(?PartCatalogItem $item): array
     {
-        return preg_match('/\p{Cyrillic}/u', trim($name)) === 1;
+        if (! $item instanceof PartCatalogItem) {
+            return [];
+        }
+
+        return collect(['ru' => 'name_ru', 'ua' => 'name_ua'])
+            ->filter(fn (string $column): bool => trim((string) $item->{$column}) !== '')
+            ->keys()
+            ->values()
+            ->all();
+    }
+
+    protected function localizedNameSourceAttributes(
+        ?PartCatalogItem $existingItem,
+        ?PartCatalogItem $sourceItem,
+        ?PartCatalogItem $officialLocalizedNameSourceItem,
+        array $localizedNames
+    ): array {
+        $attributes = [];
+
+        foreach (['ru' => 'name_ru', 'ua' => 'name_ua'] as $locale => $column) {
+            $localizedName = trim((string) ($localizedNames[$column] ?? ''));
+
+            if ($localizedName === '') {
+                continue;
+            }
+
+            $source = $this->localizedNameSourceItem($existingItem, $sourceItem, $officialLocalizedNameSourceItem, $column, $localizedName);
+
+            if (! $source instanceof PartCatalogItem) {
+                continue;
+            }
+
+            $sourceAttributes = $this->rawAttributes($source);
+
+            foreach (['site', 'url', 'item_id', 'type', 'marker'] as $sourceKey) {
+                $value = data_get($sourceAttributes, 'name_source_'.$sourceKey.'_'.$locale)
+                    ?: ($locale === 'ru' ? data_get($sourceAttributes, 'name_source_'.$sourceKey) : null);
+
+                if ($value !== null && $value !== '') {
+                    $attributes['name_source_'.$sourceKey.'_'.$locale] = $value;
+                }
+            }
+
+            if (! array_key_exists('name_source_item_id_'.$locale, $attributes)) {
+                $attributes['name_source_item_id_'.$locale] = $source->id;
+            }
+
+            if ($locale === 'ru') {
+                foreach (['site', 'url'] as $sourceKey) {
+                    $value = $attributes['name_source_'.$sourceKey.'_'.$locale] ?? null;
+
+                    if ($value !== null && $value !== '') {
+                        $attributes['name_source_'.$sourceKey] = $value;
+                    }
+                }
+            }
+        }
+
+        return $attributes;
+    }
+
+    protected function localizedNameSourceItem(
+        ?PartCatalogItem $existingItem,
+        ?PartCatalogItem $sourceItem,
+        ?PartCatalogItem $officialLocalizedNameSourceItem,
+        string $column,
+        string $localizedName
+    ): ?PartCatalogItem {
+        foreach ([$existingItem, $sourceItem, $officialLocalizedNameSourceItem] as $candidate) {
+            if (! $candidate instanceof PartCatalogItem) {
+                continue;
+            }
+
+            if (trim((string) $candidate->{$column}) === $localizedName) {
+                return $candidate;
+            }
+        }
+
+        return null;
     }
 
     protected function sourceCatalogPrice(?PartCatalogItem $sourceItem): ?array
@@ -613,59 +686,6 @@ class NikolaCarsProductInventorySyncService
 
         return trim((string) data_get($rawAttributes, 'code')) !== ''
             || trim((string) data_get($rawAttributes, 'source_row.code')) !== '';
-    }
-
-    protected function withMirroredLocalizedNameSources(array $rawAttributes, ?PartCatalogItem $sourceItem, array $names): array
-    {
-        if (! $sourceItem instanceof PartCatalogItem) {
-            return $rawAttributes;
-        }
-
-        $sourceRawAttributes = $this->rawAttributes($sourceItem);
-
-        foreach (['ru' => 'name_ru', 'ua' => 'name_ua'] as $locale => $column) {
-            $sourceName = trim((string) $sourceItem->{$column});
-            $targetName = trim((string) ($names[$column] ?? ''));
-
-            if ($sourceName === '' || $targetName === '' || $sourceName !== $targetName) {
-                continue;
-            }
-
-            foreach (['site', 'url', 'item_id', 'type'] as $sourceKey) {
-                $key = 'name_source_'.$sourceKey.'_'.$locale;
-
-                if (array_key_exists($key, $sourceRawAttributes) && $sourceRawAttributes[$key] !== null && $sourceRawAttributes[$key] !== '') {
-                    $rawAttributes[$key] = $sourceRawAttributes[$key];
-                }
-            }
-
-            if ($locale === 'ru') {
-                foreach (['name_source_site', 'name_source_url'] as $key) {
-                    if (array_key_exists($key, $sourceRawAttributes) && $sourceRawAttributes[$key] !== null && $sourceRawAttributes[$key] !== '') {
-                        $rawAttributes[$key] = $sourceRawAttributes[$key];
-                    }
-                }
-            } elseif (($rawAttributes['name_source_site'] ?? null) === null
-                && ! empty($sourceRawAttributes['name_source_site'])) {
-                $rawAttributes['name_source_site'] = $sourceRawAttributes['name_source_site'];
-            }
-        }
-
-        return $rawAttributes;
-    }
-
-    protected function withoutLocalizedNameSource(array $rawAttributes, string $locale): array
-    {
-        foreach ([
-            'name_source_site_'.$locale,
-            'name_source_url_'.$locale,
-            'name_source_item_id_'.$locale,
-            'name_source_type_'.$locale,
-        ] as $key) {
-            unset($rawAttributes[$key]);
-        }
-
-        return $rawAttributes;
     }
 
     protected function rawAttributes(?PartCatalogItem $item): array
@@ -912,6 +932,15 @@ class NikolaCarsProductInventorySyncService
             'nikolacars://donor-product/'.$product->id,
             'nikolacars://inventory-product/'.$product->id,
         ]));
+    }
+
+    protected function teslaPartPrefix(?string $partNumber): ?string
+    {
+        $partNumber = strtoupper(trim((string) $partNumber));
+
+        return preg_match('/^(\d{7})/', $partNumber, $matches) === 1
+            ? $matches[1]
+            : null;
     }
 
     protected function hasManuallySoldCatalogItem(Product $product): bool

@@ -234,16 +234,30 @@ class PartCatalogManualNameService
 
     public function internalManualNameItemsForPartNumber(string $normalizedPartNumber): Builder
     {
-        return PartCatalogItem::query()
+        $query = PartCatalogItem::query()
             ->whereIn('source', self::INTERNAL_MANUAL_NAME_SOURCES)
             ->whereNotNull('part_number')
-            ->whereRaw('upper(trim(part_number)) = ?', [$normalizedPartNumber])
             ->where(fn (Builder $query): Builder => $this->whereInternalManualNameItem($query));
+
+        $partPrefix = $this->teslaPartPrefix($normalizedPartNumber);
+
+        if ($partPrefix !== null) {
+            return $query->whereRaw('upper(trim(part_number)) like ?', [$partPrefix.'%']);
+        }
+
+        return $query->whereRaw('upper(trim(part_number)) = ?', [$normalizedPartNumber]);
     }
 
     public function normalizedPartNumber(?string $partNumber): string
     {
         return Str::upper(trim((string) $partNumber));
+    }
+
+    protected function teslaPartPrefix(string $normalizedPartNumber): ?string
+    {
+        return preg_match('/^(\d{7})/', $normalizedPartNumber, $matches) === 1
+            ? $matches[1]
+            : null;
     }
 
     protected function lockPayload(array $updates, mixed $lockedAt): array
@@ -281,6 +295,7 @@ class PartCatalogManualNameService
 
             $rawAttributes['manual_name_locks'][$locale] = (string) $lockedAt;
             unset($rawAttributes['name_language_marker_conflict_'.$locale]);
+            $rawAttributes = $this->withoutLocalizedNameSourceAttributes($rawAttributes, $locale);
             $payload[$column] = $value;
 
             $lockColumn = $this->lockColumn($column);
@@ -292,6 +307,21 @@ class PartCatalogManualNameService
         $item->forceFill(($payload ?? []) + [
             'raw_attributes' => $rawAttributes,
         ])->save();
+    }
+
+    protected function withoutLocalizedNameSourceAttributes(array $rawAttributes, string $locale): array
+    {
+        foreach (['site', 'url', 'item_id', 'type', 'marker'] as $sourceKey) {
+            unset($rawAttributes['name_source_'.$sourceKey.'_'.$locale]);
+        }
+
+        if ($locale === 'ru') {
+            foreach (['site', 'url', 'item_id', 'type', 'marker'] as $sourceKey) {
+                unset($rawAttributes['name_source_'.$sourceKey]);
+            }
+        }
+
+        return $rawAttributes;
     }
 
     protected function isInternalManualNameItem(PartCatalogItem $item): bool

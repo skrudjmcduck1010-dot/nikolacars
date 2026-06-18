@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\CustomerOrder;
 use App\Models\CustomerOrderItem;
 use App\Models\DonorCar;
+use App\Models\PartCatalogCategory;
 use App\Models\PartCatalogItem;
 use App\Models\Product;
 use App\Support\ProductPhotoNormalizer;
@@ -945,10 +946,27 @@ class NikolaCarsInventoryService
 
     public function displayCategory(PartCatalogItem $item): string
     {
+        $structuredCategory = trim(collect([
+            $item->main_category_name,
+            $item->subcategory_name,
+            $item->node_name,
+        ])->filter()->implode(' / '));
+
+        if ($structuredCategory !== '') {
+            return $this->normalizeDisplayCategory($structuredCategory);
+        }
+
+        $categoryLabel = $item->category instanceof PartCatalogCategory
+            ? app(NikolaCarsCatalogCategoryService::class)->displayLabel($item->category)
+            : '';
+
+        if (trim($categoryLabel) !== '') {
+            return $this->normalizeDisplayCategory($categoryLabel);
+        }
+
         $category = trim((string) (
             data_get($item->raw_attributes, 'category_display')
             ?: data_get($item->raw_attributes, 'category_path')
-            ?: $item->main_category_name
             ?: $item->compatibility_text
             ?: ''
         ));
@@ -957,6 +975,11 @@ class NikolaCarsInventoryService
             return '';
         }
 
+        return $this->normalizeDisplayCategory($category);
+    }
+
+    protected function normalizeDisplayCategory(string $category): string
+    {
         return collect(preg_split('/\s*\/\s*/u', $category) ?: [])
             ->map(fn (string $part): string => $this->translateCategoryPart($part))
             ->filter()

@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\PartCatalogCategory;
 use App\Models\PartCatalogItem;
+use App\Services\NikolaCarsInventoryService;
 use App\Services\NikolaCarsTeslaCategoryResolver;
 use App\Services\NikolaCarsTeslaCategoryTreeSyncService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -48,7 +49,8 @@ class NikolaCarsTeslaCategoryResolverTest extends TestCase
         $fresh = $nikolaCarsItem->fresh();
 
         $this->assertSame('Body / Closures / Hood', $result['category']);
-        $this->assertSame('Body / Closures / Hood', data_get($fresh->raw_attributes, 'category_display'));
+        $this->assertNull(data_get($fresh->raw_attributes, 'category_display'));
+        $this->assertSame("\u{041A}\u{0443}\u{0437}\u{043E}\u{0432} / \u{0414}\u{0432}\u{0435}\u{0440}\u{0438}, \u{043A}\u{0430}\u{043F}\u{043E}\u{0442} \u{0438} \u{0431}\u{0430}\u{0433}\u{0430}\u{0436}\u{043D}\u{0438}\u{043A} / \u{041A}\u{0430}\u{043F}\u{043E}\u{0442}", app(NikolaCarsInventoryService::class)->displayCategory($fresh));
         $this->assertSame('matched', data_get($fresh->raw_attributes, 'tesla_category_match.status'));
         $this->assertSame('seven_digit_prefix', data_get($fresh->raw_attributes, 'tesla_category_match.match_type'));
         $this->assertSame('Body', $fresh->main_category_name);
@@ -82,7 +84,8 @@ class NikolaCarsTeslaCategoryResolverTest extends TestCase
         app(NikolaCarsTeslaCategoryResolver::class)->resolveItem($nikolaCarsItem);
         $fresh = $nikolaCarsItem->fresh();
 
-        $this->assertSame(NikolaCarsTeslaCategoryResolver::UNDETERMINED, data_get($fresh->raw_attributes, 'category_display'));
+        $this->assertNull(data_get($fresh->raw_attributes, 'category_display'));
+        $this->assertSame(NikolaCarsTeslaCategoryResolver::UNDETERMINED, app(NikolaCarsInventoryService::class)->displayCategory($fresh));
         $this->assertSame('not_found', data_get($fresh->raw_attributes, 'tesla_category_match.status'));
         $this->assertSame("\u{041D}\u{0435} \u{043E}\u{043F}\u{0440}\u{0435}\u{0434}\u{0435}\u{043B}\u{0435}\u{043D}\u{043E}", $fresh->main_category_name);
         $this->assertDatabaseHas('part_catalog_categories', [
@@ -121,7 +124,8 @@ class NikolaCarsTeslaCategoryResolverTest extends TestCase
         app(NikolaCarsTeslaCategoryResolver::class)->resolveItem($nikolaCarsItem);
         $fresh = $nikolaCarsItem->fresh();
 
-        $this->assertSame('BODY / Body Panels / Closure Panels', data_get($fresh->raw_attributes, 'category_display'));
+        $this->assertNull(data_get($fresh->raw_attributes, 'category_display'));
+        $this->assertSame("\u{041A}\u{0443}\u{0437}\u{043E}\u{0432} / \u{041A}\u{0443}\u{0437}\u{043E}\u{0432}\u{043D}\u{044B}\u{0435} \u{043F}\u{0430}\u{043D}\u{0435}\u{043B}\u{0438} / \u{0414}\u{0432}\u{0435}\u{0440}\u{0438}, \u{043A}\u{0430}\u{043F}\u{043E}\u{0442} \u{0438} \u{043A}\u{0440}\u{044B}\u{0448}\u{043A}\u{0430} \u{0431}\u{0430}\u{0433}\u{0430}\u{0436}\u{043D}\u{0438}\u{043A}\u{0430}", app(NikolaCarsInventoryService::class)->displayCategory($fresh));
         $this->assertSame('matched', data_get($fresh->raw_attributes, 'tesla_category_match.status'));
         $this->assertSame('exact', data_get($fresh->raw_attributes, 'tesla_category_match.match_type'));
         $this->assertSame('1081440', data_get($fresh->raw_attributes, 'tesla_category_match.part_prefix'));
@@ -178,8 +182,9 @@ class NikolaCarsTeslaCategoryResolverTest extends TestCase
 
         $this->assertSame(
             "\u{041A}\u{0443}\u{0437}\u{043E}\u{0432} / \u{041A}\u{043E}\u{043C}\u{043F}\u{043E}\u{043D}\u{0435}\u{043D}\u{0442}\u{044B} \u{0437}\u{0430}\u{043A}\u{0440}\u{044B}\u{0442}\u{0438}\u{044F}",
-            data_get($fresh->raw_attributes, 'category_display')
+            app(NikolaCarsInventoryService::class)->displayCategory($fresh)
         );
+        $this->assertNull(data_get($fresh->raw_attributes, 'category_display'));
         $this->assertSame("\u{041A}\u{0443}\u{0437}\u{043E}\u{0432}", $fresh->main_category_name);
         $mirrorModel = PartCatalogCategory::query()->where('source_url', 'nikolacars://tesla-category/'.$model->id)->firstOrFail();
         $mirrorBody = PartCatalogCategory::query()->where('source_url', 'nikolacars://tesla-category/'.$body->id)->firstOrFail();
@@ -280,8 +285,10 @@ class NikolaCarsTeslaCategoryResolverTest extends TestCase
         $this->assertSame(2, $stats['items_seen']);
         $this->assertSame(1, $stats['items_skipped']);
         $this->assertSame(1, $stats['items_updated']);
-        $this->assertSame('Interior / Seats / Front seat', data_get($undetermined->fresh()->raw_attributes, 'category_display'));
-        $this->assertSame('matched', data_get($undetermined->fresh()->raw_attributes, 'tesla_category_match.status'));
+        $freshUndetermined = $undetermined->fresh();
+        $this->assertNull(data_get($freshUndetermined->raw_attributes, 'category_display'));
+        $this->assertSame("\u{0418}\u{043D}\u{0442}\u{0435}\u{0440}\u{044C}\u{0435}\u{0440} / \u{0421}\u{0438}\u{0434}\u{0435}\u{043D}\u{044C}\u{044F} / Front seat", app(NikolaCarsInventoryService::class)->displayCategory($freshUndetermined));
+        $this->assertSame('matched', data_get($freshUndetermined->raw_attributes, 'tesla_category_match.status'));
         $this->assertSame('Manual category', data_get($alreadyCategorized->fresh()->raw_attributes, 'category_display'));
     }
 
@@ -310,7 +317,8 @@ class NikolaCarsTeslaCategoryResolverTest extends TestCase
         $this->assertSame(1, $stats['items_seen']);
         $this->assertSame(0, $stats['items_skipped']);
         $this->assertSame(1, $stats['items_updated']);
-        $this->assertSame(NikolaCarsTeslaCategoryResolver::UNDETERMINED, data_get($fresh->raw_attributes, 'category_display'));
+        $this->assertNull(data_get($fresh->raw_attributes, 'category_display'));
+        $this->assertSame(NikolaCarsTeslaCategoryResolver::UNDETERMINED, app(NikolaCarsInventoryService::class)->displayCategory($fresh));
         $this->assertSame(NikolaCarsTeslaCategoryResolver::UNDETERMINED, $fresh->main_category_name);
     }
 

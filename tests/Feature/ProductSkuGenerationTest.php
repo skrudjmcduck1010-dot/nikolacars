@@ -800,7 +800,7 @@ class ProductSkuGenerationTest extends TestCase
             ->assertDontSee('&#1042;&#1088;&#1091;&#1095;&#1085;&#1091;&#1102;', false);
     }
 
-    public function test_donor_product_autofill_ignores_blank_manual_name_lock(): void
+    public function test_donor_product_autofill_leaves_localized_names_static(): void
     {
         $donorCar = DonorCar::query()->create([
             'vin' => '5YJ3E1EA7KF702821',
@@ -845,13 +845,13 @@ class ProductSkuGenerationTest extends TestCase
 
         $targetItem->refresh();
 
-        $this->assertSame(1, $stats['name_ru_updated']);
-        $this->assertSame($sourceItem->name_ru, $targetItem->name_ru);
-        $this->assertNull(data_get($targetItem->raw_attributes, 'manual_name_locks.ru'));
+        $this->assertSame(0, $stats['name_ru_updated']);
+        $this->assertNull($targetItem->name_ru);
+        $this->assertNotNull(data_get($targetItem->raw_attributes, 'manual_name_locks.ru'));
         $this->assertNull($targetItem->name_ru_manually_locked_at);
     }
 
-    public function test_product_update_preserves_manually_locked_nikolacars_ru_name(): void
+    public function test_product_update_syncs_nikolacars_names_from_tesla_official(): void
     {
         $user = $this->adminUser();
         $donorCar = DonorCar::query()->create([
@@ -921,11 +921,11 @@ class ProductSkuGenerationTest extends TestCase
 
         $this->assertSame($nikolaCarsItem->id, $product->refresh()->source_part_catalog_item_id);
         $this->assertSame($officialItem->id, data_get($nikolaCarsItem->raw_attributes, 'source_catalog_item_id'));
-        $this->assertSame("\u{0414}\u{0432}\u{0435}\u{0440}\u{044C} \u{043F}\u{0435}\u{0440}\u{0435}\u{0434}\u{043D}\u{044F}\u{044F} \u{043B}\u{0435}\u{0432}\u{0430}\u{044F}", $nikolaCarsItem->name_ru);
+        $this->assertSame($officialItem->name_ru, $nikolaCarsItem->name_ru);
         $this->assertSame("\u{0414}\u{0432}\u{0435}\u{0440}\u{0456} \u{043F}\u{0435}\u{0440}\u{0435}\u{0434}\u{043D}\u{0456} (\u{0447}\u{0435}\u{0440}\u{0432}\u{043E}\u{043D}\u{0456} PPMR) \u{043B}\u{0456}\u{0432}\u{0456}", $nikolaCarsItem->name_ua);
         $this->assertNotNull(data_get($nikolaCarsItem->raw_attributes, 'manual_name_locks.ru'));
-        $this->assertSame("\u{0414}\u{0432}\u{0435}\u{0440}\u{0456} \u{043F}\u{0435}\u{0440}\u{0435}\u{0434}\u{043D}\u{0456} (\u{0447}\u{0435}\u{0440}\u{0432}\u{043E}\u{043D}\u{0456} PPMR) \u{043B}\u{0456}\u{0432}\u{0456}", $officialItem->refresh()->name_ua);
-        $this->assertNotNull(data_get($officialItem->raw_attributes, 'manual_name_locks.ua'));
+        $this->assertNotNull(data_get($nikolaCarsItem->raw_attributes, 'manual_name_locks.ua'));
+        $this->assertSame($nikolaCarsItem->name_ua, $officialItem->refresh()->name_ua);
     }
 
     public function test_product_show_page_catalog_name_edit_locks_and_propagates_name(): void

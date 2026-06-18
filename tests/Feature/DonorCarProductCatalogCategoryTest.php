@@ -894,7 +894,7 @@ class DonorCarProductCatalogCategoryTest extends TestCase
         $this->assertSame('used', $product->condition_type);
     }
 
-    public function test_donor_damage_note_update_autofills_missing_names_from_local_catalog(): void
+    public function test_donor_damage_note_update_keeps_missing_localized_names_static(): void
     {
         $user = User::query()->create([
             'name' => 'Admin',
@@ -908,6 +908,17 @@ class DonorCarProductCatalogCategoryTest extends TestCase
             'brand' => 'Tesla',
             'model' => 'Model 3',
             'year' => 2020,
+        ]);
+        $warehouse = Warehouse::query()->create([
+            'name' => 'Autoname placement',
+            'floor_count' => 1,
+            'is_active' => true,
+        ]);
+        $location = Location::query()->create([
+            'warehouse_id' => $warehouse->id,
+            'full_code' => 'AUTONAME-A1',
+            'cell' => 'A1',
+            'is_active' => true,
         ]);
         $officialItem = PartCatalogItem::query()->create([
             'source' => 'tesla_official',
@@ -946,6 +957,8 @@ class DonorCarProductCatalogCategoryTest extends TestCase
         $this->actingAs($user)
             ->patch(route('admin.donor-cars.products.official-fields.update', [$donorCar, $product]), [
                 'damage_note' => "\u{041B}\u{0435}\u{0433}\u{043A}\u{0438}\u{0435} \u{043F}\u{043E}\u{0432}\u{0440}\u{0435}\u{0436}\u{0434}\u{0435}\u{043D}\u{0438}\u{044F}",
+                'warehouse_id' => $warehouse->id,
+                'location_id' => $location->id,
             ])
             ->assertRedirect();
 
@@ -954,9 +967,9 @@ class DonorCarProductCatalogCategoryTest extends TestCase
             ->where('source_url', 'nikolacars://donor-product/'.$product->id)
             ->firstOrFail();
 
-        $this->assertSame($sourceNameRu, $mirror->name_ru);
-        $this->assertSame($sourceNameUa, $mirror->name_ua);
-        $this->assertSame('donor_status_catalog_match', data_get($mirror->raw_attributes, 'name_source_type_ua'));
+        $this->assertNull($mirror->name_ru);
+        $this->assertNull($mirror->name_ua);
+        $this->assertNull(data_get($mirror->raw_attributes, 'name_source_type_ua'));
     }
 
     public function test_donor_damage_note_update_preserves_manual_nikolacars_category(): void

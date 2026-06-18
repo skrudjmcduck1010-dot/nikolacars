@@ -564,7 +564,7 @@ class PartCatalogTest extends TestCase
         $this->assertNull($officialElectric->name_ua);
     }
 
-    public function test_manual_catalog_name_update_locks_internal_exact_part_numbers_only(): void
+    public function test_manual_catalog_name_update_locks_internal_seven_digit_part_prefix_matches(): void
     {
         $user = User::query()->create([
             'name' => 'Admin',
@@ -659,13 +659,15 @@ class PartCatalogTest extends TestCase
         $this->assertNotNull($sameExactNikolaCars->name_ru_manually_locked_at);
         $this->assertNotNull(data_get($sameExactNikolaCars->raw_attributes, 'manual_name_locks.ua'));
 
-        $this->assertNull($blankSamePrefix->refresh()->name_ru);
-        $this->assertNull($blankSamePrefix->name_ua);
-        $this->assertNull($blankSamePrefix->name_ru_manually_locked_at);
-        $this->assertNull(data_get($blankSamePrefix->raw_attributes, 'manual_name_locks.ua'));
+        $this->assertSame('Manual RU', $blankSamePrefix->refresh()->name_ru);
+        $this->assertSame('Manual UA', $blankSamePrefix->name_ua);
+        $this->assertNotNull($blankSamePrefix->name_ru_manually_locked_at);
+        $this->assertNotNull(data_get($blankSamePrefix->raw_attributes, 'manual_name_locks.ua'));
 
-        $this->assertSame('Filled RU', $filledSamePrefix->refresh()->name_ru);
-        $this->assertSame('Filled UA', $filledSamePrefix->name_ua);
+        $this->assertSame('Manual RU', $filledSamePrefix->refresh()->name_ru);
+        $this->assertSame('Manual UA', $filledSamePrefix->name_ua);
+        $this->assertNotNull($filledSamePrefix->name_ru_manually_locked_at);
+        $this->assertNotNull(data_get($filledSamePrefix->raw_attributes, 'manual_name_locks.ua'));
         $this->assertNull($commonCompetitorRow->refresh()->name_ru);
         $this->assertNull($commonCompetitorRow->name_ua);
         $this->assertSame('Competitor RU', $competitor->refresh()->name_ru);
@@ -678,13 +680,13 @@ class PartCatalogTest extends TestCase
 
         $this->assertSame('Manual RU', $official->refresh()->name_ru);
         $this->assertSame('Manual UA', $official->name_ua);
-        $this->assertNull($blankSamePrefix->refresh()->name_ru);
-        $this->assertNull($blankSamePrefix->name_ua);
+        $this->assertSame('Manual RU', $blankSamePrefix->refresh()->name_ru);
+        $this->assertSame('Manual UA', $blankSamePrefix->name_ua);
         $this->assertSame('Manual RU', $sameExactDonor->refresh()->name_ru);
         $this->assertSame('Manual UA', $sameExactDonor->name_ua);
     }
 
-    public function test_tesla_catalog_manual_name_update_overwrites_exact_duplicates_without_prefix_matches(): void
+    public function test_tesla_catalog_manual_name_update_overwrites_internal_seven_digit_prefix_matches(): void
     {
         $user = User::query()->create([
             'name' => 'Admin',
@@ -732,11 +734,12 @@ class PartCatalogTest extends TestCase
         $this->assertSame($official->name_ru, $duplicate->refresh()->name_ru);
         $this->assertSame('Old UA', $duplicate->name_ua);
         $this->assertNotNull($duplicate->name_ru_manually_locked_at);
-        $this->assertNull($blankPrefix->refresh()->name_ru);
-        $this->assertNull($blankPrefix->name_ua);
+        $this->assertSame($official->name_ru, $blankPrefix->refresh()->name_ru);
+        $this->assertSame('Old UA', $blankPrefix->name_ua);
+        $this->assertNotNull($blankPrefix->name_ru_manually_locked_at);
     }
 
-    public function test_nikolacars_manual_name_update_locks_and_propagates_exact_internal_names(): void
+    public function test_nikolacars_manual_name_update_locks_and_propagates_seven_digit_prefix_internal_names(): void
     {
         $user = User::query()->create([
             'name' => 'Admin',
@@ -778,18 +781,22 @@ class PartCatalogTest extends TestCase
             'name_ru' => 'Competitor RU',
         ]);
 
-        $this->actingAs($user)
+        $response = $this->actingAs($user)
             ->patchJson(route('admin.zapchasti.update', $nikolaCarsItem), [
                 'name_ru' => 'Main battery 82 kWh',
             ])
             ->assertOk()
             ->assertJsonPath('item.name_ru', 'Main battery 82 kWh');
 
-        $this->assertSame('Main battery 82 kWh', $nikolaCarsItem->refresh()->name_ru);
+        $freshNikolaCarsItem = PartCatalogItem::query()->findOrFail($response->json('item.id'));
+
+        $this->assertSame('Main battery 82 kWh', $freshNikolaCarsItem->name_ru);
         $this->assertSame('Main battery 82 kWh', $officialItem->refresh()->name_ru);
-        $this->assertNull($basePartItem->refresh()->name_ru);
+        $this->assertSame('Main battery 82 kWh', $basePartItem->refresh()->name_ru);
         $this->assertSame('Competitor RU', $competitorItem->refresh()->name_ru);
+        $this->assertNotNull(data_get($freshNikolaCarsItem->raw_attributes, 'manual_name_locks.ru'));
         $this->assertNotNull($officialItem->name_ru_manually_locked_at);
+        $this->assertNotNull($basePartItem->name_ru_manually_locked_at);
     }
 
     public function test_nikolacars_catalog_hides_part_number_from_display_name(): void

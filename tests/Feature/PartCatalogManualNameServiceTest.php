@@ -46,7 +46,7 @@ class PartCatalogManualNameServiceTest extends TestCase
         $this->assertSame(1, data_get($item->raw_attributes, 'name_language_marker_conflict_ua.count'));
     }
 
-    public function test_manual_name_lock_propagates_only_to_internal_exact_part_number_matches(): void
+    public function test_manual_name_lock_propagates_to_internal_seven_digit_part_prefix_matches(): void
     {
         $sourceItem = PartCatalogItem::query()->create([
             'source' => 'tesla_official',
@@ -108,23 +108,21 @@ class PartCatalogManualNameServiceTest extends TestCase
             'name_ru' => 'Manual RU',
         ]);
 
-        $this->assertSame(3, $counts['name_ru']);
+        $this->assertSame(5, $counts['name_ru']);
         $this->assertSame(0, $counts['name_ua']);
 
-        foreach ([$sourceItem, $donorItem, $nikolaCarsItem] as $item) {
+        foreach ([$sourceItem, $donorItem, $nikolaCarsItem, $basePartItem, $rootPartItem] as $item) {
             $item->refresh();
 
             $this->assertSame('Manual RU', $item->name_ru);
             $this->assertNotNull(data_get($item->raw_attributes, 'manual_name_locks.ru'));
         }
 
-        $this->assertNull($basePartItem->refresh()->name_ru);
-        $this->assertNull($rootPartItem->refresh()->name_ru);
         $this->assertSame('Common competitor RU', $commonCompetitorRow->refresh()->name_ru);
         $this->assertSame('Competitor RU', $competitorItem->refresh()->name_ru);
     }
 
-    public function test_manual_name_lock_from_nikolacars_propagates_to_internal_exact_matches(): void
+    public function test_manual_name_lock_from_nikolacars_propagates_to_internal_seven_digit_part_prefix_matches(): void
     {
         $nikolaCarsItem = PartCatalogItem::query()->create([
             'source' => 'nikolacars',
@@ -140,6 +138,14 @@ class PartCatalogManualNameServiceTest extends TestCase
             'part_number' => '1498787-00-A',
             'name' => 'Official item',
             'name_ru' => 'Old official RU',
+        ]);
+
+        $samePrefixOfficialItem = PartCatalogItem::query()->create([
+            'source' => 'tesla_official',
+            'source_url' => 'https://parts.tesla.com/en-US/find-part?searchTerm=1498787-01-B',
+            'part_number' => '1498787-01-B',
+            'name' => 'Same prefix official item',
+            'name_ru' => 'Old same prefix official RU',
         ]);
 
         $donorItem = PartCatalogItem::query()->create([
@@ -164,9 +170,11 @@ class PartCatalogManualNameServiceTest extends TestCase
 
         $this->assertSame('NikolaCars Manual RU', $nikolaCarsItem->refresh()->name_ru);
         $this->assertSame('NikolaCars Manual RU', $officialItem->refresh()->name_ru);
+        $this->assertSame('NikolaCars Manual RU', $samePrefixOfficialItem->refresh()->name_ru);
         $this->assertSame('NikolaCars Manual RU', $donorItem->refresh()->name_ru);
         $this->assertSame('DriveParts RU', $competitorItem->refresh()->name_ru);
         $this->assertNotNull(data_get($officialItem->raw_attributes, 'manual_name_locks.ru'));
+        $this->assertNotNull(data_get($samePrefixOfficialItem->raw_attributes, 'manual_name_locks.ru'));
         $this->assertNotNull(data_get($donorItem->raw_attributes, 'manual_name_locks.ru'));
     }
 }

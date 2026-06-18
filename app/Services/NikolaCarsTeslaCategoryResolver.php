@@ -73,8 +73,7 @@ class NikolaCarsTeslaCategoryResolver
         $category = $this->nikolaCarsCategory($categoryLabel, $officialItem);
         $rawAttributes = PartCatalogRawAttributes::from($item);
 
-        $rawAttributes['category_display'] = $categoryLabel;
-        $rawAttributes['category_path'] = $categoryLabel;
+        unset($rawAttributes['category_display'], $rawAttributes['category_path']);
         $rawAttributes['tesla_category_match'] = array_filter([
             'status' => $officialItem ? 'matched' : 'not_found',
             'match_type' => $officialMatch->matchType,

@@ -22,6 +22,7 @@ use App\Services\NikolaCarsCatalogListService;
 use App\Services\NikolaCarsCatalogNameSuggestionService;
 use App\Services\NikolaCarsCatalogProductSyncService;
 use App\Services\NikolaCarsInventoryService;
+use App\Services\NikolaCarsProductInventorySyncService;
 use App\Services\NikolaCarsPromYmlFeed;
 use App\Services\PartCatalogCategoryRouteService;
 use App\Services\PartCatalogCategoryTreeService;
@@ -1049,6 +1050,11 @@ class PartCatalogController extends Controller
         $counts = $manualNameService->lockAndPropagate($partCatalogItem, $validated);
 
         $updated = array_sum($counts);
+        if ($updated > 0) {
+            app(NikolaCarsProductInventorySyncService::class)
+                ->syncProductsLinkedToSourceCatalogItem($partCatalogItem->fresh() ?? $partCatalogItem);
+        }
+
         $message = $updated > 0
             ? 'Названия каталога обновлены.'
             : 'Нет данных для обновления.';

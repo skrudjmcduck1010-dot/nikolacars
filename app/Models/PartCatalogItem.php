@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Services\ExchangeRateService;
 use App\Services\PartCatalogSourceStatsService;
-use App\Services\TeslaOfficialLocalizedNameSyncService;
 use App\Support\CatalogTextEncoding;
 use App\Support\PartCatalogLocalizedNameCleaner;
 use App\Support\PartCatalogRawAttributes;
@@ -207,12 +206,10 @@ class PartCatalogItem extends Model
 
         static::created(function (PartCatalogItem $item): void {
             app(PartCatalogSourceStatsService::class)->itemCreated($item);
-            app(TeslaOfficialLocalizedNameSyncService::class)->syncAfterItemSaved($item, true);
         });
 
         static::updated(function (PartCatalogItem $item): void {
             app(PartCatalogSourceStatsService::class)->itemUpdated($item);
-            app(TeslaOfficialLocalizedNameSyncService::class)->syncAfterItemSaved($item, false);
         });
 
         static::deleted(function (PartCatalogItem $item): void {

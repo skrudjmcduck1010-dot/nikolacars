@@ -30,8 +30,8 @@ class NikolaCarsDonorInventorySyncServiceTest extends TestCase
             'source_url' => 'https://parts.tesla.com/1044831-99-e',
             'part_number' => '1044831-99-E',
             'name' => 'STEERING GEAR ASSEMBLY - LEFT HAND DRIVE',
-            'name_ru' => 'Р СѓР»РµРІР°СЏ СЂРµР№РєР°',
-            'name_ua' => 'Р СѓР»СЊРѕРІР° СЂРµР№РєР°',
+            'name_ru' => 'Рулевая рейка',
+            'name_ua' => 'Рульова рейка',
             'main_category_name' => 'Steering',
         ]);
         $checkedProduct = Product::query()->create([
@@ -47,7 +47,7 @@ class NikolaCarsDonorInventorySyncServiceTest extends TestCase
             'unit' => 'pcs',
             'selling_price' => 250,
             'currency' => 'USD',
-            'notes' => 'Р‘РµР· РїРѕРІСЂРµР¶РґРµРЅРёР№',
+            'notes' => NikolaCarsProductInventorySyncService::CHECKED_DAMAGE_STATUSES[0],
             'is_active' => true,
         ]);
         Product::query()->create([
@@ -62,7 +62,7 @@ class NikolaCarsDonorInventorySyncServiceTest extends TestCase
             'unit' => 'pcs',
             'selling_price' => 100,
             'currency' => 'USD',
-            'notes' => 'РќРµРёР·РІРµСЃС‚РЅРѕ',
+            'notes' => 'Неизвестно',
             'is_active' => true,
         ]);
 
@@ -74,7 +74,7 @@ class NikolaCarsDonorInventorySyncServiceTest extends TestCase
             'source' => 'nikolacars',
             'source_url' => 'nikolacars://donor-product/'.$checkedProduct->id,
             'part_number' => '1044831-99-E',
-            'quality' => 'Р‘РµР· РїРѕРІСЂРµР¶РґРµРЅРёР№',
+            'quality' => NikolaCarsProductInventorySyncService::CHECKED_DAMAGE_STATUSES[0],
         ]);
 
         $item = PartCatalogItem::query()
@@ -85,10 +85,13 @@ class NikolaCarsDonorInventorySyncServiceTest extends TestCase
         $this->assertSame($donorCar->vin, data_get($item->raw_attributes, 'donor_vin'));
         $this->assertSame(1, data_get($item->raw_attributes, 'stock_quantity'));
         $this->assertSame($item->id, $checkedProduct->refresh()->source_part_catalog_item_id);
-        $this->assertSame('Р СѓР»РµРІР°СЏ СЂРµР№РєР°', $item->name_ru);
+        $this->assertSame('Рулевая рейка', $item->name_ru);
+        $this->assertSame('Рульова рейка', $item->name_ua);
+        $this->assertSame($officialItem->id, data_get($item->raw_attributes, 'name_source_item_id_ru'));
+        $this->assertSame($officialItem->id, data_get($item->raw_attributes, 'name_source_item_id_ua'));
     }
 
-    public function test_donor_product_sync_fills_non_cyrillic_ua_name_from_local_catalog(): void
+    public function test_donor_product_sync_keeps_non_cyrillic_ua_name_static(): void
     {
         $donorCar = DonorCar::query()->create([
             'vin' => '5YJ3E1EA6MF048163',
@@ -131,7 +134,7 @@ class NikolaCarsDonorInventorySyncServiceTest extends TestCase
         $this->assertNull($mirror->name_ua);
 
         $sourceNameUa = "\u{0411}\u{0430}\u{0442}\u{0430}\u{0440}\u{0435}\u{044F} \u{0443} \u{0437}\u{0431}\u{043E}\u{0440}\u{0456}";
-        $sourceItem = PartCatalogItem::query()->create([
+        PartCatalogItem::query()->create([
             'source' => 'erazborka',
             'source_url' => 'https://erazborka.example/1104428-00-W',
             'part_number' => '1104428-00-W',
@@ -142,9 +145,9 @@ class NikolaCarsDonorInventorySyncServiceTest extends TestCase
         app(NikolaCarsProductInventorySyncService::class)->syncProduct($product->refresh());
         $mirror->refresh();
 
-        $this->assertSame($sourceNameUa, $mirror->name_ua);
-        $this->assertSame($sourceItem->id, data_get($mirror->raw_attributes, 'name_source_item_id_ua'));
-        $this->assertSame('donor_status_catalog_match', data_get($mirror->raw_attributes, 'name_source_type_ua'));
+        $this->assertNull($mirror->name_ua);
+        $this->assertNull(data_get($mirror->raw_attributes, 'name_source_item_id_ua'));
+        $this->assertNull(data_get($mirror->raw_attributes, 'name_source_type_ua'));
     }
 
     public function test_official_vin_generated_products_keep_auto_flag_when_mirrored_and_restored(): void
@@ -177,8 +180,8 @@ class NikolaCarsDonorInventorySyncServiceTest extends TestCase
             'generated_at' => now(),
             'description' => implode(PHP_EOL, [
                 "\u{0410}\u{0432}\u{0442}\u{043E}\u{043C}\u{0430}\u{0442}\u{0438}\u{0447}\u{0435}\u{0441}\u{043A}\u{0438} \u{0441}\u{0433}\u{0435}\u{043D}\u{0435}\u{0440}\u{0438}\u{0440}\u{043E}\u{0432}\u{0430}\u{043D}\u{043E} \u{0438}\u{0437} \u{043A}\u{0430}\u{0442}\u{0430}\u{043B}\u{043E}\u{0433}\u{0430} \u{0437}\u{0430}\u{043F}\u{0447}\u{0430}\u{0441}\u{0442}\u{0435}\u{0439}.",
-                'РСЃС‚РѕС‡РЅРёРє: tesla_official',
-                'РЎСЃС‹Р»РєР°: https://parts.tesla.com/en-US/find-part?searchTerm=1044831-00-F',
+                'Источник: tesla_official',
+                'Ссылка: https://parts.tesla.com/en-US/find-part?searchTerm=1044831-00-F',
             ]),
             'condition_type' => 'used',
             'testing_status' => 'not_tested',
@@ -284,7 +287,8 @@ class NikolaCarsDonorInventorySyncServiceTest extends TestCase
             ->where('source_url', 'nikolacars://donor-product/'.$product->id)
             ->firstOrFail();
 
-        $this->assertSame('Body / Closures / Hood', data_get($item->raw_attributes, 'category_display'));
+        $this->assertNull(data_get($item->raw_attributes, 'category_display'));
+        $this->assertSame("\u{041A}\u{0443}\u{0437}\u{043E}\u{0432} / \u{0414}\u{0432}\u{0435}\u{0440}\u{0438}, \u{043A}\u{0430}\u{043F}\u{043E}\u{0442} \u{0438} \u{0431}\u{0430}\u{0433}\u{0430}\u{0436}\u{043D}\u{0438}\u{043A} / \u{041A}\u{0430}\u{043F}\u{043E}\u{0442}", app(NikolaCarsInventoryService::class)->displayCategory($item));
         $this->assertSame('Body', $item->main_category_name);
         $this->assertSame('Closures', $item->subcategory_name);
         $this->assertSame('Hood', $item->node_name);
@@ -302,7 +306,7 @@ class NikolaCarsDonorInventorySyncServiceTest extends TestCase
         $product = Product::query()->create([
             'sku' => 'DON24-0580',
             'external_sku' => '1127503-01-D',
-            'name' => 'Р”Р°С‚С‡РёРє РїР°СЂРєС‚СЂРѕРЅС–РєСѓ РїРµСЂРµРґРЅСЊРѕРіРѕ Р±Р°РјРїРµСЂР° Tesla MY 2020 - 2023 1127503-01-D',
+            'name' => 'Датчик парктроніку переднього бампера Tesla MY 2020 - 2023 1127503-01-D',
             'slug' => 'don24-0580',
             'donor_car_id' => $donorCar->id,
             'storage_status' => Product::STORAGE_STATUS_ON_DONOR,
@@ -311,7 +315,7 @@ class NikolaCarsDonorInventorySyncServiceTest extends TestCase
             'unit' => 'pcs',
             'selling_price' => 20,
             'currency' => 'USD',
-            'notes' => 'Р вЂР ВµР В· Р С—Р С•Р Р†РЎР‚Р ВµР В¶Р Т‘Р ВµР Р…Р С‘Р в„–',
+            'notes' => NikolaCarsProductInventorySyncService::CHECKED_DAMAGE_STATUSES[0],
             'is_active' => true,
         ]);
         $item = PartCatalogItem::query()->create([
@@ -319,8 +323,8 @@ class NikolaCarsDonorInventorySyncServiceTest extends TestCase
             'source_url' => 'nikolacars://donor-product/'.$product->id,
             'part_number' => '1127503-01-D',
             'name' => $product->name,
-            'name_ru' => 'Р”Р°С‚С‡РёРє РїР°СЂРєС‚СЂРѕРЅРёРєР° РїРµСЂРµРґРЅРµРіРѕ Р±Р°РјРїРµСЂР° MY 2020 - 2023 1127503-01-D',
-            'name_ua' => 'Р”Р°С‚С‡РёРє РїР°СЂРєС‚СЂРѕРЅС–РєР° - РїСЂСЏРјРёР№ РєРѕСЂРїСѓСЃ - Valeo',
+            'name_ru' => 'Датчик парктроника переднего бампера MY 2020 - 2023 1127503-01-D',
+            'name_ua' => 'Датчик парктроніка - прямий корпус - Valeo',
             'raw_attributes' => [
                 'code' => '580',
                 'product_id' => $product->id,
@@ -332,15 +336,19 @@ class NikolaCarsDonorInventorySyncServiceTest extends TestCase
             ],
         ]);
         $product->forceFill(['source_part_catalog_item_id' => $item->id])->save();
+        $expectedNameRu = $item->refresh()->name_ru;
+        $expectedNameUa = $item->name_ua;
+        $expectedNameSourceUrlUa = data_get($item->raw_attributes, 'name_source_url_ua');
+        $expectedNameSourceItemIdUa = data_get($item->raw_attributes, 'name_source_item_id_ua');
 
         app(NikolaCarsProductInventorySyncService::class)->syncProduct($product->refresh());
 
         $item->refresh();
 
-        $this->assertSame('Р”Р°С‚С‡РёРє РїР°СЂРєС‚СЂРѕРЅРёРєР° РїРµСЂРµРґРЅРµРіРѕ Р±Р°РјРїРµСЂР°', $item->name_ru);
-        $this->assertSame('Р”Р°С‚С‡РёРє РїР°СЂРєС‚СЂРѕРЅС–РєСѓ РїРµСЂРµРґРЅСЊРѕРіРѕ Р±Р°РјРїРµСЂР°', $item->name_ua);
-        $this->assertNull(data_get($item->raw_attributes, 'name_source_url_ua'));
-        $this->assertNull(data_get($item->raw_attributes, 'name_source_item_id_ua'));
+        $this->assertSame($expectedNameRu, $item->name_ru);
+        $this->assertSame($expectedNameUa, $item->name_ua);
+        $this->assertSame($expectedNameSourceUrlUa, data_get($item->raw_attributes, 'name_source_url_ua'));
+        $this->assertSame($expectedNameSourceItemIdUa, data_get($item->raw_attributes, 'name_source_item_id_ua'));
     }
 
     public function test_nomenclature_product_mirror_clears_ru_name_when_file_has_same_ru_and_ua_name(): void
@@ -348,7 +356,7 @@ class NikolaCarsDonorInventorySyncServiceTest extends TestCase
         $product = Product::query()->create([
             'sku' => 'NC-181',
             'external_sku' => '1079749-00-D',
-            'name' => 'Р‘Р»РѕРє РєРµСЂСѓРІР°РЅРЅСЏ РјСѓР»СЊС‚РёРјРµРґС–СЏ Tesla M3 2015 - 2020 1079749-00-D',
+            'name' => 'Блок керування мультимедія Tesla M3 2015 - 2020 1079749-00-D',
             'slug' => 'nc-181',
             'storage_status' => Product::STORAGE_STATUS_IN_STOCK,
             'condition_type' => 'used',
@@ -356,16 +364,16 @@ class NikolaCarsDonorInventorySyncServiceTest extends TestCase
             'unit' => 'pcs',
             'selling_price' => 20,
             'currency' => 'USD',
-            'notes' => 'Р‘РµР· РїРѕРІСЂРµР¶РґРµРЅРёР№',
+            'notes' => NikolaCarsProductInventorySyncService::CHECKED_DAMAGE_STATUSES[0],
             'is_active' => true,
         ]);
         $item = PartCatalogItem::query()->create([
             'source' => 'nikolacars',
-            'source_url' => 'nikolacars://donor-product/'.$product->id,
+            'source_url' => 'nikolacars://inventory-product/'.$product->id,
             'part_number' => '1079749-00-D',
             'name' => $product->name,
-            'name_ru' => 'Р‘Р»РѕРє РєРµСЂСѓРІР°РЅРЅСЏ РјСѓР»СЊС‚РёРјРµРґС–СЏ Tesla M3 2015 - 2020 1079749-00-D',
-            'name_ua' => 'Р‘Р»РѕРє РєРµСЂСѓРІР°РЅРЅСЏ РјСѓР»СЊС‚РёРјРµРґС–СЏ',
+            'name_ru' => 'Блок керування мультимедія Tesla M3 2015 - 2020 1079749-00-D',
+            'name_ua' => 'Блок керування мультимедія',
             'raw_attributes' => [
                 'code' => '181',
                 'product_id' => $product->id,
@@ -373,13 +381,15 @@ class NikolaCarsDonorInventorySyncServiceTest extends TestCase
             ],
         ]);
         $product->forceFill(['source_part_catalog_item_id' => $item->id])->save();
+        $expectedNameRu = $item->refresh()->name_ru;
+        $expectedNameUa = $item->name_ua;
 
         app(NikolaCarsProductInventorySyncService::class)->syncProduct($product->refresh());
 
         $item->refresh();
 
-        $this->assertNull($item->name_ru);
-        $this->assertSame('Р‘Р»РѕРє РєРµСЂСѓРІР°РЅРЅСЏ РјСѓР»СЊС‚РёРјРµРґС–СЏ', $item->name_ua);
+        $this->assertSame($expectedNameRu, $item->name_ru);
+        $this->assertSame($expectedNameUa, $item->name_ua);
     }
 
     public function test_nomenclature_product_mirror_keeps_ru_name_translated_from_ua(): void
@@ -387,7 +397,7 @@ class NikolaCarsDonorInventorySyncServiceTest extends TestCase
         $product = Product::query()->create([
             'sku' => 'NC-181',
             'external_sku' => '1079749-00-D',
-            'name' => 'Р‘Р»РѕРє РєРµСЂСѓРІР°РЅРЅСЏ РјСѓР»СЊС‚РёРјРµРґС–СЏ Tesla M3 2015 - 2020 1079749-00-D',
+            'name' => 'Блок керування мультимедія Tesla M3 2015 - 2020 1079749-00-D',
             'slug' => 'nc-181-translated-ru',
             'storage_status' => Product::STORAGE_STATUS_IN_STOCK,
             'condition_type' => 'used',
@@ -395,16 +405,16 @@ class NikolaCarsDonorInventorySyncServiceTest extends TestCase
             'unit' => 'pcs',
             'selling_price' => 20,
             'currency' => 'USD',
-            'notes' => 'Р‘РµР· РїРѕРІСЂРµР¶РґРµРЅРёР№',
+            'notes' => NikolaCarsProductInventorySyncService::CHECKED_DAMAGE_STATUSES[0],
             'is_active' => true,
         ]);
         $item = PartCatalogItem::query()->create([
             'source' => 'nikolacars',
-            'source_url' => 'nikolacars://donor-product/'.$product->id,
+            'source_url' => 'nikolacars://inventory-product/'.$product->id,
             'part_number' => '1079749-00-D',
             'name' => $product->name,
-            'name_ru' => 'Р‘Р»РѕРє СѓРїСЂР°РІР»РµРЅРёСЏ РјСѓР»СЊС‚РёРјРµРґРёР°',
-            'name_ua' => 'Р‘Р»РѕРє РєРµСЂСѓРІР°РЅРЅСЏ РјСѓР»СЊС‚РёРјРµРґС–СЏ',
+            'name_ru' => 'Блок управления мультимедиа',
+            'name_ua' => 'Блок керування мультимедія',
             'raw_attributes' => [
                 'code' => '181',
                 'product_id' => $product->id,
@@ -416,7 +426,7 @@ class NikolaCarsDonorInventorySyncServiceTest extends TestCase
 
         app(NikolaCarsProductInventorySyncService::class)->syncProduct($product->refresh());
 
-        $this->assertSame('Р‘Р»РѕРє СѓРїСЂР°РІР»РµРЅРёСЏ РјСѓР»СЊС‚РёРјРµРґРёР°', $item->refresh()->name_ru);
+        $this->assertSame('Блок управления мультимедиа', $item->refresh()->name_ru);
     }
 
     public function test_broken_donor_product_stays_in_nikolacars_catalog_history_but_not_active_inventory(): void
@@ -439,7 +449,7 @@ class NikolaCarsDonorInventorySyncServiceTest extends TestCase
             'unit' => 'pcs',
             'selling_price' => 100,
             'currency' => 'USD',
-            'notes' => 'Р›РµРіРєРёРµ РїРѕРІСЂРµР¶РґРµРЅРёСЏ',
+            'notes' => NikolaCarsProductInventorySyncService::CHECKED_DAMAGE_STATUSES[1],
             'is_active' => true,
         ]);
         app(NikolaCarsDonorInventorySyncService::class)->syncProduct($product);
@@ -523,7 +533,7 @@ class NikolaCarsDonorInventorySyncServiceTest extends TestCase
             'unit' => 'pcs',
             'selling_price' => 100,
             'currency' => 'USD',
-            'notes' => 'РќРµРёР·РІРµСЃС‚РЅРѕ',
+            'notes' => 'Неизвестно',
             'is_auto_generated' => true,
             'is_active' => true,
         ]);
@@ -603,7 +613,7 @@ class NikolaCarsDonorInventorySyncServiceTest extends TestCase
         $this->assertSame('nikolacars://donor-product/'.$product->id, $item->source_url);
     }
 
-    public function test_sync_preserves_manually_locked_nikolacars_mirror_names(): void
+    public function test_sync_replaces_manually_locked_nikolacars_names_from_tesla_official(): void
     {
         $donorCar = DonorCar::query()->create([
             'vin' => '5YJ3E1EB8JF091651',
@@ -657,11 +667,13 @@ class NikolaCarsDonorInventorySyncServiceTest extends TestCase
             ->where('source_url', 'nikolacars://donor-product/'.$product->id)
             ->firstOrFail();
 
-        $this->assertSame($manualRuName, $mirror->name_ru);
-        $this->assertSame('2026-06-12 15:30:35', data_get($mirror->raw_attributes, 'manual_name_locks.ru'));
+        $this->assertSame($officialItem->name_ru, $mirror->name_ru);
+        $this->assertSame($officialItem->name_ua, $mirror->name_ua);
+        $this->assertNotNull(data_get($mirror->raw_attributes, 'manual_name_locks.ru'));
+        $this->assertNotNull(data_get($mirror->raw_attributes, 'manual_name_locks.ua'));
     }
 
-    public function test_sync_inherits_existing_tesla_official_manual_names_for_unlocked_donor_mirror(): void
+    public function test_sync_applies_tesla_official_manual_names_to_unlocked_donor_mirror(): void
     {
         $donorCar = DonorCar::query()->create([
             'vin' => '5YJYGDEE5MF081658',
@@ -721,8 +733,85 @@ class NikolaCarsDonorInventorySyncServiceTest extends TestCase
 
         $this->assertSame($officialItem->name_ru, $mirror->name_ru);
         $this->assertSame($officialItem->name_ua, $mirror->name_ua);
-        $this->assertNotNull($mirror->name_ru_manually_locked_at);
-        $this->assertSame($lockedAtRu->toDateTimeString(), data_get($mirror->raw_attributes, 'manual_name_locks.ru'));
-        $this->assertSame($lockedAtUa->toDateTimeString(), data_get($mirror->raw_attributes, 'manual_name_locks.ua'));
+        $this->assertNull($mirror->name_ru_manually_locked_at);
+        $this->assertSame($officialItem->id, data_get($mirror->raw_attributes, 'name_source_item_id_ru'));
+        $this->assertSame($officialItem->id, data_get($mirror->raw_attributes, 'name_source_item_id_ua'));
+    }
+
+    public function test_sync_applies_tesla_official_manual_names_by_seven_digit_match(): void
+    {
+        $donorCar = DonorCar::query()->create([
+            'vin' => 'TESLA MS 2012 - 2015 leftovers',
+            'brand' => 'Tesla',
+            'model' => 'Model S',
+            'year' => 2016,
+        ]);
+        $olderOfficial = PartCatalogItem::query()->create([
+            'source' => 'tesla_official',
+            'source_url' => 'https://parts.tesla.com/en-US/find-part?searchTerm=1188731-00-E',
+            'part_number' => '1188731-00-E',
+            'name' => '3. BRAKE HOSE ASSEMBLY - REAR - LEFT HAND - BASE',
+            'name_ru' => "\u{0422}\u{043E}\u{0440}\u{043C}\u{043E}\u{0437}\u{043D}\u{043E}\u{0439} \u{0448}\u{043B}\u{0430}\u{043D}\u{0433} \u{0437}\u{0430}\u{0434}\u{043D}\u{0435}\u{0433}\u{043E} \u{0441}\u{0443}\u{043F}\u{043F}\u{043E}\u{0440}\u{0442}\u{0430} \u{0441}\u{043B}\u{0435}\u{0432}\u{0430}",
+            'name_ua' => "\u{0413}\u{0430}\u{043B}\u{044C}\u{043C}\u{0456}\u{0432}\u{043D}\u{0438}\u{0439} \u{0448}\u{043B}\u{0430}\u{043D}\u{0433} \u{0437}\u{0430}\u{0434}\u{043D}\u{044C}\u{043E}\u{0433}\u{043E} \u{0441}\u{0443}\u{043F}\u{043E}\u{0440}\u{0442}\u{0430} \u{0437}\u{043B}\u{0456}\u{0432}\u{0430}",
+        ]);
+        $officialRu = "\u{0422}\u{043E}\u{0440}\u{043C}\u{043E}\u{0437}\u{043D}\u{043E}\u{0439} \u{0448}\u{043B}\u{0430}\u{043D}\u{0433} \u{0437}\u{0430}\u{0434}\u{043D}\u{0435}\u{0433}\u{043E} \u{0441}\u{0443}\u{043F}\u{043F}\u{043E}\u{0440}\u{0442}\u{0430} (\u{0441}\u{043B}\u{0435}\u{0432}\u{0430})";
+        $officialUa = "\u{0413}\u{0430}\u{043B}\u{044C}\u{043C}\u{0456}\u{0432}\u{043D}\u{0438}\u{0439} \u{0448}\u{043B}\u{0430}\u{043D}\u{0433} \u{0437}\u{0430}\u{0434}\u{043D}\u{044C}\u{043E}\u{0433}\u{043E} \u{0441}\u{0443}\u{043F}\u{043E}\u{0440}\u{0442}\u{0430} \u{0437}\u{043B}\u{0456}\u{0432}\u{0430}";
+        $manualOfficial = PartCatalogItem::query()->create([
+            'source' => 'tesla_official',
+            'source_url' => 'https://parts.tesla.com/en-US/find-part?searchTerm=1188731-00-D',
+            'part_number' => '1188731-00-D',
+            'name' => '3. BRAKE HOSE ASSEMBLY - REAR - LEFT HAND',
+            'name_ru' => $officialRu,
+            'name_ua' => $officialUa,
+            'raw_attributes' => [
+                'manual_name_locks' => [
+                    'ru' => '2026-06-16 19:49:35',
+                ],
+                'name_source_site_ru' => 'tcarservice.com',
+                'name_source_url_ru' => 'https://tcarservice.example/brake-hose',
+            ],
+        ]);
+        $wrongName = "\u{0421}\u{0430}\u{0431}\u{0432}\u{0443}\u{0444}\u{0435}\u{0440}";
+        $product = Product::query()->create([
+            'sku' => 'NC-1164',
+            'external_sku' => '1188731-00-B',
+            'name' => $wrongName.' Tesla MS 2016',
+            'slug' => 'nc-1164',
+            'donor_car_id' => $donorCar->id,
+            'storage_status' => Product::STORAGE_STATUS_ON_DONOR,
+            'condition_type' => 'used',
+            'testing_status' => 'tested',
+            'unit' => 'pcs',
+            'selling_price' => 100,
+            'currency' => 'USD',
+            'notes' => NikolaCarsProductInventorySyncService::CHECKED_DAMAGE_STATUSES[0],
+            'is_active' => true,
+        ]);
+        $mirror = PartCatalogItem::query()->create([
+            'source' => 'nikolacars',
+            'source_url' => 'nikolacars://donor-product/'.$product->id,
+            'part_number' => '1188731-00-B',
+            'name' => $wrongName.' Tesla MS 2016',
+            'name_ru' => $wrongName,
+            'name_ua' => $wrongName,
+            'raw_attributes' => [
+                'code' => '1164',
+                'source_row' => [
+                    'code' => '1164',
+                ],
+            ],
+        ]);
+        $product->forceFill(['source_part_catalog_item_id' => $mirror->id])->save();
+
+        app(NikolaCarsProductInventorySyncService::class)->syncProduct($product->refresh());
+        $mirror->refresh();
+
+        $this->assertSame($manualOfficial->id, data_get($mirror->raw_attributes, 'source_catalog_item_id'));
+        $this->assertNotSame($olderOfficial->id, data_get($mirror->raw_attributes, 'source_catalog_item_id'));
+        $this->assertSame($officialRu, $mirror->name_ru);
+        $this->assertSame($officialUa, $mirror->name_ua);
+        $this->assertSame('tcarservice.com', data_get($mirror->raw_attributes, 'name_source_site_ru'));
+        $this->assertSame('https://tcarservice.example/brake-hose', data_get($mirror->raw_attributes, 'name_source_url_ru'));
+        $this->assertNull(data_get($mirror->raw_attributes, 'manual_name_locks.ru'));
     }
 }

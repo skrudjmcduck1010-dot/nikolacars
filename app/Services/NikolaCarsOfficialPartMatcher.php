@@ -36,10 +36,10 @@ class NikolaCarsOfficialPartMatcher
             );
         }
 
-        $exact = $this->officialItemsQuery($options)
-            ->where('part_number', $normalizedPartNumber)
-            ->tap(fn (Builder $query): Builder => $this->preferCanonicalOfficialItems($query))
-            ->first();
+        $exact = $this->preferredOfficialItem(
+            $this->officialItemsQuery($options)
+                ->where('part_number', $normalizedPartNumber)
+        );
 
         if ($exact instanceof PartCatalogItem) {
             return new NikolaCarsOfficialPartMatch(
@@ -50,10 +50,10 @@ class NikolaCarsOfficialPartMatcher
             );
         }
 
-        $fallback = $this->officialItemsQuery($options)
-            ->where('part_number', 'like', $partPrefix.'%')
-            ->tap(fn (Builder $query): Builder => $this->preferCanonicalOfficialItems($query))
-            ->first();
+        $fallback = $this->preferredOfficialItem(
+            $this->officialItemsQuery($options)
+                ->where('part_number', 'like', $partPrefix.'%')
+        );
 
         if ($fallback instanceof PartCatalogItem) {
             return new NikolaCarsOfficialPartMatch(
@@ -93,9 +93,47 @@ class NikolaCarsOfficialPartMatcher
     protected function preferCanonicalOfficialItems(Builder $query): Builder
     {
         return $query
-            ->orderByRaw("case when source_url like ? then 1 else 0 end", ['%vin=%'])
-            ->orderByRaw("case when raw_attributes like ? then 1 else 0 end", ['%"donor_vin"%'])
+            ->orderByRaw('case when source_url like ? then 1 else 0 end', ['%vin=%'])
+            ->orderByRaw('case when raw_attributes like ? then 1 else 0 end', ['%"donor_vin"%'])
             ->orderByRaw('part_catalog_category_id is null')
             ->orderBy('id');
+    }
+
+    protected function preferredOfficialItem(Builder $query): ?PartCatalogItem
+    {
+        return $this->preferCanonicalOfficialItems($query)
+            ->get()
+            ->sortBy(fn (PartCatalogItem $item): string => $this->officialItemPreferenceKey($item))
+            ->first();
+    }
+
+    protected function officialItemPreferenceKey(PartCatalogItem $item): string
+    {
+        return implode('|', [
+            $this->hasManualLocalizedNameLock($item) ? '0' : '1',
+            str_contains((string) $item->source_url, 'vin=') ? '1' : '0',
+            data_get($item->raw_attributes, 'donor_vin') ? '1' : '0',
+            $item->part_catalog_category_id === null ? '1' : '0',
+            str_pad((string) $item->id, 12, '0', STR_PAD_LEFT),
+        ]);
+    }
+
+    protected function hasManualLocalizedNameLock(PartCatalogItem $item): bool
+    {
+        foreach (['ru' => 'name_ru', 'ua' => 'name_ua'] as $locale => $column) {
+            if (trim((string) $item->{$column}) === '') {
+                continue;
+            }
+
+            $lockColumn = $column === 'name_ru'
+                ? 'name_ru_manually_locked_at'
+                : 'name_ua_manually_locked_at';
+
+            if ($item->{$lockColumn} !== null || data_get($item->raw_attributes, 'manual_name_locks.'.$locale)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

@@ -144,18 +144,30 @@ class NikolaCarsCatalogItemService
         }
 
         $item->save();
-        app(NikolaCarsTeslaCategoryResolver::class)->resolveItem($item->fresh());
-        app(NikolaCarsCatalogProductSyncService::class)->syncItem($item->fresh());
+        $freshItem = $item->fresh();
+        if ($freshItem instanceof PartCatalogItem) {
+            app(NikolaCarsTeslaCategoryResolver::class)->resolveItem($freshItem);
+        }
+
+        $syncResult = $freshItem instanceof PartCatalogItem
+            ? app(NikolaCarsCatalogProductSyncService::class)->syncItem($freshItem)
+            : ['saved' => false, 'product' => null];
 
         $manualNameUpdates = collect($validated)
             ->only(['name_ru', 'name_ua'])
             ->all();
 
-        if ($manualNameUpdates !== []) {
-            app(PartCatalogManualNameService::class)->lockAndPropagate($item->fresh(), $manualNameUpdates);
+        $manualNameItem = $freshItem;
+        $syncedProduct = $syncResult['product'] ?? null;
+        if ($syncedProduct instanceof Product) {
+            $manualNameItem = $syncedProduct->refresh()->sourcePartCatalogItem ?: $manualNameItem;
         }
 
-        $updatedItems = collect([$item->fresh()]);
+        if ($manualNameUpdates !== [] && $manualNameItem instanceof PartCatalogItem) {
+            app(PartCatalogManualNameService::class)->lockAndPropagate($manualNameItem, $manualNameUpdates);
+        }
+
+        $updatedItems = collect([$manualNameItem?->fresh() ?: $manualNameItem])->filter();
 
         if (array_key_exists('price_amount', $validated) && $applyToPartNumber) {
             $groupPartNumber = $this->normalizePartNumber((string) $item->part_number);
@@ -230,8 +242,7 @@ class NikolaCarsCatalogItemService
             ->values();
         $rawAttributes = $this->rawAttributes($item);
 
-        $rawAttributes['category_display'] = $categoryLabel;
-        $rawAttributes['category_path'] = $categoryLabel;
+        unset($rawAttributes['category_display'], $rawAttributes['category_path']);
         $rawAttributes['manual_category'] = true;
         $rawAttributes['manual_category_id'] = $category->id;
 

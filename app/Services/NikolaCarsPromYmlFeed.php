@@ -137,8 +137,7 @@ class NikolaCarsPromYmlFeed
             'locations' => $items
                 ->map(fn (PartCatalogItem $item): string => (string) (
                     data_get($item->raw_attributes, 'donor_vin')
-                    ?: data_get($item->raw_attributes, 'category_display')
-                    ?: data_get($item->raw_attributes, 'category_path')
+                    ?: $this->displayItemCategory($item)
                     ?: ''
                 ))
                 ->filter()
@@ -215,11 +214,15 @@ class NikolaCarsPromYmlFeed
     protected function categoryName(Collection $items): string
     {
         return (string) ($items
-            ->pluck('main_category_name')
+            ->map(fn (PartCatalogItem $item): string => $this->displayItemCategory($item))
             ->filter()
             ->first()
-            ?: $items->map(fn (PartCatalogItem $item): ?string => data_get($item->raw_attributes, 'category_display'))->filter()->first()
             ?: 'Запчасти Tesla');
+    }
+
+    protected function displayItemCategory(PartCatalogItem $item): string
+    {
+        return trim(app(NikolaCarsInventoryService::class)->displayCategory($item));
     }
 
     protected function categoryId(string $category): string

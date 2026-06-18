@@ -47,7 +47,7 @@ class NikolaCarsCatalogProductSyncServiceTest extends TestCase
             'source_part_catalog_item_id' => $item->id,
             'sku' => 'NC-581',
             'external_sku' => '5YJSA1H1XEFP59563',
-            'notes' => 'Р‘РµР· РїРѕРІСЂРµР¶РґРµРЅРёР№',
+            'notes' => NikolaCarsProductInventorySyncService::CHECKED_DAMAGE_STATUSES[0],
             'storage_status' => Product::STORAGE_STATUS_ON_DONOR,
         ]);
 
@@ -55,7 +55,7 @@ class NikolaCarsCatalogProductSyncServiceTest extends TestCase
         $freshItem = $item->fresh();
 
         $this->assertSame($product->id, data_get($freshItem->raw_attributes, 'product_id'));
-        $this->assertSame('Р‘РµР· РїРѕРІСЂРµР¶РґРµРЅРёР№', $freshItem->quality);
+        $this->assertSame(NikolaCarsProductInventorySyncService::CHECKED_DAMAGE_STATUSES[0], $freshItem->quality);
     }
 
     public function test_nikolacars_catalog_donor_item_accepts_case_insensitive_checked_damage_status(): void
@@ -74,7 +74,7 @@ class NikolaCarsCatalogProductSyncServiceTest extends TestCase
             'price_amount' => 750,
             'currency' => 'USD',
             'compatibility_text' => '5YJYGDEE3MF214952',
-            'quality' => 'Р»РµРіРєРёРµ РїРѕРІСЂРµР¶РґРµРЅРёСЏ',
+            'quality' => mb_strtolower(NikolaCarsProductInventorySyncService::CHECKED_DAMAGE_STATUSES[1]),
             'raw_attributes' => [
                 'code' => '786',
                 'donor_vin' => '5YJYGDEE3MF214952',
@@ -89,15 +89,16 @@ class NikolaCarsCatalogProductSyncServiceTest extends TestCase
             'source_part_catalog_item_id' => $item->id,
             'sku' => 'NC-786',
             'external_sku' => '1501462-12-A',
-            'notes' => 'Р›РµРіРєРёРµ РїРѕРІСЂРµР¶РґРµРЅРёСЏ',
+            'notes' => NikolaCarsProductInventorySyncService::CHECKED_DAMAGE_STATUSES[1],
             'storage_status' => Product::STORAGE_STATUS_ON_DONOR,
         ]);
     }
 
     public function test_nikolacars_catalog_item_can_link_to_known_pseudo_vin_donor(): void
     {
+        $pseudoVin = "TESLA \u{041C}S 2015 - 2021 \u{0437}\u{0430}\u{043B}\u{0438}\u{0448}\u{043A}\u{0438}";
         $donorCar = DonorCar::query()->create([
-            'vin' => 'TESLA РњS 2015 - 2021 Р·Р°Р»РёС€РєРё',
+            'vin' => $pseudoVin,
             'brand' => 'Tesla',
             'model' => 'Model S',
             'year' => 2015,
@@ -109,11 +110,11 @@ class NikolaCarsCatalogProductSyncServiceTest extends TestCase
             'name' => 'FM antenna Tesla MS',
             'price_amount' => 30,
             'currency' => 'USD',
-            'compatibility_text' => 'Tesla РњS 2015 - 2021 Р·Р°Р»РёС€РєРё',
+            'compatibility_text' => $pseudoVin,
             'raw_attributes' => [
                 'code' => '28',
-                'donor_vin' => 'Tesla РњS 2015 - 2021 Р·Р°Р»РёС€РєРё',
-                'category_display' => 'Tesla РњS 2015 - 2021 Р·Р°Р»РёС€РєРё',
+                'donor_vin' => $pseudoVin,
+                'category_display' => $pseudoVin,
             ],
         ]);
 
@@ -168,19 +169,22 @@ class NikolaCarsCatalogProductSyncServiceTest extends TestCase
 
     public function test_nikolacars_catalog_product_keeps_full_source_row_name(): void
     {
+        $sourceName = "\u{041D}\u{0430}\u{043A}\u{043B}\u{0430}\u{0434}\u{043A}\u{0430} \u{0434}\u{0432}\u{0435}\u{0440}\u{0435}\u{0439} \u{0432}\u{043D}\u{0443}\u{0442}\u{0440}\u{0456}\u{0448}\u{043D}\u{044F} \u{043F}\u{0435}\u{0440}\u{0435}\u{0434}\u{043D}\u{044F} \u{043B}\u{0456}\u{0432}\u{0430}";
+        $sourceRowName = $sourceName.' Tesla MS 2012 - 2015 1002458-00-F/H';
+
         $item = PartCatalogItem::query()->create([
             'source' => 'nikolacars',
             'source_url' => 'nikolacars://product/145',
             'part_number' => '1002458-00-F',
-            'name' => 'РќР°РєР»Р°РґРєР° РґРІРµСЂРµР№ РІРЅСѓС‚СЂС–С€РЅСЏ РїРµСЂРµРґРЅСЏ Р»С–РІР°',
-            'name_ua' => 'РќР°РєР»Р°РґРєР° РґРІРµСЂРµР№ РІРЅСѓС‚СЂС–С€РЅСЏ РїРµСЂРµРґРЅСЏ Р»С–РІР°',
+            'name' => $sourceName,
+            'name_ua' => $sourceName,
             'price_amount' => 10,
             'currency' => 'USD',
             'raw_attributes' => [
                 'code' => '145',
                 'source_row' => [
                     'code' => '145',
-                    'name' => 'РќР°РєР»Р°РґРєР° РґРІРµСЂРµР№ РІРЅСѓС‚СЂС–С€РЅСЏ РїРµСЂРµРґРЅСЏ Р»С–РІР° Tesla MS 2012 - 2015 1002458-00-F/H',
+                    'name' => $sourceRowName,
                     'part_number' => '1002458-00-F/H',
                 ],
             ],
@@ -191,9 +195,9 @@ class NikolaCarsCatalogProductSyncServiceTest extends TestCase
         $this->assertTrue($result['saved']);
         $this->assertDatabaseHas('products', [
             'source_part_catalog_item_id' => $item->id,
-            'name' => 'РќР°РєР»Р°РґРєР° РґРІРµСЂРµР№ РІРЅСѓС‚СЂС–С€РЅСЏ РїРµСЂРµРґРЅСЏ Р»С–РІР° Tesla MS 2012 - 2015 1002458-00-F/H',
+            'name' => $sourceRowName,
         ]);
-        $this->assertSame('РќР°РєР»Р°РґРєР° РґРІРµСЂРµР№ РІРЅСѓС‚СЂС–С€РЅСЏ РїРµСЂРµРґРЅСЏ Р»С–РІР°', $item->fresh()->name_ua);
+        $this->assertSame($sourceName, $item->fresh()->name_ua);
     }
 
     public function test_nikolacars_donor_product_mirror_updates_source_product_without_creating_duplicate(): void
