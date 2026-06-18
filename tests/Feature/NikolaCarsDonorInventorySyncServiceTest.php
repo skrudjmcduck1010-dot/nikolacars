@@ -599,9 +599,8 @@ class NikolaCarsDonorInventorySyncServiceTest extends TestCase
 
         $this->assertSame($item->id, $product->refresh()->source_part_catalog_item_id);
         $this->assertSame('582', data_get($item->raw_attributes, 'code'));
-        $this->assertDatabaseMissing('part_catalog_items', [
-            'id' => $staleItem->id,
-        ]);
+        $this->assertSame($staleItem->id, $item->id);
+        $this->assertSame('nikolacars://donor-product/'.$product->id, $item->source_url);
     }
 
     public function test_sync_preserves_manually_locked_nikolacars_mirror_names(): void

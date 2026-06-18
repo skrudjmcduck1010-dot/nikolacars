@@ -74,21 +74,30 @@ class NikolaCarsProductInventorySyncService
         }
 
         $sourceUrl = $this->sourceUrl($product);
+        $sourceItem = $product->sourcePartCatalogItem;
+        $staleNikolaCarsItem = $sourceItem?->source === self::SOURCE
+            ? $sourceItem
+            : null;
         $existingItem = PartCatalogItem::query()
             ->where('source', self::SOURCE)
             ->where('source_url', $sourceUrl)
             ->first();
-        $existingPartNumber = trim((string) $existingItem?->part_number);
-        $existingSourceCatalogItemId = data_get($existingItem?->raw_attributes, 'source_catalog_item_id');
-        $staleNikolaCarsItemId = $product->sourcePartCatalogItem?->source === self::SOURCE
-            ? (int) $product->sourcePartCatalogItem->id
-            : null;
-        $category = $this->categoryForProduct($product, $existingItem);
-        $payload = $this->payload($product, $category, $existingItem);
-        $item = PartCatalogItem::query()->updateOrCreate(
-            ['source_url' => $sourceUrl],
-            $payload
-        );
+        $item = $existingItem ?: $staleNikolaCarsItem;
+        $existingPartNumber = trim((string) $item?->part_number);
+        $existingSourceCatalogItemId = data_get($item?->raw_attributes, 'source_catalog_item_id');
+        $staleNikolaCarsItemId = $staleNikolaCarsItem?->id;
+        $category = $this->categoryForProduct($product, $item);
+        $payload = $this->payload($product, $category, $item);
+
+        if ($item instanceof PartCatalogItem) {
+            $item->forceFill(['source_url' => $sourceUrl] + $payload)->save();
+        } else {
+            $item = PartCatalogItem::query()->updateOrCreate(
+                ['source_url' => $sourceUrl],
+                $payload
+            );
+        }
+
         $this->linkProductToNikolaCarsItem($product, $item);
         $this->deleteStaleNikolaCarsProductMirrors($product, $item, $staleNikolaCarsItemId);
         $this->fillDonorProductLocalizedNames($product);

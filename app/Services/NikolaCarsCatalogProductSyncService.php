@@ -96,6 +96,7 @@ class NikolaCarsCatalogProductSyncService
         }
 
         $this->rememberLinkedProduct($item, $product);
+        $this->linkProductToSourceItem($product, $item);
         app(NikolaCarsProductInventorySyncService::class)->syncProduct($product->refresh());
 
         return ['saved' => true, 'product' => $product];
@@ -240,6 +241,17 @@ class NikolaCarsCatalogProductSyncService
         $rawAttributes['source_catalog_source'] = $sourceItem?->source;
 
         $item->forceFill(['raw_attributes' => $rawAttributes])->save();
+    }
+
+    protected function linkProductToSourceItem(Product $product, PartCatalogItem $item): void
+    {
+        if ((int) $product->source_part_catalog_item_id === (int) $item->id) {
+            return;
+        }
+
+        $product->forceFill([
+            'source_part_catalog_item_id' => $item->id,
+        ])->saveQuietly();
     }
 
     protected function markLinkedProductsSold(PartCatalogItem $item): void
