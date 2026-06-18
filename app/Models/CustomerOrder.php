@@ -218,8 +218,12 @@ class CustomerOrder extends Model
             return $this->status === self::STATUS_ASSEMBLED;
         }
 
-        return in_array($this->status, [self::STATUS_ASSEMBLED, self::STATUS_PAID], true)
-            && $this->delivery_method === self::DELIVERY_METHOD_PICKUP;
+        if ($this->delivery_method === self::DELIVERY_METHOD_NOVA_POSHTA) {
+            return $this->status === self::STATUS_SHIPPED;
+        }
+
+        return $this->delivery_method === self::DELIVERY_METHOD_PICKUP
+            && in_array($this->status, [self::STATUS_ASSEMBLED, self::STATUS_PAID], true);
     }
 
     public function canBeCancelled(): bool

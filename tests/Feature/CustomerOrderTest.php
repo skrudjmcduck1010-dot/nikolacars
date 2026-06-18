@@ -85,7 +85,7 @@ class CustomerOrderTest extends TestCase
         $this->assertSame(Counterparty::TYPE_PARTS, $order->counterparty?->type);
         $this->assertSame(CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA, $order->delivery_method);
         $this->assertSame(CustomerOrder::STATUS_PROCESSING, $order->status);
-        $this->assertSame('РћР±СЂР°Р±Р°С‚С‹РІР°РµС‚СЃСЏ', $order->status_label);
+        $this->assertSame("\u{041E}\u{0431}\u{0440}\u{0430}\u{0431}\u{0430}\u{0442}\u{044B}\u{0432}\u{0430}\u{0435}\u{0442}\u{0441}\u{044F}", $order->status_label);
         $this->assertNull($order->note);
         $this->assertSame('UAH', $order->currency);
         $this->assertSame('12380.00', $order->total_amount);
@@ -405,9 +405,9 @@ class CustomerOrderTest extends TestCase
         $this->assertSame(Counterparty::STO_NIKOLACARS_NAME, $order->counterparty?->name);
         $this->assertSame(Counterparty::TYPE_PARTS, $order->counterparty?->type);
         $this->assertNull($order->client_phone);
-        $this->assertSame('РЎРўРћ', $order->client_first_name);
+        $this->assertSame("\u{0421}\u{0422}\u{041E}", $order->client_first_name);
         $this->assertNull($order->client_last_name);
-        $this->assertSame('РЎРўРћ', $order->client_name);
+        $this->assertSame("\u{0421}\u{0422}\u{041E}", $order->client_name);
         $this->assertSame(CustomerOrder::DELIVERY_METHOD_STO, $order->delivery_method);
 
         $this->actingAs($user)
@@ -461,17 +461,17 @@ class CustomerOrderTest extends TestCase
         $this->actingAs($user)
             ->get(route('admin.customer-orders.index'))
             ->assertOk()
-            ->assertSee('12 380 РіСЂРЅ')
+            ->assertSee("12 380 \u{0433}\u{0440}\u{043D}")
             ->assertSee('300.00 USD')
             ->assertSeeInOrder(['NC-ORDER-CODE', 'Door handle']);
 
         $this->actingAs($user)
             ->get(route('admin.customer-orders.show', $order))
             ->assertOk()
-            ->assertSee('12 380 РіСЂРЅ')
+            ->assertSee("12 380 \u{0433}\u{0440}\u{043D}")
             ->assertSee('300.00 USD')
             ->assertSeeInOrder(['NC-ORDER-CODE', 'Door handle'])
-            ->assertDontSee('РљРѕРґ: NC-ORDER-CODE');
+            ->assertDontSee("\u{041A}\u{043E}\u{0434}: NC-ORDER-CODE");
     }
 
     public function test_customer_order_show_highlights_zero_usd_item_price(): void
@@ -590,7 +590,7 @@ class CustomerOrderTest extends TestCase
             'cash_employee_name' => 'Order Creator Employee',
             'last_name' => 'Creator',
             'first_name' => 'Employee',
-            'position' => 'РЎРєР»Р°Рґ',
+            'position' => "\u{0421}\u{043A}\u{043B}\u{0430}\u{0434}",
             'is_active' => true,
             'user_id' => $creator->id,
         ]);
@@ -605,8 +605,8 @@ class CustomerOrderTest extends TestCase
         $this->actingAs($user)
             ->get(route('admin.customer-orders.index'))
             ->assertOk()
-            ->assertSeeInOrder([$order->number, 'РЎРѕР·РґР°Р»: Order Creator Employee'])
-            ->assertDontSee('РЎРѕР·РґР°Р»: Warehouse Worker');
+            ->assertSeeInOrder([$order->number, "\u{0421}\u{043E}\u{0437}\u{0434}\u{0430}\u{043B}: Order Creator Employee"])
+            ->assertDontSee("\u{0421}\u{043E}\u{0437}\u{0434}\u{0430}\u{043B}: Warehouse Worker");
     }
 
     public function test_customer_orders_index_shows_anonymous_counterparty_as_client_name(): void
@@ -945,7 +945,7 @@ class CustomerOrderTest extends TestCase
         ]);
         $order->items()->create([
             'part_catalog_item_id' => null,
-            'name' => 'РћСЃРЅРѕРІРЅР° Р±Р°С‚Р°СЂРµСЏ',
+            'name' => "\u{041E}\u{0441}\u{043D}\u{043E}\u{0432}\u{043D}\u{0430} \u{0431}\u{0430}\u{0442}\u{0430}\u{0440}\u{0435}\u{044F}",
             'code' => '32',
             'quantity' => 1,
             'unit_price' => 1500,
@@ -961,7 +961,7 @@ class CustomerOrderTest extends TestCase
             ->assertOk();
 
         $this->assertMatchesRegularExpression(
-            '/<a href="'.$productUrlPattern.'">\s*32\s+РћСЃРЅРѕРІРЅР° Р±Р°С‚Р°СЂРµСЏ\s*<\/a>/',
+            '/<a href="'.$productUrlPattern."\">\\s*32\\s+\u{041E}\u{0441}\u{043D}\u{043E}\u{0432}\u{043D}\u{0430} \u{0431}\u{0430}\u{0442}\u{0430}\u{0440}\u{0435}\u{044F}\\s*<\\/a>/",
             $showResponse->getContent(),
         );
 
@@ -970,7 +970,7 @@ class CustomerOrderTest extends TestCase
             ->assertOk();
 
         $this->assertMatchesRegularExpression(
-            '/<a href="'.$productUrlPattern.'">\s*<strong>32<\/strong>\s+РћСЃРЅРѕРІРЅР° Р±Р°С‚Р°СЂРµСЏ\s*<\/a>/',
+            '/<a href="'.$productUrlPattern."\">\\s*<strong>32<\\/strong>\\s+\u{041E}\u{0441}\u{043D}\u{043E}\u{0432}\u{043D}\u{0430} \u{0431}\u{0430}\u{0442}\u{0430}\u{0440}\u{0435}\u{044F}\\s*<\\/a>/",
             $indexResponse->getContent(),
         );
     }
@@ -1128,8 +1128,7 @@ class CustomerOrderTest extends TestCase
             ->assertSee('customer-order-extra-items', false)
             ->assertSee("\u{041F}\u{043E}\u{043A}\u{0430}\u{0437}\u{0430}\u{0442}\u{044C} \u{0435}\u{0449}\u{0451} 2")
             ->assertSee("\u{0421}\u{043A}\u{0440}\u{044B}\u{0442}\u{044C} 2")
-            ->assertSee("\u{041E}\u{0442}\u{043C}\u{0435}\u{043D}\u{0438}\u{0442}\u{044C}")
-            ->assertDontSee('Р С›РЎвЂљР СР ВµР Р…Р С‘РЎвЂљРЎРЉ');
+            ->assertSee("\u{041E}\u{0442}\u{043C}\u{0435}\u{043D}\u{0438}\u{0442}\u{044C}");
 
         $this->assertMatchesRegularExpression(
             '/Collapsed item 3.*<details>.*Collapsed item 4.*Collapsed item 5/s',
@@ -1171,7 +1170,7 @@ class CustomerOrderTest extends TestCase
                 'client_last_name' => 'Petrov',
                 'items' => [[
                     'id' => $product->id,
-                    'name' => 'Р СѓР»СЊРѕРІР° СЂРµР№РєР° РІ Р·Р±РѕСЂС– Р· РµР»РµРєС‚СЂРѕРїСЂРёРІРѕРґРѕРј',
+                    'name' => "\u{0420}\u{0443}\u{043B}\u{044C}\u{043E}\u{0432}\u{0430} \u{0440}\u{0435}\u{0439}\u{043A}\u{0430} \u{0432} \u{0437}\u{0431}\u{043E}\u{0440}\u{0456} \u{0437} \u{0435}\u{043B}\u{0435}\u{043A}\u{0442}\u{0440}\u{043E}\u{043F}\u{0440}\u{0438}\u{0432}\u{043E}\u{0434}\u{043E}\u{043C}",
                     'part_number' => '1044831',
                     'code' => 'DON4-1592',
                     'quantity' => 1,
@@ -1233,7 +1232,7 @@ class CustomerOrderTest extends TestCase
             ->get(route('admin.customer-orders.show', $order))
             ->assertOk()
             ->assertSee(route('admin.customer-orders.recreate', $order), false)
-            ->assertSee('РџРµСЂРµСЃРѕР·РґР°С‚СЊ')
+            ->assertSee("\u{041F}\u{0435}\u{0440}\u{0435}\u{0441}\u{043E}\u{0437}\u{0434}\u{0430}\u{0442}\u{044C}")
             ->assertDontSee('data-customer-order-add-item', false)
             ->assertDontSee('data-customer-order-unit-price', false)
             ->assertDontSee(route('admin.customer-orders.items.store', $order), false)
@@ -1530,7 +1529,7 @@ class CustomerOrderTest extends TestCase
         $this->assertSame(CustomerOrder::DELIVERY_METHOD_STO, $order->delivery_method);
         $this->assertSame(Counterparty::STO_NIKOLACARS_NAME, $order->counterparty?->name);
         $this->assertNull($order->client_phone);
-        $this->assertSame('РЎРўРћ', $order->client_first_name);
+        $this->assertSame("\u{0421}\u{0422}\u{041E}", $order->client_first_name);
         $this->assertNull($order->client_last_name);
     }
 
@@ -1771,7 +1770,7 @@ class CustomerOrderTest extends TestCase
             ->assertSee('customer-orders\\/'.$order->id.'\\/items\\/catalog-search', false)
             ->assertDontSee('name="name"', false)
             ->assertDontSee('name="part_number"', false)
-            ->assertDontSee('ID РёР· /admin/zapchasti');
+            ->assertDontSee("ID \u{0438}\u{0437} /admin/zapchasti");
     }
 
     public function test_customer_order_catalog_item_search_returns_nikolacars_parts(): void
@@ -1833,7 +1832,7 @@ class CustomerOrderTest extends TestCase
             ->assertJsonCount(1)
             ->assertJsonPath('0.id', $item->id)
             ->assertJsonPath('0.url', route('admin.products.show', $product))
-            ->assertJsonPath('0.unit_price_uah_text', '6 190 РіСЂРЅ');
+            ->assertJsonPath('0.unit_price_uah_text', "6 190 \u{0433}\u{0440}\u{043D}");
 
         $this->actingAs($user)
             ->getJson(route('admin.customer-orders.items.catalog-search', [$order, 'q' => 'NC-SEARCH']))
@@ -1997,7 +1996,7 @@ class CustomerOrderTest extends TestCase
             ->assertOk()
             ->assertSee('data-customer-order-summary', false)
             ->assertSee('data-customer-order-unit-price', false)
-            ->assertSee('14 000 РіСЂРЅ')
+            ->assertSee("14 000 \u{0433}\u{0440}\u{043D}")
             ->assertSee('350.00 USD');
     }
 
@@ -2270,12 +2269,12 @@ class CustomerOrderTest extends TestCase
             ->get(route('admin.customer-orders.show', $order))
             ->assertOk()
             ->assertSee('value="6450.00"', false)
-            ->assertSee('6 450 РіСЂРЅ');
+            ->assertSee("6 450 \u{0433}\u{0440}\u{043D}");
 
         $this->actingAs($user)
             ->get(route('admin.customer-orders.index'))
             ->assertOk()
-            ->assertSee('6 450 РіСЂРЅ');
+            ->assertSee("6 450 \u{0433}\u{0440}\u{043D}");
     }
 
     public function test_customer_order_show_uses_order_creation_date_usd_rate(): void
@@ -2397,7 +2396,7 @@ class CustomerOrderTest extends TestCase
             ->assertRedirect(route('admin.customer-orders.show', $order));
 
         $this->assertSame(CustomerOrder::STATUS_ASSEMBLED, $order->refresh()->status);
-        $this->assertSame('РЎРѕР±СЂР°РЅ', $order->status_label);
+        $this->assertSame("\u{0421}\u{043E}\u{0431}\u{0440}\u{0430}\u{043D}", $order->status_label);
     }
 
     public function test_customer_order_can_be_cancelled_and_releases_catalog_reservations(): void
@@ -2431,7 +2430,7 @@ class CustomerOrderTest extends TestCase
         $this->actingAs($user)
             ->get(route('admin.customer-orders.index'))
             ->assertOk()
-            ->assertSee('РћС‚РјРµРЅРёС‚СЊ');
+            ->assertSee("\u{041E}\u{0442}\u{043C}\u{0435}\u{043D}\u{0438}\u{0442}\u{044C}");
 
         $this->actingAs($user)
             ->from(route('admin.customer-orders.show', $order))
@@ -2441,7 +2440,7 @@ class CustomerOrderTest extends TestCase
             ->assertRedirect(route('admin.customer-orders.show', $order));
 
         $this->assertSame(CustomerOrder::STATUS_CANCELLED, $order->refresh()->status);
-        $this->assertSame('РћС‚РјРµРЅРµРЅ', $order->status_label);
+        $this->assertSame("\u{041E}\u{0442}\u{043C}\u{0435}\u{043D}\u{0435}\u{043D}", $order->status_label);
 
         $item->refresh();
         $this->assertSame(0.0, (float) data_get($item->raw_attributes, 'reserved_quantity'));
@@ -2486,12 +2485,12 @@ class CustomerOrderTest extends TestCase
             ->get(route('admin.customer-orders.index'))
             ->assertOk()
             ->assertSee($order->number)
-            ->assertDontSee("РћС‚РјРµРЅРёС‚СЊ Р·Р°РєР°Р· {$order->number}", false);
+            ->assertDontSee("\u{041E}\u{0442}\u{043C}\u{0435}\u{043D}\u{0438}\u{0442}\u{044C} \u{0437}\u{0430}\u{043A}\u{0430}\u{0437} {$order->number}", false);
 
         $this->actingAs($user)
             ->get(route('admin.customer-orders.show', $order))
             ->assertOk()
-            ->assertDontSee("РћС‚РјРµРЅРёС‚СЊ Р·Р°РєР°Р· {$order->number}", false);
+            ->assertDontSee("\u{041E}\u{0442}\u{043C}\u{0435}\u{043D}\u{0438}\u{0442}\u{044C} \u{0437}\u{0430}\u{043A}\u{0430}\u{0437} {$order->number}", false);
 
         $this->actingAs($user)
             ->from(route('admin.customer-orders.show', $order))
@@ -2544,9 +2543,9 @@ class CustomerOrderTest extends TestCase
             ->get(route('admin.customer-orders.index'))
             ->assertOk()
             ->assertSee($order->number)
-            ->assertSee('РЎРїРѕСЃРѕР±<br>РїРѕР»СѓС‡РµРЅРёСЏ', false)
+            ->assertSee("\u{0421}\u{043F}\u{043E}\u{0441}\u{043E}\u{0431}<br>\u{043F}\u{043E}\u{043B}\u{0443}\u{0447}\u{0435}\u{043D}\u{0438}\u{044F}", false)
             ->assertSee($order->delivery_method_label)
-            ->assertDontSee('>РћС‚РєСЂС‹С‚СЊ</a>', false);
+            ->assertDontSee(">\u{041E}\u{0442}\u{043A}\u{0440}\u{044B}\u{0442}\u{044C}</a>", false);
     }
 
     public function test_assembled_pickup_and_nova_poshta_orders_are_shown_in_active_list(): void
@@ -2585,7 +2584,7 @@ class CustomerOrderTest extends TestCase
                 $waitingPickupOrder->number,
                 $processingOrder->number,
             ])
-            ->assertDontSee('РЎРѕР±СЂР°РЅС‹');
+            ->assertDontSee("\u{0421}\u{043E}\u{0431}\u{0440}\u{0430}\u{043D}\u{044B}");
     }
 
     public function test_assembled_nova_poshta_customer_order_can_be_marked_as_shipped(): void
@@ -2716,8 +2715,8 @@ class CustomerOrderTest extends TestCase
         $this->actingAs($user)
             ->get(route('admin.customer-orders.show', $order))
             ->assertOk()
-            ->assertSee('РСЃС‚РѕСЂРёСЏ Р·Р°РєР°Р·Р°')
-            ->assertSee('Р—Р°РєР°Р· СЃРѕР·РґР°РЅ')
+            ->assertSee("\u{0418}\u{0441}\u{0442}\u{043E}\u{0440}\u{0438}\u{044F} \u{0437}\u{0430}\u{043A}\u{0430}\u{0437}\u{0430}")
+            ->assertSee("\u{0417}\u{0430}\u{043A}\u{0430}\u{0437} \u{0441}\u{043E}\u{0437}\u{0434}\u{0430}\u{043D}")
             ->assertSee('Ivan Petrov');
 
         $this->actingAs($user)
@@ -2768,13 +2767,13 @@ class CustomerOrderTest extends TestCase
         $this->actingAs($user)
             ->get(route('admin.customer-orders.show', $order))
             ->assertOk()
-            ->assertSee('РЎС‚Р°С‚СѓСЃ РёР·РјРµРЅРµРЅ')
-            ->assertSee('Р—Р°РїС‡Р°СЃС‚СЊ РґРѕР±Р°РІР»РµРЅР°')
-            ->assertSee('Р¦РµРЅР° Р·Р°РїС‡Р°СЃС‚Рё РёР·РјРµРЅРµРЅР°')
-            ->assertSee('Р—Р°РїС‡Р°СЃС‚СЊ СѓРґР°Р»РµРЅР°')
+            ->assertSee("\u{0421}\u{0442}\u{0430}\u{0442}\u{0443}\u{0441} \u{0438}\u{0437}\u{043C}\u{0435}\u{043D}\u{0435}\u{043D}")
+            ->assertSee("\u{0417}\u{0430}\u{043F}\u{0447}\u{0430}\u{0441}\u{0442}\u{044C} \u{0434}\u{043E}\u{0431}\u{0430}\u{0432}\u{043B}\u{0435}\u{043D}\u{0430}")
+            ->assertSee("\u{0426}\u{0435}\u{043D}\u{0430} \u{0437}\u{0430}\u{043F}\u{0447}\u{0430}\u{0441}\u{0442}\u{0438} \u{0438}\u{0437}\u{043C}\u{0435}\u{043D}\u{0435}\u{043D}\u{0430}")
+            ->assertSee("\u{0417}\u{0430}\u{043F}\u{0447}\u{0430}\u{0441}\u{0442}\u{044C} \u{0443}\u{0434}\u{0430}\u{043B}\u{0435}\u{043D}\u{0430}")
             ->assertSee('Door handle')
-            ->assertSee('1 000 РіСЂРЅ')
-            ->assertSee('1 200 РіСЂРЅ');
+            ->assertSee("1 000 \u{0433}\u{0440}\u{043D}")
+            ->assertSee("1 200 \u{0433}\u{0440}\u{043D}");
     }
 
     public function test_assembled_customer_order_shows_waiting_payment_controls(): void
@@ -2792,14 +2791,14 @@ class CustomerOrderTest extends TestCase
             ->get(route('admin.customer-orders.index'))
             ->assertOk()
             ->assertSee($order->number)
-            ->assertDontSee('РћР¶РёРґР°РµС‚ РѕРїР»Р°С‚Сѓ')
-            ->assertSee('РџРѕРґС‚РІРµСЂРґРёС‚СЊ РѕРїР»Р°С‚Сѓ')
-            ->assertSee('РўРёРї РѕРїР»Р°С‚С‹')
-            ->assertSee('РќР°Р», РіСЂРЅ')
-            ->assertSee('РќР°Р» USD')
-            ->assertSee('Р‘РµР·РќР°Р» РўРћР’')
-            ->assertSee('Р‘РµР·РќР°Р» Р¤РћРџ')
-            ->assertSee('РџРѕР»СѓС‡РµРЅРЅР°СЏ СЃСѓРјРјР°');
+            ->assertDontSee("\u{041E}\u{0436}\u{0438}\u{0434}\u{0430}\u{0435}\u{0442} \u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0443}")
+            ->assertSee("\u{041F}\u{043E}\u{0434}\u{0442}\u{0432}\u{0435}\u{0440}\u{0434}\u{0438}\u{0442}\u{044C} \u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0443}")
+            ->assertSee("\u{0422}\u{0438}\u{043F} \u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{044B}")
+            ->assertSee("\u{041D}\u{0430}\u{043B}, \u{0433}\u{0440}\u{043D}")
+            ->assertSee("\u{041D}\u{0430}\u{043B} USD")
+            ->assertSee("\u{0411}\u{0435}\u{0437}\u{041D}\u{0430}\u{043B} \u{0422}\u{041E}\u{0412}")
+            ->assertSee("\u{0411}\u{0435}\u{0437}\u{041D}\u{0430}\u{043B} \u{0424}\u{041E}\u{041F}")
+            ->assertSee("\u{041F}\u{043E}\u{043B}\u{0443}\u{0447}\u{0435}\u{043D}\u{043D}\u{0430}\u{044F} \u{0441}\u{0443}\u{043C}\u{043C}\u{0430}");
     }
 
     public function test_sto_customer_order_can_be_issued_without_payment_and_hides_payment_controls(): void
@@ -2932,17 +2931,17 @@ class CustomerOrderTest extends TestCase
         $this->assertDatabaseHas('customer_order_history_events', [
             'customer_order_id' => $order->id,
             'event_type' => 'payment_confirmed',
-            'title' => 'РћРїР»Р°С‚Р° РїРѕРґС‚РІРµСЂР¶РґРµРЅР°',
+            'title' => "\u{041E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0430} \u{043F}\u{043E}\u{0434}\u{0442}\u{0432}\u{0435}\u{0440}\u{0436}\u{0434}\u{0435}\u{043D}\u{0430}",
         ]);
 
         $this->actingAs($user)
             ->get(route('admin.customer-orders.show', $order))
             ->assertOk()
-            ->assertSee('РЎРѕР±СЂР°РЅ')
-            ->assertSee('РћРїР»Р°С‚Р°')
-            ->assertSee('РћРїР»Р°С‡РµРЅРѕ')
-            ->assertSee('Р‘РµР·РќР°Р» Р¤РћРџ')
-            ->assertDontSee('РћР¶РёРґР°РµС‚ РѕРїР»Р°С‚Сѓ');
+            ->assertSee("\u{0421}\u{043E}\u{0431}\u{0440}\u{0430}\u{043D}")
+            ->assertSee("\u{041E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0430}")
+            ->assertSee("\u{041E}\u{043F}\u{043B}\u{0430}\u{0447}\u{0435}\u{043D}\u{043E}")
+            ->assertSee("\u{0411}\u{0435}\u{0437}\u{041D}\u{0430}\u{043B} \u{0424}\u{041E}\u{041F}")
+            ->assertDontSee("\u{041E}\u{0436}\u{0438}\u{0434}\u{0430}\u{0435}\u{0442} \u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0443}");
     }
 
     public function test_customer_order_prepayment_can_be_recorded_without_full_payment(): void
@@ -2992,7 +2991,7 @@ class CustomerOrderTest extends TestCase
             ->get(route('admin.customer-orders.index'))
             ->assertOk()
             ->assertSeeInOrder([
-                '1 500 РіСЂРЅ',
+                "1 500 \u{0433}\u{0440}\u{043D}",
                 '35.00 USD',
                 "\u{041F}\u{0440}\u{0435}\u{0434}\u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0430} (".CustomerOrder::PAYMENT_TYPE_LABELS[CustomerOrder::PAYMENT_TYPE_CASH_UAH]."): 500 \u{0433}\u{0440}\u{043D}",
             ])
@@ -3038,7 +3037,7 @@ class CustomerOrderTest extends TestCase
             ->get(route('admin.customer-orders.show', $order))
             ->assertOk()
             ->assertSeeInOrder([
-                '122 550 РіСЂРЅ',
+                "122 550 \u{0433}\u{0440}\u{043D}",
                 '2 850.00 USD',
                 $usdPrepayment,
             ])
@@ -3050,7 +3049,7 @@ class CustomerOrderTest extends TestCase
             ->get(route('admin.customer-orders.index'))
             ->assertOk()
             ->assertSeeInOrder([
-                '122 550 РіСЂРЅ',
+                "122 550 \u{0433}\u{0440}\u{043D}",
                 '2 850.00 USD',
                 $usdPrepayment,
             ])
@@ -3135,7 +3134,8 @@ class CustomerOrderTest extends TestCase
             ->assertOk()
             ->assertSee($order->number)
             ->assertSee("\u{041E}\u{043F}\u{043B}\u{0430}\u{0447}\u{0435}\u{043D}\u{043E}")
-            ->assertSee("\u{0412}\u{044B}\u{0434}\u{0430}\u{043D}\u{043E}")
+            ->assertSee("\u{0421}\u{043E}\u{0431}\u{0440}\u{0430}\u{043D}")
+            ->assertSee("\u{0412}\u{044B}\u{0434}\u{0430}\u{043D}")
             ->assertDontSee("\u{041E}\u{0436}\u{0438}\u{0434}\u{0430}\u{0435}\u{0442} \u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0443}")
             ->assertDontSee("\u{041F}\u{043E}\u{0434}\u{0442}\u{0432}\u{0435}\u{0440}\u{0434}\u{0438}\u{0442}\u{044C} \u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0443}");
 
@@ -3143,7 +3143,8 @@ class CustomerOrderTest extends TestCase
             ->get(route('admin.customer-orders.show', $order))
             ->assertOk()
             ->assertSee("\u{041E}\u{043F}\u{043B}\u{0430}\u{0447}\u{0435}\u{043D}\u{043E}")
-            ->assertSee("\u{0412}\u{044B}\u{0434}\u{0430}\u{043D}\u{043E}")
+            ->assertSee("\u{0421}\u{043E}\u{0431}\u{0440}\u{0430}\u{043D}")
+            ->assertSee("\u{0412}\u{044B}\u{0434}\u{0430}\u{043D}")
             ->assertDontSee("\u{041E}\u{0436}\u{0438}\u{0434}\u{0430}\u{0435}\u{0442} \u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0443}")
             ->assertDontSee("\u{041F}\u{043E}\u{0434}\u{0442}\u{0432}\u{0435}\u{0440}\u{0434}\u{0438}\u{0442}\u{044C} \u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0443}");
 
@@ -3254,10 +3255,10 @@ class CustomerOrderTest extends TestCase
             ->assertSee('data-payment-add', false)
             ->assertSee('customer-order-payment-icon--add', false)
             ->assertSee('customer-order-payment-icon--remove', false)
-            ->assertSee('aria-label="Р”РѕР±Р°РІРёС‚СЊ С‡Р°СЃС‚СЊ РѕРїР»Р°С‚С‹"', false)
+            ->assertSee("aria-label=\"\u{0414}\u{043E}\u{0431}\u{0430}\u{0432}\u{0438}\u{0442}\u{044C} \u{0447}\u{0430}\u{0441}\u{0442}\u{044C} \u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{044B}\"", false)
             ->assertSee('data-payment-remainder', false)
-            ->assertSee('РћСЃС‚Р°Р»РѕСЃСЊ РІРЅРµСЃС‚Рё', false)
-            ->assertDontSee('В· РєСѓСЂСЃ USD:', false);
+            ->assertSee("\u{041E}\u{0441}\u{0442}\u{0430}\u{043B}\u{043E}\u{0441}\u{044C} \u{0432}\u{043D}\u{0435}\u{0441}\u{0442}\u{0438}", false)
+            ->assertDontSee("\u{00B7} \u{043A}\u{0443}\u{0440}\u{0441} USD:", false);
     }
 
     public function test_customer_order_payment_form_uses_displayed_usd_due_rate(): void
@@ -3598,16 +3599,80 @@ class CustomerOrderTest extends TestCase
         $indexOrderRow = $this->tableRowContaining($indexResponse->getContent(), $order->number);
         $this->assertStringContainsString(CustomerOrder::STATUS_LABELS[CustomerOrder::STATUS_SHIPPED], $indexOrderRow);
         $this->assertStringContainsString("\u{041E}\u{043F}\u{043B}\u{0430}\u{0447}\u{0435}\u{043D}\u{043E}", $indexOrderRow);
-        $this->assertStringNotContainsString("\u{0412}\u{044B}\u{0434}\u{0430}\u{043D}", $indexOrderRow);
+        $this->assertStringContainsString('value="'.CustomerOrder::STATUS_COMPLETED.'"', $indexOrderRow);
+        $this->assertStringContainsString("\u{0412}\u{044B}\u{0434}\u{0430}\u{043D}", $indexOrderRow);
 
         $showResponse = $this->actingAs($user)
             ->get(route('admin.customer-orders.show', $order))
             ->assertOk()
             ->assertSee(CustomerOrder::STATUS_LABELS[CustomerOrder::STATUS_SHIPPED])
-            ->assertSee('РћРїР»Р°С‡РµРЅРѕ');
-        $showStatusRow = $this->tableRowContaining($showResponse->getContent(), '<th>РЎС‚Р°С‚СѓСЃ</th>');
+            ->assertSee("\u{041E}\u{043F}\u{043B}\u{0430}\u{0447}\u{0435}\u{043D}\u{043E}");
+        $showStatusRow = $this->tableRowContaining($showResponse->getContent(), "<th>\u{0421}\u{0442}\u{0430}\u{0442}\u{0443}\u{0441}</th>");
         $this->assertStringContainsString(CustomerOrder::STATUS_LABELS[CustomerOrder::STATUS_SHIPPED], $showStatusRow);
-        $this->assertStringNotContainsString("\u{0412}\u{044B}\u{0434}\u{0430}\u{043D}", $showStatusRow);
+        $this->assertStringContainsString('value="'.CustomerOrder::STATUS_COMPLETED.'"', $showStatusRow);
+        $this->assertStringContainsString("\u{0412}\u{044B}\u{0434}\u{0430}\u{043D}", $showStatusRow);
+    }
+
+    public function test_paid_shipped_nova_poshta_customer_order_can_be_marked_as_completed(): void
+    {
+        $user = $this->adminUser('admin-customer-order-nova-poshta-shipped-completed@example.com');
+        ExchangeRate::query()->create([
+            'currency' => 'USD',
+            'rate_date' => now()->toDateString(),
+            'rate' => 43,
+            'source' => 'nbu',
+            'fetched_at' => now(),
+        ]);
+        $catalogItem = PartCatalogItem::query()->create([
+            'source' => 'nikolacars',
+            'source_url' => 'nikolacars://part/nova-poshta-shipped-completed',
+            'part_number' => '1034344-20-B',
+            'name' => 'Nova Poshta completed handle',
+            'raw_attributes' => [
+                'stock_quantity' => 1,
+                'reserved_quantity' => 1,
+                'reserved_orders' => ['ORD-20260604-0015'],
+            ],
+        ]);
+        $order = CustomerOrder::query()->create([
+            'number' => 'ORD-20260604-0015',
+            'status' => CustomerOrder::STATUS_SHIPPED,
+            'delivery_method' => CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA,
+            'total_amount' => 1500,
+            'currency' => 'UAH',
+            'paid_amount_uah' => 1500,
+            'payment_confirmed_at' => now(),
+        ]);
+        $orderItem = $order->items()->create([
+            'part_catalog_item_id' => $catalogItem->id,
+            'name' => 'Nova Poshta completed handle',
+            'part_number' => '1034344-20-B',
+            'quantity' => 1,
+            'unit_price' => 1500,
+            'total_price' => 1500,
+            'currency' => 'UAH',
+        ]);
+
+        $this->actingAs($user)
+            ->from(route('admin.customer-orders.show', $order))
+            ->patch(route('admin.customer-orders.status.update', $order), [
+                'status' => CustomerOrder::STATUS_COMPLETED,
+            ])
+            ->assertRedirect(route('admin.customer-orders.show', $order));
+
+        $this->assertSame(CustomerOrder::STATUS_COMPLETED, $order->refresh()->status);
+        $this->assertTrue($order->isIssuedToClient());
+        $catalogItem->refresh();
+        $this->assertSame(0.0, (float) data_get($catalogItem->raw_attributes, 'stock_quantity'));
+        $this->assertSame(Product::STORAGE_STATUS_SOLD, data_get($catalogItem->raw_attributes, 'storage_status'));
+        $this->assertSame(0.0, (float) data_get($catalogItem->raw_attributes, 'reserved_quantity'));
+        $this->assertSame([], data_get($catalogItem->raw_attributes, 'reserved_orders'));
+        $this->assertDatabaseHas('part_sales', [
+            'part_catalog_item_id' => $catalogItem->id,
+            'document_number' => $order->number,
+            'source_file' => 'customer-order-issued',
+            'source_row_hash' => 'customer-order-'.$order->id.'-item-'.$orderItem->id,
+        ]);
     }
 
     public function test_paid_pickup_customer_order_can_be_marked_as_completed_and_releases_reservation(): void
@@ -3655,7 +3720,7 @@ class CustomerOrderTest extends TestCase
             ->get(route('admin.customer-orders.index'))
             ->assertOk()
             ->assertSee($order->number)
-            ->assertSee('Р’С‹РґР°РЅРѕ');
+            ->assertSee("\u{0412}\u{044B}\u{0434}\u{0430}\u{043D}");
 
         $this->actingAs($user)
             ->from(route('admin.customer-orders.show', $order))
@@ -3665,7 +3730,7 @@ class CustomerOrderTest extends TestCase
             ->assertRedirect(route('admin.customer-orders.show', $order));
 
         $this->assertSame(CustomerOrder::STATUS_COMPLETED, $order->refresh()->status);
-        $this->assertSame('Р’С‹РґР°РЅ', $order->status_label);
+        $this->assertSame(CustomerOrder::STATUS_LABELS[CustomerOrder::STATUS_COMPLETED], $order->status_label);
         $this->assertFalse($order->canBeEdited());
         $catalogItem->refresh();
         $this->assertSame(0.0, (float) data_get($catalogItem->raw_attributes, 'stock_quantity'));
@@ -3721,7 +3786,7 @@ class CustomerOrderTest extends TestCase
             ->get(route('admin.customer-orders.index'))
             ->assertOk()
             ->assertSee($order->number)
-            ->assertSee('РћРїР»Р°С‡РµРЅРѕ');
+            ->assertSee("\u{041E}\u{043F}\u{043B}\u{0430}\u{0447}\u{0435}\u{043D}\u{043E}");
     }
 
     public function test_completed_product_order_releases_stock_reservation_before_stock_writeoff(): void
@@ -4253,13 +4318,13 @@ class CustomerOrderTest extends TestCase
             ->get(route('admin.customer-orders.index'))
             ->assertOk()
             ->assertSee($order->number)
-            ->assertDontSee("РћС‚РјРµРЅРёС‚СЊ Р·Р°РєР°Р· {$order->number}", false);
+            ->assertDontSee("\u{041E}\u{0442}\u{043C}\u{0435}\u{043D}\u{0438}\u{0442}\u{044C} \u{0437}\u{0430}\u{043A}\u{0430}\u{0437} {$order->number}", false);
 
         $this->actingAs($user)
             ->get(route('admin.customer-orders.show', $order))
             ->assertOk()
-            ->assertSee('Р’С‹РґР°РЅ')
-            ->assertDontSee("РћС‚РјРµРЅРёС‚СЊ Р·Р°РєР°Р· {$order->number}", false);
+            ->assertSee("\u{0412}\u{044B}\u{0434}\u{0430}\u{043D}")
+            ->assertDontSee("\u{041E}\u{0442}\u{043C}\u{0435}\u{043D}\u{0438}\u{0442}\u{044C} \u{0437}\u{0430}\u{043A}\u{0430}\u{0437} {$order->number}", false);
 
         $this->actingAs($user)
             ->from(route('admin.customer-orders.show', $order))
@@ -4325,7 +4390,7 @@ class CustomerOrderTest extends TestCase
             ->get(route('admin.customer-orders.index'))
             ->assertOk()
             ->assertSee($order->number)
-            ->assertDontSee('Р’С‹РґР°РЅРѕ');
+            ->assertDontSee("\u{0412}\u{044B}\u{0434}\u{0430}\u{043D}\u{043E}");
 
         $this->actingAs($user)
             ->from(route('admin.customer-orders.show', $order))
@@ -4368,13 +4433,13 @@ class CustomerOrderTest extends TestCase
         $this->actingAs($user)
             ->get(route('admin.customer-orders.index'))
             ->assertOk()
-            ->assertSee('РљР°СЃСЃР°')
-            ->assertSee('РќР°Р», РіСЂРЅ')
-            ->assertSee('0 РіСЂРЅ')
-            ->assertSee('РќР°Р» USD')
-            ->assertSee('Р‘РµР·РќР°Р» РўРћР’')
-            ->assertSee('Р‘РµР·РќР°Р» Р¤РћРџ')
-            ->assertDontSee('РћР¶РёРґР°РµС‚ РѕРїР»Р°С‚Сѓ');
+            ->assertSee("\u{041A}\u{0430}\u{0441}\u{0441}\u{0430}")
+            ->assertSee("\u{041D}\u{0430}\u{043B}, \u{0433}\u{0440}\u{043D}")
+            ->assertSee("0 \u{0433}\u{0440}\u{043D}")
+            ->assertSee("\u{041D}\u{0430}\u{043B} USD")
+            ->assertSee("\u{0411}\u{0435}\u{0437}\u{041D}\u{0430}\u{043B} \u{0422}\u{041E}\u{0412}")
+            ->assertSee("\u{0411}\u{0435}\u{0437}\u{041D}\u{0430}\u{043B} \u{0424}\u{041E}\u{041F}")
+            ->assertDontSee("\u{041E}\u{0436}\u{0438}\u{0434}\u{0430}\u{0435}\u{0442} \u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0443}");
     }
 
     protected function adminUser(string $email = 'admin-customer-order@example.com'): User

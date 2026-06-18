@@ -220,11 +220,11 @@
                                 </form>
                             @endif
                             @if($orderCanBeMarkedAsCompleted)
-                                <form method="POST" action="{{ route('admin.customer-orders.status.update', $order) }}" class="inline-form">
+                                <form method="POST" action="{{ route('admin.customer-orders.status.update', $order) }}" style="display:block; width:100%; margin-top:6px;">
                                     @csrf
                                     @method('PATCH')
                                     <input type="hidden" name="status" value="{{ \App\Models\CustomerOrder::STATUS_COMPLETED }}">
-                                    <button type="submit" class="btn btn-small">Выдано</button>
+                                    <button type="submit" class="btn btn-small">{{ "\u{0412}\u{044B}\u{0434}\u{0430}\u{043D}" }}</button>
                                 </form>
                             @endif
                             @if($order->canConfirmPayment() && ! $orderIsFullyPaid)

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use App\Services\ExchangeRateService;
+use App\Services\LoginActivityLogger;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -18,20 +19,31 @@ class AuthenticatedSessionController extends Controller
         return view('auth.login');
     }
 
-    public function store(LoginRequest $request, ExchangeRateService $exchangeRateService): RedirectResponse
+    public function store(LoginRequest $request, ExchangeRateService $exchangeRateService, LoginActivityLogger $loginActivityLogger): RedirectResponse
     {
         $credentials = $request->validated();
+        $attemptedUser = $this->userForLoginEmail($request->attemptedEmail());
+
+        if ($request->isRateLimited()) {
+            $loginActivityLogger->locked($request, $attemptedUser);
+        }
+
+        $request->ensureIsNotRateLimited();
 
         if (! Auth::attempt([
             'email' => $credentials['email'],
             'password' => $credentials['password'],
             'is_active' => true,
         ], (bool) ($credentials['remember'] ?? false))) {
+            $request->hitLoginRateLimiter();
+            $loginActivityLogger->failed($request, $attemptedUser);
+
             return back()
                 ->withErrors(['email' => 'Неверный логин или пароль.'])
                 ->onlyInput('email');
         }
 
+        $request->clearEmailRateLimiter();
         $request->session()->regenerate();
 
         try {
@@ -61,5 +73,12 @@ class AuthenticatedSessionController extends Controller
         }
 
         return route('admin.dashboard');
+    }
+
+    private function userForLoginEmail(string $email): ?User
+    {
+        return User::query()
+            ->where('email', $email)
+            ->first();
     }
 }
