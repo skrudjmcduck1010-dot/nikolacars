@@ -1,13 +1,13 @@
 <div class="panel" style="margin-top:18px;">
-    <h2 style="margin-top:0;">&#1059;&#1087;&#1088;&#1072;&#1074;&#1083;&#1077;&#1085;&#1095;&#1077;&#1089;&#1082;&#1080;&#1081; &#1088;&#1077;&#1079;&#1091;&#1083;&#1100;&#1090;&#1072;&#1090;</h2>
+    <h2 style="margin-top:0;">Управленческий результат</h2>
     <table>
         <tbody>
-        <tr><td>&#1055;&#1088;&#1080;&#1073;&#1099;&#1083;&#1100; &#1089; &#1079;&#1072;&#1087;&#1095;&#1072;&#1089;&#1090;&#1077;&#1081;</td><td style="text-align:right;">{{ $money($profit['parts_profit']) }} &#1075;&#1088;&#1085;</td></tr>
-        <tr><td>&#1055;&#1088;&#1080;&#1073;&#1099;&#1083;&#1100; &#1089; &#1088;&#1077;&#1084;&#1086;&#1085;&#1090;&#1072;</td><td style="text-align:right;">{{ $money($profit['repair_profit']) }} &#1075;&#1088;&#1085;</td></tr>
-        <tr><td>&#1055;&#1088;&#1086;&#1095;&#1080;&#1077; &#1076;&#1086;&#1093;&#1086;&#1076;&#1099; (&#1089;&#1091;&#1073;&#1072;&#1088;&#1077;&#1085;&#1076;&#1072;)</td><td style="text-align:right;">{{ $money($profit['other_income']) }} &#1075;&#1088;&#1085;</td></tr>
-        <tr><td>&#1047;&#1072;&#1090;&#1088;&#1072;&#1090;&#1099; &#1085;&#1072; &#1057;&#1058;&#1054;</td><td style="text-align:right;">{{ $money($profit['sto_expenses']) }} &#1075;&#1088;&#1085;</td></tr>
-        <tr><td>&#1047;&#1055; &#1089;&#1086;&#1090;&#1088;&#1091;&#1076;&#1085;&#1080;&#1082;&#1086;&#1074;</td><td style="text-align:right;">{{ $money($profit['payroll']) }} &#1075;&#1088;&#1085;</td></tr>
-        <tr><th>&#1048;&#1090;&#1086;&#1075;&#1086;</th><th style="text-align:right;">{{ $money($profit['net']) }} &#1075;&#1088;&#1085;</th></tr>
+        <tr><td>Прибыль с запчастей</td><td style="text-align:right;">{{ $money($profit['parts_profit']) }} грн</td></tr>
+        <tr><td>Прибыль с ремонта</td><td style="text-align:right;">{{ $money($profit['repair_profit']) }} грн</td></tr>
+        <tr><td>Прочие доходы (субаренда)</td><td style="text-align:right;">{{ $money($profit['other_income']) }} грн</td></tr>
+        <tr><td>Затраты на СТО</td><td style="text-align:right;">{{ $money($profit['sto_expenses']) }} грн</td></tr>
+        <tr><td>ЗП сотрудников</td><td style="text-align:right;">{{ $money($profit['payroll']) }} грн</td></tr>
+        <tr><th>Итого</th><th style="text-align:right;">{{ $money($profit['net']) }} грн</th></tr>
         </tbody>
     </table>
 </div>
@@ -132,12 +132,12 @@
         <table>
             <thead>
             <tr>
-                <th rowspan="2">&#1060;&#1072;&#1084;&#1080;&#1083;&#1080;&#1103;</th>
-                <th colspan="2" style="text-align:center;color:#000;font-weight:800;">&#1047;&#1055;</th>
+                <th rowspan="2">Фамилия</th>
+                <th colspan="2" style="text-align:center;color:#000;font-weight:800;">ЗП</th>
             </tr>
             <tr>
-                <th style="color:#000;font-weight:800;">&#1057;&#1090;&#1072;&#1074;&#1082;&#1072;</th>
-                <th style="color:#000;font-weight:800;">&#1041;&#1086;&#1085;&#1091;&#1089;</th>
+                <th style="color:#000;font-weight:800;">Ставка</th>
+                <th style="color:#000;font-weight:800;">Бонус</th>
             </tr>
             </thead>
             <tbody>
@@ -154,13 +154,13 @@
                     <td>{{ $money($row->bonus_uah) }}</td>
                 </tr>
             @empty
-                <tr><td colspan="3" class="empty">&#1053;&#1077;&#1090; &#1076;&#1072;&#1085;&#1085;&#1099;&#1093;.</td></tr>
+                <tr><td colspan="3" class="empty">Нет данных.</td></tr>
             @endforelse
             </tbody>
             @if ($employeeSummary->isNotEmpty())
                 <tfoot>
                 <tr>
-                    <th style="color:#000;font-size:16px;">&#1048;&#1090;&#1086;&#1075;&#1086;</th>
+                    <th style="color:#000;font-size:16px;">Итого</th>
                     <th colspan="2" style="color:#000;font-size:16px;text-align:center;">
                         {{ $money($employeeSummary->sum('rate_uah') + $employeeSummary->sum('bonus_uah')) }}
                     </th>

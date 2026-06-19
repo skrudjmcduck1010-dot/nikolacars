@@ -1,7 +1,7 @@
 @extends('layouts.admin', [
     'heading' => $catalog['heading'],
     'subheading' => $catalog['source'] === 'nikolacars'
-        ? html_entity_decode('&#1047;&#1072;&#1087;&#1095;&#1072;&#1089;&#1090;&#1080; &#1053;&#1080;&#1082;&#1086;&#1083;&#1072;&#1050;&#1072;&#1088;&#1079;: &#1076;&#1086;&#1085;&#1086;&#1088;, &#1089;&#1082;&#1083;&#1072;&#1076; &#1080; &#1079;&#1072;&#1082;&#1091;&#1087;&#1082;&#1080;')
+        ? html_entity_decode('Добавлено сегодня: ').number_format((int) ($nikolaCarsAddedTodayCount ?? 0), 0, '.', ' ')
         : 'Сначала выберите модель Tesla, затем категорию запчастей внутри нее',
 ])
 
@@ -11,7 +11,16 @@
             ? $selectedCategory->source_url
             : ($catalog['site_url'] ?? null);
     @endphp
-    @if(! empty($competitorSiteUrl))
+    @if($catalog['source'] === 'nikolacars')
+        <span class="catalog-heading-stats">
+            (Запчастей
+            <span data-catalog-items-count data-nikolacars-items-count>{{ number_format((int) $itemsCount, 0, '.', ' ') }}</span>
+            (<span data-nikolacars-unique-articles-count>{{ number_format((int) ($nikolaCarsUniqueArticleCount ?? 0), 0, '.', ' ') }}</span>
+            уникальных артикулов),
+            стоимость запчастей
+            <span data-nikolacars-total-value>{{ number_format((float) $nikolaCarsTotalValueUsd, 2, '.', ' ') }} USD</span>)
+        </span>
+    @elseif(! empty($competitorSiteUrl))
         <a class="btn btn-small btn-secondary" href="{{ $competitorSiteUrl }}" target="_blank" rel="noopener">
             Сайт конкурента
         </a>
@@ -56,7 +65,9 @@
     @endphp
 
     @include('admin.part_catalog.partials.competitor-refresh-panel')
-    @include('admin.part_catalog.partials.catalog-stats')
+    @if($catalog['source'] !== 'nikolacars')
+        @include('admin.part_catalog.partials.catalog-stats')
+    @endif
 
     <div class="panel {{ $catalog['source'] === 'nikolacars' ? 'catalog-main-panel' : '' }}">
         @if($catalog['source'] === 'nikolacars' && ! $showNikolaCarsSoldItems)
@@ -106,7 +117,7 @@
         @if($catalog['source'] === 'all' && ! $showCatalogItems)
             <div class="catalog-all-parts-prompt">
                 <a class="btn btn-secondary" href="{{ request()->fullUrlWithQuery(['show_catalog_items' => 1, 'catalog_items_page' => null]) }}">
-                    &#1055;&#1086;&#1082;&#1072;&#1079;&#1072;&#1090;&#1100; &#1074;&#1089;&#1077; &#1079;&#1072;&#1087;&#1095;&#1072;&#1089;&#1090;&#1080; Tesla
+                    Показать все запчасти Tesla
                 </a>
             </div>
         @endif

@@ -13,6 +13,18 @@
     gap: 10px;
     flex-wrap: wrap;
 }
+.catalog-heading-stats {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-basis: 100%;
+    width: 100%;
+    gap: 4px;
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.35;
+}
 .catalog-stats--nikolacars {
     grid-template-columns: repeat(3, minmax(0, 1fr));
 }
@@ -978,6 +990,13 @@
 .nikolacars-grouped-row td:first-child {
     border-left: 4px solid var(--accent);
 }
+.nikolacars-adjacent-duplicate-row,
+.nikolacars-adjacent-duplicate-row td {
+    background: #eaf4ff;
+}
+.nikolacars-adjacent-duplicate-row td:first-child {
+    border-left: 4px solid #93c5fd;
+}
 .nikolacars-group-toggle {
     display: inline-flex;
     align-items: center;
@@ -1090,9 +1109,14 @@
 }
 .nikolacars-parts-table .table-preview,
 .nikolacars-parts-table .preview-placeholder {
-    width: 54px;
-    height: 40px;
+    width: 78px;
+    height: 58px;
     border-radius: 6px;
+}
+.nikolacars-parts-table .nikolacars-group-child-row .table-preview,
+.nikolacars-parts-table .nikolacars-group-child-row .preview-placeholder {
+    width: 56px;
+    height: 42px;
 }
 .nikolacars-parts-table .help {
     margin-top: 2px;
@@ -1137,6 +1161,19 @@
 .nikolacars-compact-text {
     font-size: 12px;
     line-height: 1.2;
+}
+.nikolacars-parts-table th:nth-child(7),
+.nikolacars-parts-table td[data-nikolacars-category-cell] {
+    width: 290px;
+    max-width: 290px;
+}
+.nikolacars-parts-table td[data-nikolacars-category-cell] {
+    font-size: 11px;
+    overflow-wrap: anywhere;
+}
+.nikolacars-parts-table td[data-nikolacars-category-cell] [data-nikolacars-category-display] {
+    display: block;
+    min-width: 0;
 }
 .nikolacars-merged-badge {
     margin-left: 0;
@@ -1375,6 +1412,22 @@
 .nikolacars-cart-customer select {
     grid-column: 1 / -1;
 }
+.nikolacars-cart-nova-poshta {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+.nikolacars-cart-nova-poshta[hidden] {
+    display: none;
+}
+.nikolacars-cart-autocomplete {
+    position: relative;
+    min-width: 0;
+}
+.nikolacars-cart-autocomplete input[type="text"] {
+    width: 100%;
+}
 .nikolacars-cart-phone-field {
     position: relative;
     min-width: 0;
@@ -1501,6 +1554,7 @@
         flex: 1 1 auto;
     }
     .nikolacars-cart-customer,
+    .nikolacars-cart-nova-poshta,
     .nikolacars-cart-item {
         grid-template-columns: 1fr;
     }
@@ -1521,7 +1575,9 @@
     display: none;
 }
 .nikolacars-part-number-display span {
+    font-size: 11px;
     font-weight: 700;
+    line-height: 1.2;
 }
 .nikolacars-part-number-editor {
     min-width: 190px;
@@ -1652,6 +1708,14 @@
     line-height: 18px;
     text-align: center;
     box-shadow: 0 3px 10px rgba(25, 32, 36, .18);
+}
+.catalog-photo-preview__count--tesla {
+    left: -6px;
+    right: auto;
+    background: #dc2626;
+}
+.catalog-photo-preview__count--product {
+    right: -6px;
 }
 .catalog-photo-preview__missing {
     position: absolute;

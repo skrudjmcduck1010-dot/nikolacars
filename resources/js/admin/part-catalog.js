@@ -550,7 +550,7 @@ const hidesNikolaCarsSoldItems = () => {
     };
 
     const showNextAvailablePhoto = (direction = 1) => {
-        if (photoUrls.length < 2) return;
+        if (photoUrls.length < 2) return false;
 
         const startIndex = currentIndex;
         let nextIndex = currentIndex;
@@ -559,9 +559,11 @@ const hidesNikolaCarsSoldItems = () => {
             nextIndex = (nextIndex + direction + photoUrls.length) % photoUrls.length;
             if (!failedPhotoUrls.has(photoUrls[nextIndex])) {
                 showPhoto(nextIndex, direction);
-                return;
+                return true;
             }
         } while (nextIndex !== startIndex);
+
+        return false;
     };
 
     const openPhoto = (trigger) => {
@@ -579,6 +581,13 @@ const hidesNikolaCarsSoldItems = () => {
         lightbox.showModal();
     };
 
+    const replaceBrokenPreview = (previewImage, trigger) => {
+        const placeholder = document.createElement('span');
+        placeholder.className = 'preview-placeholder';
+        placeholder.textContent = 'нет фото';
+        trigger.replaceWith(placeholder);
+    };
+
     document.querySelectorAll('[data-catalog-photo-trigger] img').forEach((previewImage) => {
         const trigger = previewImage.closest('[data-catalog-photo-trigger]');
         if (!trigger) return;
@@ -590,13 +599,11 @@ const hidesNikolaCarsSoldItems = () => {
             urls = [];
         }
 
-        if (urls.length < 2) return;
-
         let previewIndex = Math.max(0, urls.indexOf(previewImage.getAttribute('src') || ''));
         const failedUrls = new Set();
 
         previewImage.addEventListener('error', () => {
-            failedUrls.add(urls[previewIndex]);
+            failedUrls.add(urls[previewIndex] || previewImage.currentSrc || previewImage.src || '');
 
             for (let step = 1; step < urls.length; step += 1) {
                 const nextIndex = (previewIndex + step) % urls.length;
@@ -606,12 +613,16 @@ const hidesNikolaCarsSoldItems = () => {
                     return;
                 }
             }
+
+            replaceBrokenPreview(previewImage, trigger);
         });
     });
 
     image?.addEventListener('error', () => {
         failedPhotoUrls.add(photoUrls[currentIndex]);
-        showNextAvailablePhoto(1);
+        if (!showNextAvailablePhoto(1)) {
+            lightbox.close();
+        }
     });
 
     document.querySelectorAll('[data-catalog-photo-trigger]').forEach((trigger) => {
@@ -650,8 +661,17 @@ const hidesNikolaCarsSoldItems = () => {
     const firstNameInput = document.querySelector('[data-nikolacars-cart-first-name]');
     const lastNameInput = document.querySelector('[data-nikolacars-cart-last-name]');
     const deliveryMethodInput = document.querySelector('[data-nikolacars-cart-delivery-method]');
+    const novaPoshtaFields = document.querySelector('[data-nikolacars-cart-nova-poshta]');
+    const novaPoshtaCityInput = document.querySelector('[data-nikolacars-cart-np-city]');
+    const novaPoshtaCityRefInput = document.querySelector('[data-nikolacars-cart-np-city-ref]');
+    const novaPoshtaCitySuggestions = document.querySelector('[data-nikolacars-cart-np-city-suggestions]');
+    const novaPoshtaWarehouseInput = document.querySelector('[data-nikolacars-cart-np-warehouse]');
+    const novaPoshtaWarehouseRefInput = document.querySelector('[data-nikolacars-cart-np-warehouse-ref]');
+    const novaPoshtaWarehouseSuggestions = document.querySelector('[data-nikolacars-cart-np-warehouse-suggestions]');
     const storageKey = 'nikolacarsCatalogCartUahV1';
     const clientSearchUrl = config.clientSearchUrl || '';
+    const novaPoshtaCitiesUrl = config.novaPoshtaCitiesUrl || '';
+    const novaPoshtaWarehousesUrl = config.novaPoshtaWarehousesUrl || '';
     const createOrderUrl = config.createOrderUrl || '';
 
     if (addButtons.length === 0 || !bar || !dialog || !listNode) return;
@@ -669,6 +689,11 @@ const hidesNikolaCarsSoldItems = () => {
         create: '\u0421\u043e\u0437\u0434\u0430\u0442\u044c',
         createFailed: '\u041d\u0435 \u0443\u0434\u0430\u043b\u043e\u0441\u044c \u0441\u043e\u0437\u0434\u0430\u0442\u044c \u0437\u0430\u043a\u0430\u0437. \u041f\u0440\u043e\u0432\u0435\u0440\u044c\u0442\u0435 \u043f\u043e\u043b\u044f \u0438 \u043f\u043e\u043f\u0440\u043e\u0431\u0443\u0439\u0442\u0435 \u0435\u0449\u0435 \u0440\u0430\u0437.',
         deliveryRequired: '\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0441\u043f\u043e\u0441\u043e\u0431 \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u044f.',
+        novaPoshtaCityRequired: '\u0423\u043a\u0430\u0436\u0438\u0442\u0435 \u0433\u043e\u0440\u043e\u0434 \u041d\u043e\u0432\u043e\u0439 \u043f\u043e\u0447\u0442\u044b.',
+        novaPoshtaWarehouseRequired: '\u0423\u043a\u0430\u0436\u0438\u0442\u0435 \u043e\u0442\u0434\u0435\u043b\u0435\u043d\u0438\u0435 \u0438\u043b\u0438 \u043f\u043e\u0447\u0442\u043e\u043c\u0430\u0442 \u041d\u043e\u0432\u043e\u0439 \u043f\u043e\u0447\u0442\u044b.',
+        novaPoshtaCitySuggestionRequired: '\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0433\u043e\u0440\u043e\u0434 \u0438\u0437 \u043f\u043e\u0434\u0441\u043a\u0430\u0437\u043a\u0438 \u041d\u043e\u0432\u043e\u0439 \u041f\u043e\u0447\u0442\u044b.',
+        novaPoshtaWarehouseSuggestionRequired: '\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u043e\u0442\u0434\u0435\u043b\u0435\u043d\u0438\u0435 \u0438\u043b\u0438 \u043f\u043e\u0447\u0442\u043e\u043c\u0430\u0442 \u0438\u0437 \u043f\u043e\u0434\u0441\u043a\u0430\u0437\u043a\u0438 \u041d\u043e\u0432\u043e\u0439 \u041f\u043e\u0447\u0442\u044b.',
+        novaPoshtaPhoneRequired: '\u0423\u043a\u0430\u0436\u0438\u0442\u0435 \u0442\u0435\u043b\u0435\u0444\u043e\u043d \u043a\u043b\u0438\u0435\u043d\u0442\u0430 \u0434\u043b\u044f \u041d\u043e\u0432\u043e\u0439 \u043f\u043e\u0447\u0442\u044b.',
         invalidPhone: '\u0423\u043a\u0430\u0436\u0438\u0442\u0435 \u043a\u043e\u0440\u0440\u0435\u043a\u0442\u043d\u044b\u0439 \u0443\u043a\u0440\u0430\u0438\u043d\u0441\u043a\u0438\u0439 \u043c\u043e\u0431\u0438\u043b\u044c\u043d\u044b\u0439 \u0442\u0435\u043b\u0435\u0444\u043e\u043d: 0XXXXXXXXX \u0438\u043b\u0438 +380XXXXXXXXX.',
     };
 
@@ -722,12 +747,13 @@ const hidesNikolaCarsSoldItems = () => {
     };
 
     const isStoDelivery = () => deliveryMethodInput?.value === 'sto';
+    const isNovaPoshtaDelivery = () => deliveryMethodInput?.value === 'nova_poshta';
 
     const customerHasAnyDetails = () => [phoneInput, firstNameInput, lastNameInput]
         .some((input) => input && input.value.trim() !== '');
 
     const syncCustomerNameRequirements = () => {
-        const required = !isStoDelivery() && !selectedAnonymousClient && customerHasAnyDetails();
+        const required = !isStoDelivery() && !selectedAnonymousClient && (isNovaPoshtaDelivery() || customerHasAnyDetails());
 
         [firstNameInput, lastNameInput].forEach((input) => {
             if (input) input.required = required;
@@ -754,6 +780,20 @@ const hidesNikolaCarsSoldItems = () => {
 
         if (disabled) {
             hidePhoneSuggestions();
+        }
+
+        const novaPoshtaRequired = isNovaPoshtaDelivery();
+        if (novaPoshtaFields) {
+            novaPoshtaFields.hidden = !novaPoshtaRequired;
+        }
+        [novaPoshtaCityInput, novaPoshtaWarehouseInput].forEach((input) => {
+            if (!input) return;
+
+            input.required = novaPoshtaRequired;
+            input.setCustomValidity('');
+        });
+        if (novaPoshtaWarehouseInput) {
+            novaPoshtaWarehouseInput.disabled = novaPoshtaRequired && !novaPoshtaCityRefInput?.value;
         }
     };
 
@@ -1012,6 +1052,112 @@ const hidesNikolaCarsSoldItems = () => {
 
         phoneSuggestions.hidden = clients.length === 0;
     };
+
+    const hideSuggestions = (suggestions) => {
+        if (!suggestions) return;
+
+        suggestions.hidden = true;
+        suggestions.innerHTML = '';
+    };
+
+    const renderNovaPoshtaSuggestions = (suggestions, items, onChoose) => {
+        if (!suggestions) return;
+
+        suggestions.innerHTML = '';
+        items.forEach((item) => {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'nikolacars-cart-phone-suggestion';
+            button.innerHTML = '<strong></strong><span></span>';
+            button.querySelector('strong').textContent = item.description || '';
+            button.querySelector('span').textContent = [item.settlement_type, item.area, item.number ? `\u2116${item.number}` : ''].filter(Boolean).join(' \u00b7 ');
+            button.addEventListener('click', () => onChoose(item));
+            suggestions.appendChild(button);
+        });
+
+        suggestions.hidden = items.length === 0;
+    };
+
+    const attachNovaPoshtaAutocomplete = ({ input, refInput, suggestions, url, minLength, buildParams, onChoose, onInput }) => {
+        if (!input || !refInput || !suggestions || !url) return;
+
+        let timer = null;
+        input.addEventListener('input', () => {
+            refInput.value = '';
+            input.setCustomValidity('');
+            onInput?.();
+
+            window.clearTimeout(timer);
+            timer = window.setTimeout(async () => {
+                const query = input.value.trim();
+                if (query.length < minLength) {
+                    hideSuggestions(suggestions);
+                    return;
+                }
+
+                try {
+                    const requestUrl = new URL(url, window.location.origin);
+                    requestUrl.searchParams.set('query', query);
+                    Object.entries(buildParams?.() || {}).forEach(([key, value]) => {
+                        requestUrl.searchParams.set(key, value);
+                    });
+                    const response = await fetch(requestUrl, { headers: { Accept: 'application/json' } });
+                    if (!response.ok) {
+                        hideSuggestions(suggestions);
+                        return;
+                    }
+
+                    const items = await response.json();
+                    renderNovaPoshtaSuggestions(suggestions, Array.isArray(items) ? items : [], (item) => {
+                        input.value = item.description || '';
+                        refInput.value = item.ref || '';
+                        input.setCustomValidity('');
+                        hideSuggestions(suggestions);
+                        onChoose?.(item);
+                    });
+                } catch (error) {
+                    console.error(error);
+                    hideSuggestions(suggestions);
+                }
+            }, 300);
+        });
+
+        input.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') hideSuggestions(suggestions);
+        });
+    };
+
+    attachNovaPoshtaAutocomplete({
+        input: novaPoshtaCityInput,
+        refInput: novaPoshtaCityRefInput,
+        suggestions: novaPoshtaCitySuggestions,
+        url: novaPoshtaCitiesUrl,
+        minLength: 2,
+        onInput: () => {
+            if (novaPoshtaWarehouseInput) {
+                novaPoshtaWarehouseInput.value = '';
+                novaPoshtaWarehouseInput.disabled = isNovaPoshtaDelivery();
+            }
+            if (novaPoshtaWarehouseRefInput) novaPoshtaWarehouseRefInput.value = '';
+            hideSuggestions(novaPoshtaWarehouseSuggestions);
+        },
+        onChoose: () => {
+            if (novaPoshtaWarehouseInput) {
+                novaPoshtaWarehouseInput.disabled = false;
+                novaPoshtaWarehouseInput.focus();
+            }
+        },
+    });
+
+    attachNovaPoshtaAutocomplete({
+        input: novaPoshtaWarehouseInput,
+        refInput: novaPoshtaWarehouseRefInput,
+        suggestions: novaPoshtaWarehouseSuggestions,
+        url: novaPoshtaWarehousesUrl,
+        minLength: 1,
+        buildParams: () => ({ city_ref: novaPoshtaCityRefInput?.value || '' }),
+    });
+
     phoneInput?.addEventListener('input', () => {
         selectedAnonymousClient = false;
         syncCustomerNameRequirements();
@@ -1053,8 +1199,22 @@ const hidesNikolaCarsSoldItems = () => {
         if (!phoneSuggestions || event.target instanceof Node && phoneSuggestions.contains(event.target)) return;
         if (phoneInput && event.target === phoneInput) return;
         hidePhoneSuggestions();
+        if (event.target instanceof Node) {
+            if (!novaPoshtaCitySuggestions?.contains(event.target) && event.target !== novaPoshtaCityInput) {
+                hideSuggestions(novaPoshtaCitySuggestions);
+            }
+            if (!novaPoshtaWarehouseSuggestions?.contains(event.target) && event.target !== novaPoshtaWarehouseInput) {
+                hideSuggestions(novaPoshtaWarehouseSuggestions);
+            }
+        }
     });
-    deliveryMethodInput?.addEventListener('change', syncCustomerFieldsForDeliveryMethod);
+    deliveryMethodInput?.addEventListener('change', () => {
+        if (selectedAnonymousClient && deliveryMethodInput.value !== 'pickup') {
+            selectedAnonymousClient = false;
+        }
+
+        syncCustomerFieldsForDeliveryMethod();
+    });
     syncCustomerFieldsForDeliveryMethod();
 
     createButton?.addEventListener('click', async () => {
@@ -1081,11 +1241,48 @@ const hidesNikolaCarsSoldItems = () => {
             return;
         }
 
+        if (isNovaPoshtaDelivery() && phoneInput && phoneInput.value.trim() === '') {
+            phoneInput.setCustomValidity(text.novaPoshtaPhoneRequired);
+            phoneInput.reportValidity();
+            phoneInput.focus();
+            return;
+        }
+
         if (!isStoDelivery() && !anonymousClientSelected && phoneInput && phoneInput.value.trim() !== '' && !isValidMobilePhone(phoneInput.value)) {
             phoneInput.setCustomValidity(text.invalidPhone);
             phoneInput.reportValidity();
             phoneInput.focus();
             return;
+        }
+
+        if (isNovaPoshtaDelivery()) {
+            if (novaPoshtaCityInput && novaPoshtaCityInput.value.trim() === '') {
+                novaPoshtaCityInput.setCustomValidity(text.novaPoshtaCityRequired);
+                novaPoshtaCityInput.reportValidity();
+                novaPoshtaCityInput.focus();
+                return;
+            }
+
+            if (novaPoshtaCityInput && novaPoshtaCityRefInput && novaPoshtaCityRefInput.value.trim() === '') {
+                novaPoshtaCityInput.setCustomValidity(text.novaPoshtaCitySuggestionRequired);
+                novaPoshtaCityInput.reportValidity();
+                novaPoshtaCityInput.focus();
+                return;
+            }
+
+            if (novaPoshtaWarehouseInput && novaPoshtaWarehouseInput.value.trim() === '') {
+                novaPoshtaWarehouseInput.setCustomValidity(text.novaPoshtaWarehouseRequired);
+                novaPoshtaWarehouseInput.reportValidity();
+                novaPoshtaWarehouseInput.focus();
+                return;
+            }
+
+            if (novaPoshtaWarehouseInput && novaPoshtaWarehouseRefInput && novaPoshtaWarehouseRefInput.value.trim() === '') {
+                novaPoshtaWarehouseInput.setCustomValidity(text.novaPoshtaWarehouseSuggestionRequired);
+                novaPoshtaWarehouseInput.reportValidity();
+                novaPoshtaWarehouseInput.focus();
+                return;
+            }
         }
 
         const originalText = createButton.textContent;
@@ -1106,6 +1303,9 @@ const hidesNikolaCarsSoldItems = () => {
                     client_first_name: isStoDelivery() || anonymousClientSelected ? '' : (firstNameInput?.value.trim() || ''),
                     client_last_name: isStoDelivery() || anonymousClientSelected ? '' : (lastNameInput?.value.trim() || ''),
                     delivery_method: deliveryMethodInput?.value || '',
+                    nova_poshta_city: isNovaPoshtaDelivery() ? (novaPoshtaCityInput?.value.trim() || '') : '',
+                    nova_poshta_warehouse: isNovaPoshtaDelivery() ? (novaPoshtaWarehouseInput?.value.trim() || '') : '',
+                    nova_poshta_warehouse_ref: isNovaPoshtaDelivery() ? (novaPoshtaWarehouseRefInput?.value.trim() || '') : '',
                     items: cart.map((item) => ({
                         id: item.id,
                         name: item.name,

@@ -104,7 +104,7 @@
                     </td>
                     <td class="actions">
                         @if($isTeslaOfficialProduct)
-                            <a class="btn btn-secondary" href="{{ route('admin.products.edit', $product) }}">&#1048;&#1079;&#1084;&#1077;&#1085;&#1080;&#1090;&#1100;</a>
+                            <a class="btn btn-secondary" href="{{ route('admin.products.edit', $product) }}">Изменить</a>
                         @endif
                         @if($isTeslaOfficialProduct)
                             <span class="tag" style="background:#111827;color:#fff;">tesla.com</span>

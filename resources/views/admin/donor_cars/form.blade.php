@@ -1,4 +1,4 @@
-@extends('layouts.admin', ['heading' => $donorCar->exists ? html_entity_decode('&#1056;&#1077;&#1076;&#1072;&#1082;&#1090;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1077; &#1076;&#1086;&#1085;&#1086;&#1088;&#1089;&#1082;&#1086;&#1075;&#1086; &#1072;&#1074;&#1090;&#1086;&#1084;&#1086;&#1073;&#1080;&#1083;&#1103;') : html_entity_decode('&#1053;&#1086;&#1074;&#1099;&#1081; &#1076;&#1086;&#1085;&#1086;&#1088;&#1089;&#1082;&#1080;&#1081; &#1072;&#1074;&#1090;&#1086;&#1084;&#1086;&#1073;&#1080;&#1083;&#1100;')])
+@extends('layouts.admin', ['heading' => $donorCar->exists ? html_entity_decode('Редактирование донорского автомобиля') : html_entity_decode('Новый донорский автомобиль')])
 
 @section('content')
     <form method="POST" action="{{ $donorCar->exists ? route('admin.donor-cars.update', $donorCar) : route('admin.donor-cars.store') }}" class="panel" enctype="multipart/form-data">
@@ -15,11 +15,11 @@
                 @error('vin')<div class="error">{{ $message }}</div>@enderror
             </div>
             <div>
-                <label>&#1057;&#1090;&#1072;&#1090;&#1091;&#1089;</label>
+                <label>Статус</label>
                 <div class="readonly-value">{{ $donorCar->exists ? $donorCar->status_label : \App\Support\CatalogTextEncoding::repair(\App\Models\DonorCar::STATUSES[\App\Models\DonorCar::STATUS_IN_TRANSIT]) }}</div>
             </div>
             <div>
-                <label>&#1052;&#1072;&#1088;&#1082;&#1072;</label>
+                <label>Марка</label>
                 @if($donorCar->exists)
                     <div class="readonly-value">{{ $donorCar->brand }}</div>
                 @else
@@ -31,13 +31,13 @@
                 @endif
             </div>
             <div>
-                <label>&#1052;&#1086;&#1076;&#1077;&#1083;&#1100;</label>
+                <label>Модель</label>
                 @php($selectedModel = old('model', $donorCar->model))
                 @if($donorCar->exists)
                     <div class="readonly-value">{{ $donorCar->model }}</div>
                 @else
                     <select name="model" required data-model-input>
-                        <option value="">&#1042;&#1099;&#1073;&#1077;&#1088;&#1080;&#1090;&#1077; &#1084;&#1086;&#1076;&#1077;&#1083;&#1100;</option>
+                        <option value="">Выберите модель</option>
                         @foreach($models as $model)
                             <option value="{{ $model }}" @selected($selectedModel === $model)>{{ $model }}</option>
                         @endforeach
@@ -47,7 +47,7 @@
                     </select>
                 @endif
             </div>
-            <div><label>&#1043;&#1086;&#1076;</label><input type="number" name="year" value="{{ old('year', $donorCar->year) }}" min="1990" max="2100" inputmode="numeric" data-year-input></div>
+            <div><label>Год</label><input type="number" name="year" value="{{ old('year', $donorCar->year) }}" min="1990" max="2100" inputmode="numeric" data-year-input></div>
             <div>
                 <label>Привод</label>
                 <select name="drive_type">
@@ -78,18 +78,18 @@
                 </select>
                 @error('is_performance')<div class="error">{{ $message }}</div>@enderror
             </div>
-            <div><label>&#1062;&#1074;&#1077;&#1090;</label><input name="color" value="{{ old('color', $donorCar->color) }}" required></div>
-            <div><label>&#1052;&#1072;&#1088;&#1082;&#1080;&#1088;&#1086;&#1074;&#1082;&#1072; &#1094;&#1074;&#1077;&#1090;&#1072;</label><input name="paint_code" value="{{ old('paint_code', $donorCar->paint_code) }}" maxlength="50" placeholder="PPMR"></div>
+            <div><label>Цвет</label><input name="color" value="{{ old('color', $donorCar->color) }}" required></div>
+            <div><label>Маркировка цвета</label><input name="paint_code" value="{{ old('paint_code', $donorCar->paint_code) }}" maxlength="50" placeholder="PPMR"></div>
             <div>
-                <label>&#1055;&#1088;&#1086;&#1073;&#1077;&#1075;</label>
+                <label>Пробег</label>
                 <input type="number" name="mileage" value="{{ old('mileage', $donorCar->mileage) }}" min="0" max="2000000" inputmode="numeric" required>
             </div>
             <div>
-                <label>&#1044;&#1072;&#1090;&#1072; &#1087;&#1086;&#1082;&#1091;&#1087;&#1082;&#1080; &#1076;&#1086;&#1085;&#1086;&#1088;&#1072;</label>
+                <label>Дата покупки донора</label>
                 <input type="date" name="purchase_date" value="{{ old('purchase_date', $donorCar->purchase_date?->format('Y-m-d')) }}" @required(! $donorCar->exists)>
             </div>
             <div>
-                <label>&#1044;&#1072;&#1090;&#1072; &#1087;&#1088;&#1080;&#1093;&#1086;&#1076;&#1072; &#1076;&#1086;&#1085;&#1086;&#1088;&#1072; &#1085;&#1072; &#1057;&#1058;&#1054;</label>
+                <label>Дата прихода донора на СТО</label>
                 <input type="date" name="warehouse_arrival_date" value="{{ old('warehouse_arrival_date', $donorCar->warehouse_arrival_date?->format('Y-m-d')) }}">
             </div>
             <div>
@@ -121,7 +121,7 @@
                 @endif
             </div>
             <div>
-                <label>&#1056;&#1072;&#1089;&#1090;&#1072;&#1084;&#1086;&#1078;&#1082;&#1072; ($)</label>
+                <label>Растаможка ($)</label>
                 @if($donorCar->exists && $donorCar->isDonorExpenseFieldLocked('customs_clearance_price_usd'))
                     <div class="readonly-value">{{ $donorCar->customs_clearance_price_usd }}</div>
                     <div class="help">Заполнено из {{ $donorCar->donorExpenseSourceLabelFor('customs_clearance_price_usd') }}</div>
@@ -130,27 +130,27 @@
                 @endif
             </div>
             <div class="full">
-                <label>&#1060;&#1086;&#1090;&#1086;&#1075;&#1088;&#1072;&#1092;&#1080;&#1080;</label>
+                <label>Фотографии</label>
                 <input id="donor-form-photos" class="donor-form-photo-input" type="file" name="photos[]" accept="image/*" multiple data-donor-form-photos data-existing-photo-count="{{ count($donorCar->photos ?? []) }}">
                 <label class="donor-form-photo-dropzone" for="donor-form-photos" data-donor-form-photo-dropzone>
-                    <span class="donor-form-photo-dropzone__title">&#1055;&#1077;&#1088;&#1077;&#1090;&#1072;&#1097;&#1080;&#1090;&#1077; &#1092;&#1086;&#1090;&#1086; &#1089;&#1102;&#1076;&#1072;</span>
-                    <span class="donor-form-photo-dropzone__hint">&#1080;&#1083;&#1080; &#1085;&#1072;&#1078;&#1084;&#1080;&#1090;&#1077;, &#1095;&#1090;&#1086;&#1073;&#1099; &#1074;&#1099;&#1073;&#1088;&#1072;&#1090;&#1100; &#1092;&#1072;&#1081;&#1083;&#1099;. &#1044;&#1086; {{ \App\Models\DonorCar::PHOTO_LIMIT }} &#1092;&#1086;&#1090;&#1086;.</span>
-                    <span class="donor-form-photo-dropzone__status" data-donor-form-photo-status>&#1060;&#1072;&#1081;&#1083;&#1099; &#1085;&#1077; &#1074;&#1099;&#1073;&#1088;&#1072;&#1085;&#1099;</span>
+                    <span class="donor-form-photo-dropzone__title">Перетащите фото сюда</span>
+                    <span class="donor-form-photo-dropzone__hint">или нажмите, чтобы выбрать файлы. До {{ \App\Models\DonorCar::PHOTO_LIMIT }} фото.</span>
+                    <span class="donor-form-photo-dropzone__status" data-donor-form-photo-status>Файлы не выбраны</span>
                 </label>
             </div>
             @if($donorCar->photos)
                 <div class="full photo-grid">
                     @foreach($donorCar->photos as $photo)
                         <label class="photo-item">
-                            <img src="{{ \App\Support\PublicStorageUrl::url($photo) }}" alt="&#1060;&#1086;&#1090;&#1086; {{ $donorCar->vin }}">
-                            <span><input type="checkbox" name="remove_photos[]" value="{{ $photo }}"> &#1059;&#1076;&#1072;&#1083;&#1080;&#1090;&#1100;</span>
+                            <img src="{{ \App\Support\PublicStorageUrl::url($photo) }}" alt="Фото {{ $donorCar->vin }}">
+                            <span><input type="checkbox" name="remove_photos[]" value="{{ $photo }}"> Удалить</span>
                         </label>
                     @endforeach
                 </div>
             @endif
-            <div class="full"><label>&#1055;&#1088;&#1080;&#1084;&#1077;&#1095;&#1072;&#1085;&#1080;&#1103;</label><textarea name="notes">{{ old('notes', $donorCar->notes) }}</textarea></div>
+            <div class="full"><label>Примечания</label><textarea name="notes">{{ old('notes', $donorCar->notes) }}</textarea></div>
         </div>
-        <div class="actions" style="margin-top:20px;"><button type="submit">&#1057;&#1086;&#1093;&#1088;&#1072;&#1085;&#1080;&#1090;&#1100;</button></div>
+        <div class="actions" style="margin-top:20px;"><button type="submit">Сохранить</button></div>
     </form>
 
     <style>

@@ -15,9 +15,24 @@ use Illuminate\Support\Str;
 
 class NikolaCarsCatalogListService
 {
-    public function activeItems(): Collection
+    public function activeItems(array $columns = ['*']): Collection
     {
-        return app(NikolaCarsInventoryService::class)->activeItemsQuery()->get();
+        return app(NikolaCarsInventoryService::class)->activeItemsQuery()->get($columns);
+    }
+
+    public function activeSummaryItems(): Collection
+    {
+        return $this->activeItems([
+            'id',
+            'source_url',
+            'part_number',
+            'price_amount',
+            'currency',
+            'quality',
+            'main_category_name',
+            'compatibility_text',
+            'raw_attributes',
+        ]);
     }
 
     public function itemGroups(Collection $items, array $usdRate, callable $displayItemName): Collection
@@ -33,6 +48,15 @@ class NikolaCarsCatalogListService
             ->concat($groups->filter(fn (array $group): bool => ! (bool) $group['is_reserved'] && (float) $group['quantity'] > 0))
             ->concat($groups->filter(fn (array $group): bool => ! (bool) $group['is_reserved'] && (float) $group['quantity'] <= 0))
             ->values();
+    }
+
+    public function itemGroupsForIndividualItems(Collection $items, array $usdRate, callable $displayItemName): Collection
+    {
+        return app(NikolaCarsInventoryService::class)->itemGroupsForIndividualItems(
+            $items,
+            $usdRate,
+            $displayItemName,
+        );
     }
 
     public function paginateItemGroups(Collection $groups, Request $request): LengthAwarePaginator
@@ -111,8 +135,10 @@ class NikolaCarsCatalogListService
         );
     }
 
-    public function donorFilterOptions(Collection $items): Collection
+    public function donorFilterOptions(?Collection $items = null): Collection
     {
+        $items ??= $this->activeItems(['id', 'raw_attributes']);
+
         return $items
             ->map(fn (PartCatalogItem $item): string => Str::upper(trim((string) data_get($item->raw_attributes, 'donor_vin', ''))))
             ->filter()
@@ -121,8 +147,15 @@ class NikolaCarsCatalogListService
             ->values();
     }
 
-    public function topCategoryFilterOptions(Collection $items): Collection
+    public function topCategoryFilterOptions(?Collection $items = null): Collection
     {
+        $items ??= $this->activeItems([
+            'id',
+            'raw_attributes',
+            'main_category_name',
+            'compatibility_text',
+        ]);
+
         $options = $items
             ->map(fn (PartCatalogItem $item): string => $this->topCategory($item))
             ->filter()
@@ -189,21 +222,32 @@ class NikolaCarsCatalogListService
             ->keyBy(fn (DonorCar $donorCar): string => Str::upper(trim((string) $donorCar->vin)));
     }
 
-    public function inventoryTotalUsd(Collection $items, array $usdRate): float
+    public function inventoryTotalUsd(?Collection $items, array $usdRate): float
     {
+        $items ??= $this->activeItems([
+            'id',
+            'source_url',
+            'price_amount',
+            'currency',
+            'raw_attributes',
+        ]);
+
         return app(NikolaCarsInventoryService::class)->inventoryTotalUsd($items, $usdRate);
     }
 
     public function itemsCount(?Collection $items = null): int
     {
-        return ($items ?? $this->activeItems())->count();
+        return $items !== null
+            ? $items->count()
+            : app(NikolaCarsInventoryService::class)->activeItemsQuery()->count();
     }
 
     public function uniqueArticleCount(?Collection $items = null): int
     {
         $inventory = app(NikolaCarsInventoryService::class);
+        $items ??= $this->activeItems(['id', 'part_number']);
 
-        return ($items ?? $this->activeItems())
+        return $items
             ->map(fn (PartCatalogItem $item): string => $inventory->normalizePartNumber((string) $item->part_number))
             ->filter()
             ->unique()
@@ -212,7 +256,7 @@ class NikolaCarsCatalogListService
 
     public function addedTodayCount(?Collection $items = null): int
     {
-        $items ??= $this->activeItems();
+        $items ??= $this->activeItems(['id', 'quality', 'raw_attributes']);
         $today = today();
         $manualProductIds = $items
             ->filter(fn (PartCatalogItem $item): bool => trim((string) data_get($item->raw_attributes, 'manual_create_source_type')) !== '')
@@ -263,7 +307,7 @@ class NikolaCarsCatalogListService
     public function formattedInventoryTotalUsd(): string
     {
         $usdRate = app(ExchangeRateService::class)->displayUsdRate();
-        $total = $this->inventoryTotalUsd($this->activeItems(), $usdRate);
+        $total = $this->inventoryTotalUsd(null, $usdRate);
 
         return number_format($total, 2, '.', ' ').' USD';
     }

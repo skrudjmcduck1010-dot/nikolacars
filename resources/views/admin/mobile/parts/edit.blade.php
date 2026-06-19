@@ -93,9 +93,9 @@
                     @if($photoUrl($photo))
                         <div class="mobile-photo-tile" data-mobile-photo-tile data-photo="{{ $photo }}">
                             <img src="{{ $photoUrl($photo) }}" alt="Фото {{ $product->name }}">
-                            <button type="button" class="mobile-photo-open" data-mobile-photo-open aria-label="&#1054;&#1090;&#1082;&#1088;&#1099;&#1090;&#1100; &#1092;&#1086;&#1090;&#1086;"></button>
+                            <button type="button" class="mobile-photo-open" data-mobile-photo-open aria-label="Открыть фото"></button>
                             @if($productImages->count() > 1)
-                                <button type="button" class="mobile-photo-drag-handle" aria-label="&#1055;&#1077;&#1088;&#1077;&#1090;&#1072;&#1097;&#1080;&#1090;&#1100; &#1092;&#1086;&#1090;&#1086;" data-mobile-photo-drag-handle>
+                                <button type="button" class="mobile-photo-drag-handle" aria-label="Перетащить фото" data-mobile-photo-drag-handle>
                                     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                                         <path d="M9 5h2v2H9V5Zm4 0h2v2h-2V5ZM9 9h2v2H9V9Zm4 0h2v2h-2V9Zm-4 4h2v2H9v-2Zm4 0h2v2h-2v-2Zm-4 4h2v2H9v-2Zm4 0h2v2h-2v-2Z" />
                                     </svg>
@@ -108,7 +108,7 @@
                                     @csrf
                                     @method('DELETE')
                                     <input type="hidden" name="photo" value="{{ $photo }}">
-                                    <button type="submit" class="mobile-photo-delete-button" aria-label="&#1059;&#1076;&#1072;&#1083;&#1080;&#1090;&#1100; &#1092;&#1086;&#1090;&#1086;">
+                                    <button type="submit" class="mobile-photo-delete-button" aria-label="Удалить фото">
                                         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                                             <path d="M9 3h6l1 2h4v2H4V5h4l1-2Zm1 6h2v9h-2V9Zm4 0h2v9h-2V9ZM7 9h2v10h6V9h2v12H7V9Z" />
                                         </svg>
@@ -123,15 +123,15 @@
                 @endforeach
             </div>
 
-            <div class="mobile-photo-viewer" data-mobile-photo-viewer role="dialog" aria-modal="true" aria-label="&#1060;&#1086;&#1090;&#1086;" hidden>
+            <div class="mobile-photo-viewer" data-mobile-photo-viewer role="dialog" aria-modal="true" aria-label="Фото" hidden>
                 <div class="mobile-photo-viewer__bar">
                     <div class="mobile-photo-viewer__counter" data-mobile-photo-viewer-counter></div>
-                    <button type="button" class="mobile-photo-viewer__close" data-mobile-photo-viewer-close aria-label="&#1047;&#1072;&#1082;&#1088;&#1099;&#1090;&#1100; &#1092;&#1086;&#1090;&#1086;">&times;</button>
+                    <button type="button" class="mobile-photo-viewer__close" data-mobile-photo-viewer-close aria-label="Закрыть фото">&times;</button>
                 </div>
                 <div class="mobile-photo-viewer__frame" data-mobile-photo-viewer-frame>
-                    <button type="button" class="mobile-photo-viewer__nav mobile-photo-viewer__nav--prev" data-mobile-photo-viewer-prev aria-label="&#1055;&#1088;&#1077;&#1076;&#1099;&#1076;&#1091;&#1097;&#1077;&#1077; &#1092;&#1086;&#1090;&#1086;">&#8249;</button>
+                    <button type="button" class="mobile-photo-viewer__nav mobile-photo-viewer__nav--prev" data-mobile-photo-viewer-prev aria-label="Предыдущее фото">&#8249;</button>
                     <img class="mobile-photo-viewer__image" data-mobile-photo-viewer-image alt="">
-                    <button type="button" class="mobile-photo-viewer__nav mobile-photo-viewer__nav--next" data-mobile-photo-viewer-next aria-label="&#1057;&#1083;&#1077;&#1076;&#1091;&#1102;&#1097;&#1077;&#1077; &#1092;&#1086;&#1090;&#1086;">&#8250;</button>
+                    <button type="button" class="mobile-photo-viewer__nav mobile-photo-viewer__nav--next" data-mobile-photo-viewer-next aria-label="Следующее фото">&#8250;</button>
                 </div>
                 <div class="mobile-photo-viewer__hint" data-mobile-photo-viewer-hint></div>
             </div>

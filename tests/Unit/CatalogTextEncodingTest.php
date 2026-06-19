@@ -46,4 +46,11 @@ class CatalogTextEncodingTest extends TestCase
     {
         $this->assertSame("\u{0415}\u{043B}\u{0435}\u{043A}\u{0442}\u{0440}\u{0438}\u{043A}", CatalogTextEncoding::repair("\u{0415}\u{043B}\u{0435}\u{043A}\u{0442}\u{0440}\u{0438}\u{043A}"));
     }
+
+    public function test_keeps_normal_ukrainian_catalog_path_unchanged(): void
+    {
+        $value = '12 - ЗОВНІШНЯ ФУРНІТУРА / 1225 - НАКЛАДКИ ПІДКАПОТНОГО ВІДСІКУ';
+
+        $this->assertSame($value, CatalogTextEncoding::repair($value));
+    }
 }

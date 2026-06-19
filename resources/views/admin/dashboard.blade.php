@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="panel" style="margin-bottom:18px;color:#0f766e;">
-        <div style="font-size:22px;font-weight:700;">&#1042;&#1099;&#1083;&#1080;&#1090;&#1086;</div>
-        <div class="help" style="margin-top:6px;color:#0f766e;">&#1044;&#1072;&#1090;&#1072;: 28.05.2026 19:38:23</div>
+        <div style="font-size:22px;font-weight:700;">Вылито</div>
+        <div class="help" style="margin-top:6px;color:#0f766e;">Дата: 28.05.2026 19:38:23</div>
     </div>
 
     <div class="grid grid-4">

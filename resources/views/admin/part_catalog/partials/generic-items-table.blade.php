@@ -39,7 +39,7 @@
                     >
                         <img class="table-preview" src="{{ $imageUrl }}" alt="{{ $itemName($item) }}" loading="lazy" decoding="async">
                         @if($item->source === 'driveparts' && $isDrivePartsSharedPlaceholderImageUrl($imageUrl))
-                            <span class="catalog-photo-preview__missing">&#1073;&#1077;&#1079; &#1092;&#1086;&#1090;&#1086;</span>
+                            <span class="catalog-photo-preview__missing">без фото</span>
                         @endif
                         @if($imageUrls->count() > 1)
                             <span class="catalog-photo-preview__count">+{{ $imageUrls->count() - 1 }}</span>

@@ -61,7 +61,25 @@
             <a class="btn" href="{{ route('admin.donor-cars.create') }}">Добавить донорский автомобиль</a>
         </div>
 
+        <div class="donor-parts-search" data-donor-parts-search-url="{{ route('admin.donor-cars.parts.search') }}">
+            <label for="donor-parts-search">Поиск запчастей по всем донорам</label>
+            <input id="donor-parts-search" type="search" placeholder="Название или артикул" autocomplete="off" data-donor-parts-search-input>
+            <div class="donor-parts-search__results" data-donor-parts-search-results hidden></div>
+        </div>
+
         <style>
+            .donor-parts-search { position: relative; display: grid; gap: 8px; max-width: 720px; margin-bottom: 16px; }
+            .donor-parts-search label { font-weight: 700; }
+            .donor-parts-search input { width: 100%; }
+            .donor-parts-search__results { position: absolute; top: calc(100% + 6px); left: 0; right: 0; z-index: 20; display: grid; max-height: 360px; overflow: auto; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 18px 45px rgba(15, 23, 42, .16); }
+            .donor-parts-search__item { display: grid; gap: 4px; padding: 11px 12px; color: inherit; text-align: left; text-decoration: none; border-bottom: 1px solid var(--line); background: transparent; }
+            .donor-parts-search__item:hover,
+            .donor-parts-search__item:focus { background: var(--accent-soft); outline: none; }
+            .donor-parts-search__item:last-child { border-bottom: 0; }
+            .donor-parts-search__title { font-weight: 700; }
+            .donor-parts-search__status { justify-self: start; padding: 2px 8px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-size: 12px; font-weight: 700; line-height: 1.35; }
+            .donor-parts-search__meta { color: var(--muted); font-size: 12px; line-height: 1.35; }
+            .donor-parts-search__empty { padding: 11px 12px; color: var(--muted); font-size: 13px; }
             .donor-cars-table th { line-height: 1.25; }
             .donor-cars-table th a,
             .donor-cars-table .donor-table-heading { display: inline-grid; gap: 1px; }
@@ -86,21 +104,21 @@
         <table class="donor-cars-table">
             <thead>
             <tr>
-                <th><span class="donor-table-heading"><span>&#1060;&#1086;&#1090;&#1086;</span><span>&nbsp;</span></span></th>
+                <th><span class="donor-table-heading"><span>Фото</span><span>&nbsp;</span></span></th>
                 <th><a href="{{ $sortUrl('vin') }}"><span>VIN{{ $sortMark('vin') }}</span><span>&nbsp;</span></a></th>
-                <th><a href="{{ $sortUrl('status') }}"><span>&#1057;&#1090;&#1072;&#1090;&#1091;&#1089;{{ $sortMark('status') }}</span><span>&nbsp;</span></a></th>
-                <th><a href="{{ $sortUrl('purchase_date') }}"><span>&#1044;&#1072;&#1090;&#1072;</span><span>&#1087;&#1086;&#1082;&#1091;&#1087;&#1082;&#1080;{{ $sortMark('purchase_date') }}</span></a></th>
-                <th><a href="{{ $sortUrl('warehouse_arrival_date') }}"><span>&#1044;&#1072;&#1090;&#1072; &#1087;&#1088;&#1080;&#1093;&#1086;&#1076;&#1072;</span><span>&#1085;&#1072; &#1057;&#1058;&#1054;{{ $sortMark('warehouse_arrival_date') }}</span></a></th>
-                <th><a href="{{ $sortUrl('model') }}"><span>&#1052;&#1086;&#1076;&#1077;&#1083;&#1100;{{ $sortMark('model') }}</span><span>&nbsp;</span></a></th>
-                <th><span class="donor-table-heading"><span>&#1055;&#1088;&#1080;&#1074;&#1086;&#1076;</span><span>&nbsp;</span></span></th>
-                <th><a href="{{ $sortUrl('year') }}"><span>&#1043;&#1086;&#1076;{{ $sortMark('year') }}</span><span>&nbsp;</span></a></th>
-                <th><a href="{{ $sortUrl('mileage') }}"><span>&#1055;&#1088;&#1086;&#1073;&#1077;&#1075;{{ $sortMark('mileage') }}</span><span>&nbsp;</span></a></th>
-                <th><span class="donor-table-heading"><span>&#1062;&#1074;&#1077;&#1090;</span><span>&nbsp;</span></span></th>
-                <th><span class="donor-table-heading"><span>&#1052;&#1072;&#1088;&#1082;&#1080;&#1088;&#1086;&#1074;&#1082;&#1072;</span><span>&#1094;&#1074;&#1077;&#1090;&#1072;</span></span></th>
-                <th><a href="{{ $sortUrl('products_count') }}"><span>&#1050;&#1086;&#1083;-&#1074;&#1086;</span><span>&#1079;&#1072;&#1087;&#1095;&#1072;&#1089;&#1090;&#1077;&#1081;{{ $sortMark('products_count') }}</span></a></th>
-                <th><a href="{{ $sortUrl('part_sales_count') }}"><span>&#1055;&#1088;&#1086;&#1076;&#1072;&#1085;&#1086;</span><span>&#1079;&#1072;&#1087;&#1095;&#1072;&#1089;&#1090;&#1077;&#1081;{{ $sortMark('part_sales_count') }}</span></a></th>
-                <th><a href="{{ $sortUrl('sold_parts_amount') }}"><span>&#1057;&#1091;&#1084;&#1084;&#1072;</span><span>&#1087;&#1088;&#1086;&#1076;&#1072;&#1078;{{ $sortMark('sold_parts_amount') }}</span></a></th>
-                <th><a href="{{ $sortUrl('total_cost_usd') }}"><span>&#1055;&#1086;&#1083;&#1085;&#1072;&#1103;</span><span>&#1089;&#1090;&#1086;&#1080;&#1084;&#1086;&#1089;&#1090;&#1100;{{ $sortMark('total_cost_usd') }}</span></a></th>
+                <th><a href="{{ $sortUrl('status') }}"><span>Статус{{ $sortMark('status') }}</span><span>&nbsp;</span></a></th>
+                <th><a href="{{ $sortUrl('purchase_date') }}"><span>Дата</span><span>покупки{{ $sortMark('purchase_date') }}</span></a></th>
+                <th><a href="{{ $sortUrl('warehouse_arrival_date') }}"><span>Дата прихода</span><span>на СТО{{ $sortMark('warehouse_arrival_date') }}</span></a></th>
+                <th><a href="{{ $sortUrl('model') }}"><span>Модель{{ $sortMark('model') }}</span><span>&nbsp;</span></a></th>
+                <th><span class="donor-table-heading"><span>Привод</span><span>&nbsp;</span></span></th>
+                <th><a href="{{ $sortUrl('year') }}"><span>Год{{ $sortMark('year') }}</span><span>&nbsp;</span></a></th>
+                <th><a href="{{ $sortUrl('mileage') }}"><span>Пробег{{ $sortMark('mileage') }}</span><span>&nbsp;</span></a></th>
+                <th><span class="donor-table-heading"><span>Цвет</span><span>&nbsp;</span></span></th>
+                <th><span class="donor-table-heading"><span>Маркировка</span><span>цвета</span></span></th>
+                <th><a href="{{ $sortUrl('products_count') }}"><span>Кол-во</span><span>запчастей{{ $sortMark('products_count') }}</span></a></th>
+                <th><a href="{{ $sortUrl('part_sales_count') }}"><span>Продано</span><span>запчастей{{ $sortMark('part_sales_count') }}</span></a></th>
+                <th><a href="{{ $sortUrl('sold_parts_amount') }}"><span>Сумма</span><span>продаж{{ $sortMark('sold_parts_amount') }}</span></a></th>
+                <th><a href="{{ $sortUrl('total_cost_usd') }}"><span>Полная</span><span>стоимость{{ $sortMark('total_cost_usd') }}</span></a></th>
                 <th></th>
             </tr>
             <tr class="donor-cars-original-heading">
@@ -113,7 +131,7 @@
                 <th>Привод</th>
                 <th><a href="{{ $sortUrl('year') }}">Год{{ $sortMark('year') }}</a></th>
                 <th><a href="{{ $sortUrl('mileage') }}">Пробег{{ $sortMark('mileage') }}</a></th>
-                <th>&#1062;&#1074;&#1077;&#1090;</th>
+                <th>Цвет</th>
                 <th><a href="{{ $sortUrl('products_count') }}">Кол-во запчастей{{ $sortMark('products_count') }}</a></th>
                 <th><a href="{{ $sortUrl('part_sales_count') }}">Продано Запчастей{{ $sortMark('part_sales_count') }}</a></th>
                 <th><a href="{{ $sortUrl('sold_parts_amount') }}">Сумма продаж{{ $sortMark('sold_parts_amount') }}</a></th>
@@ -159,13 +177,13 @@
                         <div class="donor-paint-code" data-donor-paint-code>
                             <div class="donor-paint-code__view" data-donor-paint-code-view>
                                 <span data-donor-paint-code-value>{{ filled($donorCar->paint_code) ? $donorCar->paint_code : '-' }}</span>
-                                <button type="button" class="btn-secondary donor-paint-code__edit" title="&#1056;&#1077;&#1076;&#1072;&#1082;&#1090;&#1080;&#1088;&#1086;&#1074;&#1072;&#1090;&#1100; &#1084;&#1072;&#1088;&#1082;&#1080;&#1088;&#1086;&#1074;&#1082;&#1091; &#1094;&#1074;&#1077;&#1090;&#1072;" aria-label="&#1056;&#1077;&#1076;&#1072;&#1082;&#1090;&#1080;&#1088;&#1086;&#1074;&#1072;&#1090;&#1100; &#1084;&#1072;&#1088;&#1082;&#1080;&#1088;&#1086;&#1074;&#1082;&#1091; &#1094;&#1074;&#1077;&#1090;&#1072;" data-donor-paint-code-edit>&#9998;</button>
+                                <button type="button" class="btn-secondary donor-paint-code__edit" title="Редактировать маркировку цвета" aria-label="Редактировать маркировку цвета" data-donor-paint-code-edit>&#9998;</button>
                             </div>
                             <form method="POST" action="{{ route('admin.donor-cars.paint-code.update', $donorCar) }}" class="donor-paint-code__form" data-donor-paint-code-form hidden>
                                 @csrf
                                 <input type="text" name="paint_code" value="{{ $donorCar->paint_code }}" maxlength="50" list="donor-paint-code-suggestions" autocomplete="off" data-donor-paint-code-input>
-                                <button type="submit" class="btn-secondary donor-paint-code__save" title="&#1057;&#1086;&#1093;&#1088;&#1072;&#1085;&#1080;&#1090;&#1100;" aria-label="&#1057;&#1086;&#1093;&#1088;&#1072;&#1085;&#1080;&#1090;&#1100;" data-donor-paint-code-save>&#10003;</button>
-                                <button type="button" class="btn-secondary donor-paint-code__cancel" title="&#1054;&#1090;&#1084;&#1077;&#1085;&#1072;" aria-label="&#1054;&#1090;&#1084;&#1077;&#1085;&#1072;" data-donor-paint-code-cancel>&#215;</button>
+                                <button type="submit" class="btn-secondary donor-paint-code__save" title="Сохранить" aria-label="Сохранить" data-donor-paint-code-save>&#10003;</button>
+                                <button type="button" class="btn-secondary donor-paint-code__cancel" title="Отмена" aria-label="Отмена" data-donor-paint-code-cancel>&#215;</button>
                             </form>
                             <div class="error" data-donor-paint-code-error hidden></div>
                         </div>
@@ -210,6 +228,109 @@
     </div>
 
     <script>
+        (() => {
+            const root = document.querySelector('[data-donor-parts-search-url]');
+            const input = root?.querySelector('[data-donor-parts-search-input]');
+            const results = root?.querySelector('[data-donor-parts-search-results]');
+            let searchTimeout = null;
+            let searchController = null;
+
+            if (!root || !input || !results) {
+                return;
+            }
+
+            const hideResults = () => {
+                results.hidden = true;
+                results.innerHTML = '';
+            };
+
+            const renderResults = (items) => {
+                results.innerHTML = '';
+
+                if (!items.length) {
+                    const empty = document.createElement('div');
+                    empty.className = 'donor-parts-search__empty';
+                    empty.textContent = 'Ничего не найдено';
+                    results.appendChild(empty);
+                    results.hidden = false;
+
+                    return;
+                }
+
+                items.forEach((item) => {
+                    const link = document.createElement('a');
+                    link.className = 'donor-parts-search__item';
+                    link.href = item.url || '#';
+
+                    const title = document.createElement('span');
+                    title.className = 'donor-parts-search__title';
+                    title.textContent = item.name || item.part_number || '-';
+
+                    const status = document.createElement('span');
+                    status.className = 'donor-parts-search__status';
+                    status.textContent = item.status || '';
+                    status.hidden = !item.status;
+
+                    const meta = document.createElement('span');
+                    meta.className = 'donor-parts-search__meta';
+                    meta.textContent = item.meta || item.donor || '\u00a0';
+
+                    link.append(title, status, meta);
+                    results.appendChild(link);
+                });
+
+                results.hidden = false;
+            };
+
+            input.addEventListener('input', () => {
+                const query = input.value.trim();
+                window.clearTimeout(searchTimeout);
+
+                if (query.length < 2) {
+                    hideResults();
+                    return;
+                }
+
+                searchTimeout = window.setTimeout(async () => {
+                    searchController?.abort();
+                    searchController = new AbortController();
+
+                    try {
+                        const url = new URL(root.dataset.donorPartsSearchUrl, window.location.origin);
+                        url.searchParams.set('q', query);
+
+                        const response = await fetch(url, {
+                            headers: { Accept: 'application/json' },
+                            signal: searchController.signal,
+                        });
+
+                        if (!response.ok) {
+                            hideResults();
+                            return;
+                        }
+
+                        renderResults(await response.json());
+                    } catch (error) {
+                        if (error.name !== 'AbortError') {
+                            hideResults();
+                        }
+                    }
+                }, 220);
+            });
+
+            document.addEventListener('click', (event) => {
+                if (!root.contains(event.target)) {
+                    hideResults();
+                }
+            });
+
+            input.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') {
+                    hideResults();
+                }
+            });
+        })();
+
         (() => {
             const suggestions = document.getElementById('donor-paint-code-suggestions');
             const emptyLabel = '-';

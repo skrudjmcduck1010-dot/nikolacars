@@ -53,6 +53,8 @@ class PartCatalogIndexPresenter
         return [
             'csrfToken' => csrf_token(),
             'clientSearchUrl' => route('admin.customer-orders.clients.search'),
+            'novaPoshtaCitiesUrl' => route('admin.customer-orders.nova-poshta.cities'),
+            'novaPoshtaWarehousesUrl' => route('admin.customer-orders.nova-poshta.warehouses'),
             'createOrderUrl' => route('admin.customer-orders.store'),
         ];
     }

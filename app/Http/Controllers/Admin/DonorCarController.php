@@ -137,6 +137,235 @@ class DonorCarController extends Controller
         ]);
     }
 
+    public function partSuggestions(Request $request): JsonResponse
+    {
+        $query = trim((string) $request->query('q', ''));
+
+        if (mb_strlen($query) < 2) {
+            return response()->json([]);
+        }
+
+        $driver = DB::connection()->getDriverName();
+        $likeQuery = '%'.$query.'%';
+        $operator = $driver === 'pgsql' ? 'ilike' : 'like';
+        $isMobileContext = $request->query('context') === 'mobile';
+
+        $matchesQuery = fn (?string $value): bool => trim((string) $value) !== ''
+            && mb_stripos((string) $value, $query) !== false;
+        $catalogNameColumns = ['name_ru', 'name_ua', 'name_en', 'name', 'part_number'];
+        $unknownDamageStatus = "\u{041D}\u{0435}\u{0438}\u{0437}\u{0432}\u{0435}\u{0441}\u{0442}\u{043D}\u{043E}";
+        $damageStatus = function (mixed $value) use ($unknownDamageStatus): string {
+            $status = trim((string) $value);
+
+            return $status === '' || preg_match('/^\?+$/', $status) === 1
+                ? $unknownDamageStatus
+                : $status;
+        };
+        $statusLabel = fn (?string $value): string => trim((string) $value) !== ''
+            ? "\u{0421}\u{0442}\u{0430}\u{0442}\u{0443}\u{0441}: ".trim((string) $value)
+            : '';
+
+        $productsQuery = Product::query()
+            ->with([
+                'donorCar:id,vin,status,model,year',
+                'sourcePartCatalogItem:id,name_ru,name_ua,name_en,name,part_number',
+            ])
+            ->whereNotNull('donor_car_id')
+            ->latest()
+            ->select([
+                'id',
+                'donor_car_id',
+                'source_part_catalog_item_id',
+                'sku',
+                'external_sku',
+                'name',
+                'storage_status',
+                'notes',
+            ]);
+
+        $products = match ($driver) {
+            'sqlite' => $productsQuery
+                ->get()
+                ->filter(fn (Product $product): bool => collect([
+                    $product->name,
+                    $product->sku,
+                    $product->external_sku,
+                    $product->sourcePartCatalogItem?->name_ru,
+                    $product->sourcePartCatalogItem?->name_ua,
+                    $product->sourcePartCatalogItem?->name_en,
+                    $product->sourcePartCatalogItem?->name,
+                    $product->sourcePartCatalogItem?->part_number,
+                ])
+                    ->filter()
+                    ->contains(fn (string $value): bool => $matchesQuery($value)))
+                ->take(10)
+                ->values(),
+            default => $productsQuery
+                ->where(fn (Builder $builder) => $builder
+                    ->where('name', $operator, $likeQuery)
+                    ->orWhere('sku', $operator, $likeQuery)
+                    ->orWhere('external_sku', $operator, $likeQuery)
+                    ->orWhereHas('sourcePartCatalogItem', function (Builder $query) use ($catalogNameColumns, $operator, $likeQuery): void {
+                        $query->where(function (Builder $builder) use ($catalogNameColumns, $operator, $likeQuery): void {
+                            foreach ($catalogNameColumns as $column) {
+                                $builder->orWhere($column, $operator, $likeQuery);
+                            }
+                        });
+                    }))
+                ->limit(10)
+                ->get(),
+        };
+
+        $salesQuery = PartSale::query()
+            ->with([
+                'donorCar:id,vin,status,model,year',
+                'partCatalogItem:id,name_ru,name_ua,name_en,name,part_number',
+                'product:id,source_part_catalog_item_id',
+                'product.sourcePartCatalogItem:id,name_ru,name_ua,name_en,name,part_number',
+            ])
+            ->whereNotNull('donor_car_id')
+            ->latest('sold_at')
+            ->select([
+                'id',
+                'donor_car_id',
+                'part_catalog_item_id',
+                'product_id',
+                'code',
+                'part_number',
+                'name',
+                'quantity',
+                'unit_price',
+                'currency',
+                'sold_at',
+            ]);
+
+        $sales = match ($driver) {
+            'sqlite' => $salesQuery
+                ->get()
+                ->filter(fn (PartSale $sale): bool => collect([
+                    $sale->name,
+                    $sale->part_number,
+                    $sale->code,
+                    $sale->partCatalogItem?->name_ru,
+                    $sale->partCatalogItem?->name_ua,
+                    $sale->partCatalogItem?->name_en,
+                    $sale->partCatalogItem?->name,
+                    $sale->partCatalogItem?->part_number,
+                    $sale->product?->sourcePartCatalogItem?->name_ru,
+                    $sale->product?->sourcePartCatalogItem?->name_ua,
+                    $sale->product?->sourcePartCatalogItem?->name_en,
+                    $sale->product?->sourcePartCatalogItem?->name,
+                    $sale->product?->sourcePartCatalogItem?->part_number,
+                ])
+                    ->filter()
+                    ->contains(fn (string $value): bool => $matchesQuery($value)))
+                ->take(10)
+                ->values(),
+            default => $salesQuery
+                ->where(fn (Builder $builder) => $builder
+                    ->where('name', $operator, $likeQuery)
+                    ->orWhere('part_number', $operator, $likeQuery)
+                    ->orWhere('code', $operator, $likeQuery)
+                    ->orWhereHas('partCatalogItem', function (Builder $query) use ($catalogNameColumns, $operator, $likeQuery): void {
+                        $query->where(function (Builder $builder) use ($catalogNameColumns, $operator, $likeQuery): void {
+                            foreach ($catalogNameColumns as $column) {
+                                $builder->orWhere($column, $operator, $likeQuery);
+                            }
+                        });
+                    })
+                    ->orWhereHas('product.sourcePartCatalogItem', function (Builder $query) use ($catalogNameColumns, $operator, $likeQuery): void {
+                        $query->where(function (Builder $builder) use ($catalogNameColumns, $operator, $likeQuery): void {
+                            foreach ($catalogNameColumns as $column) {
+                                $builder->orWhere($column, $operator, $likeQuery);
+                            }
+                        });
+                    }))
+                ->limit(10)
+                ->get(),
+        };
+
+        $productSuggestions = $products->map(function (Product $product) use ($damageStatus, $isMobileContext, $matchesQuery, $statusLabel): array {
+            $partNumber = $product->external_sku ?: $product->sku;
+            $catalogItem = $product->sourcePartCatalogItem;
+            $matchesPartNumber = $matchesQuery($product->external_sku)
+                || $matchesQuery($product->sku)
+                || $matchesQuery($catalogItem?->part_number);
+            $matchesLocalizedName = $matchesQuery($catalogItem?->name_ru)
+                || $matchesQuery($catalogItem?->name_ua)
+                || $matchesQuery($catalogItem?->name_en)
+                || $matchesQuery($catalogItem?->name);
+            $displayName = ($matchesPartNumber || $matchesLocalizedName)
+                ? (trim((string) $catalogItem?->name_ru) ?: $product->name)
+                : $product->name;
+            $partStatus = $damageStatus($product->notes);
+
+            return [
+                'type' => 'product',
+                'name' => $displayName,
+                'part_number' => $partNumber,
+                'donor' => $product->donorCar?->display_vin,
+                'status' => $partStatus,
+                'meta' => collect([
+                    $partNumber,
+                    $statusLabel($partStatus),
+                    $displayName !== $product->name ? $product->name : null,
+                    $product->donorCar?->display_vin,
+                    $product->donorCar?->display_model,
+                ])->filter()->join(' · '),
+                'url' => $product->donorCar
+                    ? ($isMobileContext
+                        ? route('admin.mobile.donor-cars.products.edit', [$product->donorCar, $product])
+                        : route('admin.products.show', $product))
+                    : null,
+            ];
+        });
+
+        $saleSuggestions = $sales->map(function (PartSale $sale) use ($isMobileContext, $matchesQuery, $statusLabel): array {
+            $partNumber = $sale->part_number ?: $sale->code;
+            $catalogItem = $sale->partCatalogItem ?: $sale->product?->sourcePartCatalogItem;
+            $matchesPartNumber = $matchesQuery($sale->part_number)
+                || $matchesQuery($sale->code)
+                || $matchesQuery($catalogItem?->part_number);
+            $matchesLocalizedName = $matchesQuery($catalogItem?->name_ru)
+                || $matchesQuery($catalogItem?->name_ua)
+                || $matchesQuery($catalogItem?->name_en)
+                || $matchesQuery($catalogItem?->name);
+            $displayName = ($matchesPartNumber || $matchesLocalizedName)
+                ? (trim((string) $catalogItem?->name_ru) ?: $sale->name)
+                : $sale->name;
+            $partStatus = "\u{041F}\u{0440}\u{043E}\u{0434}\u{0430}\u{043D}\u{043E}";
+
+            return [
+                'type' => 'sale',
+                'name' => $displayName,
+                'part_number' => $partNumber,
+                'donor' => $sale->donorCar?->display_vin,
+                'status' => $partStatus,
+                'meta' => collect([
+                    $statusLabel($partStatus),
+                    $partNumber,
+                    $displayName !== $sale->name ? $sale->name : null,
+                    $sale->donorCar?->display_vin,
+                    $sale->donorCar?->display_model,
+                    $sale->sold_at?->timezone('Europe/Kiev')->format('d.m.Y'),
+                ])->filter()->join(' · '),
+                'url' => $sale->donorCar
+                    ? ($sale->product
+                        ? ($isMobileContext
+                            ? route('admin.mobile.donor-cars.products.edit', [$sale->donorCar, $sale->product])
+                            : route('admin.products.show', $sale->product))
+                        : route('admin.donor-cars.show', $sale->donorCar).'#sold-part-'.$sale->id)
+                    : null,
+            ];
+        });
+
+        return response()->json($productSuggestions
+            ->concat($saleSuggestions)
+            ->filter(fn (array $item): bool => trim((string) $item['name']) !== '' || trim((string) $item['part_number']) !== '')
+            ->take(15)
+            ->values());
+    }
+
     public function store(DonorCarRequest $request): RedirectResponse
     {
         $donorCar = DonorCar::query()->create($this->payload($request));
@@ -879,11 +1108,10 @@ class DonorCarController extends Controller
 
     public function mobileParts(Request $request): View
     {
-        $query = trim((string) $request->query('q', ''));
         $smallPartNumbers = $this->smallPartNumbers();
 
         return view('admin.mobile.parts.index', [
-            'query' => $query,
+            'query' => '',
             'donorCars' => DonorCar::query()
                 ->withCount([
                     'products as checked_products_count' => fn (Builder $query) => $this->visibleMobileDonorProductsQuery($query, $smallPartNumbers)
@@ -891,11 +1119,6 @@ class DonorCarController extends Controller
                     'partSales as sold_parts_count',
                 ])
                 ->where('status', '!=', DonorCar::STATUS_IN_TRANSIT)
-                ->when($query !== '', fn ($builder) => $builder
-                    ->where(fn ($builder) => $builder
-                        ->where('vin', 'like', '%'.$query.'%')
-                        ->orWhere('model', 'like', '%'.$query.'%')
-                        ->orWhere('year', 'like', '%'.$query.'%')))
                 ->latest('purchase_date')
                 ->latest('id')
                 ->get(),

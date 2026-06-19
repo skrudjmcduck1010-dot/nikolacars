@@ -21,8 +21,8 @@
     >
         <div class="tcars-refresh-panel__head">
             <div>
-                <div class="help">{{ html_entity_decode('&#1055;&#1072;&#1088;&#1089;&#1080;&#1085;&#1075;') }} {{ $refreshSourceLabel }}</div>
-                <strong data-tcars-refresh-message>{{ $competitorRefresh['stopped_message'] ?? $competitorRefresh['message'] ?? html_entity_decode('&#1043;&#1086;&#1090;&#1086;&#1074; &#1082; &#1086;&#1073;&#1085;&#1086;&#1074;&#1083;&#1077;&#1085;&#1080;&#1102; &#1082;&#1072;&#1090;&#1072;&#1083;&#1086;&#1075;&#1072; &#1082;&#1086;&#1085;&#1082;&#1091;&#1088;&#1077;&#1085;&#1090;&#1072;.') }}</strong>
+                <div class="help">{{ html_entity_decode('Парсинг') }} {{ $refreshSourceLabel }}</div>
+                <strong data-tcars-refresh-message>{{ $competitorRefresh['stopped_message'] ?? $competitorRefresh['message'] ?? html_entity_decode('Готов к обновлению каталога конкурента.') }}</strong>
             </div>
             <div class="tcars-refresh-panel__actions">
                 <span class="catalog-badge" data-tcars-refresh-state>
@@ -50,7 +50,7 @@
             <span>Найдено новых позиций: <strong data-tcars-refresh-found>{{ (int) ($competitorRefresh['catalog_products_created'] ?? 0) }}</strong></span>
             <span>Изменено цен в: <strong data-price-changes-count>{{ (int) ($competitorRefresh['prices_changed'] ?? 0) }}</strong> товаров</span>
             <span>Обход сайта: <strong data-tcars-refresh-crawl-duration>{{ $competitorRefresh['crawl_duration_label'] ?? '—' }}</strong></span>
-            <span>{{ html_entity_decode('&#1055;&#1086;&#1089;&#1083;&#1077;&#1076;&#1085;&#1080;&#1081; &#1087;&#1072;&#1088;&#1089;&#1080;&#1085;&#1075;:') }} <strong data-tcars-refresh-finished>{{ $competitorRefresh['finished_label'] ?? $competitorRefresh['finished_at'] ?? '—' }}</strong></span>
+            <span>{{ html_entity_decode('Последний парсинг:') }} <strong data-tcars-refresh-finished>{{ $competitorRefresh['finished_label'] ?? $competitorRefresh['finished_at'] ?? '—' }}</strong></span>
         </div>
         @if(! empty($catalog['parsing_logic']))
             <div class="tcars-refresh-meta tcars-refresh-meta--details">

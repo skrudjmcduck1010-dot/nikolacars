@@ -518,7 +518,7 @@
                                             <img src="{{$imageUrl}}" alt="{{$itemName($item)}}">
                                         </a>
                                         @if($catalog['source'] === 'driveparts' && $partCatalogShowPresenter->isDrivePartsSharedPlaceholderImageUrl($imageUrl))
-                                            <span class="part-catalog-photo-manager__missing">&#1073;&#1077;&#1079; &#1092;&#1086;&#1090;&#1086;</span>
+                                            <span class="part-catalog-photo-manager__missing">без фото</span>
                                         @endif
                                         @if($catalog['source'] === 'nikolacars' && ! $isNikolaCarsSoldItem)
                                             <form method="POST" action="{{route('admin.zapchasti.photos.destroy', $item)}}">

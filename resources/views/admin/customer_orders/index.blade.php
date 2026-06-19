@@ -34,6 +34,10 @@
                 <div class="help">БезНал ФОП</div>
                 <strong>{{ $money($customerOrderCashSummary[\App\Models\CustomerOrder::PAYMENT_TYPE_BANK_FOP] ?? 0, 'UAH') }}</strong>
             </div>
+            <div>
+                <div class="help">{{ "\u{0421}\u{0422}\u{041E}: \u{0437}\u{0430}\u{043F}\u{0447}\u{0430}\u{0441}\u{0442}\u{0438}" }}</div>
+                <strong>{{ $money($customerOrderCashSummary['sto_parts_uah'] ?? 0, 'UAH') }}</strong>
+            </div>
         </div>
     </div>
 

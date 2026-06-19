@@ -1,0 +1,28 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::table('customer_order_shipments', function (Blueprint $table): void {
+            $table->string('np_status_code')->nullable()->after('tracking_number')->index();
+            $table->text('np_status')->nullable()->after('np_status_code');
+            $table->timestamp('np_status_checked_at')->nullable()->after('np_status');
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::table('customer_order_shipments', function (Blueprint $table): void {
+            $table->dropColumn([
+                'np_status_code',
+                'np_status',
+                'np_status_checked_at',
+            ]);
+        });
+    }
+};

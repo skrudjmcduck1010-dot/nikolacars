@@ -1,7 +1,10 @@
 @php
     $item = $group['item'];
     $imageUrls = $group['image_urls'];
-    $imageUrl = $imageUrls->first();
+    $galleryImageUrls = collect($group['gallery_image_urls'] ?? $imageUrls);
+    $productImageUrls = collect($group['product_image_urls'] ?? $imageUrls);
+    $teslaImageUrls = collect($group['tesla_image_urls'] ?? []);
+    $imageUrl = $galleryImageUrls->first();
     $stockValue = $group['quantity'];
     $stockText = $group['quantity_text'];
     $reservedText = $group['reserved_quantity_text'];
@@ -12,6 +15,7 @@
     $cartProductId = $catalogCartProductId($item);
     $isOutOfStock = (float) $stockValue <= 0.0;
     $canUseNikolaCarsActions = ! $isReserved && ! $isManuallySold && ! $isOutOfStock;
+    $canEditNikolaCarsPartNumber = $canUseNikolaCarsActions && ! (bool) ($group['has_auto_generated_product'] ?? false);
     $hasZeroSalePrice = $group['unit_price_value'] !== null && (float) $group['unit_price_value'] === 0.0;
     $canAddToNikolaCarsCart = $canUseNikolaCarsActions
         && $group['unit_price_value'] !== null
@@ -87,26 +91,28 @@
                 ->values();
         }
     }
-    $groupRowId = 'nikolacars-group-'.$item->id;
 @endphp
-<tr data-nikolacars-item-row data-nikolacars-parts-count="{{ (int) $group['count'] }}" @if($isGrouped) data-nikolacars-group-parent="{{ $groupRowId }}" @endif @class(['nikolacars-grouped-row' => $isGrouped, 'nikolacars-reserved-row' => $isReserved, 'nikolacars-sold-row' => $isManuallySold, 'nikolacars-zero-stock-row' => $isOutOfStock])>
+<tr data-nikolacars-item-row data-nikolacars-parts-count="{{ (int) $group['count'] }}" @class(['nikolacars-adjacent-duplicate-row' => (bool) ($group['is_adjacent_duplicate'] ?? false), 'nikolacars-reserved-row' => $isReserved, 'nikolacars-sold-row' => $isManuallySold, 'nikolacars-zero-stock-row' => $isOutOfStock])>
     <td>
         @if($imageUrl)
             <button
                 type="button"
                 class="catalog-photo-preview"
                 data-catalog-photo-trigger
-                data-catalog-images='@json($imageUrls->all())'
+                data-catalog-images='@json($galleryImageUrls->all())'
                 data-catalog-photo-title="{{ $itemName($item) }}"
                 aria-label="Открыть фото {{ $itemName($item) }}"
             >
                 <img class="table-preview" src="{{ $imageUrl }}" alt="{{ $itemName($item) }}" loading="lazy" decoding="async">
-                @if($imageUrls->count() > 1)
-                    <span class="catalog-photo-preview__count">{{ $imageUrls->count() }}</span>
+                @if($teslaImageUrls->isNotEmpty())
+                    <span class="catalog-photo-preview__count catalog-photo-preview__count--tesla" title="Tesla.com фото">{{ $teslaImageUrls->count() }}</span>
+                @endif
+                @if($productImageUrls->isNotEmpty())
+                    <span class="catalog-photo-preview__count catalog-photo-preview__count--product" title="Наши фото">{{ $productImageUrls->count() }}</span>
                 @endif
             </button>
         @else
-            <span class="preview-placeholder">&#1085;&#1077;&#1090; &#1092;&#1086;&#1090;&#1086;</span>
+            <span class="preview-placeholder">нет фото</span>
         @endif
     </td>
     <td class="nikolacars-code-cell">
@@ -118,11 +124,10 @@
     <td>
         @if($isGrouped)
             <strong @class(['nikolacars-invalid-part-number' => $isInvalidNikolaCarsPartNumber($group['part_number'])])>{{ $group['part_number'] ?: '-' }}</strong>
-            <span class="catalog-badge nikolacars-merged-badge">&#1054;&#1073;&#1098;&#1077;&#1076;&#1080;&#1085;&#1077;&#1085;&#1086;</span>
             <div class="help">
-                {{ $group['count'] }} &#1087;&#1086;&#1079;&#1080;&#1094;&#1080;&#1080;
+                {{ $group['count'] }} позиции
                 @if($group['part_numbers']->count() > 1)
-                    &#183; {{ $group['part_numbers']->count() }} &#1072;&#1088;&#1090;&#1080;&#1082;&#1091;&#1083;&#1072;
+                    &#183; {{ $group['part_numbers']->count() }} артикула
                 @endif
             </div>
         @else
@@ -132,17 +137,17 @@
                         @class(['nikolacars-invalid-part-number' => $isInvalidNikolaCarsPartNumber($item->part_number)])
                         data-nikolacars-part-number-text
                     >{{ $item->part_number ?: '-' }}</span>
-                    @if($canUseNikolaCarsActions)
+                    @if($canEditNikolaCarsPartNumber)
                         <button
                             type="button"
                             class="nikolacars-icon-button"
-                            title="&#1056;&#1077;&#1076;&#1072;&#1082;&#1090;&#1080;&#1088;&#1086;&#1074;&#1072;&#1090;&#1100; &#1072;&#1088;&#1090;&#1080;&#1082;&#1091;&#1083;"
-                            aria-label="&#1056;&#1077;&#1076;&#1072;&#1082;&#1090;&#1080;&#1088;&#1086;&#1074;&#1072;&#1090;&#1100; &#1072;&#1088;&#1090;&#1080;&#1082;&#1091;&#1083;"
+                            title="Редактировать артикул"
+                            aria-label="Редактировать артикул"
                             data-nikolacars-part-number-edit-toggle
                         >&#9998;</button>
                     @endif
                 </div>
-                @if($canUseNikolaCarsActions)
+                @if($canEditNikolaCarsPartNumber)
                     <div class="nikolacars-part-number-editor" data-nikolacars-part-number-editor hidden>
                         <input
                             class="nikolacars-inline-input"
@@ -156,14 +161,14 @@
                             type="submit"
                             class="nikolacars-icon-button"
                             form="nikolacars-update-{{ $item->id }}"
-                            title="&#1057;&#1086;&#1093;&#1088;&#1072;&#1085;&#1080;&#1090;&#1100; &#1072;&#1088;&#1090;&#1080;&#1082;&#1091;&#1083;"
-                            aria-label="&#1057;&#1086;&#1093;&#1088;&#1072;&#1085;&#1080;&#1090;&#1100; &#1072;&#1088;&#1090;&#1080;&#1082;&#1091;&#1083;"
+                            title="Сохранить артикул"
+                            aria-label="Сохранить артикул"
                         >&#10003;</button>
                         <button
                             type="button"
                             class="nikolacars-icon-button"
-                            title="&#1054;&#1090;&#1084;&#1077;&#1085;&#1080;&#1090;&#1100;"
-                            aria-label="&#1054;&#1090;&#1084;&#1077;&#1085;&#1080;&#1090;&#1100;"
+                            title="Отменить"
+                            aria-label="Отменить"
                             data-nikolacars-part-number-edit-cancel
                         >&#215;</button>
                     </div>
@@ -178,10 +183,10 @@
             <a class="nikolacars-part-name-link" href="{{ $itemUrl($item) }}">{{ $primaryName }}</a>
         @endif
         @if($nameRuValues->isNotEmpty())
-            <div class="help">{!! html_entity_decode('&#1053;&#1072;&#1079;&#1074;&#1072;&#1085;&#1080;&#1077; &#1056;&#1059;:') !!} {{ $nameRuValues->take(3)->implode(' / ') }}</div>
+            <div class="help">{!! html_entity_decode('Название РУ:') !!} {{ $nameRuValues->take(3)->implode(' / ') }}</div>
         @endif
         @if($group['models']->isNotEmpty())
-            <div class="help">{{ html_entity_decode('&#1052;&#1086;&#1076;&#1077;&#1083;&#1100;:') }} {{ $group['models']->take(2)->implode(' / ') }}</div>
+            <div class="help">{{ html_entity_decode('Модель:') }} {{ $group['models']->take(2)->implode(' / ') }}</div>
         @endif
         @if($isGrouped && $group['names']->count() > 1)
             <div class="catalog-item-names">
@@ -255,8 +260,8 @@
                 <button
                     type="button"
                     class="nikolacars-category-edit-button"
-                    title="&#1053;&#1072;&#1079;&#1085;&#1072;&#1095;&#1080;&#1090;&#1100; &#1082;&#1072;&#1090;&#1077;&#1075;&#1086;&#1088;&#1080;&#1102;"
-                    aria-label="&#1053;&#1072;&#1079;&#1085;&#1072;&#1095;&#1080;&#1090;&#1100; &#1082;&#1072;&#1090;&#1077;&#1075;&#1086;&#1088;&#1080;&#1102;"
+                    title="Назначить категорию"
+                    aria-label="Назначить категорию"
                     data-nikolacars-category-edit-toggle
                 >&#9998;</button>
             @endif
@@ -272,7 +277,7 @@
                 data-update-url="{{ route('admin.zapchasti.category.update', $item) }}"
                 hidden
             >
-                <input type="search" class="nikolacars-category-search-input" placeholder="&#1055;&#1086;&#1080;&#1089;&#1082; &#1082;&#1072;&#1090;&#1077;&#1075;&#1086;&#1088;&#1080;&#1080;" autocomplete="off" data-nikolacars-category-search-input>
+                <input type="search" class="nikolacars-category-search-input" placeholder="Поиск категории" autocomplete="off" data-nikolacars-category-search-input>
                 <div class="nikolacars-category-suggestions" data-nikolacars-category-suggestions hidden></div>
             </div>
         @endif
@@ -354,8 +359,8 @@
             type="button"
             class="nikolacars-cart-add-button"
             @if(! $canAddToNikolaCarsCart) hidden @endif
-            title="&#1044;&#1086;&#1073;&#1072;&#1074;&#1080;&#1090;&#1100; &#1074; &#1082;&#1086;&#1088;&#1079;&#1080;&#1085;&#1091;"
-            aria-label="&#1044;&#1086;&#1073;&#1072;&#1074;&#1080;&#1090;&#1100; &#1074; &#1082;&#1086;&#1088;&#1079;&#1080;&#1085;&#1091;"
+            title="Добавить в корзину"
+            aria-label="Добавить в корзину"
             data-nikolacars-cart-add
             data-cart-id="{{ $cartProductId }}"
             data-cart-name="{{ $itemName($item) }}"
@@ -393,10 +398,10 @@
                 @php
                     $reservedOrder = $reservedOrders->first()['order'];
                 @endphp
-                <a class="nikolacars-reserved-note" href="{{ route('admin.customer-orders.show', $reservedOrder) }}">&#1074; &#1088;&#1077;&#1079;&#1077;&#1088;&#1074;&#1077; {{ $reservedText }}</a>
+                <a class="nikolacars-reserved-note" href="{{ route('admin.customer-orders.show', $reservedOrder) }}">в резерве {{ $reservedText }}</a>
             @elseif($reservedOrders->isNotEmpty())
                 <div class="nikolacars-reserved-note">
-                    <span>&#1074; &#1088;&#1077;&#1079;&#1077;&#1088;&#1074;&#1077; {{ $reservedText }}</span>
+                    <span>в резерве {{ $reservedText }}</span>
                     <span class="nikolacars-reserved-orders">
                         @foreach($reservedOrders as $reservedOrder)
                             <a href="{{ route('admin.customer-orders.show', $reservedOrder['order']) }}">{{ $reservedOrder['order']->number }}</a>@if(! $loop->last), @endif
@@ -404,40 +409,28 @@
                     </span>
                 </div>
             @else
-                <div class="nikolacars-reserved-note">&#1074; &#1088;&#1077;&#1079;&#1077;&#1088;&#1074;&#1077; {{ $reservedText }}</div>
+                <div class="nikolacars-reserved-note">в резерве {{ $reservedText }}</div>
             @endif
         @endif
     </td>
     <td class="actions">
         <div class="nikolacars-row-actions">
             @if($isGrouped)
-                <button
-                    type="button"
-                    class="nikolacars-group-toggle"
-                    title="&#1055;&#1086;&#1082;&#1072;&#1079;&#1072;&#1090;&#1100; &#1087;&#1086;&#1079;&#1080;&#1094;&#1080;&#1080;"
-                    aria-label="&#1055;&#1086;&#1082;&#1072;&#1079;&#1072;&#1090;&#1100; &#1087;&#1086;&#1079;&#1080;&#1094;&#1080;&#1080;"
-                    aria-expanded="false"
-                    data-nikolacars-group-toggle="{{ $groupRowId }}"
-                >
-                    <span>{{ $group['count'] }} &#1089;&#1090;&#1088;&#1086;&#1082;</span>
-                    <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="m9 18 6-6-6-6"></path>
-                    </svg>
-                </button>
+                <span class="help">-</span>
             @else
                 @if($canUseNikolaCarsActions)
                     <form id="nikolacars-update-{{ $item->id }}" method="POST" action="{{ route('admin.zapchasti.update', $item) }}" class="inline-form" data-nikolacars-update-form>
                         @csrf
                         @method('PATCH')
                     </form>
-                    <form method="POST" action="{{ route('admin.zapchasti.destroy', $item) }}" class="inline-form" data-nikolacars-delete-form data-confirm="&#1059;&#1076;&#1072;&#1083;&#1080;&#1090;&#1100; &#1087;&#1086;&#1079;&#1080;&#1094;&#1080;&#1102; &quot;{{ $itemName($item) }}&quot; &#1080;&#1079; &#1082;&#1072;&#1090;&#1072;&#1083;&#1086;&#1075;&#1072; &#1053;&#1080;&#1082;&#1086;&#1083;&#1072;&#1050;&#1072;&#1088;&#1079;?">
+                    <form method="POST" action="{{ route('admin.zapchasti.destroy', $item) }}" class="inline-form" data-nikolacars-delete-form data-confirm="Удалить позицию &quot;{{ $itemName($item) }}&quot; из каталога НиколаКарз?">
                         @csrf
                         @method('DELETE')
                         <button
                             type="submit"
                             class="nikolacars-icon-button nikolacars-delete-button"
-                            title="&#1059;&#1076;&#1072;&#1083;&#1080;&#1090;&#1100;"
-                            aria-label="&#1059;&#1076;&#1072;&#1083;&#1080;&#1090;&#1100;"
+                            title="Удалить"
+                            aria-label="Удалить"
                         >&#215;</button>
                     </form>
                     <form
@@ -445,17 +438,17 @@
                         action="{{ route('admin.zapchasti.sold', $item) }}"
                         class="inline-form"
                         data-nikolacars-manual-sold-form
-                        data-confirm="&#1055;&#1086;&#1084;&#1077;&#1090;&#1080;&#1090;&#1100; &quot;{{ $itemName($item) }}&quot; &#1082;&#1072;&#1082; &#1087;&#1088;&#1086;&#1076;&#1072;&#1085;&#1085;&#1091;&#1102; &#1076;&#1086; 01.06.2026? &#1055;&#1086;&#1079;&#1080;&#1094;&#1080;&#1103; &#1080;&#1089;&#1095;&#1077;&#1079;&#1085;&#1077;&#1090; &#1080;&#1079; &#1085;&#1086;&#1074;&#1099;&#1093; &#1086;&#1090;&#1095;&#1077;&#1090;&#1086;&#1074;."
-                        data-progress="&#1054;&#1090;&#1084;&#1077;&#1095;&#1072;&#1077;&#1084;..."
-                        data-error="&#1053;&#1077; &#1091;&#1076;&#1072;&#1083;&#1086;&#1089;&#1100; &#1087;&#1086;&#1084;&#1077;&#1090;&#1080;&#1090;&#1100; &#1087;&#1086;&#1079;&#1080;&#1094;&#1080;&#1102; &#1082;&#1072;&#1082; &#1087;&#1088;&#1086;&#1076;&#1072;&#1085;&#1085;&#1091;&#1102;. &#1054;&#1073;&#1085;&#1086;&#1074;&#1080;&#1090;&#1077; &#1089;&#1090;&#1088;&#1072;&#1085;&#1080;&#1094;&#1091; &#1080; &#1087;&#1086;&#1087;&#1088;&#1086;&#1073;&#1091;&#1081;&#1090;&#1077; &#1077;&#1097;&#1077; &#1088;&#1072;&#1079;."
+                        data-confirm="Пометить &quot;{{ $itemName($item) }}&quot; как проданную до 01.06.2026? Позиция исчезнет из новых отчетов."
+                        data-progress="Отмечаем..."
+                        data-error="Не удалось пометить позицию как проданную. Обновите страницу и попробуйте еще раз."
                     >
                         @csrf
                         @method('PATCH')
                         <button
                             type="submit"
                             class="nikolacars-icon-button nikolacars-sold-button"
-                            title="&#1055;&#1088;&#1086;&#1076;&#1072;&#1085;&#1086; &#1076;&#1086; 01.06.2026"
-                            aria-label="&#1055;&#1088;&#1086;&#1076;&#1072;&#1085;&#1086; &#1076;&#1086; 01.06.2026"
+                            title="Продано до 01.06.2026"
+                            aria-label="Продано до 01.06.2026"
                         >
                             <svg viewBox="0 0 24 24" aria-hidden="true" class="nikolacars-sold-icon">
                                 <path fill="#16a34a" d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8Z"></path>
@@ -469,8 +462,8 @@
                     <button
                         type="button"
                         class="nikolacars-icon-button nikolacars-sold-button"
-                        title="&#1053;&#1077;&#1083;&#1100;&#1079;&#1103; &#1087;&#1088;&#1086;&#1076;&#1072;&#1090;&#1100;: &#1087;&#1086;&#1079;&#1080;&#1094;&#1080;&#1103; &#1074; &#1088;&#1077;&#1079;&#1077;&#1088;&#1074;&#1077;"
-                        aria-label="&#1053;&#1077;&#1083;&#1100;&#1079;&#1103; &#1087;&#1088;&#1086;&#1076;&#1072;&#1090;&#1100;: &#1087;&#1086;&#1079;&#1080;&#1094;&#1080;&#1103; &#1074; &#1088;&#1077;&#1079;&#1077;&#1088;&#1074;&#1077;"
+                        title="Нельзя продать: позиция в резерве"
+                        aria-label="Нельзя продать: позиция в резерве"
                         disabled
                     >
                         <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -488,9 +481,3 @@
         </div>
     </td>
 </tr>
-@if($isGrouped)
-    @include('admin.part_catalog.partials.nikolacars-group-child-rows', [
-        'groupRowId' => $groupRowId,
-        'group' => $group,
-    ])
-@endif

@@ -92,6 +92,7 @@ Route::middleware(['auth', 'active'])->group(function (): void {
             ->middleware('permission:locations.manage');
         Route::middleware('permission:mobile_parts.manage')->group(function (): void {
             Route::get('mobile/parts', [DonorCarController::class, 'mobileParts'])->name('mobile.parts.index');
+            Route::get('mobile/parts/search', [DonorCarController::class, 'partSuggestions'])->name('mobile.parts.search');
             Route::get('mobile/donor-cars/{donorCar}/parts', [DonorCarController::class, 'mobileDonorParts'])->name('mobile.donor-cars.parts.show');
             Route::get('mobile/donor-cars/{donorCar}/parts/search', [DonorCarController::class, 'mobileProductSuggestions'])->name('mobile.donor-cars.products.search');
             Route::get('mobile/donor-cars/{donorCar}/parts/create', [DonorCarController::class, 'mobileCreateProduct'])->name('mobile.donor-cars.products.create');
@@ -128,6 +129,7 @@ Route::middleware(['auth', 'active'])->group(function (): void {
         });
 
         Route::middleware('permission:donor_cars.manage')->group(function (): void {
+            Route::get('donor-cars/parts/search', [DonorCarController::class, 'partSuggestions'])->name('donor-cars.parts.search');
             Route::post('donor-cars/{donorCar}/photos', [DonorCarController::class, 'storePhotos'])->name('donor-cars.photos.store');
             Route::delete('donor-cars/{donorCar}/photos', [DonorCarController::class, 'destroyPhoto'])->name('donor-cars.photos.destroy');
             Route::post('donor-cars/{donorCar}/products', [DonorCarController::class, 'storeProduct'])->name('donor-cars.products.store');
@@ -173,11 +175,17 @@ Route::middleware(['auth', 'active'])->group(function (): void {
             ->name('nikolacars-sales.cancel-manual');
         Route::middleware('permission:customer_orders.manage')->group(function (): void {
             Route::get('customer-orders/clients/search', [CustomerOrderController::class, 'clientSearch'])->name('customer-orders.clients.search');
+            Route::get('customer-orders/nova-poshta/cities', [CustomerOrderController::class, 'novaPoshtaCities'])->name('customer-orders.nova-poshta.cities');
+            Route::get('customer-orders/nova-poshta/warehouses', [CustomerOrderController::class, 'novaPoshtaWarehouses'])->name('customer-orders.nova-poshta.warehouses');
             Route::patch('customer-orders/{customerOrder}/delivery-method', [CustomerOrderController::class, 'updateDeliveryMethod'])->name('customer-orders.delivery-method.update');
             Route::patch('customer-orders/{customerOrder}/note', [CustomerOrderController::class, 'updateNote'])->name('customer-orders.note.update');
             Route::patch('customer-orders/{customerOrder}/status', [CustomerOrderController::class, 'updateStatus'])->name('customer-orders.status.update');
+            Route::get('customer-orders/{customerOrder}/nova-poshta/label', [CustomerOrderController::class, 'printNovaPoshtaLabel'])->name('customer-orders.nova-poshta.label');
+            Route::post('customer-orders/{customerOrder}/nova-poshta/sync-status', [CustomerOrderController::class, 'syncNovaPoshtaStatus'])->name('customer-orders.nova-poshta.sync-status');
             Route::post('customer-orders/{customerOrder}/recreate', [CustomerOrderController::class, 'recreate'])->name('customer-orders.recreate');
             Route::post('customer-orders/{customerOrder}/prepayment', [CustomerOrderController::class, 'storePrepayment'])->name('customer-orders.prepayment.store');
+            Route::delete('customer-orders/{customerOrder}/prepayment/{historyEvent}', [CustomerOrderController::class, 'destroyPrepaymentEntry'])->name('customer-orders.prepayment-entry.destroy');
+            Route::delete('customer-orders/{customerOrder}/prepayment', [CustomerOrderController::class, 'destroyPrepayment'])->name('customer-orders.prepayment.destroy');
             Route::post('customer-orders/{customerOrder}/payment', [CustomerOrderController::class, 'confirmPayment'])->name('customer-orders.payment.confirm');
             Route::get('customer-orders/{customerOrder}/items/catalog-search', [CustomerOrderController::class, 'catalogItemSearch'])->name('customer-orders.items.catalog-search');
             Route::post('customer-orders/{customerOrder}/items', [CustomerOrderController::class, 'storeItem'])->name('customer-orders.items.store');

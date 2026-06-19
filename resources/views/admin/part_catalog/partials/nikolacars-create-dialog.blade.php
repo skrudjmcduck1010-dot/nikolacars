@@ -53,7 +53,7 @@
                             @if($donorOption['preview_url'])
                                 <img src="{{ $donorOption['preview_url'] }}" alt="{{ $donorOption['label'] }}" loading="lazy" decoding="async">
                             @else
-                                <span class="nikolacars-donor-option__placeholder">&#1044;&#1086;&#1085;&#1086;&#1088;</span>
+                                <span class="nikolacars-donor-option__placeholder">Донор</span>
                             @endif
                             <span>
                                 <strong>{{ $donorOption['label'] }}</strong>
@@ -69,7 +69,7 @@
                 class="nikolacars-part-name-autocomplete full"
                 data-nikolacars-part-name-search-url="{{ route('admin.zapchasti.items.name-suggestions') }}"
             >
-                <label>&#1040;&#1088;&#1090;&#1080;&#1082;&#1091;&#1083;</label>
+                <label>Артикул</label>
                 <input name="part_number" value="{{ old('part_number') }}" required autocomplete="off" data-nikolacars-part-name-input>
                 <div class="nikolacars-part-name-suggestions" data-nikolacars-part-name-suggestions hidden></div>
             </div>

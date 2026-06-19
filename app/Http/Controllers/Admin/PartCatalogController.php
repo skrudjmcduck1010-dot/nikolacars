@@ -299,27 +299,28 @@ class PartCatalogController extends Controller
         $canShowSourceCatalogItems = $canExportCatalog || $source === 'tesla_official';
         $showUniquePartsCount = $canShowSourceCatalogItems;
         $nikolaCarsItemGroups = collect();
+        $nikolaCarsChildItemGroupsById = collect();
         $nikolaCarsDonorCarsByVin = collect();
         $nikolaCarsDamageStatusUsersById = collect();
         $usdRate = app(ExchangeRateService::class)->displayUsdRate();
         $nikolaCarsCatalogItems = app(NikolaCarsCatalogItemService::class);
         $nikolaCarsCatalogList = app(NikolaCarsCatalogListService::class);
+        $nikolaCarsSummaryItems = $source === 'nikolacars'
+            ? $nikolaCarsCatalogList->activeSummaryItems()
+            : null;
 
-        $nikolaCarsAllItems = $source === 'nikolacars'
-            ? $nikolaCarsCatalogList->activeItems()
-            : collect();
         $nikolaCarsVinOptions = $source === 'nikolacars'
-            ? $nikolaCarsCatalogList->donorFilterOptions($nikolaCarsAllItems)
+            ? $nikolaCarsCatalogList->donorFilterOptions($nikolaCarsSummaryItems)
             : collect();
         $nikolaCarsDonorFilterCarsByVin = $source === 'nikolacars'
             ? $nikolaCarsCatalogList->donorCarsByVinOptions($nikolaCarsVinOptions)
             : collect();
         $nikolaCarsTopCategoryOptions = $source === 'nikolacars'
-            ? $nikolaCarsCatalogList->topCategoryFilterOptions($nikolaCarsAllItems)
+            ? $nikolaCarsCatalogList->topCategoryFilterOptions($nikolaCarsSummaryItems)
             : collect();
         $nikolaCarsTotalValueUsd = $source === 'nikolacars'
             ? $nikolaCarsCatalogList->inventoryTotalUsd(
-                $nikolaCarsAllItems,
+                $nikolaCarsSummaryItems,
                 $usdRate
             )
             : 0.0;
@@ -329,15 +330,17 @@ class PartCatalogController extends Controller
         $nikolaCarsCreateDonors = $source === 'nikolacars'
             ? $nikolaCarsCatalogItems->donorOptionsForCreate()
             : collect();
-        $totalItemsCount = $this->cachedCatalogCount('items', $source, fn (): int => $this->sourceFilteredQuery(PartCatalogItem::query(), $source)->count());
+        $totalItemsCount = $source === 'nikolacars'
+            ? null
+            : $this->cachedCatalogCount('items', $source, fn (): int => $this->sourceFilteredQuery(PartCatalogItem::query(), $source)->count());
         $nikolaCarsUniqueArticleCount = $source === 'nikolacars'
-            ? $nikolaCarsCatalogList->uniqueArticleCount($nikolaCarsAllItems)
+            ? $nikolaCarsCatalogList->uniqueArticleCount($nikolaCarsSummaryItems)
             : null;
         $nikolaCarsAddedTodayCount = $source === 'nikolacars'
-            ? $nikolaCarsCatalogList->addedTodayCount($nikolaCarsAllItems)
+            ? $nikolaCarsCatalogList->addedTodayCount($nikolaCarsSummaryItems)
             : null;
         $itemsCount = $source === 'nikolacars'
-            ? $nikolaCarsCatalogList->itemsCount($nikolaCarsAllItems)
+            ? $nikolaCarsCatalogList->itemsCount($nikolaCarsSummaryItems)
             : ($showUniquePartsCount ? $this->cachedUniquePartsCount($source) : $totalItemsCount);
         $competitorTotalProductsCount = $showUniquePartsCount && $selectedCategory === null ? $totalItemsCount : null;
         $showRootItemList = $source === 'nikolacars'
@@ -436,9 +439,36 @@ class PartCatalogController extends Controller
                     $items = $nikolaCarsGroupsPaginator;
                 }
 
-                $nikolaCarsGroupItems = $nikolaCarsItemGroups
+                $nikolaCarsGroupedItemGroups = $nikolaCarsItemGroups;
+                $nikolaCarsGroupItems = $nikolaCarsGroupedItemGroups
                     ->flatMap(fn (array $group): Collection => $group['items'])
                     ->values();
+                $nikolaCarsIndividualGroupsById = $nikolaCarsCatalogList->itemGroupsForIndividualItems(
+                    $nikolaCarsGroupItems,
+                    $usdRate,
+                    fn (PartCatalogItem $item): string => $this->displayItemName($item),
+                );
+                $nikolaCarsItemGroups = $nikolaCarsGroupedItemGroups
+                    ->flatMap(function (array $group) use ($nikolaCarsIndividualGroupsById): Collection {
+                        $isAdjacentDuplicate = (int) ($group['count'] ?? 0) > 1;
+
+                        return $group['items']
+                            ->map(function (PartCatalogItem $item) use ($group, $isAdjacentDuplicate, $nikolaCarsIndividualGroupsById): ?array {
+                                $itemGroup = $nikolaCarsIndividualGroupsById->get($item->getKey());
+                                if ($itemGroup === null) {
+                                    return null;
+                                }
+
+                                $itemGroup['is_adjacent_duplicate'] = $isAdjacentDuplicate;
+                                $itemGroup['adjacent_duplicate_count'] = (int) ($group['count'] ?? 1);
+
+                                return $itemGroup;
+                            })
+                            ->filter()
+                            ->values();
+                    })
+                    ->values();
+                $items->setCollection($nikolaCarsItemGroups);
                 $nikolaCarsDonorCarsByVin = $nikolaCarsCatalogList->donorCarsByVinFromItems($nikolaCarsGroupItems);
                 $nikolaCarsDamageStatusUsersById = $this->nikolaCarsDamageStatusUsersById($nikolaCarsGroupItems);
             } else {
@@ -624,6 +654,7 @@ class PartCatalogController extends Controller
             'canExportCatalog' => $canExportCatalog,
             'showCatalogItems' => $showCatalogItems,
             'nikolaCarsItemGroups' => $nikolaCarsItemGroups,
+            'nikolaCarsChildItemGroupsById' => $nikolaCarsChildItemGroupsById,
             'nikolaCarsDonorCarsByVin' => $nikolaCarsDonorCarsByVin,
             'nikolaCarsDamageStatusUsersById' => $nikolaCarsDamageStatusUsersById,
             'nikolaCarsDonorFilterCarsByVin' => $nikolaCarsDonorFilterCarsByVin,

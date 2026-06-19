@@ -17,12 +17,6 @@ class CatalogTextEncoding
                 ? iconv('UTF-8', 'Windows-1252//IGNORE', $value)
                 : self::mojibakeBytes($value);
 
-            if ($bytes !== false && $bytes !== null && $bytes !== '' && ! mb_check_encoding($bytes, 'UTF-8')) {
-                while ($bytes !== '' && ! mb_check_encoding($bytes, 'UTF-8')) {
-                    $bytes = substr($bytes, 0, -1);
-                }
-            }
-
             if ($bytes === false || $bytes === null || $bytes === '' || ! mb_check_encoding($bytes, 'UTF-8')) {
                 break;
             }

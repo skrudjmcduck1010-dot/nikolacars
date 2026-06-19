@@ -123,6 +123,11 @@ Schedule::command('exchange-rates:fetch --currency=USD')
     ->timezone('Europe/Kyiv')
     ->withoutOverlapping();
 
+Schedule::command('customer-orders:sync-nova-poshta-statuses')
+    ->everyThirtyMinutes()
+    ->timezone('Europe/Kyiv')
+    ->withoutOverlapping();
+
 Artisan::command('sto:import-cashbook {path} {--fresh}', function (string $path): int {
     if (! is_file($path)) {
         $this->error("File not found: {$path}");

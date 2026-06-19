@@ -47,18 +47,18 @@
     @endphp
     <thead>
     <tr>
-        <th><a href="{{ $productSortUrl('photo') }}">&#1060;&#1086;&#1090;&#1086;{{ $productSortMark('photo') }}</a></th>
-        <th><a href="{{ $productSortUrl('external_sku') }}">&#1040;&#1088;&#1090;&#1080;&#1082;&#1091;&#1083;{{ $productSortMark('external_sku') }}</a></th>
-        <th><a href="{{ $productSortUrl('name') }}">&#1053;&#1072;&#1079;&#1074;&#1072;&#1085;&#1080;&#1077;{{ $productSortMark('name') }}</a></th>
-        <th><a href="{{ $productSortUrl('category') }}">&#1050;&#1072;&#1090;&#1077;&#1075;&#1086;&#1088;&#1080;&#1103;{{ $productSortMark('category') }}</a></th>
-        <th><a href="{{ $productSortUrl('condition') }}">&#1057;&#1086;&#1089;&#1090;&#1086;&#1103;&#1085;&#1080;&#1077;{{ $productSortMark('condition') }}</a></th>
+        <th><a href="{{ $productSortUrl('photo') }}">Фото{{ $productSortMark('photo') }}</a></th>
+        <th><a href="{{ $productSortUrl('external_sku') }}">Артикул{{ $productSortMark('external_sku') }}</a></th>
+        <th><a href="{{ $productSortUrl('name') }}">Название{{ $productSortMark('name') }}</a></th>
+        <th><a href="{{ $productSortUrl('category') }}">Категория{{ $productSortMark('category') }}</a></th>
+        <th><a href="{{ $productSortUrl('condition') }}">Состояние{{ $productSortMark('condition') }}</a></th>
         @if($showOfficialFields)
             <th><a href="{{ $productSortUrl('damage_note') }}">Статус{{ $productSortMark('damage_note') }}</a></th>
         @endif
         <th><a href="{{ $productSortUrl('tesla_price') }}"><span class="donor-products-price-heading">Цена <span>tesla.com{{ $productSortMark('tesla_price') }}</span></span></a></th>
         <th><a href="{{ $productSortUrl('price') }}"><span class="donor-products-price-heading">Цена продажи <span>USD{{ $productSortMark('price') }}</span></span></a></th>
         <th><a href="{{ $productSortUrl('quantity') }}">Кол-во{{ $productSortMark('quantity') }}</a></th>
-        <th><a href="{{ $productSortUrl('warehouse') }}">&#1057;&#1082;&#1083;&#1072;&#1076;{{ $productSortMark('warehouse') }}</a></th>
+        <th><a href="{{ $productSortUrl('warehouse') }}">Склад{{ $productSortMark('warehouse') }}</a></th>
         <th></th>
     </tr>
     </thead>
@@ -186,7 +186,7 @@
             >
                 <td>
                     @if($product->main_image)
-                        <span class="photo-presence--yes" title="&#1045;&#1089;&#1090;&#1100;" aria-label="&#1045;&#1089;&#1090;&#1100;">&#10003;</span>
+                        <span class="photo-presence--yes" title="Есть" aria-label="Есть">&#10003;</span>
                     @else
                         &mdash;
                     @endif
@@ -211,11 +211,11 @@
                                         @method('PATCH')
                                         <input type="hidden" name="name_type" value="{{ $nameRow['type'] }}">
                                         <input type="hidden" name="name" value="{{ $nameRow['value'] }}" data-donor-product-name-input>
-                                        <button type="button" class="donor-product-name-edit" title="&#1056;&#1077;&#1076;&#1072;&#1082;&#1090;&#1080;&#1088;&#1086;&#1074;&#1072;&#1090;&#1100; {{ $nameRow['label'] }} &#1085;&#1072;&#1079;&#1074;&#1072;&#1085;&#1080;&#1077;" aria-label="&#1056;&#1077;&#1076;&#1072;&#1082;&#1090;&#1080;&#1088;&#1086;&#1074;&#1072;&#1090;&#1100; {{ $nameRow['label'] }} &#1085;&#1072;&#1079;&#1074;&#1072;&#1085;&#1080;&#1077; {{ $nameRow['value'] }}" data-donor-product-name-edit>&#9998;</button>
+                                        <button type="button" class="donor-product-name-edit" title="Редактировать {{ $nameRow['label'] }} название" aria-label="Редактировать {{ $nameRow['label'] }} название {{ $nameRow['value'] }}" data-donor-product-name-edit>&#9998;</button>
                                     </form>
                                 @endif
                                 @if($nameRow['manual'] ?? false)
-                                    <span class="tag" data-donor-product-name-status>&#1042;&#1088;&#1091;&#1095;&#1085;&#1091;&#1102;</span>
+                                    <span class="tag" data-donor-product-name-status>Вручную</span>
                                 @elseif(is_array($nameRow['source'] ?? null) && ($nameRow['source']['site'] ?? null))
                                     @if($nameRow['source']['url'] ?? null)
                                         <a class="tag" href="{{ $nameRow['source']['url'] }}" target="_blank" rel="noopener" data-donor-product-name-status>{{ $nameRow['source']['site'] }}</a>
@@ -227,7 +227,7 @@
                         @endforeach
                     </div>
                     @if($product->storage_status === \App\Models\Product::STORAGE_STATUS_ON_DONOR)
-                        <div class="help">&#1053;&#1077; &#1088;&#1072;&#1079;&#1086;&#1073;&#1088;&#1072;&#1085;&#1086; &middot; &#1085;&#1072; &#1076;&#1086;&#1085;&#1086;&#1088;&#1077;</div>
+                        <div class="help">Не разобрано &middot; на доноре</div>
                     @endif
                 </td>
                 <td>
@@ -333,7 +333,7 @@
                         {{ $stockItem?->warehouse?->name ?? $product->storage_status_label }}
                         @if($reservationQuantity > 0)
                             <div class="help">
-                                <span class="tag tag-warning">&#1074; &#1088;&#1077;&#1079;&#1077;&#1088;&#1074;&#1077;</span>
+                                <span class="tag tag-warning">в резерве</span>
                                 {{ $reservedQuantityText($reservationQuantity) }}
                                 @if($reservationOrders->count() === 1)
                                     @php($reservedOrder = $reservationOrders->first()['order'] ?? null)
@@ -362,7 +362,7 @@
                     @else
                         <span class="tag">Мелочевка</span>
                     @endif
-                    <a class="btn btn-secondary" href="{{ route('admin.products.edit', $product) }}">&#1048;&#1079;&#1084;&#1077;&#1085;&#1080;&#1090;&#1100;</a>
+                    <a class="btn btn-secondary" href="{{ route('admin.products.edit', $product) }}">Изменить</a>
                     @if(! $isAutoGeneratedProduct && ! $workOrder)
                         <form method="POST" action="{{ route('admin.donor-cars.products.destroy', [$donorCar, $product]) }}" class="inline-form" onsubmit='return confirm(@json("Удалить запчасть {$product->name} с этого донора?"));'>
                             @csrf

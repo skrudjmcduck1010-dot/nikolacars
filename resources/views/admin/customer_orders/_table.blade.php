@@ -1,6 +1,7 @@
 @php
     $useFixedColumns = $useFixedColumns ?? false;
     $statusClass = fn (\App\Models\CustomerOrder $order): string => match ($order->status) {
+        \App\Models\CustomerOrder::STATUS_WAITING_PREPAYMENT => 'tag-warning',
         \App\Models\CustomerOrder::STATUS_CANCELLED => 'tag-danger',
         \App\Models\CustomerOrder::STATUS_SHIPPED => 'tag-warning',
         \App\Models\CustomerOrder::STATUS_COMPLETED => 'tag-paid',
@@ -241,7 +242,15 @@
                     <div class="help">{{ $order->client_phone }}</div>
                 @endif
             </td>
-            <td>{{ $order->delivery_method_label ?: '-' }}</td>
+            <td>
+                {{ $order->delivery_method_label ?: '-' }}
+                @if($order->novaPoshtaShipment?->recipient_warehouse_name)
+                    <div class="help">{{ $order->novaPoshtaShipment?->recipient_city_name }} · {{ $order->novaPoshtaShipment->recipient_warehouse_name }}</div>
+                @endif
+                @if($order->novaPoshtaShipment?->tracking_number)
+                    <div class="help">{{ "\u{0422}\u{0422}\u{041D}: " }}{{ $order->novaPoshtaShipment->tracking_number }}</div>
+                @endif
+            </td>
             <td>
                 <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
                     <div>
@@ -260,7 +269,7 @@
                             </div>
                         @endif
                     </div>
-                    @if($order->canBeMarkedAsShipped())
+                    @if($order->canBeMarkedAsShipped() && $order->delivery_method !== \App\Models\CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA)
                         <form method="POST" action="{{ route('admin.customer-orders.status.update', $order) }}" class="inline-form">
                             @csrf
                             @method('PATCH')
@@ -339,13 +348,14 @@
                     @php($rowPaymentParts = $prepaymentPartsFor($order))
                     @php($rowPaymentSummary = $rowPaymentParts->map(fn (array $part): string => "{$part['label']}: {$part['amount_text']}")->join(' + '))
                     @php($rowPrepaymentSummary = $prepaymentSummaryFor($rowPaymentParts))
+                    @if($rowPrepaymentSummary)
+                        <div class="help" style="margin-top:12px;">{{ $rowPrepaymentSummary }}</div>
+                    @endif
                     @if($rowIsFullyPaid)
-                        <div class="help" style="display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin-top:12px;">
+                        <div class="help" style="display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin-top:8px;">
                             <strong>{{ $rowPaymentSummary ?: $money($order->paid_amount_uah, 'UAH') }}</strong>
                             <span class="customer-order-paid-badge">{{ "\u{041E}\u{043F}\u{043B}\u{0430}\u{0447}\u{0435}\u{043D}\u{043E}" }}</span>
                         </div>
-                    @elseif($rowPrepaymentSummary)
-                        <div class="help" style="margin-top:12px;">{{ $rowPrepaymentSummary }}</div>
                     @endif
                 @endif
                 @if($order->canAcceptPrepayment() && ! $rowIsFullyPaid)
@@ -374,7 +384,7 @@
             </td>
             <td>{{ $order->created_at?->timezone('Europe/Kiev')->format('d.m.Y H:i') }}</td>
             <td>
-                @if($order->canConfirmPayment() && ! $rowIsFullyPaid)
+                @if($order->canConfirmPayment() && $order->delivery_method !== \App\Models\CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA && ! $rowIsFullyPaid)
                     @php($paymentDialogId = 'customer-order-payment-'.$order->id)
                     @php($paymentDueUah = max(0, $rowTotalAmountUah - (float) $order->paid_amount_uah))
                     @php($paymentDueUsd = $paymentDueUsdFor($order, $paymentDueUah))

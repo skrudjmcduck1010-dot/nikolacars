@@ -70,7 +70,7 @@
                                         </select>
                                     </div>
                                     <div>
-                                        <label>&#1047;&#1086;&#1085;&#1072;</label>
+                                        <label>Зона</label>
                                         <select name="zone" required>
                                             @foreach(\App\Models\Location::ZONES as $value => $label)
                                                 <option value="{{ $value }}">{{ $label }}</option>

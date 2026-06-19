@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CustomerOrderController;
 use App\Models\Counterparty;
 use App\Models\CustomerOrder;
 use App\Models\CustomerOrderHistoryEvent;
+use App\Models\CustomerOrderShipment;
 use App\Models\ExchangeRate;
 use App\Models\Location;
 use App\Models\PartCatalogItem;
@@ -19,6 +20,7 @@ use App\Services\CustomerOrderIssuedSaleService;
 use App\Services\NikolaCarsInventoryService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
 class CustomerOrderTest extends TestCase
@@ -63,6 +65,9 @@ class CustomerOrderTest extends TestCase
             'client_first_name' => 'Ivan',
             'client_last_name' => 'Petrov',
             'delivery_method' => CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA,
+            'nova_poshta_city' => 'Kyiv',
+            'nova_poshta_warehouse' => 'Warehouse 1',
+            'nova_poshta_warehouse_ref' => 'warehouse-ref-1',
             'note' => 'Ship today',
             'items' => [[
                 'id' => $product->id,
@@ -79,16 +84,20 @@ class CustomerOrderTest extends TestCase
 
         $response->assertCreated()->assertJsonPath('url', route('admin.customer-orders.show', CustomerOrder::query()->first()));
 
-        $order = CustomerOrder::query()->with('items')->firstOrFail();
+        $order = CustomerOrder::query()->with(['items', 'novaPoshtaShipment'])->firstOrFail();
         $this->assertSame('Ivan', $order->client_first_name);
         $this->assertSame('Petrov', $order->client_last_name);
         $this->assertSame(Counterparty::TYPE_PARTS, $order->counterparty?->type);
         $this->assertSame(CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA, $order->delivery_method);
-        $this->assertSame(CustomerOrder::STATUS_PROCESSING, $order->status);
-        $this->assertSame("\u{041E}\u{0431}\u{0440}\u{0430}\u{0431}\u{0430}\u{0442}\u{044B}\u{0432}\u{0430}\u{0435}\u{0442}\u{0441}\u{044F}", $order->status_label);
+        $this->assertSame(CustomerOrder::STATUS_WAITING_PREPAYMENT, $order->status);
+        $this->assertSame("\u{0416}\u{0434}\u{0435}\u{043C} \u{043F}\u{0440}\u{0435}\u{0434}\u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0443}", $order->status_label);
         $this->assertNull($order->note);
         $this->assertSame('UAH', $order->currency);
         $this->assertSame('12380.00', $order->total_amount);
+        $this->assertSame('Kyiv', $order->novaPoshtaShipment?->recipient_city_name);
+        $this->assertSame('Warehouse 1', $order->novaPoshtaShipment?->recipient_warehouse_name);
+        $this->assertSame('warehouse-ref-1', $order->novaPoshtaShipment?->recipient_warehouse_ref);
+        $this->assertSame('draft', $order->novaPoshtaShipment?->status);
         $this->assertSame('Door handle', $order->items->first()->name);
         $this->assertSame($product->id, $order->items->first()->product_id);
         $this->assertSame($item->id, $order->items->first()->part_catalog_item_id);
@@ -152,6 +161,9 @@ class CustomerOrderTest extends TestCase
             'client_first_name' => 'Ivan',
             'client_last_name' => 'Petrov',
             'delivery_method' => CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA,
+            'nova_poshta_city' => 'Kyiv',
+            'nova_poshta_warehouse' => 'Warehouse 1',
+            'nova_poshta_warehouse_ref' => 'warehouse-ref-1',
             'items' => [[
                 'id' => $product->id,
                 'name' => 'Zero price handle',
@@ -208,6 +220,9 @@ class CustomerOrderTest extends TestCase
             'client_first_name' => 'Ivan',
             'client_last_name' => 'Petrov',
             'delivery_method' => CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA,
+            'nova_poshta_city' => 'Kyiv',
+            'nova_poshta_warehouse' => 'Warehouse 1',
+            'nova_poshta_warehouse_ref' => 'warehouse-ref-1',
             'items' => [[
                 'id' => $product->id,
                 'name' => 'Quantity limited handle',
@@ -285,6 +300,9 @@ class CustomerOrderTest extends TestCase
             'client_first_name' => 'Ivan',
             'client_last_name' => 'Petrov',
             'delivery_method' => CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA,
+            'nova_poshta_city' => 'Kyiv',
+            'nova_poshta_warehouse' => 'Warehouse 1',
+            'nova_poshta_warehouse_ref' => 'warehouse-ref-1',
             'items' => [[
                 'id' => $product->id,
                 'name' => 'Product price handle',
@@ -300,6 +318,28 @@ class CustomerOrderTest extends TestCase
 
         $this->assertSame($product->id, $orderItem->product_id);
         $this->assertSame($item->id, $orderItem->part_catalog_item_id);
+    }
+
+    public function test_nova_poshta_customer_order_requires_selected_warehouse_ref(): void
+    {
+        $user = $this->adminUser('admin-customer-order-np-ref-required@example.com');
+
+        $this->actingAs($user)->postJson(route('admin.customer-orders.store'), [
+            'client_phone' => '+380501112233',
+            'client_first_name' => 'Ivan',
+            'client_last_name' => 'Petrov',
+            'delivery_method' => CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA,
+            'nova_poshta_city' => 'Kyiv',
+            'nova_poshta_warehouse' => 'Warehouse 1',
+            'items' => [[
+                'name' => 'Mirror',
+                'quantity' => 1,
+                'price' => 10,
+            ]],
+        ])->assertUnprocessable()
+            ->assertJsonValidationErrors('nova_poshta_warehouse_ref');
+
+        $this->assertDatabaseCount('customer_orders', 0);
     }
 
     public function test_customer_order_accepts_077_mobile_phone(): void
@@ -321,6 +361,27 @@ class CustomerOrderTest extends TestCase
         $order = CustomerOrder::query()->firstOrFail();
         $this->assertSame('+380771112233', $order->client_phone);
         $this->assertSame(CustomerOrder::DELIVERY_METHOD_PICKUP, $order->delivery_method);
+    }
+
+    public function test_pickup_processing_order_status_label_is_collecting(): void
+    {
+        $user = $this->adminUser('admin-customer-order-pickup-collecting@example.com');
+
+        $this->actingAs($user)->postJson(route('admin.customer-orders.store'), [
+            'client_phone' => '+380501112233',
+            'client_first_name' => 'Ivan',
+            'client_last_name' => 'Petrov',
+            'delivery_method' => CustomerOrder::DELIVERY_METHOD_PICKUP,
+            'items' => [[
+                'name' => 'Mirror',
+                'quantity' => 1,
+                'price' => 10,
+            ]],
+        ])->assertCreated();
+
+        $order = CustomerOrder::query()->firstOrFail();
+        $this->assertSame(CustomerOrder::STATUS_PROCESSING, $order->status);
+        $this->assertSame("\u{0421}\u{043E}\u{0431}\u{0438}\u{0440}\u{0430}\u{0435}\u{0442}\u{0441}\u{044F}", $order->status_label);
     }
 
     public function test_customer_order_requires_delivery_method_when_created_from_cart(): void
@@ -425,8 +486,12 @@ class CustomerOrderTest extends TestCase
             ->get(route('admin.zapchasti.index'))
             ->assertOk()
             ->assertSee('<option value="sto">', false)
-            ->assertSee('data-nikolacars-cart-first-name placeholder="&#1048;&#1084;&#1103;"', false)
-            ->assertSee('data-nikolacars-cart-last-name placeholder="&#1060;&#1072;&#1084;&#1080;&#1083;&#1080;&#1103;"', false)
+            ->assertSee('data-nikolacars-cart-first-name', false)
+            ->assertSee('data-nikolacars-cart-last-name', false)
+            ->assertSee('data-nikolacars-cart-np-city', false)
+            ->assertSee('data-nikolacars-cart-np-city-ref', false)
+            ->assertSee('data-nikolacars-cart-np-warehouse', false)
+            ->assertSee('data-nikolacars-cart-np-warehouse-ref', false)
             ->assertSee('data-nikolacars-cart-delivery-method required', false);
 
         $cartScript = file_get_contents(base_path('resources/js/admin/part-catalog.js'));
@@ -607,6 +672,32 @@ class CustomerOrderTest extends TestCase
             ->assertOk()
             ->assertSeeInOrder([$order->number, "\u{0421}\u{043E}\u{0437}\u{0434}\u{0430}\u{043B}: Order Creator Employee"])
             ->assertDontSee("\u{0421}\u{043E}\u{0437}\u{0434}\u{0430}\u{043B}: Warehouse Worker");
+    }
+
+    public function test_customer_order_show_displays_creator_next_to_created_at(): void
+    {
+        $user = $this->adminUser('admin-customer-order-creator-show-viewer@example.com');
+        $creator = User::query()->create([
+            'name' => 'Order Creator',
+            'email' => 'order-show-creator@example.com',
+            'password' => Hash::make('password'),
+            'role' => User::ROLE_WAREHOUSE_WORKER,
+            'is_active' => true,
+        ]);
+        $order = CustomerOrder::query()->create([
+            'number' => 'ORD-20260601-0098',
+            'status' => CustomerOrder::STATUS_PROCESSING,
+            'total_amount' => 100,
+            'currency' => 'UAH',
+            'created_by' => $creator->id,
+            'created_at' => '2026-06-19 15:24:00',
+        ]);
+
+        $this->actingAs($user)
+            ->get(route('admin.customer-orders.show', $order))
+            ->assertOk()
+            ->assertSee($order->created_at?->timezone('Europe/Kiev')->format('d.m.Y H:i'))
+            ->assertSee('(Order Creator)');
     }
 
     public function test_customer_orders_index_shows_anonymous_counterparty_as_client_name(): void
@@ -1276,6 +1367,70 @@ class CustomerOrderTest extends TestCase
         $this->assertSame('100.00', $order->total_amount);
     }
 
+    public function test_customer_order_items_cannot_be_changed_after_prepayment(): void
+    {
+        $user = $this->adminUser('admin-customer-order-prepaid-items-readonly@example.com');
+        $catalogItem = PartCatalogItem::query()->create([
+            'source' => 'nikolacars',
+            'source_url' => 'nikolacars://part/prepaid-readonly-extra',
+            'part_number' => '1034344-20-B',
+            'name' => 'Prepaid readonly extra',
+        ]);
+        $order = CustomerOrder::query()->create([
+            'number' => 'ORD-20260601-0022-PREPAID-LOCK',
+            'status' => CustomerOrder::STATUS_PROCESSING,
+            'delivery_method' => CustomerOrder::DELIVERY_METHOD_PICKUP,
+            'total_amount' => 100,
+            'currency' => 'UAH',
+            'paid_cash_uah' => 20,
+            'paid_amount_uah' => 20,
+        ]);
+        $item = $order->items()->create([
+            'name' => 'Prepaid readonly handle',
+            'quantity' => 1,
+            'unit_price' => 100,
+            'total_price' => 100,
+            'currency' => 'UAH',
+        ]);
+
+        $this->actingAs($user)
+            ->get(route('admin.customer-orders.show', $order))
+            ->assertOk()
+            ->assertDontSee('data-customer-order-add-item', false)
+            ->assertDontSee('data-customer-order-unit-price', false)
+            ->assertDontSee(route('admin.customer-orders.items.store', $order), false)
+            ->assertDontSee(route('admin.customer-orders.items.destroy', [$order, $item]), false);
+
+        $this->actingAs($user)
+            ->from(route('admin.customer-orders.show', $order))
+            ->post(route('admin.customer-orders.items.store', $order), [
+                'part_catalog_item_id' => $catalogItem->id,
+                'quantity' => 1,
+            ])
+            ->assertRedirect(route('admin.customer-orders.show', $order))
+            ->assertSessionHasErrors('order');
+
+        $this->actingAs($user)
+            ->from(route('admin.customer-orders.show', $order))
+            ->patch(route('admin.customer-orders.items.update', [$order, $item]), [
+                'unit_price' => 200,
+            ])
+            ->assertRedirect(route('admin.customer-orders.show', $order))
+            ->assertSessionHasErrors('order');
+
+        $this->actingAs($user)
+            ->from(route('admin.customer-orders.show', $order))
+            ->delete(route('admin.customer-orders.items.destroy', [$order, $item]))
+            ->assertRedirect(route('admin.customer-orders.show', $order))
+            ->assertSessionHasErrors('order');
+
+        $order->refresh();
+
+        $this->assertSame(1, $order->items()->count());
+        $this->assertSame('100.00', $item->refresh()->unit_price);
+        $this->assertSame('100.00', $order->total_amount);
+    }
+
     public function test_customer_order_note_can_be_updated_even_when_order_is_cancelled(): void
     {
         $user = $this->adminUser('admin-customer-order-note-update@example.com');
@@ -1506,7 +1661,7 @@ class CustomerOrderTest extends TestCase
         $this->assertSame('150.00', $item->price_amount);
     }
 
-    public function test_customer_order_delivery_method_can_be_updated_from_show_page(): void
+    public function test_customer_order_delivery_method_can_be_updated_from_modal_on_show_page(): void
     {
         $user = $this->adminUser('admin-customer-order-delivery-update@example.com');
         $order = CustomerOrder::query()->create([
@@ -1516,6 +1671,16 @@ class CustomerOrderTest extends TestCase
             'total_amount' => 0,
             'currency' => 'USD',
         ]);
+
+        $this->actingAs($user)
+            ->get(route('admin.customer-orders.show', $order))
+            ->assertOk()
+            ->assertSee($order->delivery_method_label)
+            ->assertSee('data-customer-order-delivery-edit', false)
+            ->assertSee('data-customer-order-delivery-dialog', false)
+            ->assertSee(route('admin.customer-orders.delivery-method.update', $order), false)
+            ->assertSee('name="nova_poshta_city"', false)
+            ->assertSee('name="nova_poshta_warehouse"', false);
 
         $this->actingAs($user)
             ->from(route('admin.customer-orders.show', $order))
@@ -2393,7 +2558,8 @@ class CustomerOrderTest extends TestCase
             ->patch(route('admin.customer-orders.status.update', $order), [
                 'status' => CustomerOrder::STATUS_ASSEMBLED,
             ])
-            ->assertRedirect(route('admin.customer-orders.show', $order));
+            ->assertRedirect(route('admin.customer-orders.show', $order))
+            ->assertSessionHasNoErrors();
 
         $this->assertSame(CustomerOrder::STATUS_ASSEMBLED, $order->refresh()->status);
         $this->assertSame("\u{0421}\u{043E}\u{0431}\u{0440}\u{0430}\u{043D}", $order->status_label);
@@ -2445,6 +2611,200 @@ class CustomerOrderTest extends TestCase
         $item->refresh();
         $this->assertSame(0.0, (float) data_get($item->raw_attributes, 'reserved_quantity'));
         $this->assertSame([], data_get($item->raw_attributes, 'reserved_orders'));
+    }
+
+    public function test_cancelling_nova_poshta_order_deletes_existing_ttn(): void
+    {
+        $user = $this->adminUser('admin-customer-order-cancel-np-ttn@example.com');
+        config([
+            'services.nova_poshta.api_key' => 'test-api-key',
+            'services.nova_poshta.api_url' => 'https://api.novaposhta.test/v2.0/json/',
+            'services.nova_poshta.sender_city_ref' => 'sender-city-ref',
+            'services.nova_poshta.sender_ref' => 'sender-ref',
+            'services.nova_poshta.sender_address_ref' => 'sender-address-ref',
+            'services.nova_poshta.sender_contact_ref' => 'sender-contact-ref',
+            'services.nova_poshta.sender_phone' => '0500000000',
+        ]);
+        Http::fake([
+            'https://api.novaposhta.test/v2.0/json/' => Http::response([
+                'success' => true,
+                'data' => [['Ref' => 'np-document-ref']],
+                'errors' => [],
+                'warnings' => [],
+                'info' => [],
+            ], 200),
+        ]);
+
+        $order = CustomerOrder::query()->create([
+            'number' => 'ORD-20260601-0031',
+            'status' => CustomerOrder::STATUS_ASSEMBLED,
+            'delivery_method' => CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA,
+            'total_amount' => 100,
+            'currency' => 'UAH',
+        ]);
+        $order->novaPoshtaShipment()->create([
+            'carrier' => CustomerOrderShipment::CARRIER_NOVA_POSHTA,
+            'status' => CustomerOrderShipment::STATUS_CREATED,
+            'np_ref' => 'np-document-ref',
+            'tracking_number' => '20450000000000',
+        ]);
+
+        $this->actingAs($user)
+            ->from(route('admin.customer-orders.show', $order))
+            ->patch(route('admin.customer-orders.status.update', $order), [
+                'status' => CustomerOrder::STATUS_CANCELLED,
+            ])
+            ->assertRedirect(route('admin.customer-orders.show', $order));
+
+        $order->refresh()->load('novaPoshtaShipment');
+
+        $this->assertSame(CustomerOrder::STATUS_CANCELLED, $order->status);
+        $this->assertSame(CustomerOrderShipment::STATUS_CANCELLED, $order->novaPoshtaShipment?->status);
+        $this->assertSame('np-document-ref', $order->novaPoshtaShipment?->np_ref);
+        $this->assertSame('20450000000000', $order->novaPoshtaShipment?->tracking_number);
+
+        Http::assertSent(function ($request): bool {
+            $payload = $request->data();
+
+            return $payload['modelName'] === 'InternetDocument'
+                && $payload['calledMethod'] === 'delete'
+                && data_get($payload, 'methodProperties.DocumentRefs.0') === 'np-document-ref';
+        });
+
+        $this->assertDatabaseHas('customer_order_history_events', [
+            'customer_order_id' => $order->id,
+            'event_type' => 'nova_poshta_ttn_deleted',
+        ]);
+    }
+
+    public function test_nova_poshta_order_is_not_cancelled_when_ttn_delete_fails(): void
+    {
+        $user = $this->adminUser('admin-customer-order-cancel-np-ttn-fails@example.com');
+        config([
+            'services.nova_poshta.api_key' => 'test-api-key',
+            'services.nova_poshta.api_url' => 'https://api.novaposhta.test/v2.0/json/',
+            'services.nova_poshta.sender_city_ref' => 'sender-city-ref',
+            'services.nova_poshta.sender_ref' => 'sender-ref',
+            'services.nova_poshta.sender_address_ref' => 'sender-address-ref',
+            'services.nova_poshta.sender_contact_ref' => 'sender-contact-ref',
+            'services.nova_poshta.sender_phone' => '0500000000',
+        ]);
+        Http::fake([
+            'https://api.novaposhta.test/v2.0/json/' => Http::response([
+                'success' => false,
+                'data' => [],
+                'errors' => ['Document cannot be deleted'],
+                'warnings' => [],
+                'info' => [],
+            ], 200),
+        ]);
+
+        $order = CustomerOrder::query()->create([
+            'number' => 'ORD-20260601-0032',
+            'status' => CustomerOrder::STATUS_ASSEMBLED,
+            'delivery_method' => CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA,
+            'total_amount' => 100,
+            'currency' => 'UAH',
+        ]);
+        $order->novaPoshtaShipment()->create([
+            'carrier' => CustomerOrderShipment::CARRIER_NOVA_POSHTA,
+            'status' => CustomerOrderShipment::STATUS_CREATED,
+            'np_ref' => 'np-document-ref',
+            'tracking_number' => '20450000000001',
+        ]);
+
+        $this->actingAs($user)
+            ->from(route('admin.customer-orders.show', $order))
+            ->patch(route('admin.customer-orders.status.update', $order), [
+                'status' => CustomerOrder::STATUS_CANCELLED,
+            ])
+            ->assertRedirect(route('admin.customer-orders.show', $order))
+            ->assertSessionHasErrors('nova_poshta');
+
+        $order->refresh()->load('novaPoshtaShipment');
+
+        $this->assertSame(CustomerOrder::STATUS_ASSEMBLED, $order->status);
+        $this->assertSame(CustomerOrderShipment::STATUS_CREATED, $order->novaPoshtaShipment?->status);
+        $this->assertSame('20450000000001', $order->novaPoshtaShipment?->tracking_number);
+    }
+
+    public function test_cancelling_nova_poshta_order_accepts_already_deleted_ttn_status(): void
+    {
+        $user = $this->adminUser('admin-customer-order-cancel-np-ttn-already-deleted@example.com');
+        config([
+            'services.nova_poshta.api_key' => 'test-api-key',
+            'services.nova_poshta.api_url' => 'https://api.novaposhta.test/v2.0/json/',
+            'services.nova_poshta.sender_city_ref' => 'sender-city-ref',
+            'services.nova_poshta.sender_ref' => 'sender-ref',
+            'services.nova_poshta.sender_address_ref' => 'sender-address-ref',
+            'services.nova_poshta.sender_contact_ref' => 'sender-contact-ref',
+            'services.nova_poshta.sender_phone' => '0500000000',
+        ]);
+        Http::fake([
+            'https://api.novaposhta.test/v2.0/json/' => Http::sequence()
+                ->push([
+                    'success' => false,
+                    'data' => [],
+                    'errors' => [
+                        'Error getting payment info 20450000000002',
+                        'No document changed DeletionMark',
+                    ],
+                    'warnings' => [],
+                    'info' => [],
+                ], 200)
+                ->push([
+                    'success' => true,
+                    'data' => [[
+                        'Number' => '20450000000002',
+                        'StatusCode' => '2',
+                        'Status' => "\u{0412}\u{0438}\u{0434}\u{0430}\u{043B}\u{0435}\u{043D}\u{043E}",
+                    ]],
+                    'errors' => [],
+                    'warnings' => [],
+                    'info' => [],
+                ], 200),
+        ]);
+
+        $order = CustomerOrder::query()->create([
+            'number' => 'ORD-20260601-0033',
+            'status' => CustomerOrder::STATUS_ASSEMBLED,
+            'delivery_method' => CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA,
+            'total_amount' => 100,
+            'currency' => 'UAH',
+        ]);
+        $order->novaPoshtaShipment()->create([
+            'carrier' => CustomerOrderShipment::CARRIER_NOVA_POSHTA,
+            'status' => CustomerOrderShipment::STATUS_CREATED,
+            'np_ref' => 'np-document-ref',
+            'tracking_number' => '20450000000002',
+            'recipient_phone' => '0771007442',
+        ]);
+
+        $this->actingAs($user)
+            ->from(route('admin.customer-orders.show', $order))
+            ->patch(route('admin.customer-orders.status.update', $order), [
+                'status' => CustomerOrder::STATUS_CANCELLED,
+            ])
+            ->assertRedirect(route('admin.customer-orders.show', $order));
+
+        $order->refresh()->load('novaPoshtaShipment');
+
+        $this->assertSame(CustomerOrder::STATUS_CANCELLED, $order->status);
+        $this->assertSame(CustomerOrderShipment::STATUS_CANCELLED, $order->novaPoshtaShipment?->status);
+        $this->assertSame('20450000000002', $order->novaPoshtaShipment?->tracking_number);
+
+        Http::assertSentCount(2);
+        $this->assertDatabaseHas('customer_order_history_events', [
+            'customer_order_id' => $order->id,
+            'event_type' => 'nova_poshta_ttn_deleted',
+        ]);
+
+        $this->actingAs($user)
+            ->get(route('admin.customer-orders.show', $order))
+            ->assertOk()
+            ->assertSee('20450000000002')
+            ->assertSee("\u{0423}\u{0434}\u{0430}\u{043B}\u{0435}\u{043D}\u{0430}")
+            ->assertDontSee(route('admin.customer-orders.nova-poshta.label', $order), false);
     }
 
     public function test_fully_prepaid_customer_order_cannot_be_cancelled(): void
@@ -2699,6 +3059,73 @@ class CustomerOrderTest extends TestCase
             ->assertJsonPath('0.default_delivery_method', CustomerOrder::DELIVERY_METHOD_PICKUP);
     }
 
+    public function test_nova_poshta_city_suggestions_use_directory_api(): void
+    {
+        $user = $this->adminUser('admin-customer-order-np-city-suggestions@example.com');
+        config([
+            'services.nova_poshta.api_key' => 'test-api-key',
+            'services.nova_poshta.api_url' => 'https://api.novaposhta.test/v2.0/json/',
+        ]);
+        Http::fake([
+            'api.novaposhta.test/*' => Http::response([
+                'success' => true,
+                'data' => [[
+                    'Ref' => 'city-ref',
+                    'Description' => "\u{041A}\u{0438}\u{0457}\u{0432}",
+                    'DescriptionRu' => "\u{041A}\u{0438}\u{0435}\u{0432}",
+                    'AreaDescription' => "\u{041A}\u{0438}\u{0457}\u{0432}\u{0441}\u{044C}\u{043A}\u{0430}",
+                    'SettlementTypeDescription' => "\u{043C}\u{0456}\u{0441}\u{0442}\u{043E}",
+                ]],
+            ]),
+        ]);
+
+        $this->actingAs($user)
+            ->getJson(route('admin.customer-orders.nova-poshta.cities', ['query' => "\u{041A}\u{0438}\u{0457}"]))
+            ->assertOk()
+            ->assertJsonPath('0.ref', 'city-ref')
+            ->assertJsonPath('0.description', "\u{041A}\u{0438}\u{0457}\u{0432}");
+
+        Http::assertSent(fn ($request): bool => $request['modelName'] === 'Address'
+            && $request['calledMethod'] === 'getCities'
+            && $request['methodProperties']['FindByString'] === "\u{041A}\u{0438}\u{0457}");
+    }
+
+    public function test_nova_poshta_warehouse_suggestions_use_selected_city_ref(): void
+    {
+        $user = $this->adminUser('admin-customer-order-np-warehouse-suggestions@example.com');
+        config([
+            'services.nova_poshta.api_key' => 'test-api-key',
+            'services.nova_poshta.api_url' => 'https://api.novaposhta.test/v2.0/json/',
+        ]);
+        Http::fake([
+            'api.novaposhta.test/*' => Http::response([
+                'success' => true,
+                'data' => [[
+                    'Ref' => 'warehouse-ref',
+                    'Description' => "\u{0412}\u{0456}\u{0434}\u{0434}\u{0456}\u{043B}\u{0435}\u{043D}\u{043D}\u{044F} \u{2116}203",
+                    'DescriptionRu' => "\u{041E}\u{0442}\u{0434}\u{0435}\u{043B}\u{0435}\u{043D}\u{0438}\u{0435} \u{2116}203",
+                    'Number' => '203',
+                    'CategoryOfWarehouse' => 'Branch',
+                    'TypeOfWarehouse' => 'Warehouse',
+                ]],
+            ]),
+        ]);
+
+        $this->actingAs($user)
+            ->getJson(route('admin.customer-orders.nova-poshta.warehouses', [
+                'city_ref' => 'city-ref',
+                'query' => '203',
+            ]))
+            ->assertOk()
+            ->assertJsonPath('0.ref', 'warehouse-ref')
+            ->assertJsonPath('0.number', '203');
+
+        Http::assertSent(fn ($request): bool => $request['modelName'] === 'Address'
+            && $request['calledMethod'] === 'getWarehouses'
+            && $request['methodProperties']['CityRef'] === 'city-ref'
+            && $request['methodProperties']['FindByString'] === '203');
+    }
+
     public function test_customer_order_show_displays_order_history_events(): void
     {
         $user = $this->adminUser('admin-customer-order-history@example.com');
@@ -2724,7 +3151,8 @@ class CustomerOrderTest extends TestCase
             ->patch(route('admin.customer-orders.status.update', $order), [
                 'status' => CustomerOrder::STATUS_ASSEMBLED,
             ])
-            ->assertRedirect(route('admin.customer-orders.show', $order));
+            ->assertRedirect(route('admin.customer-orders.show', $order))
+            ->assertSessionHasNoErrors();
 
         $this->actingAs($user)
             ->from(route('admin.customer-orders.show', $order))
@@ -2861,7 +3289,7 @@ class CustomerOrderTest extends TestCase
             ->assertSee("\u{0411}\u{0435}\u{0437} \u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{044B}");
     }
 
-    public function test_customer_order_cash_summary_excludes_sto_delivery_orders(): void
+    public function test_customer_order_cash_summary_reports_completed_sto_parts_separately(): void
     {
         CustomerOrder::query()->create([
             'number' => 'ORD-20260603-0010-CASH',
@@ -2887,6 +3315,20 @@ class CustomerOrderTest extends TestCase
             'paid_bank_fop_uah' => 7000,
             'paid_amount_uah' => 9000,
         ]);
+        CustomerOrder::query()->create([
+            'number' => 'ORD-20260603-0010-STO-ACTIVE',
+            'status' => CustomerOrder::STATUS_ASSEMBLED,
+            'delivery_method' => CustomerOrder::DELIVERY_METHOD_STO,
+            'total_amount' => 5000,
+            'currency' => 'UAH',
+        ]);
+        CustomerOrder::query()->create([
+            'number' => 'ORD-20260603-0010-STO-CANCELLED',
+            'status' => CustomerOrder::STATUS_CANCELLED,
+            'delivery_method' => CustomerOrder::DELIVERY_METHOD_STO,
+            'total_amount' => 4000,
+            'currency' => 'UAH',
+        ]);
 
         $controller = app(CustomerOrderController::class);
         $method = new \ReflectionMethod($controller, 'customerOrderCashSummary');
@@ -2897,6 +3339,7 @@ class CustomerOrderTest extends TestCase
         $this->assertSame(10.0, $summary[CustomerOrder::PAYMENT_TYPE_CASH_USD]);
         $this->assertSame(200.0, $summary[CustomerOrder::PAYMENT_TYPE_BANK_TOV]);
         $this->assertSame(300.0, $summary[CustomerOrder::PAYMENT_TYPE_BANK_FOP]);
+        $this->assertSame(9000.0, $summary['sto_parts_uah']);
     }
 
     public function test_customer_order_payment_can_be_confirmed(): void
@@ -3000,6 +3443,577 @@ class CustomerOrderTest extends TestCase
             ->assertSee('data-payment-requires-full-amount="0"', false);
     }
 
+    public function test_customer_order_full_prepayment_keeps_individual_prepayment_rows(): void
+    {
+        $user = $this->adminUser('admin-customer-order-split-full-prepayment@example.com');
+        $order = CustomerOrder::query()->create([
+            'number' => 'ORD-20260603-0011-SPLIT',
+            'status' => CustomerOrder::STATUS_PROCESSING,
+            'delivery_method' => CustomerOrder::DELIVERY_METHOD_PICKUP,
+            'total_amount' => 40,
+            'currency' => 'UAH',
+        ]);
+
+        foreach ([20, 20] as $amount) {
+            $this->actingAs($user)
+                ->from(route('admin.customer-orders.show', $order))
+                ->post(route('admin.customer-orders.prepayment.store', $order), [
+                    'payment_type' => CustomerOrder::PAYMENT_TYPE_BANK_FOP,
+                    'received_amount' => $amount,
+                ])
+                ->assertRedirect(route('admin.customer-orders.show', $order));
+        }
+
+        $order->refresh();
+
+        $this->assertSame(40.0, (float) $order->paid_amount_uah);
+        $this->assertSame(40.0, (float) $order->paid_bank_fop_uah);
+        $this->assertNotNull($order->payment_confirmed_at);
+        $this->assertDatabaseHas('customer_order_history_events', [
+            'customer_order_id' => $order->id,
+            'event_type' => 'prepayment_received',
+        ]);
+        $this->assertDatabaseHas('customer_order_history_events', [
+            'customer_order_id' => $order->id,
+            'event_type' => 'payment_confirmed',
+            'new_values->is_prepayment_flow' => true,
+        ]);
+
+        $response = $this->actingAs($user)
+            ->get(route('admin.customer-orders.show', $order))
+            ->assertOk()
+            ->assertSee("\u{041F}\u{0440}\u{0435}\u{0434}\u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0430}")
+            ->assertSee("\u{041E}\u{043F}\u{043B}\u{0430}\u{0447}\u{0435}\u{043D}\u{043E}")
+            ->assertDontSee('id="customer-order-prepayment"', false);
+
+        $this->assertSame(
+            2,
+            substr_count($response->getContent(), CustomerOrder::PAYMENT_TYPE_LABELS[CustomerOrder::PAYMENT_TYPE_BANK_FOP].": 20 \u{0433}\u{0440}\u{043D}"),
+        );
+        $this->assertMatchesRegularExpression(
+            "/\u{0421}\u{0443}\u{043C}\u{043C}\u{0430} \u{0437}\u{0430}\u{043A}\u{0430}\u{0437}\u{0430}.*40 \u{0433}\u{0440}\u{043D}.*\u{041E}\u{043F}\u{043B}\u{0430}\u{0447}\u{0435}\u{043D}\u{043E}/su",
+            $response->getContent(),
+        );
+    }
+
+    public function test_customer_order_show_ignores_prepayments_before_last_deletion(): void
+    {
+        $user = $this->adminUser('admin-customer-order-deleted-prepayments-hidden@example.com');
+        $order = CustomerOrder::query()->create([
+            'number' => 'ORD-20260603-0011-DEL-HIST',
+            'status' => CustomerOrder::STATUS_PROCESSING,
+            'delivery_method' => CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA,
+            'total_amount' => 40,
+            'currency' => 'UAH',
+            'payment_type' => CustomerOrder::PAYMENT_TYPE_CASH_UAH,
+            'payment_received_amount' => 20,
+            'payment_received_amount_uah' => 20,
+            'paid_cash_uah' => 20,
+            'paid_bank_fop_uah' => 20,
+            'paid_amount_uah' => 40,
+            'payment_confirmed_at' => now(),
+        ]);
+
+        $events = [
+            ['prepayment_received', CustomerOrder::PAYMENT_TYPE_BANK_FOP, 20, 1],
+            ['prepayment_deleted', null, 0, 2],
+            ['prepayment_received', CustomerOrder::PAYMENT_TYPE_BANK_FOP, 20, 3],
+            ['prepayment_deleted', null, 0, 4],
+            ['prepayment_received', CustomerOrder::PAYMENT_TYPE_BANK_FOP, 20, 5],
+            ['payment_confirmed', CustomerOrder::PAYMENT_TYPE_CASH_UAH, 20, 6],
+        ];
+
+        $activeBankFopEvent = null;
+        $cashConfirmedEvent = null;
+
+        foreach ($events as [$eventType, $paymentType, $amount, $minute]) {
+            $event = $order->historyEvents()->create([
+                'event_type' => $eventType,
+                'title' => $eventType,
+                'description' => $eventType,
+                'new_values' => $paymentType
+                    ? [
+                        'payment_type' => $paymentType,
+                        'payment_received_amount' => $amount,
+                        'payment_received_amount_uah' => $amount,
+                        'paid_amount_uah' => $eventType === 'payment_confirmed' ? 40 : $amount,
+                    ]
+                    : ['paid_amount_uah' => 0],
+                'created_at' => now()->addMinutes($minute),
+                'updated_at' => now()->addMinutes($minute),
+            ]);
+
+            if ($eventType === 'prepayment_received' && $minute === 5) {
+                $activeBankFopEvent = $event;
+            }
+
+            if ($eventType === 'payment_confirmed') {
+                $cashConfirmedEvent = $event;
+            }
+        }
+
+        $response = $this->actingAs($user)
+            ->get(route('admin.customer-orders.show', $order))
+            ->assertOk()
+            ->assertSee("\u{041E}\u{043F}\u{043B}\u{0430}\u{0447}\u{0435}\u{043D}\u{043E}")
+            ->assertSee(route('admin.customer-orders.prepayment-entry.destroy', [$order, $activeBankFopEvent]), false)
+            ->assertSee(route('admin.customer-orders.prepayment-entry.destroy', [$order, $cashConfirmedEvent]), false);
+
+        $this->assertSame(
+            1,
+            substr_count($response->getContent(), CustomerOrder::PAYMENT_TYPE_LABELS[CustomerOrder::PAYMENT_TYPE_BANK_FOP].": 20 \u{0433}\u{0440}\u{043D}"),
+        );
+        $this->assertSame(
+            1,
+            substr_count($response->getContent(), CustomerOrder::PAYMENT_TYPE_LABELS[CustomerOrder::PAYMENT_TYPE_CASH_UAH].": 20 \u{0433}\u{0440}\u{043D}"),
+        );
+
+        $this->actingAs($user)
+            ->from(route('admin.customer-orders.show', $order))
+            ->delete(route('admin.customer-orders.prepayment-entry.destroy', [$order, $activeBankFopEvent]))
+            ->assertRedirect(route('admin.customer-orders.show', $order));
+
+        $order->refresh();
+
+        $this->assertSame(20.0, (float) $order->paid_amount_uah);
+        $this->assertSame(0.0, (float) $order->paid_bank_fop_uah);
+        $this->assertSame(20.0, (float) $order->paid_cash_uah);
+        $this->assertNull($order->payment_confirmed_at);
+        $this->assertDatabaseHas('customer_order_history_events', [
+            'customer_order_id' => $order->id,
+            'event_type' => 'prepayment_deleted',
+            'new_values->deleted_event_id' => $activeBankFopEvent->id,
+        ]);
+
+        $afterDeleteResponse = $this->actingAs($user)
+            ->get(route('admin.customer-orders.show', $order))
+            ->assertOk();
+
+        $this->assertSame(
+            0,
+            substr_count($afterDeleteResponse->getContent(), CustomerOrder::PAYMENT_TYPE_LABELS[CustomerOrder::PAYMENT_TYPE_BANK_FOP].": 20 \u{0433}\u{0440}\u{043D}"),
+        );
+        $this->assertSame(
+            1,
+            substr_count($afterDeleteResponse->getContent(), CustomerOrder::PAYMENT_TYPE_LABELS[CustomerOrder::PAYMENT_TYPE_CASH_UAH].": 20 \u{0433}\u{0440}\u{043D}"),
+        );
+    }
+
+    public function test_customer_order_prepayment_can_be_deleted(): void
+    {
+        $user = $this->adminUser('admin-customer-order-prepayment-delete@example.com');
+        $order = CustomerOrder::query()->create([
+            'number' => 'ORD-20260603-0010-DEL',
+            'status' => CustomerOrder::STATUS_PROCESSING,
+            'delivery_method' => CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA,
+            'total_amount' => 1500,
+            'currency' => 'UAH',
+            'payment_type' => CustomerOrder::PAYMENT_TYPE_BANK_FOP,
+            'payment_received_amount' => 20,
+            'payment_received_amount_uah' => 20,
+            'paid_bank_fop_uah' => 20,
+            'paid_amount_uah' => 20,
+        ]);
+
+        $this->actingAs($user)
+            ->get(route('admin.customer-orders.show', $order))
+            ->assertOk()
+            ->assertSee(route('admin.customer-orders.prepayment.destroy', $order), false)
+            ->assertSee(CustomerOrder::PAYMENT_TYPE_LABELS[CustomerOrder::PAYMENT_TYPE_BANK_FOP].": 20 \u{0433}\u{0440}\u{043D}")
+            ->assertSee("\u{0423}\u{0434}\u{0430}\u{043B}\u{0438}\u{0442}\u{044C} \u{043F}\u{0440}\u{0435}\u{0434}\u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0443}");
+
+        $this->actingAs($user)
+            ->from(route('admin.customer-orders.show', $order))
+            ->delete(route('admin.customer-orders.prepayment.destroy', $order))
+            ->assertRedirect(route('admin.customer-orders.show', $order));
+
+        $order->refresh();
+
+        $this->assertSame(CustomerOrder::STATUS_WAITING_PREPAYMENT, $order->status);
+        $this->assertNull($order->payment_type);
+        $this->assertSame(0.0, (float) $order->payment_received_amount);
+        $this->assertSame(0.0, (float) $order->payment_received_amount_uah);
+        $this->assertSame(0.0, (float) $order->paid_bank_fop_uah);
+        $this->assertSame(0.0, (float) $order->paid_amount_uah);
+
+        $this->assertDatabaseHas('customer_order_history_events', [
+            'customer_order_id' => $order->id,
+            'event_type' => 'prepayment_deleted',
+        ]);
+        $this->assertDatabaseHas('customer_order_history_events', [
+            'customer_order_id' => $order->id,
+            'event_type' => 'status_changed',
+        ]);
+    }
+
+    public function test_nova_poshta_order_waits_for_prepayment_before_assembly(): void
+    {
+        $user = $this->adminUser('admin-customer-order-np-waiting-prepayment@example.com');
+        $order = CustomerOrder::query()->create([
+            'number' => 'ORD-20260603-0011-NP',
+            'status' => CustomerOrder::STATUS_WAITING_PREPAYMENT,
+            'delivery_method' => CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA,
+            'client_phone' => '+380501112233',
+            'client_first_name' => 'Ivan',
+            'client_last_name' => 'Petrov',
+            'total_amount' => 1500,
+            'currency' => 'UAH',
+        ]);
+        $order->novaPoshtaShipment()->create([
+            'carrier' => CustomerOrderShipment::CARRIER_NOVA_POSHTA,
+            'status' => CustomerOrderShipment::STATUS_DRAFT,
+            'recipient_city_name' => 'Kyiv',
+            'recipient_warehouse_name' => 'Warehouse 1',
+            'recipient_name' => 'Ivan Petrov',
+            'recipient_phone' => '+380501112233',
+        ]);
+
+        $this->assertFalse($order->canBeMarkedAsAssembled());
+
+        $this->actingAs($user)
+            ->from(route('admin.customer-orders.show', $order))
+            ->patch(route('admin.customer-orders.status.update', $order), [
+                'status' => CustomerOrder::STATUS_ASSEMBLED,
+            ])
+            ->assertRedirect(route('admin.customer-orders.show', $order))
+            ->assertSessionHasErrors('status');
+
+        $this->assertSame(CustomerOrder::STATUS_WAITING_PREPAYMENT, $order->refresh()->status);
+
+        $this->actingAs($user)
+            ->from(route('admin.customer-orders.show', $order))
+            ->post(route('admin.customer-orders.prepayment.store', $order), [
+                'payment_type' => CustomerOrder::PAYMENT_TYPE_CASH_UAH,
+                'received_amount' => 500,
+            ])
+            ->assertRedirect(route('admin.customer-orders.show', $order));
+
+        $order->refresh();
+
+        $this->assertSame(CustomerOrder::STATUS_PROCESSING, $order->status);
+        $this->assertTrue($order->canBeMarkedAsAssembled());
+        $this->assertSame(500.0, (float) $order->paid_amount_uah);
+
+        $this->actingAs($user)
+            ->get(route('admin.customer-orders.show', $order))
+            ->assertOk()
+            ->assertSee('value="'.CustomerOrder::STATUS_ASSEMBLED.'"', false)
+            ->assertSee('name="nova_poshta_weight"', false)
+            ->assertSee('name="nova_poshta_length_cm"', false)
+            ->assertSee('name="nova_poshta_width_cm"', false)
+            ->assertSee('name="nova_poshta_height_cm"', false)
+            ->assertSee("\u{041D}\u{0430}\u{043B}\u{043E}\u{0436}\u{0435}\u{043D}\u{043D}\u{044B}\u{0439} \u{043F}\u{043B}\u{0430}\u{0442}\u{0435}\u{0436}: 1 000 \u{0433}\u{0440}\u{043D}")
+            ->assertSee(CustomerOrder::PAYMENT_TYPE_LABELS[CustomerOrder::PAYMENT_TYPE_CASH_UAH].": 500 \u{0433}\u{0440}\u{043D}")
+            ->assertSee("\u{041F}\u{0440}\u{0435}\u{0434}\u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0430}");
+    }
+
+    public function test_assembling_nova_poshta_order_creates_ttn(): void
+    {
+        $user = $this->adminUser('admin-customer-order-np-ttn@example.com');
+        config([
+            'services.nova_poshta.api_key' => 'test-api-key',
+            'services.nova_poshta.sender_city_ref' => 'sender-city-ref',
+            'services.nova_poshta.sender_ref' => 'sender-ref',
+            'services.nova_poshta.sender_address_ref' => 'sender-address-ref',
+            'services.nova_poshta.sender_contact_ref' => 'sender-contact-ref',
+            'services.nova_poshta.sender_phone' => '0500000000',
+        ]);
+        Http::fake([
+            'https://api.novaposhta.ua/v2.0/json/' => Http::response([
+                'success' => true,
+                'data' => [[
+                    'Ref' => 'np-document-ref',
+                    'IntDocNumber' => '20450000000000',
+                ]],
+                'errors' => [],
+                'warnings' => [],
+                'info' => [],
+            ], 200),
+        ]);
+
+        $order = CustomerOrder::query()->create([
+            'number' => 'ORD-20260603-0012-NP',
+            'status' => CustomerOrder::STATUS_PROCESSING,
+            'delivery_method' => CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA,
+            'client_phone' => '+380501112233',
+            'client_first_name' => 'Ivan',
+            'client_last_name' => 'Petrov',
+            'total_amount' => 1500,
+            'currency' => 'UAH',
+            'paid_cash_uah' => 500,
+            'paid_amount_uah' => 500,
+        ]);
+        $order->novaPoshtaShipment()->create([
+            'carrier' => CustomerOrderShipment::CARRIER_NOVA_POSHTA,
+            'status' => CustomerOrderShipment::STATUS_DRAFT,
+            'recipient_city_name' => 'Kyiv',
+            'recipient_warehouse_name' => 'Warehouse 7',
+            'recipient_warehouse_ref' => 'warehouse-ref-7',
+            'recipient_name' => 'Ivan Petrov',
+            'recipient_phone' => '+380501112233',
+        ]);
+
+        $this->actingAs($user)
+            ->from(route('admin.customer-orders.show', $order))
+            ->patch(route('admin.customer-orders.status.update', $order), [
+                'status' => CustomerOrder::STATUS_ASSEMBLED,
+                'nova_poshta_seats_amount' => 1,
+                'nova_poshta_weight' => 2.5,
+                'nova_poshta_length_cm' => 45,
+                'nova_poshta_width_cm' => 30,
+                'nova_poshta_height_cm' => 20,
+            ])
+            ->assertRedirect(route('admin.customer-orders.show', $order))
+            ->assertSessionHasNoErrors();
+
+        $order->refresh()->load('novaPoshtaShipment');
+
+        $this->assertSame(CustomerOrder::STATUS_ASSEMBLED, $order->status);
+        $this->assertSame(CustomerOrderShipment::STATUS_CREATED, $order->novaPoshtaShipment?->status);
+        $this->assertSame('np-document-ref', $order->novaPoshtaShipment?->np_ref);
+        $this->assertSame('20450000000000', $order->novaPoshtaShipment?->tracking_number);
+        $this->assertSame(1, $order->novaPoshtaShipment?->seats_amount);
+        $this->assertSame(2.5, (float) $order->novaPoshtaShipment?->weight);
+        $this->assertSame(45, $order->novaPoshtaShipment?->length_cm);
+        $this->assertSame(30, $order->novaPoshtaShipment?->width_cm);
+        $this->assertSame(20, $order->novaPoshtaShipment?->height_cm);
+        $this->assertSame(1000.0, (float) $order->novaPoshtaShipment?->afterpayment_amount);
+
+        Http::assertSent(function ($request): bool {
+            $payload = $request->data();
+
+            return $payload['modelName'] === 'InternetDocument'
+                && $payload['calledMethod'] === 'save'
+                && data_get($payload, 'methodProperties.RecipientCityName') === 'Kyiv'
+                && data_get($payload, 'methodProperties.RecipientAddress') === 'warehouse-ref-7'
+                && data_get($payload, 'methodProperties.RecipientAddressName') === null
+                && data_get($payload, 'methodProperties.CargoType') === 'Parcel'
+                && data_get($payload, 'methodProperties.RecipientsPhone') === '380501112233'
+                && data_get($payload, 'methodProperties.Cost') === 1000
+                && data_get($payload, 'methodProperties.OptionsSeat.0.weight') === '2.5'
+                && data_get($payload, 'methodProperties.OptionsSeat.0.volumetricLength') === '45'
+                && data_get($payload, 'methodProperties.OptionsSeat.0.volumetricWidth') === '30'
+                && data_get($payload, 'methodProperties.OptionsSeat.0.volumetricHeight') === '20'
+                && data_get($payload, 'methodProperties.AfterpaymentOnGoodsCost') === '1000'
+                && data_get($payload, 'methodProperties.BackwardDeliveryData') === null;
+        });
+
+        $this->assertDatabaseHas('customer_order_history_events', [
+            'customer_order_id' => $order->id,
+            'event_type' => 'nova_poshta_ttn_created',
+        ]);
+
+        $this->actingAs($user)
+            ->get(route('admin.customer-orders.show', $order))
+            ->assertOk()
+            ->assertSee('20450000000000')
+            ->assertSee(route('admin.customer-orders.nova-poshta.label', $order), false)
+            ->assertDontSee(route('admin.customer-orders.payment.confirm', $order), false);
+    }
+
+    public function test_nova_poshta_tracking_url_uses_path_format(): void
+    {
+        $shipment = new CustomerOrderShipment([
+            'tracking_number' => '20451468469271',
+        ]);
+
+        $this->assertSame(
+            'https://novaposhta.ua/tracking/20451468469271',
+            $shipment->tracking_url,
+        );
+    }
+
+    public function test_nova_poshta_order_cannot_be_manually_marked_as_shipped(): void
+    {
+        $user = $this->adminUser('admin-customer-order-np-no-manual-shipped@example.com');
+        $order = CustomerOrder::query()->create([
+            'number' => 'ORD-20260603-0012-NP-NO-SHIP',
+            'status' => CustomerOrder::STATUS_ASSEMBLED,
+            'delivery_method' => CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA,
+            'total_amount' => 1500,
+            'currency' => 'UAH',
+            'paid_cash_uah' => 500,
+            'paid_amount_uah' => 500,
+        ]);
+        $order->novaPoshtaShipment()->create([
+            'carrier' => CustomerOrderShipment::CARRIER_NOVA_POSHTA,
+            'status' => CustomerOrderShipment::STATUS_CREATED,
+            'tracking_number' => '20450000000001',
+            'np_ref' => 'np-document-ref-no-ship',
+            'recipient_city_name' => 'Kyiv',
+            'recipient_warehouse_name' => 'Warehouse 7',
+            'recipient_warehouse_ref' => 'warehouse-ref-7',
+            'recipient_name' => 'Ivan Petrov',
+            'recipient_phone' => '+380501112233',
+        ]);
+
+        $this->actingAs($user)
+            ->get(route('admin.customer-orders.index'))
+            ->assertOk()
+            ->assertSee($order->number)
+            ->assertDontSee('value="'.CustomerOrder::STATUS_SHIPPED.'"', false);
+
+        $this->actingAs($user)
+            ->get(route('admin.customer-orders.show', $order))
+            ->assertOk()
+            ->assertSee($order->number)
+            ->assertDontSee('value="'.CustomerOrder::STATUS_SHIPPED.'"', false);
+
+        $this->actingAs($user)
+            ->from(route('admin.customer-orders.show', $order))
+            ->patch(route('admin.customer-orders.status.update', $order), [
+                'status' => CustomerOrder::STATUS_SHIPPED,
+            ])
+            ->assertRedirect(route('admin.customer-orders.show', $order))
+            ->assertSessionHasErrors('status');
+
+        $this->assertSame(CustomerOrder::STATUS_ASSEMBLED, $order->refresh()->status);
+    }
+
+    public function test_nova_poshta_status_sync_marks_accepted_ttn_as_shipped_and_locks_delivery_method(): void
+    {
+        $user = $this->adminUser('admin-customer-order-np-sync-shipped@example.com');
+        config([
+            'services.nova_poshta.api_key' => 'test-api-key',
+        ]);
+        Http::fake([
+            'https://api.novaposhta.ua/v2.0/json/' => Http::response([
+                'success' => true,
+                'data' => [[
+                    'Number' => '20450000000002',
+                    'StatusCode' => '4',
+                    'Status' => "\u{0412}\u{0456}\u{0434}\u{043F}\u{0440}\u{0430}\u{0432}\u{043B}\u{0435}\u{043D}\u{043D}\u{044F} \u{0443} \u{043C}\u{0456}\u{0441}\u{0442}\u{0456} \u{041A}\u{0438}\u{0457}\u{0432}",
+                ]],
+                'errors' => [],
+                'warnings' => [],
+                'info' => [],
+            ], 200),
+        ]);
+
+        $order = CustomerOrder::query()->create([
+            'number' => 'ORD-20260603-0012-NP-SYNC',
+            'status' => CustomerOrder::STATUS_ASSEMBLED,
+            'delivery_method' => CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA,
+            'client_phone' => '+380501112233',
+            'client_first_name' => 'Ivan',
+            'client_last_name' => 'Petrov',
+            'total_amount' => 1500,
+            'currency' => 'UAH',
+            'paid_cash_uah' => 500,
+            'paid_amount_uah' => 500,
+        ]);
+        $order->novaPoshtaShipment()->create([
+            'carrier' => CustomerOrderShipment::CARRIER_NOVA_POSHTA,
+            'status' => CustomerOrderShipment::STATUS_CREATED,
+            'tracking_number' => '20450000000002',
+            'np_ref' => 'np-document-ref-sync',
+            'recipient_city_name' => 'Kyiv',
+            'recipient_warehouse_name' => 'Warehouse 7',
+            'recipient_warehouse_ref' => 'warehouse-ref-7',
+            'recipient_name' => 'Ivan Petrov',
+            'recipient_phone' => '+380501112233',
+        ]);
+
+        $this->actingAs($user)
+            ->from(route('admin.customer-orders.show', $order))
+            ->post(route('admin.customer-orders.nova-poshta.sync-status', $order))
+            ->assertRedirect(route('admin.customer-orders.show', $order))
+            ->assertSessionHasNoErrors();
+
+        $order->refresh()->load('novaPoshtaShipment');
+
+        $this->assertSame(CustomerOrder::STATUS_SHIPPED, $order->status);
+        $this->assertSame('4', $order->novaPoshtaShipment?->np_status_code);
+        $this->assertSame("\u{0412}\u{0456}\u{0434}\u{043F}\u{0440}\u{0430}\u{0432}\u{043B}\u{0435}\u{043D}\u{043D}\u{044F} \u{0443} \u{043C}\u{0456}\u{0441}\u{0442}\u{0456} \u{041A}\u{0438}\u{0457}\u{0432}", $order->novaPoshtaShipment?->np_status);
+        $this->assertNotNull($order->novaPoshtaShipment?->np_status_checked_at);
+        $this->assertDatabaseHas('customer_order_history_events', [
+            'customer_order_id' => $order->id,
+            'event_type' => 'status_changed',
+            'new_values->status' => CustomerOrder::STATUS_SHIPPED,
+        ]);
+
+        Http::assertSent(function ($request): bool {
+            $payload = $request->data();
+
+            return $payload['modelName'] === 'TrackingDocument'
+                && $payload['calledMethod'] === 'getStatusDocuments'
+                && data_get($payload, 'methodProperties.Documents.0.DocumentNumber') === '20450000000002'
+                && data_get($payload, 'methodProperties.Documents.0.Phone') === '380501112233';
+        });
+
+        $this->actingAs($user)
+            ->from(route('admin.customer-orders.show', $order))
+            ->patch(route('admin.customer-orders.delivery-method.update', $order), [
+                'delivery_method' => CustomerOrder::DELIVERY_METHOD_PICKUP,
+            ])
+            ->assertRedirect(route('admin.customer-orders.show', $order))
+            ->assertSessionHasErrors('delivery_method');
+
+        $this->assertSame(CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA, $order->refresh()->delivery_method);
+
+        $this->actingAs($user)
+            ->get(route('admin.customer-orders.show', $order))
+            ->assertOk()
+            ->assertSee("\u{0421}\u{0442}\u{0430}\u{0442}\u{0443}\u{0441} \u{041D}\u{041F}");
+    }
+
+    public function test_nova_poshta_status_sync_keeps_waiting_ttn_assembled(): void
+    {
+        $user = $this->adminUser('admin-customer-order-np-sync-waiting@example.com');
+        config([
+            'services.nova_poshta.api_key' => 'test-api-key',
+        ]);
+        Http::fake([
+            'https://api.novaposhta.ua/v2.0/json/' => Http::response([
+                'success' => true,
+                'data' => [[
+                    'Number' => '20450000000003',
+                    'StatusCode' => '4',
+                    'Status' => "\u{041E}\u{0447}\u{0456}\u{043A}\u{0443}\u{0454} \u{0432}\u{0456}\u{0434}\u{043F}\u{0440}\u{0430}\u{0432}\u{043B}\u{0435}\u{043D}\u{043D}\u{044F}",
+                ]],
+                'errors' => [],
+                'warnings' => [],
+                'info' => [],
+            ], 200),
+        ]);
+
+        $order = CustomerOrder::query()->create([
+            'number' => 'ORD-20260603-0012-NP-WAIT',
+            'status' => CustomerOrder::STATUS_ASSEMBLED,
+            'delivery_method' => CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA,
+            'client_phone' => '+380501112233',
+            'client_first_name' => 'Ivan',
+            'client_last_name' => 'Petrov',
+            'total_amount' => 1500,
+            'currency' => 'UAH',
+            'paid_cash_uah' => 500,
+            'paid_amount_uah' => 500,
+        ]);
+        $order->novaPoshtaShipment()->create([
+            'carrier' => CustomerOrderShipment::CARRIER_NOVA_POSHTA,
+            'status' => CustomerOrderShipment::STATUS_CREATED,
+            'tracking_number' => '20450000000003',
+            'np_ref' => 'np-document-ref-wait',
+            'recipient_city_name' => 'Kyiv',
+            'recipient_warehouse_name' => 'Warehouse 7',
+            'recipient_warehouse_ref' => 'warehouse-ref-7',
+            'recipient_name' => 'Ivan Petrov',
+            'recipient_phone' => '+380501112233',
+        ]);
+
+        $this->actingAs($user)
+            ->from(route('admin.customer-orders.show', $order))
+            ->post(route('admin.customer-orders.nova-poshta.sync-status', $order))
+            ->assertRedirect(route('admin.customer-orders.show', $order))
+            ->assertSessionHasNoErrors();
+
+        $order->refresh()->load('novaPoshtaShipment');
+
+        $this->assertSame(CustomerOrder::STATUS_ASSEMBLED, $order->status);
+        $this->assertSame('4', $order->novaPoshtaShipment?->np_status_code);
+        $this->assertSame("\u{041E}\u{0447}\u{0456}\u{043A}\u{0443}\u{0454} \u{0432}\u{0456}\u{0434}\u{043F}\u{0440}\u{0430}\u{0432}\u{043B}\u{0435}\u{043D}\u{043D}\u{044F}", $order->novaPoshtaShipment?->np_status);
+    }
+
     public function test_customer_order_pages_show_usd_cash_prepayment_in_usd(): void
     {
         $user = $this->adminUser('admin-customer-order-usd-prepayment-display@example.com');
@@ -3031,7 +4045,8 @@ class CustomerOrderTest extends TestCase
             'unit_price_usd_hint' => 2850,
             'total_price_usd_hint' => 2850,
         ]);
-        $usdPrepayment = "\u{041F}\u{0440}\u{0435}\u{0434}\u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0430} (".CustomerOrder::PAYMENT_TYPE_LABELS[CustomerOrder::PAYMENT_TYPE_CASH_USD].'): 100.00 USD';
+        $usdPrepayment = CustomerOrder::PAYMENT_TYPE_LABELS[CustomerOrder::PAYMENT_TYPE_CASH_USD].': 100.00 USD';
+        $indexUsdPrepayment = "\u{041F}\u{0440}\u{0435}\u{0434}\u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0430} (".CustomerOrder::PAYMENT_TYPE_LABELS[CustomerOrder::PAYMENT_TYPE_CASH_USD].'): 100.00 USD';
 
         $this->actingAs($user)
             ->get(route('admin.customer-orders.show', $order))
@@ -3051,7 +4066,7 @@ class CustomerOrderTest extends TestCase
             ->assertSeeInOrder([
                 "122 550 \u{0433}\u{0440}\u{043D}",
                 '2 850.00 USD',
-                $usdPrepayment,
+                $indexUsdPrepayment,
             ])
             ->assertDontSee("\u{0412} \u{0443}\u{0447}\u{0435}\u{0442}\u{0435}:");
     }

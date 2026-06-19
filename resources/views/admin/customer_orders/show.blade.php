@@ -10,6 +10,7 @@
     $imageUrl = fn (?string $path): ?string => \App\Support\PublicStorageUrl::url($path);
     $quantity = fn ($value) => rtrim(rtrim(number_format((float) $value, 3, '.', ''), '0'), '.');
     $statusClass = match ($order->status) {
+        \App\Models\CustomerOrder::STATUS_WAITING_PREPAYMENT => 'tag-warning',
         \App\Models\CustomerOrder::STATUS_CANCELLED => 'tag-danger',
         \App\Models\CustomerOrder::STATUS_SHIPPED => 'tag-warning',
         \App\Models\CustomerOrder::STATUS_COMPLETED => 'tag-paid',
@@ -17,6 +18,7 @@
         default => '',
     };
     $canEditOrder = $order->canBeEdited();
+    $canEditOrderItems = $canEditOrder && (float) $order->paid_amount_uah <= 0;
     $orderIsFullyPaid = round((float) $order->paid_amount_uah) >= round((float) $orderTotalAmountUah);
     $orderCanBeMarkedAsCompleted = $order->canBeMarkedAsCompleted() && ($order->delivery_method === \App\Models\CustomerOrder::DELIVERY_METHOD_STO || $orderIsFullyPaid);
     $prepaymentPartsFor = function (\App\Models\CustomerOrder $order, ?string $currency = null) use ($money): \Illuminate\Support\Collection {
@@ -67,7 +69,88 @@
     $paymentSummary = $paymentParts
         ->map(fn (array $part): string => "{$part['label']}: {$part['amount_text']}")
         ->join(' + ');
+    $prepaymentAmountSummary = $paymentParts
+        ->map(fn (array $part): string => "{$part['label']}: {$part['amount_text']}")
+        ->join(' + ');
     $paymentIsFull = $orderIsFullyPaid && (float) $order->paid_amount_uah > 0;
+    $lastBulkPrepaymentDeletedEventId = $order->historyEvents
+        ->filter(fn (\App\Models\CustomerOrderHistoryEvent $event): bool => $event->event_type === 'prepayment_deleted'
+            && data_get($event->new_values, 'deleted_event_id') === null)
+        ->max('id');
+    $deletedPrepaymentEventIds = $order->historyEvents
+        ->filter(fn (\App\Models\CustomerOrderHistoryEvent $event): bool => $event->event_type === 'prepayment_deleted'
+            && data_get($event->new_values, 'deleted_event_id') !== null)
+        ->map(fn (\App\Models\CustomerOrderHistoryEvent $event): int => (int) data_get($event->new_values, 'deleted_event_id'))
+        ->filter()
+        ->values();
+    $prepaymentEntries = $order->historyEvents
+        ->filter(function (\App\Models\CustomerOrderHistoryEvent $event): bool {
+            return $event->event_type === 'prepayment_received'
+                || (
+                    $event->event_type === 'payment_confirmed'
+                    && (bool) data_get($event->new_values, 'is_prepayment_flow')
+                );
+        })
+        ->when($lastBulkPrepaymentDeletedEventId !== null, fn (\Illuminate\Support\Collection $events) => $events
+            ->filter(fn (\App\Models\CustomerOrderHistoryEvent $event): bool => $event->id > $lastBulkPrepaymentDeletedEventId))
+        ->reject(fn (\App\Models\CustomerOrderHistoryEvent $event): bool => $deletedPrepaymentEventIds->contains((int) $event->id))
+        ->sortBy('created_at')
+        ->map(function (\App\Models\CustomerOrderHistoryEvent $event) use ($money): array {
+            $paymentType = (string) data_get($event->new_values, 'payment_type', '');
+            $amount = (float) data_get($event->new_values, 'payment_received_amount', 0);
+            $currency = $paymentType === \App\Models\CustomerOrder::PAYMENT_TYPE_CASH_USD ? 'USD' : 'UAH';
+            $label = \App\Models\CustomerOrder::PAYMENT_TYPE_LABELS[$paymentType] ?? $paymentType;
+
+            return [
+                'event_id' => $event->id,
+                'label' => trim($label) !== '' ? $label : "\u{041F}\u{0440}\u{0435}\u{0434}\u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0430}",
+                'amount_text' => $money($amount, $currency),
+            ];
+        })
+        ->filter(fn (array $entry): bool => $entry['amount_text'] !== '')
+        ->values();
+    if (
+        $prepaymentEntries->isNotEmpty()
+        && $paymentIsFull
+        && ! (bool) data_get($order->historyEvents->where('event_type', 'payment_confirmed')->sortByDesc('created_at')->first()?->new_values, 'is_prepayment_flow')
+    ) {
+        $lastPaymentConfirmedEvent = $order->historyEvents
+            ->where('event_type', 'payment_confirmed')
+            ->sortByDesc('created_at')
+            ->first();
+        $displayedPrepaymentTotal = $order->historyEvents
+            ->filter(fn (\App\Models\CustomerOrderHistoryEvent $event): bool => $event->event_type === 'prepayment_received'
+                && ($lastBulkPrepaymentDeletedEventId === null || $event->id > $lastBulkPrepaymentDeletedEventId)
+                && ! $deletedPrepaymentEventIds->contains((int) $event->id))
+            ->sum(fn (\App\Models\CustomerOrderHistoryEvent $event): float => (float) data_get($event->new_values, 'payment_received_amount_uah', 0));
+        $missingPaidAmount = round((float) $order->paid_amount_uah - $displayedPrepaymentTotal, 2);
+
+        if ($missingPaidAmount > 0) {
+            $lastPaymentType = (string) $order->payment_type;
+            $lastPaymentLabel = \App\Models\CustomerOrder::PAYMENT_TYPE_LABELS[$lastPaymentType] ?? $lastPaymentType;
+            $prepaymentEntries->push([
+                'event_id' => $lastPaymentConfirmedEvent?->id,
+                'label' => trim($lastPaymentLabel) !== '' ? $lastPaymentLabel : "\u{041F}\u{0440}\u{0435}\u{0434}\u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0430}",
+                'amount_text' => $money($missingPaidAmount, $lastPaymentType === \App\Models\CustomerOrder::PAYMENT_TYPE_CASH_USD ? 'USD' : 'UAH'),
+            ]);
+        }
+    }
+    if ($prepaymentEntries->isEmpty() && ! $paymentIsFull && (float) $order->paid_amount_uah > 0) {
+        $prepaymentEntries = collect([[
+            'event_id' => null,
+            'label' => $prepaymentAmountSummary !== '' ? '' : "\u{041F}\u{0440}\u{0435}\u{0434}\u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0430}",
+            'amount_text' => $prepaymentAmountSummary !== '' ? $prepaymentAmountSummary : $money($order->paid_amount_uah, 'UAH'),
+        ]]);
+    }
+    $novaPoshtaShipment = $order->novaPoshtaShipment;
+    $novaPoshtaAfterpaymentAmount = max(0, round((float) $order->total_amount - (float) $order->paid_amount_uah, 2));
+    $novaPoshtaPackageDefaults = [
+        'seats_amount' => old('nova_poshta_seats_amount', $novaPoshtaShipment?->seats_amount ?: 1),
+        'weight' => old('nova_poshta_weight', $novaPoshtaShipment?->weight ?: 1),
+        'length_cm' => old('nova_poshta_length_cm', $novaPoshtaShipment?->length_cm),
+        'width_cm' => old('nova_poshta_width_cm', $novaPoshtaShipment?->width_cm),
+        'height_cm' => old('nova_poshta_height_cm', $novaPoshtaShipment?->height_cm),
+    ];
     $paymentDueUsdFor = function (float $paymentDueUah) use ($order, $paymentUsdRate, $usdRate): ?float {
         $rate = (float) (($paymentUsdRate ?? $usdRate)['rate'] ?? 0);
 
@@ -138,6 +221,95 @@
             overflow-wrap: anywhere;
             word-break: break-word;
         }
+        .customer-order-np-autocomplete {
+            position: relative;
+            min-width: 0;
+        }
+        .customer-order-np-autocomplete input[type="text"] {
+            width: 100%;
+        }
+        .customer-order-np-suggestions {
+            position: static;
+            z-index: 60;
+            margin-top: 4px;
+            max-height: 240px;
+            overflow-y: auto;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 14px 34px rgba(25, 32, 36, .18);
+        }
+        .customer-order-np-suggestion {
+            display: block;
+            width: 100%;
+            border: 0;
+            border-radius: 0;
+            padding: 9px 10px;
+            background: #fff;
+            color: var(--text);
+            text-align: left;
+        }
+        .customer-order-np-suggestion:hover,
+        .customer-order-np-suggestion:focus {
+            background: var(--accent-soft);
+            outline: none;
+        }
+        .customer-order-np-suggestion strong,
+        .customer-order-np-suggestion span {
+            display: block;
+        }
+        .customer-order-np-suggestion span {
+            margin-top: 2px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+        .customer-order-icon-button {
+            width: 30px;
+            height: 30px;
+            min-height: 30px;
+            padding: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .customer-order-icon-button svg {
+            display: block;
+            width: 17px;
+            height: 17px;
+        }
+        .customer-order-icon-button-muted {
+            color: #6b7280;
+        }
+        .customer-order-icon-button-muted:hover,
+        .customer-order-icon-button-muted:focus-visible {
+            color: #374151;
+        }
+        .customer-order-icon-button-danger {
+            border-color: transparent;
+            background: transparent;
+            color: var(--danger);
+            font-size: 22px;
+            line-height: 1;
+        }
+        .customer-order-icon-button-danger:hover,
+        .customer-order-icon-button-danger:focus-visible {
+            border-color: transparent;
+            background: transparent;
+            color: #7f1d1d;
+        }
+        .customer-order-delivery-form {
+            display: grid;
+            gap: 10px;
+        }
+        .customer-order-delivery-form label {
+            display: grid;
+            gap: 5px;
+            font-weight: 700;
+        }
+        .customer-order-delivery-form label span {
+            font-size: 13px;
+            color: var(--muted);
+        }
         @media (max-width: 700px) {
             .customer-order-photo-lightbox__stage { min-height: 58vh; padding: 0 44px 16px; }
         }
@@ -151,31 +323,6 @@
                 <tr><th>Имя</th><td>{{ $order->client_first_name ?: '-' }}</td></tr>
                 <tr><th>Фамилия</th><td>{{ $order->client_last_name ?: '-' }}</td></tr>
                 <tr>
-                    <th>Способ получения</th>
-                    <td>
-                        @if($canEditOrder)
-                        <form method="POST" action="{{ route('admin.customer-orders.delivery-method.update', $order) }}" style="display:flex; gap:8px; align-items:center; max-width:360px;">
-                            @csrf
-                            @method('PATCH')
-                            <select name="delivery_method" required aria-label="Способ получения">
-                                @foreach(\App\Models\CustomerOrder::DELIVERY_METHOD_LABELS as $method => $label)
-                                    <option value="{{ $method }}" @selected(old('delivery_method', $order->delivery_method) === $method)>{{ $label }}</option>
-                                @endforeach
-                            </select>
-                            <button type="submit" class="btn btn-small">Сохранить</button>
-                        </form>
-                        @else
-                            {{ $order->delivery_method_label ?: '-' }}
-                        @endif
-                        @error('delivery_method')
-                            <div class="error">{{ $message }}</div>
-                        @enderror
-                        @error('order')
-                            <div class="error">{{ $message }}</div>
-                        @enderror
-                    </td>
-                </tr>
-                <tr>
                     <th>Карточка</th>
                     <td>
                         @if($order->counterparty)
@@ -188,7 +335,17 @@
             </table>
         </div>
         <div class="panel">
-            <h2 class="section-title" style="margin-top:0;">Заказ</h2>
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:10px;">
+                <h2 class="section-title" style="margin:0;">Заказ</h2>
+                @if($order->canBeCancelled() && ! $orderIsFullyPaid)
+                    <form method="POST" action="{{ route('admin.customer-orders.status.update', $order) }}" class="inline-form" onsubmit='return confirm(@json("Отменить заказ {$order->number}? Товары будут сняты с резерва."));'>
+                        @csrf
+                        @method('PATCH')
+                        <input type="hidden" name="status" value="{{ \App\Models\CustomerOrder::STATUS_CANCELLED }}">
+                        <button type="submit" class="btn btn-small btn-danger">Отменить</button>
+                    </form>
+                @endif
+            </div>
             <table>
                 <tr><th>Номер</th><td>{{ $order->number }}</td></tr>
                 <tr>
@@ -204,14 +361,18 @@
                                 @endif
                             </div>
                             @if($order->canBeMarkedAsAssembled())
-                                <form method="POST" action="{{ route('admin.customer-orders.status.update', $order) }}" class="inline-form">
-                                    @csrf
-                                    @method('PATCH')
-                                    <input type="hidden" name="status" value="{{ \App\Models\CustomerOrder::STATUS_ASSEMBLED }}">
-                                    <button type="submit" class="btn btn-small">Собран</button>
-                                </form>
+                                @if($order->delivery_method === \App\Models\CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA)
+                                    <button type="button" class="btn btn-small" data-customer-order-assemble-np>Собран</button>
+                                @else
+                                    <form method="POST" action="{{ route('admin.customer-orders.status.update', $order) }}" class="inline-form">
+                                        @csrf
+                                        @method('PATCH')
+                                        <input type="hidden" name="status" value="{{ \App\Models\CustomerOrder::STATUS_ASSEMBLED }}">
+                                        <button type="submit" class="btn btn-small">Собран</button>
+                                    </form>
+                                @endif
                             @endif
-                            @if($order->canBeMarkedAsShipped())
+                            @if($order->canBeMarkedAsShipped() && $order->delivery_method !== \App\Models\CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA)
                                 <form method="POST" action="{{ route('admin.customer-orders.status.update', $order) }}" class="inline-form">
                                     @csrf
                                     @method('PATCH')
@@ -227,16 +388,8 @@
                                     <button type="submit" class="btn btn-small">{{ "\u{0412}\u{044B}\u{0434}\u{0430}\u{043D}" }}</button>
                                 </form>
                             @endif
-                            @if($order->canConfirmPayment() && ! $orderIsFullyPaid)
+                            @if($order->canConfirmPayment() && $order->delivery_method !== \App\Models\CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA && ! $orderIsFullyPaid)
                                 <button type="button" class="btn btn-small" onclick="document.getElementById('customer-order-payment')?.showModal()">Подтвердить оплату</button>
-                            @endif
-                            @if($order->canBeCancelled() && ! $orderIsFullyPaid)
-                                <form method="POST" action="{{ route('admin.customer-orders.status.update', $order) }}" class="inline-form" onsubmit='return confirm(@json("Отменить заказ {$order->number}? Товары будут сняты с резерва."));'>
-                                    @csrf
-                                    @method('PATCH')
-                                    <input type="hidden" name="status" value="{{ \App\Models\CustomerOrder::STATUS_CANCELLED }}">
-                                    <button type="submit" class="btn btn-small btn-danger">Отменить</button>
-                                </form>
                             @endif
                             @if($order->status === \App\Models\CustomerOrder::STATUS_CANCELLED)
                                 <form method="POST" action="{{ route('admin.customer-orders.recreate', $order) }}" class="inline-form" onsubmit='return confirm(@json("Пересоздать заказ {$order->number}? Запчасти будут проверены на наличие и поставлены в резерв по новому заказу."));'>
@@ -257,16 +410,145 @@
                         @error('received_amount')
                             <div class="error">{{ $message }}</div>
                         @enderror
+                        @foreach(['nova_poshta_seats_amount', 'nova_poshta_weight', 'nova_poshta_length_cm', 'nova_poshta_width_cm', 'nova_poshta_height_cm'] as $packageField)
+                            @error($packageField)
+                                <div class="error">{{ $message }}</div>
+                            @enderror
+                        @endforeach
+                        @error('nova_poshta')
+                            <div class="error">{{ $message }}</div>
+                        @enderror
                     </td>
                 </tr>
-                <tr><th>Создан</th><td>{{ $order->created_at?->timezone('Europe/Kiev')->format('d.m.Y H:i') }}</td></tr>
                 <tr>
-                    <th>Сумма</th>
+                    <th>Способ получения</th>
+                    <td>
+                        <span style="display:inline-flex; align-items:center; gap:8px;">
+                            <span>{{ $order->delivery_method_label ?: '-' }}</span>
+                            @if($canEditOrder && $order->status !== \App\Models\CustomerOrder::STATUS_SHIPPED)
+                                <button
+                                    type="button"
+                                    class="btn btn-small btn-secondary customer-order-icon-button"
+                                    title="{{ "\u{0420}\u{0435}\u{0434}\u{0430}\u{043A}\u{0442}\u{0438}\u{0440}\u{043E}\u{0432}\u{0430}\u{0442}\u{044C}" }}"
+                                    aria-label="{{ "\u{0420}\u{0435}\u{0434}\u{0430}\u{043A}\u{0442}\u{0438}\u{0440}\u{043E}\u{0432}\u{0430}\u{0442}\u{044C} \u{0441}\u{043F}\u{043E}\u{0441}\u{043E}\u{0431} \u{043F}\u{043E}\u{043B}\u{0443}\u{0447}\u{0435}\u{043D}\u{0438}\u{044F}" }}"
+                                    data-customer-order-delivery-edit
+                                >
+                                    <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M12 20h9"></path>
+                                        <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path>
+                                    </svg>
+                                </button>
+                            @endif
+                        </span>
+                        @if($order->delivery_method === \App\Models\CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA && $novaPoshtaShipment?->tracking_number)
+                            <div class="help" style="display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-top:4px;">
+                                <strong>{{ "\u{0422}\u{0422}\u{041D}: " }}{{ $novaPoshtaShipment->tracking_number }}</strong>
+                                @if($novaPoshtaShipment->status === \App\Models\CustomerOrderShipment::STATUS_CANCELLED)
+                                    <span class="tag tag-danger">{{ "\u{0423}\u{0434}\u{0430}\u{043B}\u{0435}\u{043D}\u{0430}" }}</span>
+                                @else
+                                    <a
+                                        class="btn btn-small btn-secondary customer-order-icon-button customer-order-icon-button-muted"
+                                        href="{{ route('admin.customer-orders.nova-poshta.label', $order) }}"
+                                        target="_blank"
+                                        rel="noopener"
+                                        aria-label="{{ "\u{041F}\u{0435}\u{0447}\u{0430}\u{0442}\u{044C} \u{0422}\u{0422}\u{041D}" }}"
+                                        title="{{ "\u{041F}\u{0435}\u{0447}\u{0430}\u{0442}\u{044C} \u{0422}\u{0422}\u{041D}" }}"
+                                    >
+                                        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M6 9V2h12v7"></path>
+                                            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                                            <path d="M6 14h12v8H6z"></path>
+                                        </svg>
+                                    </a>
+                                @endif
+                                <a
+                                    class="btn btn-small btn-secondary customer-order-icon-button customer-order-icon-button-muted"
+                                    href="{{ $novaPoshtaShipment->tracking_url }}"
+                                    target="_blank"
+                                    rel="noopener"
+                                    aria-label="{{ "\u{0422}\u{0440}\u{0435}\u{043A}\u{0438}\u{043D}\u{0433} \u{0422}\u{0422}\u{041D}" }}"
+                                    title="{{ "\u{0422}\u{0440}\u{0435}\u{043A}\u{0438}\u{043D}\u{0433} \u{0422}\u{0422}\u{041D}" }}"
+                                >
+                                    <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 10c0 6-9 12-9 12S3 16 3 10a9 9 0 0 1 18 0Z"></path>
+                                        <circle cx="12" cy="10" r="3"></circle>
+                                    </svg>
+                                </a>
+                                <form method="POST" action="{{ route('admin.customer-orders.nova-poshta.sync-status', $order) }}" class="inline-form">
+                                    @csrf
+                                    <button
+                                        type="submit"
+                                        class="btn btn-small btn-secondary customer-order-icon-button customer-order-icon-button-muted"
+                                        aria-label="{{ "\u{041E}\u{0431}\u{043D}\u{043E}\u{0432}\u{0438}\u{0442}\u{044C} \u{0441}\u{0442}\u{0430}\u{0442}\u{0443}\u{0441} \u{0422}\u{0422}\u{041D}" }}"
+                                        title="{{ "\u{041E}\u{0431}\u{043D}\u{043E}\u{0432}\u{0438}\u{0442}\u{044C} \u{0441}\u{0442}\u{0430}\u{0442}\u{0443}\u{0441} \u{0422}\u{0422}\u{041D}" }}"
+                                    >
+                                        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M21 12a9 9 0 0 1-15.5 6.2"></path>
+                                            <path d="M3 12a9 9 0 0 1 15.5-6.2"></path>
+                                            <path d="M18 2v4h4"></path>
+                                            <path d="M6 22v-4H2"></path>
+                                        </svg>
+                                    </button>
+                                </form>
+                            </div>
+                        @endif
+                        @error('delivery_method')
+                            <div class="error">{{ $message }}</div>
+                        @enderror
+                        @error('order')
+                            <div class="error">{{ $message }}</div>
+                        @enderror
+                        @error('nova_poshta_city')
+                            <div class="error">{{ $message }}</div>
+                        @enderror
+                        @error('nova_poshta_warehouse')
+                            <div class="error">{{ $message }}</div>
+                        @enderror
+                        @error('nova_poshta_warehouse_ref')
+                            <div class="error">{{ $message }}</div>
+                        @enderror
+                    </td>
+                </tr>
+                @if($order->delivery_method === \App\Models\CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA)
+                    <tr>
+                        <th>{{ "\u{041D}\u{043E}\u{0432}\u{0430}\u{044F} \u{043F}\u{043E}\u{0447}\u{0442}\u{0430}" }}</th>
+                        <td>
+                            <div>
+                                {{ $novaPoshtaShipment?->recipient_city_name ?: '-' }}
+                                @if($novaPoshtaShipment?->recipient_warehouse_name)
+                                    <div class="help">{{ $novaPoshtaShipment->recipient_warehouse_name }}</div>
+                                @endif
+                                @if($novaPoshtaShipment?->np_status)
+                                    <div class="help" style="margin-top:4px;">
+                                        {{ "\u{0421}\u{0442}\u{0430}\u{0442}\u{0443}\u{0441} \u{041D}\u{041F}: " }}{{ $novaPoshtaShipment->np_status }}
+                                        @if($novaPoshtaShipment->np_status_checked_at)
+                                            · {{ $novaPoshtaShipment->np_status_checked_at->timezone('Europe/Kiev')->format('d.m.Y H:i') }}
+                                        @endif
+                                    </div>
+                                @endif
+                            </div>
+                            @if($novaPoshtaShipment?->error_message)
+                                <div class="error" style="margin-top:8px;">{{ $novaPoshtaShipment->error_message }}</div>
+                            @endif
+                        </td>
+                    </tr>
+                @endif
+                <tr>
+                    <th>Создан</th>
+                    <td>
+                        {{ $order->created_at?->timezone('Europe/Kiev')->format('d.m.Y H:i') }}
+                        @if($order->creator?->name)
+                            ({{ $order->creator->name }})
+                        @endif
+                    </td>
+                </tr>
+                <tr>
+                    <th>Сумма заказа</th>
                     <td data-customer-order-summary data-usd-rate="{{ (float) ($usdRate['rate'] ?? 0) }}">
                         <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
                             <strong data-customer-order-total-uah>{{ $money($orderTotalAmountUah, 'UAH') }}</strong>
-                            @if($order->canAcceptPrepayment() && ! $orderIsFullyPaid)
-                                <button type="button" class="btn btn-small btn-secondary" onclick="document.getElementById('customer-order-prepayment')?.showModal()">{{ "\u{0412}\u{043D}\u{0435}\u{0441}\u{0442}\u{0438} \u{043F}\u{0440}\u{0435}\u{0434}\u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0443}" }}</button>
+                            @if($paymentIsFull)
+                                <span class="customer-order-paid-badge">{{ "\u{041E}\u{043F}\u{043B}\u{0430}\u{0447}\u{0435}\u{043D}\u{043E}" }}</span>
                             @endif
                         </div>
                         <div class="help" data-customer-order-total-usd @if($order->total_amount_usd_hint === null) style="display:none;" @endif>
@@ -274,30 +556,49 @@
                                 {{ $money($order->total_amount_usd_hint, 'USD') }}
                             @endif
                         </div>
-                        @if(! $paymentIsFull && (float) $order->paid_cash_usd > 0 && $prepaymentSummary)
-                            <div class="help">{{ $prepaymentSummary }}</div>
-                        @endif
-                        @if(! $paymentIsFull && (float) $order->paid_amount_uah > 0 && (float) $order->paid_cash_usd <= 0)
-                            <div class="help">
-                                {{ "\u{0412}\u{043D}\u{0435}\u{0441}\u{0435}\u{043D}\u{043E}: " }}{{ $money($order->paid_amount_uah, 'UAH') }}
-                            </div>
-                        @endif
                     </td>
                 </tr>
-                @if($paymentIsFull)
-                    <tr>
-                        <th>Оплата</th>
-                        <td>
-                            <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
-                                <strong>{{ $paymentSummary ?: $money($order->paid_amount_uah, 'UAH') }}</strong>
-                                <span class="customer-order-paid-badge">{{ "\u{041E}\u{043F}\u{043B}\u{0430}\u{0447}\u{0435}\u{043D}\u{043E}" }}</span>
-                            </div>
+                <tr>
+                    <th>{{ "\u{041E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0430}" }}</th>
+                    <td>
+                        <div style="display:grid; gap:8px; align-items:start;">
+                            @if($prepaymentEntries->isNotEmpty())
+                                <div style="display:grid; gap:5px; align-items:start;">
+                                    @foreach($prepaymentEntries as $index => $prepaymentEntry)
+                                        <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
+                                            <span>{{ $prepaymentEntry['label'] }}@if($prepaymentEntry['label'] !== ''): @endif{{ $prepaymentEntry['amount_text'] }}</span>
+                                            <span class="tag">{{ "\u{041F}\u{0440}\u{0435}\u{0434}\u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0430}" }}</span>
+                                            @if($order->canAcceptPrepayment())
+                                                <form method="POST" action="{{ $prepaymentEntry['event_id'] ? route('admin.customer-orders.prepayment-entry.destroy', [$order, $prepaymentEntry['event_id']]) : route('admin.customer-orders.prepayment.destroy', $order) }}" class="inline-form" onsubmit='return confirm(@json("Удалить эту предоплату по заказу {$order->number}?"));'>
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button
+                                                        type="submit"
+                                                        class="btn btn-small customer-order-icon-button customer-order-icon-button-danger"
+                                                        title="{{ "\u{0423}\u{0434}\u{0430}\u{043B}\u{0438}\u{0442}\u{044C} \u{043F}\u{0440}\u{0435}\u{0434}\u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0443}" }}"
+                                                        aria-label="{{ "\u{0423}\u{0434}\u{0430}\u{043B}\u{0438}\u{0442}\u{044C} \u{043F}\u{0440}\u{0435}\u{0434}\u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0443}" }}"
+                                                    >&times;</button>
+                                                </form>
+                                            @endif
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @elseif($paymentIsFull)
+                                <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
+                                    <strong>{{ $paymentSummary ?: $money($order->paid_amount_uah, 'UAH') }}</strong>
+                                </div>
+                            @endif
                             @if($order->payment_confirmed_at)
                                 <div class="help">{{ $order->payment_confirmed_at?->timezone('Europe/Kiev')->format('d.m.Y H:i') }}</div>
                             @endif
-                        </td>
-                    </tr>
-                @endif
+                            @if($order->canAcceptPrepayment() && ! $orderIsFullyPaid)
+                                <div>
+                                    <button type="button" class="btn btn-small btn-secondary" onclick="document.getElementById('customer-order-prepayment')?.showModal()">{{ "\u{0412}\u{043D}\u{0435}\u{0441}\u{0442}\u{0438} \u{043F}\u{0440}\u{0435}\u{0434}\u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0443}" }}</button>
+                                </div>
+                            @endif
+                        </div>
+                    </td>
+                </tr>
             </table>
         </div>
     </div>
@@ -371,7 +672,7 @@
                     <td>{{ $item->donor_vin ?: '-' }}</td>
                     <td>{{ $quantity($item->quantity) }}</td>
                     <td>
-                        @if($canEditOrder)
+                        @if($canEditOrderItems)
                         <form method="POST" action="{{ route('admin.customer-orders.items.update', [$order, $item]) }}" style="display:flex; gap:8px; align-items:center; max-width:220px;">
                             @csrf
                             @method('PATCH')
@@ -403,12 +704,17 @@
                             @endif
                         </div>
                     </td>
-                    <td class="actions">
-                        @if($canEditOrder)
+                    <td class="actions" style="width:42px; text-align:center; white-space:nowrap;">
+                        @if($canEditOrderItems)
                         <form method="POST" action="{{ route('admin.customer-orders.items.destroy', [$order, $item]) }}" class="inline-form" onsubmit="return confirm('Удалить товар из заказа?');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-small btn-danger">Удалить</button>
+                            <button
+                                type="submit"
+                                class="btn btn-small customer-order-icon-button customer-order-icon-button-danger"
+                                title="{{ "\u{0423}\u{0434}\u{0430}\u{043B}\u{0438}\u{0442}\u{044C} \u{0442}\u{043E}\u{0432}\u{0430}\u{0440}" }}"
+                                aria-label="{{ "\u{0423}\u{0434}\u{0430}\u{043B}\u{0438}\u{0442}\u{044C} \u{0442}\u{043E}\u{0432}\u{0430}\u{0440}" }}"
+                            >&times;</button>
                         </form>
                         @endif
                     </td>
@@ -416,7 +722,7 @@
             @endforeach
             </tbody>
         </table>
-        @if($canEditOrder)
+        @if($canEditOrderItems)
         <div class="actions" style="margin-top:16px;">
             <button type="button" class="btn" data-customer-order-add-item>Добавить товар</button>
         </div>
@@ -437,6 +743,114 @@
             <button type="button" class="customer-order-photo-lightbox__nav customer-order-photo-lightbox__nav--next" data-customer-order-photo-next aria-label="Следующее фото">&rsaquo;</button>
         </div>
     </dialog>
+
+    @if($canEditOrder)
+    <dialog class="modal" data-customer-order-delivery-dialog>
+        <div class="modal-header">
+            <h2>{{ "\u{0421}\u{043F}\u{043E}\u{0441}\u{043E}\u{0431} \u{043F}\u{043E}\u{043B}\u{0443}\u{0447}\u{0435}\u{043D}\u{0438}\u{044F}" }}</h2>
+            <button type="button" class="btn btn-secondary btn-small" data-customer-order-delivery-close aria-label="{{ "\u{0417}\u{0430}\u{043A}\u{0440}\u{044B}\u{0442}\u{044C}" }}">&times;</button>
+        </div>
+        <form
+            method="POST"
+            action="{{ route('admin.customer-orders.delivery-method.update', $order) }}"
+            class="customer-order-delivery-form"
+            data-nova-poshta-delivery-form
+            data-cities-url="{{ route('admin.customer-orders.nova-poshta.cities') }}"
+            data-warehouses-url="{{ route('admin.customer-orders.nova-poshta.warehouses') }}"
+        >
+            @csrf
+            @method('PATCH')
+            <label>
+                <span>{{ "\u{0421}\u{043F}\u{043E}\u{0441}\u{043E}\u{0431} \u{043F}\u{043E}\u{043B}\u{0443}\u{0447}\u{0435}\u{043D}\u{0438}\u{044F}" }}</span>
+                <select name="delivery_method" required aria-label="{{ "\u{0421}\u{043F}\u{043E}\u{0441}\u{043E}\u{0431} \u{043F}\u{043E}\u{043B}\u{0443}\u{0447}\u{0435}\u{043D}\u{0438}\u{044F}" }}">
+                    @foreach(\App\Models\CustomerOrder::DELIVERY_METHOD_LABELS as $method => $label)
+                        <option value="{{ $method }}" @selected(old('delivery_method', $order->delivery_method) === $method)>{{ $label }}</option>
+                    @endforeach
+                </select>
+            </label>
+            <label>
+                <span>{{ "\u{0413}\u{043E}\u{0440}\u{043E}\u{0434} \u{041D}\u{043E}\u{0432}\u{043E}\u{0439} \u{041F}\u{043E}\u{0447}\u{0442}\u{044B}" }}</span>
+                <input
+                    type="text"
+                    name="nova_poshta_city"
+                    autocomplete="off"
+                    data-nova-poshta-city-input
+                    value="{{ old('nova_poshta_city', $order->novaPoshtaShipment?->recipient_city_name) }}"
+                >
+            </label>
+            <input type="hidden" value="" data-nova-poshta-city-ref>
+            <div class="customer-order-np-suggestions" data-nova-poshta-city-suggestions hidden></div>
+            <label>
+                <span>{{ "\u{041E}\u{0442}\u{0434}\u{0435}\u{043B}\u{0435}\u{043D}\u{0438}\u{0435} \u{0438}\u{043B}\u{0438} \u{043F}\u{043E}\u{0447}\u{0442}\u{043E}\u{043C}\u{0430}\u{0442}" }}</span>
+                <input
+                    type="text"
+                    name="nova_poshta_warehouse"
+                    autocomplete="off"
+                    data-nova-poshta-warehouse-input
+                    value="{{ old('nova_poshta_warehouse', $order->novaPoshtaShipment?->recipient_warehouse_name) }}"
+                >
+            </label>
+            <input
+                type="hidden"
+                name="nova_poshta_warehouse_ref"
+                value="{{ old('nova_poshta_warehouse_ref', $order->novaPoshtaShipment?->recipient_warehouse_ref) }}"
+                data-nova-poshta-warehouse-ref
+            >
+            <div class="customer-order-np-suggestions" data-nova-poshta-warehouse-suggestions hidden></div>
+            <div class="actions">
+                <button type="button" class="btn btn-small btn-secondary" data-customer-order-delivery-close>{{ "\u{041E}\u{0442}\u{043C}\u{0435}\u{043D}\u{0430}" }}</button>
+                <button type="submit" class="btn btn-small">{{ "\u{0421}\u{043E}\u{0445}\u{0440}\u{0430}\u{043D}\u{0438}\u{0442}\u{044C}" }}</button>
+            </div>
+        </form>
+    </dialog>
+    @endif
+
+    @if($order->canBeMarkedAsAssembled() && $order->delivery_method === \App\Models\CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA)
+    <dialog class="modal" data-customer-order-assemble-dialog>
+        <div class="modal-header">
+            <h2>Посылка Новой почты</h2>
+            <button type="button" class="btn btn-secondary btn-small" data-customer-order-assemble-close aria-label="Закрыть">&times;</button>
+        </div>
+        <form method="POST" action="{{ route('admin.customer-orders.status.update', $order) }}" class="customer-order-delivery-form">
+            @csrf
+            @method('PATCH')
+            <input type="hidden" name="status" value="{{ \App\Models\CustomerOrder::STATUS_ASSEMBLED }}">
+            <label>
+                <span>Количество мест</span>
+                <input type="number" name="nova_poshta_seats_amount" min="1" max="99" step="1" required value="{{ $novaPoshtaPackageDefaults['seats_amount'] }}">
+            </label>
+            <label>
+                <span>Вес, кг</span>
+                <input type="number" name="nova_poshta_weight" min="0.1" max="1000" step="0.1" required value="{{ $novaPoshtaPackageDefaults['weight'] }}">
+            </label>
+            <div style="display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:10px;">
+                <label>
+                    <span>Длина, см</span>
+                    <input type="number" name="nova_poshta_length_cm" min="1" max="300" step="1" required value="{{ $novaPoshtaPackageDefaults['length_cm'] }}">
+                </label>
+                <label>
+                    <span>Ширина, см</span>
+                    <input type="number" name="nova_poshta_width_cm" min="1" max="300" step="1" required value="{{ $novaPoshtaPackageDefaults['width_cm'] }}">
+                </label>
+                <label>
+                    <span>Высота, см</span>
+                    <input type="number" name="nova_poshta_height_cm" min="1" max="300" step="1" required value="{{ $novaPoshtaPackageDefaults['height_cm'] }}">
+                </label>
+            </div>
+            <div class="help">
+                @if($novaPoshtaAfterpaymentAmount > 0)
+                    Наложенный платеж: {{ $money($novaPoshtaAfterpaymentAmount, 'UAH') }}
+                @else
+                    Наложенный платеж: нет, заказ оплачен
+                @endif
+            </div>
+            <div class="actions">
+                <button type="button" class="btn btn-small btn-secondary" data-customer-order-assemble-close>Отмена</button>
+                <button type="submit" class="btn btn-small">Создать ТТН и отметить собран</button>
+            </div>
+        </form>
+    </dialog>
+    @endif
 
     <div class="panel">
         <h2 class="section-title" style="margin-top:0;">Примечание</h2>
@@ -487,14 +901,14 @@
             'paymentDueUsd' => $prepaymentDueUsd,
             'paymentUsdRate' => $paymentUsdRateFor($prepaymentDueUah, $prepaymentDueUsd),
             'paymentDialogTitle' => "\u{0412}\u{043D}\u{0435}\u{0441}\u{0442}\u{0438} \u{043F}\u{0440}\u{0435}\u{0434}\u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0443}",
-            'paymentSubmitLabel' => "\u{0421}\u{043E}\u{0445}\u{0440}\u{0430}\u{043D}\u{0438}\u{0442}\u{044C} \u{043F}\u{0440}\u{0435}\u{0434}\u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0443}",
+            'paymentSubmitLabel' => "\u{0412}\u{043D}\u{0435}\u{0441}\u{0442}\u{0438} \u{043F}\u{0440}\u{0435}\u{0434}\u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0443}",
             'paymentDefaultAmount' => '',
             'paymentAutofill' => false,
             'paymentRequiresFullAmount' => false,
         ])
     @endif
 
-    @if($order->canConfirmPayment() && ! $orderIsFullyPaid)
+    @if($order->canConfirmPayment() && $order->delivery_method !== \App\Models\CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA && ! $orderIsFullyPaid)
         @php($paymentDueUah = max(0, (float) $orderTotalAmountUah - (float) $order->paid_amount_uah))
         @php($paymentDueUsd = $paymentDueUsdFor($paymentDueUah))
         @include('admin.customer_orders._payment_modal', [
@@ -505,7 +919,7 @@
         ])
     @endif
 
-    @if($canEditOrder)
+    @if($canEditOrderItems)
     <dialog class="modal" data-customer-order-item-dialog>
         <div class="modal-header">
             <h2>Добавить товар</h2>
@@ -590,6 +1004,191 @@
         })();
 
         @if($canEditOrder)
+        (() => {
+            const dialog = document.querySelector('[data-customer-order-assemble-dialog]');
+            const openButton = document.querySelector('[data-customer-order-assemble-np]');
+
+            if (!dialog || !openButton) return;
+
+            openButton.addEventListener('click', () => {
+                if (typeof dialog.showModal === 'function') {
+                    dialog.showModal();
+                } else {
+                    dialog.setAttribute('open', 'open');
+                }
+                dialog.querySelector('[name="nova_poshta_weight"]')?.focus();
+            });
+            dialog.querySelectorAll('[data-customer-order-assemble-close]').forEach((button) => {
+                button.addEventListener('click', () => button.closest('dialog')?.close());
+            });
+            dialog.addEventListener('click', (event) => {
+                if (event.target === dialog) dialog.close();
+            });
+        })();
+
+        (() => {
+            const form = document.querySelector('[data-nova-poshta-delivery-form]');
+            if (!form) return;
+
+            const dialog = document.querySelector('[data-customer-order-delivery-dialog]');
+            const openButton = document.querySelector('[data-customer-order-delivery-edit]');
+            const deliveryMethodInput = form.querySelector('[name="delivery_method"]');
+            const cityInput = form.querySelector('[data-nova-poshta-city-input]');
+            const cityRefInput = form.querySelector('[data-nova-poshta-city-ref]');
+            const citySuggestions = form.querySelector('[data-nova-poshta-city-suggestions]');
+            const warehouseInput = form.querySelector('[data-nova-poshta-warehouse-input]');
+            const warehouseRefInput = form.querySelector('[data-nova-poshta-warehouse-ref]');
+            const warehouseSuggestions = form.querySelector('[data-nova-poshta-warehouse-suggestions]');
+            const citiesUrl = form.dataset.citiesUrl || '';
+            const warehousesUrl = form.dataset.warehousesUrl || '';
+            const isNovaPoshta = () => deliveryMethodInput?.value === 'nova_poshta';
+            const novaPoshtaNodes = () => [
+                cityInput?.closest('label'),
+                citySuggestions,
+                warehouseInput?.closest('label'),
+                warehouseSuggestions,
+            ].filter(Boolean);
+            const text = {
+                city: @json("\u{0412}\u{044B}\u{0431}\u{0435}\u{0440}\u{0438}\u{0442}\u{0435} \u{0433}\u{043E}\u{0440}\u{043E}\u{0434} \u{0438}\u{0437} \u{043F}\u{043E}\u{0434}\u{0441}\u{043A}\u{0430}\u{0437}\u{043A}\u{0438} \u{041D}\u{043E}\u{0432}\u{043E}\u{0439} \u{041F}\u{043E}\u{0447}\u{0442}\u{044B}."),
+                warehouse: @json("\u{0412}\u{044B}\u{0431}\u{0435}\u{0440}\u{0438}\u{0442}\u{0435} \u{043E}\u{0442}\u{0434}\u{0435}\u{043B}\u{0435}\u{043D}\u{0438}\u{0435} \u{0438}\u{043B}\u{0438} \u{043F}\u{043E}\u{0447}\u{0442}\u{043E}\u{043C}\u{0430}\u{0442} \u{0438}\u{0437} \u{043F}\u{043E}\u{0434}\u{0441}\u{043A}\u{0430}\u{0437}\u{043A}\u{0438} \u{041D}\u{043E}\u{0432}\u{043E}\u{0439} \u{041F}\u{043E}\u{0447}\u{0442}\u{044B}."),
+            };
+
+            const hide = (node) => {
+                if (!node) return;
+                node.hidden = true;
+                node.innerHTML = '';
+            };
+            const render = (node, items, onChoose) => {
+                if (!node) return;
+                node.innerHTML = '';
+                items.forEach((item) => {
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.className = 'customer-order-np-suggestion';
+                    button.innerHTML = '<strong></strong><span></span>';
+                    button.querySelector('strong').textContent = item.description || '';
+                    button.querySelector('span').textContent = [item.settlement_type, item.area, item.number ? `№${item.number}` : ''].filter(Boolean).join(' · ');
+                    button.addEventListener('click', () => onChoose(item));
+                    node.appendChild(button);
+                });
+                node.hidden = items.length === 0;
+            };
+            const attach = ({ input, refInput, suggestions, url, minLength, buildParams, onInput, onChoose }) => {
+                if (!input || !refInput || !suggestions || !url) return;
+                let timer = null;
+                input.addEventListener('input', () => {
+                    refInput.value = '';
+                    input.setCustomValidity('');
+                    onInput?.();
+                    window.clearTimeout(timer);
+                    timer = window.setTimeout(async () => {
+                        const query = input.value.trim();
+                        if (query.length < minLength) {
+                            hide(suggestions);
+                            return;
+                        }
+                        const requestUrl = new URL(url, window.location.origin);
+                        requestUrl.searchParams.set('query', query);
+                        Object.entries(buildParams?.() || {}).forEach(([key, value]) => requestUrl.searchParams.set(key, value));
+                        try {
+                            const response = await fetch(requestUrl, { headers: { Accept: 'application/json' } });
+                            render(suggestions, response.ok ? await response.json() : [], (item) => {
+                                input.value = item.description || '';
+                                refInput.value = item.ref || '';
+                                input.setCustomValidity('');
+                                hide(suggestions);
+                                onChoose?.(item);
+                            });
+                        } catch (error) {
+                            hide(suggestions);
+                        }
+                    }, 300);
+                });
+            };
+            const sync = () => {
+                const required = isNovaPoshta();
+                novaPoshtaNodes().forEach((node) => {
+                    node.hidden = !required;
+                });
+                [cityInput, warehouseInput].forEach((input) => {
+                    if (!input) return;
+                    input.required = required;
+                    input.disabled = !required;
+                    input.setCustomValidity('');
+                });
+                if (warehouseInput && required && !cityRefInput?.value && !warehouseRefInput?.value) {
+                    warehouseInput.disabled = true;
+                }
+            };
+
+            openButton?.addEventListener('click', () => {
+                if (typeof dialog?.showModal === 'function') {
+                    dialog.showModal();
+                } else {
+                    dialog?.setAttribute('open', 'open');
+                }
+                sync();
+                deliveryMethodInput?.focus();
+            });
+            form.closest('dialog')?.querySelectorAll('[data-customer-order-delivery-close]').forEach((button) => {
+                button.addEventListener('click', () => button.closest('dialog')?.close());
+            });
+            attach({
+                input: cityInput,
+                refInput: cityRefInput,
+                suggestions: citySuggestions,
+                url: citiesUrl,
+                minLength: 2,
+                onInput: () => {
+                    if (warehouseInput) {
+                        warehouseInput.value = '';
+                        warehouseInput.disabled = isNovaPoshta();
+                    }
+                    if (warehouseRefInput) warehouseRefInput.value = '';
+                    hide(warehouseSuggestions);
+                },
+                onChoose: () => {
+                    if (warehouseInput) {
+                        warehouseInput.disabled = false;
+                        warehouseInput.focus();
+                    }
+                },
+            });
+            attach({
+                input: warehouseInput,
+                refInput: warehouseRefInput,
+                suggestions: warehouseSuggestions,
+                url: warehousesUrl,
+                minLength: 1,
+                buildParams: () => ({ city_ref: cityRefInput?.value || '' }),
+            });
+
+            deliveryMethodInput?.addEventListener('change', sync);
+            form.addEventListener('submit', (event) => {
+                if (!isNovaPoshta()) return;
+                if (cityInput?.value.trim() && !cityRefInput?.value && !warehouseRefInput?.value) {
+                    event.preventDefault();
+                    cityInput.setCustomValidity(text.city);
+                    cityInput.reportValidity();
+                    cityInput.focus();
+                    return;
+                }
+                if (warehouseInput?.value.trim() && !warehouseRefInput?.value) {
+                    event.preventDefault();
+                    warehouseInput.setCustomValidity(text.warehouse);
+                    warehouseInput.reportValidity();
+                    warehouseInput.focus();
+                }
+            });
+            document.addEventListener('click', (event) => {
+                if (! (event.target instanceof Node)) return;
+                if (!citySuggestions?.contains(event.target) && event.target !== cityInput) hide(citySuggestions);
+                if (!warehouseSuggestions?.contains(event.target) && event.target !== warehouseInput) hide(warehouseSuggestions);
+            });
+            sync();
+        })();
+
+        @if($canEditOrderItems)
         (() => {
             const summaryNode = document.querySelector('[data-customer-order-summary]');
             const rows = Array.from(document.querySelectorAll('[data-customer-order-item-row]'));
@@ -746,6 +1345,7 @@
                 searchTimer = window.setTimeout(search, 250);
             });
         })();
+        @endif
         @endif
     </script>
 @endsection

@@ -7,24 +7,24 @@
         $undefinedCategoryLabel = $donorPartPresenter->undefinedCategoryLabel();
         $donorDetails = collect([
             ['label' => 'VIN', 'value' => $donorCar->display_vin],
-            ['label' => '&#1057;&#1090;&#1072;&#1090;&#1091;&#1089;', 'value' => $donorCar->status_label, 'statusClass' => $donorCar->status_class],
-            ['label' => '&#1052;&#1072;&#1088;&#1082;&#1072;', 'value' => $donorCar->brand],
-            ['label' => '&#1052;&#1086;&#1076;&#1077;&#1083;&#1100;', 'value' => $donorCar->model],
+            ['label' => 'Статус', 'value' => $donorCar->status_label, 'statusClass' => $donorCar->status_class],
+            ['label' => 'Марка', 'value' => $donorCar->brand],
+            ['label' => 'Модель', 'value' => $donorCar->model],
             ['label' => 'Привод', 'value' => $donorCar->drive_type_label ?: '—'],
             ['label' => 'Батарея', 'value' => $donorCar->battery_type_label ?: '—'],
             ['label' => 'Performance', 'value' => $donorCar->performance_label ?: '—'],
-            ['label' => '&#1043;&#1086;&#1076;', 'value' => $donorCar->year],
-            ['label' => '&#1062;&#1074;&#1077;&#1090;', 'value' => $donorCar->color],
-            ['label' => '&#1052;&#1072;&#1088;&#1082;&#1080;&#1088;&#1086;&#1074;&#1082;&#1072; &#1094;&#1074;&#1077;&#1090;&#1072;', 'value' => $donorCar->paint_code ?: '-'],
-            ['label' => '&#1055;&#1088;&#1086;&#1073;&#1077;&#1075;', 'value' => $donorCar->mileage !== null ? number_format($donorCar->mileage, 0, ',', ' ').' mi' : null],
-            ['label' => '&#1044;&#1072;&#1090;&#1072; &#1087;&#1086;&#1082;&#1091;&#1087;&#1082;&#1080; &#1076;&#1086;&#1085;&#1086;&#1088;&#1072;', 'value' => $donorCar->purchase_date?->format('d.m.Y')],
-            ['label' => '&#1044;&#1072;&#1090;&#1072; &#1087;&#1088;&#1080;&#1093;&#1086;&#1076;&#1072; &#1076;&#1086;&#1085;&#1086;&#1088;&#1072; &#1085;&#1072; &#1057;&#1058;&#1054;', 'value' => $donorCar->warehouse_arrival_date?->format('d.m.Y'), 'valueClass' => 'donor-details__value--regular'],
-            ['label' => '&#1062;&#1077;&#1085;&#1072; &#1087;&#1086;&#1082;&#1091;&#1087;&#1082;&#1080; (&#1089;&#1086; &#1089;&#1073;&#1086;&#1088;&#1072;&#1084;&#1080;)', 'value' => $donorCar->estimated_cost_usd !== null ? $money($donorCar->estimated_cost_usd) : null, 'valueClass' => 'donor-details__value--regular'],
-            ['label' => '&#1062;&#1077;&#1085;&#1072; &#1076;&#1086;&#1089;&#1090;&#1072;&#1074;&#1082;&#1080; &#1057;&#1064;&#1040;', 'value' => $donorCar->usa_delivery_price_usd !== null ? $money($donorCar->usa_delivery_price_usd) : null, 'valueClass' => 'donor-details__value--regular'],
-            ['label' => '&#1062;&#1077;&#1085;&#1072; &#1076;&#1086;&#1089;&#1090;&#1072;&#1074;&#1082;&#1080; &#1050;&#1083;&#1072;&#1081;&#1087;&#1077;&#1076;&#1072;-&#1059;&#1082;&#1088;&#1072;&#1080;&#1085;&#1072;', 'value' => $donorCar->klaipeda_ukraine_delivery_price_usd !== null ? $money($donorCar->klaipeda_ukraine_delivery_price_usd) : null, 'valueClass' => 'donor-details__value--regular'],
-            ['label' => '&#1056;&#1072;&#1089;&#1090;&#1072;&#1084;&#1086;&#1078;&#1082;&#1072;', 'value' => $donorCar->customs_clearance_price_usd !== null ? $money($donorCar->customs_clearance_price_usd) : null, 'valueClass' => 'donor-details__value--regular'],
-            ['label' => '&#1055;&#1086;&#1083;&#1085;&#1072;&#1103; &#1089;&#1090;&#1086;&#1080;&#1084;&#1086;&#1089;&#1090;&#1100;', 'value' => $donorCar->total_cost_usd !== null ? $money($donorCar->total_cost_usd) : null],
-            ['label' => '&#1055;&#1088;&#1080;&#1084;&#1077;&#1095;&#1072;&#1085;&#1080;&#1103;', 'value' => $donorCar->notes],
+            ['label' => 'Год', 'value' => $donorCar->year],
+            ['label' => 'Цвет', 'value' => $donorCar->color],
+            ['label' => 'Маркировка цвета', 'value' => $donorCar->paint_code ?: '-'],
+            ['label' => 'Пробег', 'value' => $donorCar->mileage !== null ? number_format($donorCar->mileage, 0, ',', ' ').' mi' : null],
+            ['label' => 'Дата покупки донора', 'value' => $donorCar->purchase_date?->format('d.m.Y')],
+            ['label' => 'Дата прихода донора на СТО', 'value' => $donorCar->warehouse_arrival_date?->format('d.m.Y'), 'valueClass' => 'donor-details__value--regular'],
+            ['label' => 'Цена покупки (со сборами)', 'value' => $donorCar->estimated_cost_usd !== null ? $money($donorCar->estimated_cost_usd) : null, 'valueClass' => 'donor-details__value--regular'],
+            ['label' => 'Цена доставки США', 'value' => $donorCar->usa_delivery_price_usd !== null ? $money($donorCar->usa_delivery_price_usd) : null, 'valueClass' => 'donor-details__value--regular'],
+            ['label' => 'Цена доставки Клайпеда-Украина', 'value' => $donorCar->klaipeda_ukraine_delivery_price_usd !== null ? $money($donorCar->klaipeda_ukraine_delivery_price_usd) : null, 'valueClass' => 'donor-details__value--regular'],
+            ['label' => 'Растаможка', 'value' => $donorCar->customs_clearance_price_usd !== null ? $money($donorCar->customs_clearance_price_usd) : null, 'valueClass' => 'donor-details__value--regular'],
+            ['label' => 'Полная стоимость', 'value' => $donorCar->total_cost_usd !== null ? $money($donorCar->total_cost_usd) : null],
+            ['label' => 'Примечания', 'value' => $donorCar->notes],
         ])->filter(fn ($detail) => $detail['value'] !== null && $detail['value'] !== '');
         $soldPartsQuantity = rtrim(rtrim(number_format((float) $donorCar->partSales->sum('quantity'), 3, '.', ''), '0'), '.');
         $soldPartsTotals = $donorCar->partSales
@@ -200,7 +200,7 @@
                             </dl>
                         </div>
                         <div class="actions">
-                            <a class="btn btn-secondary" href="{{ route('admin.donor-cars.edit', $donorCar) }}">&#1056;&#1077;&#1076;&#1072;&#1082;&#1090;&#1080;&#1088;&#1086;&#1074;&#1072;&#1090;&#1100;</a>
+                            <a class="btn btn-secondary" href="{{ route('admin.donor-cars.edit', $donorCar) }}">Редактировать</a>
                             <a class="btn btn-secondary" href="{{ route('admin.mobile.donor-cars.products.create', $donorCar) }}">Мобильное добавление</a>
                             @include('admin.donor_cars._official_download_button', ['donorCar' => $donorCar])
                         </div>
@@ -216,13 +216,13 @@
                             @endphp
                             <div class="photo-item donor-photo-item">
                                 <a class="donor-photo-item__link" href="{{ $photoUrl }}" data-donor-photo-trigger data-photo-index="{{ $loop->index }}">
-                                    <img src="{{ $photoUrl }}" alt="&#1060;&#1086;&#1090;&#1086; {{ $donorCar->display_vin }}">
+                                    <img src="{{ $photoUrl }}" alt="Фото {{ $donorCar->display_vin }}">
                                 </a>
                                 <form method="POST" action="{{ route('admin.donor-cars.photos.destroy', $donorCar) }}" class="donor-photo-delete-form" data-donor-photo-delete-form>
                                     @csrf
                                     @method('DELETE')
                                     <input type="hidden" name="photo" value="{{ $photo }}">
-                                    <button type="submit" class="donor-photo-delete-button" aria-label="&#1059;&#1076;&#1072;&#1083;&#1080;&#1090;&#1100; &#1092;&#1086;&#1090;&#1086;">
+                                    <button type="submit" class="donor-photo-delete-button" aria-label="Удалить фото">
                                         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                                             <path d="M9 3h6l1 2h4v2H4V5h4l1-2Zm1 6h2v9h-2V9Zm4 0h2v9h-2V9ZM7 9h2v10h6V9h2v12H7V9Z" />
                                         </svg>
@@ -232,15 +232,15 @@
                         @endforeach
                     </div>
                 @else
-                    <div class="donor-photo-empty">&#1060;&#1086;&#1090;&#1086; &#1076;&#1086;&#1085;&#1086;&#1088;&#1072; &#1077;&#1097;&#1077; &#1085;&#1077; &#1076;&#1086;&#1073;&#1072;&#1074;&#1083;&#1077;&#1085;&#1099;.</div>
+                    <div class="donor-photo-empty">Фото донора еще не добавлены.</div>
                 @endif
 
                 <form method="POST" action="{{ route('admin.donor-cars.photos.store', $donorCar) }}" enctype="multipart/form-data" class="donor-photo-upload" data-donor-photo-upload>
                     @csrf
                     <input id="donor-photo-upload" type="file" name="photos[]" accept="image/*" multiple data-donor-photos-input data-existing-photo-count="{{ $donorPhotoUrls->count() }}">
                     <label class="donor-photo-dropzone" for="donor-photo-upload" data-donor-photo-dropzone>
-                        <span class="donor-photo-dropzone__title">&#1055;&#1077;&#1088;&#1077;&#1090;&#1072;&#1097;&#1080;&#1090;&#1077; &#1092;&#1086;&#1090;&#1086; &#1089;&#1102;&#1076;&#1072;</span>
-                        <span class="donor-photo-dropzone__hint">&#1080;&#1083;&#1080; &#1085;&#1072;&#1078;&#1084;&#1080;&#1090;&#1077;, &#1095;&#1090;&#1086;&#1073;&#1099; &#1074;&#1099;&#1073;&#1088;&#1072;&#1090;&#1100; &#1092;&#1072;&#1081;&#1083;&#1099;. &#1044;&#1086; {{ \App\Models\DonorCar::PHOTO_LIMIT }} &#1092;&#1086;&#1090;&#1086;.</span>
+                        <span class="donor-photo-dropzone__title">Перетащите фото сюда</span>
+                        <span class="donor-photo-dropzone__hint">или нажмите, чтобы выбрать файлы. До {{ \App\Models\DonorCar::PHOTO_LIMIT }} фото.</span>
                     </label>
                 </form>
                 </div>
@@ -372,7 +372,7 @@
                                 ? $saleCatalogCategoryPathPreferred
                                 : ($saleCategoryPathDisplay !== '' ? $saleCategoryPathDisplay : ($saleProductCategoryLabel !== '' ? $saleProductCategoryLabel : '-'));
                         @endphp
-                        <tr data-donor-product-row data-donor-product-search="{{ $saleSearchText }}" data-donor-product-category="{{ $saleProductCategory }}">
+                        <tr id="sold-part-{{ $sale->id }}" data-donor-product-row data-donor-product-search="{{ $saleSearchText }}" data-donor-product-category="{{ $saleProductCategory }}">
                             <td>{{ $sale->sold_at ? $sale->sold_at->timezone('Europe/Kiev')->format('Y-m-d') : '-' }}</td>
                             <td>{{ $sale->part_number ?: '-' }}</td>
                             <td>
@@ -471,18 +471,18 @@
         <form method="POST" action="{{ route('admin.donor-cars.products.store', $donorCar) }}" enctype="multipart/form-data" class="part-dialog__form">
             @csrf
             <div class="part-dialog__header">
-                <h2>&#1044;&#1086;&#1073;&#1072;&#1074;&#1080;&#1090;&#1100; &#1079;&#1072;&#1087;&#1095;&#1072;&#1089;&#1090;&#1100;</h2>
-                <button type="button" class="btn btn-secondary" data-close-part-dialog aria-label="&#1047;&#1072;&#1082;&#1088;&#1099;&#1090;&#1100;">&times;</button>
+                <h2>Добавить запчасть</h2>
+                <button type="button" class="btn btn-secondary" data-close-part-dialog aria-label="Закрыть">&times;</button>
             </div>
 
             <div class="form-grid">
                 <div class="product-name-autocomplete" data-product-search-url="{{ route('admin.products.search') }}">
-                    <label>&#1053;&#1072;&#1079;&#1074;&#1072;&#1085;&#1080;&#1077; &#1079;&#1072;&#1087;&#1095;&#1072;&#1089;&#1090;&#1080;</label>
+                    <label>Название запчасти</label>
                     <input name="name" value="{{ old('name') }}" required autocomplete="off" data-product-name-input>
                     <div class="product-suggestions" data-product-suggestions hidden></div>
                 </div>
                 <div>
-                    <label>&#1057;&#1090;&#1072;&#1090;&#1091;&#1089;</label>
+                    <label>Статус</label>
                     <select name="damage_note" required>
                         @foreach(($manualDamageOptions ?? []) as $damageValue => $damageLabel)
                             <option value="{{ $damageValue }}" @selected(old('damage_note', "\u{0411}\u{0435}\u{0437} \u{043F}\u{043E}\u{0432}\u{0440}\u{0435}\u{0436}\u{0434}\u{0435}\u{043D}\u{0438}\u{0439}") === (string) $damageValue)>{{ $damageLabel }}</option>
@@ -490,7 +490,7 @@
                     </select>
                 </div>
                 <div>
-                    <label>&#1057;&#1086;&#1089;&#1090;&#1086;&#1103;&#1085;&#1080;&#1077;</label>
+                    <label>Состояние</label>
                     <select name="condition_type" required>
                         @foreach(\App\Models\Product::CONDITION_TYPE_LABELS as $conditionValue => $conditionLabel)
                             <option value="{{ $conditionValue }}" @selected(old('condition_type', 'used') === $conditionValue)>{{ $conditionLabel }}</option>
@@ -498,33 +498,33 @@
                     </select>
                 </div>
                 <div>
-                    <label>&#1062;&#1074;&#1077;&#1090;</label>
+                    <label>Цвет</label>
                     <input name="color" value="{{ old('color', $donorCar->color) }}">
                 </div>
                 <div>
-                    <label>&#1060;&#1086;&#1090;&#1086;</label>
+                    <label>Фото</label>
                     <input type="file" name="photos[]" accept="image/*" multiple data-part-photos>
-                    <div class="help">&#1044;&#1086; 5 &#1092;&#1086;&#1090;&#1086;.</div>
+                    <div class="help">До 5 фото.</div>
                 </div>
                 <div>
-                    <label>&#1062;&#1077;&#1085;&#1072; &#1087;&#1088;&#1086;&#1076;&#1072;&#1078;&#1080; (USD)</label>
+                    <label>Цена продажи (USD)</label>
                     <input type="number" step="0.01" min="0" name="selling_price" value="{{ old('selling_price') }}">
                 </div>
                 <div>
-                    <label>&#1050;&#1086;&#1076;</label>
+                    <label>Код</label>
                     <input value="{{ $nextPartCode }}" disabled>
                 </div>
                 <div>
-                    <label>&#1040;&#1088;&#1090;&#1080;&#1082;&#1091;&#1083;</label>
+                    <label>Артикул</label>
                     <input name="external_sku" value="{{ old('external_sku') }}">
-                    <div class="help">&#1050;&#1072;&#1090;&#1077;&#1075;&#1086;&#1088;&#1080;&#1103; &#1086;&#1087;&#1088;&#1077;&#1076;&#1077;&#1083;&#1080;&#1090;&#1089;&#1103; &#1072;&#1074;&#1090;&#1086;&#1084;&#1072;&#1090;&#1080;&#1095;&#1077;&#1089;&#1082;&#1080; &#1080;&#1079; &#1082;&#1072;&#1090;&#1072;&#1083;&#1086;&#1075;&#1072; &#1082;&#1086;&#1085;&#1082;&#1091;&#1088;&#1077;&#1085;&#1090;&#1086;&#1074;.</div>
+                    <div class="help">Категория определится автоматически из каталога конкурентов.</div>
                 </div>
                 <div class="full">
-                    <label>&#1054;&#1087;&#1080;&#1089;&#1072;&#1085;&#1080;&#1077;</label>
+                    <label>Описание</label>
                     <textarea name="description">{{ old('description') }}</textarea>
                 </div>
                 <div>
-                    <label>&#1057;&#1082;&#1083;&#1072;&#1076;</label>
+                    <label>Склад</label>
                     <select name="warehouse_id" required data-part-warehouse>
                         <option value="">—</option>
                         @foreach($warehouses as $warehouse)
@@ -533,7 +533,7 @@
                     </select>
                 </div>
                 <div data-part-floor-wrap>
-                    <label>&#1069;&#1090;&#1072;&#1078;</label>
+                    <label>Этаж</label>
                     <select name="floor" data-part-floor data-selected-floor="{{ old('floor') }}">
                         @foreach(\App\Models\Location::floorsForCount(20) as $value => $label)
                             <option value="{{ $value }}" @selected(old('floor') === $value)>{{ $label }}</option>
@@ -541,14 +541,14 @@
                     </select>
                 </div>
                 <div>
-                    <label>&#1071;&#1095;&#1077;&#1081;&#1082;&#1072;</label>
-                    <input name="location_cell" value="{{ old('location_cell') }}" placeholder="&#1053;&#1077; &#1086;&#1073;&#1103;&#1079;&#1072;&#1090;&#1077;&#1083;&#1100;&#1085;&#1086;">
+                    <label>Ячейка</label>
+                    <input name="location_cell" value="{{ old('location_cell') }}" placeholder="Не обязательно">
                 </div>
             </div>
 
             <div class="actions" style="margin-top:20px;">
-                <button type="submit">&#1044;&#1086;&#1073;&#1072;&#1074;&#1080;&#1090;&#1100;</button>
-                <button type="button" class="btn btn-secondary" data-close-part-dialog>&#1054;&#1090;&#1084;&#1077;&#1085;&#1072;</button>
+                <button type="submit">Добавить</button>
+                <button type="button" class="btn btn-secondary" data-close-part-dialog>Отмена</button>
             </div>
         </form>
     </dialog>
@@ -1853,6 +1853,12 @@
             });
             updateDonorProductsCategorySummary();
             document.querySelectorAll('[data-donor-products-panel]').forEach((panel) => refreshDonorProductRowStripes(panel));
+            if (window.location.hash.startsWith('#sold-part-')) {
+                document.querySelector('[data-donor-products-tab="sold"]')?.click();
+                window.requestAnimationFrame(() => {
+                    document.querySelector(window.location.hash)?.scrollIntoView({ block: 'center' });
+                });
+            }
 
             const donorProductsTabForDamage = (value) => {
                 const damage = normalizeSearch(value);

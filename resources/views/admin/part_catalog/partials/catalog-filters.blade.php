@@ -1,7 +1,7 @@
 <div class="breadcrumbs" style="margin-bottom:18px;">
     <a href="{{ $categoryUrl(null) }}">
         @if($catalog['source'] === 'nikolacars')
-            &#1042;&#1089;&#1077; &#1079;&#1072;&#1087;&#1095;&#1072;&#1089;&#1090;&#1080;
+            Все запчасти
         @else
             Модели Tesla
         @endif
@@ -22,26 +22,26 @@
     <div @class(['catalog-search-field--part-number' => $catalog['source'] === 'nikolacars', 'catalog-filter-form__search' => $catalog['source'] === 'nikolacars'])>
         <label>
             @if($catalog['source'] === 'nikolacars')
-                &#1055;&#1086;&#1080;&#1089;&#1082;
+                Поиск
             @else
                 Поиск в текущем уровне
             @endif
         </label>
         <div class="catalog-search-wrap" data-catalog-search-url="{{ $searchUrl }}">
-            <input name="q" value="{{ $query }}" placeholder="{{ $catalog['source'] === 'nikolacars' ? html_entity_decode('&#1050;&#1086;&#1076;, &#1072;&#1088;&#1090;&#1080;&#1082;&#1091;&#1083;, &#1085;&#1072;&#1079;&#1074;&#1072;&#1085;&#1080;&#1077; &#1080;&#1083;&#1080; &#1076;&#1086;&#1085;&#1086;&#1088;') : ($isModelLevel ? 'Модель, Парт № или название' : 'Название, код, модель или Парт №') }}" autocomplete="off" data-catalog-search-input>
+            <input name="q" value="{{ $query }}" placeholder="{{ $catalog['source'] === 'nikolacars' ? html_entity_decode('Код, артикул, название или донор') : ($isModelLevel ? 'Модель, Парт № или название' : 'Название, код, модель или Парт №') }}" autocomplete="off" data-catalog-search-input>
             <div class="catalog-search-suggestions" data-catalog-search-suggestions hidden></div>
         </div>
         @if($catalog['source'] === 'nikolacars')
             <label class="catalog-checkbox catalog-checkbox--small catalog-search-sold-filter">
                 <input type="hidden" name="hide_sold" value="0">
                 <input type="checkbox" name="hide_sold" value="1" @checked($hideNikolaCarsSold ?? true)>
-                <span>&#1053;&#1077; &#1086;&#1090;&#1086;&#1073;&#1088;&#1072;&#1078;&#1072;&#1090;&#1100; &#1087;&#1088;&#1086;&#1076;&#1072;&#1085;&#1085;&#1099;&#1077;</span>
+                <span>Не отображать проданные</span>
             </label>
         @endif
     </div>
     @if($catalog['source'] === 'nikolacars')
     <div class="catalog-filter-form__vin">
-        <label>&#1044;&#1086;&#1085;&#1086;&#1088;</label>
+        <label>Донор</label>
         @php
             $selectedNikolaCarsVins = collect($nikolaCarsVins ?? ($nikolaCarsVin !== '' ? [$nikolaCarsVin] : []))
                 ->map(fn ($vin) => trim((string) $vin))
@@ -63,31 +63,31 @@
         <details class="catalog-donor-dropdown" data-close-on-outside>
             <summary class="catalog-donor-dropdown__toggle">
                 @if($selectedNikolaCarsVins->count() > 1)
-                    <span class="catalog-donor-dropdown__placeholder">&#1044;&#1086;&#1085;&#1086;&#1088;</span>
+                    <span class="catalog-donor-dropdown__placeholder">Донор</span>
                     <span>
-                        <strong>&#1042;&#1099;&#1073;&#1088;&#1072;&#1085;&#1086;: {{ $selectedNikolaCarsVins->count() }}</strong>
-                        <em>&#1044;&#1086;&#1085;&#1086;&#1088;</em>
+                        <strong>Выбрано: {{ $selectedNikolaCarsVins->count() }}</strong>
+                        <em>Донор</em>
                     </span>
                 @elseif($selectedNikolaCarsDonor)
                     @if($donorFilterPhotoUrl($selectedNikolaCarsDonor))
-                        <img src="{{ $donorFilterPhotoUrl($selectedNikolaCarsDonor) }}" alt="&#1055;&#1088;&#1077;&#1074;&#1100;&#1102; {{ $selectedNikolaCarsDonor->display_vin }}" loading="lazy" decoding="async">
+                        <img src="{{ $donorFilterPhotoUrl($selectedNikolaCarsDonor) }}" alt="Превью {{ $selectedNikolaCarsDonor->display_vin }}" loading="lazy" decoding="async">
                     @else
-                        <span class="catalog-donor-dropdown__placeholder">&#1060;&#1086;&#1090;&#1086;</span>
+                        <span class="catalog-donor-dropdown__placeholder">Фото</span>
                     @endif
                     <span>
                         <strong>{{ $selectedNikolaCarsDonor->display_vin }}</strong>
                         <em>{{ $donorFilterMeta($selectedNikolaCarsDonor) }}</em>
                     </span>
                 @elseif($nikolaCarsVin !== '')
-                    <span class="catalog-donor-dropdown__placeholder">&#1044;&#1086;&#1085;&#1086;&#1088;</span>
+                    <span class="catalog-donor-dropdown__placeholder">Донор</span>
                     <span>
                         <strong>{{ $nikolaCarsVin }}</strong>
-                        <em>&#1044;&#1086;&#1085;&#1086;&#1088; &#1085;&#1077; &#1085;&#1072;&#1081;&#1076;&#1077;&#1085;</em>
+                        <em>Донор не найден</em>
                     </span>
                 @else
                     <span>
-                        <strong>&#1042;&#1089;&#1077;</strong>
-                        <em>&#1042;&#1089;&#1077; &#1076;&#1086;&#1085;&#1086;&#1088;&#1099;</em>
+                        <strong>Все</strong>
+                        <em>Все доноры</em>
                     </span>
                 @endif
             </summary>
@@ -100,13 +100,13 @@
                     <label class="catalog-donor-option">
                         <input type="checkbox" name="vins[]" value="{{ $vinOption }}" @checked($selectedNikolaCarsVins->contains($vinOption))>
                         @if($photoUrl)
-                            <img src="{{ $photoUrl }}" alt="&#1055;&#1088;&#1077;&#1074;&#1100;&#1102; {{ $donorCar->display_vin }}" loading="lazy" decoding="async">
+                            <img src="{{ $photoUrl }}" alt="Превью {{ $donorCar->display_vin }}" loading="lazy" decoding="async">
                         @else
-                            <span class="catalog-donor-dropdown__placeholder">&#1060;&#1086;&#1090;&#1086;</span>
+                            <span class="catalog-donor-dropdown__placeholder">Фото</span>
                         @endif
                         <span>
                             <strong>{{ $donorCar?->display_vin ?? $vinOption }}</strong>
-                            <em>{{ $donorFilterMeta($donorCar) ?: html_entity_decode('&#1044;&#1086;&#1085;&#1086;&#1088; &#1085;&#1077; &#1085;&#1072;&#1081;&#1076;&#1077;&#1085;') }}</em>
+                            <em>{{ $donorFilterMeta($donorCar) ?: html_entity_decode('Донор не найден') }}</em>
                         </span>
                     </label>
                 @endforeach
@@ -114,13 +114,13 @@
         </details>
     </div>
     <div class="catalog-filter-form__category">
-        <label>&#1050;&#1072;&#1090;&#1077;&#1075;&#1086;&#1088;&#1080;&#1103;</label>
+        <label>Категория</label>
         <details class="catalog-checkbox-dropdown catalog-checkbox-dropdown--top-category" data-close-on-outside>
             <summary class="btn btn-secondary catalog-checkbox-dropdown__toggle">
                 @if(count($nikolaCarsTopCategories) > 0)
-                    &#1042;&#1099;&#1073;&#1088;&#1072;&#1085;&#1086;: {{ count($nikolaCarsTopCategories) }}
+                    Выбрано: {{ count($nikolaCarsTopCategories) }}
                 @else
-                    &#1042;&#1089;&#1077;
+                    Все
                 @endif
             </summary>
             <div class="catalog-checkbox-dropdown__menu">
@@ -191,14 +191,14 @@
     <div @class(['actions', 'full' => $catalog['source'] !== 'nikolacars', 'catalog-filter-actions--nikolacars' => $catalog['source'] === 'nikolacars'])>
         <button type="submit">
             @if($catalog['source'] === 'nikolacars')
-                &#1053;&#1072;&#1081;&#1090;&#1080;
+                Найти
             @else
                 Найти
             @endif
         </button>
         <a class="btn btn-secondary" href="{{ $categoryUrl($selectedCategory, false) }}">
             @if($catalog['source'] === 'nikolacars')
-                &#1057;&#1073;&#1088;&#1086;&#1089;&#1080;&#1090;&#1100;
+                Сбросить
             @else
                 Сбросить
             @endif

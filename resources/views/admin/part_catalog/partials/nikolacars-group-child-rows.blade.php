@@ -1,17 +1,15 @@
 @php
     $nikolaCarsInventory = app(\App\Services\NikolaCarsInventoryService::class);
+    $nikolaCarsChildItemGroupsById = $nikolaCarsChildItemGroupsById ?? collect();
 @endphp
 @foreach($group['items'] as $childItem)
     @php
-        $childGroup = $nikolaCarsInventory
-            ->itemGroups(
-                collect([$childItem]),
-                $usdRate,
-                fn (\App\Models\PartCatalogItem $item): string => $itemName($item),
-            )
-            ->first();
-        $childImageUrls = $nikolaCarsInventory->imageUrlsForItem($childItem);
-        $childImageUrl = $childImageUrls->first();
+        $childGroup = $nikolaCarsChildItemGroupsById->get($childItem->id) ?? [];
+        $childImageUrls = collect($childGroup['image_urls'] ?? []);
+        $childGalleryImageUrls = collect($childGroup['gallery_image_urls'] ?? $childImageUrls);
+        $childProductImageUrls = collect($childGroup['product_image_urls'] ?? $childImageUrls);
+        $childTeslaImageUrls = collect($childGroup['tesla_image_urls'] ?? []);
+        $childImageUrl = $childGalleryImageUrls->first();
         $childName = trim((string) $childItem->name_ua) !== ''
             ? trim((string) $childItem->name_ua)
             : $itemName($childItem);
@@ -54,17 +52,20 @@
                     type="button"
                     class="catalog-photo-preview"
                     data-catalog-photo-trigger
-                    data-catalog-images='@json($childImageUrls->all())'
+                    data-catalog-images='@json($childGalleryImageUrls->all())'
                     data-catalog-photo-title="{{ $childName }}"
-                    aria-label="&#1054;&#1090;&#1082;&#1088;&#1099;&#1090;&#1100; &#1092;&#1086;&#1090;&#1086; {{ $childName }}"
+                    aria-label="Открыть фото {{ $childName }}"
                 >
                     <img class="table-preview" src="{{ $childImageUrl }}" alt="{{ $childName }}" loading="lazy" decoding="async">
-                    @if($childImageUrls->count() > 1)
-                        <span class="catalog-photo-preview__count">{{ $childImageUrls->count() }}</span>
+                    @if($childTeslaImageUrls->isNotEmpty())
+                        <span class="catalog-photo-preview__count catalog-photo-preview__count--tesla" title="Tesla.com фото">{{ $childTeslaImageUrls->count() }}</span>
+                    @endif
+                    @if($childProductImageUrls->isNotEmpty())
+                        <span class="catalog-photo-preview__count catalog-photo-preview__count--product" title="Наши фото">{{ $childProductImageUrls->count() }}</span>
                     @endif
                 </button>
             @else
-                <span class="preview-placeholder">&#1085;&#1077;&#1090; &#1092;&#1086;&#1090;&#1086;</span>
+                <span class="preview-placeholder">нет фото</span>
             @endif
         </td>
         <td class="nikolacars-code-cell">
@@ -76,7 +77,7 @@
         <td>
             <a class="nikolacars-part-name-link" href="{{ $itemUrl($childItem) }}">{{ $childName }}</a>
             @if(trim((string) $childItem->name_ru) !== '')
-                <div class="help">{!! html_entity_decode('&#1053;&#1072;&#1079;&#1074;&#1072;&#1085;&#1080;&#1077; &#1056;&#1059;:') !!} {{ $childItem->name_ru }}</div>
+                <div class="help">{!! html_entity_decode('Название РУ:') !!} {{ $childItem->name_ru }}</div>
             @endif
         </td>
         <td class="nikolacars-donor-color-cell">
@@ -114,7 +115,7 @@
             {{ $childCategory !== '' ? $childCategory : '-' }}
         </td>
         <td class="nikolacars-damages-cell">
-            <span class="nikolacars-damages-text">{{ $childDamage !== '' ? $childDamage : html_entity_decode('&#1041;&#1077;&#1079; &#1087;&#1086;&#1074;&#1088;&#1077;&#1078;&#1076;&#1077;&#1085;&#1080;&#1081;') }}</span>
+            <span class="nikolacars-damages-text">{{ $childDamage !== '' ? $childDamage : html_entity_decode('Без повреждений') }}</span>
             @if($childDamageStatusUserName !== '')
                 <div class="nikolacars-damage-user">{{ $childDamageStatusUserName }}</div>
             @endif
@@ -136,8 +137,8 @@
                     <button
                         type="button"
                         class="nikolacars-icon-button"
-                        title="&#1056;&#1077;&#1076;&#1072;&#1082;&#1090;&#1080;&#1088;&#1086;&#1074;&#1072;&#1090;&#1100; &#1094;&#1077;&#1085;&#1091; &#1087;&#1088;&#1086;&#1076;&#1072;&#1078;&#1080;"
-                        aria-label="&#1056;&#1077;&#1076;&#1072;&#1082;&#1090;&#1080;&#1088;&#1086;&#1074;&#1072;&#1090;&#1100; &#1094;&#1077;&#1085;&#1091; &#1087;&#1088;&#1086;&#1076;&#1072;&#1078;&#1080;"
+                        title="Редактировать цену продажи"
+                        aria-label="Редактировать цену продажи"
                         data-nikolacars-price-edit-toggle
                     >&#9998;</button>
                 @endif
@@ -159,14 +160,14 @@
                         type="submit"
                         class="nikolacars-icon-button"
                         form="nikolacars-update-{{ $childItem->id }}"
-                        title="&#1057;&#1086;&#1093;&#1088;&#1072;&#1085;&#1080;&#1090;&#1100; &#1094;&#1077;&#1085;&#1091; &#1087;&#1088;&#1086;&#1076;&#1072;&#1078;&#1080;"
-                        aria-label="&#1057;&#1086;&#1093;&#1088;&#1072;&#1085;&#1080;&#1090;&#1100; &#1094;&#1077;&#1085;&#1091; &#1087;&#1088;&#1086;&#1076;&#1072;&#1078;&#1080;"
+                        title="Сохранить цену продажи"
+                        aria-label="Сохранить цену продажи"
                     >&#10003;</button>
                     <button
                         type="button"
                         class="nikolacars-icon-button"
-                        title="&#1054;&#1090;&#1084;&#1077;&#1085;&#1080;&#1090;&#1100;"
-                        aria-label="&#1054;&#1090;&#1084;&#1077;&#1085;&#1080;&#1090;&#1100;"
+                        title="Отменить"
+                        aria-label="Отменить"
                         data-nikolacars-price-edit-cancel
                     >&#215;</button>
                 </div>
@@ -178,8 +179,8 @@
                     type="button"
                     class="nikolacars-cart-add-button"
                     @if(! $childCanAddToNikolaCarsCart) hidden @endif
-                    title="&#1044;&#1086;&#1073;&#1072;&#1074;&#1080;&#1090;&#1100; &#1074; &#1082;&#1086;&#1088;&#1079;&#1080;&#1085;&#1091;"
-                    aria-label="&#1044;&#1086;&#1073;&#1072;&#1074;&#1080;&#1090;&#1100; &#1074; &#1082;&#1086;&#1088;&#1079;&#1080;&#1085;&#1091;"
+                    title="Добавить в корзину"
+                    aria-label="Добавить в корзину"
                     data-nikolacars-cart-add
                     data-cart-id="{{ $childCartProductId }}"
                     data-cart-name="{{ $childName }}"
@@ -221,8 +222,8 @@
                         <button
                             type="submit"
                             class="nikolacars-icon-button nikolacars-delete-button"
-                            title="&#1059;&#1076;&#1072;&#1083;&#1080;&#1090;&#1100;"
-                            aria-label="&#1059;&#1076;&#1072;&#1083;&#1080;&#1090;&#1100;"
+                            title="Удалить"
+                            aria-label="Удалить"
                         >&#215;</button>
                     </form>
                     <form
@@ -239,8 +240,8 @@
                         <button
                             type="submit"
                             class="nikolacars-icon-button nikolacars-sold-button"
-                            title="&#1055;&#1088;&#1086;&#1076;&#1072;&#1085;&#1086; &#1076;&#1086; 01.06.2026"
-                            aria-label="&#1055;&#1088;&#1086;&#1076;&#1072;&#1085;&#1086; &#1076;&#1086; 01.06.2026"
+                            title="Продано до 01.06.2026"
+                            aria-label="Продано до 01.06.2026"
                         >
                             <svg viewBox="0 0 24 24" aria-hidden="true" class="nikolacars-sold-icon">
                                 <path fill="#16a34a" d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8Z"></path>
@@ -253,8 +254,8 @@
                     <button
                         type="button"
                         class="nikolacars-icon-button nikolacars-sold-button"
-                        title="&#1053;&#1077;&#1083;&#1100;&#1079;&#1103; &#1087;&#1088;&#1086;&#1076;&#1072;&#1090;&#1100;: &#1087;&#1086;&#1079;&#1080;&#1094;&#1080;&#1103; &#1074; &#1088;&#1077;&#1079;&#1077;&#1088;&#1074;&#1077;"
-                        aria-label="&#1053;&#1077;&#1083;&#1100;&#1079;&#1103; &#1087;&#1088;&#1086;&#1076;&#1072;&#1090;&#1100;: &#1087;&#1086;&#1079;&#1080;&#1094;&#1080;&#1103; &#1074; &#1088;&#1077;&#1079;&#1077;&#1088;&#1074;&#1077;"
+                        title="Нельзя продать: позиция в резерве"
+                        aria-label="Нельзя продать: позиция в резерве"
                         disabled
                     >
                         <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">

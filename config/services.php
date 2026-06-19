@@ -28,6 +28,24 @@ return [
         'allow_in_testing' => env('GOOGLE_TRANSLATE_ALLOW_IN_TESTING', false),
     ],
 
+    'nova_poshta' => [
+        'api_key' => env('NOVA_POSHTA_API_KEY'),
+        'api_url' => env('NOVA_POSHTA_API_URL', 'https://api.novaposhta.ua/v2.0/json/'),
+        'print_url' => env('NOVA_POSHTA_PRINT_URL', 'https://my.novaposhta.ua/orders/printDocument'),
+        'timeout' => env('NOVA_POSHTA_TIMEOUT', 15),
+        'connect_timeout' => env('NOVA_POSHTA_CONNECT_TIMEOUT', 30),
+        'sender_city_ref' => env('NOVA_POSHTA_SENDER_CITY_REF'),
+        'sender_ref' => env('NOVA_POSHTA_SENDER_REF'),
+        'sender_address_ref' => env('NOVA_POSHTA_SENDER_ADDRESS_REF'),
+        'sender_contact_ref' => env('NOVA_POSHTA_SENDER_CONTACT_REF'),
+        'sender_phone' => env('NOVA_POSHTA_SENDER_PHONE'),
+        'payer_type' => env('NOVA_POSHTA_PAYER_TYPE', 'Recipient'),
+        'payment_method' => env('NOVA_POSHTA_PAYMENT_METHOD', 'Cash'),
+        'default_weight' => env('NOVA_POSHTA_DEFAULT_WEIGHT', 1),
+        'default_seats_amount' => env('NOVA_POSHTA_DEFAULT_SEATS_AMOUNT', 1),
+        'cargo_description' => env('NOVA_POSHTA_CARGO_DESCRIPTION', 'Auto parts'),
+    ],
+
     'ses' => [
         'key' => env('AWS_ACCESS_KEY_ID'),
         'secret' => env('AWS_SECRET_ACCESS_KEY'),

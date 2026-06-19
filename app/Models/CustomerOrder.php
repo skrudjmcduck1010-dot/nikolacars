@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Auth;
 use LogicException;
 
@@ -43,6 +44,8 @@ class CustomerOrder extends Model
     public const STATUS_NEW = 'new';
 
     public const STATUS_PROCESSING = 'processing';
+
+    public const STATUS_WAITING_PREPAYMENT = 'waiting_prepayment';
 
     public const STATUS_ASSEMBLED = 'assembled';
 
@@ -82,8 +85,9 @@ class CustomerOrder extends Model
     ];
 
     public const STATUS_LABELS = [
-        self::STATUS_NEW => 'Обрабатывается',
-        self::STATUS_PROCESSING => 'Обрабатывается',
+        self::STATUS_NEW => "\u{0421}\u{043E}\u{0431}\u{0438}\u{0440}\u{0430}\u{0435}\u{0442}\u{0441}\u{044F}",
+        self::STATUS_PROCESSING => "\u{0421}\u{043E}\u{0431}\u{0438}\u{0440}\u{0430}\u{0435}\u{0442}\u{0441}\u{044F}",
+        self::STATUS_WAITING_PREPAYMENT => "\u{0416}\u{0434}\u{0435}\u{043C} \u{043F}\u{0440}\u{0435}\u{0434}\u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0443}",
         self::STATUS_ASSEMBLED => "\u{0421}\u{043E}\u{0431}\u{0440}\u{0430}\u{043D}",
         self::STATUS_SHIPPED => "\u{041E}\u{0442}\u{043F}\u{0440}\u{0430}\u{0432}\u{043B}\u{0435}\u{043D}",
         self::STATUS_PAID => 'Оплачено',
@@ -99,6 +103,7 @@ class CustomerOrder extends Model
     public const RESERVATION_STATUSES = [
         self::STATUS_NEW,
         self::STATUS_PROCESSING,
+        self::STATUS_WAITING_PREPAYMENT,
         self::STATUS_ASSEMBLED,
         self::STATUS_SHIPPED,
         self::STATUS_PAID,
@@ -156,6 +161,17 @@ class CustomerOrder extends Model
         return $this->hasMany(CustomerOrderHistoryEvent::class);
     }
 
+    public function shipments(): HasMany
+    {
+        return $this->hasMany(CustomerOrderShipment::class);
+    }
+
+    public function novaPoshtaShipment(): HasOne
+    {
+        return $this->hasOne(CustomerOrderShipment::class)
+            ->where('carrier', CustomerOrderShipment::CARRIER_NOVA_POSHTA);
+    }
+
     public function getClientNameAttribute(): string
     {
         return trim(collect([$this->client_first_name, $this->client_last_name])->filter()->implode(' '));
@@ -165,6 +181,13 @@ class CustomerOrder extends Model
     {
         if ($this->isIssuedToClient()) {
             return self::STATUS_LABELS[self::STATUS_COMPLETED];
+        }
+
+        if (
+            $this->delivery_method === self::DELIVERY_METHOD_PICKUP
+            && $this->status === self::STATUS_PROCESSING
+        ) {
+            return "\u{0421}\u{043E}\u{0431}\u{0438}\u{0440}\u{0430}\u{0435}\u{0442}\u{0441}\u{044F}";
         }
 
         return self::STATUS_LABELS[$this->status] ?? $this->status;
@@ -203,6 +226,11 @@ class CustomerOrder extends Model
 
     public function canBeMarkedAsAssembled(): bool
     {
+        if ($this->delivery_method === self::DELIVERY_METHOD_NOVA_POSHTA) {
+            return $this->status === self::STATUS_PROCESSING
+                && (float) $this->paid_amount_uah > 0;
+        }
+
         return in_array($this->status, self::OPEN_STATUSES, true);
     }
 
@@ -247,6 +275,13 @@ class CustomerOrder extends Model
     public function canAcceptPrepayment(): bool
     {
         if ($this->delivery_method === self::DELIVERY_METHOD_STO) {
+            return false;
+        }
+
+        if (
+            $this->delivery_method === self::DELIVERY_METHOD_NOVA_POSHTA
+            && ! in_array($this->status, [self::STATUS_WAITING_PREPAYMENT, self::STATUS_PROCESSING], true)
+        ) {
             return false;
         }
 

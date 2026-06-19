@@ -1,7 +1,7 @@
 @php
     $nikolaCarsPriceSortLabel = $nikolaCarsSort === 'price'
-        ? '&#1062;&#1077;&#1085;&#1072; &#1087;&#1088;&#1086;&#1076;&#1072;&#1078;&#1080; '.($nikolaCarsSortDirection === 'asc' ? '&#8593;' : '&#8595;')
-        : '&#1062;&#1077;&#1085;&#1072; &#1087;&#1088;&#1086;&#1076;&#1072;&#1078;&#1080;';
+        ? 'Цена продажи '.($nikolaCarsSortDirection === 'asc' ? '&#8593;' : '&#8595;')
+        : 'Цена продажи';
     $nikolaCarsColorSwatchHex = function (?string $color): ?string {
         $normalized = mb_strtolower(trim((string) $color));
 
@@ -44,17 +44,17 @@
 <table class="nikolacars-parts-table" style="margin-top:12px;">
     <thead>
     <tr>
-        <th>&#1060;&#1086;&#1090;&#1086;</th>
-        <th>&#1050;&#1086;&#1076;</th>
-        <th><a class="catalog-sort-link" href="{{ $nikolaCarsSortUrl('part_number') }}">&#1040;&#1088;&#1090;&#1080;&#1082;&#1091;&#1083;</a></th>
-        <th><a class="catalog-sort-link" href="{{ $nikolaCarsSortUrl('name') }}">&#1053;&#1072;&#1079;&#1074;&#1072;&#1085;&#1080;&#1077;</a></th>
-        <th>&#1062;&#1074;&#1077;&#1090;</th>
-        <th><a class="catalog-sort-link" href="{{ $nikolaCarsSortUrl('vin') }}">&#1044;&#1086;&#1085;&#1086;&#1088;</a></th>
-        <th><a class="catalog-sort-link" href="{{ $nikolaCarsSortUrl('category') }}">&#1050;&#1072;&#1090;&#1077;&#1075;&#1086;&#1088;&#1080;&#1103;</a></th>
-        <th>&#1057;&#1090;&#1072;&#1090;&#1091;&#1089;</th>
+        <th>Фото</th>
+        <th>Код</th>
+        <th><a class="catalog-sort-link" href="{{ $nikolaCarsSortUrl('part_number') }}">Артикул</a></th>
+        <th><a class="catalog-sort-link" href="{{ $nikolaCarsSortUrl('name') }}">Название</a></th>
+        <th>Цвет</th>
+        <th><a class="catalog-sort-link" href="{{ $nikolaCarsSortUrl('vin') }}">Донор</a></th>
+        <th><a class="catalog-sort-link" href="{{ $nikolaCarsSortUrl('category') }}">Категория</a></th>
+        <th>Статус</th>
         <th><a class="catalog-sort-link" href="{{ $nikolaCarsSortUrl('price') }}">{!! $nikolaCarsPriceSortLabel !!}</a></th>
-        <th>&#1050;&#1091;&#1087;&#1080;&#1090;&#1100;</th>
-        <th><a class="catalog-sort-link" href="{{ $nikolaCarsSortUrl('stock') }}">&#1054;&#1089;&#1090;&#1072;&#1090;&#1086;&#1082;</a></th>
+        <th>Купить</th>
+        <th><a class="catalog-sort-link" href="{{ $nikolaCarsSortUrl('stock') }}">Остаток</a></th>
         <th></th>
     </tr>
     </thead>

@@ -200,7 +200,7 @@
         @yield('content')
     </main>
 </div>
-<button type="button" class="btn mobile-scroll-top" aria-label="&#1053;&#1072;&#1074;&#1077;&#1088;&#1093;" aria-hidden="true" tabindex="-1" data-mobile-scroll-top>&#8593;</button>
+<button type="button" class="btn mobile-scroll-top" aria-label="Наверх" aria-hidden="true" tabindex="-1" data-mobile-scroll-top>&#8593;</button>
 <script>
     (() => {
         const scrollTopButton = document.querySelector('[data-mobile-scroll-top]');

@@ -235,7 +235,7 @@
             <a href="{{ route('admin.customer-orders.index') }}">Заказы</a>
         @endif
         @if ($canManageCustomerOrders && ! $canManageStoWorkOrders)
-            <a href="{{ route('admin.customer-orders.index') }}">&#1047;&#1072;&#1082;&#1072;&#1079;&#1099;</a>
+            <a href="{{ route('admin.customer-orders.index') }}">Заказы</a>
         @endif
         @if ($canManagePurchases)
             <a href="{{ route('admin.purchases.index') }}">Закупки</a>
@@ -448,9 +448,9 @@
                     <details class="settings-menu">
                         <summary class="tag">{{ auth()->user()->name }} · {{ auth()->user()->roleLabel() }}</summary>
                         <div class="settings-menu-panel">
-                            <a href="{{ route('admin.users.index') }}">&#1044;&#1086;&#1089;&#1090;&#1091;&#1087;&#1099;</a>
-                            <a href="{{ route('admin.dictionary.index') }}">&#1057;&#1083;&#1086;&#1074;&#1072;&#1088;&#1100;</a>
-                            <a href="{{ route('admin.errors.index') }}">&#1054;&#1096;&#1080;&#1073;&#1082;&#1080;</a>
+                            <a href="{{ route('admin.users.index') }}">Доступы</a>
+                            <a href="{{ route('admin.dictionary.index') }}">Словарь</a>
+                            <a href="{{ route('admin.errors.index') }}">Ошибки</a>
                         </div>
                     </details>
                 @else
