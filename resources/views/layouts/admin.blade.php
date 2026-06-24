@@ -57,7 +57,7 @@
         table { width: 100%; border-collapse: collapse; }
         th, td { padding: 12px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
         th { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
-        .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+        .actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
         .btn, button { display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; border: 1px solid transparent; padding: 10px 16px; font-weight: 600; background: var(--accent); color: white; cursor: pointer; }
         .btn-small { padding: 6px 12px; font-size: 12px; }
         .btn-secondary { background: transparent; color: var(--text); border-color: var(--line); }
@@ -68,6 +68,9 @@
         .tag-exchange { background: #ffedd5; color: #c2410c; }
         .tag-exchange-with-rate { display: inline-grid; justify-items: center; gap: 1px; line-height: 1.1; text-align: center; }
         .tag-exchange-rate { font-size: 9px; font-weight: 600; }
+        .topbar-rate { display: inline-grid; gap: 2px; min-height: 38px; padding: 5px 12px; border: 1px solid var(--line); border-radius: 14px; background: #fff7ed; color: #9a3412; line-height: 1.1; white-space: nowrap; }
+        .topbar-rate__label { font-size: 11px; font-weight: 700; color: #c2410c; }
+        .topbar-rate__value { font-size: 14px; font-weight: 800; color: #7c2d12; }
         .tag-paid { background: #14532d; color: #ffffff; }
         .tag-archived { background: #e5e7eb; color: #64748b; }
         .donor-status { display: inline-flex; align-items: center; min-height: 26px; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 400; line-height: 1.2; white-space: nowrap; }
@@ -111,7 +114,11 @@
         .warehouse-location-form { grid-template-columns: minmax(150px, 1.2fr) repeat(5, minmax(70px, 1fr)); gap: 8px; }
         .location-floor-list { display: grid; gap: 12px; margin-bottom: 12px; }
         .location-floor-group { display: grid; gap: 8px; }
-        .location-floor-title { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+        .location-floor-title { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+        .location-floor-title .btn-small { width: 26px; height: 26px; padding: 0; line-height: 1; }
+        .location-cell-tag { display: inline-grid; gap: 2px; padding: 4px 10px; border-radius: 12px; background: var(--accent-soft); color: var(--accent); font-size: 12px; line-height: 1.15; }
+        .location-cell-tag small { color: var(--muted); font-size: 10px; font-weight: 600; }
+        .location-cell-tag--warning { background: #f6ead0; color: var(--warning); }
         .modal { width: min(640px, calc(100vw - 32px)); border: 1px solid var(--line); border-radius: 18px; padding: 20px; background: var(--panel); color: var(--text); box-shadow: 0 24px 70px rgba(25, 32, 36, .25); }
         .modal::backdrop { background: rgba(29, 42, 49, .35); }
         .modal-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
@@ -149,10 +156,7 @@
             $canManageCounterparties = $currentUser?->hasPermission('counterparties.manage');
             $canManageMobileParts = $currentUser?->hasPermission('mobile_parts.manage');
             $canManageWarehouses = $currentUser?->hasPermission('warehouses.manage');
-            $canManageLocations = $currentUser?->hasPermission('locations.manage');
-            $canManageStockItems = $currentUser?->hasPermission('stock_items.manage');
             $canManagePurchases = $currentUser?->hasPermission('purchases.manage');
-            $canViewMovements = $currentUser?->hasPermission('movements.view');
             $canManageNikolaCarsCatalog = $currentUser?->hasPermission('nikolacars_catalog.manage');
             $canViewNikolaCarsSales = $currentUser?->hasPermission('nikolacars_sales.view');
             $canManageCategories = $currentUser?->hasPermission('categories.manage');
@@ -172,7 +176,7 @@
             $canViewTeslaWestPartsCatalog = $currentUser?->hasPermission('teslawestparts_catalog.view');
             $canViewTeslaCompanyCatalog = $currentUser?->hasPermission('teslacompany_catalog.view');
             $canViewExchangeRates = $currentUser?->hasPermission('exchange_rates.view');
-            $hasWarehouseMenu = $canManageMobileParts || $canManageWarehouses || $canManageLocations || $canManageStockItems || $canViewMovements || $canManageDonorCars || $canManageCounterparties || $canManageStoEmployees;
+            $hasWarehouseMenu = $canManageMobileParts || $canManageWarehouses || $canManageDonorCars || $canManageCounterparties || $canManageStoEmployees;
             $hasReferenceMenu = $canManageCategories || $canManageBrands || $canManageProducts || $canViewTeslaCatalog;
             $hasCompetitorMenu = $canViewPartCatalog || $canViewTeslaPartsUkraineCatalog || $canViewTskCatalog || $canViewStockTeslaCatalog || $canViewCompetitorsRu || $canViewDrivePartsCatalog || $canViewDkPartsCatalog || $canViewErazborkaCatalog || $canViewTopRazborkaCatalog || $canViewTeslaWestPartsCatalog || $canViewTeslaCompanyCatalog || $canViewTeslaOfficialCatalog;
             $canViewReports = $currentUser?->hasPermission('reports.view');
@@ -254,16 +258,7 @@
             <a href="{{ route('admin.mobile.parts.index') }}">Мобильное добавление</a>
         @endif
         @if ($canManageWarehouses)
-            <a href="{{ route('admin.warehouses.index') }}">Склады</a>
-        @endif
-        @if ($canManageLocations)
-            <a href="{{ route('admin.locations.index') }}">Ячейки</a>
-        @endif
-        @if ($canManageStockItems)
-            <a href="{{ route('admin.stock-items.index') }}">Остатки</a>
-        @endif
-        @if ($canViewMovements)
-            <a href="{{ route('admin.movements.index') }}">Движения</a>
+            <a href="{{ route('admin.warehouses.index') }}">Склад</a>
         @endif
         @if ($canManageDonorCars)
             <a href="{{ route('admin.donor-cars.index') }}">Доноры</a>
@@ -343,7 +338,7 @@
         @php
             $routeName = request()->route()?->getName();
             $resourceLabels = [
-                'warehouses' => 'Склады',
+                'warehouses' => 'Склад',
                 'locations' => 'Ячейки',
                 'categories' => 'Категории',
                 'brands' => 'Бренды',
@@ -391,6 +386,8 @@
                 'products' => 'admin.zapchasti.index',
             ];
             $breadcrumbs = [['label' => 'Панель', 'url' => route('admin.dashboard')]];
+            $topbarRateDate = \Illuminate\Support\Carbon::today();
+            $topbarUsdRate = app(\App\Services\ExchangeRateService::class)->displayUsdRate($topbarRateDate);
 
             if ($routeName && $routeName !== 'admin.dashboard') {
                 $routeParts = explode('.', $routeName);
@@ -444,6 +441,10 @@
             </div>
             <div class="actions">
                 @yield('topbar-actions')
+                <span class="topbar-rate" title="{{ $topbarUsdRate['source_label'] ?? '' }}">
+                    <span class="topbar-rate__label">Курс на сегодня, {{ $topbarRateDate->format('d.m.Y') }}</span>
+                    <span class="topbar-rate__value">$ {{ number_format((float) ($topbarUsdRate['rate'] ?? 0), 2, '.', ' ') }}</span>
+                </span>
                 @if ($canManageUsers)
                     <details class="settings-menu">
                         <summary class="tag">{{ auth()->user()->name }} · {{ auth()->user()->roleLabel() }}</summary>

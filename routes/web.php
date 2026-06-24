@@ -132,7 +132,14 @@ Route::middleware(['auth', 'active'])->group(function (): void {
             Route::get('donor-cars/parts/search', [DonorCarController::class, 'partSuggestions'])->name('donor-cars.parts.search');
             Route::post('donor-cars/{donorCar}/photos', [DonorCarController::class, 'storePhotos'])->name('donor-cars.photos.store');
             Route::delete('donor-cars/{donorCar}/photos', [DonorCarController::class, 'destroyPhoto'])->name('donor-cars.photos.destroy');
+            Route::get('donor-cars/{donorCar}/products/table', [DonorCarController::class, 'productsTable'])->name('donor-cars.products.table');
+            Route::get('donor-cars/{donorCar}/sales/table', [DonorCarController::class, 'partSalesTable'])->name('donor-cars.sales.table');
             Route::post('donor-cars/{donorCar}/products', [DonorCarController::class, 'storeProduct'])->name('donor-cars.products.store');
+            Route::get('donor-cars/{donorCar}/products/{product}/photo-preview/{index}', [DonorCarController::class, 'productPhotoPreview'])
+                ->whereNumber('index')
+                ->name('donor-cars.products.photo-preview');
+            Route::patch('donor-cars/{donorCar}/products/{product}/photos/rotate', [DonorCarController::class, 'rotateProductPhoto'])
+                ->name('donor-cars.products.photos.rotate');
             Route::get('donor-cars/{donorCar}/small-parts', [DonorCarController::class, 'smallParts'])->name('donor-cars.small-parts.index');
             Route::post('donor-cars/{donorCar}/products/{product}/small-part', [DonorCarController::class, 'markProductAsSmallPart'])->name('donor-cars.products.small-part.store');
             Route::delete('donor-cars/{donorCar}/products/{product}/small-part', [DonorCarController::class, 'unmarkProductAsSmallPart'])->name('donor-cars.products.small-part.destroy');
@@ -180,6 +187,8 @@ Route::middleware(['auth', 'active'])->group(function (): void {
             Route::patch('customer-orders/{customerOrder}/delivery-method', [CustomerOrderController::class, 'updateDeliveryMethod'])->name('customer-orders.delivery-method.update');
             Route::patch('customer-orders/{customerOrder}/note', [CustomerOrderController::class, 'updateNote'])->name('customer-orders.note.update');
             Route::patch('customer-orders/{customerOrder}/status', [CustomerOrderController::class, 'updateStatus'])->name('customer-orders.status.update');
+            Route::post('customer-orders/{customerOrder}/nova-poshta/tracking-number', [CustomerOrderController::class, 'storeNovaPoshtaTrackingNumber'])->name('customer-orders.nova-poshta.tracking-number.store');
+            Route::patch('customer-orders/{customerOrder}/nova-poshta/tracking-number', [CustomerOrderController::class, 'updateNovaPoshtaTrackingNumber'])->name('customer-orders.nova-poshta.tracking-number.update');
             Route::get('customer-orders/{customerOrder}/nova-poshta/label', [CustomerOrderController::class, 'printNovaPoshtaLabel'])->name('customer-orders.nova-poshta.label');
             Route::post('customer-orders/{customerOrder}/nova-poshta/sync-status', [CustomerOrderController::class, 'syncNovaPoshtaStatus'])->name('customer-orders.nova-poshta.sync-status');
             Route::post('customer-orders/{customerOrder}/recreate', [CustomerOrderController::class, 'recreate'])->name('customer-orders.recreate');
@@ -287,6 +296,7 @@ Route::middleware(['auth', 'active'])->group(function (): void {
         Route::post('products/{product}/photos', [ProductController::class, 'storePhotos'])->middleware('permission:products.manage')->name('products.photos.store');
         Route::delete('products/{product}/photos', [ProductController::class, 'destroyPhoto'])->middleware('permission:products.manage')->name('products.photos.destroy');
         Route::patch('products/{product}/photos/order', [ProductController::class, 'updatePhotoOrder'])->middleware('permission:products.manage')->name('products.photos.order');
+        Route::patch('products/{product}/photos/rotate', [ProductController::class, 'rotatePhoto'])->middleware('permission:products.manage')->name('products.photos.rotate');
         Route::patch('products/{product}/catalog-name', [ProductController::class, 'updateCatalogName'])->middleware('permission:products.manage')->name('products.catalog-name.update');
         Route::resource('products', ProductController::class)
             ->middleware('permission:products.manage');

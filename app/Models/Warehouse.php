@@ -19,6 +19,8 @@ class Warehouse extends Model
 
     public const DONOR_WAREHOUSE_NAME = 'На доноре';
 
+    private const LOCATIONLESS_GARAGE_NUMBERS = ['214', '278'];
+
     protected function casts(): array
     {
         return [
@@ -34,12 +36,33 @@ class Warehouse extends Model
 
     public function availableFloors(): array
     {
+        if (! $this->usesStructuredLocations()) {
+            return Location::floorsForCount(1);
+        }
+
         return Location::floorsForCount($this->floor_count);
     }
 
     public function hasMultipleFloors(): bool
     {
-        return $this->floor_count > 1;
+        return $this->usesStructuredLocations() && $this->floor_count > 1;
+    }
+
+    public function usesStructuredLocations(): bool
+    {
+        $name = (string) $this->name;
+
+        if (preg_match('/garage|гараж/iu', $name) !== 1) {
+            return true;
+        }
+
+        foreach (self::LOCATIONLESS_GARAGE_NUMBERS as $garageNumber) {
+            if (preg_match('/(^|\D)'.preg_quote($garageNumber, '/').'(\D|$)/u', $name) === 1) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public function locations(): HasMany

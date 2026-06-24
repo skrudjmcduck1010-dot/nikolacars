@@ -11,6 +11,9 @@ use Throwable;
 class ExchangeRateService
 {
     private const DEFAULT_USD_RATE = 43.0;
+    private const MONOBANK_START_DATE = '2026-06-22';
+    private const SOURCE_NBU = 'nbu';
+    private const SOURCE_MONOBANK = 'monobank';
 
     public function currentUsdRate(): array
     {
@@ -72,7 +75,10 @@ class ExchangeRateService
             ? $date->copy()->startOfDay()
             : Carbon::parse($date ?? 'today')->startOfDay();
 
-        $rate = $this->nbuUsdRate($date);
+        $source = $this->officialSourceForDate($date);
+        $rate = $source === self::SOURCE_MONOBANK
+            ? $this->monobankUsdRate($date)
+            : $this->nbuUsdRate($date);
 
         if ($rate === null) {
             return null;
@@ -88,14 +94,14 @@ class ExchangeRateService
 
         $exchangeRate->fill([
             'rate' => $rate,
-            'source' => 'nbu',
+            'source' => $source,
             'fetched_at' => now(),
         ])->save();
 
         Cache::put($this->cacheKey($date), $rate, now()->addHours(6));
 
         if ($date->isSameDay(Carbon::today())) {
-            Cache::put('exchange_rate_usd_nbu_latest', $rate, now()->addHours(6));
+            Cache::put($this->latestCacheKey($source), $rate, now()->addHours(6));
         }
 
         return $exchangeRate;
@@ -151,7 +157,7 @@ class ExchangeRateService
     {
         return ExchangeRate::query()
             ->where('currency', 'USD')
-            ->where('source', 'nbu')
+            ->where('source', $this->officialSourceForDate($date))
             ->whereDate('rate_date', $date->toDateString())
             ->first();
     }
@@ -160,10 +166,26 @@ class ExchangeRateService
     {
         return ExchangeRate::query()
             ->where('currency', 'USD')
-            ->where('source', 'nbu')
+            ->whereIn('source', $this->officialSources())
             ->whereDate('rate_date', '<=', $date->toDateString())
             ->latest('rate_date')
             ->first();
+    }
+
+    public function officialSourceForDate(Carbon|string|null $date = null): string
+    {
+        $date = $date instanceof Carbon
+            ? $date->copy()->startOfDay()
+            : Carbon::parse($date ?? 'today')->startOfDay();
+
+        return $date->gte(Carbon::parse(self::MONOBANK_START_DATE)->startOfDay())
+            ? self::SOURCE_MONOBANK
+            : self::SOURCE_NBU;
+    }
+
+    public function officialSources(): array
+    {
+        return [self::SOURCE_NBU, self::SOURCE_MONOBANK];
     }
 
     private function nbuUsdRate(Carbon $date): ?float
@@ -192,18 +214,60 @@ class ExchangeRateService
         });
     }
 
+    private function monobankUsdRate(Carbon $date): ?float
+    {
+        return Cache::remember($this->cacheKey($date), now()->addHours(1), function (): ?float {
+            try {
+                $response = Http::timeout(5)
+                    ->acceptJson()
+                    ->get('https://api.monobank.ua/bank/currency');
+            } catch (Throwable) {
+                return null;
+            }
+
+            if (! $response->ok()) {
+                return null;
+            }
+
+            $row = collect($response->json())->first(function (mixed $row): bool {
+                return is_array($row)
+                    && (int) ($row['currencyCodeA'] ?? 0) === 840
+                    && (int) ($row['currencyCodeB'] ?? 0) === 980;
+            });
+
+            if (! is_array($row)) {
+                return null;
+            }
+
+            $rate = $row['rateSell'] ?? $row['rateCross'] ?? $row['rateBuy'] ?? null;
+
+            return is_numeric($rate) && (float) $rate > 0 ? (float) $rate : null;
+        });
+    }
+
     private function cacheKey(Carbon $date): string
     {
+        $source = $this->officialSourceForDate($date);
+
         if ($date->isSameDay(Carbon::today())) {
-            return 'exchange_rate_usd_nbu_latest';
+            return $this->latestCacheKey($source);
         }
 
-        return 'exchange_rate_usd_nbu_'.$date->toDateString();
+        return 'exchange_rate_usd_'.$source.'_'.$date->toDateString();
+    }
+
+    private function latestCacheKey(string $source): string
+    {
+        return 'exchange_rate_usd_'.$source.'_latest';
     }
 
     private function sourceLabel(string $source): string
     {
-        return $source === 'nbu' ? 'курс НБУ' : $source;
+        return match ($source) {
+            self::SOURCE_NBU => 'курс НБУ',
+            self::SOURCE_MONOBANK => 'курс Monobank',
+            default => $source,
+        };
     }
 
     private function payload(float $rate, string $source, string $sourceLabel, Carbon $date): array

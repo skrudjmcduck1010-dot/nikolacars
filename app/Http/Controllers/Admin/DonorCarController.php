@@ -39,15 +39,20 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class DonorCarController extends Controller
 {
+    private const DONOR_PRODUCTS_INITIAL_LIMIT = 80;
+
     protected ?PartCatalogDisplayService $catalogDisplayService = null;
 
     public function index(Request $request): View
@@ -164,10 +169,19 @@ class DonorCarController extends Controller
         $statusLabel = fn (?string $value): string => trim((string) $value) !== ''
             ? "\u{0421}\u{0442}\u{0430}\u{0442}\u{0443}\u{0441}: ".trim((string) $value)
             : '';
+        $soldStatus = "\u{041F}\u{0440}\u{043E}\u{0434}\u{0430}\u{043D}";
+
+        $donorPhotoUrl = function (?DonorCar $donorCar): ?string {
+            $photo = collect($donorCar?->photos ?? [])->first();
+
+            return is_string($photo) && trim($photo) !== ''
+                ? PublicStorageUrl::url($photo)
+                : null;
+        };
 
         $productsQuery = Product::query()
             ->with([
-                'donorCar:id,vin,status,model,year',
+                'donorCar:id,vin,status,model,year,photos',
                 'sourcePartCatalogItem:id,name_ru,name_ua,name_en,name,part_number',
             ])
             ->whereNotNull('donor_car_id')
@@ -218,7 +232,7 @@ class DonorCarController extends Controller
 
         $salesQuery = PartSale::query()
             ->with([
-                'donorCar:id,vin,status,model,year',
+                'donorCar:id,vin,status,model,year,photos',
                 'partCatalogItem:id,name_ru,name_ua,name_en,name,part_number',
                 'product:id,source_part_catalog_item_id',
                 'product.sourcePartCatalogItem:id,name_ru,name_ua,name_en,name,part_number',
@@ -284,7 +298,7 @@ class DonorCarController extends Controller
                 ->get(),
         };
 
-        $productSuggestions = $products->map(function (Product $product) use ($damageStatus, $isMobileContext, $matchesQuery, $statusLabel): array {
+        $productSuggestions = $products->map(function (Product $product) use ($damageStatus, $donorPhotoUrl, $isMobileContext, $matchesQuery, $soldStatus, $statusLabel): array {
             $partNumber = $product->external_sku ?: $product->sku;
             $catalogItem = $product->sourcePartCatalogItem;
             $matchesPartNumber = $matchesQuery($product->external_sku)
@@ -297,13 +311,16 @@ class DonorCarController extends Controller
             $displayName = ($matchesPartNumber || $matchesLocalizedName)
                 ? (trim((string) $catalogItem?->name_ru) ?: $product->name)
                 : $product->name;
-            $partStatus = $damageStatus($product->notes);
+            $partStatus = $product->storage_status === Product::STORAGE_STATUS_SOLD
+                ? $soldStatus
+                : $damageStatus($product->notes);
 
             return [
                 'type' => 'product',
                 'name' => $displayName,
                 'part_number' => $partNumber,
                 'donor' => $product->donorCar?->display_vin,
+                'donor_photo_url' => $donorPhotoUrl($product->donorCar),
                 'status' => $partStatus,
                 'meta' => collect([
                     $partNumber,
@@ -320,7 +337,7 @@ class DonorCarController extends Controller
             ];
         });
 
-        $saleSuggestions = $sales->map(function (PartSale $sale) use ($isMobileContext, $matchesQuery, $statusLabel): array {
+        $saleSuggestions = $sales->map(function (PartSale $sale) use ($donorPhotoUrl, $isMobileContext, $matchesQuery, $soldStatus, $statusLabel): array {
             $partNumber = $sale->part_number ?: $sale->code;
             $catalogItem = $sale->partCatalogItem ?: $sale->product?->sourcePartCatalogItem;
             $matchesPartNumber = $matchesQuery($sale->part_number)
@@ -333,13 +350,14 @@ class DonorCarController extends Controller
             $displayName = ($matchesPartNumber || $matchesLocalizedName)
                 ? (trim((string) $catalogItem?->name_ru) ?: $sale->name)
                 : $sale->name;
-            $partStatus = "\u{041F}\u{0440}\u{043E}\u{0434}\u{0430}\u{043D}\u{043E}";
+            $partStatus = $soldStatus;
 
             return [
-                'type' => 'sale',
+                'type' => $sale->product ? 'product' : 'sale',
                 'name' => $displayName,
                 'part_number' => $partNumber,
                 'donor' => $sale->donorCar?->display_vin,
+                'donor_photo_url' => $donorPhotoUrl($sale->donorCar),
                 'status' => $partStatus,
                 'meta' => collect([
                     $statusLabel($partStatus),
@@ -362,6 +380,12 @@ class DonorCarController extends Controller
         return response()->json($productSuggestions
             ->concat($saleSuggestions)
             ->filter(fn (array $item): bool => trim((string) $item['name']) !== '' || trim((string) $item['part_number']) !== '')
+            ->unique(fn (array $item): string => (string) ($item['url'] ?: implode('|', [
+                $item['type'] ?? '',
+                $item['part_number'] ?? '',
+                $item['donor'] ?? '',
+                $item['name'] ?? '',
+            ])))
             ->take(15)
             ->values());
     }
@@ -388,7 +412,6 @@ class DonorCarController extends Controller
             'damage_note',
             'tesla_price',
             'price',
-            'quantity',
             'warehouse',
             'location',
         ], true) ? (string) $request->query('product_sort') : 'price';
@@ -412,27 +435,23 @@ class DonorCarController extends Controller
             ? (string) $request->query('sale_direction')
             : $defaultSaleDirection;
 
-        $donorCar->load([
-            'products' => fn ($query) => $this->sortDonorProducts($query, $productSort, $productDirection),
-            'products.category',
-            'products.sourcePartCatalogItem.category.parent.parent.parent.parent',
-            'products.sourcePartCatalogItem.occurrences.category.parent.parent.parent.parent',
-            'products.stockItems.warehouse',
-            'products.stockItems.location',
-            'products.stoWorkOrderParts.order',
-            'partSales' => fn ($query) => $this->sortDonorPartSales(
-                $query->with([
-                    'partCatalogItem.category.parent.parent.parent.parent',
-                    'partCatalogItem.occurrences.category.parent.parent.parent.parent',
-                ]),
-                $saleSort,
-                $saleDirection
-            ),
-        ]);
-        $donorCar->setRelation('products', $this->withRecoveredProductCatalogItems($donorCar->products));
-        $donorCar->setRelation('partSales', $this->deduplicatedDonorPartSales(
-            $this->withRecoveredPartSaleCatalogItems($donorCar->partSales)
-        ));
+        $smallPartNumbers = $this->smallPartNumbersForDonor($donorCar);
+        $partSalesForVisibility = $this->donorPartSalesForProductVisibility($donorCar);
+        $partSalesSummary = $this->donorPartSalesSummary($partSalesForVisibility);
+        $productPage = max(1, (int) $request->query('product_page', 1));
+        $productStats = $this->donorProductTableStats($donorCar, $partSalesForVisibility, $smallPartNumbers);
+        $products = $this->visibleDonorProductsForTable(
+            $donorCar,
+            $productSort,
+            $productDirection,
+            '',
+            self::DONOR_PRODUCTS_INITIAL_LIMIT,
+            $partSalesForVisibility,
+            $smallPartNumbers,
+            $productPage
+        );
+        $donorCar->setRelation('products', $products);
+        $donorCar->setRelation('partSales', $partSalesForVisibility);
         $donorPartPresenter = app(DonorPartDisplayPresenter::class);
 
         $catalogNameSourcesByItemId = $this->localizedNameSourcesForItems($donorCar->products
@@ -440,35 +459,6 @@ class DonorCarController extends Controller
             ->filter()
             ->unique('id')
             ->values());
-        $saleProductIds = $donorCar->partSales
-            ->flatMap(fn (PartSale $sale): array => $donorPartPresenter->saleProductIdCandidates($sale))
-            ->filter()
-            ->unique()
-            ->values();
-        $saleCatalogItemIds = $donorCar->partSales
-            ->pluck('part_catalog_item_id')
-            ->filter()
-            ->unique()
-            ->values();
-        $saleProducts = $saleProductIds->isEmpty() && $saleCatalogItemIds->isEmpty()
-            ? collect()
-            : Product::query()
-                ->with([
-                    'sourcePartCatalogItem.category.parent.parent.parent.parent',
-                    'sourcePartCatalogItem.occurrences.category.parent.parent.parent.parent',
-                ])
-                ->select(['id', 'sku', 'external_sku', 'name', 'source_part_catalog_item_id'])
-                ->where(function (Builder $query) use ($saleProductIds, $saleCatalogItemIds): void {
-                    if ($saleProductIds->isNotEmpty()) {
-                        $query->whereIn('id', $saleProductIds);
-                    }
-
-                    if ($saleCatalogItemIds->isNotEmpty()) {
-                        $method = $saleProductIds->isNotEmpty() ? 'orWhereIn' : 'whereIn';
-                        $query->{$method}('source_part_catalog_item_id', $saleCatalogItemIds);
-                    }
-                })
-                ->get();
         $donorProductReservations = $this->donorProductReservations($donorCar->products);
         $officialTeslaCatalogPricesByProductId = $this->officialTeslaCatalogPricesByProduct($donorCar->products);
         $officialTeslaCatalogNamesByProductId = $this->officialTeslaCatalogNamesByProduct($donorCar->products);
@@ -484,18 +474,17 @@ class DonorCarController extends Controller
 
         $nikolaCarsProductItemsByProductId = $this->nikolaCarsProductMirrorItemsByProductId($donorCar->products);
 
+        $donorPhotoItems = $this->donorPhotoItems($donorCar);
+
         return view('admin.donor_cars.show', [
             'donorCar' => $donorCar,
             'catalogNameSourcesByItemId' => $catalogNameSourcesByItemId,
             'nikolaCarsProductItemsByProductId' => $nikolaCarsProductItemsByProductId,
-            'saleProductsById' => $saleProducts->keyBy('id'),
-            'saleProductsByCatalogItem' => $saleProducts
-                ->whereNotNull('source_part_catalog_item_id')
-                ->keyBy('source_part_catalog_item_id'),
+            'saleProductsById' => collect(),
+            'saleProductsByCatalogItem' => collect(),
             'warehouses' => $this->activeWarehouses(),
-            'donorPhotoUrls' => collect($donorCar->photos ?? [])
-                ->map(fn (string $photo): string => PublicStorageUrl::url($photo) ?? $photo)
-                ->values(),
+            'donorPhotoItems' => $donorPhotoItems,
+            'donorPhotoUrls' => $donorPhotoItems->pluck('url')->values(),
             'nextPartCode' => $this->nextPartCode($donorCar),
             'damageZones' => DonorProductGenerationService::DAMAGE_ZONES,
             'damageOptions' => $this->donorProductDamageOptions(),
@@ -507,9 +496,384 @@ class DonorCarController extends Controller
             'donorProductReservations' => $donorProductReservations,
             'officialTeslaCatalogPricesByProductId' => $officialTeslaCatalogPricesByProductId,
             'officialTeslaCatalogNamesByProductId' => $officialTeslaCatalogNamesByProductId,
-            'smallPartNumbers' => $this->smallPartNumbers(),
+            'smallPartNumbers' => $smallPartNumbers,
+            'smallProductsCountOverride' => $productStats['small'],
+            'donorProductTableTotal' => $productStats['all'],
+            'donorProductCheckedTotal' => $productStats['checked'],
+            'donorProductBrokenTotal' => $productStats['broken'],
+            'donorProductsCurrentPage' => $productPage,
+            'donorPartSalesTotal' => $partSalesSummary['count'],
+            'soldPartsQuantity' => $partSalesSummary['quantity_text'],
+            'soldPartsTotals' => $partSalesSummary['totals_text'],
+            'checkedDamageStatuses' => NikolaCarsProductInventorySyncService::CHECKED_DAMAGE_STATUSES,
+            'placementWarehouseOptions' => $this->placementWarehouseOptions($this->activePlacementWarehouses()),
+            'placementLocationOptions' => $this->placementLocationOptions($this->activePlacementLocations()),
             'usdRate' => app(ExchangeRateService::class)->displayUsdRate(),
+            'donorProductsInitialLimit' => self::DONOR_PRODUCTS_INITIAL_LIMIT,
         ]);
+    }
+
+    public function productsTable(Request $request, DonorCar $donorCar): JsonResponse
+    {
+        $productSort = in_array($request->query('product_sort'), [
+            'photo',
+            'sku',
+            'external_sku',
+            'name',
+            'category',
+            'condition',
+            'damage_note',
+            'tesla_price',
+            'price',
+            'warehouse',
+            'location',
+        ], true) ? (string) $request->query('product_sort') : 'price';
+        $defaultProductDirection = $productSort === 'price' ? 'desc' : 'asc';
+        $productDirection = in_array($request->query('product_direction'), ['asc', 'desc'], true)
+            ? (string) $request->query('product_direction')
+            : $defaultProductDirection;
+        $search = trim((string) $request->query('q', ''));
+        if ($search === '') {
+            $search = trim((string) $request->query('search', ''));
+        }
+        $tab = in_array($request->query('tab'), ['all', 'checked', 'broken'], true)
+            ? (string) $request->query('tab')
+            : 'all';
+        $page = max(1, (int) $request->query('page', 1));
+        $partSales = $this->donorPartSalesForProductVisibility($donorCar);
+        $useFastTabStats = $search === '' && in_array($tab, ['checked', 'broken'], true);
+        $smallPartNumbers = $useFastTabStats ? collect() : $this->smallPartNumbersForDonor($donorCar);
+        $productStats = $useFastTabStats
+            ? $this->fastDonorProductTableStats($donorCar, $partSales)
+            : $this->donorProductTableStats($donorCar, $partSales, $smallPartNumbers, $search);
+        $activeTotal = $productStats[$tab] ?? $productStats['all'];
+        $lastPage = max(1, (int) ceil($activeTotal / self::DONOR_PRODUCTS_INITIAL_LIMIT));
+        $page = min($page, $lastPage);
+        $products = $this->visibleDonorProductsForTable(
+            $donorCar,
+            $productSort,
+            $productDirection,
+            $search,
+            self::DONOR_PRODUCTS_INITIAL_LIMIT,
+            $partSales,
+            $smallPartNumbers,
+            $page,
+            $tab
+        );
+        $donorCar->setRelation('products', $products);
+        $donorCar->setRelation('partSales', $partSales);
+
+        $donorPartPresenter = app(DonorPartDisplayPresenter::class);
+        $smallPartNumbersNormalized = $smallPartNumbers
+            ->map(fn ($partNumber) => PartNumberNormalizer::normalize((string) $partNumber))
+            ->filter()
+            ->unique()
+            ->values();
+        $damageNote = function (Product $product): string {
+            $value = trim((string) ($product->notes ?? ''));
+
+            return preg_match('/^\?+$/', $value) ? "\u{041D}\u{0435}\u{0438}\u{0437}\u{0432}\u{0435}\u{0441}\u{0442}\u{043D}\u{043E}" : $value;
+        };
+        $brokenDamageValues = [
+            NikolaCarsProductInventorySyncService::BROKEN_DAMAGE_STATUS,
+            NikolaCarsProductInventorySyncService::NON_LIQUID_DAMAGE_STATUS,
+        ];
+        $isInactiveProduct = fn (Product $product): bool => in_array($product->storage_status, [
+            Product::STORAGE_STATUS_SOLD,
+            Product::STORAGE_STATUS_WRITTEN_OFF,
+        ], true);
+        $soldCatalogItemIds = $donorCar->partSales
+            ->pluck('part_catalog_item_id')
+            ->filter()
+            ->map(fn ($id): int => (int) $id)
+            ->unique()
+            ->values();
+        $soldProductIds = $donorCar->partSales
+            ->flatMap(fn (PartSale $sale): array => $donorPartPresenter->saleProductIdCandidates($sale))
+            ->filter()
+            ->unique()
+            ->values();
+        $isSoldPartSaleProduct = fn (Product $product): bool => $soldProductIds->contains((int) $product->id)
+            || ($product->source_part_catalog_item_id !== null
+                && $soldCatalogItemIds->contains((int) $product->source_part_catalog_item_id));
+        $isSmallTeslaVinPart = fn (Product $product): bool => (bool) data_get($product->sourcePartCatalogItem?->raw_attributes, 'donor_vin_small_part', false)
+            || $smallPartNumbersNormalized->contains(PartNumberNormalizer::normalize($product->external_sku ?: $product->sourcePartCatalogItem?->part_number));
+        $isUnknownDamageNote = fn (Product $product): bool => in_array($damageNote($product), ['', "\u{041D}\u{0435}\u{0438}\u{0437}\u{0432}\u{0435}\u{0441}\u{0442}\u{043D}\u{043E}"], true);
+        $isBrokenDamageNote = fn (Product $product): bool => in_array($damageNote($product), $brokenDamageValues, true);
+        $isCheckedDamageNote = fn (Product $product): bool => ! $isUnknownDamageNote($product) && ! $isBrokenDamageNote($product);
+        $displayProducts = $donorCar->products
+            ->reject($isInactiveProduct)
+            ->reject($isSoldPartSaleProduct)
+            ->reject($isSmallTeslaVinPart)
+            ->values();
+        $catalogNameSourcesByItemId = $this->localizedNameSourcesForItems($displayProducts
+            ->pluck('sourcePartCatalogItem')
+            ->filter()
+            ->unique('id')
+            ->values());
+        $nikolaCarsProductItemsByProductId = $this->nikolaCarsProductMirrorItemsByProductId($displayProducts);
+        $donorProductReservations = $this->donorProductReservations($displayProducts);
+        $officialTeslaCatalogPricesByProductId = $this->officialTeslaCatalogPricesByProduct($displayProducts);
+        $officialTeslaCatalogNamesByProductId = $this->officialTeslaCatalogNamesByProduct($displayProducts);
+
+        if ($productSort === 'tesla_price') {
+            $displayProducts = $displayProducts->sortBy(
+                fn (Product $product): float => (float) ($officialTeslaCatalogPricesByProductId->get((int) $product->id)['price_amount'] ?? 0),
+                SORT_REGULAR,
+                $productDirection === 'desc'
+            )->values();
+        }
+
+        $html = view('admin.donor_cars._products_table', [
+            'donorCar' => $donorCar,
+            'products' => $displayProducts,
+            'emptyText' => $search === ''
+                ? "\u{0417}\u{0430}\u{043F}\u{0447}\u{0430}\u{0441}\u{0442}\u{0438} \u{0441} \u{044D}\u{0442}\u{043E}\u{0433}\u{043E} \u{0434}\u{043E}\u{043D}\u{043E}\u{0440}\u{0430} \u{0435}\u{0449}\u{0435} \u{043D}\u{0435} \u{0434}\u{043E}\u{0431}\u{0430}\u{0432}\u{043B}\u{0435}\u{043D}\u{044B}."
+                : "\u{041F}\u{043E} \u{044D}\u{0442}\u{043E}\u{043C}\u{0443} \u{043F}\u{043E}\u{0438}\u{0441}\u{043A}\u{0443} \u{0437}\u{0430}\u{043F}\u{0447}\u{0430}\u{0441}\u{0442}\u{0438} \u{043D}\u{0435} \u{043D}\u{0430}\u{0439}\u{0434}\u{0435}\u{043D}\u{044B}.",
+            'showOfficialFields' => true,
+            'donorProductReservations' => $donorProductReservations,
+            'officialTeslaCatalogPricesByProductId' => $officialTeslaCatalogPricesByProductId,
+            'officialTeslaCatalogNamesByProductId' => $officialTeslaCatalogNamesByProductId,
+            'smallPartNumbers' => $smallPartNumbers,
+            'showProductAnchors' => true,
+            'productSort' => $productSort,
+            'productDirection' => $productDirection,
+            'catalogNameSourcesByItemId' => $catalogNameSourcesByItemId,
+            'nikolaCarsProductItemsByProductId' => $nikolaCarsProductItemsByProductId,
+            'damageOptions' => $this->donorProductDamageOptions(),
+            'donorPartPresenter' => $donorPartPresenter,
+            'isCheckedDamageNote' => $isCheckedDamageNote,
+            'isBrokenDamageNote' => $isBrokenDamageNote,
+            'damageNote' => $damageNote,
+            'usdRate' => app(ExchangeRateService::class)->displayUsdRate(),
+        ])->render();
+
+        return response()->json([
+            'html' => $html,
+            'count' => $displayProducts->count(),
+            'total' => $productStats['all'],
+            'active_total' => $activeTotal,
+            'checked_total' => $productStats['checked'],
+            'broken_total' => $productStats['broken'],
+            'small_total' => $productStats['small'],
+            'tab' => $tab,
+            'page' => $page,
+            'per_page' => self::DONOR_PRODUCTS_INITIAL_LIMIT,
+            'pagination_html' => view('admin.donor_cars._products_pagination', [
+                'currentPage' => $page,
+                'lastPage' => $lastPage,
+                'total' => $activeTotal,
+                'perPage' => self::DONOR_PRODUCTS_INITIAL_LIMIT,
+            ])->render(),
+            'limited' => $search === '' && $activeTotal > self::DONOR_PRODUCTS_INITIAL_LIMIT,
+        ]);
+    }
+
+    public function productPhotoPreview(DonorCar $donorCar, Product $product, int $index): BinaryFileResponse|RedirectResponse
+    {
+        abort_unless((int) $product->donor_car_id === (int) $donorCar->id, 404);
+
+        $photo = ProductPhotoNormalizer::productPhotos($product)->get($index);
+        abort_if(! is_string($photo) || trim($photo) === '', 404);
+
+        $originalUrl = PublicStorageUrl::url($photo) ?? $photo;
+        $previewPath = $this->ensureProductPhotoPreview($photo);
+
+        if ($previewPath && Storage::disk('public')->exists($previewPath)) {
+            return response()->file(Storage::disk('public')->path($previewPath), [
+                'Cache-Control' => 'public, max-age=604800',
+            ]);
+        }
+
+        return redirect()->away($originalUrl);
+    }
+
+    public function rotateProductPhoto(Request $request, DonorCar $donorCar, Product $product): RedirectResponse|JsonResponse
+    {
+        abort_unless((int) $product->donor_car_id === (int) $donorCar->id, 404);
+
+        $response = app(ProductController::class)->rotatePhoto($request, $product);
+        $photo = trim((string) $request->input('photo'));
+
+        if ($photo !== '') {
+            Storage::disk('public')->delete($this->productPhotoPreviewPath($photo));
+        }
+
+        return $response;
+    }
+
+    public function partSalesTable(Request $request, DonorCar $donorCar): JsonResponse
+    {
+        [$saleSort, $saleDirection] = $this->donorPartSaleSortState($request);
+        $partSales = $this->donorPartSalesForTable($donorCar, $saleSort, $saleDirection);
+        $partSalesSummary = $this->donorPartSalesSummary($partSales);
+        $donorPartPresenter = app(DonorPartDisplayPresenter::class);
+        $saleProducts = $this->donorProductsForPartSales($partSales, $donorPartPresenter);
+        $saleProductsById = $saleProducts->keyBy('id');
+        $saleProductsByCatalogItem = $saleProducts
+            ->whereNotNull('source_part_catalog_item_id')
+            ->keyBy('source_part_catalog_item_id');
+        $donorProductCategoryOption = fn ($catalogItem = null, ?string $categoryPath = null, ?string $fallbackText = null): array => $donorPartPresenter->desktopCategoryOption($donorCar, $catalogItem, $categoryPath, $fallbackText);
+        $donorProductCategoryKey = function ($catalogItem = null, ?string $productCategorySlug = null, ?string $categoryPath = null, ?string $fallbackText = null) use ($donorProductCategoryOption): string {
+            return $donorProductCategoryOption($catalogItem, $categoryPath, $fallbackText)['key'];
+        };
+        $donorProductCategoryOptions = $partSales
+            ->map(function (PartSale $sale) use ($donorPartPresenter, $saleProductsById, $saleProductsByCatalogItem, $donorProductCategoryOption): array {
+                $saleProduct = $donorPartPresenter->resolveSaleProduct($sale, $saleProductsById, $saleProductsByCatalogItem);
+                $saleCatalogItem = $saleProduct?->sourcePartCatalogItem ?: $sale->partCatalogItem;
+
+                return $donorProductCategoryOption(
+                    $saleCatalogItem,
+                    $saleCatalogItem ? null : $sale->category_path,
+                    $sale->name
+                );
+            })
+            ->filter(fn (array $option): bool => $option['key'] !== '' && $option['label'] !== '')
+            ->unique('key')
+            ->sortBy('label', SORT_NATURAL | SORT_FLAG_CASE)
+            ->pluck('label', 'key')
+            ->all();
+
+        $html = view('admin.donor_cars._sales_table', [
+            'donorCar' => $donorCar,
+            'partSales' => $partSales,
+            'donorPartPresenter' => $donorPartPresenter,
+            'saleProductsById' => $saleProductsById,
+            'saleProductsByCatalogItem' => $saleProductsByCatalogItem,
+            'soldPartsQuantity' => $partSalesSummary['quantity_text'],
+            'soldPartsTotals' => $partSalesSummary['totals_text'],
+            'saleSort' => $saleSort,
+            'saleDirection' => $saleDirection,
+            'saleSortUrl' => fn (string $field): string => route('admin.donor-cars.show', [
+                'donorCar' => $donorCar,
+                'sale_sort' => $field,
+                'sale_direction' => $saleSort === $field && $saleDirection === 'asc' ? 'desc' : 'asc',
+            ]).'#sold',
+            'saleSortMark' => fn (string $field): string => $saleSort === $field ? ($saleDirection === 'asc' ? ' ^' : ' v') : '',
+            'catalogCategoryForDonor' => fn ($catalogItem = null): ?PartCatalogCategory => $donorPartPresenter->categoryForDonor($donorCar, $catalogItem),
+            'catalogCategoryPath' => fn (?PartCatalogCategory $category, string $locale = 'name'): string => $donorPartPresenter->categoryPath($category, $locale, true),
+            'catalogItemRawCategoryPath' => fn ($catalogItem = null): string => $donorPartPresenter->catalogRawCategoryPath($catalogItem),
+            'readableCategoryPath' => fn (?string $value, bool $stripNumericPrefixes = false): string => $donorPartPresenter->readableCategoryPath($value, $stripNumericPrefixes),
+            'donorProductCategoryKey' => $donorProductCategoryKey,
+            'donorProductCategoryOptions' => $donorProductCategoryOptions,
+        ])->render();
+
+        return response()->json([
+            'html' => $html,
+            'count' => $partSalesSummary['count'],
+            'quantity_text' => $partSalesSummary['quantity_text'],
+            'totals_text' => $partSalesSummary['totals_text'],
+        ]);
+    }
+
+    protected function donorPartSaleSortState(Request $request): array
+    {
+        $saleSort = in_array($request->query('sale_sort'), [
+            'sold_at',
+            'part_number',
+            'name',
+            'category',
+            'quantity',
+            'unit_price',
+            'total_amount',
+            'document_number',
+            'counterparty',
+        ], true) ? (string) $request->query('sale_sort') : 'sold_at';
+        $defaultSaleDirection = $saleSort === 'sold_at' ? 'desc' : 'asc';
+        $saleDirection = in_array($request->query('sale_direction'), ['asc', 'desc'], true)
+            ? (string) $request->query('sale_direction')
+            : $defaultSaleDirection;
+
+        return [$saleSort, $saleDirection];
+    }
+
+    protected function donorPartSalesForProductVisibility(DonorCar $donorCar): Collection
+    {
+        return $this->deduplicatedDonorPartSales($donorCar->partSales()->get([
+            'id',
+            'part_catalog_item_id',
+            'product_id',
+            'source',
+            'code',
+            'part_number',
+            'quantity',
+            'unit_price',
+            'currency',
+            'sold_at',
+            'document_number',
+            'raw_attributes',
+            'source_file',
+            'source_row_hash',
+        ]));
+    }
+
+    protected function donorPartSalesForTable(DonorCar $donorCar, string $saleSort, string $saleDirection): Collection
+    {
+        $query = $donorCar->partSales()
+            ->with([
+                'partCatalogItem:id,part_catalog_category_id,part_number,name,name_en,name_ru,name_ua,source,model_label,model_name,year_from,year_to,main_category_name,subcategory_name,node_name,raw_attributes',
+                'partCatalogItem.category.parent.parent.parent.parent',
+                'partCatalogItem.occurrences.category.parent.parent.parent.parent',
+            ]);
+
+        $this->sortDonorPartSales($query, $saleSort, $saleDirection);
+
+        return $this->deduplicatedDonorPartSales(
+            $this->withRecoveredPartSaleCatalogItems($query->get())
+        );
+    }
+
+    protected function donorPartSalesSummary(Collection $sales): array
+    {
+        $quantityText = rtrim(rtrim(number_format((float) $sales->sum('quantity'), 3, '.', ''), '0'), '.');
+        $totalsText = $sales
+            ->filter(fn (PartSale $sale): bool => $sale->total_amount !== null)
+            ->groupBy(fn (PartSale $sale): string => $sale->currency ?: '')
+            ->map(fn (Collection $sales, string $currency): string => number_format((float) $sales->sum(fn (PartSale $sale): float => (float) $sale->total_amount), 2, '.', ' ').($currency ? ' '.$currency : ''))
+            ->values()
+            ->implode(" \u{00B7} ");
+
+        return [
+            'count' => $sales->count(),
+            'quantity_text' => $quantityText,
+            'totals_text' => $totalsText,
+        ];
+    }
+
+    protected function donorProductsForPartSales(Collection $partSales, DonorPartDisplayPresenter $donorPartPresenter): Collection
+    {
+        $saleProductIds = $partSales
+            ->flatMap(fn (PartSale $sale): array => $donorPartPresenter->saleProductIdCandidates($sale))
+            ->filter()
+            ->unique()
+            ->values();
+        $saleCatalogItemIds = $partSales
+            ->pluck('part_catalog_item_id')
+            ->filter()
+            ->unique()
+            ->values();
+
+        if ($saleProductIds->isEmpty() && $saleCatalogItemIds->isEmpty()) {
+            return collect();
+        }
+
+        return Product::query()
+            ->with([
+                'sourcePartCatalogItem.category.parent.parent.parent.parent',
+                'sourcePartCatalogItem.occurrences.category.parent.parent.parent.parent',
+            ])
+            ->select(['id', 'sku', 'external_sku', 'name', 'source_part_catalog_item_id'])
+            ->where(function (Builder $query) use ($saleProductIds, $saleCatalogItemIds): void {
+                if ($saleProductIds->isNotEmpty()) {
+                    $query->whereIn('id', $saleProductIds);
+                }
+
+                if ($saleCatalogItemIds->isNotEmpty()) {
+                    $method = $saleProductIds->isNotEmpty() ? 'orWhereIn' : 'whereIn';
+                    $query->{$method}('source_part_catalog_item_id', $saleCatalogItemIds);
+                }
+            })
+            ->get();
     }
 
     public function smallParts(Request $request, DonorCar $donorCar): View
@@ -527,7 +891,7 @@ class DonorCarController extends Controller
             ? (string) $request->query('direction')
             : 'asc';
 
-        $smallPartNumbers = $this->smallPartNumbers();
+        $smallPartNumbers = $this->smallPartNumbersForDonor($donorCar);
 
         $products = Product::query()
             ->with([
@@ -578,6 +942,87 @@ class DonorCarController extends Controller
             ->values();
     }
 
+    protected function smallPartNumbersForDonor(DonorCar $donorCar): Collection
+    {
+        return collect(Cache::remember(
+            $this->smallPartNumbersCacheKey($donorCar),
+            now()->addMinutes(10),
+            fn (): array => $this->uncachedSmallPartNumbersForDonor($donorCar)->all()
+        ));
+    }
+
+    protected function uncachedSmallPartNumbersForDonor(DonorCar $donorCar): Collection
+    {
+        $donorProducts = Product::query()
+            ->leftJoin('part_catalog_items as source_items', 'products.source_part_catalog_item_id', '=', 'source_items.id')
+            ->where('products.donor_car_id', $donorCar->id)
+            ->whereNotIn('products.storage_status', [
+                Product::STORAGE_STATUS_SOLD,
+                Product::STORAGE_STATUS_WRITTEN_OFF,
+            ])
+            ->get([
+                'products.external_sku',
+                'source_items.part_number as source_part_number',
+                'source_items.raw_attributes as source_raw_attributes',
+            ]);
+
+        if ($donorProducts->isEmpty()) {
+            return collect();
+        }
+
+        $donorPartNumbers = $donorProducts
+            ->flatMap(fn ($row): array => [
+                $row->external_sku,
+                $row->source_part_number,
+            ])
+            ->map(fn ($partNumber): ?string => PartNumberNormalizer::normalize((string) $partNumber))
+            ->filter()
+            ->unique()
+            ->values();
+
+        $catalogSmallPartNumbers = $donorPartNumbers->isEmpty()
+            ? collect()
+            : PartCatalogItem::query()
+                ->whereIn('part_number', $donorPartNumbers->all())
+                ->where(function (Builder $query): void {
+                    $query
+                        ->where('raw_attributes', 'like', '%"donor_vin_small_part":true%')
+                        ->orWhere('raw_attributes', 'like', '%"donor_vin_small_part": true%');
+                })
+                ->get(['part_number', 'raw_attributes'])
+                ->flatMap(fn (PartCatalogItem $item): array => [
+                    $item->part_number,
+                    data_get(PartCatalogRawAttributes::from($item), 'donor_vin_small_part_part_number'),
+                ]);
+
+        return $donorProducts
+            ->filter(fn ($row): bool => (bool) data_get(PartCatalogRawAttributes::fromValue($row->source_raw_attributes), 'donor_vin_small_part'))
+            ->flatMap(fn ($row): array => [
+                $row->external_sku,
+                $row->source_part_number,
+                data_get(PartCatalogRawAttributes::fromValue($row->source_raw_attributes), 'donor_vin_small_part_part_number'),
+            ])
+            ->toBase()
+            ->merge($catalogSmallPartNumbers)
+            ->map(fn ($partNumber): ?string => PartNumberNormalizer::normalize((string) $partNumber))
+            ->filter()
+            ->unique()
+            ->values();
+    }
+
+    protected function smallPartNumbersCacheKey(DonorCar $donorCar): string
+    {
+        return 'donor-cars:'.$donorCar->id.':small-part-numbers';
+    }
+
+    protected function forgetSmallPartNumbersCacheForDonors(Collection $donorIds): void
+    {
+        $donorIds
+            ->filter()
+            ->map(fn ($id): int => (int) $id)
+            ->unique()
+            ->each(fn (int $donorId): bool => Cache::forget('donor-cars:'.$donorId.':small-part-numbers'));
+    }
     protected function sortSmallParts(
         Collection $products,
         DonorCar $donorCar,
@@ -630,7 +1075,9 @@ class DonorCarController extends Controller
             'category' => $this->smallPartCategorySortValue($product, $donorCar, $donorPartPresenter),
             'tesla_price' => data_get($officialTeslaCatalogPricesByProductId->get((int) $product->id), 'price_amount'),
             'price' => $product->selling_price,
-            'quantity' => (float) $product->stockItems->sum('quantity'),
+            'quantity' => (float) $product->stockItems
+                ->filter(fn ($item): bool => $item->warehouse?->type === Warehouse::TYPE_DONOR)
+                ->sum('quantity'),
             'warehouse' => $product->stockItems->first()?->warehouse?->name ?? $product->storage_status_label,
             default => $product->external_sku,
         };
@@ -827,9 +1274,7 @@ class DonorCarController extends Controller
 
     protected function isOfficialGeneratedProduct(Product $product): bool
     {
-        return $product->isTeslaOfficialGenerated()
-            || ($product->generated_at !== null
-                && preg_match('/^DON\d+-/i', (string) $product->sku) === 1);
+        return $product->isProtectedAutoGeneratedDonorProduct();
     }
 
     protected function donorProductReservations(Collection $products): Collection
@@ -1108,10 +1553,11 @@ class DonorCarController extends Controller
 
     public function mobileParts(Request $request): View
     {
+        $query = trim((string) $request->query('q', ''));
         $smallPartNumbers = $this->smallPartNumbers();
 
         return view('admin.mobile.parts.index', [
-            'query' => '',
+            'query' => $query,
             'donorCars' => DonorCar::query()
                 ->withCount([
                     'products as checked_products_count' => fn (Builder $query) => $this->visibleMobileDonorProductsQuery($query, $smallPartNumbers)
@@ -1119,13 +1565,18 @@ class DonorCarController extends Controller
                     'partSales as sold_parts_count',
                 ])
                 ->where('status', '!=', DonorCar::STATUS_IN_TRANSIT)
+                ->when($query !== '', fn (Builder $builder) => $builder
+                    ->where(fn (Builder $builder) => $builder
+                        ->where('vin', 'like', '%'.$query.'%')
+                        ->orWhere('model', 'like', '%'.$query.'%')
+                        ->orWhere('year', 'like', '%'.$query.'%')))
                 ->latest('purchase_date')
                 ->latest('id')
                 ->get(),
         ]);
     }
 
-    protected function visibleMobileDonorProductsQuery(Builder $query, Collection $smallPartNumbers): Builder
+    protected function visibleMobileDonorProductsQuery(Builder|HasMany $query, Collection $smallPartNumbers): Builder|HasMany
     {
         return $query
             ->whereNotIn('storage_status', [
@@ -1148,50 +1599,203 @@ class DonorCarController extends Controller
             });
     }
 
-    public function mobileDonorParts(DonorCar $donorCar): View
+    protected function mobileVisibleDonorProductsQuery(DonorCar $donorCar, Collection $smallPartNumbers, Collection $sales): HasMany
+    {
+        $soldProductIds = $sales
+            ->flatMap(fn (PartSale $sale): array => [
+                (int) $sale->product_id,
+                (int) data_get($sale->raw_attributes, 'product_id'),
+            ])
+            ->filter()
+            ->unique()
+            ->values();
+        $soldCatalogItemIds = $sales
+            ->pluck('part_catalog_item_id')
+            ->filter()
+            ->map(fn ($id): int => (int) $id)
+            ->unique()
+            ->values();
+
+        $query = $this->visibleMobileDonorProductsQuery($donorCar->products(), $smallPartNumbers);
+
+        if ($soldProductIds->isNotEmpty()) {
+            $query->whereNotIn('products.id', $soldProductIds->all());
+        }
+
+        if ($soldCatalogItemIds->isNotEmpty()) {
+            $query->where(function (Builder $builder) use ($soldCatalogItemIds): void {
+                $builder
+                    ->whereNull('source_part_catalog_item_id')
+                    ->orWhereNotIn('source_part_catalog_item_id', $soldCatalogItemIds->all());
+            });
+        }
+
+        return $query;
+    }
+
+    protected function applyMobileDonorProductSearch(Builder|HasMany $query, string $search): Builder|HasMany
+    {
+        $search = trim($search);
+
+        if ($search === '') {
+            return $query;
+        }
+
+        $operator = DB::connection()->getDriverName() === 'pgsql' ? 'ilike' : 'like';
+        $like = '%'.$search.'%';
+        $catalogNameColumns = ['name_ru', 'name_ua', 'name_en', 'name', 'part_number'];
+
+        return $query->where(function (Builder $builder) use ($catalogNameColumns, $like, $operator): void {
+            $builder
+                ->where('name', $operator, $like)
+                ->orWhere('sku', $operator, $like)
+                ->orWhere('external_sku', $operator, $like)
+                ->orWhereHas('category', fn (Builder $query) => $query->where('name', $operator, $like))
+                ->orWhereHas('sourcePartCatalogItem', function (Builder $query) use ($catalogNameColumns, $like, $operator): void {
+                    $query->where(function (Builder $builder) use ($catalogNameColumns, $like, $operator): void {
+                        foreach ($catalogNameColumns as $column) {
+                            $builder->orWhere($column, $operator, $like);
+                        }
+                    });
+                });
+        });
+    }
+
+    protected function applyMobileDonorProductStatusFilter(Builder|HasMany $query, string $status): Builder|HasMany
+    {
+        return match ($status) {
+            'checked' => $query->whereIn('notes', NikolaCarsProductInventorySyncService::CHECKED_DAMAGE_STATUSES),
+            'unchecked' => $query->where(function (Builder $builder): void {
+                $builder
+                    ->whereNull('notes')
+                    ->orWhere('notes', '')
+                    ->orWhere('notes', "\u{041D}\u{0435}\u{0438}\u{0437}\u{0432}\u{0435}\u{0441}\u{0442}\u{043D}\u{043E}");
+            }),
+            'broken' => $query->where(function (Builder $builder): void {
+                $builder
+                    ->where('notes', NikolaCarsProductInventorySyncService::BROKEN_DAMAGE_STATUS)
+                    ->orWhere('notes', 'like', NikolaCarsProductInventorySyncService::BROKEN_DAMAGE_STATUS.'%')
+                    ->orWhere('notes', NikolaCarsProductInventorySyncService::NON_LIQUID_DAMAGE_STATUS);
+            }),
+            'sold' => $query->whereRaw('1 = 0'),
+            default => $query,
+        };
+    }
+
+    protected function applyMobileDonorSaleSearch(HasMany $query, string $search): HasMany
+    {
+        $search = trim($search);
+
+        if ($search === '') {
+            return $query;
+        }
+
+        $operator = DB::connection()->getDriverName() === 'pgsql' ? 'ilike' : 'like';
+        $like = '%'.$search.'%';
+        $catalogNameColumns = ['name_ru', 'name_ua', 'name_en', 'name', 'part_number'];
+
+        return $query->where(function (Builder $builder) use ($catalogNameColumns, $like, $operator): void {
+            $builder
+                ->where('name', $operator, $like)
+                ->orWhere('part_number', $operator, $like)
+                ->orWhere('code', $operator, $like)
+                ->orWhere('document_number', $operator, $like)
+                ->orWhere('counterparty', $operator, $like)
+                ->orWhere('category_path', $operator, $like)
+                ->orWhereHas('partCatalogItem', function (Builder $query) use ($catalogNameColumns, $like, $operator): void {
+                    $query->where(function (Builder $builder) use ($catalogNameColumns, $like, $operator): void {
+                        foreach ($catalogNameColumns as $column) {
+                            $builder->orWhere($column, $operator, $like);
+                        }
+                    });
+                });
+        });
+    }
+
+    public function mobileDonorParts(Request $request, DonorCar $donorCar): View
     {
         abort_if($donorCar->status === DonorCar::STATUS_IN_TRANSIT, 404);
 
+        $search = trim((string) $request->query('q', ''));
+        $activeStatus = in_array($request->query('status'), ['all', 'checked', 'unchecked', 'broken', 'sold'], true)
+            ? (string) $request->query('status')
+            : 'all';
+        $perPage = 80;
+        $smallPartNumbers = $this->smallPartNumbersForDonor($donorCar);
+        $allSalesForExclusion = $donorCar->partSales()
+            ->get(['id', 'product_id', 'part_catalog_item_id', 'raw_attributes']);
+        $salesQuery = $donorCar->partSales()
+            ->with([
+                'partCatalogItem:id,part_catalog_category_id,part_number,name,name_en,name_ru,name_ua,source,model_label,model_name,year_from,year_to,main_category_name,subcategory_name,node_name,raw_attributes',
+                'partCatalogItem.category.parent.parent.parent.parent',
+            ])
+            ->orderByRaw('(quantity * COALESCE(unit_price, 0)) desc')
+            ->orderByDesc('sold_at')
+            ->orderByDesc('id');
+
+        $sales = $this->deduplicatedDonorPartSales($this->applyMobileDonorSaleSearch($salesQuery, $search)->get());
+        $baseProductsQuery = $this->mobileVisibleDonorProductsQuery($donorCar, $smallPartNumbers, $allSalesForExclusion);
+        $this->applyMobileDonorProductSearch($baseProductsQuery, $search);
+        $allProductsCount = (clone $baseProductsQuery)->count();
+        $checkedProductsCount = (clone $baseProductsQuery)
+            ->whereIn('notes', NikolaCarsProductInventorySyncService::CHECKED_DAMAGE_STATUSES)
+            ->count();
+        $brokenProductsCount = (clone $baseProductsQuery)
+            ->where(function (Builder $builder): void {
+                $builder
+                    ->where('notes', NikolaCarsProductInventorySyncService::BROKEN_DAMAGE_STATUS)
+                    ->orWhere('notes', 'like', NikolaCarsProductInventorySyncService::BROKEN_DAMAGE_STATUS.'%')
+                    ->orWhere('notes', NikolaCarsProductInventorySyncService::NON_LIQUID_DAMAGE_STATUS);
+            })
+            ->count();
+
         $donorCar->loadCount([
-            'products as checked_products_count' => fn (Builder $query) => $query
+            'products as checked_products_count' => fn (Builder $query) => $this->visibleMobileDonorProductsQuery($query, $smallPartNumbers)
                 ->whereIn('notes', NikolaCarsProductInventorySyncService::CHECKED_DAMAGE_STATUSES),
             'partSales as sold_parts_count',
         ]);
-        $donorCar->load([
-            'products' => fn (HasMany $query) => $query
-                ->with([
-                    'category:id,name',
-                    'sourcePartCatalogItem:id,part_catalog_category_id,part_number,name,name_en,name_ru,name_ua,source,model_label,model_name,year_from,year_to,main_category_name,subcategory_name,node_name,raw_attributes',
-                    'sourcePartCatalogItem.category.parent.parent.parent.parent',
-                    'sourcePartCatalogItem.occurrences.category.parent.parent.parent.parent',
-                    'stockItems.warehouse:id,name',
-                    'stockItems.location:id,full_code,cell',
-                    'stoWorkOrderParts.order:id,number,status',
-                ])
-                ->orderByDesc('selling_price')
-                ->orderBy('sku'),
-            'partSales' => fn (HasMany $query) => $query
-                ->with([
-                    'partCatalogItem:id,part_catalog_category_id,part_number,name,name_en,name_ru,name_ua,source,model_label,model_name,year_from,year_to,main_category_name,subcategory_name,node_name,raw_attributes',
-                    'partCatalogItem.category.parent.parent.parent.parent',
-                    'partCatalogItem.occurrences.category.parent.parent.parent.parent',
-                ])
-                ->orderByRaw('(quantity * COALESCE(unit_price, 0)) desc')
-                ->orderByDesc('sold_at')
-                ->orderByDesc('id'),
-        ]);
 
-        $nikolaCarsProductItemsByProductId = $this->nikolaCarsProductMirrorItemsByProductId($donorCar->products);
+        $productsQuery = $this->mobileVisibleDonorProductsQuery($donorCar, $smallPartNumbers, $allSalesForExclusion)
+            ->with([
+                'category:id,name',
+                'sourcePartCatalogItem:id,part_catalog_category_id,part_number,name,name_en,name_ru,name_ua,source,model_label,model_name,year_from,year_to,main_category_name,subcategory_name,node_name,raw_attributes',
+                'sourcePartCatalogItem.category.parent.parent.parent.parent',
+                'stockItems.warehouse:id,name,type',
+                'stockItems.location:id,warehouse_id,floor,full_code,cell',
+                'stoWorkOrderParts.order:id,number,status',
+            ])
+            ->orderByDesc('selling_price')
+            ->orderBy('sku');
+        $this->applyMobileDonorProductSearch($productsQuery, $search);
+        $this->applyMobileDonorProductStatusFilter($productsQuery, $activeStatus);
+        $productPaginator = $productsQuery
+            ->paginate($perPage)
+            ->withQueryString();
+
+        $donorCar->setRelation('products', $productPaginator->getCollection());
+        $donorCar->setRelation('partSales', $sales);
+
+        $nikolaCarsProductItemsByProductId = $this->nikolaCarsProductMirrorItemsByProductId($productPaginator->getCollection());
 
         return view('admin.mobile.parts.show', [
             'donorCar' => $donorCar,
             'damageOptions' => $this->mobilePartDamageOptions(),
-            'smallPartNumbers' => $this->smallPartNumbers(),
+            'checkedDamageStatuses' => NikolaCarsProductInventorySyncService::CHECKED_DAMAGE_STATUSES,
+            'placementWarehouseOptions' => $this->placementWarehouseOptions($this->activePlacementWarehouses()),
+            'placementLocationOptions' => $this->placementLocationOptions($this->activePlacementLocations()),
+            'smallPartNumbers' => $smallPartNumbers,
             'nikolaCarsProductItemsByProductId' => $nikolaCarsProductItemsByProductId,
+            'productPaginator' => $productPaginator,
+            'mobilePartsSearch' => $search,
+            'activeStatus' => $activeStatus,
+            'allProductsCount' => $allProductsCount,
+            'checkedProductsCount' => $checkedProductsCount,
+            'brokenProductsCount' => $brokenProductsCount,
+            'soldPartsCount' => $sales->count(),
         ]);
     }
 
-    public function mobileUpdateProductDamageStatus(Request $request, DonorCar $donorCar, Product $product): RedirectResponse
+    public function mobileUpdateProductDamageStatus(Request $request, DonorCar $donorCar, Product $product): RedirectResponse|JsonResponse
     {
         abort_if($donorCar->status === DonorCar::STATUS_IN_TRANSIT, 404);
         abort_unless((int) $product->donor_car_id === (int) $donorCar->id, 404);
@@ -1203,6 +1807,10 @@ class DonorCarController extends Controller
         ]);
 
         $damageNote = $validated['damage_note'];
+        $shouldApplyPlacement = $request->expectsJson() || $request->filled('warehouse_id') || $request->filled('floor') || $request->filled('location_id');
+        $placementLocation = $shouldApplyPlacement
+            ? $this->mobileDamageStatusPlacementLocation($request, $previousDamageNote, $damageNote, $donorCar)
+            : null;
         $damageStatusChangedBy = $product->donor_damage_status_changed_by;
 
         if ($this->isUnknownDonorDamageStatus($damageNote)) {
@@ -1216,6 +1824,12 @@ class DonorCarController extends Controller
             'notes' => $damageNote,
             'donor_damage_status_changed_by' => $damageStatusChangedBy,
         ])->save();
+
+        if ($placementLocation instanceof Location) {
+            $this->placeDonorProductInWarehouse($product->refresh(), $placementLocation);
+        } elseif ($this->isUnknownDonorDamageStatus($damageNote)) {
+            $this->returnDonorProductToDonorLocation($product->refresh(), $donorCar);
+        }
 
         $product->stockItems()->update([
             'testing_status' => $product->testing_status ?: 'not_tested',
@@ -1241,9 +1855,93 @@ class DonorCarController extends Controller
             $damageNote
         );
 
+        if ($request->expectsJson()) {
+            $product = $product->refresh();
+            $this->loadMobileDonorProductCardRelations($product);
+
+            return response()->json([
+                'message' => "\u{0421}\u{0442}\u{0430}\u{0442}\u{0443}\u{0441} \u{0437}\u{0430}\u{043F}\u{0447}\u{0430}\u{0441}\u{0442}\u{0438} \u{043E}\u{0431}\u{043D}\u{043E}\u{0432}\u{043B}\u{0435}\u{043D}.",
+                'product_id' => $product->id,
+                'damage_note' => app(DonorPartDisplayPresenter::class)->damageNote($product),
+                'status' => app(DonorPartDisplayPresenter::class)->mobileProductStatus($product),
+                'stock_label' => $this->mobileDonorProductStockLabel($product),
+            ]);
+        }
+
         return redirect()
             ->to(route('admin.mobile.donor-cars.parts.show', $donorCar).'#part-'.$product->id)
             ->with('status', "\u{0421}\u{0442}\u{0430}\u{0442}\u{0443}\u{0441} \u{0437}\u{0430}\u{043F}\u{0447}\u{0430}\u{0441}\u{0442}\u{0438} \u{043E}\u{0431}\u{043D}\u{043E}\u{0432}\u{043B}\u{0435}\u{043D}.");
+    }
+
+    protected function loadMobileDonorProductCardRelations(Product $product): Product
+    {
+        return $product->load([
+            'category:id,name',
+            'sourcePartCatalogItem:id,part_catalog_category_id,part_number,name,name_en,name_ru,name_ua,source,model_label,model_name,year_from,year_to,main_category_name,subcategory_name,node_name,raw_attributes',
+            'sourcePartCatalogItem.category.parent.parent.parent.parent',
+            'stockItems.warehouse:id,name,type',
+            'stockItems.location:id,warehouse_id,floor,full_code,cell',
+            'stoWorkOrderParts.order:id,number,status',
+        ]);
+    }
+
+    protected function mobileDonorProductStockLabel(Product $product): string
+    {
+        $stockItem = $product->stockItems
+            ->filter(fn ($item): bool => (float) $item->quantity > 0)
+            ->sortByDesc(fn ($item): float => (float) $item->available_quantity)
+            ->first();
+
+        if ($stockItem?->warehouse?->type === Warehouse::TYPE_DONOR) {
+            $stockItem->setRelation('location', null);
+        }
+
+        $workOrder = $product->stoWorkOrderParts->first()?->order;
+
+        if ($workOrder) {
+            return 'ЗН '.$workOrder->number;
+        }
+
+        return collect([
+            $stockItem?->warehouse?->name,
+            $stockItem?->location ? $this->locationFloorLabel($stockItem->location) : null,
+            $stockItem?->location ? $this->locationDisplayCode($stockItem->location) : null,
+        ])->filter()->join(' · ') ?: $product->storage_status_label;
+    }
+    protected function desktopDonorProductStockLabel(Product $product): string
+    {
+        $product->loadMissing(['stockItems.warehouse', 'stockItems.location']);
+
+        $stockItem = $product->stockItems
+            ->filter(fn ($item): bool => (float) $item->quantity > 0)
+            ->sortByDesc(fn ($item): float => (float) $item->available_quantity)
+            ->first();
+
+        if ($stockItem?->warehouse?->type === Warehouse::TYPE_DONOR) {
+            return $stockItem->warehouse->name;
+        }
+
+        return collect([
+            $stockItem?->warehouse?->name ?? $product->storage_status_label,
+            $stockItem?->location ? $this->locationFloorLabel($stockItem->location) : null,
+            $stockItem?->location ? $this->locationDisplayCode($stockItem->location) : null,
+        ])->filter()->join(' · ');
+    }
+
+    protected function desktopDonorProductStockLocationPayload(Product $product): array
+    {
+        $product->loadMissing(['stockItems.warehouse', 'stockItems.location']);
+
+        $stockItem = $product->stockItems
+            ->filter(fn ($item): bool => (float) $item->quantity > 0)
+            ->sortByDesc(fn ($item): float => (float) $item->available_quantity)
+            ->first();
+
+        return [
+            'warehouse_id' => $stockItem?->warehouse_id,
+            'floor' => $stockItem?->location ? $this->normalizedLocationFloor($stockItem->location) : null,
+            'location_id' => $stockItem?->location_id,
+        ];
     }
 
     public function mobileMissingProduct(DonorCar $donorCar, Product $product): never
@@ -1259,12 +1957,17 @@ class DonorCarController extends Controller
         $product->load([
             'sourcePartCatalogItem.category',
             'donorCar',
+            'stockItems.warehouse',
+            'stockItems.location',
         ]);
 
         return view('admin.mobile.parts.edit', [
             'donorCar' => $donorCar,
             'product' => $product,
             'damageOptions' => $this->mobilePartDamageOptions(),
+            'checkedDamageStatuses' => NikolaCarsProductInventorySyncService::CHECKED_DAMAGE_STATUSES,
+            'placementWarehouseOptions' => $this->placementWarehouseOptions($this->activePlacementWarehouses()),
+            'placementLocationOptions' => $this->placementLocationOptions($this->activePlacementLocations()),
         ]);
     }
 
@@ -1273,12 +1976,22 @@ class DonorCarController extends Controller
         abort_if($donorCar->status === DonorCar::STATUS_IN_TRANSIT, 404);
         abort_unless((int) $product->donor_car_id === (int) $donorCar->id, 404);
 
+        $this->applyMobileProductEditPayload($request, $donorCar, $product);
+
+        return redirect()
+            ->route('admin.mobile.donor-cars.products.edit', [$donorCar, $product])
+            ->with('status', "\u{0417}\u{0430}\u{043F}\u{0447}\u{0430}\u{0441}\u{0442}\u{044C} \u{043E}\u{0431}\u{043D}\u{043E}\u{0432}\u{043B}\u{0435}\u{043D}\u{0430}.");
+    }
+
+    protected function applyMobileProductEditPayload(Request $request, DonorCar $donorCar, Product $product): void
+    {
         $damageOptions = $this->mobilePartDamageOptions();
         $validated = $request->validate([
             'name_ru' => ['nullable', 'string', 'max:255'],
             'name_ua' => ['nullable', 'string', 'max:255'],
             'external_sku' => ['nullable', 'string', 'max:255'],
             'damage_note' => ['required', 'string', Rule::in(array_keys($damageOptions))],
+            'stock_quantity' => ['nullable', 'integer', 'min:1', 'max:999'],
         ]);
 
         $previousDamageNote = $product->notes;
@@ -1294,6 +2007,12 @@ class DonorCarController extends Controller
         }
 
         $damageNote = $validated['damage_note'];
+        $stockQuantity = (int) ($validated['stock_quantity'] ?? 1);
+        $shouldApplyPlacement = $this->isCheckedDonorDamageStatus($damageNote)
+            && ($request->filled('warehouse_id') || $request->filled('floor') || $request->filled('location_id') || array_key_exists('stock_quantity', $validated));
+        $placementLocation = $shouldApplyPlacement
+            ? $this->mobileDamageStatusPlacementLocation($request, $previousDamageNote, $damageNote, $donorCar, true)
+            : null;
         $externalSku = trim((string) ($validated['external_sku'] ?? ''));
         $fallbackName = $nameUpdates['name_ua'] ?? $nameUpdates['name_ru'] ?? null;
         $inventorySync = app(NikolaCarsProductInventorySyncService::class);
@@ -1313,6 +2032,12 @@ class DonorCarController extends Controller
             'donor_damage_status_changed_by' => $damageStatusChangedBy,
         ])->save();
 
+        if ($placementLocation instanceof Location) {
+            $this->placeDonorProductInWarehouse($product->refresh(), $placementLocation, $stockQuantity);
+        } elseif ($this->isUnknownDonorDamageStatus($damageNote)) {
+            $this->returnDonorProductToDonorLocation($product->refresh(), $donorCar);
+        }
+
         $product->stockItems()->update([
             'testing_status' => $product->testing_status ?: 'not_tested',
         ]);
@@ -1335,10 +2060,6 @@ class DonorCarController extends Controller
             $previousDamageNote,
             $damageNote
         );
-
-        return redirect()
-            ->route('admin.mobile.donor-cars.products.edit', [$donorCar, $product])
-            ->with('status', "\u{0417}\u{0430}\u{043F}\u{0447}\u{0430}\u{0441}\u{0442}\u{044C} \u{043E}\u{0431}\u{043D}\u{043E}\u{0432}\u{043B}\u{0435}\u{043D}\u{0430}.");
     }
 
     public function mobileStoreProductPhoto(Request $request, DonorCar $donorCar, Product $product): RedirectResponse
@@ -1350,6 +2071,11 @@ class DonorCarController extends Controller
             'photo' => ['required', 'image', 'max:10240'],
             'return_to' => ['nullable', Rule::in(['edit'])],
         ]);
+
+        if (($validated['return_to'] ?? null) === 'edit' && $request->has('damage_note')) {
+            $this->applyMobileProductEditPayload($request, $donorCar, $product);
+            $product->refresh();
+        }
 
         $path = $validated['photo']->store('product-photos', 'public');
         $photos = collect([$path])
@@ -1452,7 +2178,7 @@ class DonorCarController extends Controller
             'donorCar' => $donorCar->loadCount('products'),
             'warehouses' => $this->activeWarehouses(),
             'nextPartCode' => $this->nextPartCode($donorCar),
-            'damageOptions' => $this->manualDonorProductDamageOptions(),
+            'damageOptions' => $this->mobileManualDonorProductDamageOptions(),
         ]);
     }
 
@@ -1490,7 +2216,7 @@ class DonorCarController extends Controller
                 ->orderBy('selling_price', $direction)
                 ->orderBy('sku'),
             'quantity' => $query
-                ->orderByRaw("(select coalesce(sum(quantity), 0) from stock_items where stock_items.product_id = products.id) {$direction}")
+                ->orderByRaw("(select coalesce(sum(stock_items.quantity), 0) from stock_items inner join warehouses on warehouses.id = stock_items.warehouse_id where stock_items.product_id = products.id and warehouses.type = ?) {$direction}", [Warehouse::TYPE_DONOR])
                 ->orderBy('products.sku'),
             'warehouse' => $query
                 ->leftJoin('stock_items as product_sort_stock_items', 'products.id', '=', 'product_sort_stock_items.product_id')
@@ -1506,6 +2232,432 @@ class DonorCarController extends Controller
                 ->select('products.*'),
             default => $query->orderBy('sku', $direction)->orderBy('id'),
         };
+    }
+
+    protected function donorProductsForTable(
+        DonorCar $donorCar,
+        string $sort,
+        string $direction,
+        string $search = '',
+        ?int $limit = null,
+        int $offset = 0,
+        string $tab = 'all',
+        ?Collection $partSales = null
+    ): Collection {
+        $query = $donorCar->products()
+            ->with([
+                'category',
+                'sourcePartCatalogItem.category.parent.parent.parent.parent',
+                'sourcePartCatalogItem.occurrences.category.parent.parent.parent.parent',
+                'stockItems.warehouse',
+                'stockItems.location',
+                'stoWorkOrderParts.order',
+            ])
+            ->whereNotIn('products.storage_status', [
+                Product::STORAGE_STATUS_SOLD,
+                Product::STORAGE_STATUS_WRITTEN_OFF,
+            ]);
+
+        $this->applyDonorProductTableSearch($query, $search);
+        $this->applyDonorProductTableTabFilter($query, $tab);
+        $this->applyDonorProductSaleVisibilityFilter($query, $partSales ?? collect());
+
+        $this->sortDonorProducts($query, $sort, $direction);
+
+        if ($limit !== null) {
+            if ($offset > 0) {
+                $query->offset($offset);
+            }
+
+            $query->limit($limit);
+        }
+
+        return $query->get();
+    }
+
+    protected function visibleDonorProductsForTable(
+        DonorCar $donorCar,
+        string $sort,
+        string $direction,
+        string $search,
+        ?int $limit,
+        Collection $partSales,
+        Collection $smallPartNumbers,
+        int $page = 1,
+        string $tab = 'all'
+    ): Collection {
+        if ($limit === null) {
+            return $this->filterDonorProductsForTableTab(
+                $this->filterVisibleDonorProductsForTable(
+                    $this->withRecoveredProductCatalogItems($this->donorProductsForTable(
+                        $donorCar,
+                        $sort,
+                        $direction,
+                        $search,
+                        null,
+                        0,
+                        $tab,
+                        $partSales
+                    )),
+                    $partSales,
+                    $smallPartNumbers
+                ),
+                $tab
+            )->values();
+        }
+
+        $visible = collect();
+        $offset = 0;
+        $batchSize = $limit;
+        $targetOffset = (max(1, $page) - 1) * $limit;
+        $needed = $targetOffset + $limit;
+
+        do {
+            $batch = $this->withRecoveredProductCatalogItems($this->donorProductsForTable(
+                $donorCar,
+                $sort,
+                $direction,
+                $search,
+                $batchSize,
+                $offset,
+                $tab,
+                $partSales
+            ));
+
+            $visible = $visible
+                ->concat($this->filterDonorProductsForTableTab(
+                    $this->filterVisibleDonorProductsForTable($batch, $partSales, $smallPartNumbers),
+                    $tab
+                ))
+                ->unique('id')
+                ->values();
+            $offset += $batchSize;
+        } while ($visible->count() < $needed && $batch->count() === $batchSize);
+
+        return $visible->slice($targetOffset, $limit)->values();
+    }
+
+    protected function filterDonorProductsForTableTab(Collection $products, string $tab): Collection
+    {
+        if (! in_array($tab, ['checked', 'broken'], true)) {
+            return $products->values();
+        }
+
+        $unknownDamageNote = "\u{041D}\u{0435}\u{0438}\u{0437}\u{0432}\u{0435}\u{0441}\u{0442}\u{043D}\u{043E}";
+        $damageNote = function (Product $product) use ($unknownDamageNote): string {
+            $value = trim((string) ($product->notes ?? ''));
+
+            return preg_match('/^\?+$/', $value) ? $unknownDamageNote : $value;
+        };
+        $isUnknownDamageNote = fn (Product $product): bool => in_array($damageNote($product), ['', $unknownDamageNote], true);
+        $isBrokenDamageNote = fn (Product $product): bool => in_array($damageNote($product), [
+            NikolaCarsProductInventorySyncService::BROKEN_DAMAGE_STATUS,
+            NikolaCarsProductInventorySyncService::NON_LIQUID_DAMAGE_STATUS,
+        ], true);
+
+        return $products
+            ->filter(fn (Product $product): bool => $tab === 'broken'
+                ? $isBrokenDamageNote($product)
+                : ! $isUnknownDamageNote($product) && ! $isBrokenDamageNote($product))
+            ->values();
+    }
+
+    protected function filterVisibleDonorProductsForTable(Collection $products, Collection $partSales, Collection $smallPartNumbers): Collection
+    {
+        $donorPartPresenter = app(DonorPartDisplayPresenter::class);
+        $smallPartNumbers = $smallPartNumbers
+            ->map(fn ($partNumber) => PartNumberNormalizer::normalize((string) $partNumber))
+            ->filter()
+            ->unique()
+            ->values();
+        $soldCatalogItemIds = $partSales
+            ->pluck('part_catalog_item_id')
+            ->filter()
+            ->map(fn ($id): int => (int) $id)
+            ->unique()
+            ->values();
+        $soldProductIds = $partSales
+            ->flatMap(fn (PartSale $sale): array => $donorPartPresenter->saleProductIdCandidates($sale))
+            ->filter()
+            ->unique()
+            ->values();
+
+        return $products
+            ->reject(fn (Product $product): bool => in_array($product->storage_status, [
+                Product::STORAGE_STATUS_SOLD,
+                Product::STORAGE_STATUS_WRITTEN_OFF,
+            ], true))
+            ->reject(fn (Product $product): bool => $soldProductIds->contains((int) $product->id)
+                || ($product->source_part_catalog_item_id !== null
+                    && $soldCatalogItemIds->contains((int) $product->source_part_catalog_item_id)))
+            ->reject(fn (Product $product): bool => (bool) data_get($product->sourcePartCatalogItem?->raw_attributes, 'donor_vin_small_part', false)
+                || $smallPartNumbers->contains(PartNumberNormalizer::normalize($product->external_sku ?: $product->sourcePartCatalogItem?->part_number)))
+            ->values();
+    }
+
+    protected function donorProductTableStats(
+        DonorCar $donorCar,
+        Collection $partSales,
+        Collection $smallPartNumbers,
+        string $search = ''
+    ): array {
+        $products = $this->donorProductsForTableStats($donorCar, $search);
+        $visibleOrSmallProducts = $this->filterInactiveAndSoldDonorProductsForTable($products, $partSales);
+        $smallPartNumbersNormalized = $smallPartNumbers
+            ->map(fn ($partNumber) => PartNumberNormalizer::normalize((string) $partNumber))
+            ->filter()
+            ->unique()
+            ->values();
+        $isSmallTeslaVinPart = fn (Product $product): bool => (bool) data_get($product->sourcePartCatalogItem?->raw_attributes, 'donor_vin_small_part', false)
+            || $smallPartNumbersNormalized->contains(PartNumberNormalizer::normalize($product->external_sku ?: $product->sourcePartCatalogItem?->part_number));
+        $visible = $visibleOrSmallProducts
+            ->reject($isSmallTeslaVinPart)
+            ->values();
+        $unknownDamageNote = "\u{041D}\u{0435}\u{0438}\u{0437}\u{0432}\u{0435}\u{0441}\u{0442}\u{043D}\u{043E}";
+        $damageNote = function (Product $product) use ($unknownDamageNote): string {
+            $value = trim((string) ($product->notes ?? ''));
+
+            return preg_match('/^\?+$/', $value) ? $unknownDamageNote : $value;
+        };
+        $isUnknownDamageNote = fn (Product $product): bool => in_array($damageNote($product), ['', $unknownDamageNote], true);
+        $isBrokenDamageNote = fn (Product $product): bool => in_array($damageNote($product), [
+            NikolaCarsProductInventorySyncService::BROKEN_DAMAGE_STATUS,
+            NikolaCarsProductInventorySyncService::NON_LIQUID_DAMAGE_STATUS,
+        ], true);
+        $isCheckedDamageNote = fn (Product $product): bool => ! $isUnknownDamageNote($product) && ! $isBrokenDamageNote($product);
+
+        return [
+            'all' => $visible->count(),
+            'checked' => $visible->filter($isCheckedDamageNote)->count(),
+            'broken' => $visible->filter($isBrokenDamageNote)->count(),
+            'small' => $visibleOrSmallProducts->filter($isSmallTeslaVinPart)->count(),
+        ];
+    }
+
+    protected function fastDonorProductTableStats(DonorCar $donorCar, Collection $partSales): array
+    {
+        $soldCatalogItemIds = $partSales
+            ->pluck('part_catalog_item_id')
+            ->filter()
+            ->map(fn ($id): int => (int) $id)
+            ->unique()
+            ->values();
+        $soldProductIds = $partSales
+            ->flatMap(fn (PartSale $sale): array => app(DonorPartDisplayPresenter::class)->saleProductIdCandidates($sale))
+            ->filter()
+            ->unique()
+            ->values();
+        $baseQuery = $donorCar->products()
+            ->whereNotIn('products.storage_status', [
+                Product::STORAGE_STATUS_SOLD,
+                Product::STORAGE_STATUS_WRITTEN_OFF,
+            ])
+            ->when($soldProductIds->isNotEmpty(), fn (Builder $query) => $query->whereNotIn('products.id', $soldProductIds->all()))
+            ->when($soldCatalogItemIds->isNotEmpty(), fn (Builder $query) => $query->where(function (Builder $builder) use ($soldCatalogItemIds): void {
+                $builder
+                    ->whereNull('products.source_part_catalog_item_id')
+                    ->orWhereNotIn('products.source_part_catalog_item_id', $soldCatalogItemIds->all());
+            }));
+
+        return [
+            'all' => (clone $baseQuery)->count(),
+            'checked' => (clone $baseQuery)
+                ->whereIn('products.notes', NikolaCarsProductInventorySyncService::CHECKED_DAMAGE_STATUSES)
+                ->count(),
+            'broken' => (clone $baseQuery)
+                ->whereIn('products.notes', [
+                    NikolaCarsProductInventorySyncService::BROKEN_DAMAGE_STATUS,
+                    NikolaCarsProductInventorySyncService::NON_LIQUID_DAMAGE_STATUS,
+                ])
+                ->count(),
+            'small' => null,
+        ];
+    }
+
+    protected function donorProductsForTableStats(DonorCar $donorCar, string $search = ''): Collection
+    {
+        $query = $donorCar->products()
+            ->with('sourcePartCatalogItem:id,part_number,name,name_en,name_ru,name_ua,raw_attributes')
+            ->select([
+                'id',
+                'sku',
+                'external_sku',
+                'name',
+                'donor_car_id',
+                'source_part_catalog_item_id',
+                'storage_status',
+                'notes',
+            ]);
+
+        $this->applyDonorProductTableSearch($query, $search);
+
+        return $query->get();
+    }
+
+    protected function applyDonorProductTableSearch(Builder|HasMany $query, string $search): void
+    {
+        $terms = $this->donorProductTableSearchTerms($search);
+
+        if ($terms === []) {
+            return;
+        }
+
+        $operator = DB::connection()->getDriverName() === 'pgsql' ? 'ilike' : 'like';
+
+        foreach ($terms as $term) {
+            $likeQueries = collect([
+                $term,
+                Str::ucfirst($term),
+                Str::upper($term),
+                Str::lower($term),
+            ])
+                ->filter()
+                ->unique()
+                ->map(fn (string $variant): string => '%'.$variant.'%')
+                ->values();
+
+            $query->where(function (Builder $builder) use ($likeQueries, $operator): void {
+                foreach ($likeQueries as $likeQuery) {
+                    $builder
+                        ->orWhere('products.name', $operator, $likeQuery)
+                        ->orWhere('products.sku', $operator, $likeQuery)
+                        ->orWhere('products.external_sku', $operator, $likeQuery)
+                        ->orWhereHas('sourcePartCatalogItem', function (Builder $catalogQuery) use ($likeQuery, $operator): void {
+                            $catalogQuery
+                                ->where('part_number', $operator, $likeQuery)
+                                ->orWhere('name', $operator, $likeQuery)
+                                ->orWhere('name_en', $operator, $likeQuery)
+                                ->orWhere('name_ru', $operator, $likeQuery)
+                                ->orWhere('name_ua', $operator, $likeQuery);
+                        });
+                }
+            });
+        }
+    }
+
+    protected function applyDonorProductTableTabFilter(Builder|HasMany $query, string $tab): void
+    {
+        if ($tab === 'checked') {
+            $query->whereIn('products.notes', NikolaCarsProductInventorySyncService::CHECKED_DAMAGE_STATUSES);
+
+            return;
+        }
+
+        if ($tab === 'broken') {
+            $query->whereIn('products.notes', [
+                NikolaCarsProductInventorySyncService::BROKEN_DAMAGE_STATUS,
+                NikolaCarsProductInventorySyncService::NON_LIQUID_DAMAGE_STATUS,
+            ]);
+        }
+    }
+
+    protected function applyDonorProductSaleVisibilityFilter(Builder|HasMany $query, Collection $partSales): void
+    {
+        if ($partSales->isEmpty()) {
+            return;
+        }
+
+        $donorPartPresenter = app(DonorPartDisplayPresenter::class);
+        $soldCatalogItemIds = $partSales
+            ->pluck('part_catalog_item_id')
+            ->filter()
+            ->map(fn ($id): int => (int) $id)
+            ->unique()
+            ->values();
+        $soldProductIds = $partSales
+            ->flatMap(fn (PartSale $sale): array => $donorPartPresenter->saleProductIdCandidates($sale))
+            ->filter()
+            ->unique()
+            ->values();
+
+        if ($soldProductIds->isNotEmpty()) {
+            $query->whereNotIn('products.id', $soldProductIds->all());
+        }
+
+        if ($soldCatalogItemIds->isNotEmpty()) {
+            $query->where(function (Builder $builder) use ($soldCatalogItemIds): void {
+                $builder
+                    ->whereNull('products.source_part_catalog_item_id')
+                    ->orWhereNotIn('products.source_part_catalog_item_id', $soldCatalogItemIds->all());
+            });
+        }
+    }
+
+    protected function donorProductTableSearchTerms(string $search): array
+    {
+        return collect(preg_split('/\s+/u', trim($search)) ?: [])
+            ->map(fn (string $term): string => trim($term))
+            ->filter(fn (string $term): bool => $term !== '')
+            ->unique()
+            ->values()
+            ->all();
+    }
+
+    protected function filterInactiveAndSoldDonorProductsForTable(Collection $products, Collection $partSales): Collection
+    {
+        $donorPartPresenter = app(DonorPartDisplayPresenter::class);
+        $soldCatalogItemIds = $partSales
+            ->pluck('part_catalog_item_id')
+            ->filter()
+            ->map(fn ($id): int => (int) $id)
+            ->unique()
+            ->values();
+        $soldProductIds = $partSales
+            ->flatMap(fn (PartSale $sale): array => $donorPartPresenter->saleProductIdCandidates($sale))
+            ->filter()
+            ->unique()
+            ->values();
+
+        return $products
+            ->reject(fn (Product $product): bool => in_array($product->storage_status, [
+                Product::STORAGE_STATUS_SOLD,
+                Product::STORAGE_STATUS_WRITTEN_OFF,
+            ], true))
+            ->reject(fn (Product $product): bool => $soldProductIds->contains((int) $product->id)
+                || ($product->source_part_catalog_item_id !== null
+                    && $soldCatalogItemIds->contains((int) $product->source_part_catalog_item_id)))
+            ->values();
+    }
+
+    protected function donorSmallProductsCount(DonorCar $donorCar, Collection $partSales, Collection $smallPartNumbers): int
+    {
+        $products = $donorCar->products()
+            ->with('sourcePartCatalogItem:id,part_number,raw_attributes')
+            ->get(['id', 'external_sku', 'donor_car_id', 'source_part_catalog_item_id', 'storage_status']);
+        $donorPartPresenter = app(DonorPartDisplayPresenter::class);
+        $soldCatalogItemIds = $partSales
+            ->pluck('part_catalog_item_id')
+            ->filter()
+            ->map(fn ($id): int => (int) $id)
+            ->unique()
+            ->values();
+        $soldProductIds = $partSales
+            ->flatMap(fn (PartSale $sale): array => $donorPartPresenter->saleProductIdCandidates($sale))
+            ->filter()
+            ->unique()
+            ->values();
+
+        $visibleOrSmallProducts = $products
+            ->reject(function (Product $product) use ($soldCatalogItemIds, $soldProductIds): bool {
+                return in_array($product->storage_status, [
+                    Product::STORAGE_STATUS_SOLD,
+                    Product::STORAGE_STATUS_WRITTEN_OFF,
+                ], true)
+                    || $soldProductIds->contains((int) $product->id)
+                    || ($product->source_part_catalog_item_id !== null
+                        && $soldCatalogItemIds->contains((int) $product->source_part_catalog_item_id));
+            });
+
+        $smallPartNumbers = $smallPartNumbers
+            ->map(fn ($partNumber) => PartNumberNormalizer::normalize((string) $partNumber))
+            ->filter()
+            ->unique()
+            ->values();
+
+        return $visibleOrSmallProducts
+            ->filter(fn (Product $product): bool => (bool) data_get($product->sourcePartCatalogItem?->raw_attributes, 'donor_vin_small_part', false)
+                || $smallPartNumbers->contains(PartNumberNormalizer::normalize($product->external_sku ?: $product->sourcePartCatalogItem?->part_number)))
+            ->count();
     }
 
     protected function sortDonorPartSales(Builder|HasMany $query, string $sort, string $direction): void
@@ -1529,7 +2681,7 @@ class DonorCarController extends Controller
                 ->orderBy('unit_price', $direction)
                 ->orderBy('id', $direction),
             'total_amount' => $query
-                ->orderBy('total_amount', $direction)
+                ->orderByRaw("(quantity * COALESCE(unit_price, 0)) {$direction}")
                 ->orderBy('id', $direction),
             'document_number' => $query
                 ->orderByRaw("COALESCE(document_number, '') {$direction}")
@@ -1556,8 +2708,98 @@ class DonorCarController extends Controller
         $donorCatalogModel = Str::lower(trim($donorCar->display_model ?: $donorCar->model));
         $donorCatalogYear = $donorCar->year ? (int) $donorCar->year : null;
 
+        if ($request->query('source') === 'tesla_official') {
+            $catalogQuery = PartCatalogItem::query()
+                ->where('source', 'tesla_official')
+                ->orderBy('name')
+                ->select([
+                    'id',
+                    'part_number',
+                    'name',
+                    'name_en',
+                    'name_ru',
+                    'name_ua',
+                    'model_label',
+                    'model_name',
+                    'year_from',
+                    'year_to',
+                    'main_category_name',
+                    'subcategory_name',
+                    'node_name',
+                ]);
+
+            $catalogItems = match ($driver) {
+                'sqlite' => $catalogQuery
+                    ->get()
+                    ->filter(fn (PartCatalogItem $item) => trim((string) ($item->name ?: $item->name_en ?: $item->part_number)) !== '')
+                    ->filter(fn (PartCatalogItem $item): bool => $this->catalogItemMatchesDonor($item, $donorCatalogModel, $donorCatalogYear))
+                    ->filter(fn (PartCatalogItem $item) => collect([$item->part_number, $item->name, $item->name_en, $item->name_ru, $item->name_ua])
+                        ->filter()
+                        ->contains(fn (string $value) => mb_stripos($value, $query) !== false))
+                    ->pipe(fn ($items) => app(PartCatalogDeduplicator::class)->deduplicate($items))
+                    ->take(15)
+                    ->values(),
+                'pgsql' => $catalogQuery
+                    ->where(fn (Builder $builder) => $builder
+                        ->where('part_number', 'ilike', $likeQuery)
+                        ->orWhere('name', 'ilike', $likeQuery)
+                        ->orWhere('name_en', 'ilike', $likeQuery)
+                        ->orWhere('name_ru', 'ilike', $likeQuery)
+                        ->orWhere('name_ua', 'ilike', $likeQuery))
+                    ->when($donorCatalogModel !== '', fn (Builder $query) => $this->applyCatalogModelFilter($query, $donorCatalogModel))
+                    ->when($donorCatalogYear, fn (Builder $query) => $this->applyCatalogYearFilter($query, $donorCatalogYear))
+                    ->limit(50)
+                    ->get()
+                    ->pipe(fn ($items) => app(PartCatalogDeduplicator::class)->deduplicate($items))
+                    ->take(15)
+                    ->values(),
+                default => $catalogQuery
+                    ->where(fn (Builder $builder) => $builder
+                        ->where('part_number', 'like', $likeQuery)
+                        ->orWhere('name', 'like', $likeQuery)
+                        ->orWhere('name_en', 'like', $likeQuery)
+                        ->orWhere('name_ru', 'like', $likeQuery)
+                        ->orWhere('name_ua', 'like', $likeQuery))
+                    ->when($donorCatalogModel !== '', fn (Builder $query) => $this->applyCatalogModelFilter($query, $donorCatalogModel))
+                    ->when($donorCatalogYear, fn (Builder $query) => $this->applyCatalogYearFilter($query, $donorCatalogYear))
+                    ->limit(50)
+                    ->get()
+                    ->pipe(fn ($items) => app(PartCatalogDeduplicator::class)->deduplicate($items))
+                    ->take(15)
+                    ->values(),
+            };
+
+            return response()->json($catalogItems->map(function (PartCatalogItem $item): array {
+                $categoryPath = collect([$item->main_category_name, $item->subcategory_name, $item->node_name])
+                    ->filter()
+                    ->implode(' / ');
+
+                return [
+                    'type' => 'tesla_official',
+                    'name' => $item->name,
+                    'name_en' => $item->name_en,
+                    'name_ru' => $item->name_ru,
+                    'name_ua' => $item->name_ua,
+                    'external_sku' => $item->part_number,
+                    'description' => $categoryPath ?: null,
+                    'color' => null,
+                    'selling_price' => null,
+                    'notes' => null,
+                    'meta' => collect([
+                        'Tesla.com',
+                        $item->part_number,
+                        $categoryPath,
+                        $item->model_label ?: $item->model_name,
+                    ])->filter()->join(' · '),
+                ];
+            })->values());
+        }
+
         $donorProductsQuery = $donorCar->products()
-            ->with('category:id,name')
+            ->with([
+                'category:id,name',
+                'sourcePartCatalogItem:id,name,name_en,name_ru,name_ua,part_number',
+            ])
             ->latest()
             ->select([
                 'id',
@@ -1601,6 +2843,9 @@ class DonorCarController extends Controller
                 'id',
                 'part_number',
                 'name',
+                'name_en',
+                'name_ru',
+                'name_ua',
                 'model_label',
                 'model_name',
                 'year_from',
@@ -1652,6 +2897,8 @@ class DonorCarController extends Controller
         $donorSuggestions = $donorProducts->map(fn (Product $product): array => [
             'type' => 'donor',
             'name' => $product->name,
+            'name_ru' => $product->sourcePartCatalogItem?->name_ru,
+            'name_ua' => $product->sourcePartCatalogItem?->name_ua,
             'external_sku' => $product->external_sku,
             'description' => $product->description,
             'color' => $product->color,
@@ -1672,6 +2919,8 @@ class DonorCarController extends Controller
             return [
                 'type' => 'catalog',
                 'name' => $item->name,
+                'name_ru' => $item->name_ru,
+                'name_ua' => $item->name_ua,
                 'external_sku' => $item->part_number,
                 'description' => $categoryPath ?: null,
                 'color' => null,
@@ -1679,7 +2928,7 @@ class DonorCarController extends Controller
                 'notes' => null,
                 'meta' => collect([
                     'Каталог',
-                    $item->part_number ? '№ '.$item->part_number : null,
+                    $item->part_number ? 'в"– '.$item->part_number : null,
                     $categoryPath,
                     $item->model_label ?: $item->model_name,
                 ])->filter()->join(' · '),
@@ -1759,6 +3008,7 @@ class DonorCarController extends Controller
         ]);
 
         $stats = $generator->generate($donorCar, $validated['damage_zones'] ?? [], $validated['catalog_item_ids'] ?? []);
+        $this->forgetSmallPartNumbersCacheForDonors(collect([(int) $donorCar->id]));
 
         return redirect()
             ->route('admin.donor-cars.show', $donorCar)
@@ -1924,6 +3174,7 @@ class DonorCarController extends Controller
             'photos.*' => ['image', 'max:10240'],
             'selling_price' => ['nullable', 'numeric', 'min:0'],
             'external_sku' => ['nullable', 'string', 'max:255'],
+            'stock_quantity' => ['nullable', 'integer', 'min:1', 'max:999'],
             'warehouse_id' => ['required', 'exists:warehouses,id'],
             'floor' => $floorRules,
             'location_cell' => ['nullable', 'string', 'max:50'],
@@ -1938,7 +3189,7 @@ class DonorCarController extends Controller
             $photos[] = $photo->store('product-photos', 'public');
         }
 
-        DB::transaction(function () use ($validated, $donorCar, $sku, $photos, $category, $conditionType): void {
+        DB::transaction(function () use ($request, $validated, $donorCar, $sku, $photos, $category, $conditionType): void {
             $product = Product::query()->create([
                 'sku' => $sku,
                 'external_sku' => $validated['external_sku'] ?? null,
@@ -1977,6 +3228,13 @@ class DonorCarController extends Controller
                 'quantity' => 1,
                 'comment' => 'Первичное размещение при добавлении запчасти.',
             ]);
+
+            $this->syncNewDonorProductInventoryProjection(
+                $product->refresh(),
+                null,
+                $validated['damage_note'],
+                $request->user()?->id,
+            );
         });
 
         return redirect()
@@ -1990,7 +3248,7 @@ class DonorCarController extends Controller
 
         $product->loadMissing('sourcePartCatalogItem');
 
-        if ((bool) $product->is_auto_generated || $product->generated_at !== null) {
+        if ($product->isProtectedAutoGeneratedDonorProduct()) {
             throw ValidationException::withMessages([
                 'product' => "\u{0410}\u{0432}\u{0442}\u{043E}\u{043C}\u{0430}\u{0442}\u{0438}\u{0447}\u{0435}\u{0441}\u{043A}\u{0438} \u{0441}\u{0433}\u{0435}\u{043D}\u{0435}\u{0440}\u{0438}\u{0440}\u{043E}\u{0432}\u{0430}\u{043D}\u{043D}\u{0443}\u{044E} \u{0437}\u{0430}\u{043F}\u{0447}\u{0430}\u{0441}\u{0442}\u{044C} \u{043D}\u{0435}\u{043B}\u{044C}\u{0437}\u{044F} \u{0443}\u{0434}\u{0430}\u{043B}\u{044F}\u{0442}\u{044C}.",
             ]);
@@ -2081,6 +3339,8 @@ class DonorCarController extends Controller
         $brokenDamageNote = NikolaCarsProductInventorySyncService::BROKEN_DAMAGE_STATUS;
         $payload = [];
         $previousDamageNote = $product->notes;
+        $placementLocation = null;
+        $placementRequested = $request->filled('warehouse_id') || $request->filled('floor') || $request->filled('location_id');
 
         if (array_key_exists('damage_note', $validated)) {
             $damageNote = (string) ($damageNote ?? '');
@@ -2096,6 +3356,12 @@ class DonorCarController extends Controller
                 ),
             ];
         }
+        $placementDamageNote = array_key_exists('damage_note', $validated)
+            ? (string) ($damageNote ?? '')
+            : (string) ($product->notes ?? '');
+        $placementLocation = $placementRequested && $this->isCheckedDonorDamageStatus($placementDamageNote)
+            ? $this->mobileDamageStatusPlacementLocation($request, $previousDamageNote, $placementDamageNote, $donorCar, true)
+            : null;
 
         if (array_key_exists('selling_price', $validated)) {
             $payload['selling_price'] = $validated['selling_price'] !== null
@@ -2104,9 +3370,17 @@ class DonorCarController extends Controller
             $payload['currency'] = 'USD';
         }
 
-        if ($payload !== []) {
-            $syncResult = DB::transaction(function () use ($product, $payload): array {
-                $product->forceFill($payload)->save();
+        if ($payload !== [] || $placementLocation instanceof Location) {
+            $syncResult = DB::transaction(function () use ($donorCar, $product, $payload, $placementLocation, $placementDamageNote): array {
+                if ($payload !== []) {
+                    $product->forceFill($payload)->save();
+                }
+
+                if ($placementLocation instanceof Location) {
+                    $this->placeDonorProductInWarehouse($product->refresh(), $placementLocation);
+                } elseif ($this->isUnknownDonorDamageStatus($placementDamageNote)) {
+                    $this->returnDonorProductToDonorLocation($product->refresh(), $donorCar);
+                }
 
                 if (array_key_exists('selling_price', $payload)) {
                     $this->syncDonorProductSellingPriceToNikolaCarsItems($product, (float) $payload['selling_price']);
@@ -2140,18 +3414,20 @@ class DonorCarController extends Controller
 
         if ($request->expectsJson()) {
             return response()->json([
-                'message' => '???? ??????????? ???????? ?????????.',
+                'message' => 'Данные запчасти обновлены.',
                 'damage_note' => $damageNote ?? $product->notes,
                 'destination' => match ($damageNote ?? $product->notes ?? '') {
                     $brokenDamageNote, NikolaCarsProductInventorySyncService::NON_LIQUID_DAMAGE_STATUS => 'broken',
                     '', $unknownDamageNote => 'all',
                     default => 'checked',
                 },
+                'stock_label' => $this->desktopDonorProductStockLabel($product->refresh()),
+                'stock_location' => $this->desktopDonorProductStockLocationPayload($product->refresh()),
                 'selling_price' => $product->refresh()->selling_price !== null ? (float) $product->selling_price : null,
             ]);
         }
 
-        return back()->with('status', '???? ??????????? ???????? ?????????.');
+        return back()->with('status', 'Данные запчасти обновлены.');
     }
 
     public function markProductAsSmallPart(Request $request, DonorCar $donorCar, Product $product): RedirectResponse|JsonResponse
@@ -2280,6 +3556,8 @@ class DonorCarController extends Controller
 
                 $catalogItem->forceFill(['raw_attributes' => $rawAttributes])->save();
             });
+
+        $this->forgetSmallPartNumbersCacheForDonors($products->pluck('donor_car_id'));
 
         return $products
             ->pluck('id')
@@ -2450,6 +3728,246 @@ class DonorCarController extends Controller
         return back()->with('status', 'Фотографии добавлены.');
     }
 
+    protected function donorPhotoItems(DonorCar $donorCar): Collection
+    {
+        return collect($donorCar->photos ?? [])
+            ->filter()
+            ->map(function (string $photo): array {
+                $url = PublicStorageUrl::url($photo) ?? $photo;
+                $previewPath = $this->ensureDonorPhotoPreview($photo);
+
+                return [
+                    'path' => $photo,
+                    'url' => $url,
+                    'preview_url' => $previewPath ? (PublicStorageUrl::url($previewPath) ?? $url) : $url,
+                ];
+            })
+            ->values();
+    }
+
+    protected function ensureDonorPhotoPreview(string $photo): ?string
+    {
+        $photo = trim($photo);
+
+        if ($photo === '' || Str::startsWith($photo, ['http://', 'https://', '/'])) {
+            return null;
+        }
+
+        $disk = Storage::disk('public');
+        $photo = ltrim($photo, '/');
+
+        $previewPath = $this->donorPhotoPreviewPath($photo);
+
+        if ($disk->exists($previewPath)) {
+            return $previewPath;
+        }
+
+        $sourcePath = $disk->exists($photo)
+            ? $disk->path($photo)
+            : $this->downloadDonorPhotoPreviewSource($photo);
+
+        if (! $sourcePath || ! $this->createDonorPhotoPreview($sourcePath, $disk->path($previewPath))) {
+            if ($sourcePath && ! $disk->exists($photo)) {
+                @unlink($sourcePath);
+            }
+
+            return null;
+        }
+
+        if (! $disk->exists($photo)) {
+            @unlink($sourcePath);
+        }
+
+        return $previewPath;
+    }
+
+    protected function donorPhotoPreviewPath(string $photo): string
+    {
+        return 'donor-cars/previews/'.sha1(ltrim($photo, '/')).(function_exists('imagewebp') ? '.webp' : '.jpg');
+    }
+
+    protected function ensureProductPhotoPreview(string $photo): ?string
+    {
+        $photo = trim($photo);
+
+        if ($photo === '') {
+            return null;
+        }
+
+        $disk = Storage::disk('public');
+        $normalizedPhoto = ltrim($photo, '/');
+        $previewPath = $this->productPhotoPreviewPath($photo);
+
+        if ($disk->exists($previewPath)) {
+            return $previewPath;
+        }
+
+        $sourcePath = (! Str::startsWith($photo, ['http://', 'https://', '/']) && $disk->exists($normalizedPhoto))
+            ? $disk->path($normalizedPhoto)
+            : $this->downloadProductPhotoPreviewSource($photo);
+        $deleteSourcePath = $sourcePath && $sourcePath !== $disk->path($normalizedPhoto);
+
+        if (! $sourcePath || ! $this->createDonorPhotoPreview($sourcePath, $disk->path($previewPath), 240, 180)) {
+            if ($deleteSourcePath) {
+                @unlink($sourcePath);
+            }
+
+            return null;
+        }
+
+        if ($deleteSourcePath) {
+            @unlink($sourcePath);
+        }
+
+        return $previewPath;
+    }
+
+    protected function productPhotoPreviewPath(string $photo): string
+    {
+        return 'product-photos/previews/'.sha1(trim($photo)).(function_exists('imagewebp') ? '.webp' : '.jpg');
+    }
+
+    protected function downloadProductPhotoPreviewSource(string $photo): ?string
+    {
+        $url = PublicStorageUrl::url($photo) ?? $photo;
+
+        if (! Str::startsWith($url, ['http://', 'https://'])) {
+            return null;
+        }
+
+        try {
+            $response = Http::timeout(8)->get($url);
+        } catch (\Throwable) {
+            return null;
+        }
+
+        if (! $response->successful()) {
+            return null;
+        }
+
+        $body = $response->body();
+
+        if ($body === '' || strlen($body) > 12 * 1024 * 1024) {
+            return null;
+        }
+
+        $tempPath = tempnam(sys_get_temp_dir(), 'product-photo-preview-');
+
+        if (! $tempPath) {
+            return null;
+        }
+
+        file_put_contents($tempPath, $body);
+
+        return $tempPath;
+    }
+
+    protected function downloadDonorPhotoPreviewSource(string $photo): ?string
+    {
+        $url = PublicStorageUrl::url($photo);
+
+        if (! $url || ! Str::startsWith($url, ['http://', 'https://'])) {
+            return null;
+        }
+
+        try {
+            $response = Http::timeout(8)->get($url);
+        } catch (\Throwable) {
+            return null;
+        }
+
+        if (! $response->successful()) {
+            return null;
+        }
+
+        $body = $response->body();
+
+        if ($body === '' || strlen($body) > 12 * 1024 * 1024) {
+            return null;
+        }
+
+        $tempPath = tempnam(sys_get_temp_dir(), 'donor-photo-preview-');
+
+        if (! $tempPath) {
+            return null;
+        }
+
+        file_put_contents($tempPath, $body);
+
+        return $tempPath;
+    }
+
+    protected function createDonorPhotoPreview(string $sourcePath, string $targetPath, int $targetWidth = 360, int $targetHeight = 240): bool
+    {
+        if (! function_exists('imagecopyresampled')) {
+            return false;
+        }
+
+        $imageType = @exif_imagetype($sourcePath);
+        $source = match ($imageType) {
+            IMAGETYPE_JPEG => function_exists('imagecreatefromjpeg') ? @imagecreatefromjpeg($sourcePath) : false,
+            IMAGETYPE_PNG => function_exists('imagecreatefrompng') ? @imagecreatefrompng($sourcePath) : false,
+            IMAGETYPE_WEBP => function_exists('imagecreatefromwebp') ? @imagecreatefromwebp($sourcePath) : false,
+            default => false,
+        };
+
+        if (! $source) {
+            return false;
+        }
+
+        $sourceWidth = imagesx($source);
+        $sourceHeight = imagesy($source);
+
+        if ($sourceWidth <= 0 || $sourceHeight <= 0) {
+            imagedestroy($source);
+
+            return false;
+        }
+
+        $sourceRatio = $sourceWidth / $sourceHeight;
+        $targetRatio = $targetWidth / $targetHeight;
+
+        if ($sourceRatio > $targetRatio) {
+            $cropHeight = $sourceHeight;
+            $cropWidth = (int) round($sourceHeight * $targetRatio);
+            $cropX = (int) floor(($sourceWidth - $cropWidth) / 2);
+            $cropY = 0;
+        } else {
+            $cropWidth = $sourceWidth;
+            $cropHeight = (int) round($sourceWidth / $targetRatio);
+            $cropX = 0;
+            $cropY = (int) floor(($sourceHeight - $cropHeight) / 2);
+        }
+
+        $preview = imagecreatetruecolor($targetWidth, $targetHeight);
+
+        if (! $preview) {
+            imagedestroy($source);
+
+            return false;
+        }
+
+        imagecopyresampled($preview, $source, 0, 0, $cropX, $cropY, $targetWidth, $targetHeight, $cropWidth, $cropHeight);
+        imagedestroy($source);
+
+        $directory = dirname($targetPath);
+        if (! is_dir($directory)) {
+            mkdir($directory, 0775, true);
+        }
+
+        if (function_exists('imagewebp')) {
+            $saved = imagewebp($preview, $targetPath, 82);
+        } elseif (function_exists('imagejpeg')) {
+            $saved = imagejpeg($preview, $targetPath, 82);
+        } else {
+            $saved = false;
+        }
+
+        imagedestroy($preview);
+
+        return (bool) $saved;
+    }
+
     public function destroyPhoto(Request $request, DonorCar $donorCar): RedirectResponse
     {
         $validated = $request->validate([
@@ -2477,6 +3995,7 @@ class DonorCarController extends Controller
 
         if (! Str::startsWith($photo, ['http://', 'https://', '/'])) {
             Storage::disk('public')->delete($photo);
+            Storage::disk('public')->delete($this->donorPhotoPreviewPath($photo));
         }
 
         return redirect()
@@ -2494,6 +4013,7 @@ class DonorCarController extends Controller
 
         foreach ($donorCar->photos ?? [] as $photo) {
             Storage::disk('public')->delete($photo);
+            Storage::disk('public')->delete($this->donorPhotoPreviewPath((string) $photo));
         }
 
         $donorCar->delete();
@@ -2512,6 +4032,7 @@ class DonorCarController extends Controller
 
             foreach ($removePhotos as $photo) {
                 Storage::disk('public')->delete($photo);
+                Storage::disk('public')->delete($this->donorPhotoPreviewPath((string) $photo));
             }
         }
 
@@ -2605,6 +4126,18 @@ class DonorCarController extends Controller
         return $options;
     }
 
+    protected function mobileManualDonorProductDamageOptions(): array
+    {
+        $options = $this->manualDonorProductDamageOptions();
+        unset($options[
+            "\u{0420}\u{0430}\u{0437}\u{0431}\u{0438}\u{0442}"
+        ], $options[
+            "\u{041D}\u{0435}\u{043B}\u{0438}\u{043A}\u{0432}\u{0438}\u{0434}"
+        ]);
+
+        return $options;
+    }
+
     protected function isUnknownDonorDamageStatus(mixed $status): bool
     {
         $status = trim((string) $status);
@@ -2612,6 +4145,432 @@ class DonorCarController extends Controller
         return $status === '' || $status === "\u{041D}\u{0435}\u{0438}\u{0437}\u{0432}\u{0435}\u{0441}\u{0442}\u{043D}\u{043E}";
     }
 
+    protected function isCheckedDonorDamageStatus(mixed $status): bool
+    {
+        return in_array(trim((string) $status), NikolaCarsProductInventorySyncService::CHECKED_DAMAGE_STATUSES, true);
+    }
+
+    protected function mobileDamageStatusPlacementLocation(Request $request, mixed $previousDamageNote, string $damageNote, ?DonorCar $donorCar = null, bool $requireForCheckedStatus = false): ?Location
+    {
+        if (! $this->isCheckedDonorDamageStatus($damageNote)) {
+            return null;
+        }
+
+        if (! $requireForCheckedStatus && ! $this->isUnknownDonorDamageStatus($previousDamageNote)) {
+            return null;
+        }
+
+        $warehouse = Warehouse::query()
+            ->whereKey($request->input('warehouse_id'))
+            ->where('is_active', true)
+            ->first();
+
+        if (! $warehouse instanceof Warehouse) {
+            throw ValidationException::withMessages([
+                'warehouse_id' => "\u{0412}\u{044B}\u{0431}\u{0435}\u{0440}\u{0438}\u{0442}\u{0435} \u{0441}\u{043A}\u{043B}\u{0430}\u{0434}.",
+            ]);
+        }
+
+        if ($warehouse->type === Warehouse::TYPE_DONOR) {
+            if (! $donorCar instanceof DonorCar) {
+                throw ValidationException::withMessages([
+                    'warehouse_id' => "\u{0421}\u{043A}\u{043B}\u{0430}\u{0434} \u{0434}\u{043E}\u{043D}\u{043E}\u{0440}\u{0430} \u{043D}\u{0435} \u{043D}\u{0430}\u{0439}\u{0434}\u{0435}\u{043D}.",
+                ]);
+            }
+
+            return $this->donorStockLocation($donorCar);
+        }
+
+        $floor = $request->input('floor');
+
+        if ($warehouse->hasMultipleFloors()) {
+            if (! is_string($floor) || ! array_key_exists($floor, $warehouse->availableFloors())) {
+                throw ValidationException::withMessages([
+                    'floor' => "\u{0412}\u{044B}\u{0431}\u{0435}\u{0440}\u{0438}\u{0442}\u{0435} \u{044D}\u{0442}\u{0430}\u{0436}.",
+                ]);
+            }
+        } else {
+            $floor = null;
+        }
+
+        $floorForLocation = is_string($floor) && $floor !== '' ? $floor : 'floor_1';
+        $warehouseLocations = $this->activePlacementLocationsForWarehouseFloor($warehouse, $floorForLocation);
+        $hasCellLocations = $warehouse->usesStructuredLocations()
+            && $warehouseLocations->contains(fn (Location $location): bool => trim((string) $location->cell) !== '');
+
+        if (! $hasCellLocations) {
+            return $this->noCellPlacementLocation($warehouse, $floorForLocation);
+        }
+
+        $location = Location::query()
+            ->whereKey($request->input('location_id'))
+            ->where('warehouse_id', $warehouse->id)
+            ->where('is_active', true)
+            ->first();
+
+        if (! $location instanceof Location) {
+            throw ValidationException::withMessages([
+                'location_id' => "\u{0412}\u{044B}\u{0431}\u{0435}\u{0440}\u{0438}\u{0442}\u{0435} \u{044F}\u{0447}\u{0435}\u{0439}\u{043A}\u{0443}.",
+            ]);
+        }
+
+        if ($warehouse->hasMultipleFloors() && $this->normalizedLocationFloor($location) !== $floor) {
+            throw ValidationException::withMessages([
+                'location_id' => "\u{042F}\u{0447}\u{0435}\u{0439}\u{043A}\u{0430} \u{043D}\u{0435} \u{043E}\u{0442}\u{043D}\u{043E}\u{0441}\u{0438}\u{0442}\u{0441}\u{044F} \u{043A} \u{0432}\u{044B}\u{0431}\u{0440}\u{0430}\u{043D}\u{043D}\u{043E}\u{043C}\u{0443} \u{044D}\u{0442}\u{0430}\u{0436}\u{0443}.",
+            ]);
+        }
+
+        return $location;
+    }
+
+    protected function placeDonorProductInWarehouse(Product $product, Location $location, ?int $targetStockQuantity = null): void
+    {
+        DB::transaction(function () use ($product, $location, $targetStockQuantity): void {
+            $location->loadMissing('warehouse');
+
+            $product->forceFill([
+                'storage_status' => $location->warehouse?->type === Warehouse::TYPE_DONOR
+                    ? Product::STORAGE_STATUS_ON_DONOR
+                    : Product::STORAGE_STATUS_IN_STOCK,
+            ])->save();
+
+            if ($targetStockQuantity !== null) {
+                $this->setDonorProductStockQuantityAtLocation($product, $location, $targetStockQuantity);
+
+                return;
+            }
+
+            $product->load('stockItems.location');
+            $stockItems = $product->stockItems
+                ->filter(fn ($stockItem): bool => (int) $stockItem->quantity > 0)
+                ->sortByDesc(fn ($stockItem): int => (int) $stockItem->available_quantity)
+                ->values();
+
+            if ($stockItems->isEmpty()) {
+                app(StockService::class)->intake([
+                    'product_id' => $product->id,
+                    'warehouse_id' => $location->warehouse_id,
+                    'location_id' => $location->id,
+                    'quantity' => 1,
+                    'comment' => 'Placement after mobile donor damage check.',
+                ]);
+
+                return;
+            }
+
+            foreach ($stockItems as $stockItem) {
+                $quantity = (int) $stockItem->available_quantity;
+
+                if ($quantity < 1) {
+                    continue;
+                }
+
+                if ((int) $stockItem->location_id === (int) $location->id) {
+                    continue;
+                }
+
+                app(StockService::class)->move($stockItem, $quantity, (int) $location->id, [
+                    'comment' => 'Placement after mobile donor damage check.',
+                ]);
+            }
+        });
+    }
+
+    protected function setDonorProductStockQuantityAtLocation(Product $product, Location $location, int $targetStockQuantity): void
+    {
+        if ($targetStockQuantity < 1) {
+            throw ValidationException::withMessages([
+                'stock_quantity' => "\u{041A}\u{043E}\u{043B}-\u{0432}\u{043E} \u{043D}\u{0430} \u{0441}\u{043A}\u{043B}\u{0430}\u{0434}\u{0435} \u{0434}\u{043E}\u{043B}\u{0436}\u{043D}\u{043E} \u{0431}\u{044B}\u{0442}\u{044C} \u{043D}\u{0435} \u{043C}\u{0435}\u{043D}\u{044C}\u{0448}\u{0435} 1.",
+            ]);
+        }
+
+        $product->load('stockItems.location');
+        $stockItems = $product->stockItems;
+        $targetStockItem = $stockItems
+            ->first(fn ($stockItem): bool => (int) $stockItem->location_id === (int) $location->id);
+
+        if (! $targetStockItem) {
+            $targetStockItem = app(StockService::class)->intake([
+                'product_id' => $product->id,
+                'warehouse_id' => $location->warehouse_id,
+                'location_id' => $location->id,
+                'quantity' => $targetStockQuantity,
+                'comment' => 'Selected mobile donor stock quantity.',
+            ]);
+        } else {
+            if ((int) $targetStockItem->reserved_quantity > $targetStockQuantity) {
+                throw ValidationException::withMessages([
+                    'stock_quantity' => 'Cannot reduce stock below reserved quantity.',
+                ]);
+            }
+
+            $targetStockItem->warehouse_id = $location->warehouse_id;
+            $targetStockItem->save();
+            app(StockService::class)->adjust($targetStockItem, $targetStockQuantity, [
+                'comment' => 'Selected mobile donor stock quantity.',
+            ]);
+        }
+
+        $product->load('stockItems');
+        foreach ($product->stockItems as $stockItem) {
+            if ((int) $stockItem->id === (int) $targetStockItem->id) {
+                continue;
+            }
+
+            if ((int) $stockItem->reserved_quantity > 0) {
+                throw ValidationException::withMessages([
+                    'stock_quantity' => "\u{041D}\u{0435}\u{043B}\u{044C}\u{0437}\u{044F} \u{0438}\u{0437}\u{043C}\u{0435}\u{043D}\u{0438}\u{0442}\u{044C} \u{043A}\u{043E}\u{043B}-\u{0432}\u{043E}: \u{0447}\u{0430}\u{0441}\u{0442}\u{044C} \u{043E}\u{0441}\u{0442}\u{0430}\u{0442}\u{043A}\u{0430} \u{0432} \u{0440}\u{0435}\u{0437}\u{0435}\u{0440}\u{0432}\u{0435}.",
+                ]);
+            }
+
+            if ((int) $stockItem->quantity > 0) {
+                app(StockService::class)->adjust($stockItem, 0, [
+                    'comment' => 'Cleared non-selected donor stock after mobile quantity selection.',
+                ]);
+            }
+        }
+    }
+
+    protected function returnDonorProductToDonorLocation(Product $product, DonorCar $donorCar): void
+    {
+        DB::transaction(function () use ($product, $donorCar): void {
+            $location = $this->donorStockLocation($donorCar);
+
+            $product->forceFill([
+                'storage_status' => Product::STORAGE_STATUS_ON_DONOR,
+            ])->save();
+
+            $product->load('stockItems.location');
+            $stockItems = $product->stockItems
+                ->filter(fn ($stockItem): bool => (int) $stockItem->quantity > 0)
+                ->sortByDesc(fn ($stockItem): int => (int) $stockItem->available_quantity)
+                ->values();
+
+            if ($stockItems->isEmpty()) {
+                app(StockService::class)->intake([
+                    'product_id' => $product->id,
+                    'warehouse_id' => $location->warehouse_id,
+                    'location_id' => $location->id,
+                    'quantity' => 1,
+                    'comment' => 'Return to donor after mobile donor damage reset.',
+                ]);
+
+                return;
+            }
+
+            foreach ($stockItems as $stockItem) {
+                $quantity = (int) $stockItem->available_quantity;
+
+                if ($quantity < 1) {
+                    continue;
+                }
+
+                if ((int) $stockItem->location_id === (int) $location->id) {
+                    continue;
+                }
+
+                app(StockService::class)->move($stockItem, $quantity, (int) $location->id, [
+                    'comment' => 'Return to donor after mobile donor damage reset.',
+                ]);
+            }
+        });
+    }
+
+    protected function donorStockLocation(DonorCar $donorCar): Location
+    {
+        $warehouse = Warehouse::query()
+            ->where(fn (Builder $query) => $query
+                ->where('type', Warehouse::TYPE_DONOR)
+                ->orWhere('name', Warehouse::DONOR_WAREHOUSE_NAME))
+            ->first();
+
+        if (! $warehouse instanceof Warehouse) {
+            $warehouse = Warehouse::query()->create([
+                'name' => Warehouse::DONOR_WAREHOUSE_NAME,
+                'type' => Warehouse::TYPE_DONOR,
+                'floor_count' => 1,
+                'is_active' => true,
+            ]);
+        }
+
+        if ($warehouse->name !== Warehouse::DONOR_WAREHOUSE_NAME || $warehouse->type !== Warehouse::TYPE_DONOR || ! $warehouse->is_active) {
+            $warehouse->forceFill([
+                'name' => Warehouse::DONOR_WAREHOUSE_NAME,
+                'type' => Warehouse::TYPE_DONOR,
+                'floor_count' => max(1, (int) ($warehouse->floor_count ?: 1)),
+                'is_active' => true,
+            ])->save();
+        }
+
+        $cell = $donorCar->vin ?: 'DONOR-'.$donorCar->id;
+        $fullCode = 'ON-DONOR-'.$donorCar->id;
+        $location = Location::query()
+            ->where('full_code', $fullCode)
+            ->first();
+
+        if ($location instanceof Location) {
+            $updates = [];
+
+            if (! $location->is_active) {
+                $updates['is_active'] = true;
+            }
+
+            if (! is_string($location->floor) || $location->floor === '') {
+                $updates['floor'] = 'floor_1';
+            }
+
+            if ($updates !== []) {
+                $location->forceFill($updates)->save();
+            }
+
+            return $location;
+        }
+
+        $location = Location::query()->firstOrCreate(
+            [
+                'warehouse_id' => $warehouse->id,
+                'full_code' => $fullCode,
+            ],
+            [
+                'floor' => 'floor_1',
+                'cell' => Str::limit($cell, 50, ''),
+                'is_active' => true,
+            ],
+        );
+
+        if (! $location->is_active) {
+            $location->forceFill(['is_active' => true])->save();
+        }
+
+        return $location;
+    }
+
+    protected function activePlacementLocationsForWarehouseFloor(Warehouse $warehouse, string $floor): Collection
+    {
+        return Location::query()
+            ->where('warehouse_id', $warehouse->id)
+            ->where('is_active', true)
+            ->get(['id', 'warehouse_id', 'floor', 'cell', 'full_code', 'is_active'])
+            ->filter(fn (Location $location): bool => $this->normalizedLocationFloor($location) === $floor)
+            ->values();
+    }
+
+    protected function noCellPlacementLocation(Warehouse $warehouse, string $floor): Location
+    {
+        $warehouseLocations = $this->activePlacementLocationsForWarehouseFloor($warehouse, $floor);
+        $location = $warehouse->usesStructuredLocations()
+            ? $warehouseLocations->first(fn (Location $location): bool => trim((string) $location->cell) === '')
+            : $warehouseLocations->first();
+
+        if ($location instanceof Location) {
+            return $location;
+        }
+
+        return Location::query()->create([
+            'warehouse_id' => $warehouse->id,
+            'floor' => $floor,
+            'cell' => null,
+            'full_code' => $this->uniqueNoCellLocationCode($warehouse, $floor),
+            'is_active' => true,
+        ]);
+    }
+
+    protected function uniqueNoCellLocationCode(Warehouse $warehouse, string $floor): string
+    {
+        $floorNumber = Str::after($floor, 'floor_') ?: '1';
+        $base = "WH{$warehouse->id}-F{$floorNumber}-NO-CELL";
+        $code = $base;
+        $counter = 2;
+
+        while (Location::query()->where('full_code', $code)->exists()) {
+            $code = "{$base}-{$counter}";
+            $counter++;
+        }
+
+        return $code;
+    }
+
+    protected function activePlacementLocations(): Collection
+    {
+        return Location::query()
+            ->with('warehouse:id,name,type,floor_count,is_active')
+            ->where('is_active', true)
+            ->whereHas('warehouse', fn (Builder $query) => $query
+                ->where('is_active', true)
+                ->where(fn (Builder $typeQuery) => $typeQuery
+                    ->whereNull('type')
+                    ->orWhere('type', '!=', Warehouse::TYPE_DONOR)))
+            ->orderBy('warehouse_id')
+            ->orderBy('floor')
+            ->orderBy('full_code')
+            ->get(['id', 'warehouse_id', 'floor', 'cell', 'full_code']);
+    }
+
+    protected function activePlacementWarehouses(): Collection
+    {
+        return Warehouse::query()
+            ->where('is_active', true)
+            ->orderBy('name')
+            ->get(['id', 'name', 'type', 'floor_count', 'is_active']);
+    }
+
+    protected function placementWarehouseOptions(Collection $warehouses): array
+    {
+        return $warehouses
+            ->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE)
+            ->map(fn (Warehouse $warehouse): array => [
+                'id' => $warehouse->id,
+                'name' => $warehouse->name,
+                'type' => $warehouse->type,
+                'floor_count' => $warehouse->floor_count,
+                'uses_structured_locations' => $warehouse->usesStructuredLocations(),
+                'floors' => collect($warehouse->availableFloors())
+                    ->map(fn (string $label, string $value): array => [
+                        'value' => $value,
+                        'label' => $label,
+                    ])
+                    ->values()
+                    ->all(),
+            ])
+            ->values()
+            ->all();
+    }
+
+    protected function placementLocationOptions(Collection $locations): array
+    {
+        return $locations
+            ->map(fn (Location $location): array => [
+                'id' => $location->id,
+                'warehouse_id' => $location->warehouse_id,
+                'floor' => $this->normalizedLocationFloor($location),
+                'floor_label' => $this->locationFloorLabel($location),
+                'label' => $this->locationDisplayCode($location, 'Без ячейки'),
+                'has_cell' => $location->warehouse?->usesStructuredLocations() && trim((string) $location->cell) !== '',
+            ])
+            ->values()
+            ->all();
+    }
+
+    protected function normalizedLocationFloor(Location $location): string
+    {
+        return is_string($location->floor) && $location->floor !== '' ? $location->floor : 'floor_1';
+    }
+
+    protected function locationFloorLabel(Location $location): string
+    {
+        $floor = $this->normalizedLocationFloor($location);
+
+        if (preg_match('/^floor_(\d+)$/', $floor, $matches)) {
+            return "Этаж {$matches[1]}";
+        }
+
+        return $location->floorLabel();
+    }
+
+    protected function locationDisplayCode(Location $location, string $fallback = ''): string
+    {
+        return trim((string) ($location->cell ?: $location->full_code)) ?: $fallback;
+    }
     protected function activeWarehouses()
     {
         return Warehouse::query()
@@ -2630,9 +4589,11 @@ class DonorCarController extends Controller
             $floorRules[] = Rule::in(array_keys($warehouse->availableFloors()));
         }
 
-        $damageOptions = $this->manualDonorProductDamageOptions();
+        $damageOptions = $this->mobileManualDonorProductDamageOptions();
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['nullable', 'string', 'max:255'],
+            'name_ru' => ['nullable', 'string', 'max:255'],
+            'name_ua' => ['nullable', 'string', 'max:255'],
             'damage_note' => ['required', 'string', Rule::in(array_keys($damageOptions))],
             'condition_type' => ['nullable', Rule::in(Product::CONDITION_TYPES)],
             'description' => ['nullable', 'string'],
@@ -2641,6 +4602,7 @@ class DonorCarController extends Controller
             'photos.*' => ['image', 'max:10240'],
             'selling_price' => ['nullable', 'numeric', 'min:0'],
             'external_sku' => ['nullable', 'string', 'max:255'],
+            'stock_quantity' => ['nullable', 'integer', 'min:1', 'max:999'],
             'warehouse_id' => ['required', 'exists:warehouses,id'],
             'floor' => $floorRules,
             'location_cell' => ['nullable', 'string', 'max:50'],
@@ -2648,6 +4610,8 @@ class DonorCarController extends Controller
         ]);
 
         $sku = $this->uniquePartCode($donorCar);
+        $validated['name'] = trim((string) ($validated['name'] ?? ''))
+            ?: (trim((string) ($validated['external_sku'] ?? '')) ?: $sku);
         $category = $this->categoryFromCatalogSku($validated['external_sku'] ?? null, $donorCar);
         $conditionType = $validated['condition_type'] ?? 'used';
 
@@ -2656,7 +4620,7 @@ class DonorCarController extends Controller
             $photos[] = $photo->store('product-photos', 'public');
         }
 
-        return DB::transaction(function () use ($validated, $donorCar, $sku, $photos, $category, $conditionType): Product {
+        return DB::transaction(function () use ($request, $validated, $donorCar, $sku, $photos, $category, $conditionType): Product {
             $product = Product::query()->create([
                 'sku' => $sku,
                 'external_sku' => $validated['external_sku'] ?? null,
@@ -2683,7 +4647,15 @@ class DonorCarController extends Controller
                 'is_active' => true,
             ]);
 
-            app(TeslaCatalogDonorProductSync::class)->syncProduct($product);
+            $syncResult = app(TeslaCatalogDonorProductSync::class)->syncProduct($product);
+            $nameUpdates = collect([
+                'name_ru' => trim((string) ($validated['name_ru'] ?? '')),
+                'name_ua' => trim((string) ($validated['name_ua'] ?? '')),
+            ])->filter(fn (string $value): bool => $value !== '')->all();
+
+            if ($nameUpdates !== [] && $syncResult['item'] instanceof PartCatalogItem) {
+                $syncResult['item']->forceFill($nameUpdates)->save();
+            }
 
             $warehouse = Warehouse::query()->findOrFail($validated['warehouse_id']);
             $location = $this->resolveInitialLocation($warehouse, $validated['floor'] ?? null, $validated['location_cell'] ?? null);
@@ -2692,12 +4664,60 @@ class DonorCarController extends Controller
                 'product_id' => $product->id,
                 'warehouse_id' => $warehouse->id,
                 'location_id' => $location->id,
-                'quantity' => 1,
+                'quantity' => (int) ($validated['stock_quantity'] ?? 1),
                 'comment' => 'Primary placement when adding a donor part.',
             ]);
 
-            return $product;
+            $this->syncNewDonorProductInventoryProjection(
+                $product->refresh(),
+                null,
+                $validated['damage_note'],
+                $request->user()?->id,
+            );
+
+            return $product->refresh();
         });
+    }
+
+    protected function syncNewDonorProductInventoryProjection(
+        Product $product,
+        mixed $previousDamageNote,
+        mixed $currentDamageNote,
+        ?int $userId,
+    ): void {
+        $inventorySync = app(NikolaCarsProductInventorySyncService::class);
+        $damageStatusChangedBy = $inventorySync->damageStatusChangedByForTransition(
+            $previousDamageNote,
+            $currentDamageNote,
+            $userId,
+            $product->donor_damage_status_changed_by,
+        );
+
+        if ($damageStatusChangedBy !== $product->donor_damage_status_changed_by) {
+            $product->forceFill([
+                'donor_damage_status_changed_by' => $damageStatusChangedBy,
+            ])->save();
+        }
+
+        $syncResult = $inventorySync->syncProduct($product->refresh());
+        $inventorySync->markDonorDamageCheckedAt(
+            $product->refresh(),
+            $syncResult['item'] ?? null,
+            $previousDamageNote,
+            $currentDamageNote,
+        );
+        $inventorySync->syncDonorDamageStatusChanger(
+            $product->refresh(),
+            $syncResult['item'] ?? null,
+            $previousDamageNote,
+            $currentDamageNote,
+            $damageStatusChangedBy,
+        );
+        app(DonorProductLocalizedNameAutofillService::class)->fillOnKnownDamageStatus(
+            $product->refresh(),
+            $previousDamageNote,
+            $currentDamageNote,
+        );
     }
 
     protected function nextPartCode(DonorCar $donorCar): string
@@ -2803,7 +4823,7 @@ class DonorCarController extends Controller
     protected function resolveInitialLocation(Warehouse $warehouse, ?string $floor, ?string $cell): Location
     {
         $floor = $warehouse->hasMultipleFloors() ? $floor : 'floor_1';
-        $cell = trim((string) $cell) ?: null;
+        $cell = $warehouse->usesStructuredLocations() ? trim((string) $cell) ?: null : null;
 
         $query = Location::query()
             ->where('warehouse_id', $warehouse->id)

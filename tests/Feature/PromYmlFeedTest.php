@@ -37,7 +37,7 @@ class PromYmlFeedTest extends TestCase
             'currency' => 'USD',
             'rate_date' => Carbon::today()->toDateString(),
             'rate' => 40,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
 
@@ -162,7 +162,7 @@ class PromYmlFeedTest extends TestCase
             'currency' => 'USD',
             'rate_date' => Carbon::today()->toDateString(),
             'rate' => 40,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
 
@@ -210,7 +210,7 @@ class PromYmlFeedTest extends TestCase
             'currency' => 'USD',
             'rate_date' => Carbon::today()->toDateString(),
             'rate' => 40,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
 
@@ -289,7 +289,7 @@ class PromYmlFeedTest extends TestCase
             'currency' => 'USD',
             'rate_date' => Carbon::today()->toDateString(),
             'rate' => 40,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
 

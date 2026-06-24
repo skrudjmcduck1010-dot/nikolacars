@@ -534,7 +534,7 @@ class NikolaCarsCatalogItemService
     protected function resolveInitialLocation(Warehouse $warehouse, ?string $floor, ?string $cell): Location
     {
         $floor = $warehouse->hasMultipleFloors() ? $floor : 'floor_1';
-        $cell = trim((string) $cell) ?: null;
+        $cell = $warehouse->usesStructuredLocations() ? trim((string) $cell) ?: null : null;
 
         $query = Location::query()
             ->where('warehouse_id', $warehouse->id)

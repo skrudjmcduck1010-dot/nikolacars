@@ -26,6 +26,7 @@
         $childDamageStatusUserName = trim((string) ($childDamageStatusUser?->name ?: $childDamageStatusUser?->email));
         $childStockValue = (float) ($childGroup['quantity'] ?? 0.0);
         $childStockText = (string) ($childGroup['quantity_text'] ?? $nikolaCarsInventory->availability($childStockValue));
+        $childStockDisplayText = (string) ($childGroup['stock_quantity_text'] ?? $childStockText);
         $childPriceValue = $childGroup['unit_price_value'] ?? null;
         $childPriceText = (string) ($childGroup['unit_price_text'] ?? '-');
         $childPriceUah = $childGroup['unit_price_uah_value'] ?? null;
@@ -208,7 +209,7 @@
                 <span class="help">-</span>
             @endif
         </td>
-        <td data-nikolacars-availability>{{ $childStockText }}</td>
+        <td data-nikolacars-availability>{{ $childStockDisplayText }}</td>
         <td class="actions">
             <div class="nikolacars-row-actions">
                 @if($childCanUseNikolaCarsActions)

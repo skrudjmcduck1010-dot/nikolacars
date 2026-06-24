@@ -33,6 +33,17 @@
             <div>
                 <div class="help">БезНал ФОП</div>
                 <strong>{{ $money($customerOrderCashSummary[\App\Models\CustomerOrder::PAYMENT_TYPE_BANK_FOP] ?? 0, 'UAH') }}</strong>
+                @if(($customerOrderCashSummary['bank_fop_afterpayment_commission_uah'] ?? 0) > 0)
+                    <div class="help">
+                        {{ "\u{041D}\u{0430}\u{043B}\u{043E}\u{0436}\u{043A}\u{0430}: " }}{{ $money($customerOrderCashSummary[\App\Models\CustomerOrder::PAYMENT_TYPE_BANK_FOP_AFTERPAYMENT] ?? 0, 'UAH') }}
+                        {{ "\u{2212} \u{043A}\u{043E}\u{043C}\u{0438}\u{0441}\u{0441}\u{0438}\u{044F} \u{041D}\u{041F} 0.5%: " }}{{ number_format((float) ($customerOrderCashSummary['bank_fop_afterpayment_commission_uah'] ?? 0), 2, '.', ' ') }} {{ "\u{0433}\u{0440}\u{043D}" }}
+                    </div>
+                @endif
+            </div>
+            <div>
+                <div class="help">{{ "\u{041A}\u{0430}\u{0441}\u{0441}\u{0430} \u{0050}\u{0072}\u{006F}\u{006D}" }}</div>
+                <strong>{{ $money($customerOrderCashSummary[\App\Models\CustomerOrder::PAYMENT_TYPE_PROM] ?? 0, 'UAH') }}</strong>
+                <div class="help">{{ "\u{0028}\u{041E}\u{0436}\u{0438}\u{0434}\u{0430}\u{0435}\u{0442} \u{0437}\u{0430}\u{0447}\u{0438}\u{0441}\u{043B}\u{0435}\u{043D}\u{0438}\u{044F}: " }}{{ $money($customerOrderCashSummary['prom_pending_uah'] ?? 0, 'UAH') }}{{ "\u{0029}" }}</div>
             </div>
             <div>
                 <div class="help">{{ "\u{0421}\u{0422}\u{041E}: \u{0437}\u{0430}\u{043F}\u{0447}\u{0430}\u{0441}\u{0442}\u{0438}" }}</div>
@@ -81,6 +92,15 @@
         </div>
 
         <div class="panel" style="margin-top:18px;">
+            <h2 class="section-title" style="margin-top:0;">{{ "\u{041D}\u{043E}\u{0432}\u{0430}\u{044F} \u{043F}\u{043E}\u{0447}\u{0442}\u{0430}: \u{041E}\u{0442}\u{043A}\u{0430}\u{0437}" }}</h2>
+            @include('admin.customer_orders._table', [
+                'orders' => $refusedNovaPoshtaOrders,
+                'useFixedColumns' => true,
+                'emptyText' => "\u{041E}\u{0442}\u{043A}\u{0430}\u{0437}\u{0430}\u{043D}\u{043D}\u{044B}\u{0445} \u{0437}\u{0430}\u{043A}\u{0430}\u{0437}\u{043E}\u{0432} \u{041D}\u{043E}\u{0432}\u{043E}\u{0439} \u{043F}\u{043E}\u{0447}\u{0442}\u{043E}\u{0439} \u{043F}\u{043E}\u{043A}\u{0430} \u{043D}\u{0435}\u{0442}.",
+            ])
+        </div>
+
+        <div class="panel" style="margin-top:18px;">
             <h2 class="section-title" style="margin-top:0;">Выдан</h2>
             @include('admin.customer_orders._table', [
                 'orders' => $completedOrders,
@@ -92,5 +112,6 @@
 
     <script>
         @include('admin.customer_orders._payment_modal_scripts')
+        @include('admin.customer_orders._tracking_number_editor_scripts')
     </script>
 @endsection

@@ -3,6 +3,9 @@
 @section('content')
     <div class="panel">
         <h2>Ячейки</h2>
+        @if(! $warehouse->usesStructuredLocations())
+            <p class="help">Не используются</p>
+        @else
         <table>
             <thead><tr><th></th><th></th><th></th><th></th><th></th><th></th></tr></thead>
             <tbody>
@@ -13,5 +16,6 @@
             @endforelse
             </tbody>
         </table>
+        @endif
     </div>
 @endsection

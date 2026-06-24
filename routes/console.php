@@ -104,7 +104,7 @@ Artisan::command('exchange-rates:fetch {--date=} {--currency=USD}', function ():
     $exchangeRate = app(ExchangeRateService::class)->fetchAndStoreUsdRate($this->option('date') ?: null);
 
     if ($exchangeRate === null) {
-        $this->error('Could not fetch USD exchange rate from NBU.');
+        $this->error('Could not fetch USD exchange rate.');
 
         return Command::FAILURE;
     }
@@ -116,7 +116,7 @@ Artisan::command('exchange-rates:fetch {--date=} {--currency=USD}', function ():
     ));
 
     return Command::SUCCESS;
-})->purpose('Fetch and store the NBU USD exchange rate');
+})->purpose('Fetch and store the official USD exchange rate');
 
 Schedule::command('exchange-rates:fetch --currency=USD')
     ->dailyAt('08:00')
@@ -124,7 +124,7 @@ Schedule::command('exchange-rates:fetch --currency=USD')
     ->withoutOverlapping();
 
 Schedule::command('customer-orders:sync-nova-poshta-statuses')
-    ->everyThirtyMinutes()
+    ->everyTenMinutes()
     ->timezone('Europe/Kyiv')
     ->withoutOverlapping();
 

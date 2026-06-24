@@ -129,6 +129,19 @@
         };
 
         $stockQuantity = (int) $product->stockItems->sum('quantity');
+        $vehicleQuantityText = null;
+
+        if ($product->donorCar) {
+            $vehicleQuantity = null;
+
+            if (preg_match('/Tesla VIN quantity:\s*(\d+)/u', (string) $product->description, $quantityMatches) === 1) {
+                $vehicleQuantity = (int) $quantityMatches[1];
+            }
+
+            $vehicleQuantity ??= max(1, $stockQuantity);
+            $vehicleQuantityText = $vehicleQuantity.' '."\u{0448}\u{0442}";
+        }
+
         $storageStatusLabel = $product->storage_status_label;
 
         if ($product->storage_status === \App\Models\Product::STORAGE_STATUS_IN_STOCK && $stockQuantity <= 0) {
@@ -142,8 +155,27 @@
         $officialCatalogItem = $officialCatalogItem ?? ($nikolaCarsOfficialEnrichment?->officialItem ?? null);
         $catalogSchemeItem = $officialCatalogItem ?: $catalogItem;
         $donorSummaryLabel = $product->storage_status === \App\Models\Product::STORAGE_STATUS_ON_DONOR
-            ? "\u{041D}\u{0430} \u{0434}\u{043E}\u{043D}\u{043E}\u{0440}\u{0435}"
+            ? "\u{0420}\u{0430}\u{0441}\u{043F}\u{043E}\u{043B}\u{043E}\u{0436}\u{0435}\u{043D}\u{0438}\u{0435} \u{043D}\u{0430} \u{043D}\u{0430}\u{0448}\u{0435}\u{043C} \u{0441}\u{043A}\u{043B}\u{0430}\u{0434}\u{0435}"
             : "\u{0421}\u{043D}\u{044F}\u{0442}\u{043E} \u{0441} \u{0434}\u{043E}\u{043D}\u{043E}\u{0440}\u{0430}";
+        $stockPlacementFloorLabel = function ($location): string {
+            $floor = (string) ($location?->floor ?? '');
+
+            if (preg_match('/^floor_(\d+)$/', $floor, $matches)) {
+                return "\u{042D}\u{0442}\u{0430}\u{0436} {$matches[1]}";
+            }
+
+            return "\u{2014}";
+        };
+        $stockPlacementRows = $product->stockItems
+            ->filter(fn ($stockItem): bool => (int) $stockItem->quantity > 0)
+            ->map(fn ($stockItem): array => [
+                'warehouse' => $stockItem->warehouse?->name ?: "\u{2014}",
+                'is_donor_warehouse' => $stockItem->warehouse?->type === \App\Models\Warehouse::TYPE_DONOR,
+                'floor' => $stockPlacementFloorLabel($stockItem->location),
+                'cell' => $stockItem->location?->shortCode() ?: "\u{2014}",
+                'quantity' => (int) $stockItem->quantity,
+            ])
+            ->values();
 
         $details = [
             'ID' => $product->id,
@@ -240,8 +272,30 @@
                                 <div class="product-donor-summary__line">
                                     <a class="product-donor-summary__vin" href="{{ route('admin.donor-cars.show', $product->donorCar) }}">{{ $product->donorCar->vin }}</a>
                                 </div>
+                                <div class="product-stock-placement-list">
+                                    @forelse($stockPlacementRows as $placement)
+                                        <div class="product-stock-placement">
+                                            <span><strong>{{ "\u{0421}\u{043A}\u{043B}\u{0430}\u{0434}" }}:</strong> {{ $placement['warehouse'] }}</span>
+                                            @unless($placement['is_donor_warehouse'])
+                                                <span><strong>{{ "\u{042D}\u{0442}\u{0430}\u{0436}" }}:</strong> {{ $placement['floor'] }}</span>
+                                                <span><strong>{{ "\u{042F}\u{0447}\u{0435}\u{0439}\u{043A}\u{0430}" }}:</strong> {{ $placement['cell'] }}</span>
+                                            @endunless
+                                            @if($placement['quantity'] !== 1)
+                                                <span><strong>{{ "\u{041A}\u{043E}\u{043B}-\u{0432}\u{043E}" }}:</strong> {{ $placement['quantity'] }}</span>
+                                            @endif
+                                        </div>
+                                    @empty
+                                        <div class="product-stock-placement product-stock-placement--empty">
+                                            {{ "\u{0421}\u{043A}\u{043B}\u{0430}\u{0434}, \u{044D}\u{0442}\u{0430}\u{0436} \u{0438} \u{044F}\u{0447}\u{0435}\u{0439}\u{043A}\u{0430} \u{043D}\u{0435} \u{0443}\u{043A}\u{0430}\u{0437}\u{0430}\u{043D}\u{044B}" }}
+                                        </div>
+                                    @endforelse
+                                </div>
                             </div>
                         </div>
+                    @endif
+
+                    @if($vehicleQuantityText !== null)
+                        <div class="product-catalog-name-line"><strong>{{ "\u{041A}\u{043E}\u{043B}-\u{0432}\u{043E} \u{043D}\u{0430} \u{043C}\u{0430}\u{0448}\u{0438}\u{043D}\u{0435}" }}:</strong> <span>{{ $vehicleQuantityText }}</span></div>
                     @endif
 
                     <div class="product-catalog-name-line"><strong>Название RU:</strong> <span>{{ $catalogNameRu['text'] }}</span>
@@ -373,8 +427,22 @@
                     @if($storedProductImages->isNotEmpty() || $catalogSchemeImages->isNotEmpty())
                         <dialog class="product-photo-lightbox" data-product-photo-lightbox>
                             <button type="button" class="btn btn-secondary product-photo-lightbox__close" data-product-photo-close aria-label="Закрыть">&times;</button>
+                            <button type="button" class="btn btn-secondary product-photo-lightbox__rotate product-photo-lightbox__rotate--counterclockwise" data-product-photo-rotate data-product-photo-rotate-degrees="270" aria-label="Повернуть изображение против часовой стрелки">
+                                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                                    <path d="M3 3v5h5"/>
+                                </svg>
+                            </button>
+                            <button type="button" class="btn btn-secondary product-photo-lightbox__rotate product-photo-lightbox__rotate--clockwise" data-product-photo-rotate data-product-photo-rotate-degrees="90" aria-label="Повернуть изображение по часовой стрелке">
+                                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                    <path d="M21 12a9 9 0 1 1-9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                                    <path d="M21 3v5h-5"/>
+                                </svg>
+                            </button>
                             <button type="button" class="btn btn-secondary product-photo-lightbox__nav product-photo-lightbox__nav--prev" data-product-photo-prev aria-label="Предыдущее изображение">&#8249;</button>
-                            <img src="" alt="Изображение {{ $product->name }}" data-product-photo-lightbox-image>
+                            <div class="product-photo-lightbox__stage">
+                                <img src="" alt="Изображение {{ $product->name }}" data-product-photo-lightbox-image>
+                            </div>
                             <button type="button" class="btn btn-secondary product-photo-lightbox__nav product-photo-lightbox__nav--next" data-product-photo-next aria-label="Следующее изображение">&#8250;</button>
                             <div class="product-photo-lightbox__counter" data-product-photo-counter></div>
                         </dialog>
@@ -807,14 +875,18 @@
         .product-donor-summary__line { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; min-width: 0; }
         .product-donor-summary__vin { display: inline-block; max-width: 100%; font-size: 16px; font-weight: 800; overflow-wrap: anywhere; }
         .product-donor-summary__tag { flex: 0 0 auto; }
+        .product-stock-placement-list { display: grid; gap: 4px; margin-top: 6px; }
+        .product-stock-placement { display: flex; flex-wrap: wrap; gap: 4px 10px; color: var(--muted); font-size: 13px; overflow-wrap: anywhere; }
+        .product-stock-placement strong { color: var(--text); }
+        .product-stock-placement--empty { color: var(--muted); }
         .product-description-block { display: grid; gap: 8px; margin: 16px 0; }
         .product-photo-manager { display: grid; gap: 10px; padding-top: 28px; }
         .product-photo-manager__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-        .product-photo-manager__item { position: relative; display: block; width: 100%; border-radius: 8px; background: transparent; color: var(--text); overflow: hidden; touch-action: none; }
+        .product-photo-manager__item { position: relative; display: block; width: 100%; aspect-ratio: 4 / 3; border-radius: 8px; background: #fff; color: var(--text); overflow: hidden; touch-action: none; }
         .product-photo-manager__item.is-dragging { opacity: .32; outline: 2px dashed var(--accent); outline-offset: -2px; background: var(--accent-soft); }
         .product-photo-manager__item.is-dragging img { opacity: .45; }
         .product-photo-manager__item.is-drop-target img { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(15, 118, 110, .18); }
-        .product-photo-manager__item img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+        .product-photo-manager__item img { display: block; width: 100%; height: 100%; object-fit: contain; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
         .product-photo-manager__open { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; padding: 0; border: 0; border-radius: 8px; background: transparent; color: transparent; cursor: zoom-in; }
         .product-photo-manager__open:hover,
         .product-photo-manager__open:focus-visible { background: rgba(15, 118, 110, .08); outline: 2px solid rgba(15, 118, 110, .28); outline-offset: -2px; }
@@ -830,11 +902,16 @@
         .product-photo-manager__main-tag { left: 8px; }
         .product-photo-manager__source-tag { right: 8px; background: #111827; color: #fff; }
         .product-photo-manager__drag-preview { position: fixed; left: 0; top: 0; z-index: 80; pointer-events: none; overflow: hidden; contain: layout paint; will-change: transform; border: 2px solid var(--accent); border-radius: 8px; background: #fff; box-shadow: 0 18px 42px rgba(29, 42, 49, .34); opacity: .96; transform-origin: top left; transition: none; }
-        .product-photo-manager__drag-preview img { display: block; width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
-        .product-photo-lightbox { width: min(1120px, calc(100vw - 32px)); max-height: calc(100vh - 32px); padding: 48px 62px 44px; border: 1px solid var(--line); border-radius: 18px; background: rgba(255, 255, 255, .98); box-shadow: 0 24px 70px rgba(25, 32, 36, .25); }
+        .product-photo-manager__drag-preview img { display: block; width: 100%; height: 100%; object-fit: contain; }
+        .product-photo-lightbox { width: min(1120px, calc(100vw - 32px)); height: min(820px, calc(100vh - 32px)); max-height: calc(100vh - 32px); padding: 48px 62px 44px; border: 1px solid var(--line); border-radius: 18px; background: rgba(255, 255, 255, .98); box-shadow: 0 24px 70px rgba(25, 32, 36, .25); box-sizing: border-box; }
         .product-photo-lightbox::backdrop { background: rgba(29, 42, 49, .6); }
-        .product-photo-lightbox img { display: block; width: 100%; max-height: calc(100vh - 142px); object-fit: contain; border-radius: 8px; background: #fff; }
+        .product-photo-lightbox__stage { display: grid; place-items: center; width: 100%; height: 100%; min-width: 0; min-height: 0; overflow: hidden; border-radius: 8px; background: #fff; }
+        .product-photo-lightbox img { display: block; width: 100%; height: 100%; min-width: 0; min-height: 0; object-fit: contain; border-radius: 8px; background: #fff; }
         .product-photo-lightbox__close { position: absolute; top: 12px; right: 12px; width: 34px; height: 34px; padding: 0; font-size: 22px; line-height: 1; }
+        .product-photo-lightbox__rotate { position: absolute; top: 12px; width: 34px; height: 34px; padding: 0; }
+        .product-photo-lightbox__rotate--clockwise { right: 54px; }
+        .product-photo-lightbox__rotate--counterclockwise { right: 96px; }
+        .product-photo-lightbox__rotate svg { display: block; width: 19px; height: 19px; margin: auto; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
         .product-photo-lightbox__nav { position: absolute; top: 50%; width: 38px; height: 56px; padding: 0; transform: translateY(-50%); font-size: 34px; line-height: 1; }
         .product-photo-lightbox__nav--prev { left: 12px; }
         .product-photo-lightbox__nav--next { right: 12px; }
@@ -881,13 +958,17 @@
 
     <script>
         (() => {
+            let productPhotoPaths = @json($storedProductImages->values());
             let photos = @json($storedProductImages->map(fn ($photo) => $imageUrl($photo))->values());
+            const rotatePhotoUrl = @json(route('admin.products.photos.rotate', $product));
+            const csrfToken = @json(csrf_token());
             const schemes = @json($catalogSchemeImages->map(fn ($schemeImage) => $imageUrl($schemeImage))->values());
             let lightboxImages = [...photos, ...schemes];
             const lightbox = document.querySelector('[data-product-photo-lightbox]');
             const image = lightbox?.querySelector('[data-product-photo-lightbox-image]');
             const counter = lightbox?.querySelector('[data-product-photo-counter]');
             const closeButton = lightbox?.querySelector('[data-product-photo-close]');
+            const rotateButtons = Array.from(lightbox?.querySelectorAll('[data-product-photo-rotate]') || []);
             const prevButton = lightbox?.querySelector('[data-product-photo-prev]');
             const nextButton = lightbox?.querySelector('[data-product-photo-next]');
             const uploadForm = document.querySelector('[data-product-photo-upload-form]');
@@ -956,8 +1037,12 @@
                     return;
                 }
 
-                photos = Array.from(sortable.querySelectorAll('[data-product-photo-tile] img'))
-                    .map((photo) => photo.currentSrc || photo.src || '')
+                const tiles = Array.from(sortable.querySelectorAll('[data-product-photo-tile]'));
+                productPhotoPaths = tiles
+                    .map((tile) => tile.dataset.photo || '')
+                    .filter(Boolean);
+                photos = tiles
+                    .map((tile) => tile.querySelector('img')?.currentSrc || tile.querySelector('img')?.src || '')
                     .filter(Boolean);
                 lightboxImages = [...photos, ...schemes];
             };
@@ -974,6 +1059,9 @@
                 const hasMultipleImages = lightboxImages.length > 1;
                 if (prevButton) prevButton.hidden = !hasMultipleImages;
                 if (nextButton) nextButton.hidden = !hasMultipleImages;
+                rotateButtons.forEach((button) => {
+                    button.hidden = currentIndex >= productPhotoPaths.length;
+                });
             };
 
             document.querySelectorAll('[data-product-photo-index]').forEach((button) => {
@@ -1302,6 +1390,59 @@
             });
 
             closeButton?.addEventListener('click', () => lightbox?.close());
+            rotateButtons.forEach((rotateButton) => {
+                rotateButton.addEventListener('click', async () => {
+                    const photoPath = productPhotoPaths[currentIndex] || '';
+                    const degrees = Number(rotateButton.dataset.productPhotoRotateDegrees || 90);
+
+                    if (!image || !photoPath) {
+                        return;
+                    }
+
+                    rotateButtons.forEach((button) => {
+                        button.disabled = true;
+                    });
+
+                    try {
+                        const response = await fetch(rotatePhotoUrl, {
+                            method: 'PATCH',
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': csrfToken,
+                            },
+                            body: JSON.stringify({ photo: photoPath, degrees }),
+                        });
+                        const payload = await response.json().catch(() => ({}));
+
+                        if (!response.ok) {
+                            const message = payload?.message || payload?.errors?.photo?.[0] || 'Не удалось повернуть фото.';
+                            throw new Error(message);
+                        }
+
+                        const baseUpdatedUrl = payload.url || image.src;
+                        const updatedUrl = `${baseUpdatedUrl}${baseUpdatedUrl.includes('?') ? '&' : '?'}rotated_at=${Date.now()}`;
+                        photos[currentIndex] = updatedUrl;
+                        lightboxImages[currentIndex] = updatedUrl;
+                        image.src = updatedUrl;
+
+                        const tiles = Array.from(document.querySelectorAll('[data-product-photo-tile]'));
+                        const tileImage = tiles[currentIndex]?.dataset.photo === photoPath
+                            ? tiles[currentIndex]?.querySelector('img')
+                            : tiles.find((tile) => tile.dataset.photo === photoPath)?.querySelector('img');
+
+                        if (tileImage) {
+                            tileImage.src = updatedUrl;
+                        }
+                    } catch (error) {
+                        alert(error?.message || 'Не удалось повернуть фото.');
+                    } finally {
+                        rotateButtons.forEach((button) => {
+                            button.disabled = false;
+                        });
+                    }
+                });
+            });
             prevButton?.addEventListener('click', () => showPhoto(currentIndex - 1));
             nextButton?.addEventListener('click', () => showPhoto(currentIndex + 1));
 

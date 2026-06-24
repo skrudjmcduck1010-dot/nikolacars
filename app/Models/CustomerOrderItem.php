@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 #[Fillable([
     'customer_order_id',
@@ -60,5 +61,11 @@ class CustomerOrderItem extends Model
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function shipments(): BelongsToMany
+    {
+        return $this->belongsToMany(CustomerOrderShipment::class, 'customer_order_shipment_items')
+            ->withTimestamps();
     }
 }

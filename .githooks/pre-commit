@@ -1,0 +1,65 @@
+#!/usr/bin/env sh
+set -eu
+
+ROOT="$(git rev-parse --show-toplevel)"
+cd "$ROOT"
+
+find_php() {
+    if [ -n "${LOCAL_PHP:-}" ]; then
+        if [ -f "$LOCAL_PHP" ]; then
+            printf '%s\n' "$LOCAL_PHP"
+            return 0
+        fi
+
+        if command -v cygpath >/dev/null 2>&1; then
+            CONVERTED_LOCAL_PHP="$(cygpath -u "$LOCAL_PHP" 2>/dev/null || true)"
+            if [ -n "$CONVERTED_LOCAL_PHP" ] && [ -f "$CONVERTED_LOCAL_PHP" ]; then
+                printf '%s\n' "$CONVERTED_LOCAL_PHP"
+                return 0
+            fi
+        fi
+    fi
+
+    if command -v php >/dev/null 2>&1; then
+        command -v php
+        return 0
+    fi
+
+    for LARAGON_PHP_DIR in /c/laragon/bin/php /C/laragon/bin/php; do
+        if [ -d "$LARAGON_PHP_DIR" ]; then
+            FOUND_PHP="$(find "$LARAGON_PHP_DIR" -type f -iname php.exe 2>/dev/null | sort -r | head -n 1)"
+            if [ -n "$FOUND_PHP" ]; then
+                printf '%s\n' "$FOUND_PHP"
+                return 0
+            fi
+        fi
+    done
+
+    return 1
+}
+
+PHP_BIN="$(find_php || true)"
+
+if [ -z "$PHP_BIN" ]; then
+    cat >&2 <<'EOF'
+Encoding guard could not find PHP.
+Set LOCAL_PHP to php.exe or add PHP to PATH before committing.
+EOF
+    exit 1
+fi
+
+if [ -f scripts/encoding-guard.php ]; then
+    "$PHP_BIN" scripts/encoding-guard.php --staged
+elif [ -f artisan ]; then
+    cat >&2 <<'EOF'
+scripts/encoding-guard.php is missing; falling back to the full Laravel encoding audit.
+Restore local guard files from git when this commit is done.
+EOF
+    "$PHP_BIN" artisan encoding:audit --fail-on-issues
+else
+    cat >&2 <<'EOF'
+Encoding guard files are missing.
+Restore .githooks/pre-commit and scripts/encoding-guard.php before committing.
+EOF
+    exit 1
+fi

@@ -6,6 +6,7 @@ use App\Models\Concerns\TracksUserStamps;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 #[Fillable([
     'customer_order_id',
@@ -30,6 +31,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
     'tracking_number',
     'np_status_code',
     'np_status',
+    'np_status_detail',
+    'np_return_tracking_number',
+    'np_return_document_type',
+    'np_return_created_at',
+    'np_return_status_code',
+    'np_return_status',
+    'np_return_status_detail',
+    'np_return_status_checked_at',
     'np_status_checked_at',
     'label_url',
     'raw_response',
@@ -62,6 +71,8 @@ class CustomerOrderShipment extends Model
             'declared_cost' => 'decimal:2',
             'afterpayment_amount' => 'decimal:2',
             'np_status_checked_at' => 'datetime',
+            'np_return_created_at' => 'datetime',
+            'np_return_status_checked_at' => 'datetime',
             'raw_response' => 'array',
         ];
     }
@@ -71,6 +82,12 @@ class CustomerOrderShipment extends Model
         return $this->belongsTo(CustomerOrder::class);
     }
 
+    public function items(): BelongsToMany
+    {
+        return $this->belongsToMany(CustomerOrderItem::class, 'customer_order_shipment_items')
+            ->withTimestamps();
+    }
+
     public function getTrackingUrlAttribute(): ?string
     {
         if (! $this->tracking_number) {
@@ -78,5 +95,14 @@ class CustomerOrderShipment extends Model
         }
 
         return 'https://novaposhta.ua/tracking/'.rawurlencode($this->tracking_number);
+    }
+
+    public function getReturnTrackingUrlAttribute(): ?string
+    {
+        if (! $this->np_return_tracking_number) {
+            return null;
+        }
+
+        return 'https://novaposhta.ua/tracking/'.rawurlencode($this->np_return_tracking_number);
     }
 }

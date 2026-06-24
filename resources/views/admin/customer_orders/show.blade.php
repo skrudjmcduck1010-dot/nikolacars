@@ -20,7 +20,35 @@
     $canEditOrder = $order->canBeEdited();
     $canEditOrderItems = $canEditOrder && (float) $order->paid_amount_uah <= 0;
     $orderIsFullyPaid = round((float) $order->paid_amount_uah) >= round((float) $orderTotalAmountUah);
-    $orderCanBeMarkedAsCompleted = $order->canBeMarkedAsCompleted() && ($order->delivery_method === \App\Models\CustomerOrder::DELIVERY_METHOD_STO || $orderIsFullyPaid);
+    $orderHasNovaPoshtaTtn = $order->delivery_method === \App\Models\CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA && filled($order->novaPoshtaShipment?->tracking_number);
+    $orderCanBeMarkedAsCompleted = ! $orderHasNovaPoshtaTtn && $order->canBeMarkedAsCompleted() && ($order->delivery_method === \App\Models\CustomerOrder::DELIVERY_METHOD_STO || $orderIsFullyPaid);
+    $isSenderCreatedNovaPoshtaStatus = function (?string $status): bool {
+        $status = trim((string) $status);
+        $senderCreatedInvoiceStatus = "\u{0412}\u{0456}\u{0434}\u{043F}\u{0440}\u{0430}\u{0432}\u{043D}\u{0438}\u{043A} \u{0441}\u{0430}\u{043C}\u{043E}\u{0441}\u{0442}\u{0456}\u{0439}\u{043D}\u{043E} \u{0441}\u{0442}\u{0432}\u{043E}\u{0440}\u{0438}\u{0432} \u{0446}\u{044E} \u{043D}\u{0430}\u{043A}\u{043B}\u{0430}\u{0434}\u{043D}\u{0443}, \u{0430}\u{043B}\u{0435} \u{0449}\u{0435} \u{043D}\u{0435} \u{043D}\u{0430}\u{0434}\u{0430}\u{0432} \u{0434}\u{043E} \u{0432}\u{0456}\u{0434}\u{043F}\u{0440}\u{0430}\u{0432}\u{043A}\u{0438}";
+
+        return $status !== '' && str_contains(mb_strtolower($status), mb_strtolower($senderCreatedInvoiceStatus));
+    };
+    if (
+        $order->delivery_method === \App\Models\CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA
+        && $isSenderCreatedNovaPoshtaStatus($order->novaPoshtaShipment?->np_status)
+    ) {
+        $statusClass = 'tag-warning';
+    } elseif (
+        $order->delivery_method === \App\Models\CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA
+        && $order->novaPoshtaShipment?->np_status_code === \App\Models\CustomerOrder::NOVA_POSHTA_STATUS_RECEIVED
+    ) {
+        $statusClass = 'tag-paid';
+    }
+    $novaPoshtaStatusDisplay = function (?string $status) use ($isSenderCreatedNovaPoshtaStatus): string {
+        $status = trim((string) $status);
+
+        if ($isSenderCreatedNovaPoshtaStatus($status)) {
+            return "\u{041E}\u{0447}\u{0456}\u{043A}\u{0443}\u{0454} \u{0434}\u{043E}\u{0441}\u{0442}\u{0430}\u{0432}\u{043A}\u{0443} \u{0442}\u{043E}\u{0432}\u{0430}\u{0440}\u{0430} \u{043D}\u{0430} \u{041D}\u{043E}\u{0432}\u{0443} \u{043F}\u{043E}\u{0448}\u{0442}\u{0443}.";
+        }
+        $status = preg_replace('/\s+Очікуйте повідомлення про прибуття\.?$/u', '', $status) ?? $status;
+
+        return trim($status);
+    };
     $prepaymentPartsFor = function (\App\Models\CustomerOrder $order, ?string $currency = null) use ($money): \Illuminate\Support\Collection {
         return collect([
             [
@@ -41,6 +69,11 @@
             [
                 'label' => \App\Models\CustomerOrder::PAYMENT_TYPE_LABELS[\App\Models\CustomerOrder::PAYMENT_TYPE_BANK_FOP],
                 'amount' => (float) $order->paid_bank_fop_uah,
+                'currency' => 'UAH',
+            ],
+            [
+                'label' => \App\Models\CustomerOrder::PAYMENT_TYPE_LABELS[\App\Models\CustomerOrder::PAYMENT_TYPE_PROM],
+                'amount' => (float) $order->paid_prom_uah,
                 'currency' => 'UAH',
             ],
         ])
@@ -88,7 +121,11 @@
             return $event->event_type === 'prepayment_received'
                 || (
                     $event->event_type === 'payment_confirmed'
-                    && (bool) data_get($event->new_values, 'is_prepayment_flow')
+                    && (
+                        (bool) data_get($event->new_values, 'is_prepayment_flow')
+                        || (bool) data_get($event->new_values, 'is_afterpayment')
+                        || data_get($event->new_values, 'payment_type') === \App\Models\CustomerOrder::PAYMENT_TYPE_BANK_FOP_AFTERPAYMENT
+                    )
                 );
         })
         ->when($lastBulkPrepaymentDeletedEventId !== null, fn (\Illuminate\Support\Collection $events) => $events
@@ -99,10 +136,17 @@
             $paymentType = (string) data_get($event->new_values, 'payment_type', '');
             $amount = (float) data_get($event->new_values, 'payment_received_amount', 0);
             $currency = $paymentType === \App\Models\CustomerOrder::PAYMENT_TYPE_CASH_USD ? 'USD' : 'UAH';
-            $label = \App\Models\CustomerOrder::PAYMENT_TYPE_LABELS[$paymentType] ?? $paymentType;
+            $isAfterpayment = (bool) data_get($event->new_values, 'is_afterpayment')
+                || $paymentType === \App\Models\CustomerOrder::PAYMENT_TYPE_BANK_FOP_AFTERPAYMENT;
+            $paymentLabel = $paymentType === \App\Models\CustomerOrder::PAYMENT_TYPE_BANK_FOP_AFTERPAYMENT
+                ? \App\Models\CustomerOrder::PAYMENT_TYPE_LABELS[\App\Models\CustomerOrder::PAYMENT_TYPE_BANK_FOP]
+                : (\App\Models\CustomerOrder::PAYMENT_TYPE_LABELS[$paymentType] ?? $paymentType);
+            $label = $paymentLabel;
 
             return [
                 'event_id' => $event->id,
+                'is_afterpayment' => $isAfterpayment,
+                'badge' => $isAfterpayment ? "\u{041D}\u{0430}\u{043B}\u{043E}\u{0436}\u{043A}\u{0430}" : "\u{041F}\u{0440}\u{0435}\u{0434}\u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0430}",
                 'label' => trim($label) !== '' ? $label : "\u{041F}\u{0440}\u{0435}\u{0434}\u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0430}",
                 'amount_text' => $money($amount, $currency),
             ];
@@ -113,6 +157,7 @@
         $prepaymentEntries->isNotEmpty()
         && $paymentIsFull
         && ! (bool) data_get($order->historyEvents->where('event_type', 'payment_confirmed')->sortByDesc('created_at')->first()?->new_values, 'is_prepayment_flow')
+        && ! $prepaymentEntries->contains('is_afterpayment', true)
     ) {
         $lastPaymentConfirmedEvent = $order->historyEvents
             ->where('event_type', 'payment_confirmed')
@@ -127,9 +172,16 @@
 
         if ($missingPaidAmount > 0) {
             $lastPaymentType = (string) $order->payment_type;
-            $lastPaymentLabel = \App\Models\CustomerOrder::PAYMENT_TYPE_LABELS[$lastPaymentType] ?? $lastPaymentType;
+            $lastPaymentIsAfterpayment = (bool) data_get($lastPaymentConfirmedEvent?->new_values, 'is_afterpayment')
+                || $lastPaymentType === \App\Models\CustomerOrder::PAYMENT_TYPE_BANK_FOP_AFTERPAYMENT;
+            $lastPaymentMethodLabel = $lastPaymentType === \App\Models\CustomerOrder::PAYMENT_TYPE_BANK_FOP_AFTERPAYMENT
+                ? \App\Models\CustomerOrder::PAYMENT_TYPE_LABELS[\App\Models\CustomerOrder::PAYMENT_TYPE_BANK_FOP]
+                : (\App\Models\CustomerOrder::PAYMENT_TYPE_LABELS[$lastPaymentType] ?? $lastPaymentType);
+            $lastPaymentLabel = $lastPaymentMethodLabel;
             $prepaymentEntries->push([
                 'event_id' => $lastPaymentConfirmedEvent?->id,
+                'is_afterpayment' => $lastPaymentIsAfterpayment,
+                'badge' => $lastPaymentIsAfterpayment ? "\u{041D}\u{0430}\u{043B}\u{043E}\u{0436}\u{043A}\u{0430}" : "\u{041F}\u{0440}\u{0435}\u{0434}\u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0430}",
                 'label' => trim($lastPaymentLabel) !== '' ? $lastPaymentLabel : "\u{041F}\u{0440}\u{0435}\u{0434}\u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0430}",
                 'amount_text' => $money($missingPaidAmount, $lastPaymentType === \App\Models\CustomerOrder::PAYMENT_TYPE_CASH_USD ? 'USD' : 'UAH'),
             ]);
@@ -138,6 +190,7 @@
     if ($prepaymentEntries->isEmpty() && ! $paymentIsFull && (float) $order->paid_amount_uah > 0) {
         $prepaymentEntries = collect([[
             'event_id' => null,
+            'badge' => "\u{041F}\u{0440}\u{0435}\u{0434}\u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0430}",
             'label' => $prepaymentAmountSummary !== '' ? '' : "\u{041F}\u{0440}\u{0435}\u{0434}\u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0430}",
             'amount_text' => $prepaymentAmountSummary !== '' ? $prepaymentAmountSummary : $money($order->paid_amount_uah, 'UAH'),
         ]]);
@@ -160,7 +213,8 @@
 
         $paidNonUsdUah = (float) $order->paid_cash_uah
             + (float) $order->paid_bank_tov_uah
-            + (float) $order->paid_bank_fop_uah;
+            + (float) $order->paid_bank_fop_uah
+            + (float) $order->paid_prom_uah;
         $paidNonUsd = $rate > 0 ? $paidNonUsdUah / $rate : 0.0;
 
         return max(0, round((float) $order->total_amount_usd_hint - (float) $order->paid_cash_usd - $paidNonUsd, 2));
@@ -297,6 +351,97 @@
             background: transparent;
             color: #7f1d1d;
         }
+        .customer-order-ttn-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+        .customer-order-ttn-button {
+            width: 30px;
+            height: 30px;
+            min-height: 30px;
+            padding: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .customer-order-ttn-button svg {
+            display: block;
+            width: 17px;
+            height: 17px;
+        }
+        .customer-order-ttn-button-muted {
+            color: #6b7280;
+        }
+        .customer-order-ttn-form {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            max-width: 100%;
+        }
+        .customer-order-ttn-form input {
+            width: 180px;
+            min-height: 30px;
+            padding: 6px 10px;
+            border-radius: 10px;
+        }
+        .customer-order-ttn-save,
+        .customer-order-ttn-cancel {
+            min-height: 30px;
+            padding: 6px 10px;
+            border-radius: 10px;
+        }
+        .customer-order-ttn-error {
+            width: 100%;
+        }
+        .customer-order-ttn-afterpayment {
+            order: 20;
+            flex-basis: 100%;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.35;
+        }
+        .customer-order-ttn-warning {
+            display: inline-flex;
+            width: 17px;
+            height: 17px;
+            margin-left: 4px;
+            color: var(--danger);
+            vertical-align: -3px;
+        }
+        .customer-order-ttn-warning svg {
+            display: block;
+            width: 17px;
+            height: 17px;
+        }
+        .customer-order-item-ttn-badge {
+            display: inline-flex;
+            align-items: center;
+            min-height: 18px;
+            margin-right: 6px;
+            padding: 2px 6px;
+            border-radius: 6px;
+            background: #fee2e2;
+            color: #991b1b;
+            font-size: 11px;
+            font-weight: 800;
+            line-height: 1.1;
+            vertical-align: 1px;
+            white-space: nowrap;
+        }
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
         .customer-order-delivery-form {
             display: grid;
             gap: 10px;
@@ -337,7 +482,7 @@
         <div class="panel">
             <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:10px;">
                 <h2 class="section-title" style="margin:0;">Заказ</h2>
-                @if($order->canBeCancelled() && ! $orderIsFullyPaid)
+                @if(! $orderHasNovaPoshtaTtn && $order->canBeCancelled() && ! $orderIsFullyPaid)
                     <form method="POST" action="{{ route('admin.customer-orders.status.update', $order) }}" class="inline-form" onsubmit='return confirm(@json("Отменить заказ {$order->number}? Товары будут сняты с резерва."));'>
                         @csrf
                         @method('PATCH')
@@ -353,11 +498,78 @@
                     <td>
                         <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
                             <div>
-                                <span class="tag {{ $statusClass }}">{{ $order->status_label }}</span>
+                                @php($statusIsFromNovaPoshta = $order->status !== \App\Models\CustomerOrder::STATUS_REFUSED && $order->delivery_method === \App\Models\CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA && $novaPoshtaShipment?->np_status)
+                                @php($statusNovaPoshtaShipments = $order->relationLoaded('novaPoshtaShipments') ? $order->novaPoshtaShipments->filter(fn ($shipment) => filled($shipment->tracking_number))->values() : collect([$novaPoshtaShipment])->filter(fn ($shipment) => filled($shipment?->tracking_number))->values())
+                                @if($statusNovaPoshtaShipments->count() > 1)
+                                    <div style="display:grid; gap:4px; justify-items:start;">
+                                        @foreach($statusNovaPoshtaShipments as $statusShipment)
+                                            <div class="tag tag-warning" style="text-align:left; line-height:1.35;">
+                                                {{ "\u{0422}\u{0422}\u{041D} ".$loop->iteration.": ".($statusShipment->np_status ? $novaPoshtaStatusDisplay($statusShipment->np_status) : $order->status_label) }}
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                @else
+                                    <span style="display:inline-flex; align-items:center; gap:6px;">
+                                        <span
+                                            class="tag {{ $statusClass }}"
+                                            data-customer-order-status-label
+                                            data-customer-order-id="{{ $order->id }}"
+                                            @if($order->status === \App\Models\CustomerOrder::STATUS_REFUSED && $novaPoshtaShipment?->np_status_detail)
+                                                title="{{ $novaPoshtaShipment->np_status_detail }}"
+                                            @endif
+                                        >{{ $statusIsFromNovaPoshta ? $novaPoshtaStatusDisplay($novaPoshtaShipment->np_status) : $order->status_label }}</span>
+                                        @if($statusIsFromNovaPoshta && $novaPoshtaShipment?->tracking_url)
+                                            <a
+                                                class="btn btn-small btn-secondary customer-order-icon-button customer-order-icon-button-muted"
+                                                href="{{ $novaPoshtaShipment->tracking_url }}"
+                                                target="_blank"
+                                                rel="noopener"
+                                                data-customer-order-status-tracking
+                                                data-customer-order-ttn-tracking-link
+                                                data-customer-order-id="{{ $order->id }}"
+                                                aria-label="{{ "\u{0422}\u{0440}\u{0435}\u{043A}\u{0438}\u{043D}\u{0433} \u{0422}\u{0422}\u{041D}" }}"
+                                                title="{{ "\u{0422}\u{0440}\u{0435}\u{043A}\u{0438}\u{043D}\u{0433} \u{0422}\u{0422}\u{041D}" }}"
+                                            >
+                                                <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M21 10c0 6-9 12-9 12S3 16 3 10a9 9 0 0 1 18 0Z"></path>
+                                                    <circle cx="12" cy="10" r="3"></circle>
+                                                </svg>
+                                            </a>
+                                        @endif
+                                    </span>
+                                @endif
                                 @if($order->isIssuedToClient() && $order->delivery_method === \App\Models\CustomerOrder::DELIVERY_METHOD_STO)
                                     <div class="help" style="font-size:11px; margin-top:4px;">
                                         {{ "\u{0411}\u{0435}\u{0437} \u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{044B}" }}
                                     </div>
+                                @endif
+                                @if($order->status === \App\Models\CustomerOrder::STATUS_REFUSED && $novaPoshtaShipment?->np_return_tracking_number)
+                                    <div class="help" style="display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-top:4px;">
+                                        <strong>{{ "\u{0412}\u{043E}\u{0437}\u{0432}\u{0440}\u{0430}\u{0442}\u{043D}\u{0430}\u{044F} \u{0422}\u{0422}\u{041D}: " }}{{ $novaPoshtaShipment->np_return_tracking_number }}</strong>
+                                        @if($novaPoshtaShipment->return_tracking_url)
+                                            <a
+                                                class="btn btn-small btn-secondary customer-order-icon-button customer-order-icon-button-muted"
+                                                href="{{ $novaPoshtaShipment->return_tracking_url }}"
+                                                target="_blank"
+                                                rel="noopener"
+                                                aria-label="{{ "\u{0422}\u{0440}\u{0435}\u{043A}\u{0438}\u{043D}\u{0433} \u{0432}\u{043E}\u{0437}\u{0432}\u{0440}\u{0430}\u{0442}\u{043D}\u{043E}\u{0439} \u{0422}\u{0422}\u{041D}" }}"
+                                                title="{{ "\u{0422}\u{0440}\u{0435}\u{043A}\u{0438}\u{043D}\u{0433} \u{0432}\u{043E}\u{0437}\u{0432}\u{0440}\u{0430}\u{0442}\u{043D}\u{043E}\u{0439} \u{0422}\u{0422}\u{041D}" }}"
+                                            >
+                                                <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M21 10c0 6-9 12-9 12S3 16 3 10a9 9 0 0 1 18 0Z"></path>
+                                                    <circle cx="12" cy="10" r="3"></circle>
+                                                </svg>
+                                            </a>
+                                        @endif
+                                    </div>
+                                    @if($novaPoshtaShipment->np_return_status)
+                                        <div class="help" style="margin-top:4px;">
+                                            {{ "\u{0421}\u{0442}\u{0430}\u{0442}\u{0443}\u{0441} \u{0432}\u{043E}\u{0437}\u{0432}\u{0440}\u{0430}\u{0442}\u{0430}: " }}{{ $novaPoshtaShipment->np_return_status }}
+                                            @if($novaPoshtaShipment->np_return_status_checked_at)
+                                                {{ "\u{00B7} " }}{{ $novaPoshtaShipment->np_return_status_checked_at->timezone('Europe/Kiev')->format('d.m.Y H:i') }}
+                                            @endif
+                                        </div>
+                                    @endif
                                 @endif
                             </div>
                             @if($order->canBeMarkedAsAssembled())
@@ -440,40 +652,23 @@
                                 </button>
                             @endif
                         </span>
-                        @if($order->delivery_method === \App\Models\CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA && $novaPoshtaShipment?->tracking_number)
+                        @php($showNovaPoshtaShipments = $order->relationLoaded('novaPoshtaShipments') ? $order->novaPoshtaShipments->filter(fn ($shipment) => filled($shipment->tracking_number))->values() : collect([$novaPoshtaShipment])->filter(fn ($shipment) => filled($shipment?->tracking_number))->values())
+                        @if($order->delivery_method === \App\Models\CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA && $showNovaPoshtaShipments->isNotEmpty())
+                            @foreach($showNovaPoshtaShipments as $showNovaPoshtaShipment)
+                                @include('admin.customer_orders._tracking_number_editor', [
+                                    'order' => $order,
+                                    'shipment' => $showNovaPoshtaShipment,
+                                    'trackingLabel' => $showNovaPoshtaShipments->count() > 1 ? "\u{0422}\u{0422}\u{041D} ".($loop->iteration) : "\u{0422}\u{0422}\u{041D}",
+                                    'showAddTrackingButton' => $loop->first,
+                                    'showLabelButton' => true,
+                                    'showTrackingButton' => true,
+                                    'rowStyle' => 'margin-top:4px;',
+                                ])
+                            @endforeach
                             <div class="help" style="display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-top:4px;">
-                                <strong>{{ "\u{0422}\u{0422}\u{041D}: " }}{{ $novaPoshtaShipment->tracking_number }}</strong>
                                 @if($novaPoshtaShipment->status === \App\Models\CustomerOrderShipment::STATUS_CANCELLED)
                                     <span class="tag tag-danger">{{ "\u{0423}\u{0434}\u{0430}\u{043B}\u{0435}\u{043D}\u{0430}" }}</span>
-                                @else
-                                    <a
-                                        class="btn btn-small btn-secondary customer-order-icon-button customer-order-icon-button-muted"
-                                        href="{{ route('admin.customer-orders.nova-poshta.label', $order) }}"
-                                        target="_blank"
-                                        rel="noopener"
-                                        aria-label="{{ "\u{041F}\u{0435}\u{0447}\u{0430}\u{0442}\u{044C} \u{0422}\u{0422}\u{041D}" }}"
-                                        title="{{ "\u{041F}\u{0435}\u{0447}\u{0430}\u{0442}\u{044C} \u{0422}\u{0422}\u{041D}" }}"
-                                    >
-                                        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                            <path d="M6 9V2h12v7"></path>
-                                            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
-                                            <path d="M6 14h12v8H6z"></path>
-                                        </svg>
-                                    </a>
                                 @endif
-                                <a
-                                    class="btn btn-small btn-secondary customer-order-icon-button customer-order-icon-button-muted"
-                                    href="{{ $novaPoshtaShipment->tracking_url }}"
-                                    target="_blank"
-                                    rel="noopener"
-                                    aria-label="{{ "\u{0422}\u{0440}\u{0435}\u{043A}\u{0438}\u{043D}\u{0433} \u{0422}\u{0422}\u{041D}" }}"
-                                    title="{{ "\u{0422}\u{0440}\u{0435}\u{043A}\u{0438}\u{043D}\u{0433} \u{0422}\u{0422}\u{041D}" }}"
-                                >
-                                    <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M21 10c0 6-9 12-9 12S3 16 3 10a9 9 0 0 1 18 0Z"></path>
-                                        <circle cx="12" cy="10" r="3"></circle>
-                                    </svg>
-                                </a>
                                 <form method="POST" action="{{ route('admin.customer-orders.nova-poshta.sync-status', $order) }}" class="inline-form">
                                     @csrf
                                     <button
@@ -491,6 +686,15 @@
                                     </button>
                                 </form>
                             </div>
+                        @elseif($order->delivery_method === \App\Models\CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA)
+                            @include('admin.customer_orders._tracking_number_editor', [
+                                'order' => $order,
+                                'shipment' => null,
+                                'trackingLabel' => "\u{0422}\u{0422}\u{041D}",
+                                'showAddTrackingButton' => true,
+                                'showLabelButton' => false,
+                                'rowStyle' => 'margin-top:4px;',
+                            ])
                         @endif
                         @error('delivery_method')
                             <div class="error">{{ $message }}</div>
@@ -517,14 +721,6 @@
                                 {{ $novaPoshtaShipment?->recipient_city_name ?: '-' }}
                                 @if($novaPoshtaShipment?->recipient_warehouse_name)
                                     <div class="help">{{ $novaPoshtaShipment->recipient_warehouse_name }}</div>
-                                @endif
-                                @if($novaPoshtaShipment?->np_status)
-                                    <div class="help" style="margin-top:4px;">
-                                        {{ "\u{0421}\u{0442}\u{0430}\u{0442}\u{0443}\u{0441} \u{041D}\u{041F}: " }}{{ $novaPoshtaShipment->np_status }}
-                                        @if($novaPoshtaShipment->np_status_checked_at)
-                                            · {{ $novaPoshtaShipment->np_status_checked_at->timezone('Europe/Kiev')->format('d.m.Y H:i') }}
-                                        @endif
-                                    </div>
                                 @endif
                             </div>
                             @if($novaPoshtaShipment?->error_message)
@@ -567,7 +763,7 @@
                                     @foreach($prepaymentEntries as $index => $prepaymentEntry)
                                         <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
                                             <span>{{ $prepaymentEntry['label'] }}@if($prepaymentEntry['label'] !== ''): @endif{{ $prepaymentEntry['amount_text'] }}</span>
-                                            <span class="tag">{{ "\u{041F}\u{0440}\u{0435}\u{0434}\u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0430}" }}</span>
+                                            <span class="tag">{{ $prepaymentEntry['badge'] ?? "\u{041F}\u{0440}\u{0435}\u{0434}\u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0430}" }}</span>
                                             @if($order->canAcceptPrepayment())
                                                 <form method="POST" action="{{ $prepaymentEntry['event_id'] ? route('admin.customer-orders.prepayment-entry.destroy', [$order, $prepaymentEntry['event_id']]) : route('admin.customer-orders.prepayment.destroy', $order) }}" class="inline-form" onsubmit='return confirm(@json("Удалить эту предоплату по заказу {$order->number}?"));'>
                                                     @csrf
@@ -605,6 +801,7 @@
 
     <div class="panel" style="margin-bottom:18px;">
         <h2 class="section-title" style="margin-top:0;">Товары</h2>
+        @php($showShipmentLabelsByItemId = ($order->relationLoaded('novaPoshtaShipments') ? $order->novaPoshtaShipments->filter(fn ($shipment) => filled($shipment->tracking_number))->values() : collect([$novaPoshtaShipment])->filter(fn ($shipment) => filled($shipment?->tracking_number))->values())->flatMap(fn ($shipment, $index) => $shipment->relationLoaded('items') ? $shipment->items->mapWithKeys(fn ($shipmentItem) => [$shipmentItem->id => "\u{0422}\u{0422}\u{041D}".($index + 1)]) : collect())->all())
         <table>
             <thead>
             <tr>
@@ -626,6 +823,7 @@
                 @php($itemDisplayCode = $itemDisplayCodes->get($item->id, $item->code))
                 @php($itemDisplayPartNumber = $itemDisplayPartNumbers->get($item->id, $item->part_number))
                 @php($itemDisplayName = $itemDisplayNames->get($item->id, $item->name))
+                @php($itemShipmentLabel = $showShipmentLabelsByItemId[$item->id] ?? null)
                 <tr data-customer-order-item-row data-quantity="{{ (float) $item->quantity }}">
                     <td>
                         @if($previewUrl)
@@ -645,6 +843,9 @@
                     </td>
                     <td>
                         <strong>
+                            @if($itemShipmentLabel)
+                                <span class="customer-order-item-ttn-badge">{{ $itemShipmentLabel }}</span>
+                            @endif
                             @if($itemProductUrl)
                                 <a href="{{ $itemProductUrl }}">
                                     @if($itemDisplayCode)
@@ -905,6 +1106,12 @@
             'paymentDefaultAmount' => '',
             'paymentAutofill' => false,
             'paymentRequiresFullAmount' => false,
+            'paymentTypes' => $order->delivery_method === \App\Models\CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA
+                ? \App\Models\CustomerOrder::PAYMENT_TYPE_LABELS
+                : null,
+            'paymentFixedAmounts' => [
+                \App\Models\CustomerOrder::PAYMENT_TYPE_PROM => number_format($prepaymentDueUah, 2, '.', ''),
+            ],
         ])
     @endif
 
@@ -935,6 +1142,7 @@
 
     <script>
         @include('admin.customer_orders._payment_modal_scripts')
+        @include('admin.customer_orders._tracking_number_editor_scripts')
 
         (() => {
             const lightbox = document.querySelector('[data-customer-order-photo-lightbox]');

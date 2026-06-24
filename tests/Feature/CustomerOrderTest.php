@@ -34,7 +34,7 @@ class CustomerOrderTest extends TestCase
             'currency' => 'USD',
             'rate_date' => now()->toDateString(),
             'rate' => 41.25,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
         $item = PartCatalogItem::query()->create([
@@ -129,7 +129,7 @@ class CustomerOrderTest extends TestCase
             'currency' => 'USD',
             'rate_date' => now()->toDateString(),
             'rate' => 41.25,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
         $item = PartCatalogItem::query()->create([
@@ -187,7 +187,7 @@ class CustomerOrderTest extends TestCase
             'currency' => 'USD',
             'rate_date' => now()->toDateString(),
             'rate' => 41.25,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
         $item = PartCatalogItem::query()->create([
@@ -246,7 +246,7 @@ class CustomerOrderTest extends TestCase
             'currency' => 'USD',
             'rate_date' => now()->toDateString(),
             'rate' => 41.25,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
         $item = PartCatalogItem::query()->create([
@@ -1073,7 +1073,7 @@ class CustomerOrderTest extends TestCase
             'currency' => 'USD',
             'rate_date' => now()->toDateString(),
             'rate' => 41.25,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
         $catalogItem = PartCatalogItem::query()->create([
@@ -1130,7 +1130,7 @@ class CustomerOrderTest extends TestCase
             'currency' => 'USD',
             'rate_date' => now()->toDateString(),
             'rate' => 41.25,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
 
@@ -1234,7 +1234,7 @@ class CustomerOrderTest extends TestCase
             'currency' => 'USD',
             'rate_date' => now()->toDateString(),
             'rate' => 41.25,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
         $officialItem = PartCatalogItem::query()->create([
@@ -1293,6 +1293,38 @@ class CustomerOrderTest extends TestCase
             ->assertOk()
             ->assertSee($assembledOrder->number)
             ->assertDontSee("\u{0421}\u{043E}\u{0431}\u{0440}\u{0430}\u{043D}\u{044B}");
+    }
+
+    public function test_customer_orders_index_shows_nova_poshta_print_icon_next_to_ttn(): void
+    {
+        $user = $this->adminUser('admin-customer-order-index-np-print@example.com');
+        $order = CustomerOrder::query()->create([
+            'number' => 'ORD-20260601-0024-NP',
+            'status' => CustomerOrder::STATUS_ASSEMBLED,
+            'delivery_method' => CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA,
+            'total_amount' => 1500,
+            'currency' => 'UAH',
+            'paid_cash_uah' => 500,
+            'paid_amount_uah' => 500,
+        ]);
+        $order->novaPoshtaShipment()->create([
+            'carrier' => CustomerOrderShipment::CARRIER_NOVA_POSHTA,
+            'status' => CustomerOrderShipment::STATUS_CREATED,
+            'recipient_city_name' => 'Kyiv',
+            'recipient_warehouse_name' => 'Warehouse 1',
+            'recipient_warehouse_ref' => 'warehouse-ref-1',
+            'recipient_name' => 'Ivan Petrov',
+            'recipient_phone' => '+380501112233',
+            'tracking_number' => '20450000000424',
+            'np_ref' => 'np-print-ref',
+        ]);
+
+        $this->actingAs($user)
+            ->get(route('admin.customer-orders.index'))
+            ->assertOk()
+            ->assertSee('20450000000424')
+            ->assertSee(route('admin.customer-orders.nova-poshta.label', $order), false)
+            ->assertSee("\u{041F}\u{0435}\u{0447}\u{0430}\u{0442}\u{044C} \u{0422}\u{0422}\u{041D}");
     }
 
     public function test_cancelled_customer_order_cannot_be_edited_from_show_page(): void
@@ -1472,7 +1504,7 @@ class CustomerOrderTest extends TestCase
             'currency' => 'USD',
             'rate_date' => now()->toDateString(),
             'rate' => 42,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
         $catalogItem = PartCatalogItem::query()->create([
@@ -1544,7 +1576,7 @@ class CustomerOrderTest extends TestCase
             'currency' => 'USD',
             'rate_date' => now()->toDateString(),
             'rate' => 42,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
         $catalogItem = PartCatalogItem::query()->create([
@@ -1727,7 +1759,7 @@ class CustomerOrderTest extends TestCase
             'currency' => 'USD',
             'rate_date' => now()->toDateString(),
             'rate' => 41.25,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
         $catalogItem = PartCatalogItem::query()->create([
@@ -1801,7 +1833,7 @@ class CustomerOrderTest extends TestCase
             'currency' => 'USD',
             'rate_date' => now()->toDateString(),
             'rate' => 41.25,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
         $catalogItem = PartCatalogItem::query()->create([
@@ -1856,7 +1888,7 @@ class CustomerOrderTest extends TestCase
             'currency' => 'USD',
             'rate_date' => now()->toDateString(),
             'rate' => 41.25,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
         $catalogItem = PartCatalogItem::query()->create([
@@ -1945,7 +1977,7 @@ class CustomerOrderTest extends TestCase
             'currency' => 'USD',
             'rate_date' => now()->toDateString(),
             'rate' => 41.25,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
         $order = CustomerOrder::query()->create([
@@ -2013,7 +2045,7 @@ class CustomerOrderTest extends TestCase
             'currency' => 'USD',
             'rate_date' => now()->toDateString(),
             'rate' => 41.25,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
         $order = CustomerOrder::query()->create([
@@ -2122,7 +2154,7 @@ class CustomerOrderTest extends TestCase
             'currency' => 'USD',
             'rate_date' => now()->toDateString(),
             'rate' => 40,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
         $order = CustomerOrder::query()->create([
@@ -2172,7 +2204,7 @@ class CustomerOrderTest extends TestCase
             'currency' => 'USD',
             'rate_date' => now()->toDateString(),
             'rate' => 44.96,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
         $order = CustomerOrder::query()->create([
@@ -2214,7 +2246,7 @@ class CustomerOrderTest extends TestCase
             'currency' => 'USD',
             'rate_date' => now()->toDateString(),
             'rate' => 43,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
         $catalogItem = PartCatalogItem::query()->create([
@@ -2287,7 +2319,7 @@ class CustomerOrderTest extends TestCase
             'currency' => 'USD',
             'rate_date' => now()->toDateString(),
             'rate' => 43,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
         $catalogItem = PartCatalogItem::query()->create([
@@ -2347,7 +2379,7 @@ class CustomerOrderTest extends TestCase
             'currency' => 'USD',
             'rate_date' => now()->toDateString(),
             'rate' => 43,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
         $catalogItem = PartCatalogItem::query()->create([
@@ -2413,7 +2445,7 @@ class CustomerOrderTest extends TestCase
             'currency' => 'USD',
             'rate_date' => now()->toDateString(),
             'rate' => 43,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
         $order = CustomerOrder::query()->create([
@@ -2456,7 +2488,7 @@ class CustomerOrderTest extends TestCase
             'currency' => 'USD',
             'rate_date' => now()->toDateString(),
             'rate' => 50,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
         $order = CustomerOrder::query()->create([
@@ -3090,6 +3122,23 @@ class CustomerOrderTest extends TestCase
             && $request['methodProperties']['FindByString'] === "\u{041A}\u{0438}\u{0457}");
     }
 
+    public function test_nova_poshta_city_suggestions_report_missing_configuration(): void
+    {
+        $user = $this->adminUser('admin-customer-order-np-city-missing-config@example.com');
+        config([
+            'services.nova_poshta.api_key' => null,
+            'services.nova_poshta.api_url' => 'https://api.novaposhta.test/v2.0/json/',
+        ]);
+        Http::fake();
+
+        $this->actingAs($user)
+            ->getJson(route('admin.customer-orders.nova-poshta.cities', ['query' => "\u{041A}\u{0438}\u{0457}"]))
+            ->assertStatus(503)
+            ->assertJsonPath('message', 'Nova Poshta is not configured.');
+
+        Http::assertNothingSent();
+    }
+
     public function test_nova_poshta_warehouse_suggestions_use_selected_city_ref(): void
     {
         $user = $this->adminUser('admin-customer-order-np-warehouse-suggestions@example.com');
@@ -3304,6 +3353,24 @@ class CustomerOrderTest extends TestCase
             'paid_amount_uah' => 1000,
         ]);
         CustomerOrder::query()->create([
+            'number' => 'ORD-20260603-0010-PROM-FROZEN',
+            'status' => CustomerOrder::STATUS_SHIPPED,
+            'delivery_method' => CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA,
+            'total_amount' => 4000,
+            'currency' => 'UAH',
+            'paid_prom_uah' => 4000,
+            'paid_amount_uah' => 4000,
+        ]);
+        CustomerOrder::query()->create([
+            'number' => 'ORD-20260603-0010-PROM-ISSUED',
+            'status' => CustomerOrder::STATUS_COMPLETED,
+            'delivery_method' => CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA,
+            'total_amount' => 2500,
+            'currency' => 'UAH',
+            'paid_prom_uah' => 2500,
+            'paid_amount_uah' => 2500,
+        ]);
+        CustomerOrder::query()->create([
             'number' => 'ORD-20260603-0010-STO-CASH',
             'status' => CustomerOrder::STATUS_COMPLETED,
             'delivery_method' => CustomerOrder::DELIVERY_METHOD_STO,
@@ -3339,6 +3406,8 @@ class CustomerOrderTest extends TestCase
         $this->assertSame(10.0, $summary[CustomerOrder::PAYMENT_TYPE_CASH_USD]);
         $this->assertSame(200.0, $summary[CustomerOrder::PAYMENT_TYPE_BANK_TOV]);
         $this->assertSame(300.0, $summary[CustomerOrder::PAYMENT_TYPE_BANK_FOP]);
+        $this->assertSame(2500.0, $summary[CustomerOrder::PAYMENT_TYPE_PROM]);
+        $this->assertSame(4000.0, $summary['prom_pending_uah']);
         $this->assertSame(9000.0, $summary['sto_parts_uah']);
     }
 
@@ -3707,6 +3776,188 @@ class CustomerOrderTest extends TestCase
             ->assertSee("\u{041F}\u{0440}\u{0435}\u{0434}\u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0430}");
     }
 
+    public function test_nova_poshta_assemble_button_on_index_opens_package_modal(): void
+    {
+        $user = $this->adminUser('admin-customer-order-np-index-assemble@example.com');
+        $order = CustomerOrder::query()->create([
+            'number' => 'ORD-20260603-0011-NP-INDEX',
+            'status' => CustomerOrder::STATUS_PROCESSING,
+            'delivery_method' => CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA,
+            'client_phone' => '+380501112233',
+            'client_first_name' => 'Ivan',
+            'client_last_name' => 'Petrov',
+            'total_amount' => 1500,
+            'currency' => 'UAH',
+            'paid_cash_uah' => 500,
+            'paid_amount_uah' => 500,
+        ]);
+        $order->novaPoshtaShipment()->create([
+            'carrier' => CustomerOrderShipment::CARRIER_NOVA_POSHTA,
+            'status' => CustomerOrderShipment::STATUS_DRAFT,
+            'recipient_city_name' => 'Kyiv',
+            'recipient_warehouse_name' => 'Warehouse 1',
+            'recipient_warehouse_ref' => 'warehouse-ref-1',
+            'recipient_name' => 'Ivan Petrov',
+            'recipient_phone' => '+380501112233',
+        ]);
+
+        $this->actingAs($user)
+            ->get(route('admin.customer-orders.index'))
+            ->assertOk()
+            ->assertSee('customer-order-assemble-'.$order->id, false)
+            ->assertSee("\u{041F}\u{043E}\u{0441}\u{044B}\u{043B}\u{043A}\u{0430} \u{041D}\u{043E}\u{0432}\u{043E}\u{0439} \u{043F}\u{043E}\u{0447}\u{0442}\u{044B}")
+            ->assertSee('name="nova_poshta_weight"', false)
+            ->assertSee('name="nova_poshta_length_cm"', false)
+            ->assertSee("\u{041D}\u{0430}\u{043B}\u{043E}\u{0436}\u{0435}\u{043D}\u{043D}\u{044B}\u{0439} \u{043F}\u{043B}\u{0430}\u{0442}\u{0435}\u{0436}: 1 000 \u{0433}\u{0440}\u{043D}");
+    }
+
+    public function test_nova_poshta_prepayment_can_be_recorded_as_prom_payment_for_full_order_amount(): void
+    {
+        $user = $this->adminUser('admin-customer-order-np-prom-prepayment@example.com');
+        $order = CustomerOrder::query()->create([
+            'number' => 'ORD-20260603-0011-NP-PROM',
+            'status' => CustomerOrder::STATUS_WAITING_PREPAYMENT,
+            'delivery_method' => CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA,
+            'client_phone' => '+380501112233',
+            'client_first_name' => 'Ivan',
+            'client_last_name' => 'Petrov',
+            'total_amount' => 1500,
+            'currency' => 'UAH',
+        ]);
+        $order->items()->create([
+            'name' => 'Prom paid handle',
+            'quantity' => 1,
+            'unit_price' => 1500,
+            'total_price' => 1500,
+            'currency' => 'UAH',
+        ]);
+
+        $this->actingAs($user)
+            ->get(route('admin.customer-orders.show', $order))
+            ->assertOk()
+            ->assertSee(CustomerOrder::PAYMENT_TYPE_LABELS[CustomerOrder::PAYMENT_TYPE_PROM])
+            ->assertSee('data-fixed-amount="1500.00"', false);
+
+        $this->actingAs($user)
+            ->from(route('admin.customer-orders.show', $order))
+            ->post(route('admin.customer-orders.prepayment.store', $order), [
+                'payment_type' => CustomerOrder::PAYMENT_TYPE_PROM,
+                'received_amount' => 1,
+            ])
+            ->assertRedirect(route('admin.customer-orders.show', $order));
+
+        $order->refresh();
+
+        $this->assertSame(CustomerOrder::STATUS_PROCESSING, $order->status);
+        $this->assertSame(CustomerOrder::PAYMENT_TYPE_PROM, $order->payment_type);
+        $this->assertSame(1500.0, (float) $order->payment_received_amount);
+        $this->assertSame(1500.0, (float) $order->payment_received_amount_uah);
+        $this->assertSame(1500.0, (float) $order->paid_prom_uah);
+        $this->assertSame(1500.0, (float) $order->paid_amount_uah);
+        $this->assertNotNull($order->payment_confirmed_at);
+
+        $controller = app(CustomerOrderController::class);
+        $method = new \ReflectionMethod($controller, 'customerOrderCashSummary');
+        $method->setAccessible(true);
+        $summary = $method->invoke($controller);
+
+        $this->assertSame(0.0, $summary[CustomerOrder::PAYMENT_TYPE_PROM]);
+
+        $this->assertDatabaseHas('customer_order_history_events', [
+            'customer_order_id' => $order->id,
+            'event_type' => 'payment_confirmed',
+            'new_values->payment_type' => CustomerOrder::PAYMENT_TYPE_PROM,
+            'new_values->payment_received_amount' => 1500,
+            'new_values->is_prepayment_flow' => true,
+        ]);
+    }
+
+    public function test_prom_paid_nova_poshta_order_creates_ttn_without_afterpayment(): void
+    {
+        $user = $this->adminUser('admin-customer-order-np-prom-ttn@example.com');
+        config([
+            'services.nova_poshta.api_key' => 'test-api-key',
+            'services.nova_poshta.sender_city_ref' => 'sender-city-ref',
+            'services.nova_poshta.sender_ref' => 'sender-ref',
+            'services.nova_poshta.sender_address_ref' => 'sender-address-ref',
+            'services.nova_poshta.sender_contact_ref' => 'sender-contact-ref',
+            'services.nova_poshta.sender_phone' => '0500000000',
+        ]);
+        $sentNovaPoshtaPayload = null;
+        Http::fake([
+            'https://api.novaposhta.ua/v2.0/json/' => function ($request) use (&$sentNovaPoshtaPayload) {
+                $sentNovaPoshtaPayload = $request->data();
+
+                return Http::response([
+                    'success' => true,
+                    'data' => [[
+                        'Ref' => 'np-prom-document-ref',
+                        'IntDocNumber' => '20450000000999',
+                    ]],
+                    'errors' => [],
+                    'warnings' => [],
+                    'info' => [],
+                ], 200);
+            },
+        ]);
+
+        $order = CustomerOrder::query()->create([
+            'number' => 'ORD-20260603-0011-NP-PROM-TTN',
+            'status' => CustomerOrder::STATUS_PROCESSING,
+            'delivery_method' => CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA,
+            'client_phone' => '+380501112233',
+            'client_first_name' => 'Ivan',
+            'client_last_name' => 'Petrov',
+            'total_amount' => 1500,
+            'currency' => 'UAH',
+            'payment_type' => CustomerOrder::PAYMENT_TYPE_PROM,
+            'paid_prom_uah' => 1500,
+            'paid_amount_uah' => 1500,
+            'payment_confirmed_at' => now(),
+        ]);
+        $order->novaPoshtaShipment()->create([
+            'carrier' => CustomerOrderShipment::CARRIER_NOVA_POSHTA,
+            'status' => CustomerOrderShipment::STATUS_DRAFT,
+            'recipient_city_name' => 'Kyiv',
+            'recipient_warehouse_name' => 'Warehouse 7',
+            'recipient_warehouse_ref' => 'warehouse-ref-7',
+            'recipient_name' => 'Ivan Petrov',
+            'recipient_phone' => '+380501112233',
+        ]);
+
+        $this->actingAs($user)
+            ->from(route('admin.customer-orders.show', $order))
+            ->patch(route('admin.customer-orders.status.update', $order), [
+                'status' => CustomerOrder::STATUS_ASSEMBLED,
+                'nova_poshta_seats_amount' => 1,
+                'nova_poshta_weight' => 2.5,
+                'nova_poshta_length_cm' => 45,
+                'nova_poshta_width_cm' => 30,
+                'nova_poshta_height_cm' => 20,
+            ])
+            ->assertRedirect(route('admin.customer-orders.show', $order))
+            ->assertSessionHasNoErrors();
+
+        $order->refresh()->load('novaPoshtaShipment');
+
+        $this->assertSame(CustomerOrder::STATUS_ASSEMBLED, $order->status);
+        $this->assertSame(CustomerOrderShipment::STATUS_CREATED, $order->novaPoshtaShipment?->status);
+        $this->assertSame('np-prom-document-ref', $order->novaPoshtaShipment?->np_ref);
+        $this->assertSame('20450000000999', $order->novaPoshtaShipment?->tracking_number);
+        $this->assertSame(0.0, (float) $order->novaPoshtaShipment?->afterpayment_amount);
+
+        $this->assertNotNull($sentNovaPoshtaPayload);
+        $this->assertSame('InternetDocument', $sentNovaPoshtaPayload['modelName']);
+        $this->assertSame('save', $sentNovaPoshtaPayload['calledMethod']);
+        $this->assertSame(1500, data_get($sentNovaPoshtaPayload, 'methodProperties.Cost'));
+        $this->assertNull(data_get($sentNovaPoshtaPayload, 'methodProperties.AfterpaymentOnGoodsCost'));
+
+        $this->assertDatabaseHas('customer_order_history_events', [
+            'customer_order_id' => $order->id,
+            'event_type' => 'nova_poshta_ttn_created',
+        ]);
+    }
+
     public function test_assembling_nova_poshta_order_creates_ttn(): void
     {
         $user = $this->adminUser('admin-customer-order-np-ttn@example.com');
@@ -3718,8 +3969,12 @@ class CustomerOrderTest extends TestCase
             'services.nova_poshta.sender_contact_ref' => 'sender-contact-ref',
             'services.nova_poshta.sender_phone' => '0500000000',
         ]);
+        $sentNovaPoshtaPayload = null;
         Http::fake([
-            'https://api.novaposhta.ua/v2.0/json/' => Http::response([
+            'https://api.novaposhta.ua/v2.0/json/' => function ($request) use (&$sentNovaPoshtaPayload) {
+                $sentNovaPoshtaPayload = $request->data();
+
+                return Http::response([
                 'success' => true,
                 'data' => [[
                     'Ref' => 'np-document-ref',
@@ -3728,7 +3983,8 @@ class CustomerOrderTest extends TestCase
                 'errors' => [],
                 'warnings' => [],
                 'info' => [],
-            ], 200),
+                ], 200);
+            },
         ]);
 
         $order = CustomerOrder::query()->create([
@@ -3779,24 +4035,22 @@ class CustomerOrderTest extends TestCase
         $this->assertSame(20, $order->novaPoshtaShipment?->height_cm);
         $this->assertSame(1000.0, (float) $order->novaPoshtaShipment?->afterpayment_amount);
 
-        Http::assertSent(function ($request): bool {
-            $payload = $request->data();
-
-            return $payload['modelName'] === 'InternetDocument'
-                && $payload['calledMethod'] === 'save'
-                && data_get($payload, 'methodProperties.RecipientCityName') === 'Kyiv'
-                && data_get($payload, 'methodProperties.RecipientAddress') === 'warehouse-ref-7'
-                && data_get($payload, 'methodProperties.RecipientAddressName') === null
-                && data_get($payload, 'methodProperties.CargoType') === 'Parcel'
-                && data_get($payload, 'methodProperties.RecipientsPhone') === '380501112233'
-                && data_get($payload, 'methodProperties.Cost') === 1000
-                && data_get($payload, 'methodProperties.OptionsSeat.0.weight') === '2.5'
-                && data_get($payload, 'methodProperties.OptionsSeat.0.volumetricLength') === '45'
-                && data_get($payload, 'methodProperties.OptionsSeat.0.volumetricWidth') === '30'
-                && data_get($payload, 'methodProperties.OptionsSeat.0.volumetricHeight') === '20'
-                && data_get($payload, 'methodProperties.AfterpaymentOnGoodsCost') === '1000'
-                && data_get($payload, 'methodProperties.BackwardDeliveryData') === null;
-        });
+        $this->assertNotNull($sentNovaPoshtaPayload);
+        $this->assertSame('InternetDocument', $sentNovaPoshtaPayload['modelName']);
+        $this->assertSame('save', $sentNovaPoshtaPayload['calledMethod']);
+        $this->assertSame('Kyiv', data_get($sentNovaPoshtaPayload, 'methodProperties.RecipientCityName'));
+        $this->assertSame('warehouse-ref-7', data_get($sentNovaPoshtaPayload, 'methodProperties.RecipientAddress'));
+        $this->assertNull(data_get($sentNovaPoshtaPayload, 'methodProperties.RecipientAddressName'));
+        $this->assertSame('Parcel', data_get($sentNovaPoshtaPayload, 'methodProperties.CargoType'));
+        $this->assertSame("\u{0430}\u{0432}\u{0442}\u{043E}\u{0437}\u{0430}\u{043F}\u{0447}\u{0430}\u{0441}\u{0442}\u{0438}\u{043D}\u{0438}", data_get($sentNovaPoshtaPayload, 'methodProperties.Description'));
+        $this->assertSame('380501112233', data_get($sentNovaPoshtaPayload, 'methodProperties.RecipientsPhone'));
+        $this->assertSame(1000, data_get($sentNovaPoshtaPayload, 'methodProperties.Cost'));
+        $this->assertSame('2.5', data_get($sentNovaPoshtaPayload, 'methodProperties.OptionsSeat.0.weight'));
+        $this->assertSame('45', data_get($sentNovaPoshtaPayload, 'methodProperties.OptionsSeat.0.volumetricLength'));
+        $this->assertSame('30', data_get($sentNovaPoshtaPayload, 'methodProperties.OptionsSeat.0.volumetricWidth'));
+        $this->assertSame('20', data_get($sentNovaPoshtaPayload, 'methodProperties.OptionsSeat.0.volumetricHeight'));
+        $this->assertSame('1000', data_get($sentNovaPoshtaPayload, 'methodProperties.AfterpaymentOnGoodsCost'));
+        $this->assertNull(data_get($sentNovaPoshtaPayload, 'methodProperties.BackwardDeliveryData'));
 
         $this->assertDatabaseHas('customer_order_history_events', [
             'customer_order_id' => $order->id,
@@ -4021,7 +4275,7 @@ class CustomerOrderTest extends TestCase
             'currency' => 'USD',
             'rate_date' => now()->toDateString(),
             'rate' => 43,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
         $order = CustomerOrder::query()->create([
@@ -4078,7 +4332,7 @@ class CustomerOrderTest extends TestCase
             'currency' => 'USD',
             'rate_date' => now()->toDateString(),
             'rate' => 43,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
         $order = CustomerOrder::query()->create([
@@ -4250,7 +4504,7 @@ class CustomerOrderTest extends TestCase
             'currency' => 'USD',
             'rate_date' => now()->toDateString(),
             'rate' => 43,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
         $order = CustomerOrder::query()->create([
@@ -4283,7 +4537,7 @@ class CustomerOrderTest extends TestCase
             'currency' => 'USD',
             'rate_date' => now()->toDateString(),
             'rate' => 43,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
         $order = CustomerOrder::query()->create([
@@ -4319,7 +4573,7 @@ class CustomerOrderTest extends TestCase
             'currency' => 'USD',
             'rate_date' => now()->toDateString(),
             'rate' => 43,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
         $order = CustomerOrder::query()->create([
@@ -4369,7 +4623,7 @@ class CustomerOrderTest extends TestCase
             'currency' => 'USD',
             'rate_date' => now()->toDateString(),
             'rate' => 43,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
         $order = CustomerOrder::query()->create([
@@ -4415,7 +4669,7 @@ class CustomerOrderTest extends TestCase
             'currency' => 'USD',
             'rate_date' => now()->toDateString(),
             'rate' => 43,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
         $order = CustomerOrder::query()->create([
@@ -4458,7 +4712,7 @@ class CustomerOrderTest extends TestCase
             'currency' => 'USD',
             'rate_date' => now()->toDateString(),
             'rate' => 44.3583,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
         $order = CustomerOrder::query()->create([
@@ -4551,7 +4805,7 @@ class CustomerOrderTest extends TestCase
             'currency' => 'USD',
             'rate_date' => now()->toDateString(),
             'rate' => 43,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
         $catalogItem = PartCatalogItem::query()->create([
@@ -4635,7 +4889,7 @@ class CustomerOrderTest extends TestCase
             'currency' => 'USD',
             'rate_date' => now()->toDateString(),
             'rate' => 43,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
         $catalogItem = PartCatalogItem::query()->create([
@@ -4811,7 +5065,7 @@ class CustomerOrderTest extends TestCase
             'currency' => 'USD',
             'rate_date' => now()->toDateString(),
             'rate' => 41.25,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
         $catalogItem = PartCatalogItem::query()->create([

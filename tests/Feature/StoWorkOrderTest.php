@@ -45,40 +45,40 @@ class StoWorkOrderTest extends TestCase
         $user = $this->adminUser();
 
         StoWorkOrder::query()->create([
-            'number' => 'Р—Рќ-20260430-0001',
+            'number' => 'ЗН-20260430-0001',
             'status' => 'in_work',
-            'client_name' => 'Р Р°Р±РѕС‡РёР№ РєР»РёРµРЅС‚',
+            'client_name' => 'Рабочий клиент',
             'opened_at' => '2026-04-30',
         ]);
 
         StoWorkOrder::query()->create([
-            'number' => 'Р—Рќ-20260430-0002',
+            'number' => 'ЗН-20260430-0002',
             'status' => 'completed',
-            'client_name' => 'Р—Р°РІРµСЂС€РµРЅРЅС‹Р№ РєР»РёРµРЅС‚',
+            'client_name' => 'Завершенный клиент',
             'opened_at' => '2026-04-29',
         ]);
 
         StoWorkOrder::query()->create([
-            'number' => 'Р—Рќ-20260430-0003',
+            'number' => 'ЗН-20260430-0003',
             'status' => 'cancelled',
-            'client_name' => 'РћС‚РјРµРЅРµРЅРЅС‹Р№ РєР»РёРµРЅС‚',
+            'client_name' => 'Отмененный клиент',
             'opened_at' => '2026-04-28',
         ]);
 
         StoWorkOrder::query()->create([
-            'number' => 'Р—Рќ-20260430-0005',
+            'number' => 'ЗН-20260430-0005',
             'status' => 'archived',
-            'client_name' => 'РђСЂС…РёРІРЅС‹Р№ РєР»РёРµРЅС‚',
+            'client_name' => 'Архивный клиент',
             'opened_at' => '2026-04-26',
         ]);
 
         $this->actingAs($user)
             ->get(route('admin.sto-work-orders.index'))
             ->assertOk()
-            ->assertSee('Р Р°Р±РѕС‡РёР№ РєР»РёРµРЅС‚')
-            ->assertSee('Р—Р°РІРµСЂС€РµРЅРЅС‹Р№ РєР»РёРµРЅС‚')
-            ->assertSee('РћС‚РјРµРЅРµРЅРЅС‹Р№ РєР»РёРµРЅС‚')
-            ->assertDontSee('РђСЂС…РёРІРЅС‹Р№ РєР»РёРµРЅС‚');
+            ->assertSee('Рабочий клиент')
+            ->assertSee('Завершенный клиент')
+            ->assertSee('Отмененный клиент')
+            ->assertDontSee('Архивный клиент');
     }
 
     public function test_work_orders_index_shows_work_started_and_completed_dates(): void
@@ -98,9 +98,9 @@ class StoWorkOrderTest extends TestCase
             ->get(route('admin.sto-work-orders.index'))
             ->assertOk();
 
-        $response->assertSee('РќР°С‡Р°Р»Рѕ СЂР°Р±РѕС‚: 28.04.2026 09:15')
-            ->assertSee('РћРєРѕРЅС‡Р°РЅРёРµ: 29.04.2026 17:45')
-            ->assertDontSee('Р—Р°РїРёСЃСЊ: 30.04.2026');
+        $response->assertSee('Начало работ: 28.04.2026 09:15')
+            ->assertSee('Окончание: 29.04.2026 17:45')
+            ->assertDontSee('Запись: 30.04.2026');
     }
 
     public function test_work_orders_index_shows_appointment_date_only_for_appointment_status(): void
@@ -118,7 +118,7 @@ class StoWorkOrderTest extends TestCase
         $response = $this->actingAs($user)
             ->get(route('admin.sto-work-orders.index'))
             ->assertOk()
-            ->assertSee('Р—Р°РїРёСЃСЊ: 02.05.2026');
+            ->assertSee('Запись: 02.05.2026');
 
         $ordersTableHtml = str($response->getContent())->after('<!-- sto-calendar-end -->')->toString();
 
@@ -154,40 +154,40 @@ class StoWorkOrderTest extends TestCase
         $user = $this->adminUser();
 
         StoWorkOrder::query()->create([
-            'number' => 'Р—Рќ-20260430-0001',
+            'number' => 'ЗН-20260430-0001',
             'status' => 'appointment',
-            'client_name' => 'Р”Р°Р»СЊРЅСЏСЏ Р·Р°РїРёСЃСЊ',
+            'client_name' => 'Дальняя запись',
             'opened_at' => '2026-05-10',
             'appointment_time' => '11:00',
         ]);
 
         StoWorkOrder::query()->create([
-            'number' => 'Р—Рќ-20260430-0002',
+            'number' => 'ЗН-20260430-0002',
             'status' => 'in_work',
-            'client_name' => 'РљР»РёРµРЅС‚ РІ СЂР°Р±РѕС‚Рµ',
+            'client_name' => 'Клиент в работе',
             'opened_at' => '2026-04-30',
         ]);
 
         StoWorkOrder::query()->create([
-            'number' => 'Р—Рќ-20260430-0003',
+            'number' => 'ЗН-20260430-0003',
             'status' => 'appointment',
-            'client_name' => 'Р‘Р»РёР¶РЅСЏСЏ Р·Р°РїРёСЃСЊ',
+            'client_name' => 'Ближняя запись',
             'opened_at' => '2026-05-02',
             'appointment_time' => '09:30',
         ]);
 
         StoWorkOrder::query()->create([
-            'number' => 'Р—Рќ-20260430-0004',
+            'number' => 'ЗН-20260430-0004',
             'status' => 'completed',
-            'client_name' => 'Р—Р°РІРµСЂС€РµРЅРЅС‹Р№ РєР»РёРµРЅС‚',
+            'client_name' => 'Завершенный клиент',
             'opened_at' => '2026-05-01',
         ]);
 
         $this->actingAs($user)
             ->get(route('admin.sto-work-orders.index'))
             ->assertOk()
-            ->assertSeeInOrder(['РљР»РёРµРЅС‚ РІ СЂР°Р±РѕС‚Рµ', 'Р‘Р»РёР¶РЅСЏСЏ Р·Р°РїРёСЃСЊ', 'Р”Р°Р»СЊРЅСЏСЏ Р·Р°РїРёСЃСЊ'])
-            ->assertSee('Р—Р°РІРµСЂС€РµРЅРЅС‹Р№ РєР»РёРµРЅС‚');
+            ->assertSeeInOrder(['Клиент в работе', 'Ближняя запись', 'Дальняя запись'])
+            ->assertSee('Завершенный клиент');
     }
 
     public function test_work_orders_index_shows_current_week_appointment_calendar(): void
@@ -224,13 +224,13 @@ class StoWorkOrderTest extends TestCase
         $response = $this->actingAs($user)
             ->get(route('admin.sto-work-orders.index'))
             ->assertOk()
-            ->assertSee('РљР°Р»РµРЅРґР°СЂСЊ Р·Р°РїРёСЃРё РЅР° РЎРўРћ')
+            ->assertSee('Календарь записи на СТО')
             ->assertSee('27.04.2026')
             ->assertSee('03.05.2026')
             ->assertSee('This week appointment')
             ->assertSee('09:30')
             ->assertSee('No time appointment')
-            ->assertSee('Р‘РµР· РІСЂРµРјРµРЅРё');
+            ->assertSee('Без времени');
 
         $calendarHtml = str($response->getContent())
             ->between('<div class="sto-week-grid">', '<!-- sto-calendar-end -->')
@@ -321,7 +321,7 @@ class StoWorkOrderTest extends TestCase
         $this->actingAs($user)
             ->get(route('admin.sto-work-orders.index', ['week_start' => '2026-05-04']))
             ->assertOk()
-            ->assertSee('Р”РѕР±Р°РІРёС‚СЊ Р·Р°РїРёСЃСЊ')
+            ->assertSee('Добавить запись')
             ->assertSee('href="'.route('admin.sto-work-orders.create', ['opened_at' => '2026-05-06']).'"', false);
     }
 
@@ -335,7 +335,7 @@ class StoWorkOrderTest extends TestCase
             ->get(route('admin.sto-work-orders.index', ['week_start' => '2026-04-20']))
             ->assertOk()
             ->assertDontSee(route('admin.sto-work-orders.create', ['opened_at' => '2026-04-22']), false)
-            ->assertDontSee('Р”РѕР±Р°РІРёС‚СЊ Р·Р°РїРёСЃСЊ');
+            ->assertDontSee('Добавить запись');
     }
 
     public function test_calendar_does_not_allow_creating_today_appointment_after_working_hours(): void
@@ -357,32 +357,32 @@ class StoWorkOrderTest extends TestCase
         $user = $this->adminUser();
 
         StoWorkOrder::query()->create([
-            'number' => 'Р—Рќ-20260430-0001',
+            'number' => 'ЗН-20260430-0001',
             'status' => 'appointment',
-            'client_name' => 'РљР»РёРµРЅС‚ Р·Р°РїРёСЃСЊ',
+            'client_name' => 'Клиент запись',
             'opened_at' => '2026-05-02',
         ]);
 
         StoWorkOrder::query()->create([
-            'number' => 'Р—Рќ-20260430-0002',
+            'number' => 'ЗН-20260430-0002',
             'status' => 'completed',
-            'client_name' => 'РљР»РёРµРЅС‚ Р·Р°РІРµСЂС€РµРЅ',
+            'client_name' => 'Клиент завершен',
             'opened_at' => '2026-05-01',
         ]);
 
         StoWorkOrder::query()->create([
-            'number' => 'Р—Рќ-20260430-0003',
+            'number' => 'ЗН-20260430-0003',
             'status' => 'in_work',
-            'client_name' => 'РљР»РёРµРЅС‚ РІ СЂР°Р±РѕС‚Рµ',
+            'client_name' => 'Клиент в работе',
             'opened_at' => '2026-04-30',
         ]);
 
         $this->actingAs($user)
             ->get(route('admin.sto-work-orders.index', ['statuses' => ['appointment', 'completed']]))
             ->assertOk()
-            ->assertSee('РљР»РёРµРЅС‚ Р·Р°РїРёСЃСЊ')
-            ->assertSee('РљР»РёРµРЅС‚ Р·Р°РІРµСЂС€РµРЅ')
-            ->assertDontSee('РљР»РёРµРЅС‚ РІ СЂР°Р±РѕС‚Рµ');
+            ->assertSee('Клиент запись')
+            ->assertSee('Клиент завершен')
+            ->assertDontSee('Клиент в работе');
     }
 
     public function test_work_orders_index_shows_payment_button_for_completed_orders_without_open_button(): void
@@ -403,9 +403,9 @@ class StoWorkOrderTest extends TestCase
             ->assertOk()
             ->assertSee('ZN-20260430-0001')
             ->assertSee(route('admin.sto-work-orders.show', $order), false)
-            ->assertSee('РџРѕРґС‚РІРµСЂРґРёС‚СЊ РѕРїР»Р°С‚Сѓ')
+            ->assertSee('Подтвердить оплату')
             ->assertSee(route('admin.sto-work-orders.payment.confirm', $order), false)
-            ->assertDontSee('РћС‚РєСЂС‹С‚СЊ');
+            ->assertDontSee('Открыть');
     }
 
     public function test_work_orders_index_shows_print_icon_for_completed_and_paid_orders(): void
@@ -438,8 +438,8 @@ class StoWorkOrderTest extends TestCase
             ->assertOk()
             ->assertSee(route('admin.sto-work-orders.print', $completedOrder), false)
             ->assertSee(route('admin.sto-work-orders.print', $paidOrder), false)
-            ->assertSee('РџРµС‡Р°С‚СЊ Р·Р°РєР°Р·-РЅР°СЂСЏРґР° ZN-20260430-0001', false)
-            ->assertSee('РџРµС‡Р°С‚СЊ Р·Р°РєР°Р·-РЅР°СЂСЏРґР° ZN-20260430-0002', false);
+            ->assertSee('Печать заказ-наряда ZN-20260430-0001', false)
+            ->assertSee('Печать заказ-наряда ZN-20260430-0002', false);
 
         $this->assertStringNotContainsString(
             route('admin.sto-work-orders.print', $inWorkOrder),
@@ -452,24 +452,24 @@ class StoWorkOrderTest extends TestCase
         $user = $this->adminUser();
 
         StoWorkOrder::query()->create([
-            'number' => 'Р—Рќ-20260430-0001',
+            'number' => 'ЗН-20260430-0001',
             'status' => 'appointment',
-            'client_name' => 'РљР»РёРµРЅС‚ Р·Р°РїРёСЃСЊ',
+            'client_name' => 'Клиент запись',
             'opened_at' => '2026-05-02',
         ]);
 
         StoWorkOrder::query()->create([
-            'number' => 'Р—Рќ-20260430-0002',
+            'number' => 'ЗН-20260430-0002',
             'status' => 'completed',
-            'client_name' => 'РљР»РёРµРЅС‚ Р·Р°РІРµСЂС€РµРЅ',
+            'client_name' => 'Клиент завершен',
             'opened_at' => '2026-05-01',
         ]);
 
         $this->actingAs($user)
             ->get(route('admin.sto-work-orders.index', ['statuses' => [...StoWorkOrder::STATUSES, 'all']]))
             ->assertOk()
-            ->assertSee('РљР»РёРµРЅС‚ Р·Р°РїРёСЃСЊ')
-            ->assertSee('РљР»РёРµРЅС‚ Р·Р°РІРµСЂС€РµРЅ');
+            ->assertSee('Клиент запись')
+            ->assertSee('Клиент завершен');
     }
 
     public function test_admin_can_create_work_order(): void
@@ -478,10 +478,10 @@ class StoWorkOrderTest extends TestCase
 
         $response = $this->actingAs($user)->post(route('admin.sto-work-orders.store'), [
             'status' => 'in_work',
-            'client_name' => 'РРІР°РЅ РџРµС‚СЂРѕРІ',
+            'client_name' => 'Иван Петров',
             'client_phone' => '+380991112233',
             'opened_at' => '2026-04-30',
-            'customer_request' => 'Р”РёР°РіРЅРѕСЃС‚РёРєР° РїРѕРґРІРµСЃРєРё',
+            'customer_request' => 'Диагностика подвески',
             'labor_cost_uah' => '1200',
             'parts_cost_uah' => '800',
             'discount_uah' => '100',
@@ -492,7 +492,7 @@ class StoWorkOrderTest extends TestCase
         $response->assertRedirect(route('admin.sto-work-orders.show', $order));
 
         $this->assertDatabaseHas('sto_work_orders', [
-            'client_name' => 'РРІР°РЅ РџРµС‚СЂРѕРІ',
+            'client_name' => 'Иван Петров',
             'status' => 'in_work',
             'total_cost_uah' => 1900,
         ]);
@@ -640,7 +640,7 @@ class StoWorkOrderTest extends TestCase
 
         $client = Counterparty::query()->create([
             'type' => 'customer',
-            'name' => 'РђРЅРЅР° РљР»РёРµРЅС‚',
+            'name' => 'Анна Клиент',
             'phone' => '+380991110000',
             'car_model' => 'Model 3',
             'car_year' => 2021,
@@ -655,7 +655,7 @@ class StoWorkOrderTest extends TestCase
             'counterparty_id' => $client->id,
             'opened_at' => '2026-05-02',
             'appointment_time' => '09:30',
-            'customer_request' => 'Р—Р°РїРёСЃ РЅР° РґРёР°РіРЅРѕСЃС‚РёРєСѓ',
+            'customer_request' => 'Запис на диагностику',
         ]);
 
         $order = StoWorkOrder::query()->firstOrFail();
@@ -663,7 +663,7 @@ class StoWorkOrderTest extends TestCase
         $response->assertRedirect(route('admin.sto-work-orders.show', $order));
 
         $this->assertDatabaseHas('sto_work_orders', [
-            'client_name' => 'РђРЅРЅР° РљР»РёРµРЅС‚',
+            'client_name' => 'Анна Клиент',
             'status' => 'appointment',
             'appointment_time' => '09:30',
             'drive_type' => null,
@@ -677,7 +677,7 @@ class StoWorkOrderTest extends TestCase
         $user = $this->adminUser();
 
         StoWorkOrder::query()->create([
-            'number' => 'Р—Рќ-20260430-0002',
+            'number' => 'ЗН-20260430-0002',
             'status' => 'in_work',
             'client_name' => 'April client',
             'opened_at' => '2026-04-30',
@@ -697,7 +697,7 @@ class StoWorkOrderTest extends TestCase
 
         $this->assertDatabaseHas('sto_work_orders', [
             'client_name' => 'May client',
-            'number' => 'Р—Рќ-20260501-0001',
+            'number' => 'ЗН-20260501-0001',
         ]);
     }
 
@@ -707,7 +707,7 @@ class StoWorkOrderTest extends TestCase
 
         Counterparty::query()->create([
             'type' => 'customer',
-            'name' => 'РРІР°РЅ РџРµС‚СЂРѕРІ',
+            'name' => 'Иван Петров',
             'phone' => '+380991112233',
             'vin' => '5YJSA1E26HF000001',
             'license_plate' => 'AA1234BC',
@@ -716,16 +716,16 @@ class StoWorkOrderTest extends TestCase
 
         Counterparty::query()->create([
             'type' => 'supplier',
-            'name' => 'РРІР°РЅ РџРѕСЃС‚Р°РІС‰РёРє',
+            'name' => 'Иван Поставщик',
             'is_active' => true,
         ]);
 
         $this->actingAs($user)
-            ->getJson(route('admin.sto-work-orders.clients.search', ['q' => 'Р']))
+            ->getJson(route('admin.sto-work-orders.clients.search', ['q' => 'И']))
             ->assertOk()
             ->assertJsonCount(1)
             ->assertJsonFragment([
-                'name' => 'РРІР°РЅ РџРµС‚СЂРѕРІ',
+                'name' => 'Иван Петров',
                 'license_plate' => 'AA1234BC',
             ]);
     }
@@ -736,17 +736,17 @@ class StoWorkOrderTest extends TestCase
 
         Counterparty::query()->create([
             'type' => 'customer',
-            'name' => 'Р’Р°Р»РµСЂРёР№ РћРІРµСЂС‡СѓРє',
+            'name' => 'Валерий Оверчук',
             'phone' => '+380991112244',
             'is_active' => true,
         ]);
 
         $this->actingAs($user)
-            ->getJson(route('admin.sto-work-orders.clients.search', ['q' => 'РІР°']))
+            ->getJson(route('admin.sto-work-orders.clients.search', ['q' => 'ва']))
             ->assertOk()
             ->assertJsonCount(1)
             ->assertJsonFragment([
-                'name' => 'Р’Р°Р»РµСЂРёР№ РћРІРµСЂС‡СѓРє',
+                'name' => 'Валерий Оверчук',
             ]);
     }
 
@@ -764,7 +764,7 @@ class StoWorkOrderTest extends TestCase
             ->assertJsonFragment([
                 'id' => $donorProduct->id,
                 'name' => $donorProduct->name,
-                'source_label' => 'Р”РѕРЅРѕСЂ',
+                'source_label' => 'Донор',
                 'available_stock' => 2,
             ])
             ->assertJsonMissing(['id' => $plainProduct->id])
@@ -774,15 +774,15 @@ class StoWorkOrderTest extends TestCase
     public function test_part_search_matches_cyrillic_case_from_first_letter(): void
     {
         $user = $this->adminUser();
-        $product = $this->inventoryProduct(source: 'donor', availableQuantity: 1, name: 'Р‘Р°РјРїРµСЂ РїРµСЂРµРґРЅРёР№');
+        $product = $this->inventoryProduct(source: 'donor', availableQuantity: 1, name: 'Бампер передний');
 
         $this->actingAs($user)
-            ->getJson(route('admin.sto-work-orders.parts.search', ['q' => 'Р±']))
+            ->getJson(route('admin.sto-work-orders.parts.search', ['q' => 'б']))
             ->assertOk()
             ->assertJsonCount(1)
             ->assertJsonFragment([
                 'id' => $product->id,
-                'name' => 'Р‘Р°РјРїРµСЂ РїРµСЂРµРґРЅРёР№',
+                'name' => 'Бампер передний',
             ]);
     }
 
@@ -793,13 +793,13 @@ class StoWorkOrderTest extends TestCase
         $product = $this->inventoryProduct(
             source: 'donor',
             availableQuantity: 1,
-            name: 'Р‘Р°РјРїРµСЂ РїРµСЂРµРґРЅРёР№',
+            name: 'Бампер передний',
             sellingPrice: 160,
             currency: 'USD',
         );
 
         $this->actingAs($user)
-            ->getJson(route('admin.sto-work-orders.parts.search', ['q' => 'Р±']))
+            ->getJson(route('admin.sto-work-orders.parts.search', ['q' => 'б']))
             ->assertOk()
             ->assertJsonFragment([
                 'id' => $product->id,
@@ -823,7 +823,7 @@ class StoWorkOrderTest extends TestCase
 
         StoWorkOrderWork::query()->create([
             'sto_work_order_id' => $order->id,
-            'name' => 'Р”РёР°РіРЅРѕСЃС‚РёРєР° Р±Р°С‚Р°СЂРµРё',
+            'name' => 'Диагностика батареи',
             'price_uah' => 1200,
         ]);
 
@@ -834,11 +834,11 @@ class StoWorkOrderTest extends TestCase
         ]);
 
         $this->actingAs($user)
-            ->getJson(route('admin.sto-work-orders.works.search', ['q' => 'РґРёР°Рі']))
+            ->getJson(route('admin.sto-work-orders.works.search', ['q' => 'диаг']))
             ->assertOk()
             ->assertJsonCount(1)
             ->assertJsonFragment([
-                'name' => 'Р”РёР°РіРЅРѕСЃС‚РёРєР° Р±Р°С‚Р°СЂРµРё',
+                'name' => 'Диагностика батареи',
                 'price_uah' => 1200,
             ])
             ->assertJsonMissing([
@@ -851,7 +851,7 @@ class StoWorkOrderTest extends TestCase
         $user = $this->adminUser();
         $client = Counterparty::query()->create([
             'type' => 'customer',
-            'name' => 'РРІР°РЅ РџРµС‚СЂРѕРІ',
+            'name' => 'Иван Петров',
             'phone' => '+380991112233',
             'car_model' => 'Model S',
             'car_year' => 2020,
@@ -869,7 +869,7 @@ class StoWorkOrderTest extends TestCase
 
         $this->assertDatabaseHas('sto_work_orders', [
             'counterparty_id' => $client->id,
-            'client_name' => 'РРІР°РЅ РџРµС‚СЂРѕРІ',
+            'client_name' => 'Иван Петров',
             'client_phone' => '+380991112233',
             'car_model' => 'Model S',
             'car_year' => 2020,
@@ -886,7 +886,7 @@ class StoWorkOrderTest extends TestCase
         $this->actingAs($user)->post(route('admin.sto-work-orders.store'), [
             'status' => 'in_work',
             'counterparty_id' => 999999,
-            'client_name' => 'РќРѕРІС‹Р№ РєР»РёРµРЅС‚',
+            'client_name' => 'Новый клиент',
             'client_phone' => '+380991112233',
             'opened_at' => '2026-04-30',
             'car_model' => 'Model 3',
@@ -898,7 +898,7 @@ class StoWorkOrderTest extends TestCase
 
         $this->assertDatabaseHas('sto_work_orders', [
             'counterparty_id' => null,
-            'client_name' => 'РќРѕРІС‹Р№ РєР»РёРµРЅС‚',
+            'client_name' => 'Новый клиент',
             'car_model' => 'Model 3',
             'drive_type' => 'rear',
             'vin' => '5YJ3E1EA7NF000001',
@@ -910,9 +910,9 @@ class StoWorkOrderTest extends TestCase
     {
         $user = $this->adminUser();
         $order = StoWorkOrder::query()->create([
-            'number' => 'Р—Рќ-20260430-0001',
+            'number' => 'ЗН-20260430-0001',
             'status' => 'in_work',
-            'client_name' => 'РРІР°РЅ РџРµС‚СЂРѕРІ',
+            'client_name' => 'Иван Петров',
             'opened_at' => '2026-04-30',
         ]);
 
@@ -930,9 +930,9 @@ class StoWorkOrderTest extends TestCase
         $this->actingAs($user)
             ->get(route('admin.sto-work-orders.show', $order))
             ->assertOk()
-            ->assertSee('РћС‚РјРµРЅРµРЅ')
-            ->assertDontSee('РЈРґР°Р»РёС‚СЊ Р·Р°РєР°Р·-РЅР°СЂСЏРґ')
-            ->assertDontSee('Р’РѕСЃСЃС‚Р°РЅРѕРІРёС‚СЊ');
+            ->assertSee('Отменен')
+            ->assertDontSee('Удалить заказ-наряд')
+            ->assertDontSee('Восстановить');
     }
 
     public function test_admin_can_add_parts_and_works_to_work_order(): void
@@ -1397,7 +1397,7 @@ class StoWorkOrderTest extends TestCase
         $product = $this->inventoryProduct(
             source: 'donor',
             availableQuantity: 1,
-            name: 'Р‘Р°РјРїРµСЂ РїРµСЂРµРґРЅРёР№',
+            name: 'Бампер передний',
             sellingPrice: 160,
             currency: 'USD',
         );
@@ -1450,16 +1450,16 @@ class StoWorkOrderTest extends TestCase
     {
         $user = $this->adminUser();
         $order = StoWorkOrder::query()->create([
-            'number' => 'Р—Рќ-20260430-0001',
+            'number' => 'ЗН-20260430-0001',
             'status' => 'in_work',
-            'client_name' => 'РРІР°РЅ РџРµС‚СЂРѕРІ',
+            'client_name' => 'Иван Петров',
             'opened_at' => '2026-04-30',
         ]);
 
         $this->actingAs($user)
             ->get(route('admin.sto-work-orders.show', $order))
             ->assertOk()
-            ->assertSee('РџРµС‡Р°С‚СЊ Р—Р°РєР°Р· РќР°СЂСЏРґР°')
+            ->assertSee('Печать Заказ Наряда')
             ->assertSee(route('admin.sto-work-orders.print', $order), false);
     }
 
@@ -1472,33 +1472,33 @@ class StoWorkOrderTest extends TestCase
             'is_active' => true,
         ]);
         $order = StoWorkOrder::query()->create([
-            'number' => 'Р—Рќ-20260430-0001',
+            'number' => 'ЗН-20260430-0001',
             'status' => 'in_work',
-            'client_name' => 'РРІР°РЅ РџРµС‚СЂРѕРІ',
+            'client_name' => 'Иван Петров',
             'client_phone' => '+380991112233',
             'car_model' => 'Model 3',
             'opened_at' => '2026-04-30',
         ]);
         $order->parts()->create([
-            'name' => 'Р‘Р°РјРїРµСЂ РїРµСЂРµРґРЅРёР№',
+            'name' => 'Бампер передний',
             'quantity' => 1,
             'unit_price_uah' => 350,
             'total_price_uah' => 350,
         ]);
         $order->works()->create([
             'sto_employee_id' => $employee->id,
-            'name' => 'Р”РёР°РіРЅРѕСЃС‚РёРєР°',
+            'name' => 'Диагностика',
             'price_uah' => 500,
         ]);
 
         $this->actingAs($user)
             ->get(route('admin.sto-work-orders.print', $order))
             ->assertOk()
-            ->assertSee('Р—Р°РјРѕРІР»РµРЅРЅСЏ-РЅР°СЂСЏРґ в„– Р—Рќ-20260430-0001')
+            ->assertSee('Замовлення-наряд № ЗН-20260430-0001')
             ->assertSee('  ')
-            ->assertSee('Р”РёР°РіРЅРѕСЃС‚РёРєР°')
+            ->assertSee('Диагностика')
             ->assertDontSee('Mechanic One')
-            ->assertSee('Р‘Р°РјРїРµСЂ РїРµСЂРµРґРЅРёР№')
+            ->assertSee('Бампер передний')
             ->assertSee(': 500,00')
             ->assertSee(': 350,00');
     }
@@ -1516,7 +1516,7 @@ class StoWorkOrderTest extends TestCase
         $this->actingAs($user)
             ->get(route('admin.sto-work-orders.show', $order))
             ->assertOk()
-            ->assertSee('Р’ СЂР°Р±РѕС‚Рµ')
+            ->assertSee('В работе')
             ->assertSee('value="appointment"', false)
             ->assertSee('value="waiting_parts"', false)
             ->assertSee('value="paused"', false)
@@ -1774,7 +1774,7 @@ class StoWorkOrderTest extends TestCase
         $this->actingAs($user)
             ->get(route('admin.sto-work-orders.show', $order))
             ->assertOk()
-            ->assertSee('РџРѕРґС‚РІРµСЂРґРёС‚СЊ РѕРїР»Р°С‚Сѓ')
+            ->assertSee('Подтвердить оплату')
             ->assertDontSee('value="paid"', false)
             ->assertDontSee('value="archived"', false);
 
@@ -1803,8 +1803,8 @@ class StoWorkOrderTest extends TestCase
         $this->actingAs($user)
             ->get(route('admin.sto-work-orders.show', $order->refresh()))
             ->assertOk()
-            ->assertSee('РђСЂС…РёРІ')
-            ->assertDontSee('РџРѕРґС‚РІРµСЂРґРёС‚СЊ РѕРїР»Р°С‚Сѓ');
+            ->assertSee('Архив')
+            ->assertDontSee('Подтвердить оплату');
 
         $this->actingAs($user)
             ->post(route('admin.sto-work-orders.archive', $order))
@@ -1909,19 +1909,19 @@ class StoWorkOrderTest extends TestCase
         $this->assertDatabaseHas('cash_transactions', [
             'income_bank_uah' => 500,
             'label' => '+',
-            'comment' => 'РћРїР»Р°С‚Р° Р·Р°РєР°Р·-РЅР°СЂСЏРґР° ZN-20260430-0001',
+            'comment' => 'Оплата заказ-наряда ZN-20260430-0001',
             'source' => 'sto_work_order_payment',
         ]);
         $this->assertDatabaseHas('cash_transactions', [
             'income_bank_uah' => 300,
             'label' => '  ',
-            'comment' => 'РћРїР»Р°С‚Р° Р·Р°РєР°Р·-РЅР°СЂСЏРґР° ZN-20260430-0001',
+            'comment' => 'Оплата заказ-наряда ZN-20260430-0001',
             'source' => 'sto_work_order_payment',
         ]);
         $this->assertDatabaseHas('cash_transactions', [
             'income_bank_uah' => 200,
-            'label' => 'РџСЂРѕРґР°Р¶Р° Р—Р§Рљ',
-            'comment' => 'РћРїР»Р°С‚Р° Р·Р°РєР°Р·-РЅР°СЂСЏРґР° ZN-20260430-0001',
+            'label' => 'Продажа ЗЧК',
+            'comment' => 'Оплата заказ-наряда ZN-20260430-0001',
             'source' => 'sto_work_order_payment',
         ]);
         $this->assertDatabaseHas('cashbook_labels', [
@@ -1929,7 +1929,7 @@ class StoWorkOrderTest extends TestCase
             'operation_type' => 'income',
         ]);
         $this->assertDatabaseHas('cashbook_labels', [
-            'name' => 'РџСЂРѕРґР°Р¶Р° Р—Р§Рљ',
+            'name' => 'Продажа ЗЧК',
             'operation_type' => 'income',
         ]);
     }
@@ -1976,8 +1976,8 @@ class StoWorkOrderTest extends TestCase
         $transaction = CashTransaction::query()->create([
             'operation_date' => '2026-04-30',
             'income_cash_uah' => 1200,
-            'label' => 'РЎРўРћ',
-            'comment' => 'РћРїР»Р°С‚Р° Р·Р°РєР°Р·-РЅР°СЂСЏРґР° ZN-20260430-0001',
+            'label' => 'СТО',
+            'comment' => 'Оплата заказ-наряда ZN-20260430-0001',
             'source' => CashTransaction::SOURCE_STO_WORK_ORDER_PAYMENT,
         ]);
 
@@ -2016,7 +2016,7 @@ class StoWorkOrderTest extends TestCase
     {
         $user = $this->adminUser();
         $order = StoWorkOrder::query()->create([
-            'number' => 'Р—Рќ-20260430-0002',
+            'number' => 'ЗН-20260430-0002',
             'status' => 'paid',
             'client_name' => 'Service Client',
             'opened_at' => '2026-04-30',
@@ -2032,20 +2032,20 @@ class StoWorkOrderTest extends TestCase
             'expense_cash_usd' => 0,
             'expense_bank_uah' => 0,
             'label' => '+',
-            'comment' => 'РћРїР»Р°С‚Р° Р·Р°РєР°Р·-РЅР°СЂСЏРґР° Р—Рќ-20260430-0002',
+            'comment' => 'Оплата заказ-наряда ЗН-20260430-0002',
             'source' => 'sto_work_order_payment',
         ]);
 
         $this->actingAs($user)
             ->get(route('admin.cashbook.index', ['from' => '2026-04-30', 'to' => '2026-04-30']))
             ->assertOk()
-            ->assertSee('<a href="'.route('admin.sto-work-orders.show', $order).'">Р—Рќ-20260430-0002</a>', false)
-            ->assertSee('href="'.route('admin.cashbook.show', $transaction).'">РћС‚РєСЂС‹С‚СЊ</a>', false);
+            ->assertSee('<a href="'.route('admin.sto-work-orders.show', $order).'">ЗН-20260430-0002</a>', false)
+            ->assertSee('href="'.route('admin.cashbook.show', $transaction).'">Открыть</a>', false);
 
         $this->actingAs($user)
             ->get(route('admin.cashbook.show', $transaction))
             ->assertOk()
-            ->assertSee('<a href="'.route('admin.sto-work-orders.show', $order).'">Р—Рќ-20260430-0002</a>', false);
+            ->assertSee('<a href="'.route('admin.sto-work-orders.show', $order).'">ЗН-20260430-0002</a>', false);
     }
 
     public function test_cashbook_repair_work_order_row_shows_work_employee(): void
@@ -2057,7 +2057,7 @@ class StoWorkOrderTest extends TestCase
             'is_active' => true,
         ]);
         $order = StoWorkOrder::query()->create([
-            'number' => 'Р—Рќ-20260430-0003',
+            'number' => 'ЗН-20260430-0003',
             'status' => 'paid',
             'client_name' => 'Service Client',
             'opened_at' => '2026-04-30',
@@ -2079,7 +2079,7 @@ class StoWorkOrderTest extends TestCase
             'expense_bank_uah' => 0,
             'label' => '+',
             'employee' => 'Cash Employee',
-            'comment' => 'РћРїР»Р°С‚Р° Р·Р°РєР°Р·-РЅР°СЂСЏРґР° Р—Рќ-20260430-0003',
+            'comment' => 'Оплата заказ-наряда ЗН-20260430-0003',
             'source' => 'sto_work_order_payment',
         ]);
 
@@ -2115,7 +2115,7 @@ class StoWorkOrderTest extends TestCase
             'expense_cash_usd' => 0,
             'expense_bank_uah' => 0,
             'label' => '+',
-            'comment' => 'РћРїР»Р°С‚Р° Р·Р°РєР°Р·-РЅР°СЂСЏРґР° ZN-20260430-0001',
+            'comment' => 'Оплата заказ-наряда ZN-20260430-0001',
             'source' => 'sto_work_order_payment',
         ]);
 
@@ -2128,7 +2128,7 @@ class StoWorkOrderTest extends TestCase
             'expense_cash_usd' => 0,
             'expense_bank_uah' => 0,
             'label' => '+',
-            'comment' => 'Р”СЂСѓРіР°СЏ РѕРїРµСЂР°С†РёСЏ',
+            'comment' => 'Другая операция',
             'source' => 'sto_work_order_payment',
         ]);
 
@@ -2156,12 +2156,12 @@ class StoWorkOrderTest extends TestCase
         ]);
 
         $this->assertDatabaseHas('cash_transactions', [
-            'comment' => 'РћРїР»Р°С‚Р° Р·Р°РєР°Р·-РЅР°СЂСЏРґР° ZN-20260430-0001',
+            'comment' => 'Оплата заказ-наряда ZN-20260430-0001',
             'source' => 'sto_work_order_payment',
         ]);
 
         $this->assertDatabaseHas('cash_transactions', [
-            'comment' => 'Р”СЂСѓРіР°СЏ РѕРїРµСЂР°С†РёСЏ',
+            'comment' => 'Другая операция',
             'source' => 'sto_work_order_payment',
         ]);
     }
@@ -2349,14 +2349,14 @@ class StoWorkOrderTest extends TestCase
         $user = $this->adminUser();
 
         CashbookLabel::query()->updateOrCreate(
-            ['name' => 'РРЅРєР°СЃСЃРѕ Р–РµРЅСЏ'],
+            ['name' => 'Инкассо Женя'],
             ['operation_type' => 'income'],
         );
 
         CashTransaction::query()->create([
             'operation_date' => '2026-05-01',
             'income_cash_usd' => 2500,
-            'label' => 'РРЅРєР°СЃСЃРѕ Р–РµРЅСЏ',
+            'label' => 'Инкассо Женя',
             'comment' => 'Visible operation comment',
             'source' => 'manual',
         ]);
@@ -2365,7 +2365,7 @@ class StoWorkOrderTest extends TestCase
             ->get(route('admin.cashbook.index'))
             ->assertOk()
             ->assertDontSee('Visible operation comment')
-            ->assertDontSee('РРЅРєР°СЃСЃРѕ Р–РµРЅСЏ');
+            ->assertDontSee('Инкассо Женя');
     }
 
     public function test_cashbook_hides_dividends_label_from_filter(): void
@@ -2373,14 +2373,14 @@ class StoWorkOrderTest extends TestCase
         $user = $this->adminUser();
 
         CashbookLabel::query()->updateOrCreate(
-            ['name' => 'Р”РёРІРёРґРµРЅРґС‹'],
+            ['name' => 'Дивиденды'],
             ['operation_type' => 'expense'],
         );
 
         $this->actingAs($user)
             ->get(route('admin.cashbook.index', ['from' => '2026-04-30', 'to' => '2026-04-30']))
             ->assertOk()
-            ->assertDontSee('Р”РёРІРёРґРµРЅРґС‹');
+            ->assertDontSee('Дивиденды');
     }
 
     private function adminUser(): User
@@ -2463,11 +2463,19 @@ class StoWorkOrderTest extends TestCase
     private function fakeNbuUsdRate(float $rate): void
     {
         Cache::put('exchange_rate_usd_nbu_latest', $rate, now()->addHours(6));
+        Cache::put('exchange_rate_usd_monobank_latest', $rate, now()->addHours(6));
         Http::fake([
             'bank.gov.ua/*' => Http::response([
                 [
                     'cc' => 'USD',
                     'rate' => $rate,
+                ],
+            ]),
+            'api.monobank.ua/*' => Http::response([
+                [
+                    'currencyCodeA' => 840,
+                    'currencyCodeB' => 980,
+                    'rateSell' => $rate,
                 ],
             ]),
         ]);

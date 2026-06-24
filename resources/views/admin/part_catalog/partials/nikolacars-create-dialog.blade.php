@@ -114,7 +114,7 @@
                 <select name="warehouse_id" required data-nikolacars-part-warehouse>
                     <option value="">—</option>
                     @foreach($nikolaCarsCreateWarehouses as $warehouse)
-                        <option value="{{ $warehouse->id }}" data-floor-count="{{ $warehouse->floor_count }}" data-warehouse-type="{{ $warehouse->type }}" @selected(old('warehouse_id') == $warehouse->id)>{{ $warehouse->name }}</option>
+                        <option value="{{ $warehouse->id }}" data-floor-count="{{ $warehouse->floor_count }}" data-warehouse-type="{{ $warehouse->type }}" data-structured-locations="{{ $warehouse->usesStructuredLocations() ? '1' : '0' }}" @selected(old('warehouse_id') == $warehouse->id)>{{ $warehouse->name }}</option>
                     @endforeach
                 </select>
             </div>

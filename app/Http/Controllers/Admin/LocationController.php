@@ -28,12 +28,17 @@ class LocationController extends Controller
 
     public function store(LocationRequest $request): RedirectResponse
     {
-        if (Warehouse::query()
-            ->whereKey($request->integer('warehouse_id'))
-            ->where('type', Warehouse::TYPE_DONOR)
-            ->exists()) {
+        $warehouse = Warehouse::query()->find($request->integer('warehouse_id'));
+
+        if ($warehouse?->type === Warehouse::TYPE_DONOR) {
             return back()
                 ->withErrors(['warehouse_id' => 'Для склада "На доноре" ячейки создаются автоматически по донору.'])
+                ->withInput();
+        }
+
+        if ($warehouse && ! $warehouse->usesStructuredLocations()) {
+            return back()
+                ->withErrors(['warehouse_id' => 'Locations are not used for this warehouse.'])
                 ->withInput();
         }
 
@@ -90,6 +95,8 @@ class LocationController extends Controller
                 ->whereNull('type')
                 ->orWhere('type', '!=', Warehouse::TYPE_DONOR))
             ->orderBy('name')
-            ->get();
+            ->get()
+            ->filter(fn (Warehouse $warehouse): bool => $warehouse->usesStructuredLocations())
+            ->values();
     }
 }

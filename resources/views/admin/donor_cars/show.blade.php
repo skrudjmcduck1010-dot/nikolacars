@@ -26,8 +26,8 @@
             ['label' => 'Полная стоимость', 'value' => $donorCar->total_cost_usd !== null ? $money($donorCar->total_cost_usd) : null],
             ['label' => 'Примечания', 'value' => $donorCar->notes],
         ])->filter(fn ($detail) => $detail['value'] !== null && $detail['value'] !== '');
-        $soldPartsQuantity = rtrim(rtrim(number_format((float) $donorCar->partSales->sum('quantity'), 3, '.', ''), '0'), '.');
-        $soldPartsTotals = $donorCar->partSales
+        $soldPartsQuantity = $soldPartsQuantity ?? rtrim(rtrim(number_format((float) $donorCar->partSales->sum('quantity'), 3, '.', ''), '0'), '.');
+        $soldPartsTotals = $soldPartsTotals ?? $donorCar->partSales
             ->filter(fn ($sale) => $sale->total_amount !== null)
             ->groupBy(fn ($sale) => $sale->currency ?: '')
             ->map(fn ($sales, $currency) => number_format((float) $sales->sum(fn ($sale) => $sale->total_amount), 2, '.', ' ').($currency ? ' '.$currency : ''))
@@ -135,7 +135,7 @@
             ->reject($isInactiveProduct)
             ->reject($isSoldPartSaleProduct)
             ->values();
-        $smallProductsCount = $donorProducts
+        $smallProductsCount = $smallProductsCountOverride ?? $donorProducts
             ->filter($isSmallTeslaVinPart)
             ->count();
         $displayProducts = $donorProducts
@@ -147,6 +147,12 @@
         $brokenProducts = $displayProducts
             ->filter($isBrokenDamageNote)
             ->values();
+        $donorProductTableTotal = $donorProductTableTotal ?? $displayProducts->count();
+        $donorProductCheckedTotal = $donorProductCheckedTotal ?? $checkedProducts->count();
+        $donorProductBrokenTotal = $donorProductBrokenTotal ?? $brokenProducts->count();
+        $donorProductsCurrentPage = $donorProductsCurrentPage ?? 1;
+        $donorProductsPerPage = $donorProductsInitialLimit ?? 80;
+        $donorProductsLastPage = max(1, (int) ceil($donorProductTableTotal / $donorProductsPerPage));
         $donorProductCategoryKey = function ($catalogItem = null, ?string $productCategorySlug = null, ?string $categoryPath = null, ?string $fallbackText = null) use ($donorProductCategoryOption): string {
             return $donorProductCategoryOption($catalogItem, $categoryPath, $fallbackText)['key'];
         };
@@ -210,18 +216,15 @@
                 <div class="donor-photo-strip">
                 @if($donorPhotoUrls->isNotEmpty())
                     <div class="photo-grid donor-photo-grid">
-                        @foreach($donorCar->photos ?? [] as $photo)
-                            @php
-                                $photoUrl = \App\Support\PublicStorageUrl::url($photo) ?? $photo;
-                            @endphp
+                        @foreach($donorPhotoItems ?? [] as $photoItem)
                             <div class="photo-item donor-photo-item">
-                                <a class="donor-photo-item__link" href="{{ $photoUrl }}" data-donor-photo-trigger data-photo-index="{{ $loop->index }}">
-                                    <img src="{{ $photoUrl }}" alt="Фото {{ $donorCar->display_vin }}">
+                                <a class="donor-photo-item__link" href="{{ $photoItem['url'] }}" data-donor-photo-trigger data-photo-index="{{ $loop->index }}">
+                                    <img src="{{ $photoItem['preview_url'] }}" alt="Фото {{ $donorCar->display_vin }}" loading="lazy" decoding="async">
                                 </a>
                                 <form method="POST" action="{{ route('admin.donor-cars.photos.destroy', $donorCar) }}" class="donor-photo-delete-form" data-donor-photo-delete-form>
                                     @csrf
                                     @method('DELETE')
-                                    <input type="hidden" name="photo" value="{{ $photo }}">
+                                    <input type="hidden" name="photo" value="{{ $photoItem['path'] }}">
                                     <button type="submit" class="donor-photo-delete-button" aria-label="Удалить фото">
                                         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                                             <path d="M9 3h6l1 2h4v2H4V5h4l1-2Zm1 6h2v9h-2V9Zm4 0h2v9h-2V9ZM7 9h2v10h6V9h2v12H7V9Z" />
@@ -259,6 +262,28 @@
                     </div>
                 </dialog>
             @endif
+
+            <dialog class="product-photo-lightbox" data-donor-product-photo-lightbox>
+                <button type="button" class="btn btn-secondary product-photo-lightbox__close" data-donor-product-photo-close aria-label="{{ "\u{0417}\u{0430}\u{043A}\u{0440}\u{044B}\u{0442}\u{044C}" }}">&times;</button>
+                <button type="button" class="btn btn-secondary product-photo-lightbox__rotate product-photo-lightbox__rotate--counterclockwise" data-donor-product-photo-rotate data-donor-product-photo-rotate-degrees="270" aria-label="{{ "\u{041F}\u{043E}\u{0432}\u{0435}\u{0440}\u{043D}\u{0443}\u{0442}\u{044C} \u{0438}\u{0437}\u{043E}\u{0431}\u{0440}\u{0430}\u{0436}\u{0435}\u{043D}\u{0438}\u{0435} \u{043F}\u{0440}\u{043E}\u{0442}\u{0438}\u{0432} \u{0447}\u{0430}\u{0441}\u{043E}\u{0432}\u{043E}\u{0439} \u{0441}\u{0442}\u{0440}\u{0435}\u{043B}\u{043A}\u{0438}" }}">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                        <path d="M3 3v5h5"/>
+                    </svg>
+                </button>
+                <button type="button" class="btn btn-secondary product-photo-lightbox__rotate product-photo-lightbox__rotate--clockwise" data-donor-product-photo-rotate data-donor-product-photo-rotate-degrees="90" aria-label="{{ "\u{041F}\u{043E}\u{0432}\u{0435}\u{0440}\u{043D}\u{0443}\u{0442}\u{044C} \u{0438}\u{0437}\u{043E}\u{0431}\u{0440}\u{0430}\u{0436}\u{0435}\u{043D}\u{0438}\u{0435} \u{043F}\u{043E} \u{0447}\u{0430}\u{0441}\u{043E}\u{0432}\u{043E}\u{0439} \u{0441}\u{0442}\u{0440}\u{0435}\u{043B}\u{043A}\u{0435}" }}">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M21 12a9 9 0 1 1-9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                        <path d="M21 3v5h-5"/>
+                    </svg>
+                </button>
+                <button type="button" class="btn btn-secondary product-photo-lightbox__nav product-photo-lightbox__nav--prev" data-donor-product-photo-prev aria-label="{{ "\u{041F}\u{0440}\u{0435}\u{0434}\u{044B}\u{0434}\u{0443}\u{0449}\u{0435}\u{0435} \u{0438}\u{0437}\u{043E}\u{0431}\u{0440}\u{0430}\u{0436}\u{0435}\u{043D}\u{0438}\u{0435}" }}">&#8249;</button>
+                <div class="product-photo-lightbox__stage">
+                    <img src="" alt="" data-donor-product-photo-lightbox-image>
+                </div>
+                <button type="button" class="btn btn-secondary product-photo-lightbox__nav product-photo-lightbox__nav--next" data-donor-product-photo-next aria-label="{{ "\u{0421}\u{043B}\u{0435}\u{0434}\u{0443}\u{044E}\u{0449}\u{0435}\u{0435} \u{0438}\u{0437}\u{043E}\u{0431}\u{0440}\u{0430}\u{0436}\u{0435}\u{043D}\u{0438}\u{0435}" }}">&#8250;</button>
+                <div class="product-photo-lightbox__counter" data-donor-product-photo-counter></div>
+            </dialog>
         </div>
 
         <div class="panel">
@@ -273,15 +298,15 @@
             </div>
 
             <div class="donor-products-tabs" data-donor-products-tabs>
-                <button type="button" class="donor-products-tab is-active" data-donor-products-tab="all">Все запчасти <span data-donor-products-tab-count="all">{{ $displayProducts->count() }}</span></button>
-                <button type="button" class="donor-products-tab" data-donor-products-tab="checked">Проверенные запчасти <span data-donor-products-tab-count="checked">{{ $checkedProducts->count() }}</span></button>
-                <button type="button" class="donor-products-tab" data-donor-products-tab="broken">Непригодные запчасти <span data-donor-products-tab-count="broken">{{ $brokenProducts->count() }}</span></button>
-                <button type="button" class="donor-products-tab" data-donor-products-tab="sold">Проданные запчасти <span>{{ $donorCar->partSales->count() }}</span></button>
+                <button type="button" class="donor-products-tab is-active" data-donor-products-tab="all">Все запчасти <span data-donor-products-tab-count="all">{{ $donorProductTableTotal }}</span></button>
+                <button type="button" class="donor-products-tab" data-donor-products-tab="checked">Проверенные запчасти <span data-donor-products-tab-count="checked">{{ $donorProductCheckedTotal }}</span></button>
+                <button type="button" class="donor-products-tab" data-donor-products-tab="broken">Непригодные запчасти <span data-donor-products-tab-count="broken">{{ $donorProductBrokenTotal }}</span></button>
+                <button type="button" class="donor-products-tab" data-donor-products-tab="sold">Проданные запчасти <span>{{ $donorPartSalesTotal ?? $donorCar->partSales->count() }}</span></button>
             </div>
 
             <div class="donor-products-search">
                 <label for="donor-products-search">Поиск запчастей</label>
-                <input id="donor-products-search" type="search" placeholder="Артикул или название" autocomplete="off" data-donor-products-search>
+                <input id="donor-products-search" type="search" placeholder="Артикул или название" autocomplete="off" data-donor-products-search data-donor-products-table-url="{{ route('admin.donor-cars.products.table', $donorCar) }}">
                 <label id="donor-products-category-label">Категория</label>
                 <div class="donor-category-filter" data-donor-products-category>
                     <button type="button" class="donor-category-filter__toggle" aria-haspopup="true" aria-expanded="false" aria-labelledby="donor-products-category-label donor-products-category-summary" data-donor-products-category-toggle @disabled(empty($donorProductCategoryOptions))>
@@ -299,115 +324,37 @@
             </div>
 
             <div data-donor-products-panel="all">
-                @include('admin.donor_cars._products_table', [
-                    'products' => $displayProducts,
-                    'emptyText' => 'Запчасти с этого донора еще не добавлены.',
-                    'showOfficialFields' => true,
-                    'donorProductReservations' => $donorProductReservations,
-                    'officialTeslaCatalogPricesByProductId' => $officialTeslaCatalogPricesByProductId,
-                    'smallPartNumbers' => $smallPartNumbers,
-                    'showProductAnchors' => true,
-                ])
+                <div data-donor-products-table-wrap>
+                    @include('admin.donor_cars._products_table', [
+                        'products' => $displayProducts,
+                        'emptyText' => 'Запчасти с этого донора еще не добавлены.',
+                        'showOfficialFields' => true,
+                        'donorProductReservations' => $donorProductReservations,
+                        'officialTeslaCatalogPricesByProductId' => $officialTeslaCatalogPricesByProductId,
+                        'officialTeslaCatalogNamesByProductId' => $officialTeslaCatalogNamesByProductId,
+                        'smallPartNumbers' => $smallPartNumbers,
+                        'showProductAnchors' => true,
+                    ])
+                </div>
+                <div data-donor-products-pagination>
+                    @include('admin.donor_cars._products_pagination', [
+                        'currentPage' => $donorProductsCurrentPage,
+                        'lastPage' => $donorProductsLastPage,
+                        'total' => $donorProductTableTotal,
+                        'perPage' => $donorProductsPerPage,
+                    ])
+                </div>
             </div>
             <div data-donor-products-panel="sold" hidden>
-                <div class="help">
-                    Кол-во: {{ $soldPartsQuantity ?: '0' }}
-                    @if($soldPartsTotals)
-                        · Сумма: {{ $soldPartsTotals }}
-                    @endif
+                <div data-donor-sales-table-wrap data-donor-sales-table-url="{{ route('admin.donor-cars.sales.table', ['donorCar' => $donorCar, 'sale_sort' => $saleSort, 'sale_direction' => $saleDirection]) }}">
+                    <div class="help">
+                        Кол-во: {{ $soldPartsQuantity ?: '0' }}
+                        @if($soldPartsTotals)
+                            · Сумма: {{ $soldPartsTotals }}
+                        @endif
+                    </div>
+                    <div class="empty" data-donor-sales-placeholder>Проданные запчасти загружаются...</div>
                 </div>
-
-                <table style="margin-top:14px;">
-                    <thead>
-                    <tr>
-                        <th><a href="{{ $saleSortUrl('sold_at') }}">Дата{{ $saleSortMark('sold_at') }}</a></th>
-                        <th><a href="{{ $saleSortUrl('part_number') }}">Артикул{{ $saleSortMark('part_number') }}</a></th>
-                        <th><a href="{{ $saleSortUrl('name') }}">Запчасть{{ $saleSortMark('name') }}</a></th>
-                        <th><a href="{{ $saleSortUrl('category') }}">Категория{{ $saleSortMark('category') }}</a></th>
-                        <th><a href="{{ $saleSortUrl('quantity') }}">Кол-во{{ $saleSortMark('quantity') }}</a></th>
-                        <th><a href="{{ $saleSortUrl('unit_price') }}">Цена{{ $saleSortMark('unit_price') }}</a></th>
-                        <th><a href="{{ $saleSortUrl('total_amount') }}">Сумма{{ $saleSortMark('total_amount') }}</a></th>
-                        <th><a href="{{ $saleSortUrl('document_number') }}">Документ{{ $saleSortMark('document_number') }}</a></th>
-                        <th><a href="{{ $saleSortUrl('counterparty') }}">Контрагент{{ $saleSortMark('counterparty') }}</a></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @forelse($donorCar->partSales as $sale)
-                        @php
-                            $saleProduct = $donorPartPresenter->resolveSaleProduct($sale, $saleProductsById, $saleProductsByCatalogItem);
-                            $saleDisplayCatalogItem = $saleProduct?->sourcePartCatalogItem ?: $sale->partCatalogItem;
-                            $saleDisplayName = $sale->name
-                                ?: $saleProduct?->name
-                                ?: $saleDisplayCatalogItem?->name_ua
-                                ?: $saleDisplayCatalogItem?->name_ru
-                                ?: $saleDisplayCatalogItem?->name;
-                            $saleCatalogCategory = $catalogCategoryForDonor($saleDisplayCatalogItem);
-                            $saleCatalogCategoryPathRu = $catalogCategoryPath($saleCatalogCategory, 'ru');
-                            $saleCatalogCategoryPathUa = $catalogCategoryPath($saleCatalogCategory, 'ua');
-                            $saleCatalogCategoryPathPreferred = $catalogCategoryPath($saleCatalogCategory, 'preferred');
-                            $saleRawCategoryPath = $catalogItemRawCategoryPath($saleDisplayCatalogItem);
-                            $saleSearchText = collect([
-                                $sale->code,
-                                $sale->part_number,
-                                $sale->name,
-                                $saleDisplayCatalogItem?->name,
-                                $saleDisplayCatalogItem?->name_ru,
-                                $saleDisplayCatalogItem?->name_ua,
-                                $saleCatalogCategoryPathRu,
-                                $saleCatalogCategoryPathUa,
-                            ])->filter()->implode(' ');
-                        @endphp
-                        @php
-                            $saleProductCategory = $donorProductCategoryKey(
-                                $saleDisplayCatalogItem,
-                                null,
-                                $saleDisplayCatalogItem ? null : $sale->category_path,
-                                $saleDisplayName ?: $sale->name
-                            );
-                            $saleProductCategoryLabel = $donorProductCategoryOptions[$saleProductCategory] ?? '';
-                            $saleCategoryPathDisplay = $saleRawCategoryPath !== ''
-                                ? $saleRawCategoryPath
-                                : ($saleDisplayCatalogItem ? '' : $readableCategoryPath($sale->category_path));
-                            $saleCategoryDisplay = $saleCatalogCategoryPathPreferred !== ''
-                                ? $saleCatalogCategoryPathPreferred
-                                : ($saleCategoryPathDisplay !== '' ? $saleCategoryPathDisplay : ($saleProductCategoryLabel !== '' ? $saleProductCategoryLabel : '-'));
-                        @endphp
-                        <tr id="sold-part-{{ $sale->id }}" data-donor-product-row data-donor-product-search="{{ $saleSearchText }}" data-donor-product-category="{{ $saleProductCategory }}">
-                            <td>{{ $sale->sold_at ? $sale->sold_at->timezone('Europe/Kiev')->format('Y-m-d') : '-' }}</td>
-                            <td>{{ $sale->part_number ?: '-' }}</td>
-                            <td>
-                                @if(! $saleProduct && $sale->partCatalogItem)
-                                    {{ $saleDisplayName ?: '-' }}
-                                @elseif($saleProduct)
-                                    <a href="{{ route('admin.products.show', $saleProduct) }}">
-                                        {{ $saleDisplayName ?: '-' }}
-                                    </a>
-                                @else
-                                    {{ $saleDisplayName ?: '-' }}
-                                @endif
-                                @if($saleCategoryPathDisplay !== '')
-                                    <div class="help">{{ $saleCategoryPathDisplay }}</div>
-                                @endif
-                            </td>
-                            <td>
-                                {{ $saleCategoryDisplay }}
-                            </td>
-                            <td>{{ rtrim(rtrim(number_format((float) $sale->quantity, 3, '.', ''), '0'), '.') }}</td>
-                            <td>{{ $sale->unit_price !== null ? number_format((float) $sale->unit_price, 2, '.', ' ').' '.$sale->currency : '-' }}</td>
-                            <td>{{ $sale->total_amount !== null ? number_format($sale->total_amount, 2, '.', ' ').' '.$sale->currency : '-' }}</td>
-                            <td>{{ $sale->document_number ?: '-' }}</td>
-                            <td>{{ $sale->counterparty ?: '-' }}</td>
-                        </tr>
-                    @empty
-                        <tr data-donor-products-static-empty>
-                            <td colspan="9" class="empty">Проданных запчастей по этому донору пока нет.</td>
-                        </tr>
-                    @endforelse
-                    <tr data-donor-products-empty hidden>
-                        <td colspan="9" class="empty">По этому поиску запчасти не найдены.</td>
-                    </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>
@@ -823,9 +770,15 @@
             line-height: 1.25;
         }
 
+        .donor-products-table {
+            table-layout: fixed;
+            width: 100%;
+        }
+
         .donor-products-table th {
             font-size: 11px;
-            letter-spacing: .04em;
+            letter-spacing: 0;
+            text-transform: none;
         }
 
         [data-donor-products-panel] tbody tr[data-donor-product-row] > td:nth-child(4) {
@@ -848,13 +801,49 @@
         }
 
         .donor-products-price-heading,
-        .donor-products-price-heading span {
+        .donor-products-price-heading span,
+        .donor-products-quantity-heading,
+        .donor-products-quantity-heading span {
             display: block;
         }
 
         .donor-products-table th:nth-child(1),
         .donor-products-table td:nth-child(1) {
-            width: 44px;
+            width: 84px;
+            min-width: 84px;
+            max-width: 84px;
+            overflow: hidden;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .donor-product-photo-preview {
+            display: inline-grid;
+            width: 72px;
+            height: 54px;
+            max-width: 72px;
+            max-height: 54px;
+            place-items: center;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            background: #fff;
+            color: var(--muted);
+            text-decoration: none;
+            vertical-align: middle;
+        }
+
+        .donor-product-photo-preview img {
+            display: block;
+            width: 72px;
+            height: 54px;
+            max-width: 72px;
+            max-height: 54px;
+            object-fit: cover;
+        }
+
+        .donor-product-photo-preview--empty {
+            font-size: 12px;
         }
 
         .donor-products-table th:nth-child(2),
@@ -900,8 +889,8 @@
             white-space: nowrap;
         }
 
-        .donor-products-table--official th:last-child,
-        .donor-products-table--official td:last-child {
+        .donor-products-table th:last-child,
+        .donor-products-table td:last-child {
             width: 116px;
             white-space: nowrap;
         }
@@ -1156,6 +1145,25 @@
             white-space: nowrap;
         }
 
+        .donor-product-stock-display {
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+        }
+
+        .donor-product-stock-text {
+            display: grid;
+            gap: 2px;
+            min-width: 0;
+        }
+
+        .donor-product-stock-line {
+            display: block;
+            min-width: 0;
+            line-height: 1.25;
+            overflow-wrap: anywhere;
+        }
+
         .donor-product-price-editor {
             margin: 0;
         }
@@ -1406,7 +1414,7 @@
 
         .donor-summary-layout {
             display: grid;
-            grid-template-columns: minmax(0, 1fr) minmax(420px, 520px);
+            grid-template-columns: minmax(0, 1fr) minmax(260px, 420px);
             gap: 18px;
             align-items: start;
         }
@@ -1421,6 +1429,7 @@
             align-items: start;
             gap: 8px;
             margin-top: 0;
+            min-width: 0;
         }
         .donor-photo-grid {
             grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1440,16 +1449,27 @@
             position: relative;
             display: block;
             cursor: default;
+            overflow: hidden;
         }
 
         .donor-photo-item__link {
             display: block;
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            overflow: hidden;
             color: inherit;
             cursor: zoom-in;
         }
 
         .donor-photo-item__link img {
             display: block;
+            width: 100%;
+            height: 100%;
+            max-width: 100%;
+            object-fit: cover;
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            background: white;
         }
 
         .donor-photo-delete-form {
@@ -1601,6 +1621,94 @@
         .photo-lightbox__nav--prev { left: 14px; }
         .photo-lightbox__nav--next { right: 14px; }
         .photo-lightbox__nav[hidden] { display: none; }
+        .product-photo-lightbox {
+            width: min(1120px, calc(100vw - 32px));
+            height: min(820px, calc(100vh - 32px));
+            max-height: calc(100vh - 32px);
+            padding: 48px 62px 44px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: rgba(255, 255, 255, .98);
+            box-sizing: border-box;
+            box-shadow: 0 24px 70px rgba(25, 32, 36, .25);
+        }
+        .product-photo-lightbox::backdrop { background: rgba(29, 42, 49, .6); }
+        .product-photo-lightbox__stage {
+            display: grid;
+            width: 100%;
+            height: 100%;
+            min-width: 0;
+            min-height: 0;
+            place-items: center;
+            overflow: hidden;
+            border-radius: 8px;
+            background: #fff;
+        }
+        .product-photo-lightbox img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            min-width: 0;
+            min-height: 0;
+            object-fit: contain;
+            border-radius: 8px;
+            background: #fff;
+        }
+        .product-photo-lightbox__close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 34px;
+            height: 34px;
+            padding: 0;
+            font-size: 22px;
+            line-height: 1;
+        }
+        .product-photo-lightbox__rotate {
+            position: absolute;
+            top: 12px;
+            width: 34px;
+            height: 34px;
+            padding: 0;
+        }
+        .product-photo-lightbox__rotate--clockwise { right: 54px; }
+        .product-photo-lightbox__rotate--counterclockwise { right: 96px; }
+        .product-photo-lightbox__rotate svg {
+            display: block;
+            width: 19px;
+            height: 19px;
+            margin: auto;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .product-photo-lightbox__nav {
+            position: absolute;
+            top: 50%;
+            width: 38px;
+            height: 56px;
+            padding: 0;
+            transform: translateY(-50%);
+            font-size: 34px;
+            line-height: 1;
+        }
+        .product-photo-lightbox__nav--prev { left: 12px; }
+        .product-photo-lightbox__nav--next { right: 12px; }
+        .product-photo-lightbox__counter {
+            position: absolute;
+            left: 50%;
+            bottom: 14px;
+            transform: translateX(-50%);
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 700;
+        }
+        .product-photo-lightbox__nav[hidden],
+        .product-photo-lightbox__rotate[hidden] {
+            display: none;
+        }
 
         @media (max-width: 1100px) {
             .donor-summary-layout {
@@ -1638,6 +1746,16 @@
             }
             .photo-lightbox__nav--prev { left: calc(50% - 54px); }
             .photo-lightbox__nav--next { right: calc(50% - 54px); }
+            .product-photo-lightbox {
+                padding: 48px 14px 76px;
+            }
+            .product-photo-lightbox__nav {
+                top: auto;
+                bottom: 18px;
+                transform: none;
+            }
+            .product-photo-lightbox__nav--prev { left: calc(50% - 54px); }
+            .product-photo-lightbox__nav--next { right: calc(50% - 54px); }
         }
     </style>
 
@@ -1674,9 +1792,22 @@
             const photoClose = photoLightbox?.querySelector('[data-close-photo-lightbox]');
             const donorPhotosInput = document.querySelector('[data-donor-photos-input]');
             const donorPhotoDropzone = document.querySelector('[data-donor-photo-dropzone]');
+            const productPhotoLightbox = document.querySelector('[data-donor-product-photo-lightbox]');
+            const productPhotoImage = productPhotoLightbox?.querySelector('[data-donor-product-photo-lightbox-image]');
+            const productPhotoCounter = productPhotoLightbox?.querySelector('[data-donor-product-photo-counter]');
+            const productPhotoClose = productPhotoLightbox?.querySelector('[data-donor-product-photo-close]');
+            const productPhotoPrev = productPhotoLightbox?.querySelector('[data-donor-product-photo-prev]');
+            const productPhotoNext = productPhotoLightbox?.querySelector('[data-donor-product-photo-next]');
+            const productPhotoRotateButtons = Array.from(productPhotoLightbox?.querySelectorAll('[data-donor-product-photo-rotate]') || []);
             const photoUrls = @json($donorPhotoUrls ?? []);
+            const csrfToken = @json(csrf_token());
             const donorPhotoLimit = @json(\App\Models\DonorCar::PHOTO_LIMIT);
             let currentPhotoIndex = 0;
+            let currentProductPhotoIndex = 0;
+            let currentProductPhotoUrls = [];
+            let currentProductPhotoPaths = [];
+            let currentProductPhotoRotateUrl = '';
+            let currentProductPhotoTrigger = null;
             let productSearchTimeout = null;
             let productSearchController = null;
             let generatePreviewLoaded = false;
@@ -1684,6 +1815,9 @@
             let generatePreviewItems = [];
             let conditionSortDirection = null;
             let activeDonorProductsTab = 'all';
+            let donorProductsServerTab = 'all';
+            let donorSalesLoaded = false;
+            let donorSalesController = null;
             let donorToastTimeout = null;
 
             document.querySelectorAll('[data-donor-products-tab]').forEach((button) => {
@@ -1702,7 +1836,11 @@
                             : panel.dataset.donorProductsPanel !== 'all';
                     });
 
-                    applyDonorProductsSearch();
+                    if (activeDonorProductsTab === 'sold') {
+                        loadDonorSales();
+                    } else {
+                        refreshDonorProductsTable(1);
+                    }
                 });
             });
 
@@ -1827,11 +1965,145 @@
                     refreshDonorProductsPanel(panel, query, categories);
                 });
 
-                updateDonorProductsTabCounts();
             };
 
-            donorProductsSearch?.addEventListener('input', applyDonorProductsSearch);
+            const updateDonorProductsBadgesFromPayload = (payload) => {
+                const totals = {
+                    all: payload.total,
+                    checked: payload.checked_total,
+                    broken: payload.broken_total,
+                };
+
+                Object.entries(totals).forEach(([tab, value]) => {
+                    const badge = document.querySelector(`[data-donor-products-tab-count="${tab}"]`);
+
+                    if (badge && value !== undefined && value !== null) {
+                        badge.textContent = value.toString();
+                    }
+                });
+            };
+
+            const bindDonorProductsTableInteractions = () => {
+                document.querySelectorAll('[data-donor-damage-select]').forEach((select) => bindDonorDamageSelect(select));
+                bindSmallPartForms();
+                bindDonorPriceEditors();
+            };
+
+            const refreshDonorProductsTable = async (page = 1) => {
+                if (activeDonorProductsTab === 'sold') {
+                    return;
+                }
+
+                const url = donorProductsSearch?.dataset.donorProductsTableUrl;
+                const tableWrap = document.querySelector('[data-donor-products-table-wrap]');
+                const paginationWrap = document.querySelector('[data-donor-products-pagination]');
+
+                if (!url || !tableWrap) {
+                    applyDonorProductsSearch();
+                    return;
+                }
+
+                if (productSearchController) {
+                    productSearchController.abort();
+                }
+
+                productSearchController = new AbortController();
+                tableWrap.setAttribute('aria-busy', 'true');
+
+                try {
+                    const requestUrl = new URL(url, window.location.origin);
+                    requestUrl.searchParams.set('q', donorProductsSearch?.value || '');
+                    requestUrl.searchParams.set('page', page.toString());
+                    requestUrl.searchParams.set('tab', activeDonorProductsTab);
+
+                    const response = await fetch(requestUrl.toString(), {
+                        headers: {
+                            'Accept': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest',
+                        },
+                        signal: productSearchController.signal,
+                    });
+                    const payload = await response.json();
+
+                    if (!response.ok || typeof payload.html !== 'string') {
+                        throw new Error(payload.message || 'Не удалось загрузить таблицу запчастей.');
+                    }
+
+                    tableWrap.innerHTML = payload.html;
+                    if (paginationWrap) {
+                        paginationWrap.innerHTML = payload.pagination_html || '';
+                    }
+
+                    donorProductsServerTab = payload.tab || activeDonorProductsTab;
+                    updateDonorProductsBadgesFromPayload(payload);
+                    bindDonorProductsTableInteractions();
+                    applyDonorProductsSearch();
+                } catch (error) {
+                    if (error.name !== 'AbortError') {
+                        showDonorToast(error.message || 'Не удалось загрузить таблицу запчастей.');
+                    }
+                } finally {
+                    tableWrap.removeAttribute('aria-busy');
+                }
+            };
+
+            const loadDonorSales = async () => {
+                const wrap = document.querySelector('[data-donor-sales-table-wrap]');
+                const url = wrap?.dataset.donorSalesTableUrl;
+
+                if (!wrap || !url || donorSalesLoaded) {
+                    applyDonorProductsSearch();
+                    return;
+                }
+
+                if (donorSalesController) {
+                    donorSalesController.abort();
+                }
+
+                donorSalesController = new AbortController();
+                wrap.setAttribute('aria-busy', 'true');
+
+                try {
+                    const response = await fetch(url, {
+                        headers: {
+                            'Accept': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest',
+                        },
+                        signal: donorSalesController.signal,
+                    });
+                    const payload = await response.json();
+
+                    if (!response.ok || typeof payload.html !== 'string') {
+                        throw new Error(payload.message || 'Не удалось загрузить проданные запчасти.');
+                    }
+
+                    wrap.innerHTML = payload.html;
+                    donorSalesLoaded = true;
+                    applyDonorProductsSearch();
+                } catch (error) {
+                    if (error.name !== 'AbortError') {
+                        showDonorToast(error.message || 'Не удалось загрузить проданные запчасти.');
+                    }
+                } finally {
+                    wrap.removeAttribute('aria-busy');
+                }
+            };
+
+            donorProductsSearch?.addEventListener('input', () => {
+                window.clearTimeout(productSearchTimeout);
+                productSearchTimeout = window.setTimeout(() => refreshDonorProductsTable(1), 250);
+            });
             donorProductsCategoryOptions.forEach((option) => option.addEventListener('change', applyDonorProductsSearch));
+            document.addEventListener('click', (event) => {
+                const button = event.target.closest('[data-donor-products-page]');
+
+                if (!button) {
+                    return;
+                }
+
+                event.preventDefault();
+                refreshDonorProductsTable(Number(button.dataset.donorProductsPage || 1));
+            });
             donorProductsCategoryToggle?.addEventListener('click', () => {
                 if (!donorProductsCategoryMenu) {
                     return;
@@ -2053,38 +2325,48 @@
             document.querySelectorAll('[data-donor-damage-select]').forEach((select) => bindDonorDamageSelect(select));
             bindSmallPartForms();
 
-            document.querySelectorAll('[data-donor-price-cell]').forEach((cell) => {
-                const display = cell.querySelector('[data-donor-price-display]');
-                const editor = cell.querySelector('[data-donor-price-editor]');
-                const toggle = cell.querySelector('[data-donor-price-edit-toggle]');
-                const cancel = cell.querySelector('[data-donor-price-edit-cancel]');
-                const input = cell.querySelector('[data-donor-price-input]');
-                const originalValue = () => input?.defaultValue ?? '';
-
-                toggle?.addEventListener('click', () => {
-                    if (!display || !editor) return;
-
-                    display.hidden = true;
-                    editor.hidden = false;
-                    input?.focus();
-                    input?.select();
-                });
-
-                cancel?.addEventListener('click', () => {
-                    if (!display || !editor) return;
-
-                    if (input) input.value = originalValue();
-                    editor.hidden = true;
-                    display.hidden = false;
-                });
-
-                input?.addEventListener('keydown', (event) => {
-                    if (event.key === 'Escape') {
-                        event.preventDefault();
-                        cancel?.click();
+            const bindDonorPriceEditors = () => {
+                document.querySelectorAll('[data-donor-price-cell]').forEach((cell) => {
+                    if (cell.dataset.donorPriceBound === '1') {
+                        return;
                     }
+
+                    cell.dataset.donorPriceBound = '1';
+
+                    const display = cell.querySelector('[data-donor-price-display]');
+                    const editor = cell.querySelector('[data-donor-price-editor]');
+                    const toggle = cell.querySelector('[data-donor-price-edit-toggle]');
+                    const cancel = cell.querySelector('[data-donor-price-edit-cancel]');
+                    const input = cell.querySelector('[data-donor-price-input]');
+                    const originalValue = () => input?.defaultValue ?? '';
+
+                    toggle?.addEventListener('click', () => {
+                        if (!display || !editor) return;
+
+                        display.hidden = true;
+                        editor.hidden = false;
+                        input?.focus();
+                        input?.select();
+                    });
+
+                    cancel?.addEventListener('click', () => {
+                        if (!display || !editor) return;
+
+                        if (input) input.value = originalValue();
+                        editor.hidden = true;
+                        display.hidden = false;
+                    });
+
+                    input?.addEventListener('keydown', (event) => {
+                        if (event.key === 'Escape') {
+                            event.preventDefault();
+                            cancel?.click();
+                        }
+                    });
                 });
-            });
+            };
+
+            bindDonorPriceEditors();
 
             const markDonorProductNameManual = (nameRow) => {
                 if (!nameRow) {
@@ -2231,6 +2513,111 @@
 
                 showPhoto(index);
                 photoLightbox.showModal();
+            };
+
+            const parseJsonArray = (value) => {
+                try {
+                    const parsed = JSON.parse(value || '[]');
+
+                    return Array.isArray(parsed) ? parsed : [];
+                } catch (error) {
+                    return [];
+                }
+            };
+
+            const cacheBustedUrl = (url) => {
+                if (!url) {
+                    return '';
+                }
+
+                return `${url}${url.includes('?') ? '&' : '?'}v=${Date.now()}`;
+            };
+
+            const showProductPhoto = (index) => {
+                if (!productPhotoImage || !productPhotoCounter || currentProductPhotoUrls.length === 0) {
+                    return;
+                }
+
+                currentProductPhotoIndex = (index + currentProductPhotoUrls.length) % currentProductPhotoUrls.length;
+                productPhotoImage.src = currentProductPhotoUrls[currentProductPhotoIndex];
+                productPhotoCounter.textContent = `${currentProductPhotoIndex + 1} / ${currentProductPhotoUrls.length}`;
+
+                const hasMultiplePhotos = currentProductPhotoUrls.length > 1;
+                if (productPhotoPrev) productPhotoPrev.hidden = !hasMultiplePhotos;
+                if (productPhotoNext) productPhotoNext.hidden = !hasMultiplePhotos;
+                productPhotoRotateButtons.forEach((button) => {
+                    button.hidden = !currentProductPhotoPaths[currentProductPhotoIndex] || !currentProductPhotoRotateUrl;
+                });
+            };
+
+            const openProductPhoto = (trigger) => {
+                if (!productPhotoLightbox) {
+                    return;
+                }
+
+                currentProductPhotoUrls = parseJsonArray(trigger.dataset.productPhotoUrls);
+                currentProductPhotoPaths = parseJsonArray(trigger.dataset.productPhotoPaths);
+                currentProductPhotoRotateUrl = trigger.dataset.productPhotoRotateUrl || '';
+                currentProductPhotoTrigger = trigger;
+
+                if (currentProductPhotoUrls.length === 0) {
+                    return;
+                }
+
+                showProductPhoto(Number(trigger.dataset.productPhotoIndex || 0));
+                productPhotoLightbox.showModal();
+            };
+
+            const rotateCurrentProductPhoto = async (degrees) => {
+                const photoPath = currentProductPhotoPaths[currentProductPhotoIndex] || '';
+
+                if (!productPhotoImage || !photoPath || !currentProductPhotoRotateUrl) {
+                    return;
+                }
+
+                productPhotoRotateButtons.forEach((button) => {
+                    button.disabled = true;
+                });
+
+                try {
+                    const response = await fetch(currentProductPhotoRotateUrl, {
+                        method: 'PATCH',
+                        headers: {
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken,
+                        },
+                        body: JSON.stringify({ photo: photoPath, degrees }),
+                    });
+                    const payload = await response.json().catch(() => ({}));
+
+                    if (!response.ok) {
+                        const message = payload?.message || payload?.errors?.photo?.[0] || '\u041d\u0435 \u0443\u0434\u0430\u043b\u043e\u0441\u044c \u043f\u043e\u0432\u0435\u0440\u043d\u0443\u0442\u044c \u0444\u043e\u0442\u043e.';
+                        throw new Error(message);
+                    }
+
+                    const updatedUrl = cacheBustedUrl(payload.url || productPhotoImage.src);
+                    currentProductPhotoUrls[currentProductPhotoIndex] = updatedUrl;
+                    productPhotoImage.src = updatedUrl;
+
+                    if (currentProductPhotoTrigger) {
+                        currentProductPhotoTrigger.dataset.productPhotoUrls = JSON.stringify(currentProductPhotoUrls);
+
+                        if (currentProductPhotoIndex === Number(currentProductPhotoTrigger.dataset.productPhotoIndex || 0)) {
+                            const previewImage = currentProductPhotoTrigger.querySelector('img');
+
+                            if (previewImage) {
+                                previewImage.src = cacheBustedUrl(previewImage.src);
+                            }
+                        }
+                    }
+                } catch (error) {
+                    alert(error?.message || '\u041d\u0435 \u0443\u0434\u0430\u043b\u043e\u0441\u044c \u043f\u043e\u0432\u0435\u0440\u043d\u0443\u0442\u044c \u0444\u043e\u0442\u043e.');
+                } finally {
+                    productPhotoRotateButtons.forEach((button) => {
+                        button.disabled = false;
+                    });
+                }
             };
 
             const submitDonorPhotos = (files) => {
@@ -2574,6 +2961,16 @@
                     }
                 });
             });
+            document.addEventListener('click', (event) => {
+                const trigger = event.target.closest('[data-product-photo-trigger]');
+
+                if (!trigger) {
+                    return;
+                }
+
+                event.preventDefault();
+                openProductPhoto(trigger);
+            });
             photoClose?.addEventListener('click', () => photoLightbox.close());
             photoPrev?.addEventListener('click', () => showPhoto(currentPhotoIndex - 1));
             photoNext?.addEventListener('click', () => showPhoto(currentPhotoIndex + 1));
@@ -2583,6 +2980,21 @@
             photoLightbox?.addEventListener('keydown', (event) => {
                 if (event.key === 'ArrowLeft') showPhoto(currentPhotoIndex - 1);
                 if (event.key === 'ArrowRight') showPhoto(currentPhotoIndex + 1);
+            });
+            productPhotoClose?.addEventListener('click', () => productPhotoLightbox.close());
+            productPhotoPrev?.addEventListener('click', () => showProductPhoto(currentProductPhotoIndex - 1));
+            productPhotoNext?.addEventListener('click', () => showProductPhoto(currentProductPhotoIndex + 1));
+            productPhotoRotateButtons.forEach((button) => {
+                button.addEventListener('click', () => {
+                    rotateCurrentProductPhoto(Number(button.dataset.donorProductPhotoRotateDegrees || 90));
+                });
+            });
+            productPhotoLightbox?.addEventListener('click', (event) => {
+                if (event.target === productPhotoLightbox) productPhotoLightbox.close();
+            });
+            productPhotoLightbox?.addEventListener('keydown', (event) => {
+                if (event.key === 'ArrowLeft') showProductPhoto(currentProductPhotoIndex - 1);
+                if (event.key === 'ArrowRight') showProductPhoto(currentProductPhotoIndex + 1);
             });
             donorPhotosInput?.addEventListener('change', () => {
                 if (donorPhotosInput.files.length === 0) {

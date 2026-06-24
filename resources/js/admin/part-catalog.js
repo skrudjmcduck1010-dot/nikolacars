@@ -390,7 +390,8 @@ const hidesNikolaCarsSoldItems = () => {
 
         const selected = warehouseSelect.selectedOptions[0];
         const isDonorWarehouse = selected?.dataset.warehouseType === 'donor';
-        const floorCount = Math.max(1, Number(selected?.dataset.floorCount || 1));
+        const usesStructuredLocations = selected?.dataset.structuredLocations !== '0';
+        const floorCount = usesStructuredLocations ? Math.max(1, Number(selected?.dataset.floorCount || 1)) : 1;
         const selectedFloor = floorSelect.dataset.selectedFloor || floorSelect.value || 'floor_1';
 
         floorSelect.innerHTML = '';
@@ -403,18 +404,18 @@ const hidesNikolaCarsSoldItems = () => {
             floorSelect.append(option);
         }
 
-        floorWrap.hidden = isDonorWarehouse || floorCount <= 1;
-        if (isDonorWarehouse || floorCount <= 1) {
+        floorWrap.hidden = isDonorWarehouse || !usesStructuredLocations || floorCount <= 1;
+        if (isDonorWarehouse || !usesStructuredLocations || floorCount <= 1) {
             floorSelect.value = 'floor_1';
         }
 
         if (cellWrap) {
-            cellWrap.hidden = isDonorWarehouse;
+            cellWrap.hidden = isDonorWarehouse || !usesStructuredLocations;
         }
 
         if (cellInput) {
-            cellInput.disabled = isDonorWarehouse;
-            if (isDonorWarehouse) {
+            cellInput.disabled = isDonorWarehouse || !usesStructuredLocations;
+            if (isDonorWarehouse || !usesStructuredLocations) {
                 cellInput.value = '';
             }
         }
@@ -694,6 +695,7 @@ const hidesNikolaCarsSoldItems = () => {
         novaPoshtaCitySuggestionRequired: '\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0433\u043e\u0440\u043e\u0434 \u0438\u0437 \u043f\u043e\u0434\u0441\u043a\u0430\u0437\u043a\u0438 \u041d\u043e\u0432\u043e\u0439 \u041f\u043e\u0447\u0442\u044b.',
         novaPoshtaWarehouseSuggestionRequired: '\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u043e\u0442\u0434\u0435\u043b\u0435\u043d\u0438\u0435 \u0438\u043b\u0438 \u043f\u043e\u0447\u0442\u043e\u043c\u0430\u0442 \u0438\u0437 \u043f\u043e\u0434\u0441\u043a\u0430\u0437\u043a\u0438 \u041d\u043e\u0432\u043e\u0439 \u041f\u043e\u0447\u0442\u044b.',
         novaPoshtaPhoneRequired: '\u0423\u043a\u0430\u0436\u0438\u0442\u0435 \u0442\u0435\u043b\u0435\u0444\u043e\u043d \u043a\u043b\u0438\u0435\u043d\u0442\u0430 \u0434\u043b\u044f \u041d\u043e\u0432\u043e\u0439 \u043f\u043e\u0447\u0442\u044b.',
+        novaPoshtaSuggestionsUnavailable: '\u0421\u043f\u0440\u0430\u0432\u043e\u0447\u043d\u0438\u043a \u041d\u043e\u0432\u043e\u0439 \u041f\u043e\u0447\u0442\u044b \u0441\u0435\u0439\u0447\u0430\u0441 \u043d\u0435\u0434\u043e\u0441\u0442\u0443\u043f\u0435\u043d.',
         invalidPhone: '\u0423\u043a\u0430\u0436\u0438\u0442\u0435 \u043a\u043e\u0440\u0440\u0435\u043a\u0442\u043d\u044b\u0439 \u0443\u043a\u0440\u0430\u0438\u043d\u0441\u043a\u0438\u0439 \u043c\u043e\u0431\u0438\u043b\u044c\u043d\u044b\u0439 \u0442\u0435\u043b\u0435\u0444\u043e\u043d: 0XXXXXXXXX \u0438\u043b\u0438 +380XXXXXXXXX.',
     };
 
@@ -1078,6 +1080,28 @@ const hidesNikolaCarsSoldItems = () => {
         suggestions.hidden = items.length === 0;
     };
 
+    const renderNovaPoshtaError = (suggestions, message) => {
+        if (!suggestions) return;
+
+        suggestions.innerHTML = '';
+        const item = document.createElement('div');
+        item.className = 'nikolacars-cart-phone-suggestion';
+        item.textContent = message || text.novaPoshtaSuggestionsUnavailable;
+        suggestions.appendChild(item);
+        suggestions.hidden = false;
+    };
+
+    const novaPoshtaErrorMessage = async (response) => {
+        try {
+            const payload = await response.json();
+            const message = String(payload?.message || '').trim();
+
+            return message ? `${text.novaPoshtaSuggestionsUnavailable} ${message}` : text.novaPoshtaSuggestionsUnavailable;
+        } catch (error) {
+            return text.novaPoshtaSuggestionsUnavailable;
+        }
+    };
+
     const attachNovaPoshtaAutocomplete = ({ input, refInput, suggestions, url, minLength, buildParams, onChoose, onInput }) => {
         if (!input || !refInput || !suggestions || !url) return;
 
@@ -1103,7 +1127,7 @@ const hidesNikolaCarsSoldItems = () => {
                     });
                     const response = await fetch(requestUrl, { headers: { Accept: 'application/json' } });
                     if (!response.ok) {
-                        hideSuggestions(suggestions);
+                        renderNovaPoshtaError(suggestions, await novaPoshtaErrorMessage(response));
                         return;
                     }
 
@@ -1117,7 +1141,7 @@ const hidesNikolaCarsSoldItems = () => {
                     });
                 } catch (error) {
                     console.error(error);
-                    hideSuggestions(suggestions);
+                    renderNovaPoshtaError(suggestions, text.novaPoshtaSuggestionsUnavailable);
                 }
             }, 300);
         });

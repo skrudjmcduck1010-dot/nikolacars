@@ -238,8 +238,8 @@ class DonorCarProductCatalogCategoryTest extends TestCase
             'source_url' => 'https://example.test/front-bumper',
             'part_number' => '1084174-00-C',
             'name' => 'Front Bumper',
-            'name_ru' => 'РџРµСЂРµРґРЅРёР№ Р±Р°РјРїРµСЂ',
-            'name_ua' => 'РџРµСЂРµРґРЅС–Р№ Р±Р°РјРїРµСЂ',
+            'name_ru' => 'Передний бампер',
+            'name_ua' => 'Передній бампер',
         ]);
 
         $product = Product::query()->create([
@@ -267,7 +267,7 @@ class DonorCarProductCatalogCategoryTest extends TestCase
         $this->actingAs($user)
             ->patchJson(route('admin.donor-cars.products.name.update', [$donorCar, $product]), [
                 'name_type' => 'name_ru',
-                'name' => 'Р‘Р°РјРїРµСЂ РїРµСЂРµРґРЅРёР№',
+                'name' => 'Бампер передний',
             ])
             ->assertOk()
             ->assertJson([
@@ -279,13 +279,13 @@ class DonorCarProductCatalogCategoryTest extends TestCase
         $this->actingAs($user)
             ->patch(route('admin.donor-cars.products.name.update', [$donorCar, $product]), [
                 'name_type' => 'name_ua',
-                'name' => 'Р‘Р°РјРїРµСЂ РїРµСЂРµРґРЅС–Р№',
+                'name' => 'Бампер передній',
             ])
             ->assertRedirect(route('admin.donor-cars.show', $donorCar));
 
         $catalogItem->refresh();
-        $this->assertSame('Р‘Р°РјРїРµСЂ РїРµСЂРµРґРЅРёР№', $catalogItem->name_ru);
-        $this->assertSame('Р‘Р°РјРїРµСЂ РїРµСЂРµРґРЅС–Р№', $catalogItem->name_ua);
+        $this->assertSame('Бампер передний', $catalogItem->name_ru);
+        $this->assertSame('Бампер передній', $catalogItem->name_ua);
         $this->actingAs($user)
             ->get(route('admin.donor-cars.show', $donorCar))
             ->assertOk()
@@ -295,6 +295,13 @@ class DonorCarProductCatalogCategoryTest extends TestCase
 
     public function test_generated_donor_parts_use_unique_catalog_items_without_competitor_prices(): void
     {
+        $user = User::query()->create([
+            'name' => 'Admin',
+            'email' => 'admin-generated-donor-stock-label@example.com',
+            'password' => Hash::make('password'),
+            'role' => User::ROLE_ADMIN,
+            'is_active' => true,
+        ]);
         $donorCar = DonorCar::query()->create([
             'vin' => '5YJ3E1EA7KF000021',
             'brand' => 'Tesla',
@@ -344,6 +351,18 @@ class DonorCarProductCatalogCategoryTest extends TestCase
         $this->assertSame(Warehouse::DONOR_WAREHOUSE_NAME, $stockItem->warehouse->name);
         $this->assertSame(Warehouse::TYPE_DONOR, $stockItem->warehouse->type);
         $this->assertSame('ON-DONOR-'.$donorCar->id, $stockItem->location->full_code);
+
+        $response = $this->actingAs($user)
+            ->get(route('admin.donor-cars.show', $donorCar))
+            ->assertOk();
+        $productRow = str($response->getContent())
+            ->after('1084174-00-C')
+            ->before('</tr>')
+            ->toString();
+
+        $this->assertStringContainsString(Warehouse::DONOR_WAREHOUSE_NAME, $productRow);
+        $this->assertStringNotContainsString('ON-DONOR-'.$donorCar->id, $productRow);
+        $this->assertStringNotContainsString('Этаж', $productRow);
     }
 
     public function test_generated_official_donor_parts_are_marked_damaged_or_whole_from_damage_zones(): void
@@ -396,7 +415,7 @@ class DonorCarProductCatalogCategoryTest extends TestCase
         $this->assertStringContainsString('', $damagedProduct->description);
         $this->assertSame('used', $wholeProduct->condition_type);
         $this->assertSame('0.00', $wholeProduct->selling_price);
-        $this->assertStringContainsString('РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРё СЃРіРµРЅРµСЂРёСЂРѕРІР°РЅРѕ РёР· РєР°С‚Р°Р»РѕРіР° Р·Р°РїС‡Р°СЃС‚РµР№.', $wholeProduct->description);
+        $this->assertStringContainsString('Автоматически сгенерировано из каталога запчастей.', $wholeProduct->description);
     }
 
     public function test_generated_official_donor_part_autofills_missing_names_from_local_catalog(): void
@@ -868,8 +887,8 @@ class DonorCarProductCatalogCategoryTest extends TestCase
             ->toString();
 
         $this->assertStringContainsString('data-donor-damage-select', $productRow);
-        $this->assertStringNotContainsString('РџСЂРѕРІРµСЂРµРЅР°', $productRow);
-        $this->assertStringContainsString('Р”РѕР±Р°РІР»РµРЅРѕ РІСЂСѓС‡РЅСѓ', $productRow);
+        $this->assertStringNotContainsString('Проверена', $productRow);
+        $this->assertStringContainsString('Добавлено вручну', $productRow);
         $this->assertStringContainsString('>Р </span>', $productRow);
         $englishNameRow = str($productRow)
             ->after('Manual checked bumper')
@@ -892,6 +911,149 @@ class DonorCarProductCatalogCategoryTest extends TestCase
 
         $this->assertNull($product->notes);
         $this->assertSame('used', $product->condition_type);
+    }
+
+    public function test_checked_donor_damage_update_places_product_in_selected_location(): void
+    {
+        $user = User::query()->create([
+            'name' => 'Admin',
+            'email' => 'admin-donor-damage-placement@example.com',
+            'password' => Hash::make('password'),
+            'role' => 'admin',
+            'is_active' => true,
+        ]);
+        $donorCar = DonorCar::query()->create([
+            'vin' => '5YJ3E1EA7KF000063',
+            'brand' => 'Tesla',
+            'model' => 'Model 3',
+            'year' => 2020,
+        ]);
+        $warehouse = Warehouse::query()->create([
+            'name' => 'Parts Warehouse',
+            'floor_count' => 2,
+            'is_active' => true,
+        ]);
+        Location::query()->create([
+            'warehouse_id' => $warehouse->id,
+            'floor' => 'floor_1',
+            'full_code' => 'PW-F1-A1',
+            'cell' => 'A1',
+            'is_active' => true,
+        ]);
+        $targetLocation = Location::query()->create([
+            'warehouse_id' => $warehouse->id,
+            'floor' => 'floor_2',
+            'full_code' => 'PW-F2-B7',
+            'cell' => 'B7',
+            'is_active' => true,
+        ]);
+        $product = Product::query()->create([
+            'sku' => 'DONOR-DAMAGE-PLACEMENT-001',
+            'external_sku' => '1084174-00-P',
+            'name' => 'Placement checked bumper',
+            'slug' => 'placement-checked-bumper',
+            'donor_car_id' => $donorCar->id,
+            'storage_status' => Product::STORAGE_STATUS_ON_DONOR,
+            'condition_type' => 'used',
+            'notes' => null,
+            'testing_status' => 'not_tested',
+            'unit' => 'pcs',
+            'selling_price' => 100,
+            'currency' => 'USD',
+            'is_active' => true,
+        ]);
+
+        $this->actingAs($user)
+            ->get(route('admin.donor-cars.show', $donorCar))
+            ->assertOk()
+            ->assertSee('data-donor-placement-dialog', false)
+            ->assertSee('data-donor-placement-warehouse', false)
+            ->assertSee('Parts Warehouse')
+            ->assertSee('data-previous-damage-note', false);
+
+        $response = $this->actingAs($user)
+            ->patchJson(route('admin.donor-cars.products.official-fields.update', [$donorCar, $product]), [
+                'damage_note' => "\u{0411}\u{0435}\u{0437} \u{043F}\u{043E}\u{0432}\u{0440}\u{0435}\u{0436}\u{0434}\u{0435}\u{043D}\u{0438}\u{0439}",
+                'warehouse_id' => $warehouse->id,
+                'floor' => 'floor_2',
+                'location_id' => $targetLocation->id,
+            ]);
+
+        $response
+            ->assertOk()
+            ->assertJsonPath('message', 'Данные запчасти обновлены.')
+            ->assertJsonPath('destination', 'checked')
+            ->assertJsonPath('damage_note', "\u{0411}\u{0435}\u{0437} \u{043F}\u{043E}\u{0432}\u{0440}\u{0435}\u{0436}\u{0434}\u{0435}\u{043D}\u{0438}\u{0439}");
+
+        $this->assertStringContainsString('Parts Warehouse', (string) $response->json('stock_label'));
+        $this->assertStringContainsString('B7', (string) $response->json('stock_label'));
+
+        $product->refresh();
+        $this->assertSame(Product::STORAGE_STATUS_IN_STOCK, $product->storage_status);
+        $this->assertSame("\u{0411}\u{0435}\u{0437} \u{043F}\u{043E}\u{0432}\u{0440}\u{0435}\u{0436}\u{0434}\u{0435}\u{043D}\u{0438}\u{0439}", $product->notes);
+        $this->assertDatabaseHas('stock_items', [
+            'product_id' => $product->id,
+            'warehouse_id' => $warehouse->id,
+            'location_id' => $targetLocation->id,
+            'quantity' => 1,
+        ]);
+
+        $this->actingAs($user)
+            ->get(route('admin.donor-cars.show', $donorCar))
+            ->assertOk()
+            ->assertSee('Parts Warehouse')
+            ->assertSee('Этаж 2')
+            ->assertSee('B7')
+            ->assertSee('data-donor-placement-edit', false);
+
+        $nextLocation = Location::query()->create([
+            'warehouse_id' => $warehouse->id,
+            'floor' => 'floor_2',
+            'full_code' => 'PW-F2-C9',
+            'cell' => 'C9',
+            'is_active' => true,
+        ]);
+
+        $updateResponse = $this->actingAs($user)
+            ->patchJson(route('admin.donor-cars.products.official-fields.update', [$donorCar, $product]), [
+                'warehouse_id' => $warehouse->id,
+                'floor' => 'floor_2',
+                'location_id' => $nextLocation->id,
+            ]);
+
+        $updateResponse
+            ->assertOk()
+            ->assertJsonPath('destination', 'checked')
+            ->assertJsonPath('stock_location.location_id', $nextLocation->id);
+
+        $this->assertStringContainsString('Parts Warehouse', (string) $updateResponse->json('stock_label'));
+        $this->assertStringContainsString('Этаж 2', (string) $updateResponse->json('stock_label'));
+        $this->assertStringContainsString('C9', (string) $updateResponse->json('stock_label'));
+        $this->assertDatabaseHas('stock_items', [
+            'product_id' => $product->id,
+            'warehouse_id' => $warehouse->id,
+            'location_id' => $nextLocation->id,
+            'quantity' => 1,
+        ]);
+
+        $resetResponse = $this->actingAs($user)
+            ->patchJson(route('admin.donor-cars.products.official-fields.update', [$donorCar, $product]), [
+                'damage_note' => '',
+            ]);
+
+        $resetResponse
+            ->assertOk()
+            ->assertJsonPath('destination', 'all')
+            ->assertJsonPath('stock_label', Warehouse::DONOR_WAREHOUSE_NAME);
+
+        $donorStockItem = $product->refresh()
+            ->stockItems()
+            ->whereHas('warehouse', fn ($query) => $query->where('type', Warehouse::TYPE_DONOR))
+            ->where('quantity', '>', 0)
+            ->with('location')
+            ->first();
+        $this->assertNotNull($donorStockItem);
+        $this->assertSame('ON-DONOR-'.$donorCar->id, $donorStockItem->location?->full_code);
     }
 
     public function test_donor_damage_note_update_keeps_missing_localized_names_static(): void
@@ -991,14 +1153,14 @@ class DonorCarProductCatalogCategoryTest extends TestCase
             'source' => 'nikolacars',
             'source_url' => 'nikolacars://manual-category/hv-battery',
             'depth' => 0,
-            'name' => '16 - Р’С‹СЃРѕРєРѕРІРѕР»СЊС‚РЅР°СЏ Р±Р°С‚Р°СЂРµСЏ / 1601 - Р’С‹СЃРѕРєРѕРІРѕР»СЊС‚РЅР°СЏ Р±Р°С‚Р°СЂРµСЏ / Р’С‹СЃРѕРєРѕРІРѕР»СЊС‚РЅР°СЏ Р±Р°С‚Р°СЂРµСЏ',
-            'name_ru' => '16 - Р’С‹СЃРѕРєРѕРІРѕР»СЊС‚РЅР°СЏ Р±Р°С‚Р°СЂРµСЏ / 1601 - Р’С‹СЃРѕРєРѕРІРѕР»СЊС‚РЅР°СЏ Р±Р°С‚Р°СЂРµСЏ / Р’С‹СЃРѕРєРѕРІРѕР»СЊС‚РЅР°СЏ Р±Р°С‚Р°СЂРµСЏ',
-            'name_ua' => '16 - Р’С‹СЃРѕРєРѕРІРѕР»СЊС‚РЅР°СЏ Р±Р°С‚Р°СЂРµСЏ / 1601 - Р’С‹СЃРѕРєРѕРІРѕР»СЊС‚РЅР°СЏ Р±Р°С‚Р°СЂРµСЏ / Р’С‹СЃРѕРєРѕРІРѕР»СЊС‚РЅР°СЏ Р±Р°С‚Р°СЂРµСЏ',
+            'name' => '16 - Высоковольтная батарея / 1601 - Высоковольтная батарея / Высоковольтная батарея',
+            'name_ru' => '16 - Высоковольтная батарея / 1601 - Высоковольтная батарея / Высоковольтная батарея',
+            'name_ua' => '16 - Высоковольтная батарея / 1601 - Высоковольтная батарея / Высоковольтная батарея',
         ]);
         $product = Product::query()->create([
             'sku' => 'NC-582',
             'external_sku' => '5YJ3E1EA0LF611657',
-            'name' => 'РђРєСѓРјСѓР»СЏС‚РѕСЂРЅР° Р±Р°С‚Р°СЂРµСЏ Р’Р’Р‘ РІ Р·Р±РѕСЂС– 52 РєР’С‚ 5YJ3E1EA0LF611657',
+            'name' => 'Акумуляторна батарея ВВБ в зборі 52 кВт 5YJ3E1EA0LF611657',
             'slug' => 'nc-582',
             'donor_car_id' => $donorCar->id,
             'storage_status' => Product::STORAGE_STATUS_ON_DONOR,
@@ -1016,9 +1178,9 @@ class DonorCarProductCatalogCategoryTest extends TestCase
             'source_url' => 'nikolacars://donor-product/'.$product->id,
             'part_number' => '5YJ3E1EA0LF611657',
             'name' => $product->name,
-            'main_category_name' => '16 - Р’С‹СЃРѕРєРѕРІРѕР»СЊС‚РЅР°СЏ Р±Р°С‚Р°СЂРµСЏ',
-            'subcategory_name' => '1601 - Р’С‹СЃРѕРєРѕРІРѕР»СЊС‚РЅР°СЏ Р±Р°С‚Р°СЂРµСЏ',
-            'node_name' => 'Р’С‹СЃРѕРєРѕРІРѕР»СЊС‚РЅР°СЏ Р±Р°С‚Р°СЂРµСЏ',
+            'main_category_name' => '16 - Высоковольтная батарея',
+            'subcategory_name' => '1601 - Высоковольтная батарея',
+            'node_name' => 'Высоковольтная батарея',
             'raw_attributes' => [
                 'product_id' => $product->id,
                 'donor_vin' => $donorCar->vin,
@@ -1102,7 +1264,7 @@ class DonorCarProductCatalogCategoryTest extends TestCase
         $usdRate = app(ExchangeRateService::class)->displayUsdRate();
         $salePriceUah = app(ExchangeRateService::class)
             ->productSellingPriceUahRoundedToTen(100, 'USD', $usdRate);
-        $salePriceUahText = number_format($salePriceUah, 0, '.', ' ').' РіСЂРЅ';
+        $salePriceUahText = number_format($salePriceUah, 0, '.', ' ').' грн';
 
         $this->assertStringContainsString($salePriceUahText, $productRow);
         $this->assertStringContainsString('100.00 USD', $productRow);
@@ -1174,9 +1336,9 @@ class DonorCarProductCatalogCategoryTest extends TestCase
         $usdRate = app(ExchangeRateService::class)->displayUsdRate();
         $salePriceUah = app(ExchangeRateService::class)
             ->productSellingPriceUahRoundedToTen(100, 'USD', $usdRate);
-        $salePriceUahText = number_format($salePriceUah, 0, '.', ' ').' РіСЂРЅ';
+        $salePriceUahText = number_format($salePriceUah, 0, '.', ' ').' грн';
 
-        $response->assertSee('Р¦РµРЅР° <span>tesla.com</span>', false);
+        $response->assertSee('Цена <span>tesla.com</span>', false);
         $this->assertStringContainsString('777.33 USD', $productRow);
         $this->assertStringContainsString($salePriceUahText, $productRow);
         $this->assertStringContainsString('100.00 USD', $productRow);
@@ -1414,7 +1576,7 @@ class DonorCarProductCatalogCategoryTest extends TestCase
 
         $response->assertOk();
         $response->assertSee('data-donor-products-search', false);
-        $response->assertSee('placeholder="РђСЂС‚РёРєСѓР» РёР»Рё РЅР°Р·РІР°РЅРёРµ"', false);
+        $response->assertSee('placeholder="Артикул или название"', false);
         $response->assertSee('data-donor-product-row', false);
         $response->assertSee('1494770-00-A', false);
         $response->assertSee('Front bumper carrier');
@@ -1646,7 +1808,7 @@ class DonorCarProductCatalogCategoryTest extends TestCase
         $this->assertSame(1, substr_count($response->getContent(), "data-category-label=\"\u{041F}\u{0440}\u{0438}\u{0432}\u{043E}\u{0434} / \u{043C}\u{043E}\u{0442}\u{043E}\u{0440}\u{044B}\""));
         $response->assertDontSee("16 - 16 - \u{0412}\u{044B}\u{0441}\u{043E}\u{043A}\u{043E}\u{0432}\u{043E}\u{043B}\u{044C}\u{0442}\u{043D}\u{0430}\u{044F}", false);
         $response->assertDontSee("40 - 40 - \u{041F}\u{0440}\u{0438}\u{0432}\u{043E}\u{0434}", false);
-        $response->assertDontSee('>Р‘Р°С‚Р°СЂРµСЏ / HV</option>', false);
+        $response->assertDontSee('>Батарея / HV</option>', false);
         $response->assertDontSee('ru:', false);
         $response->assertDontSee('ua:', false);
     }
@@ -1711,7 +1873,7 @@ class DonorCarProductCatalogCategoryTest extends TestCase
         $response->assertSee('data-category-label="'.$rearMotorFilterLabel.'"', false);
         $response->assertSee('value="'.$rearMotorFilterKey.'"', false);
         $response->assertSee('data-donor-product-category="'.$rearMotorFilterKey.'"', false);
-        $response->assertDontSee('data-category-label="РљСѓР·РѕРІ"', false);
+        $response->assertDontSee('data-category-label="Кузов"', false);
     }
 
     public function test_donor_car_show_displays_undefined_category_when_part_has_no_category(): void
@@ -1921,8 +2083,8 @@ class DonorCarProductCatalogCategoryTest extends TestCase
             'source' => 'nikolacars',
             'source_url' => 'nikolacars://manual-category/hv-battery',
             'depth' => 0,
-            'name' => '16 - Р’С‹СЃРѕРєРѕРІРѕР»СЊС‚РЅР°СЏ Р±Р°С‚Р°СЂРµСЏ / 1601 - Р’С‹СЃРѕРєРѕРІРѕР»СЊС‚РЅР°СЏ Р±Р°С‚Р°СЂРµСЏ / Р’С‹СЃРѕРєРѕРІРѕР»СЊС‚РЅР°СЏ Р±Р°С‚Р°СЂРµСЏ',
-            'name_ru' => '16 - Р’С‹СЃРѕРєРѕРІРѕР»СЊС‚РЅР°СЏ Р±Р°С‚Р°СЂРµСЏ / 1601 - Р’С‹СЃРѕРєРѕРІРѕР»СЊС‚РЅР°СЏ Р±Р°С‚Р°СЂРµСЏ / Р’С‹СЃРѕРєРѕРІРѕР»СЊС‚РЅР°СЏ Р±Р°С‚Р°СЂРµСЏ',
+            'name' => '16 - Высоковольтная батарея / 1601 - Высоковольтная батарея / Высоковольтная батарея',
+            'name_ru' => '16 - Высоковольтная батарея / 1601 - Высоковольтная батарея / Высоковольтная батарея',
         ]);
         $catalogItem = PartCatalogItem::query()->create([
             'part_catalog_category_id' => $category->id,
@@ -2003,7 +2165,7 @@ class DonorCarProductCatalogCategoryTest extends TestCase
         $response = $this->actingAs($user)->get(route('admin.donor-cars.show', $donorCar));
 
         $response->assertOk();
-        $response->assertSeeText('Р’С‹СЃРѕРєРѕРІРѕР»СЊС‚РЅР°СЏ Р±Р°С‚Р°СЂРµСЏ');
+        $response->assertSeeText('Высоковольтная батарея');
         $this->assertSame(1, substr_count($response->getContent(), route('admin.products.show', $product)));
     }
 
@@ -2026,8 +2188,8 @@ class DonorCarProductCatalogCategoryTest extends TestCase
             'source' => 'nikolacars',
             'source_url' => 'nikolacars://manual-category/hv-battery-orphan',
             'depth' => 0,
-            'name' => '16 - Р’С‹СЃРѕРєРѕРІРѕР»СЊС‚РЅР°СЏ Р±Р°С‚Р°СЂРµСЏ / 1601 - Р’С‹СЃРѕРєРѕРІРѕР»СЊС‚РЅР°СЏ Р±Р°С‚Р°СЂРµСЏ / Р’С‹СЃРѕРєРѕРІРѕР»СЊС‚РЅР°СЏ Р±Р°С‚Р°СЂРµСЏ',
-            'name_ru' => '16 - Р’С‹СЃРѕРєРѕРІРѕР»СЊС‚РЅР°СЏ Р±Р°С‚Р°СЂРµСЏ / 1601 - Р’С‹СЃРѕРєРѕРІРѕР»СЊС‚РЅР°СЏ Р±Р°С‚Р°СЂРµСЏ / Р’С‹СЃРѕРєРѕРІРѕР»СЊС‚РЅР°СЏ Р±Р°С‚Р°СЂРµСЏ',
+            'name' => '16 - Высоковольтная батарея / 1601 - Высоковольтная батарея / Высоковольтная батарея',
+            'name_ru' => '16 - Высоковольтная батарея / 1601 - Высоковольтная батарея / Высоковольтная батарея',
         ]);
         $product = Product::query()->create([
             'sku' => 'NC-582',
@@ -2085,8 +2247,8 @@ class DonorCarProductCatalogCategoryTest extends TestCase
         $response = $this->actingAs($user)->get(route('admin.donor-cars.show', $donorCar));
 
         $response->assertOk();
-        $response->assertSeeText('Р’С‹СЃРѕРєРѕРІРѕР»СЊС‚РЅР°СЏ Р±Р°С‚Р°СЂРµСЏ');
-        $response->assertDontSeeText('РќРµ РѕРїСЂРµРґРµР»РµРЅРѕ');
+        $response->assertSeeText('Высоковольтная батарея');
+        $response->assertDontSeeText('Не определено');
         $this->assertSame(1, substr_count($response->getContent(), route('admin.products.show', $product)));
     }
 
@@ -2109,8 +2271,8 @@ class DonorCarProductCatalogCategoryTest extends TestCase
             'source' => 'nikolacars',
             'source_url' => 'nikolacars://manual-category/hv-battery-stale-product',
             'depth' => 0,
-            'name' => '16 - Р’С‹СЃРѕРєРѕРІРѕР»СЊС‚РЅР°СЏ Р±Р°С‚Р°СЂРµСЏ / 1601 - Р’С‹СЃРѕРєРѕРІРѕР»СЊС‚РЅР°СЏ Р±Р°С‚Р°СЂРµСЏ / Р’С‹СЃРѕРєРѕРІРѕР»СЊС‚РЅР°СЏ Р±Р°С‚Р°СЂРµСЏ',
-            'name_ru' => '16 - Р’С‹СЃРѕРєРѕРІРѕР»СЊС‚РЅР°СЏ Р±Р°С‚Р°СЂРµСЏ / 1601 - Р’С‹СЃРѕРєРѕРІРѕР»СЊС‚РЅР°СЏ Р±Р°С‚Р°СЂРµСЏ / Р’С‹СЃРѕРєРѕРІРѕР»СЊС‚РЅР°СЏ Р±Р°С‚Р°СЂРµСЏ',
+            'name' => '16 - Высоковольтная батарея / 1601 - Высоковольтная батарея / Высоковольтная батарея',
+            'name_ru' => '16 - Высоковольтная батарея / 1601 - Высоковольтная батарея / Высоковольтная батарея',
         ]);
         $product = Product::query()->create([
             'sku' => 'NC-582',
@@ -2146,8 +2308,8 @@ class DonorCarProductCatalogCategoryTest extends TestCase
         $response = $this->actingAs($user)->get(route('admin.donor-cars.show', $donorCar));
 
         $response->assertOk();
-        $response->assertSeeText('Р’С‹СЃРѕРєРѕРІРѕР»СЊС‚РЅР°СЏ Р±Р°С‚Р°СЂРµСЏ');
-        $response->assertDontSeeText('РќРµ РѕРїСЂРµРґРµР»РµРЅРѕ');
+        $response->assertSeeText('Высоковольтная батарея');
+        $response->assertDontSeeText('Не определено');
     }
 
     public function test_donor_car_show_uses_nikolacars_product_mirror_category_over_product_import_category(): void
@@ -2187,7 +2349,7 @@ class DonorCarProductCatalogCategoryTest extends TestCase
             'source_part_catalog_item_id' => $legacyCatalogItem->id,
             'storage_status' => Product::STORAGE_STATUS_ON_DONOR,
             'condition_type' => 'used',
-            'notes' => 'Р‘РµР· РїРѕРІСЂРµР¶РґРµРЅРёР№',
+            'notes' => 'Без повреждений',
             'testing_status' => 'not_tested',
             'unit' => 'pcs',
             'selling_price' => 100,
@@ -2198,9 +2360,9 @@ class DonorCarProductCatalogCategoryTest extends TestCase
             'source' => 'nikolacars',
             'source_url' => 'nikolacars://tesla-category/undefined-import-overridden',
             'depth' => 0,
-            'name' => 'РќРµ РѕРїСЂРµРґРµР»РµРЅРѕ',
-            'name_ru' => 'РќРµ РѕРїСЂРµРґРµР»РµРЅРѕ',
-            'name_ua' => 'РќРµ РѕРїСЂРµРґРµР»РµРЅРѕ',
+            'name' => 'Не определено',
+            'name_ru' => 'Не определено',
+            'name_ua' => 'Не определено',
         ]);
         PartCatalogItem::query()->create([
             'part_catalog_category_id' => $undefinedCategory->id,
@@ -2208,18 +2370,18 @@ class DonorCarProductCatalogCategoryTest extends TestCase
             'source_url' => 'nikolacars://donor-product/'.$product->id,
             'part_number' => '1101751-S0-B',
             'name' => 'Right upper rail',
-            'main_category_name' => 'РќРµ РѕРїСЂРµРґРµР»РµРЅРѕ',
+            'main_category_name' => 'Не определено',
             'raw_attributes' => [
                 'product_id' => $product->id,
                 'donor_vin' => $donorCar->vin,
-                'category_display' => 'РќРµ РѕРїСЂРµРґРµР»РµРЅРѕ',
-                'category_path' => 'РќРµ РѕРїСЂРµРґРµР»РµРЅРѕ',
+                'category_display' => 'Не определено',
+                'category_path' => 'Не определено',
                 'tesla_category_match' => [
                     'status' => 'not_found',
                     'match_type' => 'none',
                     'part_number' => '1101751-S0-B',
                     'part_prefix' => '1101751',
-                    'category' => 'РќРµ РѕРїСЂРµРґРµР»РµРЅРѕ',
+                    'category' => 'Не определено',
                 ],
             ],
         ]);
@@ -2227,7 +2389,7 @@ class DonorCarProductCatalogCategoryTest extends TestCase
         $response = $this->actingAs($user)->get(route('admin.donor-cars.show', $donorCar));
 
         $response->assertOk();
-        $response->assertSeeText('РќРµ РѕРїСЂРµРґРµР»РµРЅРѕ');
+        $response->assertSeeText('Не определено');
         $response->assertDontSeeText('Donor imports');
     }
 
@@ -2383,7 +2545,7 @@ class DonorCarProductCatalogCategoryTest extends TestCase
         $this->actingAs($user)
             ->get(route('admin.donor-cars.edit', $donorCar))
             ->assertOk()
-            ->assertSee('Р—Р°РїРѕР»РЅРµРЅРѕ РёР· РљР°СЃСЃР° Рё СЂР°Р±РѕС‚С‹')
+            ->assertSee('Заполнено из Касса и работы')
             ->assertDontSee('name="estimated_cost_usd"', false)
             ->assertSee('name="usa_delivery_price_usd"', false);
     }
@@ -2508,7 +2670,7 @@ class DonorCarProductCatalogCategoryTest extends TestCase
 
         $response = $this->actingAs($user)->post(route('admin.donor-cars.store'), [
             'vin' => '5yjygdee3mf214952',
-            'color' => 'Р‘РµР»С‹Р№',
+            'color' => 'Белый',
             'paint_code' => 'PPSW',
             'mileage' => 12345,
             'purchase_date' => '2026-04-20',
@@ -2523,7 +2685,7 @@ class DonorCarProductCatalogCategoryTest extends TestCase
             'status' => DonorCar::STATUS_IN_TRANSIT,
             'model' => 'Model Y 01.2020 - 01.2025',
             'year' => 2021,
-            'color' => 'Р‘РµР»С‹Р№',
+            'color' => 'Белый',
             'paint_code' => 'PPSW',
             'mileage' => 12345,
             'estimated_cost_usd' => 10000,
@@ -2784,7 +2946,7 @@ class DonorCarProductCatalogCategoryTest extends TestCase
             'Expensive default sort part',
             'Cheap default sort part',
         ]);
-        $response->assertSee('Р¦РµРЅР° РїСЂРѕРґР°Р¶Рё <span>USD v</span>', false);
+        $response->assertSee('Цена продажи <span>USD v</span>', false);
     }
 
     public function test_donor_car_manual_status_route_is_not_registered(): void
@@ -3041,9 +3203,9 @@ class DonorCarProductCatalogCategoryTest extends TestCase
         $response = $this->actingAs($user)->get(route('admin.donor-cars.index'));
 
         $response->assertOk();
-        $response->assertSee('РџРѕР»РЅР°СЏ СЃС‚РѕРёРјРѕСЃС‚СЊ');
+        $response->assertSee('Полная стоимость');
         $response->assertSee('$12 750.00');
-        $response->assertSee('Р’ СЂР°Р·Р±РѕСЂРєРµ');
+        $response->assertSee('В разборке');
         $response->assertSee('$24 250.00');
     }
 
@@ -3098,9 +3260,9 @@ class DonorCarProductCatalogCategoryTest extends TestCase
         $oldDonorRow = html_entity_decode($oldDonorRow);
 
         $this->assertStringContainsString('$11 500.00', $newDonorRow);
-        $this->assertStringContainsString('РќРµ РІСЃРµ СЂР°СЃС…РѕРґС‹', $newDonorRow);
+        $this->assertStringContainsString('Не все расходы', $newDonorRow);
         $this->assertStringContainsString('$10 300.00', $oldDonorRow);
-        $this->assertStringNotContainsString('РќРµ РІСЃРµ СЂР°СЃС…РѕРґС‹', $oldDonorRow);
+        $this->assertStringNotContainsString('Не все расходы', $oldDonorRow);
     }
 
     public function test_donor_car_index_displays_model_without_year_range(): void
@@ -3575,8 +3737,8 @@ class DonorCarProductCatalogCategoryTest extends TestCase
         $response = $this->actingAs($user)
             ->get(route('admin.donor-cars.show', $donorCar))
             ->assertOk()
-            ->assertSee('РџСЂРѕРґР°РЅ')
-            ->assertSee('Р—Р°РєР°Р·-РЅР°СЂСЏРґ:')
+            ->assertSee('Продан')
+            ->assertSee('Заказ-наряд:')
             ->assertSee('href="'.route('admin.sto-work-orders.show', $order).'">ZN-20260504-SOLD</a>', false)
             ->assertDontSee('action="'.route('admin.donor-cars.products.destroy', [$donorCar, $product]).'"', false);
 
@@ -3585,7 +3747,7 @@ class DonorCarProductCatalogCategoryTest extends TestCase
             ->before('</tr>')
             ->toString();
 
-        $this->assertStringContainsString('РџСЂРѕРґР°РЅ', $soldPartRow);
+        $this->assertStringContainsString('Продан', $soldPartRow);
         $this->assertStringNotContainsString('action="'.route('admin.donor-cars.products.destroy', [$donorCar, $product]).'"', $soldPartRow);
     }
 
@@ -3993,16 +4155,16 @@ class DonorCarProductCatalogCategoryTest extends TestCase
             'source_url' => 'https://erazborka.example/1234567-00-a',
             'part_number' => '1234567-00-A',
             'name' => 'Mirror source',
-            'name_ru' => 'Р—РµСЂРєР°Р»Рѕ RU',
-            'name_ua' => 'Р”Р·РµСЂРєР°Р»Рѕ UA',
+            'name_ru' => 'Зеркало RU',
+            'name_ua' => 'Дзеркало UA',
         ]);
         $officialItem = PartCatalogItem::query()->create([
             'source' => 'tesla_official',
             'source_url' => 'https://parts.tesla.com/1234567-00-a',
             'part_number' => '1234567-00-A',
             'name' => 'Mirror',
-            'name_ru' => 'Р—РµСЂРєР°Р»Рѕ RU',
-            'name_ua' => 'Р”Р·РµСЂРєР°Р»Рѕ UA',
+            'name_ru' => 'Зеркало RU',
+            'name_ua' => 'Дзеркало UA',
             'raw_attributes' => [
                 'name_source_item_id_ru' => $sourceItem->id,
                 'name_source_item_id_ua' => $sourceItem->id,
@@ -4108,5 +4270,160 @@ class DonorCarProductCatalogCategoryTest extends TestCase
                 'sale_sort' => 'total_amount',
                 'sale_direction' => 'asc',
             ]));
+    }
+
+    public function test_donor_show_limits_initial_products_and_ajax_search_returns_all_matches(): void
+    {
+        $user = User::query()->create([
+            'name' => 'Admin',
+            'email' => 'admin-donor-products-table@example.com',
+            'password' => Hash::make('password'),
+            'role' => User::ROLE_ADMIN,
+            'is_active' => true,
+        ]);
+        $donorCar = DonorCar::query()->create([
+            'vin' => '5YJ3E1EA7KF999981',
+            'brand' => 'Tesla',
+            'model' => 'Model 3',
+            'year' => 2019,
+        ]);
+
+        foreach (range(1, 81) as $index) {
+            Product::query()->create([
+                'sku' => sprintf('DON%d-%04d', $donorCar->id, $index),
+                'external_sku' => sprintf('UNIQUE-%03d', $index),
+                'name' => sprintf('Donor searchable part %03d', $index),
+                'slug' => sprintf('donor-searchable-part-%03d', $index),
+                'donor_car_id' => $donorCar->id,
+                'storage_status' => Product::STORAGE_STATUS_IN_STOCK,
+                'condition_type' => 'used',
+                'testing_status' => 'not_tested',
+                'unit' => 'pcs',
+                'selling_price' => 200 - $index,
+                'currency' => 'USD',
+                'is_active' => true,
+            ]);
+        }
+        foreach (range(1, 17) as $index) {
+            $smallItem = PartCatalogItem::query()->create([
+                'source' => 'tesla_official',
+                'source_url' => sprintf('tesla://small-hidden-%03d', $index),
+                'part_number' => sprintf('SMALL-%03d', $index),
+                'name' => sprintf('Small hidden part %03d', $index),
+                'raw_attributes' => [
+                    'donor_vin_small_part' => true,
+                ],
+            ]);
+
+            Product::query()->create([
+                'sku' => sprintf('DON%d-SMALL-%04d', $donorCar->id, $index),
+                'external_sku' => sprintf('SMALL-%03d', $index),
+                'name' => sprintf('Small hidden part %03d', $index),
+                'slug' => sprintf('small-hidden-part-%03d', $index),
+                'donor_car_id' => $donorCar->id,
+                'source_part_catalog_item_id' => $smallItem->id,
+                'storage_status' => Product::STORAGE_STATUS_IN_STOCK,
+                'condition_type' => 'used',
+                'testing_status' => 'not_tested',
+                'unit' => 'pcs',
+                'selling_price' => 500 - $index,
+                'currency' => 'USD',
+                'is_active' => true,
+            ]);
+        }
+
+        $this->actingAs($user)
+            ->get(route('admin.donor-cars.show', $donorCar))
+            ->assertOk()
+            ->assertSee('Все запчасти <span data-donor-products-tab-count="all">81</span>', false)
+            ->assertSee('Показано 1-80 из 81')
+            ->assertSee('UNIQUE-080')
+            ->assertDontSee('UNIQUE-081')
+            ->assertDontSee('SMALL-001')
+            ->assertSee(route('admin.donor-cars.products.table', $donorCar), false);
+
+        $pageResponse = $this->actingAs($user)
+            ->getJson(route('admin.donor-cars.products.table', [
+                'donorCar' => $donorCar,
+                'page' => 2,
+            ]));
+        $pageResponse
+            ->assertOk()
+            ->assertJsonPath('total', 81)
+            ->assertJsonPath('page', 2)
+            ->assertSee('UNIQUE-081')
+            ->assertDontSee('UNIQUE-080');
+        $this->assertStringContainsString('Показано 81-81 из 81', $pageResponse->json('pagination_html'));
+
+        $this->actingAs($user)
+            ->getJson(route('admin.donor-cars.products.table', [
+                'donorCar' => $donorCar,
+                'q' => 'UNIQUE-081',
+            ]))
+            ->assertOk()
+            ->assertJsonPath('count', 1)
+            ->assertJsonFragment([
+                'limited' => false,
+            ])
+            ->assertSee('UNIQUE-081')
+            ->assertDontSee('UNIQUE-080');
+    }
+
+    public function test_donor_products_ajax_search_matches_words_with_text_between_them(): void
+    {
+        $user = User::query()->create([
+            'name' => 'Admin',
+            'email' => 'admin-donor-products-word-search@example.com',
+            'password' => Hash::make('password'),
+            'role' => User::ROLE_ADMIN,
+            'is_active' => true,
+        ]);
+        $donorCar = DonorCar::query()->create([
+            'vin' => '5YJ3E1EA7KF999982',
+            'brand' => 'Tesla',
+            'model' => 'Model 3',
+            'year' => 2019,
+        ]);
+
+        Product::query()->create([
+            'sku' => 'DON-WORD-SEARCH-001',
+            'external_sku' => 'GLASS-DOOR-R',
+            'name' => 'Стекло передней двери правое',
+            'slug' => 'steklo-peredney-dveri-pravoe',
+            'donor_car_id' => $donorCar->id,
+            'storage_status' => Product::STORAGE_STATUS_IN_STOCK,
+            'condition_type' => 'used',
+            'testing_status' => 'not_tested',
+            'unit' => 'pcs',
+            'selling_price' => 120,
+            'currency' => 'USD',
+            'is_active' => true,
+        ]);
+        Product::query()->create([
+            'sku' => 'DON-WORD-SEARCH-002',
+            'external_sku' => 'OTHER-DOOR-R',
+            'name' => 'Молдинг передней двери правый',
+            'slug' => 'molding-peredney-dveri-praviy',
+            'donor_car_id' => $donorCar->id,
+            'storage_status' => Product::STORAGE_STATUS_IN_STOCK,
+            'condition_type' => 'used',
+            'testing_status' => 'not_tested',
+            'unit' => 'pcs',
+            'selling_price' => 80,
+            'currency' => 'USD',
+            'is_active' => true,
+        ]);
+
+        $response = $this->actingAs($user)
+            ->getJson(route('admin.donor-cars.products.table', [
+                'donorCar' => $donorCar,
+                'q' => 'стекло двери',
+            ]));
+
+        $response
+            ->assertOk()
+            ->assertJsonPath('total', 1);
+        $this->assertStringContainsString('Стекло передней двери правое', $response->json('html'));
+        $this->assertStringNotContainsString('Молдинг передней двери правый', $response->json('html'));
     }
 }

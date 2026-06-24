@@ -43,7 +43,7 @@ return [
         'payment_method' => env('NOVA_POSHTA_PAYMENT_METHOD', 'Cash'),
         'default_weight' => env('NOVA_POSHTA_DEFAULT_WEIGHT', 1),
         'default_seats_amount' => env('NOVA_POSHTA_DEFAULT_SEATS_AMOUNT', 1),
-        'cargo_description' => env('NOVA_POSHTA_CARGO_DESCRIPTION', 'Auto parts'),
+        'cargo_description' => env('NOVA_POSHTA_CARGO_DESCRIPTION', "\u{0430}\u{0432}\u{0442}\u{043E}\u{0437}\u{0430}\u{043F}\u{0447}\u{0430}\u{0441}\u{0442}\u{0438}\u{043D}\u{0438}"),
     ],
 
     'ses' => [

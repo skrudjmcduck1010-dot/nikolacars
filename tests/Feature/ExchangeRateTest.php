@@ -19,6 +19,9 @@ class ExchangeRateTest extends TestCase
 
     public function test_fetch_command_stores_nbu_usd_rate_for_date(): void
     {
+        Carbon::setTestNow('2026-05-01 09:15:00');
+        Cache::flush();
+
         Http::fake([
             'bank.gov.ua/*' => Http::response([
                 [
@@ -38,10 +41,45 @@ class ExchangeRateTest extends TestCase
         $this->assertSame('2026-04-29', $exchangeRate->rate_date->toDateString());
         $this->assertSame('nbu', $exchangeRate->source);
         $this->assertSame(40.123456, (float) $exchangeRate->rate);
+
+        Carbon::setTestNow();
+    }
+
+    public function test_fetch_command_stores_monobank_usd_rate_from_switch_date(): void
+    {
+        Carbon::setTestNow('2026-06-22 09:15:00');
+        Cache::flush();
+
+        Http::fake([
+            'api.monobank.ua/*' => Http::response([
+                [
+                    'currencyCodeA' => 840,
+                    'currencyCodeB' => 980,
+                    'rateBuy' => 40.1,
+                    'rateSell' => 40.9,
+                ],
+            ]),
+        ]);
+
+        $this->artisan('exchange-rates:fetch --date=2026-06-22')
+            ->assertSuccessful()
+            ->expectsOutput('Stored USD rate for 2026-06-22: 40.900000');
+
+        $exchangeRate = ExchangeRate::query()->firstOrFail();
+
+        $this->assertSame('USD', $exchangeRate->currency);
+        $this->assertSame('2026-06-22', $exchangeRate->rate_date->toDateString());
+        $this->assertSame('monobank', $exchangeRate->source);
+        $this->assertSame(40.9, (float) $exchangeRate->rate);
+
+        Carbon::setTestNow();
     }
 
     public function test_fetch_command_does_not_duplicate_existing_rate(): void
     {
+        Carbon::setTestNow('2026-05-01 09:15:00');
+        Cache::flush();
+
         Http::fake([
             'bank.gov.ua/*' => Http::sequence()
                 ->push([['cc' => 'USD', 'rate' => 40.1]])
@@ -53,6 +91,8 @@ class ExchangeRateTest extends TestCase
 
         $this->assertSame(1, ExchangeRate::query()->count());
         $this->assertSame(40.1, (float) ExchangeRate::query()->firstOrFail()->rate);
+
+        Carbon::setTestNow();
     }
 
     public function test_service_uses_stored_rate_for_requested_date(): void
@@ -146,6 +186,9 @@ class ExchangeRateTest extends TestCase
 
     public function test_admin_can_view_exchange_rates_page(): void
     {
+        Carbon::setTestNow('2026-06-22 09:15:00');
+        Cache::flush();
+
         $user = User::query()->create([
             'name' => 'Admin',
             'email' => fake()->unique()->safeEmail(),
@@ -156,9 +199,9 @@ class ExchangeRateTest extends TestCase
 
         ExchangeRate::query()->create([
             'currency' => 'USD',
-            'rate_date' => '2026-04-30',
+            'rate_date' => '2026-06-22',
             'rate' => 43.963,
-            'source' => 'nbu',
+            'source' => 'monobank',
             'fetched_at' => now(),
         ]);
         ExchangeRate::query()->create([
@@ -169,9 +212,10 @@ class ExchangeRateTest extends TestCase
             'fetched_at' => now(),
         ]);
         Http::fake([
-            'bank.gov.ua/*' => Http::response([[
-                'cc' => 'USD',
-                'rate' => 42.25,
+            'api.monobank.ua/*' => Http::response([[
+                'currencyCodeA' => 840,
+                'currencyCodeB' => 980,
+                'rateSell' => 42.25,
             ]]),
         ]);
 
@@ -179,11 +223,15 @@ class ExchangeRateTest extends TestCase
             ->get(route('admin.exchange-rates.index'))
             ->assertOk()
             ->assertSee('Курсы валют')
-            ->assertSee('30.04.2026')
+            ->assertSee('Курс на сегодня, 22.06.2026')
+            ->assertSee('$ 43.96')
+            ->assertSee('22.06.2026')
             ->assertSee('43.9630')
-            ->assertSee('Загружен из НБУ')
+            ->assertSee('Загружен из Monobank')
             ->assertDontSee('MANUAL')
             ->assertDontSee('44.5000');
+
+        Carbon::setTestNow();
     }
 
     public function test_successful_login_stores_today_usd_rate_when_missing(): void

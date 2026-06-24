@@ -31,6 +31,7 @@ use LogicException;
     'paid_cash_usd',
     'paid_bank_tov_uah',
     'paid_bank_fop_uah',
+    'paid_prom_uah',
     'paid_amount_uah',
     'payment_confirmed_at',
     'created_by',
@@ -51,11 +52,17 @@ class CustomerOrder extends Model
 
     public const STATUS_SHIPPED = 'shipped';
 
+    public const STATUS_REFUSED = 'refused';
+
     public const STATUS_PAID = 'paid';
 
     public const STATUS_COMPLETED = 'completed';
 
     public const STATUS_CANCELLED = 'cancelled';
+
+    public const NOVA_POSHTA_STATUS_RECEIVED = '9';
+
+    public const NOVA_POSHTA_STATUS_ARRIVED_AT_BRANCH = '7';
 
     public const DELIVERY_METHOD_PICKUP = 'pickup';
 
@@ -71,11 +78,17 @@ class CustomerOrder extends Model
 
     public const PAYMENT_TYPE_BANK_FOP = 'bank_fop';
 
+    public const PAYMENT_TYPE_BANK_FOP_AFTERPAYMENT = 'bank_fop_afterpayment';
+
+    public const PAYMENT_TYPE_PROM = 'prom';
+
     public const PAYMENT_TYPE_LABELS = [
         self::PAYMENT_TYPE_CASH_UAH => 'Нал, грн',
         self::PAYMENT_TYPE_CASH_USD => 'Нал USD',
         self::PAYMENT_TYPE_BANK_TOV => 'БезНал ТОВ',
         self::PAYMENT_TYPE_BANK_FOP => 'БезНал ФОП',
+        self::PAYMENT_TYPE_BANK_FOP_AFTERPAYMENT => 'БезНал ФОП (наложка)',
+        self::PAYMENT_TYPE_PROM => "\u{0050}\u{0072}\u{006F}\u{006D}-\u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0430}",
     ];
 
     public const DELIVERY_METHOD_LABELS = [
@@ -90,6 +103,7 @@ class CustomerOrder extends Model
         self::STATUS_WAITING_PREPAYMENT => "\u{0416}\u{0434}\u{0435}\u{043C} \u{043F}\u{0440}\u{0435}\u{0434}\u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0443}",
         self::STATUS_ASSEMBLED => "\u{0421}\u{043E}\u{0431}\u{0440}\u{0430}\u{043D}",
         self::STATUS_SHIPPED => "\u{041E}\u{0442}\u{043F}\u{0440}\u{0430}\u{0432}\u{043B}\u{0435}\u{043D}",
+        self::STATUS_REFUSED => "\u{041E}\u{0442}\u{043A}\u{0430}\u{0437}",
         self::STATUS_PAID => 'Оплачено',
         self::STATUS_COMPLETED => "\u{0412}\u{044B}\u{0434}\u{0430}\u{043D}",
         self::STATUS_CANCELLED => 'Отменен',
@@ -136,6 +150,7 @@ class CustomerOrder extends Model
             'paid_cash_usd' => 'decimal:2',
             'paid_bank_tov_uah' => 'decimal:2',
             'paid_bank_fop_uah' => 'decimal:2',
+            'paid_prom_uah' => 'decimal:2',
             'paid_amount_uah' => 'decimal:2',
             'payment_confirmed_at' => 'datetime',
         ];
@@ -169,7 +184,15 @@ class CustomerOrder extends Model
     public function novaPoshtaShipment(): HasOne
     {
         return $this->hasOne(CustomerOrderShipment::class)
-            ->where('carrier', CustomerOrderShipment::CARRIER_NOVA_POSHTA);
+            ->where('carrier', CustomerOrderShipment::CARRIER_NOVA_POSHTA)
+            ->oldest('id');
+    }
+
+    public function novaPoshtaShipments(): HasMany
+    {
+        return $this->hasMany(CustomerOrderShipment::class)
+            ->where('carrier', CustomerOrderShipment::CARRIER_NOVA_POSHTA)
+            ->oldest('id');
     }
 
     public function getClientNameAttribute(): string
@@ -242,6 +265,10 @@ class CustomerOrder extends Model
 
     public function canBeMarkedAsCompleted(): bool
     {
+        if ($this->hasNovaPoshtaReceivedStatus()) {
+            return false;
+        }
+
         if ($this->delivery_method === self::DELIVERY_METHOD_STO) {
             return $this->status === self::STATUS_ASSEMBLED;
         }
@@ -254,10 +281,51 @@ class CustomerOrder extends Model
             && in_array($this->status, [self::STATUS_ASSEMBLED, self::STATUS_PAID], true);
     }
 
+    public function hasNovaPoshtaReceivedStatus(): bool
+    {
+        return $this->delivery_method === self::DELIVERY_METHOD_NOVA_POSHTA
+            && $this->novaPoshtaShipment?->np_status_code === self::NOVA_POSHTA_STATUS_RECEIVED;
+    }
+
+    public function canUpdateNovaPoshtaTrackingNumber(): bool
+    {
+        if ($this->delivery_method !== self::DELIVERY_METHOD_NOVA_POSHTA) {
+            return false;
+        }
+
+        if (! $this->novaPoshtaShipment?->tracking_number) {
+            return false;
+        }
+
+        if ($this->isIssuedToClient() || in_array($this->status, [self::STATUS_CANCELLED, self::STATUS_REFUSED], true)) {
+            return false;
+        }
+
+        return ! in_array((string) $this->novaPoshtaShipment?->np_status_code, [
+            self::NOVA_POSHTA_STATUS_ARRIVED_AT_BRANCH,
+            self::NOVA_POSHTA_STATUS_RECEIVED,
+        ], true);
+    }
+
+    public function canAddNovaPoshtaTrackingNumber(): bool
+    {
+        if ($this->delivery_method !== self::DELIVERY_METHOD_NOVA_POSHTA) {
+            return false;
+        }
+
+        if ($this->hasNovaPoshtaReceivedStatus()) {
+            return false;
+        }
+
+        return ! $this->isIssuedToClient()
+            && ! in_array($this->status, [self::STATUS_CANCELLED, self::STATUS_REFUSED], true);
+    }
+
     public function canBeCancelled(): bool
     {
         return ! in_array($this->status, [
             self::STATUS_CANCELLED,
+            self::STATUS_REFUSED,
             self::STATUS_PAID,
             self::STATUS_COMPLETED,
         ], true);
@@ -290,7 +358,7 @@ class CustomerOrder extends Model
 
     public function canBeEdited(): bool
     {
-        return ! in_array($this->status, [self::STATUS_CANCELLED, self::STATUS_COMPLETED], true);
+        return ! in_array($this->status, [self::STATUS_CANCELLED, self::STATUS_REFUSED, self::STATUS_COMPLETED], true);
     }
 
     public function getDeliveryMethodLabelAttribute(): string

@@ -54,6 +54,17 @@ class Location extends Model
         return '—';
     }
 
+    public function shortCode(): string
+    {
+        $cell = trim((string) $this->cell);
+
+        if ($cell !== '') {
+            return $cell;
+        }
+
+        return trim((string) preg_replace('/^WH\d+-F\d+-/i', '', (string) $this->full_code));
+    }
+
     public function stockItems(): HasMany
     {
         return $this->hasMany(StockItem::class);

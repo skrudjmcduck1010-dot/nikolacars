@@ -7,6 +7,7 @@
     $imageUrl = $galleryImageUrls->first();
     $stockValue = $group['quantity'];
     $stockText = $group['quantity_text'];
+    $stockDisplayText = $group['stock_quantity_text'] ?? $stockText;
     $reservedText = $group['reserved_quantity_text'];
     $reservedOrders = $group['reserved_orders'];
     $isReserved = (bool) $group['is_reserved'];
@@ -389,7 +390,7 @@
         @endif
     </td>
     <td data-nikolacars-availability>
-        {{ $stockText }}
+        {{ $stockDisplayText }}
         @if($isManuallySold)
             <div class="nikolacars-sold-note">Продано до 01.06.2026</div>
         @endif

@@ -9,7 +9,7 @@
                 <label>Склад</label>
                 <select name="warehouse_id" required data-warehouse-select>
                     @foreach($warehouses as $warehouse)
-                        <option value="{{ $warehouse->id }}" data-floor-count="{{ $warehouse->floor_count }}" @selected(old('warehouse_id', $location->warehouse_id) == $warehouse->id)>{{ $warehouse->name }}</option>
+                        <option value="{{ $warehouse->id }}" data-floor-count="{{ $warehouse->floor_count }}" data-structured-locations="{{ $warehouse->usesStructuredLocations() ? '1' : '0' }}" @selected(old('warehouse_id', $location->warehouse_id) == $warehouse->id)>{{ $warehouse->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -58,7 +58,8 @@
 
         function syncFloorOptions() {
             const selectedOption = warehouseSelect?.options[warehouseSelect.selectedIndex];
-            const floorCount = Math.max(1, Number(selectedOption?.dataset.floorCount || 1));
+            const usesStructuredLocations = selectedOption?.dataset.structuredLocations !== '0';
+            const floorCount = usesStructuredLocations ? Math.max(1, Number(selectedOption?.dataset.floorCount || 1)) : 1;
             const selectedFloor = floorSelect.dataset.selectedFloor || floorSelect.value || 'floor_1';
 
             floorField.hidden = floorCount === 1;

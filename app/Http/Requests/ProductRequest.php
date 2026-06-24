@@ -26,6 +26,10 @@ class ProductRequest extends FormRequest
     public function rules(): array
     {
         $productId = $this->route('product')?->id;
+        $editableStorageStatuses = array_diff(
+            array_keys(Product::STORAGE_STATUSES),
+            [Product::STORAGE_STATUS_SOLD]
+        );
 
         return [
             'external_sku' => ['nullable', 'string', 'max:255'],
@@ -37,7 +41,7 @@ class ProductRequest extends FormRequest
             'part_origin' => ['nullable', Rule::in(array_keys(Product::PART_ORIGINS))],
             'source_part_catalog_item_id' => ['nullable', 'exists:part_catalog_items,id'],
             'is_auto_generated' => ['nullable', 'boolean'],
-            'storage_status' => ['nullable', Rule::in(array_keys(Product::STORAGE_STATUSES))],
+            'storage_status' => ['nullable', Rule::in($editableStorageStatuses)],
             'description' => ['nullable', 'string'],
             'compatibility' => ['nullable', 'string'],
             'model' => ['nullable', 'string', 'max:255', Rule::in(PartCatalogCategory::modelOptions($this->input('model')))],

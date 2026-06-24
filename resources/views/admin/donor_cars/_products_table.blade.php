@@ -7,6 +7,39 @@
         $showProductAnchors = (bool) ($showProductAnchors ?? false);
         $donorPartPresenter = $donorPartPresenter ?? app(\App\View\Admin\DonorCars\DonorPartDisplayPresenter::class);
         $officialTeslaCatalogNamesByProductId = $officialTeslaCatalogNamesByProductId ?? collect();
+        $productSort = $productSort ?? 'price';
+        $productDirection = $productDirection ?? 'desc';
+        $productSortUrl = $productSortUrl ?? fn (string $field): string => route('admin.donor-cars.show', [
+            'donorCar' => $donorCar,
+            'product_sort' => $field,
+            'product_direction' => $productSort === $field && $productDirection === 'asc' ? 'desc' : 'asc',
+        ]);
+        $productSortMark = $productSortMark ?? fn (string $field): string => $productSort === $field ? ($productDirection === 'asc' ? ' ^' : ' v') : '';
+        $nameWithAutoBadge = $nameWithAutoBadge ?? function (?string $value): array {
+            return [
+                'text' => trim((string) $value),
+                'is_auto' => false,
+            ];
+        };
+        $readableCategoryPath = $readableCategoryPath ?? fn (?string $value, bool $stripNumericPrefixes = false): string => $donorPartPresenter->readableCategoryPath($value, $stripNumericPrefixes);
+        $catalogCategoryForDonor = $catalogCategoryForDonor ?? fn ($catalogItem = null): ?\App\Models\PartCatalogCategory => $donorPartPresenter->categoryForDonor($donorCar, $catalogItem);
+        $catalogCategoryPath = $catalogCategoryPath ?? fn (?\App\Models\PartCatalogCategory $category, string $locale = 'preferred'): string => $donorPartPresenter->categoryPath($category, $locale, true);
+        $donorProductCategoryOption = $donorProductCategoryOption ?? fn ($catalogItem = null, ?string $categoryPath = null, ?string $fallbackText = null): array => $donorPartPresenter->desktopCategoryOption($donorCar, $catalogItem, $categoryPath, $fallbackText);
+        $donorProductCategoryKey = $donorProductCategoryKey ?? function ($catalogItem = null, ?string $productCategorySlug = null, ?string $categoryPath = null, ?string $fallbackText = null) use ($donorProductCategoryOption): string {
+            return $donorProductCategoryOption($catalogItem, $categoryPath, $fallbackText)['key'];
+        };
+        $undefinedCategoryLabel = $undefinedCategoryLabel ?? $donorPartPresenter->undefinedCategoryLabel();
+        $unknownDamageNote = $unknownDamageNote ?? "\u{041D}\u{0435}\u{0438}\u{0437}\u{0432}\u{0435}\u{0441}\u{0442}\u{043D}\u{043E}";
+        $damageNote = $damageNote ?? function ($product) use ($unknownDamageNote): string {
+            $value = trim((string) ($product->notes ?? ''));
+
+            return preg_match('/^\?+$/', $value) ? $unknownDamageNote : $value;
+        };
+        $brokenDamageNote = $brokenDamageNote ?? \App\Services\NikolaCarsProductInventorySyncService::BROKEN_DAMAGE_STATUS;
+        $nonLiquidDamageNote = $nonLiquidDamageNote ?? \App\Services\NikolaCarsProductInventorySyncService::NON_LIQUID_DAMAGE_STATUS;
+        $isUnknownDamageNote = $isUnknownDamageNote ?? fn ($product): bool => in_array($damageNote($product), ['', $unknownDamageNote], true);
+        $isBrokenDamageNote = $isBrokenDamageNote ?? fn ($product): bool => in_array($damageNote($product), [$brokenDamageNote, $nonLiquidDamageNote], true);
+        $isCheckedDamageNote = $isCheckedDamageNote ?? fn ($product): bool => ! $isUnknownDamageNote($product) && ! $isBrokenDamageNote($product);
         $smallPartNumbers = ($smallPartNumbers ?? collect())
             ->map(fn ($partNumber) => \App\Support\PartNumberNormalizer::normalize((string) $partNumber))
             ->filter()
@@ -19,12 +52,15 @@
 
             return $formatted !== '' ? $formatted.' шт' : '';
         };
-        $productQuantityText = function ($product): string {
-            $quantity = round((float) $product->stockItems->sum('quantity'), 3);
+        $formatQuantity = function (float $quantity): string {
+            $quantity = round($quantity, 3);
             $formatted = rtrim(rtrim(number_format($quantity, 3, '.', ''), '0'), '.');
 
             return $formatted !== '' ? $formatted : '0';
         };
+        $productWarehouseQuantityText = fn ($product): string => (isset($isCheckedDamageNote) && $isCheckedDamageNote($product))
+            ? $formatQuantity((float) $product->stockItems->sum('quantity'))
+            : '-';
         $salePriceDisplay = function (mixed $price, ?string $currency = 'USD') use ($exchangeRateService, $usdRate): array {
             $price = $price !== null ? round((float) $price, 2) : null;
 
@@ -57,7 +93,7 @@
         @endif
         <th><a href="{{ $productSortUrl('tesla_price') }}"><span class="donor-products-price-heading">Цена <span>tesla.com{{ $productSortMark('tesla_price') }}</span></span></a></th>
         <th><a href="{{ $productSortUrl('price') }}"><span class="donor-products-price-heading">Цена продажи <span>USD{{ $productSortMark('price') }}</span></span></a></th>
-        <th><a href="{{ $productSortUrl('quantity') }}">Кол-во{{ $productSortMark('quantity') }}</a></th>
+        <th>{{ "\u{041E}\u{0441}\u{0442}\u{0430}\u{0442}\u{043E}\u{043A}" }}</th>
         <th><a href="{{ $productSortUrl('warehouse') }}">Склад{{ $productSortMark('warehouse') }}</a></th>
         <th></th>
     </tr>
@@ -72,7 +108,10 @@
                     \App\Services\NikolaCarsProductInventorySyncService::BROKEN_DAMAGE_STATUS,
                     \App\Services\NikolaCarsProductInventorySyncService::NON_LIQUID_DAMAGE_STATUS,
                 ];
-                $stockItem = $product->stockItems->first();
+                $stockItem = $product->stockItems
+                    ->filter(fn ($item): bool => (float) $item->quantity > 0)
+                    ->sortByDesc(fn ($item): float => (float) $item->available_quantity)
+                    ->first();
                 $workOrderPart = $product->stoWorkOrderParts->first();
                 $workOrder = $workOrderPart?->order;
                 $reservation = $donorProductReservations->get((int) $product->id);
@@ -120,7 +159,7 @@
                     ? ($catalogNameSourcesByItemId->get($product->sourcePartCatalogItem->id) ?? [])
                     : [];
                 $originBadge = $donorPartPresenter->productOriginBadge($product);
-                $isAutoGeneratedProduct = (bool) $product->is_auto_generated || $product->generated_at !== null;
+                $isAutoGeneratedProduct = $product->isProtectedAutoGeneratedDonorProduct();
                 $officialTeslaNameEn = trim((string) data_get($officialTeslaCatalogNamesByProductId->get((int) $product->id), 'name_en'));
                 $productNameEn = $officialTeslaNameEn !== ''
                     ? $officialTeslaNameEn
@@ -171,6 +210,45 @@
                 $isCheckedProduct = isset($isCheckedDamageNote) && $isCheckedDamageNote($product);
                 $isSmallProduct = (bool) data_get($product->sourcePartCatalogItem?->raw_attributes, 'donor_vin_small_part', false)
                     || $smallPartNumbers->contains(\App\Support\PartNumberNormalizer::normalize($product->external_sku ?: $product->sourcePartCatalogItem?->part_number));
+                $stockIsOnDonor = $stockItem?->warehouse?->type === \App\Models\Warehouse::TYPE_DONOR;
+                $stockUsesStructuredLocations = (bool) ($stockItem?->warehouse?->usesStructuredLocations() ?? true);
+                $stockLocation = $stockIsOnDonor ? null : $stockItem?->location;
+                $stockFloor = $stockLocation && is_string($stockLocation->floor) && $stockLocation->floor !== ''
+                    ? $stockLocation->floor
+                    : 'floor_1';
+                $stockFloorLabel = preg_match('/^floor_(\d+)$/', $stockFloor, $floorMatches)
+                    ? "Этаж {$floorMatches[1]}"
+                    : ($stockLocation?->floorLabel() ?? null);
+                $stockLocationCode = trim((string) ($stockLocation?->cell ?: $stockLocation?->full_code));
+                $stockLocationRows = $stockIsOnDonor || ! $stockUsesStructuredLocations ? collect([
+                    (string) ($stockItem?->warehouse?->name ?? $product->storage_status_label),
+                ]) : collect([
+                    (string) ($stockItem?->warehouse?->name ?? $product->storage_status_label),
+                    $stockLocation ? $stockFloorLabel : null,
+                    $stockLocationCode !== '' ? $stockLocationCode : null,
+                ]);
+                $stockLocationRows = $stockLocationRows
+                    ->filter(fn (mixed $value): bool => trim((string) $value) !== '')
+                    ->values();
+                $stockLocationLabel = $stockIsOnDonor || ! $stockUsesStructuredLocations ? (string) ($stockItem?->warehouse?->name ?? $product->storage_status_label) : collect([
+                    $stockItem?->warehouse?->name ?? $product->storage_status_label,
+                    $stockLocation ? $stockFloorLabel : null,
+                    $stockLocationCode !== '' ? $stockLocationCode : null,
+                ])->filter()->join(' · ');
+                $canEditPlacement = $canChangeFromDonorCard && $isCheckedProduct;
+                $productPhotoPairs = \App\Support\ProductPhotoNormalizer::productPhotos($product)
+                    ->map(fn (string $photo): array => [
+                        'path' => $photo,
+                        'url' => \App\Support\PublicStorageUrl::url($photo),
+                    ])
+                    ->filter(fn (array $photo): bool => trim((string) $photo['url']) !== '')
+                    ->values();
+                $productPhotoPaths = $productPhotoPairs->pluck('path')->values();
+                $productPhotoUrls = $productPhotoPairs->pluck('url')->values();
+                $productPreviewUrl = $productPhotoUrls->first();
+                $productPreviewSrc = $productPreviewUrl
+                    ? route('admin.donor-cars.products.photo-preview', [$donorCar, $product, 0])
+                    : null;
             @endphp
             <tr
                 @if($showProductAnchors) id="part-{{ $product->id }}" @endif
@@ -183,12 +261,25 @@
                 data-donor-product-search="{{ $productSearchText }}"
                 data-donor-product-category="{{ $productFilterCategory }}"
                 data-donor-product-state="{{ $isCheckedProduct ? 'checked' : ((isset($isBrokenDamageNote) && $isBrokenDamageNote($product)) ? 'broken' : 'all') }}"
+                data-donor-placement-editable="{{ $canChangeFromDonorCard ? '1' : '0' }}"
             >
                 <td>
-                    @if($product->main_image)
-                        <span class="photo-presence--yes" title="Есть" aria-label="Есть">&#10003;</span>
+                    @if($productPreviewUrl)
+                        <a
+                            class="donor-product-photo-preview"
+                            href="{{ $productPreviewUrl }}"
+                            title="{{ $productDisplayName }}"
+                            aria-label="Открыть фото {{ $productDisplayName }}"
+                            data-product-photo-trigger
+                            data-product-photo-index="0"
+                            data-product-photo-urls='@json($productPhotoUrls)'
+                            data-product-photo-paths='@json($productPhotoPaths)'
+                            data-product-photo-rotate-url="{{ route('admin.donor-cars.products.photos.rotate', [$donorCar, $product]) }}"
+                        >
+                            <img src="{{ $productPreviewSrc }}" alt="{{ $productDisplayName }}" loading="lazy" decoding="async">
+                        </a>
                     @else
-                        &mdash;
+                        <span class="donor-product-photo-preview donor-product-photo-preview--empty" title="Нет фото" aria-label="Нет фото">&mdash;</span>
                     @endif
                 </td>
                 <td>{{ $product->external_sku ?: '-' }}</td>
@@ -211,7 +302,7 @@
                                         @method('PATCH')
                                         <input type="hidden" name="name_type" value="{{ $nameRow['type'] }}">
                                         <input type="hidden" name="name" value="{{ $nameRow['value'] }}" data-donor-product-name-input>
-                                        <button type="button" class="donor-product-name-edit" title="Редактировать {{ $nameRow['label'] }} название" aria-label="Редактировать {{ $nameRow['label'] }} название {{ $nameRow['value'] }}" data-donor-product-name-edit>&#9998;</button>
+                                        <button type="button" class="donor-product-name-edit donor-product-edit-icon" title="Редактировать {{ $nameRow['label'] }} название" aria-label="Редактировать {{ $nameRow['label'] }} название {{ $nameRow['value'] }}" data-donor-product-name-edit>&#9998;</button>
                                     </form>
                                 @endif
                                 @if($nameRow['manual'] ?? false)
@@ -252,6 +343,7 @@
                                         'donor-product-inline-select--broken' => isset($isBrokenDamageNote) && $isBrokenDamageNote($product),
                                     ])
                                     data-donor-damage-select
+                                    data-previous-damage-note="{{ $damageNote($product) }}"
                                 >
                                     @foreach($damageOptions as $value => $label)
                                         <option
@@ -289,7 +381,7 @@
                             </span>
                             <button
                                 type="button"
-                                class="donor-product-price-icon"
+                                class="donor-product-price-icon donor-product-edit-icon"
                                 title="Редактировать цену продажи"
                                 aria-label="Редактировать цену продажи"
                                 data-donor-price-edit-toggle
@@ -321,8 +413,8 @@
                         </div>
                     @endif
                 </td>
-                <td>{{ $productQuantityText($product) }}</td>
-                <td>
+                <td>{{ $productWarehouseQuantityText($product) }}</td>
+                <td data-donor-product-stock-label>
                     @if($workOrder && $workOrderPartStatus)
                         <span class="tag {{ $workOrderPartStatus['class'] }}">{{ $workOrderPartStatus['label'] }}</span>
                         <div class="help">
@@ -330,7 +422,31 @@
                             <a href="{{ route('admin.sto-work-orders.show', $workOrder) }}">{{ $workOrder->number }}</a>
                         </div>
                     @else
-                        {{ $stockItem?->warehouse?->name ?? $product->storage_status_label }}
+                        <div class="donor-product-stock-display">
+                            <span class="donor-product-stock-text" data-donor-product-stock-text>
+                                @foreach(($stockLocationRows->isNotEmpty() ? $stockLocationRows : collect([$stockItem?->warehouse?->name ?? $product->storage_status_label])) as $stockLocationRow)
+                                    <span class="donor-product-stock-line">
+                                        {{ $stockLocationRow }}
+                                    </span>
+                                @endforeach
+                            </span>
+                            @if($canEditPlacement)
+                                <form method="POST" action="{{ route('admin.donor-cars.products.official-fields.update', [$donorCar, $product]) }}" class="donor-product-placement-form" data-donor-placement-update-form>
+                                    @csrf
+                                    @method('PATCH')
+                                    <button
+                                        type="button"
+                                        class="donor-product-price-icon donor-product-placement-edit donor-product-edit-icon"
+                                        title="Изменить ячейку"
+                                        aria-label="Изменить ячейку {{ $productDisplayName }}"
+                                        data-donor-placement-edit
+                                        data-current-warehouse-id="{{ $stockItem?->warehouse_id }}"
+                                        data-current-floor="{{ $stockLocation ? $stockFloor : '' }}"
+                                        data-current-location-id="{{ $stockItem?->location_id }}"
+                                    >&#9998;</button>
+                                </form>
+                            @endif
+                        </div>
                         @if($reservationQuantity > 0)
                             <div class="help">
                                 <span class="tag tag-warning">в резерве</span>
@@ -362,7 +478,6 @@
                     @else
                         <span class="tag">Мелочевка</span>
                     @endif
-                    <a class="btn btn-secondary" href="{{ route('admin.products.edit', $product) }}">Изменить</a>
                     @if(! $isAutoGeneratedProduct && ! $workOrder)
                         <form method="POST" action="{{ route('admin.donor-cars.products.destroy', [$donorCar, $product]) }}" class="inline-form" onsubmit='return confirm(@json("Удалить запчасть {$product->name} с этого донора?"));'>
                             @csrf
@@ -377,6 +492,6 @@
             </tr>
         @endforeach
     @endif
-    <tr data-donor-products-empty hidden><td colspan="{{ $showOfficialFields ? 11 : 10 }}" class="empty">По этому поиску запчасти не найдены.</td></tr>
+    <tr data-donor-products-empty hidden><td colspan="{{ $showOfficialFields ? 12 : 11 }}" class="empty">По этому поиску запчасти не найдены.</td></tr>
     </tbody>
 </table>

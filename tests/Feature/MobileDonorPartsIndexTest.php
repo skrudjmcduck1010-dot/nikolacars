@@ -4,9 +4,11 @@ namespace Tests\Feature;
 
 use App\Models\Category;
 use App\Models\DonorCar;
+use App\Models\Location;
 use App\Models\PartCatalogCategory;
 use App\Models\PartCatalogItem;
 use App\Models\Product;
+use App\Models\Warehouse;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
@@ -1203,6 +1205,230 @@ class MobileDonorPartsIndexTest extends TestCase
         ], (array) $product->images_json);
     }
 
+    public function test_mobile_donor_parts_show_paginates_large_product_lists(): void
+    {
+        $user = User::factory()->create([
+            'role' => User::ROLE_ADMIN,
+            'is_active' => true,
+        ]);
+        $donorCar = DonorCar::query()->create([
+            'vin' => '5YJPAGE000000001',
+            'brand' => 'Tesla',
+            'model' => 'Model 3',
+            'year' => 2024,
+            'status' => DonorCar::STATUS_AT_STO,
+            'purchase_date' => '2026-04-01',
+        ]);
+
+        foreach (range(1, 85) as $index) {
+            Product::query()->create([
+                'sku' => sprintf('PAGE-%03d', $index),
+                'external_sku' => sprintf('PAGE-%03d', $index),
+                'name' => sprintf('Paged donor part %03d', $index),
+                'slug' => sprintf('paged-donor-part-%03d', $index),
+                'donor_car_id' => $donorCar->id,
+                'storage_status' => Product::STORAGE_STATUS_ON_DONOR,
+                'condition_type' => 'used',
+                'testing_status' => 'not_tested',
+                'unit' => 'pcs',
+                'selling_price' => $index,
+                'currency' => 'USD',
+                'is_active' => true,
+            ]);
+        }
+
+        $this->actingAs($user)
+            ->get(route('admin.mobile.donor-cars.parts.show', $donorCar))
+            ->assertOk()
+            ->assertSee('Paged donor part 085')
+            ->assertDontSee('Paged donor part 001')
+            ->assertSee('data-mobile-parts-load-more', false)
+            ->assertSee('page=2', false);
+    }
+
+    public function test_mobile_donor_parts_search_finds_products_beyond_first_page(): void
+    {
+        $user = User::factory()->create([
+            'role' => User::ROLE_ADMIN,
+            'is_active' => true,
+        ]);
+        $donorCar = DonorCar::query()->create([
+            'vin' => '5YJSEARCH0000001',
+            'brand' => 'Tesla',
+            'model' => 'Model Y',
+            'year' => 2025,
+            'status' => DonorCar::STATUS_AT_STO,
+            'purchase_date' => '2026-04-01',
+        ]);
+
+        foreach (range(1, 85) as $index) {
+            Product::query()->create([
+                'sku' => sprintf('SEARCH-%03d', $index),
+                'external_sku' => sprintf('SEARCH-%03d', $index),
+                'name' => $index === 1 ? 'Needle second page headlight' : sprintf('Ordinary donor part %03d', $index),
+                'slug' => sprintf('search-donor-part-%03d', $index),
+                'donor_car_id' => $donorCar->id,
+                'storage_status' => Product::STORAGE_STATUS_ON_DONOR,
+                'condition_type' => 'used',
+                'testing_status' => 'not_tested',
+                'unit' => 'pcs',
+                'selling_price' => $index,
+                'currency' => 'USD',
+                'is_active' => true,
+            ]);
+        }
+
+        $this->actingAs($user)
+            ->get(route('admin.mobile.donor-cars.parts.show', [$donorCar, 'q' => 'Needle']))
+            ->assertOk()
+            ->assertSee('Needle second page headlight')
+            ->assertDontSee('Ordinary donor part 085');
+    }
+
+    public function test_mobile_donor_part_damage_status_can_be_saved_as_json_with_warehouse_location(): void
+    {
+        $user = User::factory()->create([
+            'role' => User::ROLE_ADMIN,
+            'is_active' => true,
+        ]);
+        $donorCar = DonorCar::query()->create([
+            'vin' => '5YJJSON000000001',
+            'brand' => 'Tesla',
+            'model' => 'Model 3',
+            'year' => 2024,
+            'status' => DonorCar::STATUS_AT_STO,
+            'purchase_date' => '2026-04-01',
+        ]);
+        $warehouse = Warehouse::query()->create([
+            'name' => 'Mobile Test Warehouse',
+            'type' => Warehouse::TYPE_MAIN,
+            'floor_count' => 1,
+            'is_active' => true,
+        ]);
+        $location = Location::query()->create([
+            'warehouse_id' => $warehouse->id,
+            'floor' => 'floor_1',
+            'cell' => 'A-01',
+            'full_code' => 'WH-MOBILE-A-01',
+            'is_active' => true,
+        ]);
+        $product = Product::query()->create([
+            'sku' => 'JSON-001',
+            'external_sku' => 'JSON-001',
+            'name' => 'Json status part',
+            'slug' => 'json-status-part',
+            'donor_car_id' => $donorCar->id,
+            'storage_status' => Product::STORAGE_STATUS_ON_DONOR,
+            'condition_type' => 'used',
+            'testing_status' => 'not_tested',
+            'unit' => 'pcs',
+            'selling_price' => 120,
+            'currency' => 'USD',
+            'is_active' => true,
+        ]);
+        $checked = "\u{0411}\u{0435}\u{0437} \u{043F}\u{043E}\u{0432}\u{0440}\u{0435}\u{0436}\u{0434}\u{0435}\u{043D}\u{0438}\u{0439}";
+
+        $this->actingAs($user)
+            ->patchJson(route('admin.mobile.donor-cars.products.damage-status.update', [$donorCar, $product]), [
+                'damage_note' => $checked,
+                'warehouse_id' => $warehouse->id,
+                'location_id' => $location->id,
+            ])
+            ->assertOk()
+            ->assertJsonPath('product_id', $product->id)
+            ->assertJsonPath('damage_note', $checked)
+            ->assertJsonPath('status.key', 'checked')
+            ->assertJsonPath('stock_label', 'Mobile Test Warehouse · Этаж 1 · A-01');
+
+        $product->refresh();
+        $this->assertSame($checked, $product->notes);
+        $this->assertSame(Product::STORAGE_STATUS_IN_STOCK, $product->storage_status);
+        $this->assertDatabaseHas('stock_items', [
+            'product_id' => $product->id,
+            'warehouse_id' => $warehouse->id,
+            'location_id' => $location->id,
+            'quantity' => 1,
+        ]);
+    }
+    public function test_mobile_donor_part_edit_page_saves_checked_status_with_warehouse_location(): void
+    {
+        $user = User::factory()->create([
+            'role' => User::ROLE_ADMIN,
+            'is_active' => true,
+        ]);
+        $donorCar = DonorCar::query()->create([
+            'vin' => '5YJEDITCELL00001',
+            'brand' => 'Tesla',
+            'model' => 'Model Y',
+            'year' => 2025,
+            'status' => DonorCar::STATUS_AT_STO,
+            'purchase_date' => '2026-04-01',
+        ]);
+        $warehouse = Warehouse::query()->create([
+            'name' => 'Edit Cell Warehouse',
+            'type' => Warehouse::TYPE_MAIN,
+            'floor_count' => 2,
+            'is_active' => true,
+        ]);
+        $location = Location::query()->create([
+            'warehouse_id' => $warehouse->id,
+            'floor' => 'floor_2',
+            'cell' => 'B-22',
+            'full_code' => 'WH-EDIT-B-22',
+            'is_active' => true,
+        ]);
+        $product = Product::query()->create([
+            'sku' => 'EDIT-CELL-001',
+            'external_sku' => 'EDIT-CELL-001',
+            'name' => 'Edit cell donor part',
+            'slug' => 'edit-cell-donor-part',
+            'donor_car_id' => $donorCar->id,
+            'storage_status' => Product::STORAGE_STATUS_ON_DONOR,
+            'condition_type' => 'used',
+            'testing_status' => 'not_tested',
+            'unit' => 'pcs',
+            'selling_price' => 120,
+            'currency' => 'USD',
+            'is_active' => true,
+        ]);
+        $checked = "\u{0411}\u{0435}\u{0437} \u{043F}\u{043E}\u{0432}\u{0440}\u{0435}\u{0436}\u{0434}\u{0435}\u{043D}\u{0438}\u{0439}";
+
+        $this->actingAs($user)
+            ->get(route('admin.mobile.donor-cars.products.edit', [$donorCar, $product]))
+            ->assertOk()
+            ->assertSee('data-mobile-edit-damage-select', false)
+            ->assertSee('data-mobile-edit-placement', false)
+            ->assertSee('data-mobile-edit-warehouse-select', false)
+            ->assertSee('data-mobile-edit-location-select', false)
+            ->assertSee('updateEditPlacement', false);
+
+        $this->actingAs($user)
+            ->patch(route('admin.mobile.donor-cars.products.update', [$donorCar, $product]), [
+                'external_sku' => 'EDIT-CELL-001',
+                'damage_note' => $checked,
+                'warehouse_id' => $warehouse->id,
+                'floor' => 'floor_2',
+                'location_id' => $location->id,
+            ])
+            ->assertRedirect(route('admin.mobile.donor-cars.products.edit', [$donorCar, $product]));
+
+        $product->refresh();
+        $this->assertSame($checked, $product->notes);
+        $this->assertSame(Product::STORAGE_STATUS_IN_STOCK, $product->storage_status);
+        $this->assertDatabaseHas('stock_items', [
+            'product_id' => $product->id,
+            'warehouse_id' => $warehouse->id,
+            'location_id' => $location->id,
+            'quantity' => 1,
+        ]);
+
+        $this->actingAs($user)
+            ->get(route('admin.mobile.donor-cars.products.edit', [$donorCar, $product]))
+            ->assertOk()
+            ->assertSee('data-selected-warehouse="'.$warehouse->id.'"', false)
+            ->assertSee('data-selected-floor="floor_2"', false)
+            ->assertSee('data-selected-location="'.$location->id.'"', false);
+    }
     public function test_mobile_donor_part_without_edit_suffix_returns_not_found(): void
     {
         $user = User::factory()->create([

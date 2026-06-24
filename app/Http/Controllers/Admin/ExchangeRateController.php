@@ -14,6 +14,7 @@ class ExchangeRateController extends Controller
     public function index(ExchangeRateService $exchangeRateService): View
     {
         $today = Carbon::today();
+        $todaySource = $exchangeRateService->officialSourceForDate($today);
         $fetchError = null;
 
         try {
@@ -27,13 +28,13 @@ class ExchangeRateController extends Controller
 
         $todayRate = ExchangeRate::query()
             ->where('currency', 'USD')
-            ->where('source', 'nbu')
+            ->where('source', $todaySource)
             ->whereDate('rate_date', $today->toDateString())
             ->first();
 
         $effectiveRate = $todayRate ?? ExchangeRate::query()
             ->where('currency', 'USD')
-            ->where('source', 'nbu')
+            ->whereIn('source', $exchangeRateService->officialSources())
             ->whereDate('rate_date', '<=', $today->toDateString())
             ->latest('rate_date')
             ->latest()
@@ -45,7 +46,7 @@ class ExchangeRateController extends Controller
             'effectiveRate' => $effectiveRate,
             'fetchError' => $fetchError,
             'exchangeRates' => ExchangeRate::query()
-                ->where('source', 'nbu')
+                ->whereIn('source', $exchangeRateService->officialSources())
                 ->latest('rate_date')
                 ->latest()
                 ->paginate(60),

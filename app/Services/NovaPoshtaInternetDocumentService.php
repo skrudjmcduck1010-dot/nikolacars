@@ -4,11 +4,14 @@ namespace App\Services;
 
 use App\Models\CustomerOrder;
 use App\Models\CustomerOrderShipment;
+use App\Support\CatalogTextEncoding;
 use Illuminate\Support\Facades\Http;
 use RuntimeException;
 
 class NovaPoshtaInternetDocumentService
 {
+    protected const DEFAULT_CARGO_DESCRIPTION = "\u{0430}\u{0432}\u{0442}\u{043E}\u{0437}\u{0430}\u{043F}\u{0447}\u{0430}\u{0441}\u{0442}\u{0438}\u{043D}\u{0438}";
+
     public function create(CustomerOrder $order, CustomerOrderShipment $shipment): array
     {
         $config = $this->requiredConfig();
@@ -54,19 +57,97 @@ class NovaPoshtaInternetDocumentService
 
     public function labelPdf(CustomerOrderShipment $shipment): string
     {
+        $body = $this->printDocument($shipment, 'pdf');
+
+        if (! str_starts_with(ltrim($body), '%PDF-')) {
+            throw new RuntimeException('Nova Poshta label API did not return a PDF document.');
+        }
+
+        return $body;
+    }
+
+    public function labelHtml(CustomerOrderShipment $shipment): string
+    {
+        $body = $this->printDocument($shipment, 'html');
+
+        if (trim($body) === '') {
+            throw new RuntimeException('Nova Poshta label API returned an empty HTML document.');
+        }
+
+        if ($this->looksLikeMissingPrintDocumentPage($body)) {
+            throw new RuntimeException('Nova Poshta did not find a printable document for this TTN.');
+        }
+
+        return $body;
+    }
+
+    public function cabinetPrintUrl(CustomerOrderShipment $shipment, string $type = 'html'): string
+    {
+        $trackingNumber = trim((string) $shipment->tracking_number);
+
+        if ($trackingNumber === '') {
+            throw new RuntimeException('TTN number is missing.');
+        }
+
+        return rtrim((string) config('services.nova_poshta.print_url'), '/')
+            .'/orders[]/'.rawurlencode($trackingNumber)
+            .'/type/'.rawurlencode($type);
+    }
+
+    public function resolveDocumentRef(CustomerOrderShipment $shipment, bool $save = false): ?string
+    {
+        $documentRef = trim((string) $shipment->np_ref);
+
+        if ($documentRef !== '') {
+            return $documentRef;
+        }
+
+        $trackingNumber = trim((string) $shipment->tracking_number);
+
+        if ($trackingNumber === '') {
+            throw new RuntimeException('TTN number is missing.');
+        }
+
+        $documentRef = $this->findDocumentRefByTrackingNumber($trackingNumber);
+
+        if ($documentRef !== null && $save && $shipment->exists) {
+            $shipment->forceFill(['np_ref' => $documentRef])->save();
+        }
+
+        return $documentRef;
+    }
+
+    public function findDocumentRefByTrackingNumber(string $trackingNumber): ?string
+    {
         $apiKey = (string) config('services.nova_poshta.api_key');
 
         if ($apiKey === '') {
             throw new RuntimeException('Nova Poshta API key is not configured.');
         }
 
-        if (! $shipment->tracking_number) {
-            throw new RuntimeException('TTN number is missing.');
+        $documentRef = $this->lookupDocumentRefByTrackingNumber(trim($trackingNumber), $apiKey);
+
+        return $documentRef !== '' ? $documentRef : null;
+    }
+
+    private function printDocument(CustomerOrderShipment $shipment, string $type): string
+    {
+        $apiKey = (string) config('services.nova_poshta.api_key');
+
+        if ($apiKey === '') {
+            throw new RuntimeException('Nova Poshta API key is not configured.');
+        }
+
+        $documentRef = $this->printDocumentRef($shipment);
+
+        if ($documentRef === '') {
+            throw new RuntimeException('Новая почта не нашла печатную форму для этой ТТН в текущем API-кабинете. Если ТТН создана вручную или в другом кабинете НП, ее нельзя распечатать через этот API-ключ.');
         }
 
         $url = rtrim((string) config('services.nova_poshta.print_url'), '/')
-            .'/orders[]/'.rawurlencode($shipment->tracking_number)
-            .'/type/pdf/apiKey/'.rawurlencode($apiKey);
+            .'/orders[]/'.rawurlencode($documentRef)
+            .'/type/'.rawurlencode($type).'/apiKey/'.rawurlencode($apiKey)
+            .'/copies/1';
 
         $response = Http::timeout((int) config('services.nova_poshta.timeout', 15))
             ->connectTimeout((int) config('services.nova_poshta.connect_timeout', 30))
@@ -77,6 +158,50 @@ class NovaPoshtaInternetDocumentService
         }
 
         return $response->body();
+    }
+
+    private function printDocumentRef(CustomerOrderShipment $shipment): string
+    {
+        return $this->resolveDocumentRef($shipment, true) ?? '';
+    }
+
+    private function lookupDocumentRefByTrackingNumber(string $trackingNumber, string $apiKey): string
+    {
+        $response = Http::timeout((int) config('services.nova_poshta.timeout', 15))
+            ->connectTimeout((int) config('services.nova_poshta.connect_timeout', 30))
+            ->acceptJson()
+            ->post((string) config('services.nova_poshta.api_url'), [
+                'apiKey' => $apiKey,
+                'modelName' => 'InternetDocument',
+                'calledMethod' => 'getDocumentList',
+                'methodProperties' => [
+                    'IntDocNumber' => $trackingNumber,
+                ],
+            ]);
+
+        if (! $response->ok()) {
+            return '';
+        }
+
+        $body = $response->json();
+
+        if (! is_array($body) || ($body['success'] ?? false) !== true) {
+            return '';
+        }
+
+        $document = collect($body['data'] ?? [])
+            ->first(fn ($document): bool => is_array($document)
+                && trim((string) ($document['Ref'] ?? '')) !== ''
+                && (trim((string) ($document['IntDocNumber'] ?? '')) === '' || trim((string) $document['IntDocNumber']) === $trackingNumber));
+
+        return is_array($document) ? trim((string) ($document['Ref'] ?? '')) : '';
+    }
+
+    private function looksLikeMissingPrintDocumentPage(string $body): bool
+    {
+        return str_contains($body, "\u{0414}\u{043E}\u{043A}\u{0443}\u{043C}\u{0435}\u{043D}\u{0442} \u{043D}\u{0435} \u{0437}\u{043D}\u{0430}\u{0439}\u{0434}\u{0435}\u{043D}\u{043E}")
+            || str_contains($body, "\u{0414}\u{043E}\u{043A}\u{0443}\u{043C}\u{0435}\u{043D}\u{0442} \u{043D}\u{0435} \u{043D}\u{0430}\u{0439}\u{0434}\u{0435}\u{043D}")
+            || str_contains($body, 'document not found');
     }
 
     public function delete(CustomerOrderShipment $shipment): array
@@ -132,6 +257,19 @@ class NovaPoshtaInternetDocumentService
     public function trackingStatusDocument(CustomerOrderShipment $shipment): array
     {
         $body = $this->trackingStatus($shipment, true);
+
+        return $this->trackingStatusFromBody($body);
+    }
+
+    public function trackingStatusNumber(string $trackingNumber, ?string $phone = null): array
+    {
+        $body = $this->trackingStatusByNumber($trackingNumber, $phone, true);
+
+        return $this->trackingStatusFromBody($body);
+    }
+
+    private function trackingStatusFromBody(array $body): array
+    {
         $document = $body['data'][0] ?? null;
 
         if (! is_array($document)) {
@@ -140,7 +278,12 @@ class NovaPoshtaInternetDocumentService
 
         return [
             'status_code' => (string) ($document['StatusCode'] ?? ''),
-            'status' => (string) ($document['Status'] ?? ''),
+            'status' => $this->translatedTrackingStatus((string) ($document['Status'] ?? '')),
+            'status_detail' => $this->translatedTrackingDetail($document),
+            'afterpayment_amount' => $this->trackingMoneyValue($document['AfterpaymentOnGoodsCost'] ?? null),
+            'return_tracking_number' => $this->returnTrackingNumber($document),
+            'return_document_type' => $this->returnDocumentType($document),
+            'return_created_at' => $this->returnCreatedAt($document),
             'raw_response' => $body,
             'document' => $document,
         ];
@@ -165,7 +308,7 @@ class NovaPoshtaInternetDocumentService
             'Weight' => max(0.1, (float) $shipment->weight),
             'ServiceType' => 'WarehouseWarehouse',
             'SeatsAmount' => max(1, (int) $shipment->seats_amount),
-            'Description' => $shipment->cargo_description ?: $config['cargo_description'],
+            'Description' => self::DEFAULT_CARGO_DESCRIPTION,
             'Cost' => max(1, (int) round($declaredCost)),
             'CitySender' => $config['sender_city_ref'],
             'Sender' => $config['sender_ref'],
@@ -222,7 +365,7 @@ class NovaPoshtaInternetDocumentService
             'sender_phone' => (string) config('services.nova_poshta.sender_phone'),
             'payer_type' => (string) config('services.nova_poshta.payer_type', 'Recipient'),
             'payment_method' => (string) config('services.nova_poshta.payment_method', 'Cash'),
-            'cargo_description' => (string) config('services.nova_poshta.cargo_description', 'Auto parts'),
+            'cargo_description' => self::DEFAULT_CARGO_DESCRIPTION,
         ];
 
         foreach (['api_key', 'sender_city_ref', 'sender_ref', 'sender_address_ref', 'sender_contact_ref', 'sender_phone'] as $key) {
@@ -249,6 +392,11 @@ class NovaPoshtaInternetDocumentService
         return $digits;
     }
 
+    private function cargoDescription(?string $description): string
+    {
+        return self::DEFAULT_CARGO_DESCRIPTION;
+    }
+
     private function trackingStatus(CustomerOrderShipment $shipment, bool $throwOnError = false): array
     {
         if (! $shipment->tracking_number) {
@@ -259,10 +407,27 @@ class NovaPoshtaInternetDocumentService
             return [];
         }
 
-        $document = [
-            'DocumentNumber' => $shipment->tracking_number,
-        ];
         $phone = $this->normalizePhone($shipment->recipient_phone);
+
+        return $this->trackingStatusByNumber($shipment->tracking_number, $phone, $throwOnError);
+    }
+
+    private function trackingStatusByNumber(string $trackingNumber, ?string $phone = null, bool $throwOnError = false): array
+    {
+        $trackingNumber = trim($trackingNumber);
+
+        if ($trackingNumber === '') {
+            if ($throwOnError) {
+                throw new RuntimeException('TTN number is missing.');
+            }
+
+            return [];
+        }
+
+        $document = [
+            'DocumentNumber' => $trackingNumber,
+        ];
+        $phone = $this->normalizePhone($phone);
 
         if ($phone !== '') {
             $document['Phone'] = $phone;
@@ -323,6 +488,95 @@ class NovaPoshtaInternetDocumentService
         return $statusCode === '2'
             || str_contains($status, "\u{0432}\u{0438}\u{0434}\u{0430}\u{043B}\u{0435}\u{043D}")
             || str_contains($status, "\u{0443}\u{0434}\u{0430}\u{043B}\u{0435}\u{043D}");
+    }
+
+    private function translatedTrackingStatus(string $status): string
+    {
+        $status = trim($status);
+
+        return match ($status) {
+            "\u{0412}\u{0456}\u{0434}\u{043C}\u{043E}\u{0432}\u{0430} \u{0432}\u{0456}\u{0434} \u{043E}\u{0442}\u{0440}\u{0438}\u{043C}\u{0430}\u{043D}\u{043D}\u{044F}",
+            "\u{0412}\u{0456}\u{0434}\u{043C}\u{043E}\u{0432}\u{0430} \u{0432}\u{0456}\u{0434} \u{0434}\u{043E}\u{0441}\u{0442}\u{0430}\u{0432}\u{043A}\u{0438}" => "\u{041E}\u{0442}\u{043A}\u{0430}\u{0437} \u{043E}\u{0442} \u{0434}\u{043E}\u{0441}\u{0442}\u{0430}\u{0432}\u{043A}\u{0438}",
+            default => $status,
+        };
+    }
+
+    private function translatedTrackingDetail(array $document): ?string
+    {
+        $detail = $this->trackingTextValue($document['UndeliveryReasonsSubtypeDescription'] ?? null);
+
+        if ($detail === '') {
+            $detail = $this->trackingTextValue($document['UndeliveryReasons'] ?? null);
+        }
+
+        if ($detail === '') {
+            return null;
+        }
+
+        return match ($detail) {
+            "\u{0412}\u{0456}\u{0434}\u{043F}\u{0440}\u{0430}\u{0432}\u{043D}\u{0438}\u{043A} \u{0441}\u{043A}\u{0430}\u{0441}\u{0443}\u{0432}\u{0430}\u{0432} \u{0434}\u{043E}\u{0441}\u{0442}\u{0430}\u{0432}\u{043A}\u{0443} \u{0432}\u{0456}\u{0434}\u{043F}\u{0440}\u{0430}\u{0432}\u{043B}\u{0435}\u{043D}\u{043D}\u{044F}" => "\u{041E}\u{0442}\u{043F}\u{0440}\u{0430}\u{0432}\u{0438}\u{0442}\u{0435}\u{043B}\u{044C} \u{043E}\u{0442}\u{043C}\u{0435}\u{043D}\u{0438}\u{043B} \u{0434}\u{043E}\u{0441}\u{0442}\u{0430}\u{0432}\u{043A}\u{0443} \u{043E}\u{0442}\u{043F}\u{0440}\u{0430}\u{0432}\u{043B}\u{0435}\u{043D}\u{0438}\u{044F}",
+            "\u{0412}\u{0456}\u{0434}\u{043C}\u{043E}\u{0432}\u{0430} \u{0432}\u{0456}\u{0434} \u{0434}\u{043E}\u{0441}\u{0442}\u{0430}\u{0432}\u{043A}\u{0438}" => "\u{041E}\u{0442}\u{043A}\u{0430}\u{0437} \u{043E}\u{0442} \u{0434}\u{043E}\u{0441}\u{0442}\u{0430}\u{0432}\u{043A}\u{0438}",
+            default => $detail,
+        };
+    }
+
+    private function trackingTextValue(mixed $value): string
+    {
+        if (is_array($value)) {
+            return trim(collect($value)
+                ->flatten()
+                ->filter(fn (mixed $item): bool => is_scalar($item) && trim((string) $item) !== '')
+                ->map(fn (mixed $item): string => trim((string) $item))
+                ->implode(', '));
+        }
+
+        return is_scalar($value) ? trim((string) $value) : '';
+    }
+
+    private function trackingMoneyValue(mixed $value): ?float
+    {
+        if (! is_scalar($value)) {
+            return null;
+        }
+
+        $value = str_replace(',', '.', trim((string) $value));
+
+        if ($value === '' || ! is_numeric($value)) {
+            return null;
+        }
+
+        return round((float) $value, 2);
+    }
+
+    private function returnTrackingNumber(array $document): ?string
+    {
+        $documentType = $this->returnDocumentType($document);
+
+        if ($documentType !== 'CargoReturn') {
+            return null;
+        }
+
+        $number = trim((string) ($document['LastCreatedOnTheBasisNumber'] ?? ''));
+
+        return $number !== '' ? $number : null;
+    }
+
+    private function returnDocumentType(array $document): ?string
+    {
+        $type = trim((string) ($document['LastCreatedOnTheBasisDocumentType'] ?? ''));
+
+        return $type !== '' ? $type : null;
+    }
+
+    private function returnCreatedAt(array $document): ?string
+    {
+        if ($this->returnTrackingNumber($document) === null) {
+            return null;
+        }
+
+        $date = trim((string) ($document['LastCreatedOnTheBasisDateTime'] ?? ''));
+
+        return $date !== '' ? $date : null;
     }
 
     private function apiMessage(array $body): string

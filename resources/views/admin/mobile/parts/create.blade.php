@@ -6,7 +6,7 @@
 @section('content')
     <section class="panel">
         <div class="donor-card__top">
-            <div>
+            <div data-cell-wrap>
                 <div class="donor-card__vin">{{ $donorCar->vin }}</div>
                 <div class="donor-card__meta">
                     {{ collect([$donorCar->brand, $donorCar->display_model, $donorCar->year])->filter()->join(' ') }}
@@ -21,10 +21,22 @@
         @csrf
 
         <section class="panel form-grid">
-            <div class="autocomplete" data-part-search-url="{{ route('admin.mobile.donor-cars.products.search', $donorCar) }}">
-                <label for="part-name">Название запчасти</label>
-                <input id="part-name" name="name" value="{{ old('name') }}" required autocomplete="off" autofocus data-part-name-input>
+            <div class="autocomplete" data-part-search-url="{{ route('admin.mobile.donor-cars.products.search', $donorCar) }}" data-catalog-source="tesla_official">
+                <label for="part-external-sku">Артикул</label>
+                <input id="part-external-sku" name="external_sku" value="{{ old('external_sku') }}" autocomplete="off" autofocus data-part-article-input>
                 <div class="suggestions" data-part-suggestions hidden></div>
+            </div>
+
+            <input id="part-name" type="hidden" name="name" value="{{ old('name') }}" data-part-name-input>
+
+            <div>
+                <label for="part-name-ru">Название RU</label>
+                <input id="part-name-ru" name="name_ru" value="{{ old('name_ru') }}" autocomplete="off">
+            </div>
+
+            <div>
+                <label for="part-name-ua">Название УКР</label>
+                <input id="part-name-ua" name="name_ua" value="{{ old('name_ua') }}" autocomplete="off">
             </div>
 
             <div>
@@ -51,7 +63,7 @@
                         <button type="button" class="btn-block" data-open-camera>Сделать фото</button>
                         <button type="button" class="btn-secondary btn-block" data-open-gallery>Галерея</button>
                     </div>
-                    <div class="help">Можно добавить до 5 фото. Нажимайте “Сделать фото” несколько раз, чтобы снять разные ракурсы.</div>
+                    <div class="help">Можно добавить до 5 фото. Нажимайте "Сделать фото" несколько раз, чтобы снять разные ракурсы.</div>
                     <div class="photo-preview-grid" data-photo-preview hidden></div>
                 </div>
             </div>
@@ -61,10 +73,6 @@
                 <input id="part-price" type="number" step="0.01" min="0" name="selling_price" value="{{ old('selling_price') }}" inputmode="decimal">
             </div>
 
-            <div>
-                <label for="part-external-sku">Артикул</label>
-                <input id="part-external-sku" name="external_sku" value="{{ old('external_sku') }}" autocomplete="off">
-            </div>
 
             <div>
                 <label for="part-description">Описание</label>
@@ -78,7 +86,7 @@
                 <select id="warehouse-id" name="warehouse_id" required data-warehouse-select data-selected-warehouse="{{ old('warehouse_id') }}">
                     <option value="">Выберите склад</option>
                     @foreach($warehouses as $warehouse)
-                        <option value="{{ $warehouse->id }}" data-floor-count="{{ $warehouse->floor_count }}" @selected(old('warehouse_id') == $warehouse->id)>{{ $warehouse->name }}</option>
+                        <option value="{{ $warehouse->id }}" data-floor-count="{{ $warehouse->floor_count }}" data-structured-locations="{{ $warehouse->usesStructuredLocations() ? '1' : '0' }}" @selected(old('warehouse_id') == $warehouse->id)>{{ $warehouse->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -124,8 +132,11 @@
             const warehouseSelect = document.querySelector('[data-warehouse-select]');
             const floorWrap = document.querySelector('[data-floor-wrap]');
             const floorSelect = document.querySelector('[data-floor-select]');
+            const cellWrap = document.querySelector('[data-cell-wrap]');
+            const cellInput = document.querySelector('#location-cell');
             const searchRoot = document.querySelector('[data-part-search-url]');
-            const nameInput = searchRoot?.querySelector('[data-part-name-input]');
+            const articleInput = searchRoot?.querySelector('[data-part-article-input]');
+            const nameInput = document.querySelector('[data-part-name-input]');
             const suggestions = searchRoot?.querySelector('[data-part-suggestions]');
             const savedWarehouseKey = 'mobilePartWarehouseId';
             let searchTimeout = null;
@@ -145,6 +156,34 @@
                 field.dispatchEvent(new Event('change', { bubbles: true }));
             };
 
+            const normalizedArticle = (value) => String(value || '').trim().replace(/[\s-]+/g, '').toUpperCase();
+
+            const applySuggestion = (item, overwrite = false) => {
+                const selectedName = String(item.name_en || item.name || item.name_ua || item.name_ru || item.external_sku || '').trim();
+
+                if (selectedName !== '' && nameInput && (overwrite || !nameInput.value)) {
+                    nameInput.value = selectedName;
+                    nameInput.dispatchEvent(new Event('change', { bubbles: true }));
+                }
+
+                setField('name_ru', item.name_ru, overwrite);
+                setField('name_ua', item.name_ua, overwrite);
+                setField('external_sku', item.external_sku, overwrite);
+                setField('damage_note', item.notes, overwrite);
+                setField('color', item.color, overwrite);
+                setField('description', item.description, overwrite);
+                setField('selling_price', item.selling_price, overwrite);
+                setField('notes', item.notes);
+            };
+
+            const applyExactArticleMatch = (items, query) => {
+                const normalizedQuery = normalizedArticle(query);
+                if (normalizedQuery === '') return;
+
+                const exactItem = items.find((item) => normalizedArticle(item.external_sku) === normalizedQuery);
+                if (exactItem) applySuggestion(exactItem);
+            };
+
             const renderSuggestions = (items) => {
                 if (!suggestions) return;
 
@@ -162,20 +201,7 @@
                 const selectSuggestion = (item, event) => {
                     event?.preventDefault();
                     event?.stopPropagation();
-
-                    const selectedName = String(item.name || '').trim();
-
-                    if (selectedName !== '') {
-                        nameInput.value = selectedName;
-                        nameInput.dispatchEvent(new Event('change', { bubbles: true }));
-                    }
-
-                    setField('external_sku', item.external_sku, true);
-                    setField('damage_note', item.notes, true);
-                    setField('color', item.color, true);
-                    setField('description', item.description, true);
-                    setField('selling_price', item.selling_price, true);
-                    setField('notes', item.notes);
+                    applySuggestion(item, true);
                     hideSuggestions();
                 };
 
@@ -187,8 +213,17 @@
                         <span class="suggestion__title"></span>
                         <span class="suggestion__meta"></span>
                     `;
-                    button.querySelector('.suggestion__title').textContent = item.name;
-                    button.querySelector('.suggestion__meta').textContent = item.meta || (item.type === 'donor' ? 'Уже был у донора' : 'Каталог');
+                    const localizedTitle = [item.name_ru, item.name_ua]
+                        .map((value) => String(value || '').trim())
+                        .filter(Boolean)
+                        .filter((value, index, values) => values.indexOf(value) === index)
+                        .join(' / ');
+                    const fallbackTitle = item.name_ru || item.name_ua || item.name_en || item.name || item.external_sku;
+                    const articleMeta = item.external_sku ? `Артикул: ${item.external_sku}` : null;
+                    const sourceMeta = item.meta || (item.type === 'tesla_official' ? 'Tesla.com' : 'Каталог');
+
+                    button.querySelector('.suggestion__title').textContent = localizedTitle || fallbackTitle;
+                    button.querySelector('.suggestion__meta').textContent = [articleMeta, sourceMeta].filter(Boolean).join(' · ');
                     button.addEventListener('pointerdown', (event) => selectSuggestion(item, event));
                     button.addEventListener('touchstart', (event) => selectSuggestion(item, event), { passive: false });
                     button.addEventListener('click', (event) => selectSuggestion(item, event));
@@ -198,8 +233,8 @@
                 suggestions.hidden = false;
             };
 
-            nameInput?.addEventListener('input', () => {
-                const query = nameInput.value.trim();
+            articleInput?.addEventListener('input', () => {
+                const query = articleInput.value.trim();
                 clearTimeout(searchTimeout);
 
                 if (query.length < 2) {
@@ -212,13 +247,16 @@
                     searchController = new AbortController();
 
                     try {
-                        const response = await fetch(`${searchRoot.dataset.partSearchUrl}?q=${encodeURIComponent(query)}`, {
+                        const sourceParam = searchRoot.dataset.catalogSource ? `&source=${encodeURIComponent(searchRoot.dataset.catalogSource)}` : '';
+                        const response = await fetch(`${searchRoot.dataset.partSearchUrl}?q=${encodeURIComponent(query)}${sourceParam}`, {
                             headers: { Accept: 'application/json' },
                             signal: searchController.signal,
                         });
 
                         if (!response.ok) return;
-                        renderSuggestions(await response.json());
+                        const items = await response.json();
+                        applyExactArticleMatch(items, query);
+                        renderSuggestions(items);
                     } catch (error) {
                         if (error.name !== 'AbortError') hideSuggestions();
                     }
@@ -229,7 +267,7 @@
                 if (searchRoot && !searchRoot.contains(event.target)) hideSuggestions();
             });
 
-            nameInput?.addEventListener('keydown', (event) => {
+            articleInput?.addEventListener('keydown', (event) => {
                 if (event.key === 'Escape') hideSuggestions();
             });
 
@@ -318,11 +356,23 @@
                 if (!warehouseSelect || !floorWrap || !floorSelect) return;
 
                 const selectedOption = warehouseSelect.options[warehouseSelect.selectedIndex];
-                const floorCount = Math.max(1, Number(selectedOption?.dataset.floorCount || 1));
+                const usesStructuredLocations = selectedOption?.dataset.structuredLocations !== '0';
+                const floorCount = usesStructuredLocations ? Math.max(1, Number(selectedOption?.dataset.floorCount || 1)) : 1;
                 const selectedFloor = floorSelect.dataset.selectedFloor || 'floor_1';
 
-                floorWrap.hidden = floorCount === 1;
-                floorSelect.disabled = floorCount === 1;
+                floorWrap.hidden = !usesStructuredLocations || floorCount === 1;
+                floorSelect.disabled = !usesStructuredLocations || floorCount === 1;
+
+                if (cellWrap) {
+                    cellWrap.hidden = !usesStructuredLocations;
+                }
+
+                if (cellInput) {
+                    cellInput.disabled = !usesStructuredLocations;
+                    if (!usesStructuredLocations) {
+                        cellInput.value = '';
+                    }
+                }
 
                 Array.from(floorSelect.options).forEach((option) => {
                     const floorNumber = Number(option.value.replace('floor_', ''));

@@ -14,6 +14,13 @@
     $paymentSubmitLabel = $hasPaymentSubmitLabel ? $paymentSubmitLabel : "\u{041F}\u{043E}\u{0434}\u{0442}\u{0432}\u{0435}\u{0440}\u{0434}\u{0438}\u{0442}\u{044C} \u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0443}";
     $paymentAutofill = $paymentAutofill ?? true;
     $paymentRequiresFullAmount = $paymentRequiresFullAmount ?? true;
+    $paymentTypes = $paymentTypes ?? collect(\App\Models\CustomerOrder::PAYMENT_TYPE_LABELS)
+        ->except([
+            \App\Models\CustomerOrder::PAYMENT_TYPE_PROM,
+            \App\Models\CustomerOrder::PAYMENT_TYPE_BANK_FOP_AFTERPAYMENT,
+        ])
+        ->all();
+    $paymentFixedAmounts = $paymentFixedAmounts ?? [];
 @endphp
 
 <dialog class="modal" id="{{ $paymentDialogId }}">
@@ -86,8 +93,8 @@
                 <label>
                     Тип оплаты
                     <select name="payments[0][payment_type]" required data-payment-type>
-                        @foreach(\App\Models\CustomerOrder::PAYMENT_TYPE_LABELS as $paymentType => $paymentLabel)
-                            <option value="{{ $paymentType }}">{{ $paymentLabel }}</option>
+                        @foreach($paymentTypes as $paymentType => $paymentLabel)
+                            <option value="{{ $paymentType }}" data-fixed-amount="{{ $paymentFixedAmounts[$paymentType] ?? '' }}">{{ $paymentLabel }}</option>
                         @endforeach
                     </select>
                 </label>
@@ -126,8 +133,8 @@
                 <label>
                     Тип оплаты
                     <select required data-payment-type>
-                        @foreach(\App\Models\CustomerOrder::PAYMENT_TYPE_LABELS as $paymentType => $paymentLabel)
-                            <option value="{{ $paymentType }}">{{ $paymentLabel }}</option>
+                        @foreach($paymentTypes as $paymentType => $paymentLabel)
+                            <option value="{{ $paymentType }}" data-fixed-amount="{{ $paymentFixedAmounts[$paymentType] ?? '' }}">{{ $paymentLabel }}</option>
                         @endforeach
                     </select>
                 </label>

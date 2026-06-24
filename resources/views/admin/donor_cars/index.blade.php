@@ -72,12 +72,17 @@
             .donor-parts-search label { font-weight: 700; }
             .donor-parts-search input { width: 100%; }
             .donor-parts-search__results { position: absolute; top: calc(100% + 6px); left: 0; right: 0; z-index: 20; display: grid; max-height: 360px; overflow: auto; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 18px 45px rgba(15, 23, 42, .16); }
-            .donor-parts-search__item { display: grid; gap: 4px; padding: 11px 12px; color: inherit; text-align: left; text-decoration: none; border-bottom: 1px solid var(--line); background: transparent; }
+            .donor-parts-search__item { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 10px; align-items: center; padding: 9px 12px; color: inherit; text-align: left; text-decoration: none; border-bottom: 1px solid var(--line); background: transparent; }
             .donor-parts-search__item:hover,
             .donor-parts-search__item:focus { background: var(--accent-soft); outline: none; }
             .donor-parts-search__item:last-child { border-bottom: 0; }
+            .donor-parts-search__thumb { display: grid; place-items: center; width: 56px; height: 42px; overflow: hidden; border: 1px solid var(--line); border-radius: 6px; background: var(--accent-soft); color: var(--muted); font-size: 10px; font-weight: 700; line-height: 1.1; text-align: center; }
+            .donor-parts-search__thumb img { width: 100%; height: 100%; object-fit: cover; }
+            .donor-parts-search__body { display: grid; min-width: 0; gap: 4px; }
             .donor-parts-search__title { font-weight: 700; }
             .donor-parts-search__status { justify-self: start; padding: 2px 8px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-size: 12px; font-weight: 700; line-height: 1.35; }
+            .donor-parts-search__status--unknown { background: #fff3cd; color: #866000; }
+            .donor-parts-search__status--sold { background: #dbeafe; color: #1d4ed8; }
             .donor-parts-search__meta { color: var(--muted); font-size: 12px; line-height: 1.35; }
             .donor-parts-search__empty { padding: 11px 12px; color: var(--muted); font-size: 13px; }
             .donor-cars-table th { line-height: 1.25; }
@@ -262,6 +267,23 @@
                     link.className = 'donor-parts-search__item';
                     link.href = item.url || '#';
 
+                    const thumb = document.createElement('span');
+                    thumb.className = 'donor-parts-search__thumb';
+
+                    if (item.donor_photo_url) {
+                        const image = document.createElement('img');
+                        image.src = item.donor_photo_url;
+                        image.alt = item.donor ? `\u041f\u0440\u0435\u0432\u044c\u044e ${item.donor}` : '\u041f\u0440\u0435\u0432\u044c\u044e \u0434\u043e\u043d\u043e\u0440\u0430';
+                        image.loading = 'lazy';
+                        image.decoding = 'async';
+                        thumb.appendChild(image);
+                    } else {
+                        thumb.textContent = '\u041d\u0435\u0442 \u0444\u043e\u0442\u043e';
+                    }
+
+                    const body = document.createElement('span');
+                    body.className = 'donor-parts-search__body';
+
                     const title = document.createElement('span');
                     title.className = 'donor-parts-search__title';
                     title.textContent = item.name || item.part_number || '-';
@@ -270,12 +292,15 @@
                     status.className = 'donor-parts-search__status';
                     status.textContent = item.status || '';
                     status.hidden = !item.status;
+                    status.classList.toggle('donor-parts-search__status--unknown', String(item.status || '').trim() === '\u041d\u0435\u0438\u0437\u0432\u0435\u0441\u0442\u043d\u043e');
+                    status.classList.toggle('donor-parts-search__status--sold', String(item.status || '').trim() === '\u041f\u0440\u043e\u0434\u0430\u043d');
 
                     const meta = document.createElement('span');
                     meta.className = 'donor-parts-search__meta';
                     meta.textContent = item.meta || item.donor || '\u00a0';
 
-                    link.append(title, status, meta);
+                    body.append(title, status, meta);
+                    link.append(thumb, body);
                     results.appendChild(link);
                 });
 

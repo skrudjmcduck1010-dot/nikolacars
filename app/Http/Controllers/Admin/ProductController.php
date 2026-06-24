@@ -676,7 +676,48 @@ class ProductController extends Controller
             ->with('status', "\u{041F}\u{043E}\u{0440}\u{044F}\u{0434}\u{043E}\u{043A} \u{0444}\u{043E}\u{0442}\u{043E} \u{043E}\u{0431}\u{043D}\u{043E}\u{0432}\u{043B}\u{0435}\u{043D}.");
     }
 
-    public function edit(Product $product): View
+    public function rotatePhoto(Request $request, Product $product): RedirectResponse|JsonResponse
+    {
+        abort_if($this->isSoldProduct($product), 422, 'Проданную запчасть нельзя изменять.');
+
+        $validated = $request->validate([
+            'photo' => ['required', 'string'],
+            'degrees' => ['nullable', 'integer', Rule::in([90, 180, 270])],
+        ]);
+        $photo = trim($validated['photo']);
+        $photoPath = $this->normalizedPublicPhotoPath($photo);
+        $degrees = (int) ($validated['degrees'] ?? 90);
+
+        if ($photoPath === null || $this->isProtectedProductPhoto($photoPath)) {
+            throw ValidationException::withMessages([
+                'photo' => "\u{042D}\u{0442}\u{043E} \u{0444}\u{043E}\u{0442}\u{043E} \u{043D}\u{0435}\u{043B}\u{044C}\u{0437}\u{044F} \u{043F}\u{043E}\u{0432}\u{0435}\u{0440}\u{043D}\u{0443}\u{0442}\u{044C} \u{0438}\u{0437} \u{043A}\u{0430}\u{0440}\u{0442}\u{043E}\u{0447}\u{043A}\u{0438}.",
+            ]);
+        }
+
+        $currentPhotos = $this->productPhotoPaths($product);
+
+        if (! $currentPhotos->contains($photoPath)) {
+            throw ValidationException::withMessages([
+                'photo' => "\u{0424}\u{043E}\u{0442}\u{043E} \u{043D}\u{0435} \u{043D}\u{0430}\u{0439}\u{0434}\u{0435}\u{043D}\u{043E}.",
+            ]);
+        }
+
+        $this->rotateStoredProductPhoto($photoPath, $degrees);
+
+        $updatedAt = Storage::disk('public')->lastModified($photoPath);
+        $url = Storage::disk('public')->url($photoPath).'?v='.$updatedAt;
+
+        if ($request->expectsJson()) {
+            return response()->json([
+                'photo' => $photoPath,
+                'url' => $url,
+            ]);
+        }
+
+        return redirect()
+            ->route('admin.products.show', $product)
+            ->with('status', "\u{0424}\u{043E}\u{0442}\u{043E} \u{043F}\u{043E}\u{0432}\u{0435}\u{0440}\u{043D}\u{0443}\u{0442}\u{043E}.");
+    }    public function edit(Product $product): View
     {
         abort_if($this->isSoldProduct($product), 422, 'Проданную запчасть нельзя изменять.');
 
@@ -792,6 +833,102 @@ class ProductController extends Controller
         ];
     }
 
+    protected function normalizedPublicPhotoPath(string $path): ?string
+    {
+        $path = trim($path);
+
+        if ($path === '') {
+            return null;
+        }
+
+        $urlPath = parse_url($path, PHP_URL_PATH);
+
+        if (is_string($urlPath) && $urlPath !== '') {
+            $path = rawurldecode($urlPath);
+        }
+
+        $path = str_replace('\\', '/', $path);
+        $path = preg_replace('#^.*?/public/storage/#', '', $path) ?? $path;
+        $path = preg_replace('#^.*?/storage/app/public/#', '', $path) ?? $path;
+        $path = ltrim($path, '/');
+
+        foreach (['storage/', 'public/storage/'] as $prefix) {
+            if (Str::startsWith($path, $prefix)) {
+                $path = Str::after($path, $prefix);
+            }
+        }
+
+        return $path !== '' ? $path : null;
+    }
+    protected function rotateStoredProductPhoto(string $path, int $degrees): void
+    {
+        $disk = Storage::disk('public');
+
+        if (! function_exists('imagerotate')) {
+            throw ValidationException::withMessages([
+                'photo' => "\u{041D}\u{0430} \u{0441}\u{0435}\u{0440}\u{0432}\u{0435}\u{0440}\u{0435} \u{043D}\u{0435} \u{0432}\u{043A}\u{043B}\u{044E}\u{0447}\u{0435}\u{043D}\u{0430} \u{043E}\u{0431}\u{0440}\u{0430}\u{0431}\u{043E}\u{0442}\u{043A}\u{0430} \u{0438}\u{0437}\u{043E}\u{0431}\u{0440}\u{0430}\u{0436}\u{0435}\u{043D}\u{0438}\u{0439}.",
+            ]);
+        }
+
+        if (! $disk->exists($path)) {
+            throw ValidationException::withMessages([
+                'photo' => "\u{0424}\u{0430}\u{0439}\u{043B} \u{0444}\u{043E}\u{0442}\u{043E} \u{043D}\u{0435} \u{043D}\u{0430}\u{0439}\u{0434}\u{0435}\u{043D} \u{0432} \u{0445}\u{0440}\u{0430}\u{043D}\u{0438}\u{043B}\u{0438}\u{0449}\u{0435}.",
+            ]);
+        }
+
+        $fullPath = $disk->path($path);
+        $imageType = @exif_imagetype($fullPath);
+
+        if (! in_array($imageType, [IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_WEBP], true)) {
+            throw ValidationException::withMessages([
+                'photo' => "\u{042D}\u{0442}\u{043E}\u{0442} \u{0444}\u{043E}\u{0440}\u{043C}\u{0430}\u{0442} \u{0444}\u{043E}\u{0442}\u{043E} \u{043D}\u{0435} \u{043F}\u{043E}\u{0434}\u{0434}\u{0435}\u{0440}\u{0436}\u{0438}\u{0432}\u{0430}\u{0435}\u{0442} \u{043F}\u{043E}\u{0432}\u{043E}\u{0440}\u{043E}\u{0442}.",
+            ]);
+        }
+
+        $source = match ($imageType) {
+            IMAGETYPE_JPEG => function_exists('imagecreatefromjpeg') ? @imagecreatefromjpeg($fullPath) : false,
+            IMAGETYPE_PNG => function_exists('imagecreatefrompng') ? @imagecreatefrompng($fullPath) : false,
+            IMAGETYPE_WEBP => function_exists('imagecreatefromwebp') ? @imagecreatefromwebp($fullPath) : false,
+            default => false,
+        };
+
+        if (! $source) {
+            throw ValidationException::withMessages([
+                'photo' => "\u{0424}\u{043E}\u{0442}\u{043E} \u{043D}\u{0435} \u{0443}\u{0434}\u{0430}\u{043B}\u{043E}\u{0441}\u{044C} \u{043E}\u{0442}\u{043A}\u{0440}\u{044B}\u{0442}\u{044C} \u{0434}\u{043B}\u{044F} \u{043F}\u{043E}\u{0432}\u{043E}\u{0440}\u{043E}\u{0442}\u{0430}.",
+            ]);
+        }
+
+        $background = $imageType === IMAGETYPE_JPEG
+            ? imagecolorallocate($source, 255, 255, 255)
+            : imagecolorallocatealpha($source, 0, 0, 0, 127);
+        $rotated = imagerotate($source, -$degrees, $background);
+        imagedestroy($source);
+
+        if (! $rotated) {
+            throw ValidationException::withMessages([
+                'photo' => "\u{0424}\u{043E}\u{0442}\u{043E} \u{043D}\u{0435} \u{0443}\u{0434}\u{0430}\u{043B}\u{043E}\u{0441}\u{044C} \u{043F}\u{043E}\u{0432}\u{0435}\u{0440}\u{043D}\u{0443}\u{0442}\u{044C}.",
+            ]);
+        }
+
+        if ($imageType !== IMAGETYPE_JPEG) {
+            imagealphablending($rotated, false);
+            imagesavealpha($rotated, true);
+        }
+
+        $saved = match ($imageType) {
+            IMAGETYPE_JPEG => imagejpeg($rotated, $fullPath, 90),
+            IMAGETYPE_PNG => imagepng($rotated, $fullPath),
+            IMAGETYPE_WEBP => function_exists('imagewebp') && imagewebp($rotated, $fullPath, 90),
+            default => false,
+        };
+        imagedestroy($rotated);
+
+        if (! $saved) {
+            throw ValidationException::withMessages([
+                'photo' => "\u{0424}\u{043E}\u{0442}\u{043E} \u{043D}\u{0435} \u{0443}\u{0434}\u{0430}\u{043B}\u{043E}\u{0441}\u{044C} \u{0441}\u{043E}\u{0445}\u{0440}\u{0430}\u{043D}\u{0438}\u{0442}\u{044C}.",
+            ]);
+        }
+    }
     protected function isSoldProduct(Product $product): bool
     {
         return $product->storage_status === Product::STORAGE_STATUS_SOLD;

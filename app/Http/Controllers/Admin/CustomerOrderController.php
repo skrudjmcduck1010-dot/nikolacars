@@ -29,6 +29,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
@@ -37,20 +38,26 @@ use RuntimeException;
 
 class CustomerOrderController extends Controller
 {
+    protected const NOVA_POSHTA_AFTERPAYMENT_COMMISSION_RATE = 0.005;
+
     public function index(Request $request, ExchangeRateService $exchangeRateService): View
     {
         $query = trim((string) $request->query('q', ''));
         $tab = $request->query('tab') === 'cancelled' ? 'cancelled' : 'active';
         $paymentUsdRate = $exchangeRateService->currentUsdRate();
         $ordersQuery = CustomerOrder::query()
-            ->with(['counterparty', 'creator.stoEmployee', 'novaPoshtaShipment', 'items.partCatalogItem', 'items.product.sourcePartCatalogItem'])
+            ->with(['counterparty', 'creator.stoEmployee', 'novaPoshtaShipment', 'novaPoshtaShipments.items', 'items.partCatalogItem', 'items.product.sourcePartCatalogItem', 'historyEvents'])
             ->when($query !== '', fn (Builder $builder) => $this->applySearch($builder, $query));
         $orders = (clone $ordersQuery)
             ->when(
                 $tab === 'cancelled',
-                fn (Builder $builder) => $builder->where('status', CustomerOrder::STATUS_CANCELLED),
+                fn (Builder $builder) => $builder->whereIn('status', [
+                    CustomerOrder::STATUS_CANCELLED,
+                    CustomerOrder::STATUS_REFUSED,
+                ]),
                 fn (Builder $builder) => $builder->whereNotIn('status', [
                     CustomerOrder::STATUS_CANCELLED,
+                    CustomerOrder::STATUS_REFUSED,
                     CustomerOrder::STATUS_COMPLETED,
                 ])->where(function (Builder $builder): void {
                     $builder
@@ -62,6 +69,13 @@ class CustomerOrderController extends Controller
                         ->where('status', '!=', CustomerOrder::STATUS_SHIPPED)
                         ->orWhere('delivery_method', '!=', CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA)
                         ->orWhereNull('delivery_method');
+                })->where(function (Builder $builder): void {
+                    $builder->whereNot(function (Builder $builder): void {
+                        $builder
+                            ->where('status', CustomerOrder::STATUS_ASSEMBLED)
+                            ->where('delivery_method', CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA)
+                            ->whereHas('novaPoshtaShipment', fn (Builder $builder) => $this->whereNovaPoshtaShipmentMeansShipped($builder));
+                    });
                 }),
             )
             ->orderByDesc('id')
@@ -69,7 +83,25 @@ class CustomerOrderController extends Controller
             ->withQueryString();
         $shippedNovaPoshtaOrders = $tab === 'active'
             ? (clone $ordersQuery)
-                ->where('status', CustomerOrder::STATUS_SHIPPED)
+                ->where('delivery_method', CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA)
+                ->where(function (Builder $builder): void {
+                    $builder
+                        ->where('status', CustomerOrder::STATUS_SHIPPED)
+                        ->orWhere(function (Builder $builder): void {
+                            $builder
+                                ->where('status', CustomerOrder::STATUS_ASSEMBLED)
+                                ->whereHas('novaPoshtaShipment', fn (Builder $builder) => $this->whereNovaPoshtaShipmentMeansShipped($builder));
+                        });
+                })
+                ->whereDoesntHave('novaPoshtaShipment', fn (Builder $builder) => $builder
+                    ->where('np_status_code', CustomerOrder::NOVA_POSHTA_STATUS_RECEIVED))
+                ->orderByDesc('id')
+                ->limit(30)
+                ->get()
+            : collect();
+        $refusedNovaPoshtaOrders = $tab === 'active'
+            ? (clone $ordersQuery)
+                ->where('status', CustomerOrder::STATUS_REFUSED)
                 ->where('delivery_method', CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA)
                 ->orderByDesc('id')
                 ->limit(30)
@@ -77,13 +109,23 @@ class CustomerOrderController extends Controller
             : collect();
         $completedOrders = $tab === 'active'
             ? (clone $ordersQuery)
-                ->issuedToClient()
+                ->where(function (Builder $builder): void {
+                    $builder
+                        ->issuedToClient()
+                        ->orWhere(function (Builder $builder): void {
+                            $builder
+                                ->where('delivery_method', CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA)
+                                ->whereHas('novaPoshtaShipment', fn (Builder $builder) => $builder
+                                    ->where('np_status_code', CustomerOrder::NOVA_POSHTA_STATUS_RECEIVED));
+                        });
+                })
                 ->orderByDesc('id')
                 ->limit(30)
                 ->get()
             : collect();
         $ordersForTotals = $orders->getCollection()
             ->concat($shippedNovaPoshtaOrders)
+            ->concat($refusedNovaPoshtaOrders)
             ->concat($completedOrders);
         $orderUsdRates = $ordersForTotals
             ->mapWithKeys(fn (CustomerOrder $order): array => [
@@ -93,6 +135,7 @@ class CustomerOrderController extends Controller
         return view('admin.customer_orders.index', [
             'orders' => $orders,
             'shippedNovaPoshtaOrders' => $shippedNovaPoshtaOrders,
+            'refusedNovaPoshtaOrders' => $refusedNovaPoshtaOrders,
             'completedOrders' => $completedOrders,
             'usdRate' => $paymentUsdRate,
             'customerOrderCashSummary' => $this->customerOrderCashSummary(),
@@ -109,9 +152,29 @@ class CustomerOrderController extends Controller
         ]);
     }
 
+    protected function whereNovaPoshtaShipmentMeansShipped(Builder $builder): void
+    {
+        $builder->where(function (Builder $builder): void {
+            $builder
+                ->whereIn('np_status_code', ['5', '6', '7', '8', '41', '101'])
+                ->orWhere(function (Builder $builder): void {
+                    $builder
+                        ->where('np_status', 'like', '%Відправлення у м.%')
+                        ->where('np_status', 'not like', '%Очікує відправлення%')
+                        ->where('np_status', 'not like', '%Ожидает отправ%');
+                })
+                ->orWhere(function (Builder $builder): void {
+                    $builder
+                        ->where('np_status', 'like', '%Відправлення у місті%')
+                        ->where('np_status', 'not like', '%Очікує відправлення%')
+                        ->where('np_status', 'not like', '%Ожидает отправ%');
+                });
+        });
+    }
+
     public function show(CustomerOrder $customerOrder, ExchangeRateService $exchangeRateService): View
     {
-        $order = $customerOrder->load(['counterparty', 'creator.stoEmployee', 'novaPoshtaShipment', 'items.partCatalogItem', 'items.product.sourcePartCatalogItem', 'historyEvents.user']);
+        $order = $customerOrder->load(['counterparty', 'creator.stoEmployee', 'novaPoshtaShipment', 'novaPoshtaShipments.items', 'items.partCatalogItem', 'items.product.sourcePartCatalogItem', 'historyEvents.user']);
         $orderUsdRate = $this->customerOrderUsdRate($order, $exchangeRateService);
         $paymentUsdRate = $exchangeRateService->currentUsdRate();
 
@@ -284,11 +347,224 @@ class CustomerOrderController extends Controller
             ->with('status', "\u{041F}\u{0440}\u{0438}\u{043C}\u{0435}\u{0447}\u{0430}\u{043D}\u{0438}\u{0435} \u{0441}\u{043E}\u{0445}\u{0440}\u{0430}\u{043D}\u{0435}\u{043D}\u{043E}.");
     }
 
+    public function updateNovaPoshtaTrackingNumber(
+        Request $request,
+        CustomerOrder $customerOrder,
+        CustomerOrderNovaPoshtaStatusSyncService $syncService,
+    ): JsonResponse
+    {
+        if ($customerOrder->delivery_method !== CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA) {
+            throw ValidationException::withMessages([
+                'tracking_number' => "\u{0422}\u{0422}\u{041D} \u{043C}\u{043E}\u{0436}\u{043D}\u{043E} \u{043C}\u{0435}\u{043D}\u{044F}\u{0442}\u{044C} \u{0442}\u{043E}\u{043B}\u{044C}\u{043A}\u{043E} \u{0434}\u{043B}\u{044F} \u{0437}\u{0430}\u{043A}\u{0430}\u{0437}\u{043E}\u{0432} \u{041D}\u{043E}\u{0432}\u{043E}\u{0439} \u{043F}\u{043E}\u{0447}\u{0442}\u{044B}.",
+            ]);
+        }
+
+        $customerOrder->loadMissing('novaPoshtaShipment');
+
+        if (! $customerOrder->canUpdateNovaPoshtaTrackingNumber()) {
+            throw ValidationException::withMessages([
+                'tracking_number' => "\u{0422}\u{0422}\u{041D} \u{043D}\u{0435}\u{043B}\u{044C}\u{0437}\u{044F} \u{0438}\u{0437}\u{043C}\u{0435}\u{043D}\u{0438}\u{0442}\u{044C} \u{0434}\u{043B}\u{044F} \u{044D}\u{0442}\u{043E}\u{0433}\u{043E} \u{0441}\u{0442}\u{0430}\u{0442}\u{0443}\u{0441}\u{0430} \u{0437}\u{0430}\u{043A}\u{0430}\u{0437}\u{0430}.",
+            ]);
+        }
+
+        $validated = $request->validate([
+            'tracking_number' => ['required', 'string', 'max:64', 'regex:/^[0-9A-Za-z\-\s]+$/u'],
+        ]);
+
+        $shipment = $customerOrder->novaPoshtaShipment;
+
+        if (! $shipment instanceof CustomerOrderShipment || ! $shipment->tracking_number) {
+            throw ValidationException::withMessages([
+                'tracking_number' => "\u{0423} \u{0437}\u{0430}\u{043A}\u{0430}\u{0437}\u{0430} \u{0435}\u{0449}\u{0451} \u{043D}\u{0435}\u{0442} \u{0422}\u{0422}\u{041D} \u{041D}\u{043E}\u{0432}\u{043E}\u{0439} \u{043F}\u{043E}\u{0447}\u{0442}\u{044B}.",
+            ]);
+        }
+
+        $oldTrackingNumber = (string) $shipment->tracking_number;
+        $newTrackingNumber = preg_replace('/\s+/', '', trim((string) $validated['tracking_number'])) ?: '';
+
+        if ($newTrackingNumber === '') {
+            throw ValidationException::withMessages([
+                'tracking_number' => "\u{0423}\u{043A}\u{0430}\u{0436}\u{0438}\u{0442}\u{0435} \u{043D}\u{043E}\u{043C}\u{0435}\u{0440} \u{0422}\u{0422}\u{041D}.",
+            ]);
+        }
+
+        if ($oldTrackingNumber !== $newTrackingNumber) {
+            $shipment->forceFill([
+                'tracking_number' => $newTrackingNumber,
+                'np_ref' => null,
+                'np_status_code' => null,
+                'np_status' => null,
+                'np_status_detail' => null,
+                'np_status_checked_at' => null,
+                'label_url' => null,
+                'error_message' => null,
+            ])->save();
+
+            $this->recordCustomerOrderHistoryEvent(
+                $customerOrder,
+                'nova_poshta_ttn_updated',
+                "\u{0422}\u{0422}\u{041D} \u{041D}\u{043E}\u{0432}\u{043E}\u{0439} \u{043F}\u{043E}\u{0447}\u{0442}\u{044B} \u{0438}\u{0437}\u{043C}\u{0435}\u{043D}\u{0435}\u{043D}\u{0430}",
+                $oldTrackingNumber.' -> '.$newTrackingNumber,
+                ['tracking_number' => $oldTrackingNumber],
+                ['tracking_number' => $newTrackingNumber],
+            );
+
+            $syncService->syncOrder($customerOrder);
+        }
+
+        $customerOrder->refresh()->load(['novaPoshtaShipment', 'novaPoshtaShipments']);
+        $shipment = $customerOrder->novaPoshtaShipment;
+        $orderAfterpaymentAmount = $this->customerOrderNovaPoshtaAfterpaymentAmount($customerOrder);
+
+        return response()->json([
+            'shipment_id' => $shipment->id,
+            'tracking_number' => $shipment->tracking_number,
+            'tracking_url' => $shipment->tracking_url,
+            'label_url' => route('admin.customer-orders.nova-poshta.label', [$customerOrder, 'shipment' => $shipment->id]),
+            'np_status_code' => $shipment->np_status_code,
+            'np_status' => $shipment->np_status,
+            'afterpayment_amount' => (float) $shipment->afterpayment_amount,
+            'afterpayment_text' => $this->formatCustomerOrderMoney((float) $shipment->afterpayment_amount, 'UAH'),
+            'afterpayment_warning' => $orderAfterpaymentAmount > 0
+                && round($orderAfterpaymentAmount + (float) $customerOrder->paid_amount_uah, 2) < round((float) $customerOrder->total_amount, 2),
+            'order_status' => $customerOrder->status,
+            'display_status' => $this->customerOrderDisplayStatusLabel($customerOrder),
+            'display_status_class' => $this->customerOrderDisplayStatusClass($customerOrder),
+            'message' => "\u{0422}\u{0422}\u{041D} \u{0441}\u{043E}\u{0445}\u{0440}\u{0430}\u{043D}\u{0435}\u{043D}\u{0430}.",
+        ]);
+    }
+
+    public function storeNovaPoshtaTrackingNumber(
+        Request $request,
+        CustomerOrder $customerOrder,
+        NovaPoshtaInternetDocumentService $novaPoshtaService,
+    ): JsonResponse {
+        if ($customerOrder->delivery_method !== CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA) {
+            throw ValidationException::withMessages([
+                'tracking_number' => "\u{0422}\u{0422}\u{041D} \u{043C}\u{043E}\u{0436}\u{043D}\u{043E} \u{0434}\u{043E}\u{0431}\u{0430}\u{0432}\u{043B}\u{044F}\u{0442}\u{044C} \u{0442}\u{043E}\u{043B}\u{044C}\u{043A}\u{043E} \u{0434}\u{043B}\u{044F} \u{0437}\u{0430}\u{043A}\u{0430}\u{0437}\u{043E}\u{0432} \u{041D}\u{043E}\u{0432}\u{043E}\u{0439} \u{043F}\u{043E}\u{0447}\u{0442}\u{044B}.",
+            ]);
+        }
+
+        $customerOrder->loadMissing('novaPoshtaShipment');
+
+        if (! $customerOrder->canAddNovaPoshtaTrackingNumber()) {
+            throw ValidationException::withMessages([
+                'tracking_number' => "\u{0422}\u{0422}\u{041D} \u{043D}\u{0435}\u{043B}\u{044C}\u{0437}\u{044F} \u{0434}\u{043E}\u{0431}\u{0430}\u{0432}\u{0438}\u{0442}\u{044C} \u{0434}\u{043B}\u{044F} \u{044D}\u{0442}\u{043E}\u{0433}\u{043E} \u{0441}\u{0442}\u{0430}\u{0442}\u{0443}\u{0441}\u{0430} \u{0437}\u{0430}\u{043A}\u{0430}\u{0437}\u{0430}.",
+            ]);
+        }
+
+        $validated = $request->validate([
+            'tracking_number' => ['required', 'string', 'max:64', 'regex:/^[0-9A-Za-z\-\s]+$/u'],
+            'item_ids' => ['required', 'array', 'min:1'],
+            'item_ids.*' => ['integer'],
+        ]);
+
+        $trackingNumber = preg_replace('/\s+/', '', trim((string) $validated['tracking_number'])) ?: '';
+
+        if ($trackingNumber === '') {
+            throw ValidationException::withMessages([
+                'tracking_number' => "\u{0423}\u{043A}\u{0430}\u{0436}\u{0438}\u{0442}\u{0435} \u{043D}\u{043E}\u{043C}\u{0435}\u{0440} \u{0422}\u{0422}\u{041D}.",
+            ]);
+        }
+
+        if ($customerOrder->novaPoshtaShipments()->where('tracking_number', $trackingNumber)->exists()) {
+            throw ValidationException::withMessages([
+                'tracking_number' => "\u{042D}\u{0442}\u{0430} \u{0422}\u{0422}\u{041D} \u{0443}\u{0436}\u{0435} \u{0435}\u{0441}\u{0442}\u{044C} \u{0432} \u{0437}\u{0430}\u{043A}\u{0430}\u{0437}\u{0435}.",
+            ]);
+        }
+
+        $itemIds = collect($validated['item_ids'])
+            ->map(fn ($id): int => (int) $id)
+            ->filter(fn (int $id): bool => $id > 0)
+            ->unique()
+            ->values();
+
+        $validItemIds = $customerOrder->items()
+            ->whereIn('id', $itemIds)
+            ->pluck('id')
+            ->map(fn ($id): int => (int) $id)
+            ->values();
+
+        if ($itemIds->isEmpty() || $validItemIds->count() !== $itemIds->count()) {
+            throw ValidationException::withMessages([
+                'item_ids' => "\u{0412}\u{044B}\u{0431}\u{0435}\u{0440}\u{0438}\u{0442}\u{0435} \u{0437}\u{0430}\u{043F}\u{0447}\u{0430}\u{0441}\u{0442}\u{0438} \u{044D}\u{0442}\u{043E}\u{0433}\u{043E} \u{0437}\u{0430}\u{043A}\u{0430}\u{0437}\u{0430}.",
+            ]);
+        }
+
+        $sourceShipment = $customerOrder->novaPoshtaShipment()->first();
+
+        $shipment = $customerOrder->shipments()->create([
+            'carrier' => CustomerOrderShipment::CARRIER_NOVA_POSHTA,
+            'status' => CustomerOrderShipment::STATUS_CREATED,
+            'recipient_city_name' => $sourceShipment?->recipient_city_name,
+            'recipient_warehouse_name' => $sourceShipment?->recipient_warehouse_name,
+            'recipient_warehouse_ref' => $sourceShipment?->recipient_warehouse_ref,
+            'recipient_name' => $sourceShipment?->recipient_name ?: $customerOrder->client_name,
+            'recipient_phone' => $sourceShipment?->recipient_phone ?: $customerOrder->client_phone,
+            'payer_type' => $sourceShipment?->payer_type ?: 'Recipient',
+            'payment_method' => $sourceShipment?->payment_method ?: 'Cash',
+            'seats_amount' => $sourceShipment?->seats_amount ?: 1,
+            'weight' => $sourceShipment?->weight ?: 1,
+            'length_cm' => $sourceShipment?->length_cm,
+            'width_cm' => $sourceShipment?->width_cm,
+            'height_cm' => $sourceShipment?->height_cm,
+            'declared_cost' => 0,
+            'afterpayment_amount' => 0,
+            'cargo_description' => $sourceShipment?->cargo_description,
+            'tracking_number' => $trackingNumber,
+        ]);
+
+        try {
+            $status = $novaPoshtaService->trackingStatusNumber($trackingNumber, $shipment->recipient_phone);
+
+            $shipment->forceFill([
+                'np_status_code' => $status['status_code'] !== '' ? $status['status_code'] : null,
+                'np_status' => $status['status'] !== '' ? $status['status'] : null,
+                'np_status_detail' => ($status['status_detail'] ?? '') !== '' ? $status['status_detail'] : null,
+                'afterpayment_amount' => $status['afterpayment_amount'] ?? 0,
+                'np_status_checked_at' => now(),
+                'raw_response' => $status['raw_response'],
+                'error_message' => null,
+            ])->save();
+        } catch (RuntimeException $exception) {
+            $shipment->forceFill([
+                'error_message' => $exception->getMessage(),
+            ])->save();
+        }
+
+        $this->syncCustomerOrderShipmentItems($customerOrder, $shipment, $validItemIds);
+
+        $this->recordCustomerOrderHistoryEvent(
+            $customerOrder,
+            'nova_poshta_ttn_added',
+            "\u{0414}\u{043E}\u{0431}\u{0430}\u{0432}\u{043B}\u{0435}\u{043D}\u{0430} \u{0422}\u{0422}\u{041D} \u{041D}\u{043E}\u{0432}\u{043E}\u{0439} \u{043F}\u{043E}\u{0447}\u{0442}\u{044B}",
+            $trackingNumber,
+            [],
+            [
+                'tracking_number' => $trackingNumber,
+                'item_ids' => $validItemIds->all(),
+            ],
+        );
+
+        return response()->json([
+            'message' => "\u{0422}\u{0422}\u{041D} \u{0434}\u{043E}\u{0431}\u{0430}\u{0432}\u{043B}\u{0435}\u{043D}\u{0430}.",
+            'reload' => true,
+        ]);
+    }
+
     public function printNovaPoshtaLabel(
+        Request $request,
         CustomerOrder $customerOrder,
         NovaPoshtaInternetDocumentService $novaPoshtaService,
     ): Response|RedirectResponse {
-        $shipment = $customerOrder->novaPoshtaShipment()->first();
+        $shipmentId = $request->integer('shipment');
+        $shipmentQuery = $customerOrder->novaPoshtaShipments()
+            ->whereNotNull('tracking_number')
+            ->where('tracking_number', '!=', '');
+
+        $shipment = $shipmentId > 0
+            ? (clone $shipmentQuery)->whereKey($shipmentId)->first()
+            : $shipmentQuery->first();
 
         if (! $shipment instanceof CustomerOrderShipment || ! $shipment->tracking_number) {
             abort(404);
@@ -296,16 +572,23 @@ class CustomerOrderController extends Controller
 
         try {
             $pdf = $novaPoshtaService->labelPdf($shipment);
-        } catch (RuntimeException $exception) {
-            return redirect()
-                ->route('admin.customer-orders.show', $customerOrder)
-                ->withErrors(['nova_poshta' => $exception->getMessage()]);
-        }
 
-        return response($pdf, 200, [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'inline; filename="nova-poshta-'.$shipment->tracking_number.'.pdf"',
-        ]);
+            return response($pdf, 200, [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="nova-poshta-'.$shipment->tracking_number.'.pdf"',
+            ]);
+        } catch (RuntimeException $pdfException) {
+            try {
+                $html = $novaPoshtaService->labelHtml($shipment);
+
+                return response($html, 200, [
+                    'Content-Type' => 'text/html; charset=UTF-8',
+                    'Content-Disposition' => 'inline; filename="nova-poshta-'.$shipment->tracking_number.'.html"',
+                ]);
+            } catch (RuntimeException) {
+                return redirect()->away($novaPoshtaService->cabinetPrintUrl($shipment));
+            }
+        }
     }
 
     public function syncNovaPoshtaStatus(
@@ -758,6 +1041,7 @@ class CustomerOrderController extends Controller
                 'paid_cash_usd' => (float) $customerOrder->paid_cash_usd,
                 'paid_bank_tov_uah' => (float) $customerOrder->paid_bank_tov_uah,
                 'paid_bank_fop_uah' => (float) $customerOrder->paid_bank_fop_uah,
+                'paid_prom_uah' => (float) $customerOrder->paid_prom_uah,
                 'paid_amount_uah' => (float) $customerOrder->paid_amount_uah,
             ];
             $nextStatus = $customerOrder->status;
@@ -778,6 +1062,7 @@ class CustomerOrderController extends Controller
                 'paid_cash_usd' => 0,
                 'paid_bank_tov_uah' => 0,
                 'paid_bank_fop_uah' => 0,
+                'paid_prom_uah' => 0,
                 'paid_amount_uah' => 0,
                 'payment_confirmed_at' => null,
             ])->save();
@@ -851,6 +1136,7 @@ class CustomerOrderController extends Controller
                 'paid_cash_usd' => (float) $customerOrder->paid_cash_usd,
                 'paid_bank_tov_uah' => (float) $customerOrder->paid_bank_tov_uah,
                 'paid_bank_fop_uah' => (float) $customerOrder->paid_bank_fop_uah,
+                'paid_prom_uah' => (float) $customerOrder->paid_prom_uah,
                 'paid_amount_uah' => (float) $customerOrder->paid_amount_uah,
             ];
 
@@ -858,12 +1144,15 @@ class CustomerOrderController extends Controller
             $paidCashUsd = (float) $customerOrder->paid_cash_usd;
             $paidBankTovUah = (float) $customerOrder->paid_bank_tov_uah;
             $paidBankFopUah = (float) $customerOrder->paid_bank_fop_uah;
+            $paidPromUah = (float) $customerOrder->paid_prom_uah;
 
             match ($paymentType) {
                 CustomerOrder::PAYMENT_TYPE_CASH_UAH => $paidCashUah = max(0, round($paidCashUah - $receivedAmount, 2)),
                 CustomerOrder::PAYMENT_TYPE_CASH_USD => $paidCashUsd = max(0, round($paidCashUsd - $receivedAmount, 2)),
                 CustomerOrder::PAYMENT_TYPE_BANK_TOV => $paidBankTovUah = max(0, round($paidBankTovUah - $receivedAmount, 2)),
-                CustomerOrder::PAYMENT_TYPE_BANK_FOP => $paidBankFopUah = max(0, round($paidBankFopUah - $receivedAmount, 2)),
+                CustomerOrder::PAYMENT_TYPE_BANK_FOP,
+                CustomerOrder::PAYMENT_TYPE_BANK_FOP_AFTERPAYMENT => $paidBankFopUah = max(0, round($paidBankFopUah - $receivedAmount, 2)),
+                CustomerOrder::PAYMENT_TYPE_PROM => $paidPromUah = max(0, round($paidPromUah - $receivedAmount, 2)),
             };
 
             $paidAmountUah = max(0, round((float) $customerOrder->paid_amount_uah - $receivedAmountUah, 2));
@@ -872,6 +1161,7 @@ class CustomerOrderController extends Controller
                 CustomerOrder::PAYMENT_TYPE_CASH_USD => $paidCashUsd,
                 CustomerOrder::PAYMENT_TYPE_BANK_TOV => $paidBankTovUah,
                 CustomerOrder::PAYMENT_TYPE_BANK_FOP => $paidBankFopUah,
+                CustomerOrder::PAYMENT_TYPE_PROM => $paidPromUah,
             ])->filter(fn (float $amount): bool => $amount > 0);
             $lastPaymentType = $paymentSnapshot->keys()->last();
             $lastPaymentAmount = $lastPaymentType !== null ? (float) $paymentSnapshot->last() : 0.0;
@@ -895,6 +1185,7 @@ class CustomerOrderController extends Controller
                 'paid_cash_usd' => $paidCashUsd,
                 'paid_bank_tov_uah' => $paidBankTovUah,
                 'paid_bank_fop_uah' => $paidBankFopUah,
+                'paid_prom_uah' => $paidPromUah,
                 'paid_amount_uah' => $paidAmountUah,
                 'payment_confirmed_at' => $paidAmountUah >= round((float) $customerOrder->total_amount, 2)
                     ? $customerOrder->payment_confirmed_at
@@ -974,6 +1265,29 @@ class CustomerOrderController extends Controller
             ]);
         }
 
+        $usesPromPayment = $paymentParts->contains(
+            fn (array $paymentPart): bool => $paymentPart['payment_type'] === CustomerOrder::PAYMENT_TYPE_PROM,
+        );
+        $usesBankFopAfterpayment = $paymentParts->contains(
+            fn (array $paymentPart): bool => $paymentPart['payment_type'] === CustomerOrder::PAYMENT_TYPE_BANK_FOP_AFTERPAYMENT,
+        );
+
+        if ($usesPromPayment && (
+            $requireFullPayment
+            || $customerOrder->delivery_method !== CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA
+            || $paymentParts->count() !== 1
+        )) {
+            throw ValidationException::withMessages([
+                'payments' => "\u{0050}\u{0072}\u{006F}\u{006D}-\u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{0430} \u{0434}\u{043E}\u{0441}\u{0442}\u{0443}\u{043F}\u{043D}\u{0430} \u{0442}\u{043E}\u{043B}\u{044C}\u{043A}\u{043E} \u{0434}\u{043B}\u{044F} \u{043F}\u{0440}\u{0435}\u{0434}\u{043E}\u{043F}\u{043B}\u{0430}\u{0442}\u{044B} \u{0437}\u{0430}\u{043A}\u{0430}\u{0437}\u{0430} \u{041D}\u{043E}\u{0432}\u{043E}\u{0439} \u{043F}\u{043E}\u{0447}\u{0442}\u{043E}\u{0439}.",
+            ]);
+        }
+
+        if ($usesBankFopAfterpayment && $customerOrder->delivery_method !== CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA) {
+            throw ValidationException::withMessages([
+                'payments' => "\u{041D}\u{0430}\u{043B}\u{043E}\u{0436}\u{0435}\u{043D}\u{043D}\u{044B}\u{0439} \u{043F}\u{043B}\u{0430}\u{0442}\u{0435}\u{0436} \u{0434}\u{043E}\u{0441}\u{0442}\u{0443}\u{043F}\u{0435}\u{043D} \u{0442}\u{043E}\u{043B}\u{044C}\u{043A}\u{043E} \u{0434}\u{043B}\u{044F} \u{0437}\u{0430}\u{043A}\u{0430}\u{0437}\u{043E}\u{0432} \u{041D}\u{043E}\u{0432}\u{043E}\u{0439} \u{043F}\u{043E}\u{0447}\u{0442}\u{043E}\u{0439}.",
+            ]);
+        }
+
         $customerOrder->loadMissing('items');
         $totalAmountUah = $this->customerOrderTotalAmountUah(
             $customerOrder,
@@ -984,6 +1298,16 @@ class CustomerOrderController extends Controller
         $paymentDueUsd = $this->customerOrderPaymentDueUsd($customerOrder, $paymentDueUah, $currentUsdRate);
         $paymentUsdRate = $this->customerOrderPaymentConversionUsdRate($customerOrder, $paymentDueUah, $paymentDueUsd, $currentUsdRate);
         $rate = (float) ($paymentUsdRate['rate'] ?? 0);
+
+        if ($usesPromPayment) {
+            $paymentParts = $paymentParts->map(function (array $paymentPart) use ($paymentDueUah): array {
+                if ($paymentPart['payment_type'] === CustomerOrder::PAYMENT_TYPE_PROM) {
+                    $paymentPart['received_amount'] = $paymentDueUah;
+                }
+
+                return $paymentPart;
+            });
+        }
 
         if ($paymentParts->contains(fn (array $paymentPart): bool => $paymentPart['payment_type'] === CustomerOrder::PAYMENT_TYPE_CASH_USD) && $rate <= 0) {
             throw ValidationException::withMessages([
@@ -1047,7 +1371,10 @@ class CustomerOrderController extends Controller
                 'paid_cash_uah' => round((float) $customerOrder->paid_cash_uah + $paymentParts->where('payment_type', CustomerOrder::PAYMENT_TYPE_CASH_UAH)->sum('received_amount'), 2),
                 'paid_cash_usd' => round((float) $customerOrder->paid_cash_usd + $paymentParts->where('payment_type', CustomerOrder::PAYMENT_TYPE_CASH_USD)->sum('received_amount'), 2),
                 'paid_bank_tov_uah' => round((float) $customerOrder->paid_bank_tov_uah + $paymentParts->where('payment_type', CustomerOrder::PAYMENT_TYPE_BANK_TOV)->sum('received_amount'), 2),
-                'paid_bank_fop_uah' => round((float) $customerOrder->paid_bank_fop_uah + $paymentParts->where('payment_type', CustomerOrder::PAYMENT_TYPE_BANK_FOP)->sum('received_amount'), 2),
+                'paid_bank_fop_uah' => round((float) $customerOrder->paid_bank_fop_uah + $paymentParts
+                    ->whereIn('payment_type', [CustomerOrder::PAYMENT_TYPE_BANK_FOP, CustomerOrder::PAYMENT_TYPE_BANK_FOP_AFTERPAYMENT])
+                    ->sum('received_amount'), 2),
+                'paid_prom_uah' => round((float) $customerOrder->paid_prom_uah + $paymentParts->where('payment_type', CustomerOrder::PAYMENT_TYPE_PROM)->sum('received_amount'), 2),
                 'paid_amount_uah' => $paidAmountUah,
                 'payment_confirmed_at' => $shouldConfirmPayment ? now() : $customerOrder->payment_confirmed_at,
             ])->save();
@@ -1453,6 +1780,11 @@ class CustomerOrderController extends Controller
         try {
             return response()->json($directoryService->cities((string) $request->query('query', '')));
         } catch (RuntimeException $exception) {
+            Log::warning('Nova Poshta city directory request failed.', [
+                'query' => (string) $request->query('query', ''),
+                'message' => $exception->getMessage(),
+            ]);
+
             return response()->json(['message' => $exception->getMessage()], 503);
         }
     }
@@ -1465,6 +1797,12 @@ class CustomerOrderController extends Controller
                 (string) $request->query('query', ''),
             ));
         } catch (RuntimeException $exception) {
+            Log::warning('Nova Poshta warehouse directory request failed.', [
+                'city_ref' => (string) $request->query('city_ref', ''),
+                'query' => (string) $request->query('query', ''),
+                'message' => $exception->getMessage(),
+            ]);
+
             return response()->json(['message' => $exception->getMessage()], 503);
         }
     }
@@ -1751,8 +2089,13 @@ class CustomerOrderController extends Controller
             'payment_method' => (string) config('services.nova_poshta.payment_method', 'Cash'),
             'seats_amount' => max(1, (int) config('services.nova_poshta.default_seats_amount', 1)),
             'weight' => max(0.1, (float) config('services.nova_poshta.default_weight', 1)),
-            'cargo_description' => (string) config('services.nova_poshta.cargo_description', 'Auto parts'),
+            'cargo_description' => $this->novaPoshtaCargoDescription(),
         ];
+    }
+
+    protected function novaPoshtaCargoDescription(): string
+    {
+        return "\u{0430}\u{0432}\u{0442}\u{043E}\u{0437}\u{0430}\u{043F}\u{0447}\u{0430}\u{0441}\u{0442}\u{0438}\u{043D}\u{0438}";
     }
 
     protected function recordCustomerOrderHistoryEvent(
@@ -1845,9 +2188,126 @@ class CustomerOrderController extends Controller
         return rtrim(rtrim(number_format($value, 3, '.', ''), '0'), '.');
     }
 
+    protected function customerOrderNovaPoshtaAfterpaymentAmount(CustomerOrder $order): float
+    {
+        $shipments = $order->relationLoaded('novaPoshtaShipments')
+            ? $order->novaPoshtaShipments
+            : $order->novaPoshtaShipments()->get(['afterpayment_amount']);
+
+        return round($shipments->sum(fn (CustomerOrderShipment $shipment): float => (float) $shipment->afterpayment_amount), 2);
+    }
+
+    protected function syncCustomerOrderShipmentItems(CustomerOrder $order, CustomerOrderShipment $shipment, Collection $itemIds): void
+    {
+        $itemIds = $itemIds
+            ->map(fn ($id): int => (int) $id)
+            ->filter(fn (int $id): bool => $id > 0)
+            ->unique()
+            ->values();
+
+        DB::transaction(function () use ($order, $shipment, $itemIds): void {
+            $shipments = $order->novaPoshtaShipments()
+                ->whereNotNull('tracking_number')
+                ->orderBy('id')
+                ->get();
+
+            $primaryShipment = $shipments->first();
+
+            if (! $primaryShipment instanceof CustomerOrderShipment) {
+                return;
+            }
+
+            if ($itemIds->isNotEmpty()) {
+                DB::table('customer_order_shipment_items')
+                    ->whereIn('customer_order_shipment_id', $shipments->pluck('id')->all())
+                    ->whereIn('customer_order_item_id', $itemIds->all())
+                    ->delete();
+            }
+
+            $shipment->items()->sync($itemIds->all());
+
+            $secondaryAssignedItemIds = DB::table('customer_order_shipment_items')
+                ->whereIn('customer_order_shipment_id', $shipments->where('id', '!=', $primaryShipment->id)->pluck('id')->all())
+                ->pluck('customer_order_item_id')
+                ->map(fn ($id): int => (int) $id)
+                ->unique();
+
+            $primaryItemIds = $order->items()
+                ->pluck('id')
+                ->map(fn ($id): int => (int) $id)
+                ->diff($secondaryAssignedItemIds)
+                ->values();
+
+            $primaryShipment->items()->sync($primaryItemIds->all());
+        });
+    }
+
     protected function customerOrderStatusLabel(?string $status): string
     {
         return CatalogTextEncoding::repair(CustomerOrder::STATUS_LABELS[$status] ?? ($status ?: '-'));
+    }
+
+    protected function customerOrderDisplayStatusLabel(CustomerOrder $order): string
+    {
+        $order->loadMissing('novaPoshtaShipment');
+
+        if (
+            $order->status !== CustomerOrder::STATUS_REFUSED
+            && $order->delivery_method === CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA
+            && $order->novaPoshtaShipment?->np_status
+        ) {
+            return $this->novaPoshtaStatusDisplayLabel((string) $order->novaPoshtaShipment->np_status);
+        }
+
+        return $this->customerOrderStatusLabel($order->status);
+    }
+
+    protected function customerOrderDisplayStatusClass(CustomerOrder $order): string
+    {
+        $order->loadMissing('novaPoshtaShipment');
+
+        if (
+            $order->delivery_method === CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA
+            && $this->novaPoshtaStatusIsSenderCreated($order->novaPoshtaShipment?->np_status)
+        ) {
+            return 'tag-warning';
+        }
+
+        if (
+            $order->delivery_method === CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA
+            && $order->novaPoshtaShipment?->np_status_code === CustomerOrder::NOVA_POSHTA_STATUS_RECEIVED
+        ) {
+            return 'tag-paid';
+        }
+
+        return match ($order->status) {
+            CustomerOrder::STATUS_WAITING_PREPAYMENT,
+            CustomerOrder::STATUS_SHIPPED => 'tag-warning',
+            CustomerOrder::STATUS_CANCELLED,
+            CustomerOrder::STATUS_REFUSED => 'tag-danger',
+            CustomerOrder::STATUS_COMPLETED,
+            CustomerOrder::STATUS_PAID => 'tag-paid',
+            default => '',
+        };
+    }
+
+    protected function novaPoshtaStatusDisplayLabel(?string $status): string
+    {
+        $status = CatalogTextEncoding::repair(trim((string) $status));
+
+        if ($this->novaPoshtaStatusIsSenderCreated($status)) {
+            return "\u{041E}\u{0447}\u{0456}\u{043A}\u{0443}\u{0454} \u{0434}\u{043E}\u{0441}\u{0442}\u{0430}\u{0432}\u{043A}\u{0443} \u{0442}\u{043E}\u{0432}\u{0430}\u{0440}\u{0430} \u{043D}\u{0430} \u{041D}\u{043E}\u{0432}\u{0443} \u{043F}\u{043E}\u{0448}\u{0442}\u{0443}.";
+        }
+
+        return $status;
+    }
+
+    protected function novaPoshtaStatusIsSenderCreated(?string $status): bool
+    {
+        $status = CatalogTextEncoding::repair(trim((string) $status));
+        $senderCreatedInvoiceStatus = "\u{0412}\u{0456}\u{0434}\u{043F}\u{0440}\u{0430}\u{0432}\u{043D}\u{0438}\u{043A} \u{0441}\u{0430}\u{043C}\u{043E}\u{0441}\u{0442}\u{0456}\u{0439}\u{043D}\u{043E} \u{0441}\u{0442}\u{0432}\u{043E}\u{0440}\u{0438}\u{0432} \u{0446}\u{044E} \u{043D}\u{0430}\u{043A}\u{043B}\u{0430}\u{0434}\u{043D}\u{0443}, \u{0430}\u{043B}\u{0435} \u{0449}\u{0435} \u{043D}\u{0435} \u{043D}\u{0430}\u{0434}\u{0430}\u{0432} \u{0434}\u{043E} \u{0432}\u{0456}\u{0434}\u{043F}\u{0440}\u{0430}\u{0432}\u{043A}\u{0438}";
+
+        return $status !== '' && str_contains(mb_strtolower($status), mb_strtolower($senderCreatedInvoiceStatus));
     }
 
     protected function customerOrderDeliveryMethodLabel(?string $deliveryMethod): string
@@ -1967,7 +2427,8 @@ class CustomerOrderController extends Controller
 
         $paidNonUsdUah = (float) $order->paid_cash_uah
             + (float) $order->paid_bank_tov_uah
-            + (float) $order->paid_bank_fop_uah;
+            + (float) $order->paid_bank_fop_uah
+            + (float) $order->paid_prom_uah;
         $paidNonUsd = $rate > 0 ? $paidNonUsdUah / $rate : 0.0;
 
         return max(0, round((float) $order->total_amount_usd_hint - (float) $order->paid_cash_usd - $paidNonUsd, 2));
@@ -1996,7 +2457,10 @@ class CustomerOrderController extends Controller
     protected function customerOrderCashSummary(): array
     {
         $summary = CustomerOrder::query()
-            ->where('status', '!=', CustomerOrder::STATUS_CANCELLED)
+            ->whereNotIn('status', [
+                CustomerOrder::STATUS_CANCELLED,
+                CustomerOrder::STATUS_REFUSED,
+            ])
             ->where(function (Builder $query): void {
                 $query
                     ->where('delivery_method', '!=', CustomerOrder::DELIVERY_METHOD_STO)
@@ -2007,17 +2471,90 @@ class CustomerOrderController extends Controller
             ->selectRaw('COALESCE(SUM(paid_bank_tov_uah), 0) as bank_tov_uah')
             ->selectRaw('COALESCE(SUM(paid_bank_fop_uah), 0) as bank_fop_uah')
             ->first();
+        $bankFopAfterpaymentUah = $this->customerOrderBankFopAfterpaymentTotal();
+        $bankFopAfterpaymentCommissionUah = round($bankFopAfterpaymentUah * self::NOVA_POSHTA_AFTERPAYMENT_COMMISSION_RATE, 2);
+
+        $promUah = CustomerOrder::query()
+            ->issuedToClient()
+            ->where(function (Builder $query): void {
+                $query
+                    ->where('delivery_method', '!=', CustomerOrder::DELIVERY_METHOD_STO)
+                    ->orWhereNull('delivery_method');
+            })
+            ->sum('paid_prom_uah');
+        $promPendingUah = CustomerOrder::query()
+            ->whereNotIn('status', [
+                CustomerOrder::STATUS_CANCELLED,
+                CustomerOrder::STATUS_REFUSED,
+            ])
+            ->where('paid_prom_uah', '>', 0)
+            ->where(function (Builder $query): void {
+                $query
+                    ->where('delivery_method', '!=', CustomerOrder::DELIVERY_METHOD_STO)
+                    ->orWhereNull('delivery_method');
+            })
+            ->where(function (Builder $query): void {
+                $query
+                    ->where('status', '!=', CustomerOrder::STATUS_COMPLETED)
+                    ->where(function (Builder $query): void {
+                        $query
+                            ->where('status', '!=', CustomerOrder::STATUS_PAID)
+                            ->orWhere('delivery_method', '!=', CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA)
+                            ->orWhereNull('delivery_method');
+                    });
+            })
+            ->sum('paid_prom_uah');
 
         return [
             CustomerOrder::PAYMENT_TYPE_CASH_UAH => (float) ($summary?->cash_uah ?? 0),
             CustomerOrder::PAYMENT_TYPE_CASH_USD => (float) ($summary?->cash_usd ?? 0),
             CustomerOrder::PAYMENT_TYPE_BANK_TOV => (float) ($summary?->bank_tov_uah ?? 0),
-            CustomerOrder::PAYMENT_TYPE_BANK_FOP => (float) ($summary?->bank_fop_uah ?? 0),
+            CustomerOrder::PAYMENT_TYPE_BANK_FOP => max(0.0, round((float) ($summary?->bank_fop_uah ?? 0) - $bankFopAfterpaymentCommissionUah, 2)),
+            CustomerOrder::PAYMENT_TYPE_BANK_FOP_AFTERPAYMENT => $bankFopAfterpaymentUah,
+            'bank_fop_afterpayment_commission_uah' => $bankFopAfterpaymentCommissionUah,
+            CustomerOrder::PAYMENT_TYPE_PROM => (float) $promUah,
+            'prom_pending_uah' => (float) $promPendingUah,
             'sto_parts_uah' => (float) CustomerOrder::query()
                 ->where('delivery_method', CustomerOrder::DELIVERY_METHOD_STO)
                 ->where('status', CustomerOrder::STATUS_COMPLETED)
                 ->sum('total_amount'),
         ];
+    }
+
+    protected function customerOrderBankFopAfterpaymentTotal(): float
+    {
+        $events = CustomerOrderHistoryEvent::query()
+            ->whereIn('event_type', ['prepayment_received', 'payment_confirmed'])
+            ->whereHas('order', function (Builder $query): void {
+                $query
+                    ->whereNotIn('status', [
+                        CustomerOrder::STATUS_CANCELLED,
+                        CustomerOrder::STATUS_REFUSED,
+                    ])
+                    ->where(function (Builder $query): void {
+                        $query
+                            ->where('delivery_method', '!=', CustomerOrder::DELIVERY_METHOD_STO)
+                            ->orWhereNull('delivery_method');
+                    });
+            })
+            ->get();
+
+        $deletedEventIds = CustomerOrderHistoryEvent::query()
+            ->where('event_type', 'prepayment_deleted')
+            ->pluck('new_values')
+            ->map(function ($values): int {
+                $values = is_string($values) ? json_decode($values, true) : $values;
+
+                return (int) data_get($values, 'deleted_event_id');
+            })
+            ->filter()
+            ->all();
+
+        return round($events
+            ->filter(fn (CustomerOrderHistoryEvent $event): bool => data_get($event->new_values, 'payment_type') === CustomerOrder::PAYMENT_TYPE_BANK_FOP_AFTERPAYMENT
+                || (bool) data_get($event->new_values, 'is_afterpayment'))
+            ->reject(fn (CustomerOrderHistoryEvent $event): bool => in_array($event->id, $deletedEventIds, true))
+            ->sum(fn (CustomerOrderHistoryEvent $event): float => (float) data_get($event->new_values, 'payment_received_amount_uah', 0)), 2);
     }
 
     protected function refreshCatalogItemReservationProjection(PartCatalogItem $catalogItem): void

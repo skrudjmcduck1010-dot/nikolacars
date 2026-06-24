@@ -126,6 +126,11 @@ class LoginThrottleTest extends TestCase
                 'cc' => 'USD',
                 'rate' => 42.25,
             ]]),
+            'api.monobank.ua/*' => Http::response([[
+                'currencyCodeA' => 840,
+                'currencyCodeB' => 980,
+                'rateSell' => 42.25,
+            ]]),
         ]);
 
         $this

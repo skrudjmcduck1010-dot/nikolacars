@@ -29,15 +29,18 @@ class SyncNovaPoshtaCustomerOrderStatuses extends Command
 
             $status = trim((string) ($result['status'] ?? '')) ?: '-';
             $code = trim((string) ($result['status_code'] ?? '')) ?: '-';
-            $prefix = ($result['shipped'] ?? false) ? 'shipped' : 'checked';
+            $prefix = ($result['refused'] ?? false)
+                ? 'refused'
+                : (($result['shipped'] ?? false) ? 'shipped' : 'checked');
 
             $this->line("Order {$order->number}: {$prefix}, NP {$code} {$status}");
         });
 
         $this->info(sprintf(
-            'Nova Poshta statuses synced. Checked: %d, shipped: %d, skipped: %d, failed: %d.',
+            'Nova Poshta statuses synced. Checked: %d, shipped: %d, refused: %d, skipped: %d, failed: %d.',
             $stats['checked'],
             $stats['shipped'],
+            $stats['refused'],
             $stats['skipped'],
             $stats['failed'],
         ));

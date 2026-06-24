@@ -1,4 +1,4 @@
-@extends('layouts.admin', ['heading' => 'Курсы валют', 'subheading' => 'Ежедневный курс НБУ для отчетов в у.е.'])
+@extends('layouts.admin', ['heading' => 'Курсы валют', 'subheading' => 'Ежедневный официальный курс для отчетов в у.е.'])
 
 @section('content')
     <div class="grid" style="gap:18px;">
@@ -15,7 +15,7 @@
                     </div>
                     @if ($todayRate)
                         <div class="help">
-                            Загружен из НБУ
+                            Загружен из {{ $todayRate->source === 'monobank' ? 'Monobank' : 'НБУ' }}
                             {{ $todayRate->fetched_at?->format('d.m.Y H:i') ? '· '.$todayRate->fetched_at?->format('d.m.Y H:i') : '' }}
                         </div>
                     @elseif ($effectiveRate)
@@ -44,7 +44,7 @@
                         <tr>
                             <th>Дата</th>
                             <th>Валюта</th>
-                            <th>Курс НБУ</th>
+                            <th>Курс</th>
                             <th>Загружен</th>
                         </tr>
                     </thead>

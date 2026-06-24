@@ -120,8 +120,8 @@ class PartCatalogTest extends TestCase
             ->post(route('admin.zapchasti.store'), [
                 'create_nikolacars_part' => '1',
                 'source_type' => 'purchase',
-                'name_ua' => 'РљСЂРёС€РєР° Р±Р°РіР°Р¶РЅРёРєР°',
-                'name_ru' => 'РљСЂС‹С€РєР° Р±Р°РіР°Р¶РЅРёРєР°',
+                'name_ua' => 'Кришка багажника',
+                'name_ru' => 'Крышка багажника',
                 'part_number' => '1034344-20-B',
                 'purchase_price_usd' => '125.50',
                 'selling_price' => '220',
@@ -1082,7 +1082,7 @@ class PartCatalogTest extends TestCase
         $response = $this->actingAs($user)
             ->get(route('admin.zapchasti.index'))
             ->assertOk()
-            ->assertDontSeeText('Р”РѕРЅРѕСЂРѕРІ / СЂР°Р·РґРµР»РѕРІ РќРёРєРѕР»Р°РљР°СЂР·');
+            ->assertDontSeeText('Доноров / разделов НиколаКарз');
 
         $html = $response->getContent();
 
@@ -1204,7 +1204,7 @@ class PartCatalogTest extends TestCase
             'unit' => 'pcs',
             'selling_price' => 100,
             'currency' => 'USD',
-            'notes' => 'РќРµРёР·РІРµСЃС‚РЅРѕ',
+            'notes' => 'Неизвестно',
             'is_auto_generated' => true,
             'is_active' => true,
         ]);
@@ -1253,8 +1253,8 @@ class PartCatalogTest extends TestCase
             'source_url' => 'nikolacars://product/localized-name-column',
             'part_number' => '1002295-00-D',
             'name' => 'Rear bumper bracket Tesla MS 2012 - 2015 1002295-00-D',
-            'name_ru' => 'РљСЂРѕРЅС€С‚РµР№РЅ Р·Р°РґРЅРµРіРѕ Р±Р°РјРїРµСЂР°',
-            'name_ua' => 'РљСЂРѕРЅС€С‚РµР№РЅ Р·Р°РґРЅСЊРѕРіРѕ Р±Р°РјРїРµСЂР°',
+            'name_ru' => 'Кронштейн заднего бампера',
+            'name_ua' => 'Кронштейн заднього бампера',
             'raw_attributes' => [
                 'code' => 'LOCALIZED-NAME',
                 'stock_quantity' => 1,
@@ -1264,9 +1264,9 @@ class PartCatalogTest extends TestCase
         $this->actingAs($user)
             ->get(route('admin.zapchasti.index'))
             ->assertOk()
-            ->assertSeeText('РљСЂРѕРЅС€С‚РµР№РЅ Р·Р°РґРЅСЊРѕРіРѕ Р±Р°РјРїРµСЂР°')
-            ->assertSeeText('РќР°Р·РІР°РЅРёРµ Р РЈ: РљСЂРѕРЅС€С‚РµР№РЅ Р·Р°РґРЅРµРіРѕ Р±Р°РјРїРµСЂР°')
-            ->assertDontSeeText('РќР°Р·РІР°РЅРёРµ РЈРљР :');
+            ->assertSeeText('Кронштейн заднього бампера')
+            ->assertSeeText('Название РУ: Кронштейн заднего бампера')
+            ->assertDontSeeText('Название УКР:');
     }
 
     public function test_nikolacars_catalog_shows_damage_status_changed_user(): void
@@ -1347,7 +1347,7 @@ class PartCatalogTest extends TestCase
         $this->actingAs($user)
             ->get(route('admin.zapchasti.index'))
             ->assertOk()
-            ->assertSeeText('Р”РѕРЅРѕСЂ')
+            ->assertSeeText('Донор')
             ->assertSeeText($donorCar->vin)
             ->assertSeeText('Model Y / 2022');
     }
@@ -1432,6 +1432,7 @@ class PartCatalogTest extends TestCase
 
         Http::fake([
             'bank.gov.ua/*' => fn () => throw new \RuntimeException('NBU unavailable'),
+            'api.monobank.ua/*' => fn () => throw new \RuntimeException('Monobank unavailable'),
         ]);
 
         $item = PartCatalogItem::query()->create([
@@ -1470,6 +1471,7 @@ class PartCatalogTest extends TestCase
 
         Http::fake([
             'bank.gov.ua/*' => fn () => throw new \RuntimeException('NBU unavailable'),
+            'api.monobank.ua/*' => fn () => throw new \RuntimeException('Monobank unavailable'),
         ]);
 
         $first = PartCatalogItem::query()->create([
@@ -1640,7 +1642,7 @@ class PartCatalogTest extends TestCase
         $this->assertStringContainsString('nikolacars-reserved-row', $reservedRow);
         $this->assertStringContainsString('nikolacars-zero-stock-row', $reservedRow);
         $this->assertStringContainsString('nikolacars-reserved-note', $reservedRow);
-        $this->assertStringContainsString('0 С€С‚', $reservedRow);
+        $this->assertStringContainsString('0 шт', $reservedRow);
         $this->assertStringNotContainsString('data-nikolacars-cart-add', $reservedRow);
 
         $this->assertStringContainsString('nikolacars-zero-stock-row', $zeroRow);
@@ -1835,7 +1837,7 @@ class PartCatalogTest extends TestCase
             ->get(route('admin.tesla-official-catalog.show', $item))
             ->assertOk()
             ->assertSee('ASSEMBLY- FRONT RAIL')
-            ->assertSee('РќР° СЃС…РµРјРµ 12');
+            ->assertSee('На схеме 12');
     }
 
     public function test_tesla_official_item_page_does_not_duplicate_scheme_number_from_name(): void
@@ -1907,7 +1909,7 @@ class PartCatalogTest extends TestCase
             ->get(route('admin.tesla-official-catalog.show', $item))
             ->assertOk()
             ->assertSee('ASSEMBLY- FRONT RAIL')
-            ->assertSee('РќР° СЃС…РµРјРµ *');
+            ->assertSee('На схеме *');
     }
 
     public function test_competitor_leaf_categories_without_codes_keep_source_names(): void
@@ -2785,7 +2787,7 @@ class PartCatalogTest extends TestCase
             'source_url' => 'https://parts.tesla.com/en-US/find-part?searchTerm=238322',
             'part_number' => '238322',
             'name' => 'ASY,HVBAT,82KWH',
-            'name_ru' => 'РћСЃРЅРѕРІРЅР°СЏ Р±Р°С‚Р°СЂРµСЏ 82 РєР’С‚',
+            'name_ru' => 'Основная батарея 82 кВт',
             'name_ru_manually_locked_at' => now(),
             'raw_attributes' => [
                 'name_source_site_ru' => 'erazborka.com',
@@ -2796,8 +2798,8 @@ class PartCatalogTest extends TestCase
         $this->actingAs($user)
             ->get(route('admin.tesla-official-catalog.show', $item))
             ->assertOk()
-            ->assertSee('РћСЃРЅРѕРІРЅР°СЏ Р±Р°С‚Р°СЂРµСЏ 82 РєР’С‚')
-            ->assertSee('Р’СЂСѓС‡РЅСѓСЋ')
+            ->assertSee('Основная батарея 82 кВт')
+            ->assertSee('Вручную')
             ->assertDontSee('erazborka.com')
             ->assertDontSee('https://erazborka.com/ua/catalog/main-battery', false);
     }

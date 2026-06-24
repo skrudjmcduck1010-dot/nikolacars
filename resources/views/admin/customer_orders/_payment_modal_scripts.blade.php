@@ -53,10 +53,35 @@
             .filter((row) => row !== exceptRow)
             .map((row) => row.querySelector('[data-payment-type]')?.value)
             .filter(Boolean);
+        const selectedFixedAmount = (row) => {
+            const selectedOption = row.querySelector('[data-payment-type]')?.selectedOptions?.[0];
+            const fixedAmount = selectedOption?.dataset.fixedAmount || '';
+
+            return fixedAmount !== '' ? fixedAmount : null;
+        };
+        const hasFixedAmountRow = () => rows().some((row) => selectedFixedAmount(row) !== null);
         const firstAvailableType = (unavailableTypes) => {
             const option = selectOptions().find((candidate) => !unavailableTypes.includes(candidate.value));
 
             return option?.value || '';
+        };
+
+        const syncFixedAmount = (row) => {
+            const amountInput = row.querySelector('[data-payment-amount]');
+            const fixedAmount = selectedFixedAmount(row);
+
+            if (!amountInput) return;
+
+            if (fixedAmount !== null) {
+                amountInput.value = fixedAmount;
+                amountInput.readOnly = true;
+                amountInput.dataset.paymentAutofill = '1';
+                amountInput.dataset.paymentFixedAmount = '1';
+                return;
+            }
+
+            amountInput.readOnly = false;
+            delete amountInput.dataset.paymentFixedAmount;
         };
 
         const syncPaymentTypes = () => {
@@ -91,7 +116,7 @@
             });
 
             addButtons().forEach((button) => {
-                button.disabled = currentRows.length >= totalTypes;
+                button.disabled = currentRows.length >= totalTypes || hasFixedAmountRow();
             });
         };
 
@@ -186,6 +211,10 @@
             const currentRows = rows();
             const firstAmount = currentRows[0]?.querySelector('[data-payment-amount]');
 
+            if (hasFixedAmountRow()) {
+                return;
+            }
+
             if (currentRows.length === 1 && firstAmount?.dataset.paymentAutofill === '1') {
                 firstAmount.value = '';
                 firstAmount.dataset.paymentAutofill = '0';
@@ -204,7 +233,15 @@
             row.querySelector('[data-payment-type]')?.addEventListener('change', () => {
                 const amountInput = row.querySelector('[data-payment-amount]');
 
-                if (amountInput?.dataset.paymentAutofill === '1') {
+                if (selectedFixedAmount(row) !== null) {
+                    rows()
+                        .filter((candidate) => candidate !== row)
+                        .forEach((candidate) => candidate.remove());
+                }
+
+                syncFixedAmount(row);
+
+                if (amountInput?.dataset.paymentAutofill === '1' && amountInput?.dataset.paymentFixedAmount !== '1') {
                     amountInput.value = suggestedAmountFor(row);
                 }
 
@@ -212,6 +249,12 @@
                 syncPaymentTypes();
             });
             row.querySelector('[data-payment-amount]')?.addEventListener('input', (event) => {
+                if (event.currentTarget.dataset.paymentFixedAmount === '1') {
+                    syncFixedAmount(row);
+                    refreshRemainders();
+                    return;
+                }
+
                 event.currentTarget.dataset.paymentAutofill = '0';
                 event.currentTarget.setCustomValidity('');
                 refreshRemainders();
@@ -225,6 +268,7 @@
         };
 
         rows().forEach(bindRow);
+        rows().forEach(syncFixedAmount);
         syncNames();
         refreshRemainders();
 

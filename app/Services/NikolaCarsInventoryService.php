@@ -711,17 +711,6 @@ class NikolaCarsInventoryService
             return 0.0;
         }
 
-        $availableQuantity = $product->stockItems->sum(function ($stockItem): float {
-            $quantity = (float) $stockItem->quantity;
-            $reserved = (float) $stockItem->reserved_quantity;
-
-            return max(0.0, round($quantity - $reserved, 3));
-        });
-
-        if ($availableQuantity > 0) {
-            return round((float) $availableQuantity, 3);
-        }
-
         return round((float) $product->stockItems->sum('quantity'), 3);
     }
 
