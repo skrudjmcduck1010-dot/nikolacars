@@ -13,7 +13,7 @@ use Illuminate\View\View;
 
 class CashbookLabelController extends Controller
 {
-    private const OLD_REPAIR_MECHANIC_LABELS = ['+', '1', '2'];
+    private const OLD_REPAIR_MECHANIC_LABELS = ['1', '2'];
 
     public function index(): View
     {

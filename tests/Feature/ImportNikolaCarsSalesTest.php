@@ -29,7 +29,7 @@ class ImportNikolaCarsSalesTest extends TestCase
             'source_url' => 'nikolacars://product/726',
             'part_number' => '726',
             'name' => 'Battery assembly',
-            'quality' => 'Р‘РµР· РїРѕРІСЂРµР¶РґРµРЅРёР№',
+            'quality' => $this->u('\u0411\u0435\u0437 \u043f\u043e\u0432\u0440\u0435\u0436\u0434\u0435\u043d\u0438\u0439'),
             'raw_attributes' => [
                 'code' => '726',
                 'donor_vin' => $donorCar->vin,
@@ -51,7 +51,7 @@ class ImportNikolaCarsSalesTest extends TestCase
             'unit' => 'pcs',
             'selling_price' => 5800,
             'currency' => 'USD',
-            'notes' => 'Р‘РµР· РїРѕРІСЂРµР¶РґРµРЅРёР№',
+            'notes' => $this->u('\u0411\u0435\u0437 \u043f\u043e\u0432\u0440\u0435\u0436\u0434\u0435\u043d\u0438\u0439'),
             'is_active' => true,
         ]);
         $warehouse = Warehouse::query()->create([
@@ -85,15 +85,15 @@ class ImportNikolaCarsSalesTest extends TestCase
         }
 
         file_put_contents($csvPath, implode(';', [
-            'Р С™Р С•Р Т‘',
-            'Р СњР В°Р С‘Р СР ВµР Р…Р С•Р Р†Р В°Р Р…Р С‘Р Вµ',
-            'Р С’РЎР‚РЎвЂљР С‘Р С”РЎС“Р В»',
-            'Р С™Р В°РЎвЂљР ВµР С–Р С•РЎР‚Р С‘РЎРЏ',
-            'Р С™Р С•Р В»Р С‘РЎвЂЎР ВµРЎРѓРЎвЂљР Р†Р С•',
-            'Р В¦Р ВµР Р…Р В°',
-            'Р вЂќР В°РЎвЂљР В°',
-            'Р СњР С•Р СР ВµРЎР‚',
-            'Р С™Р С•Р Р…РЎвЂљРЎР‚Р В°Р С–Р ВµР Р…РЎвЂљ',
+            $this->u('\u041a\u043e\u0434'),
+            $this->u('\u041d\u0430\u0438\u043c\u0435\u043d\u043e\u0432\u0430\u043d\u0438\u0435'),
+            $this->u('\u0410\u0440\u0442\u0438\u043a\u0443\u043b'),
+            $this->u('\u041a\u0430\u0442\u0435\u0433\u043e\u0440\u0438\u044f'),
+            $this->u('\u041a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e'),
+            $this->u('\u0426\u0435\u043d\u0430'),
+            $this->u('\u0414\u0430\u0442\u0430'),
+            $this->u('\u041d\u043e\u043c\u0435\u0440'),
+            $this->u('\u041a\u043e\u043d\u0442\u0440\u0430\u0433\u0435\u043d\u0442'),
         ])."\n".implode(';', [
             '726',
             'Battery assembly',
@@ -102,8 +102,8 @@ class ImportNikolaCarsSalesTest extends TestCase
             '1',
             '5 800',
             '11.12.2025 14:06:18',
-            'РќР¤РќР¤-000021',
-            'РџРѕРєСѓРїРµС†СЊ',
+            $this->u('\u041d\u0424\u041d\u0424-000021'),
+            $this->u('\u041f\u043e\u043a\u0443\u043f\u0435\u0446\u044c'),
         ])."\n");
 
         $this->artisan('nikolacars:sales:import', ['path' => $csvPath])
@@ -123,7 +123,7 @@ class ImportNikolaCarsSalesTest extends TestCase
         $this->assertDatabaseHas('part_sales', [
             'source' => 'nikolacars',
             'part_catalog_item_id' => $freshItem->id,
-            'document_number' => 'РќР¤РќР¤-000021',
+            'document_number' => json_decode('"\u041d\u0424\u041d\u0424-000021"', true, 512, JSON_THROW_ON_ERROR),
         ]);
         $this->assertDatabaseHas('movements', [
             'product_id' => $product->id,
@@ -131,7 +131,13 @@ class ImportNikolaCarsSalesTest extends TestCase
             'type' => 'adjustment',
             'quantity' => 1,
             'reason' => 'sold_product_stock_cleanup',
-            'document_number' => 'РќР¤РќР¤-000021',
+            'document_number' => json_decode('"\u041d\u0424\u041d\u0424-000021"', true, 512, JSON_THROW_ON_ERROR),
         ]);
     }
+
+    protected function u(string $value): string
+    {
+        return json_decode('"'.$value.'"', true, 512, JSON_THROW_ON_ERROR);
+    }
+
 }

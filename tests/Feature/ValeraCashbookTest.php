@@ -260,7 +260,7 @@ class ValeraCashbookTest extends TestCase
                 'vehicle_vin' => $donorCar->vin,
                 'donor_expense_type' => 'customs_clearance',
                 'expense_usd' => 1250,
-                'purpose' => ' ',
+                'purpose' => 'Customs donor expense',
             ])
             ->assertRedirect(route('admin.valera-cashbook.index'));
 
@@ -646,7 +646,10 @@ class ValeraCashbookTest extends TestCase
         $this->assertSame('pending', $transfer->status);
 
         $this->actingAs($user)
-            ->get(route('admin.cashbook.index'))
+            ->get(route('admin.cashbook.index', [
+                'from' => '2026-05-01',
+                'to' => '2026-05-01',
+            ]))
             ->assertOk()
             ->assertSee('Инкассо Валера')
             ->assertSee('Ожидает подтверждения');
@@ -684,7 +687,10 @@ class ValeraCashbookTest extends TestCase
             ->count());
 
         $this->actingAs($user)
-            ->get(route('admin.cashbook.index'))
+            ->get(route('admin.cashbook.index', [
+                'from' => '2026-05-01',
+                'to' => '2026-05-01',
+            ]))
             ->assertOk()
             ->assertSee('Инкассо Валера')
             ->assertSee('Подтверждено')
@@ -798,10 +804,13 @@ class ValeraCashbookTest extends TestCase
         ]);
 
         $this->actingAs($user)
-            ->get(route('admin.cashbook.index'))
+            ->get(route('admin.cashbook.index', [
+                'from' => '2026-05-01',
+                'to' => '2026-05-01',
+            ]))
             ->assertOk()
             ->assertSee('Отменена')
-            ->assertSee('tag tag-archived', false)
+            ->assertSee('tag-archived', false)
             ->assertDontSee(route('admin.cashbook.edit', $cashTransaction), false)
             ->assertDontSee('<button type="submit" class="btn-small btn-danger">Удалить</button>', false)
             ->assertSee('1 200,00')

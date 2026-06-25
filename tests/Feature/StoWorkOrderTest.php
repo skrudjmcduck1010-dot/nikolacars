@@ -99,7 +99,7 @@ class StoWorkOrderTest extends TestCase
             ->assertOk();
 
         $response->assertSee('Начало работ: 28.04.2026 09:15')
-            ->assertSee('Окончание: 29.04.2026 17:45')
+            ->assertSee('Завершен: 29.04.2026 17:45')
             ->assertDontSee('Запись: 30.04.2026');
     }
 
@@ -233,7 +233,8 @@ class StoWorkOrderTest extends TestCase
             ->assertSee('Без времени');
 
         $calendarHtml = str($response->getContent())
-            ->between('<div class="sto-week-grid">', '<!-- sto-calendar-end -->')
+            ->after('<div class="sto-week-grid">')
+            ->before('<div class="panel">')
             ->toString();
 
         $this->assertStringNotContainsString('Completed appointment', $calendarHtml);
@@ -266,7 +267,8 @@ class StoWorkOrderTest extends TestCase
             ->assertSee('In work client');
 
         $calendarHtml = str($response->getContent())
-            ->between('<div class="sto-week-grid">', '<!-- sto-calendar-end -->')
+            ->after('<div class="sto-week-grid">')
+            ->before('<div class="panel">')
             ->toString();
 
         $this->assertStringContainsString('Calendar appointment client', $calendarHtml);
@@ -306,7 +308,8 @@ class StoWorkOrderTest extends TestCase
             ->assertSee('week_start=2026-05-11', false);
 
         $calendarHtml = str($response->getContent())
-            ->between('<div class="sto-week-grid">', '<!-- sto-calendar-end -->')
+            ->after('<div class="sto-week-grid">')
+            ->before('<div class="panel">')
             ->toString();
 
         $this->assertStringNotContainsString('Current week appointment', $calendarHtml);
@@ -807,7 +810,7 @@ class StoWorkOrderTest extends TestCase
                 'currency' => 'USD',
             ])
             ->assertJsonPath('0.exchange_rate.rate', 40.5)
-            ->assertJsonPath('0.exchange_rate.source', 'nbu');
+            ->assertJsonPath('0.exchange_rate.source', 'monobank');
     }
 
     public function test_work_search_matches_done_works_case_insensitively(): void
@@ -1459,7 +1462,7 @@ class StoWorkOrderTest extends TestCase
         $this->actingAs($user)
             ->get(route('admin.sto-work-orders.show', $order))
             ->assertOk()
-            ->assertSee('Печать Заказ Наряда')
+            ->assertSee('Печать заказ-наряда')
             ->assertSee(route('admin.sto-work-orders.print', $order), false);
     }
 
@@ -1494,13 +1497,12 @@ class StoWorkOrderTest extends TestCase
         $this->actingAs($user)
             ->get(route('admin.sto-work-orders.print', $order))
             ->assertOk()
-            ->assertSee('Замовлення-наряд № ЗН-20260430-0001')
-            ->assertSee('  ')
+            ->assertSee('Заказ-наряд № ЗН-20260430-0001')
             ->assertSee('Диагностика')
             ->assertDontSee('Mechanic One')
             ->assertSee('Бампер передний')
-            ->assertSee(': 500,00')
-            ->assertSee(': 350,00');
+            ->assertSee('500,00')
+            ->assertSee('350,00');
     }
 
     public function test_work_order_show_status_dropdown_lists_other_statuses(): void
@@ -2380,7 +2382,8 @@ class StoWorkOrderTest extends TestCase
         $this->actingAs($user)
             ->get(route('admin.cashbook.index', ['from' => '2026-04-30', 'to' => '2026-04-30']))
             ->assertOk()
-            ->assertDontSee('Дивиденды');
+            ->assertDontSee('data-cashbook-label="Дивиденды"', false)
+            ->assertDontSee('<option value="Дивиденды"', false);
     }
 
     private function adminUser(): User

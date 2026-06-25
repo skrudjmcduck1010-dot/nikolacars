@@ -31,7 +31,11 @@ class CashTransactionController extends Controller
 
     private const WITHOUT_LABEL_FILTER = '__without_label__';
 
-    private const HIDDEN_CASHBOOK_LABELS = ['Инкассо Женя', 'Приход из Кассы и работ', 'Дивиденды'];
+    private const HIDDEN_CASHBOOK_LABELS = [
+        'Инкассо Женя',
+        'Приход из Кассы и работ',
+        'Дивиденды',
+    ];
 
     private const VALERA_CASHBOOK_TRANSFER_LABEL = 'Инкассо Валера';
 
@@ -43,7 +47,7 @@ class CashTransactionController extends Controller
 
     private const DONOR_PARTS_SALE_LABELS = [' ', '  '];
 
-    private const OLD_REPAIR_MECHANIC_LABELS = ['+', '1', '2'];
+    private const OLD_REPAIR_MECHANIC_LABELS = ['1', '2'];
 
     private const REPAIR_MECHANIC_LABELS = ['', '+', '1', '2'];
 
@@ -115,7 +119,7 @@ class CashTransactionController extends Controller
             ->with(['purchase.items.product', 'valeraCashbookTransfer'])
             ->where(function (Builder $query): void {
                 $query
-                    ->whereNotIn('label', ['Инкассо Женя', 'Приход из Кассы и работ'])
+                    ->whereNotIn('label', self::HIDDEN_CASHBOOK_LABELS)
                     ->orWhereNull('label');
             })
             ->when($filters['from'] ?? null, fn (Builder $query, string $date) => $query->whereDate('operation_date', '>=', $date))
@@ -1139,6 +1143,7 @@ class CashTransactionController extends Controller
     {
         return DonorCar::query()
             ->havingOpenDonorExpenses()
+            ->realVinOnly()
             ->whereNotIn('id', self::HIDDEN_CASHBOOK_DONOR_CAR_IDS)
             ->orderByRaw('purchase_date IS NULL')
             ->orderByDesc('purchase_date')

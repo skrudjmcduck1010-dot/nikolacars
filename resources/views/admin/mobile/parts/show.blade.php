@@ -225,7 +225,6 @@
                 $productPhotos = \App\Support\ProductPhotoNormalizer::productPhotos($product);
                 $imageUrl = $photoUrl($productPhotos->first());
                 $photoCount = $productPhotos->count();
-                $sortPrice = (float) $product->selling_price;
                 $categoryOption = $productCategoryOption($product);
                 $categoryLabel = $productCategoryLabel($product);
                 $categoryValue = $categoryOption['key'];
@@ -245,7 +244,7 @@
                 'part-card',
                 'part-card--danger' => ($status['tone'] ?? '') === 'danger',
                 'part-card--success' => ($status['tone'] ?? '') === 'success',
-            ]) id="part-{{ $product->id }}" style="order: {{ -1 * (int) round($sortPrice * 100) }}" data-mobile-part-card data-part-status="{{ $status['key'] }}" data-part-category="{{ $categoryValue }}" data-part-search="{{ $searchText }}">
+            ]) id="part-{{ $product->id }}" data-mobile-part-card data-part-status="{{ $status['key'] }}" data-part-category="{{ $categoryValue }}" data-part-search="{{ $searchText }}">
                 <form method="POST" action="{{ route('admin.mobile.donor-cars.products.photos.store', [$donorCar, $product]) }}" enctype="multipart/form-data" class="part-card__photo-form" data-mobile-part-photo-form data-mobile-preserve-scroll>
                     @csrf
                     <input id="part-photo-{{ $product->id }}" class="part-card__photo-input" type="file" name="photo" accept="image/*" capture="environment" data-mobile-part-photo-input>
@@ -325,7 +324,6 @@
         @foreach($sales as $sale)
             @php
                 $saleName = trim((string) ($sale->partCatalogItem?->name_ua ?: $sale->partCatalogItem?->name_ru ?: $sale->partCatalogItem?->name ?: $sale->name));
-                $sortPrice = (float) ($sale->total_amount ?? ((float) $sale->quantity * (float) ($sale->unit_price ?? 0)));
                 $categoryOption = $saleCategoryOption($sale);
                 $categoryLabel = $saleCategoryLabel($sale);
                 $categoryValue = $categoryOption['key'];
@@ -339,7 +337,7 @@
                     $sale->counterparty,
                 ])->filter()->implode(' ');
             @endphp
-            <article class="part-card part-card--sale" style="order: {{ -1 * (int) round($sortPrice * 100) }}" data-mobile-part-card data-part-status="sold" data-part-category="{{ $categoryValue }}" data-part-search="{{ $searchText }}" @if($activeStatus !== 'sold') hidden @endif>
+            <article class="part-card part-card--sale" data-mobile-part-card data-part-status="sold" data-part-category="{{ $categoryValue }}" data-part-search="{{ $searchText }}" @if($activeStatus !== 'sold') hidden @endif>
                 <div class="part-card__body">
                     <div class="part-card__head">
                         <div class="part-card__title">{{ $saleName ?: 'Проданная запчасть' }}</div>
@@ -881,6 +879,20 @@
                     submitButton.disabled = true;
                 }
             };
+            const promoteRecentlyCheckedCard = (card, status) => {
+                if (! card || activeStatus !== 'checked' || status?.key !== 'checked') {
+                    return;
+                }
+
+                const list = qs('[data-mobile-parts-list]');
+
+                if (! list) {
+                    return;
+                }
+
+                card.style.order = '-2147483647';
+                list.insertBefore(card, qsa('[data-mobile-part-card]', list)[0] || null);
+            };
             const applyDamageStatusResult = (form, data) => {
                 const card = form.closest('[data-mobile-part-card]');
                 const status = data?.status || {};
@@ -914,6 +926,7 @@
                 form.dataset.previousDamageNote = damageNote;
                 resetPlacementControls(form);
                 clearDamageFormError(form);
+                promoteRecentlyCheckedCard(card, status);
                 applyVisibleFilters();
             };
             const firstErrorMessage = (payload) => {

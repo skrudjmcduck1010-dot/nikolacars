@@ -478,6 +478,10 @@ npm run mobile:build:android
   status is not manually editable from admin forms or inline list controls.
 - Reserved quantity is separate from physical stock quantity.
 - Every stock item must belong to a warehouse location.
+- Warehouse `На доноре` / `type=donor` means the part is still physically on
+  the donor car that arrived for dismantling. It is not a normal warehouse with
+  floors/cells; UI should display it as `На доноре` and must not show or require
+  floor/cell values for that placement.
 - Many models use user stamps through `created_by`/`updated_by`; preserve that
   pattern where present.
 

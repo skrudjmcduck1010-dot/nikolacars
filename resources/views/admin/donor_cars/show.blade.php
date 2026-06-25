@@ -207,7 +207,17 @@
                         </div>
                         <div class="actions">
                             <a class="btn btn-secondary" href="{{ route('admin.donor-cars.edit', $donorCar) }}">Редактировать</a>
-                            <a class="btn btn-secondary" href="{{ route('admin.mobile.donor-cars.products.create', $donorCar) }}">Мобильное добавление</a>
+                            <a
+                                class="btn btn-secondary donor-mobile-action"
+                                href="{{ route('admin.mobile.donor-cars.parts.show', $donorCar) }}"
+                                aria-label="Мобильное добавление"
+                                title="Мобильное добавление"
+                            >
+                                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                    <rect x="7" y="2" width="10" height="20" rx="2" ry="2"></rect>
+                                    <path d="M11 18h2"></path>
+                                </svg>
+                            </a>
                             @include('admin.donor_cars._official_download_button', ['donorCar' => $donorCar])
                         </div>
                     </div>
@@ -500,6 +510,62 @@
         </form>
     </dialog>
 
+    <dialog class="part-dialog donor-placement-dialog" data-donor-placement-dialog data-donor-placement-editor>
+        <form method="POST" action="#" class="part-dialog__form donor-placement-dialog__form" data-donor-placement-form>
+            @csrf
+            @method('PATCH')
+            <input type="hidden" name="damage_note" value="" data-donor-placement-damage-note disabled>
+            <div class="part-dialog__header">
+                <h2>Редактировать склад</h2>
+                <button type="button" class="btn btn-secondary" data-donor-placement-edit-cancel aria-label="Закрыть">&times;</button>
+            </div>
+
+            <label class="donor-placement-dialog__field">
+                <span>Склад</span>
+                <select name="warehouse_id" data-donor-placement-warehouse required>
+                    <option value="">Выберите склад</option>
+                    @foreach($placementWarehouseOptions as $warehouseOption)
+                        <option
+                            value="{{ $warehouseOption['id'] }}"
+                            data-warehouse-type="{{ $warehouseOption['type'] }}"
+                            data-floor-count="{{ $warehouseOption['floor_count'] }}"
+                            data-structured-locations="{{ $warehouseOption['uses_structured_locations'] ? '1' : '0' }}"
+                        >{{ $warehouseOption['name'] }}</option>
+                    @endforeach
+                </select>
+            </label>
+
+            <label class="donor-placement-dialog__field" data-donor-placement-floor-wrap>
+                <span>Этаж</span>
+                <select name="floor" data-donor-placement-floor>
+                    @foreach(\App\Models\Location::floorsForCount(20) as $floorValue => $floorLabel)
+                        <option value="{{ $floorValue }}">{{ $floorLabel }}</option>
+                    @endforeach
+                </select>
+            </label>
+
+            <label class="donor-placement-dialog__field" data-donor-placement-location-wrap>
+                <span>Ячейка</span>
+                <select name="location_id" data-donor-placement-location>
+                    <option value="">—</option>
+                    @foreach($placementLocationOptions as $locationOption)
+                        <option
+                            value="{{ $locationOption['id'] }}"
+                            data-warehouse-id="{{ $locationOption['warehouse_id'] }}"
+                            data-floor="{{ $locationOption['floor'] }}"
+                            data-has-cell="{{ $locationOption['has_cell'] ? '1' : '0' }}"
+                        >{{ $locationOption['floor_label'] }} · {{ $locationOption['label'] }}</option>
+                    @endforeach
+                </select>
+            </label>
+
+            <div class="donor-placement-dialog__actions">
+                <button type="button" class="btn btn-secondary" data-donor-placement-edit-cancel>Отмена</button>
+                <button type="submit" data-donor-placement-save>Сохранить</button>
+            </div>
+        </form>
+    </dialog>
+
     <style>
         .part-dialog {
             width: min(760px, calc(100vw - 32px));
@@ -574,6 +640,29 @@
         .product-suggestion-title { display: block; font-weight: 700; }
         .product-suggestion-meta { display: block; margin-top: 3px; color: var(--muted); font-size: 12px; line-height: 1.35; }
         .product-suggestion-empty { padding: 10px 12px; color: var(--muted); font-size: 13px; }
+
+        .donor-placement-dialog {
+            width: min(420px, calc(100vw - 32px));
+        }
+
+        .donor-placement-dialog__form {
+            display: grid;
+            gap: 14px;
+        }
+
+        .donor-placement-dialog__field {
+            display: grid;
+            gap: 5px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .donor-placement-dialog__actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 4px;
+        }
 
         .donor-toast {
             position: fixed;
@@ -1423,6 +1512,23 @@
             min-width: 0;
         }
 
+        .donor-mobile-action {
+            width: 42px;
+            min-width: 42px;
+            height: 42px;
+            padding: 0;
+        }
+
+        .donor-mobile-action svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
         .donor-photo-strip {
             display: grid;
             grid-template-columns: 1fr;
@@ -1799,6 +1905,16 @@
             const productPhotoPrev = productPhotoLightbox?.querySelector('[data-donor-product-photo-prev]');
             const productPhotoNext = productPhotoLightbox?.querySelector('[data-donor-product-photo-next]');
             const productPhotoRotateButtons = Array.from(productPhotoLightbox?.querySelectorAll('[data-donor-product-photo-rotate]') || []);
+            const donorPlacementEditor = document.querySelector('[data-donor-placement-editor]');
+            const donorPlacementForm = donorPlacementEditor?.querySelector('[data-donor-placement-form]');
+            const donorPlacementWarehouse = donorPlacementEditor?.querySelector('[data-donor-placement-warehouse]');
+            const donorPlacementFloor = donorPlacementEditor?.querySelector('[data-donor-placement-floor]');
+            const donorPlacementLocation = donorPlacementEditor?.querySelector('[data-donor-placement-location]');
+            const donorPlacementFloorWrap = donorPlacementEditor?.querySelector('[data-donor-placement-floor-wrap]');
+            const donorPlacementLocationWrap = donorPlacementEditor?.querySelector('[data-donor-placement-location-wrap]');
+            const donorPlacementSave = donorPlacementEditor?.querySelector('[data-donor-placement-save]');
+            const donorPlacementDamageNote = donorPlacementEditor?.querySelector('[data-donor-placement-damage-note]');
+            const donorPlacementTitle = donorPlacementEditor?.querySelector('h2');
             const photoUrls = @json($donorPhotoUrls ?? []);
             const csrfToken = @json(csrf_token());
             const donorPhotoLimit = @json(\App\Models\DonorCar::PHOTO_LIMIT);
@@ -1987,6 +2103,7 @@
                 document.querySelectorAll('[data-donor-damage-select]').forEach((select) => bindDonorDamageSelect(select));
                 bindSmallPartForms();
                 bindDonorPriceEditors();
+                bindDonorPlacementEditors();
             };
 
             const refreshDonorProductsTable = async (page = 1) => {
@@ -2135,11 +2252,20 @@
             const donorProductsTabForDamage = (value) => {
                 const damage = normalizeSearch(value);
 
-                if (damage === '' || damage === normalizeSearch('Неизвестно')) {
+                if (damage === '' || damage === normalizeSearch('\u041d\u0435\u0438\u0437\u0432\u0435\u0441\u0442\u043d\u043e')) {
                     return 'all';
                 }
 
-                return [normalizeSearch('Разбит'), normalizeSearch('Неликвид')].includes(damage) ? 'broken' : 'checked';
+                return [
+                    normalizeSearch('\u0420\u0430\u0437\u0431\u0438\u0442'),
+                    normalizeSearch('\u041d\u0435\u043b\u0438\u043a\u0432\u0438\u0434'),
+                ].includes(damage) ? 'broken' : 'checked';
+            };
+            const shouldAskPlacementForDamageChange = (select) => {
+                const previousDamage = select?.dataset.previousDamageNote || select?.dataset.previousValue || '';
+
+                return donorProductsTabForDamage(previousDamage) === 'all'
+                    && donorProductsTabForDamage(select?.value || '') === 'checked';
             };
             const donorProductRowSelector = (productId) => `[data-donor-product-row][data-donor-product-id="${CSS.escape(productId)}"]`;
             const donorProductRowsFor = (row) => {
@@ -2147,6 +2273,7 @@
 
                 return productId ? Array.from(document.querySelectorAll(donorProductRowSelector(productId))) : [row].filter(Boolean);
             };
+            let openDonorPlacementForDamage = null;
             const showDonorToast = (message) => {
                 let toast = document.querySelector('[data-donor-toast]');
 
@@ -2260,6 +2387,7 @@
                     if (rowSelect) {
                         rowSelect.value = damageValue;
                         rowSelect.dataset.previousValue = damageValue;
+                        rowSelect.dataset.previousDamageNote = damageValue || '\u041d\u0435\u0438\u0437\u0432\u0435\u0441\u0442\u043d\u043e';
                         rowSelect.disabled = false;
                         updateDamageSelectState(rowSelect);
                     }
@@ -2280,6 +2408,17 @@
 
                     if (!form || !row) {
                         form?.submit();
+                        return;
+                    }
+
+                    if (shouldAskPlacementForDamageChange(select)) {
+                        if (typeof openDonorPlacementForDamage === 'function' && openDonorPlacementForDamage(select)) {
+                            return;
+                        }
+
+                        select.value = select.dataset.previousValue || '';
+                        alert('Выберите склад, этаж и ячейку перед сменой статуса.');
+
                         return;
                     }
 
@@ -2367,6 +2506,318 @@
             };
 
             bindDonorPriceEditors();
+
+            const bindDonorPlacementEditors = () => {
+                if (!donorPlacementEditor || !donorPlacementForm || !donorPlacementWarehouse || !donorPlacementFloor || !donorPlacementLocation) {
+                    return;
+                }
+
+                let activeButton = null;
+                let activeCell = null;
+                let activeDamageSelect = null;
+                let activeDamageRow = null;
+                let defaultWarehouse = '';
+                let defaultFloor = 'floor_1';
+                let defaultLocation = '';
+                const defaultPlacementTitle = donorPlacementTitle?.textContent || 'Редактировать склад';
+
+                const setPlacementDamageNote = (damageNote = null) => {
+                    if (!donorPlacementDamageNote) {
+                        return;
+                    }
+
+                    if (damageNote === null) {
+                        donorPlacementDamageNote.value = '';
+                        donorPlacementDamageNote.disabled = true;
+
+                        return;
+                    }
+
+                    donorPlacementDamageNote.value = damageNote;
+                    donorPlacementDamageNote.disabled = false;
+                };
+
+                const resetPlacementContext = ({ revertDamage = false } = {}) => {
+                    if (revertDamage && activeDamageSelect) {
+                        activeDamageSelect.value = activeDamageSelect.dataset.previousValue || '';
+                    }
+
+                    activeButton?.removeAttribute('disabled');
+                    activeDamageSelect?.removeAttribute('disabled');
+                    activeButton = null;
+                    activeCell = null;
+                    activeDamageSelect = null;
+                    activeDamageRow = null;
+                    setPlacementDamageNote(null);
+
+                    if (donorPlacementTitle) {
+                        donorPlacementTitle.textContent = defaultPlacementTitle;
+                    }
+                };
+
+                const renderPlacementOptions = () => {
+                    const selectedWarehouse = donorPlacementWarehouse.selectedOptions[0];
+                    const warehouseId = donorPlacementWarehouse.value;
+                    const isDonorWarehouse = selectedWarehouse?.dataset.warehouseType === 'donor';
+                    const usesStructuredLocations = selectedWarehouse?.dataset.structuredLocations !== '0';
+                    const floorCount = usesStructuredLocations ? Math.max(1, Number(selectedWarehouse?.dataset.floorCount || 1)) : 1;
+                    let visibleFloorSelected = false;
+
+                    Array.from(donorPlacementFloor.options).forEach((option) => {
+                        const match = /^floor_(\d+)$/.exec(option.value);
+                        const floorNumber = match ? Number(match[1]) : 1;
+                        const visible = !isDonorWarehouse && usesStructuredLocations && floorNumber <= floorCount;
+                        option.hidden = !visible;
+                        option.disabled = !visible;
+
+                        if (visible && option.selected) {
+                            visibleFloorSelected = true;
+                        }
+                    });
+
+                    donorPlacementFloor.hidden = isDonorWarehouse || !usesStructuredLocations || floorCount <= 1;
+                    donorPlacementFloor.disabled = isDonorWarehouse || !usesStructuredLocations;
+
+                    if (donorPlacementFloorWrap) {
+                        donorPlacementFloorWrap.hidden = donorPlacementFloor.hidden;
+                    }
+
+                    if (!visibleFloorSelected) {
+                        const defaultFloorNumber = Number((/^floor_(\d+)$/.exec(defaultFloor) || [0, 0])[1]);
+                        donorPlacementFloor.value = defaultFloor && defaultFloorNumber <= floorCount ? defaultFloor : 'floor_1';
+                    }
+
+                    const floor = donorPlacementFloor.value || 'floor_1';
+                    let visibleLocationSelected = false;
+                    let hasVisibleLocations = false;
+
+                    Array.from(donorPlacementLocation.options).forEach((option) => {
+                        if (!option.value) {
+                            option.hidden = false;
+                            option.disabled = false;
+                            return;
+                        }
+
+                        const visible = !isDonorWarehouse
+                            && String(option.dataset.warehouseId || '') === String(warehouseId)
+                            && String(option.dataset.floor || 'floor_1') === String(floor)
+                            && option.dataset.hasCell === '1';
+                        option.hidden = !visible;
+                        option.disabled = !visible;
+                        hasVisibleLocations = hasVisibleLocations || visible;
+
+                        if (visible && option.selected) {
+                            visibleLocationSelected = true;
+                        }
+                    });
+
+                    donorPlacementLocation.hidden = isDonorWarehouse || !usesStructuredLocations || !hasVisibleLocations;
+                    donorPlacementLocation.disabled = isDonorWarehouse || !usesStructuredLocations || !hasVisibleLocations;
+
+                    if (donorPlacementLocationWrap) {
+                        donorPlacementLocationWrap.hidden = donorPlacementLocation.hidden;
+                    }
+
+                    if (!visibleLocationSelected) {
+                        donorPlacementLocation.value = '';
+                    }
+                };
+
+                const restoreDefaults = () => {
+                    donorPlacementWarehouse.value = defaultWarehouse || '';
+                    donorPlacementFloor.value = defaultFloor || 'floor_1';
+                    donorPlacementLocation.value = defaultLocation;
+                    renderPlacementOptions();
+                };
+
+                const closePlacementEditor = () => {
+                    if (typeof donorPlacementEditor.close === 'function') {
+                        donorPlacementEditor.close();
+                    } else {
+                        donorPlacementEditor.removeAttribute('open');
+                    }
+                };
+
+                const openPlacementEditor = (button) => {
+                    const sourceForm = button.closest('[data-donor-placement-update-form]');
+
+                    if (!sourceForm) {
+                        return;
+                    }
+
+                    activeButton = button;
+                    activeCell = button.closest('[data-donor-product-stock-label]');
+                    activeDamageSelect = null;
+                    activeDamageRow = null;
+                    setPlacementDamageNote(null);
+                    if (donorPlacementTitle) {
+                        donorPlacementTitle.textContent = defaultPlacementTitle;
+                    }
+                    defaultWarehouse = button.dataset.currentWarehouseId || donorPlacementWarehouse.value || '';
+                    defaultFloor = button.dataset.currentFloor || 'floor_1';
+                    defaultLocation = button.dataset.currentLocationId || '';
+                    donorPlacementForm.action = sourceForm.action;
+                    restoreDefaults();
+
+                    if (typeof donorPlacementEditor.showModal === 'function') {
+                        donorPlacementEditor.showModal();
+                    } else {
+                        donorPlacementEditor.setAttribute('open', 'open');
+                    }
+
+                    donorPlacementWarehouse.focus();
+                };
+
+                openDonorPlacementForDamage = (select) => {
+                    const sourceForm = select.closest('[data-donor-damage-form]');
+                    const row = select.closest('[data-donor-product-row]');
+
+                    if (!sourceForm || !row) {
+                        return false;
+                    }
+
+                    const placementButton = row.querySelector('[data-donor-placement-edit]');
+                    activeButton = null;
+                    activeCell = row.querySelector('[data-donor-product-stock-label]');
+                    activeDamageSelect = select;
+                    activeDamageRow = row;
+                    defaultWarehouse = placementButton?.dataset.currentWarehouseId || '';
+                    defaultFloor = placementButton?.dataset.currentFloor || 'floor_1';
+                    defaultLocation = placementButton?.dataset.currentLocationId || '';
+                    donorPlacementForm.action = sourceForm.action;
+                    setPlacementDamageNote(select.value);
+
+                    if (donorPlacementTitle) {
+                        donorPlacementTitle.textContent = 'Разместить товар';
+                    }
+
+                    select.disabled = true;
+                    restoreDefaults();
+
+                    if (typeof donorPlacementEditor.showModal === 'function') {
+                        donorPlacementEditor.showModal();
+                    } else {
+                        donorPlacementEditor.setAttribute('open', 'open');
+                    }
+
+                    donorPlacementWarehouse.focus();
+
+                    return true;
+                };
+
+                const stockLabelLines = (stockLabel) => String(stockLabel || '-')
+                    .split(/\s*·\s*/)
+                    .map((line) => line.trim())
+                    .filter(Boolean);
+
+                const updateActiveStockCell = (payload) => {
+                    const stockText = activeCell?.querySelector('[data-donor-product-stock-text]');
+                    const stockLocation = payload.stock_location || {};
+
+                    if (stockText) {
+                        stockText.innerHTML = '';
+                        stockLabelLines(payload.stock_label).forEach((line) => {
+                            const span = document.createElement('span');
+                            span.className = 'donor-product-stock-line';
+                            span.textContent = line;
+                            stockText.appendChild(span);
+                        });
+                    }
+
+                    if (activeButton) {
+                        activeButton.dataset.currentWarehouseId = stockLocation.warehouse_id ?? '';
+                        activeButton.dataset.currentFloor = stockLocation.floor ?? '';
+                        activeButton.dataset.currentLocationId = stockLocation.location_id ?? '';
+                    }
+                };
+
+                document.querySelectorAll('[data-donor-placement-edit]').forEach((button) => {
+                    if (button.dataset.donorPlacementBound === '1') {
+                        return;
+                    }
+
+                    button.dataset.donorPlacementBound = '1';
+                    button.addEventListener('click', () => openPlacementEditor(button));
+                });
+
+                if (donorPlacementEditor.dataset.donorPlacementEditorBound !== '1') {
+                    donorPlacementEditor.dataset.donorPlacementEditorBound = '1';
+
+                    donorPlacementEditor.querySelectorAll('[data-donor-placement-edit-cancel]').forEach((button) => {
+                        button.addEventListener('click', () => {
+                            restoreDefaults();
+                            resetPlacementContext({ revertDamage: true });
+                            closePlacementEditor();
+                        });
+                    });
+
+                    donorPlacementEditor.addEventListener('cancel', () => {
+                        restoreDefaults();
+                        resetPlacementContext({ revertDamage: true });
+                    });
+
+                    donorPlacementEditor.addEventListener('click', (event) => {
+                        if (event.target === donorPlacementEditor) {
+                            restoreDefaults();
+                            resetPlacementContext({ revertDamage: true });
+                            closePlacementEditor();
+                        }
+                    });
+
+                    donorPlacementWarehouse.addEventListener('change', renderPlacementOptions);
+                    donorPlacementFloor.addEventListener('change', renderPlacementOptions);
+
+                    donorPlacementForm.addEventListener('submit', async (event) => {
+                        event.preventDefault();
+
+                        if (!activeButton && !activeDamageSelect) {
+                            return;
+                        }
+
+                        donorPlacementSave?.setAttribute('disabled', 'disabled');
+                        activeButton?.setAttribute('disabled', 'disabled');
+                        activeDamageSelect?.setAttribute('disabled', 'disabled');
+
+                        try {
+                            const response = await fetch(donorPlacementForm.action, {
+                                method: 'POST',
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'X-Requested-With': 'XMLHttpRequest',
+                                },
+                                body: new FormData(donorPlacementForm),
+                            });
+                            const payload = await response.json().catch(() => ({}));
+
+                            if (!response.ok) {
+                                const message = payload.message
+                                    || Object.values(payload.errors || {}).flat().filter(Boolean)[0]
+                                    || 'Не удалось сохранить склад.';
+                                throw new Error(message);
+                            }
+
+                            updateActiveStockCell(payload);
+                            if (activeDamageSelect && activeDamageRow) {
+                                const destination = payload.destination || donorProductsTabForDamage(activeDamageSelect.value);
+                                updateDonorProductDamageRows(activeDamageRow, activeDamageSelect.value, destination);
+                                updateDonorProductsTabCounts();
+                                applyDonorProductsSearch();
+                                await refreshDonorProductsTable(1);
+                            }
+                            closePlacementEditor();
+                            resetPlacementContext();
+                        } catch (error) {
+                            alert(error.message || 'Не удалось сохранить склад.');
+                        } finally {
+                            donorPlacementSave?.removeAttribute('disabled');
+                            activeButton?.removeAttribute('disabled');
+                            activeDamageSelect?.removeAttribute('disabled');
+                        }
+                    });
+                }
+            };
+
+            bindDonorPlacementEditors();
 
             const markDonorProductNameManual = (nameRow) => {
                 if (!nameRow) {

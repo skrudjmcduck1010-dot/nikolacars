@@ -91,14 +91,14 @@ class NikolaCarsInventoryServiceTest extends TestCase
         $this->assertSame(['C1', 'C2'], $group['codes']->all());
         $this->assertSame(['First UA', 'Second UA'], $group['names']->all());
         $this->assertSame(['VIN1'], $group['vins']->all());
-        $this->assertSame(["\u{041A}\u{0443}\u{0437}\u{043E}\u{0432}", 'Shelf'], $group['categories']->all());
+        $this->assertSame(["\u{041A}\u{0443}\u{0437}\u{043E}\u{0432}"], $group['categories']->all());
 
         $secondGroup = $groups->last();
         $this->assertSame($prefixVariant->id, $secondGroup['item']->id);
         $this->assertSame('1234567-01-B', $secondGroup['part_number']);
         $this->assertSame(1, $secondGroup['count']);
         $this->assertSame(4.0, $secondGroup['quantity']);
-        $this->assertSame(['Variant shelf'], $secondGroup['categories']->all());
+        $this->assertSame(["\u{041A}\u{0443}\u{0437}\u{043E}\u{0432}"], $secondGroup['categories']->all());
         $this->assertSame(2, app(NikolaCarsInventoryService::class)->uniqueItemsCount(collect([$first, $sameArticle, $prefixVariant])));
     }
 
@@ -126,7 +126,7 @@ class NikolaCarsInventoryServiceTest extends TestCase
 
         $group = $groups->first();
 
-        $this->assertSame(['РљСѓР·РѕРІ / Р”РІРµСЂРё, РєР°РїРѕС‚ Рё Р±Р°РіР°Р¶РЅРёРє / РљР°РїРѕС‚'], $group['categories']->all());
+        $this->assertSame(["\u{041A}\u{0443}\u{0437}\u{043E}\u{0432} / \u{0414}\u{0432}\u{0435}\u{0440}\u{0438}, \u{043A}\u{0430}\u{043F}\u{043E}\u{0442} \u{0438} \u{0431}\u{0430}\u{0433}\u{0430}\u{0436}\u{043D}\u{0438}\u{043A} / \u{041A}\u{0430}\u{043F}\u{043E}\u{0442}"], $group['categories']->all());
         $this->assertSame(['Model S 2012-2016'], $group['models']->all());
     }
 
@@ -356,7 +356,6 @@ class NikolaCarsInventoryServiceTest extends TestCase
         $this->assertSame([
             'https://example.test/product-main.jpg',
             'https://example.test/product-extra.jpg',
-            'https://example.test/catalog-old.jpg',
         ], $groups->first()['image_urls']->all());
     }
 
@@ -468,11 +467,15 @@ class NikolaCarsInventoryServiceTest extends TestCase
         $this->assertSame([
             'https://sklad.nikolacars.kiev.ua/storage/product-photos/local-main.png',
             'https://sklad.nikolacars.kiev.ua/storage/product-photos/local-extra.jpg',
+        ], $groups->first()['image_urls']->all());
+        $this->assertSame([
+            'https://sklad.nikolacars.kiev.ua/storage/product-photos/local-main.png',
+            'https://sklad.nikolacars.kiev.ua/storage/product-photos/local-extra.jpg',
             'https://sklad.nikolacars.kiev.ua/storage/tesla-official/part-images/1081440E0C/1081440-E0-C_1.jpeg',
             'https://sklad.nikolacars.kiev.ua/storage/tesla-official/part-images/1081440E0C/1081440-E0-C_2.jpeg',
             'https://sklad.nikolacars.kiev.ua/storage/tesla-official/part-images/1081440E0C/1081440-E0-C_3.jpeg',
             'https://sklad.nikolacars.kiev.ua/storage/tesla-official/part-images/1081440E0C/1081440-E0-C_4.jpeg',
-        ], $groups->first()['image_urls']->all());
+        ], $groups->first()['gallery_image_urls']->all());
     }
 
     public function test_item_groups_translate_tesla_closure_hinge_category(): void
@@ -575,7 +578,7 @@ class NikolaCarsInventoryServiceTest extends TestCase
 
         $this->assertSame('1234567-00-A', $service->normalizePartNumber('123456700A'));
         $this->assertSame('1234567', $service->partNumberPrefix('1234567-00-A'));
-        $this->assertSame('2.5 С€С‚', $service->availability(2.5));
+        $this->assertSame("2.5 \u{0448}\u{0442}", $service->availability(2.5));
         $this->assertSame('Front bumper', $service->withoutPartNumber('Front bumper 1234567-00-A', '1234567-00-A'));
     }
 }

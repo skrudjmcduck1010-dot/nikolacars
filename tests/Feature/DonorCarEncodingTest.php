@@ -14,8 +14,10 @@ class DonorCarEncodingTest extends TestCase
 
     public function test_donor_cars_index_repairs_mojibake_pseudo_vin_labels(): void
     {
+        $brokenSuffix = $this->mojibake('залишки');
+
         DonorCar::query()->create([
-            'vin' => 'TESLA MX 2015 - 2021 Р·Р°Р»РёС€РєРё',
+            'vin' => 'TESLA MX 2015 - 2021 '.$brokenSuffix,
             'brand' => 'Tesla',
             'model' => 'Model X',
             'color' => 'Black',
@@ -27,7 +29,7 @@ class DonorCarEncodingTest extends TestCase
             ->get(route('admin.donor-cars.index'))
             ->assertOk()
             ->assertSee('TESLA MX 2015 - 2021 залишки')
-            ->assertDontSee('Р·Р°Р»РёС€РєРё');
+            ->assertDontSee($brokenSuffix);
     }
 
     public function test_donor_cars_index_shows_inline_paint_code_editor_and_suggestions(): void
@@ -45,8 +47,8 @@ class DonorCarEncodingTest extends TestCase
         $this->actingAs($this->adminUser())
             ->get(route('admin.donor-cars.index'))
             ->assertOk()
-            ->assertSee('&#1052;&#1072;&#1088;&#1082;&#1080;&#1088;&#1086;&#1074;&#1082;&#1072;', false)
-            ->assertSee('&#1094;&#1074;&#1077;&#1090;&#1072;', false)
+            ->assertSee('Маркировка')
+            ->assertSee('цвета')
             ->assertSee('data-donor-paint-code-edit', false)
             ->assertSee('data-donor-paint-code-save', false)
             ->assertSee('list="donor-paint-code-suggestions"', false)
@@ -86,5 +88,10 @@ class DonorCarEncodingTest extends TestCase
             'role' => 'admin',
             'is_active' => true,
         ]);
+    }
+
+    private function mojibake(string $value): string
+    {
+        return mb_convert_encoding($value, 'UTF-8', 'Windows-1251');
     }
 }

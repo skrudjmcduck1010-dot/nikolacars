@@ -10,11 +10,13 @@ use App\Http\Requests\UpdateNikolaCarsCatalogItemCategoryRequest;
 use App\Http\Requests\UpdateNikolaCarsCatalogItemRequest;
 use App\Models\CompetitorCatalogRun;
 use App\Models\DonorCar;
+use App\Models\Location;
 use App\Models\PartCatalogCategory;
 use App\Models\PartCatalogItem;
 use App\Models\Product;
 use App\Models\ProductPriceHistory;
 use App\Models\User;
+use App\Models\Warehouse;
 use App\Services\ExchangeRateService;
 use App\Services\NikolaCarsCatalogCategoryService;
 use App\Services\NikolaCarsCatalogItemService;
@@ -37,6 +39,7 @@ use App\Services\PartCatalogMissingNamesService;
 use App\Services\PartCatalogSearchService;
 use App\Services\PartCatalogSourceQueryService;
 use App\Services\PartCatalogSourceStatsService;
+use App\Services\StockService;
 use App\Services\TskCatalogImporter;
 use App\Support\PartCatalogRawAttributes;
 use Illuminate\Database\Eloquent\Builder;
@@ -50,6 +53,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class PartCatalogController extends Controller
@@ -302,6 +306,7 @@ class PartCatalogController extends Controller
         $nikolaCarsChildItemGroupsById = collect();
         $nikolaCarsDonorCarsByVin = collect();
         $nikolaCarsDamageStatusUsersById = collect();
+        $nikolaCarsProductsByItemId = collect();
         $usdRate = app(ExchangeRateService::class)->displayUsdRate();
         $nikolaCarsCatalogItems = app(NikolaCarsCatalogItemService::class);
         $nikolaCarsCatalogList = app(NikolaCarsCatalogListService::class);
@@ -326,6 +331,12 @@ class PartCatalogController extends Controller
             : 0.0;
         $nikolaCarsCreateWarehouses = $source === 'nikolacars'
             ? $nikolaCarsCatalogItems->activeWarehousesForCreate()
+            : collect();
+        $nikolaCarsPlacementWarehouses = $source === 'nikolacars'
+            ? $this->activeNikolaCarsPlacementWarehouses()
+            : collect();
+        $nikolaCarsPlacementLocations = $source === 'nikolacars'
+            ? $this->activeNikolaCarsPlacementLocations()
             : collect();
         $nikolaCarsCreateDonors = $source === 'nikolacars'
             ? $nikolaCarsCatalogItems->donorOptionsForCreate()
@@ -475,6 +486,16 @@ class PartCatalogController extends Controller
                 $items = $itemsQuery->paginate(50, ['*'], 'items_page')->withQueryString();
             }
 
+        }
+
+        if ($source === 'nikolacars' && $nikolaCarsItemGroups->isNotEmpty()) {
+            $nikolaCarsVisibleItems = $nikolaCarsItemGroups
+                ->flatMap(fn (array $group): Collection => $group['items'] ?? collect([$group['item']]))
+                ->filter(fn ($item): bool => $item instanceof PartCatalogItem)
+                ->unique(fn (PartCatalogItem $item): int => (int) $item->id)
+                ->values();
+
+            $nikolaCarsProductsByItemId = $this->nikolaCarsProductsByItemId($nikolaCarsVisibleItems);
         }
 
         if ($showCatalogItems) {
@@ -668,6 +689,8 @@ class PartCatalogController extends Controller
             'nikolaCarsAddedTodayCount' => $nikolaCarsAddedTodayCount,
             'nikolaCarsCreateWarehouses' => $nikolaCarsCreateWarehouses,
             'nikolaCarsCreateDonors' => $nikolaCarsCreateDonors,
+            'nikolaCarsPlacementWarehouseOptions' => $this->nikolaCarsPlacementWarehouseOptions($nikolaCarsPlacementWarehouses),
+            'nikolaCarsPlacementLocationOptions' => $this->nikolaCarsPlacementLocationOptions($nikolaCarsPlacementLocations),
             'hideNikolaCarsSold' => $hideNikolaCarsSold,
             'showNikolaCarsSoldItems' => $source === 'nikolacars' && ! $hideNikolaCarsSold,
             'query' => $query,
@@ -708,6 +731,10 @@ class PartCatalogController extends Controller
             'categoryUrl' => fn (?PartCatalogCategory $category, bool $includeModel = true): string => $this->categoryUrl($category, $source, $includeModel ? $urlModels : [], $includeModel && $includeCybertruck),
             'categoryName' => fn (PartCatalogCategory $category): string => $this->displayCategoryName($category),
             'itemName' => fn (PartCatalogItem $item): string => $this->displayItemName($item),
+            'nikolaCarsCatalogProduct' => fn (PartCatalogItem $item): ?Product => $nikolaCarsProductsByItemId->get($item->id)
+                ?: $this->nikolaCarsProductForItem($item),
+            'nikolaCarsProductStockLocationRows' => fn (?Product $product): Collection => $this->nikolaCarsProductStockLocationRows($product),
+            'nikolaCarsProductStockLocationPayload' => fn (?Product $product): array => $this->nikolaCarsProductStockLocationPayload($product),
             'itemCondition' => fn (PartCatalogItem $item): ?string => $this->displayItemCondition($item),
             'itemPartType' => fn (PartCatalogItem $item): ?string => $this->displayItemPartType($item),
             'modelLabel' => fn (mixed $value): string => $this->displayModelLabel($value),
@@ -876,6 +903,409 @@ class PartCatalogController extends Controller
         }
 
         return null;
+    }
+
+    protected function nikolaCarsProductsByItemId(Collection $items): Collection
+    {
+        $items = $items
+            ->filter(fn ($item): bool => $item instanceof PartCatalogItem && $item->source === 'nikolacars')
+            ->unique(fn (PartCatalogItem $item): int => (int) $item->id)
+            ->values();
+
+        if ($items->isEmpty()) {
+            return collect();
+        }
+
+        $productIdsByItemId = $items
+            ->mapWithKeys(fn (PartCatalogItem $item): array => [$item->id => $this->nikolaCarsProductIdFromItem($item)])
+            ->filter(fn (?int $productId): bool => (int) $productId > 0);
+        $itemIds = $items->pluck('id')->map(fn ($id): int => (int) $id)->values();
+
+        $products = Product::query()
+            ->with(['donorCar', 'stockItems.warehouse', 'stockItems.location'])
+            ->where(function (Builder $query) use ($productIdsByItemId, $itemIds): void {
+                if ($productIdsByItemId->isNotEmpty()) {
+                    $query->whereIn('id', $productIdsByItemId->values()->unique()->all());
+                }
+
+                $method = $productIdsByItemId->isNotEmpty() ? 'orWhereIn' : 'whereIn';
+                $query->{$method}('source_part_catalog_item_id', $itemIds->all());
+            })
+            ->get();
+
+        return $items
+            ->mapWithKeys(function (PartCatalogItem $item) use ($productIdsByItemId, $products): array {
+                $productId = (int) ($productIdsByItemId->get($item->id) ?? 0);
+                $product = $productId > 0
+                    ? $products->firstWhere('id', $productId)
+                    : null;
+                $product ??= $products->firstWhere('source_part_catalog_item_id', $item->id);
+
+                return $product instanceof Product ? [$item->id => $product] : [];
+            });
+    }
+
+    protected function nikolaCarsProductIdFromItem(PartCatalogItem $item): ?int
+    {
+        $rawAttributes = PartCatalogRawAttributes::from($item);
+        $productId = (int) data_get($rawAttributes, 'product_id');
+
+        if ($productId > 0) {
+            return $productId;
+        }
+
+        if (preg_match('#^nikolacars://(?:donor|inventory)-product/(\d+)$#', (string) $item->source_url, $matches) === 1) {
+            return (int) $matches[1];
+        }
+
+        return null;
+    }
+
+    protected function nikolaCarsProductStockLocationRows(?Product $product): Collection
+    {
+        if (! $product instanceof Product) {
+            return collect();
+        }
+
+        $product->loadMissing(['stockItems.warehouse', 'stockItems.location']);
+
+        return $product->stockItems
+            ->filter(fn ($stockItem): bool => (int) $stockItem->quantity > 0)
+            ->sortBy(fn ($stockItem): string => implode('|', [
+                (string) ($stockItem->warehouse?->name ?? ''),
+                (string) ($stockItem->location?->full_code ?? ''),
+                (string) ($stockItem->location?->cell ?? ''),
+            ]), SORT_NATURAL | SORT_FLAG_CASE)
+            ->map(function ($stockItem): array {
+                $warehouseName = trim((string) ($stockItem->warehouse?->name ?? ''));
+                $location = $stockItem->location;
+                $isDonorWarehouse = $stockItem->warehouse?->type === Warehouse::TYPE_DONOR;
+                $parts = collect([
+                    $warehouseName,
+                    ! $isDonorWarehouse && $location ? $this->locationFloorLabel($location) : null,
+                    ! $isDonorWarehouse && $location ? $this->locationDisplayCode($location) : null,
+                ])->filter(fn (?string $value): bool => trim((string) $value) !== '');
+
+                return $parts->isNotEmpty() ? $parts->values()->all() : ['-'];
+            })
+            ->unique(fn (array $parts): string => implode('|', $parts))
+            ->values();
+    }
+
+    protected function nikolaCarsProductStockLocationPayload(?Product $product): array
+    {
+        if (! $product instanceof Product) {
+            return [
+                'warehouse_id' => null,
+                'floor' => '',
+                'location_id' => null,
+            ];
+        }
+
+        $product->loadMissing(['stockItems.warehouse', 'stockItems.location']);
+        $stockItem = $product->stockItems
+            ->filter(fn ($stockItem): bool => (int) $stockItem->quantity > 0)
+            ->sortByDesc(fn ($stockItem): int => (int) $stockItem->available_quantity)
+            ->first();
+
+        return [
+            'warehouse_id' => $stockItem?->warehouse_id,
+            'floor' => $stockItem?->location ? $this->normalizedLocationFloor($stockItem->location) : '',
+            'location_id' => $stockItem?->location_id,
+        ];
+    }
+
+    protected function resolveNikolaCarsPlacementLocation(Request $request, ?DonorCar $donorCar = null): Location
+    {
+        $validated = $request->validate([
+            'warehouse_id' => ['required', 'integer'],
+            'floor' => ['nullable', 'string'],
+            'location_id' => ['nullable', 'integer'],
+        ]);
+
+        $warehouse = Warehouse::query()
+            ->whereKey($validated['warehouse_id'])
+            ->where('is_active', true)
+            ->first();
+
+        if (! $warehouse instanceof Warehouse) {
+            throw ValidationException::withMessages([
+                'warehouse_id' => 'Выберите склад.',
+            ]);
+        }
+
+        if ($warehouse->type === Warehouse::TYPE_DONOR) {
+            if (! $donorCar instanceof DonorCar) {
+                throw ValidationException::withMessages([
+                    'warehouse_id' => 'Склад донора доступен только для запчастей, связанных с донором.',
+                ]);
+            }
+
+            return $this->donorStockLocation($donorCar);
+        }
+
+        $floor = $validated['floor'] ?? null;
+
+        if ($warehouse->hasMultipleFloors()) {
+            if (! is_string($floor) || ! array_key_exists($floor, $warehouse->availableFloors())) {
+                throw ValidationException::withMessages([
+                    'floor' => 'Выберите этаж.',
+                ]);
+            }
+        } else {
+            $floor = 'floor_1';
+        }
+
+        $floorForLocation = is_string($floor) && $floor !== '' ? $floor : 'floor_1';
+        $warehouseLocations = $this->activePlacementLocationsForWarehouseFloor($warehouse, $floorForLocation);
+        $hasCellLocations = $warehouse->usesStructuredLocations()
+            && $warehouseLocations->contains(fn (Location $location): bool => trim((string) $location->cell) !== '');
+
+        if (! $hasCellLocations) {
+            return $this->noCellPlacementLocation($warehouse, $floorForLocation);
+        }
+
+        $location = Location::query()
+            ->whereKey($validated['location_id'] ?? null)
+            ->where('warehouse_id', $warehouse->id)
+            ->where('is_active', true)
+            ->first();
+
+        if (! $location instanceof Location) {
+            throw ValidationException::withMessages([
+                'location_id' => 'Выберите ячейку.',
+            ]);
+        }
+
+        if ($warehouse->hasMultipleFloors() && $this->normalizedLocationFloor($location) !== $floorForLocation) {
+            throw ValidationException::withMessages([
+                'location_id' => 'Ячейка не относится к выбранному этажу.',
+            ]);
+        }
+
+        return $location;
+    }
+
+    protected function placeNikolaCarsProductInWarehouse(Product $product, Location $location): void
+    {
+        DB::transaction(function () use ($product, $location): void {
+            $location->loadMissing('warehouse');
+
+            $product->forceFill([
+                'storage_status' => $location->warehouse?->type === Warehouse::TYPE_DONOR
+                    ? Product::STORAGE_STATUS_ON_DONOR
+                    : Product::STORAGE_STATUS_IN_STOCK,
+            ])->save();
+
+            $product->load('stockItems.location');
+            $stockItems = $product->stockItems
+                ->filter(fn ($stockItem): bool => (int) $stockItem->quantity > 0)
+                ->sortByDesc(fn ($stockItem): int => (int) $stockItem->available_quantity)
+                ->values();
+
+            if ($stockItems->isEmpty()) {
+                app(StockService::class)->intake([
+                    'product_id' => $product->id,
+                    'warehouse_id' => $location->warehouse_id,
+                    'location_id' => $location->id,
+                    'quantity' => 1,
+                    'comment' => 'Placement update from /admin/zapchasti.',
+                ]);
+
+                return;
+            }
+
+            foreach ($stockItems as $stockItem) {
+                $quantity = (int) $stockItem->available_quantity;
+
+                if ($quantity < 1 || (int) $stockItem->location_id === (int) $location->id) {
+                    continue;
+                }
+
+                app(StockService::class)->move($stockItem, $quantity, (int) $location->id, [
+                    'comment' => 'Placement update from /admin/zapchasti.',
+                ]);
+            }
+        });
+    }
+
+    protected function donorStockLocation(DonorCar $donorCar): Location
+    {
+        $warehouse = Warehouse::query()
+            ->where(fn (Builder $query) => $query
+                ->where('type', Warehouse::TYPE_DONOR)
+                ->orWhere('name', Warehouse::DONOR_WAREHOUSE_NAME))
+            ->first();
+
+        if (! $warehouse instanceof Warehouse) {
+            $warehouse = Warehouse::query()->create([
+                'name' => Warehouse::DONOR_WAREHOUSE_NAME,
+                'type' => Warehouse::TYPE_DONOR,
+                'floor_count' => 1,
+                'is_active' => true,
+            ]);
+        }
+
+        if ($warehouse->name !== Warehouse::DONOR_WAREHOUSE_NAME || $warehouse->type !== Warehouse::TYPE_DONOR || ! $warehouse->is_active) {
+            $warehouse->forceFill([
+                'name' => Warehouse::DONOR_WAREHOUSE_NAME,
+                'type' => Warehouse::TYPE_DONOR,
+                'floor_count' => max(1, (int) ($warehouse->floor_count ?: 1)),
+                'is_active' => true,
+            ])->save();
+        }
+
+        $fullCode = 'ON-DONOR-'.$donorCar->id;
+        $location = Location::query()
+            ->where('full_code', $fullCode)
+            ->first();
+
+        if ($location instanceof Location) {
+            if (! $location->is_active) {
+                $location->forceFill(['is_active' => true])->save();
+            }
+
+            return $location;
+        }
+
+        return Location::query()->firstOrCreate(
+            [
+                'warehouse_id' => $warehouse->id,
+                'full_code' => $fullCode,
+            ],
+            [
+                'floor' => 'floor_1',
+                'cell' => Str::limit($donorCar->vin ?: 'DONOR-'.$donorCar->id, 50, ''),
+                'is_active' => true,
+            ],
+        );
+    }
+
+    protected function activePlacementLocationsForWarehouseFloor(Warehouse $warehouse, string $floor): Collection
+    {
+        return Location::query()
+            ->where('warehouse_id', $warehouse->id)
+            ->where('is_active', true)
+            ->get(['id', 'warehouse_id', 'floor', 'cell', 'full_code', 'is_active'])
+            ->filter(fn (Location $location): bool => $this->normalizedLocationFloor($location) === $floor)
+            ->values();
+    }
+
+    protected function noCellPlacementLocation(Warehouse $warehouse, string $floor): Location
+    {
+        $warehouseLocations = $this->activePlacementLocationsForWarehouseFloor($warehouse, $floor);
+        $location = $warehouse->usesStructuredLocations()
+            ? $warehouseLocations->first(fn (Location $location): bool => trim((string) $location->cell) === '')
+            : $warehouseLocations->first();
+
+        if ($location instanceof Location) {
+            return $location;
+        }
+
+        return Location::query()->create([
+            'warehouse_id' => $warehouse->id,
+            'floor' => $floor,
+            'cell' => null,
+            'full_code' => $this->uniqueNoCellLocationCode($warehouse, $floor),
+            'is_active' => true,
+        ]);
+    }
+
+    protected function uniqueNoCellLocationCode(Warehouse $warehouse, string $floor): string
+    {
+        $floorNumber = Str::after($floor, 'floor_') ?: '1';
+        $base = "WH{$warehouse->id}-F{$floorNumber}-NO-CELL";
+        $code = $base;
+        $counter = 2;
+
+        while (Location::query()->where('full_code', $code)->exists()) {
+            $code = "{$base}-{$counter}";
+            $counter++;
+        }
+
+        return $code;
+    }
+
+    protected function activeNikolaCarsPlacementWarehouses(): Collection
+    {
+        return Warehouse::query()
+            ->where('is_active', true)
+            ->orderBy('name')
+            ->get(['id', 'name', 'type', 'floor_count', 'is_active']);
+    }
+
+    protected function activeNikolaCarsPlacementLocations(): Collection
+    {
+        return Location::query()
+            ->with('warehouse:id,name,type,floor_count,is_active')
+            ->where('is_active', true)
+            ->whereHas('warehouse', fn (Builder $query) => $query
+                ->where('is_active', true)
+                ->where(fn (Builder $typeQuery) => $typeQuery
+                    ->whereNull('type')
+                    ->orWhere('type', '!=', Warehouse::TYPE_DONOR)))
+            ->orderBy('warehouse_id')
+            ->orderBy('floor')
+            ->orderBy('full_code')
+            ->get(['id', 'warehouse_id', 'floor', 'cell', 'full_code']);
+    }
+
+    protected function nikolaCarsPlacementWarehouseOptions(Collection $warehouses): array
+    {
+        return $warehouses
+            ->sortBy(fn (Warehouse $warehouse): string => ($warehouse->type === Warehouse::TYPE_DONOR ? '0' : '1').(string) $warehouse->name, SORT_NATURAL | SORT_FLAG_CASE)
+            ->map(fn (Warehouse $warehouse): array => [
+                'id' => $warehouse->id,
+                'name' => $warehouse->name,
+                'type' => $warehouse->type,
+                'floor_count' => $warehouse->floor_count,
+                'uses_structured_locations' => $warehouse->usesStructuredLocations(),
+                'floors' => collect($warehouse->availableFloors())
+                    ->map(fn (string $label, string $value): array => [
+                        'value' => $value,
+                        'label' => $label,
+                    ])
+                    ->values()
+                    ->all(),
+            ])
+            ->values()
+            ->all();
+    }
+
+    protected function nikolaCarsPlacementLocationOptions(Collection $locations): array
+    {
+        return $locations
+            ->map(fn (Location $location): array => [
+                'id' => $location->id,
+                'warehouse_id' => $location->warehouse_id,
+                'floor' => $this->normalizedLocationFloor($location),
+                'floor_label' => $this->locationFloorLabel($location),
+                'label' => $this->locationDisplayCode($location, 'Без ячейки'),
+                'has_cell' => $location->warehouse?->usesStructuredLocations() && trim((string) $location->cell) !== '',
+            ])
+            ->values()
+            ->all();
+    }
+
+    protected function normalizedLocationFloor(Location $location): string
+    {
+        return is_string($location->floor) && $location->floor !== '' ? $location->floor : 'floor_1';
+    }
+
+    protected function locationFloorLabel(Location $location): string
+    {
+        $floor = $this->normalizedLocationFloor($location);
+
+        if (preg_match('/^floor_(\d+)$/', $floor, $matches)) {
+            return "Этаж {$matches[1]}";
+        }
+
+        return $location->floorLabel();
+    }
+
+    protected function locationDisplayCode(Location $location, string $fallback = ''): string
+    {
+        return trim((string) ($location->cell ?: $location->full_code)) ?: $fallback;
     }
 
     protected function teslaFindPartItemIds(PartCatalogItem $item, Collection $relatedResults): array
@@ -1346,6 +1776,42 @@ class PartCatalogController extends Controller
             $partCatalogItem,
             (int) $request->validated('category_id')
         ));
+    }
+
+    public function updateNikolaCarsItemPlacement(
+        Request $request,
+        PartCatalogItem $partCatalogItem,
+        NikolaCarsCatalogItemService $nikolaCarsCatalogItems
+    ): RedirectResponse {
+        abort_unless($partCatalogItem->source === 'nikolacars', 404);
+
+        if ($nikolaCarsCatalogItems->isSold($partCatalogItem)) {
+            throw ValidationException::withMessages([
+                'warehouse_id' => 'Проданную запчасть нельзя перемещать.',
+            ]);
+        }
+
+        if ($nikolaCarsCatalogItems->isReserved($partCatalogItem)) {
+            throw ValidationException::withMessages([
+                'warehouse_id' => 'Запчасть в резерве. Сначала снимите резерв или завершите заказ.',
+            ]);
+        }
+
+        $product = $this->nikolaCarsProductForItem($partCatalogItem);
+
+        if (! $product instanceof Product) {
+            throw ValidationException::withMessages([
+                'warehouse_id' => 'Связанный товар для этой строки не найден.',
+            ]);
+        }
+
+        $product->loadMissing(['donorCar', 'stockItems.location', 'stockItems.warehouse']);
+        $location = $this->resolveNikolaCarsPlacementLocation($request, $product->donorCar);
+
+        $this->placeNikolaCarsProductInWarehouse($product, $location);
+        app(NikolaCarsProductInventorySyncService::class)->syncProduct($product->refresh());
+
+        return back()->with('status', 'Склад для запчасти обновлен.');
     }
 
     public function storeNikolaCarsItemPhotos(

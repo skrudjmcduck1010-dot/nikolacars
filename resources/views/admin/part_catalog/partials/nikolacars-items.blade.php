@@ -54,6 +54,7 @@
         <th>Статус</th>
         <th><a class="catalog-sort-link" href="{{ $nikolaCarsSortUrl('price') }}">{!! $nikolaCarsPriceSortLabel !!}</a></th>
         <th>Купить</th>
+        <th>Склад</th>
         <th><a class="catalog-sort-link" href="{{ $nikolaCarsSortUrl('stock') }}">Остаток</a></th>
         <th></th>
     </tr>
@@ -63,13 +64,62 @@
         @include('admin.part_catalog.partials.nikolacars-item-row')
     @empty
         <tr data-nikolacars-empty-row>
-            <td colspan="12" class="empty">{{ $showNikolaCarsSoldItems ? 'Проданные запчасти не найдены.' : 'Запчасти не найдены.' }}</td>
+            <td colspan="13" class="empty">{{ $showNikolaCarsSoldItems ? 'Проданные запчасти не найдены.' : 'Запчасти не найдены.' }}</td>
         </tr>
     @endforelse
     </tbody>
 </table>
 @include('admin.part_catalog.partials.nikolacars-create-dialog')
 @include('admin.part_catalog.partials.nikolacars-cart')
+<dialog class="nikolacars-placement-editor" data-nikolacars-placement-editor>
+    <form method="POST" action="#" class="nikolacars-placement-editor__form" data-nikolacars-placement-form>
+        @csrf
+        @method('PATCH')
+        <div class="nikolacars-placement-editor__header">
+            <h2>Редактировать склад</h2>
+            <button type="button" class="nikolacars-placement-editor__close" data-nikolacars-placement-edit-cancel aria-label="Закрыть">&times;</button>
+        </div>
+        <label>
+            <span>Склад</span>
+            <select name="warehouse_id" data-nikolacars-placement-warehouse>
+                @foreach($nikolaCarsPlacementWarehouseOptions as $warehouseOption)
+                    <option
+                        value="{{ $warehouseOption['id'] }}"
+                        data-warehouse-type="{{ $warehouseOption['type'] }}"
+                        data-floor-count="{{ $warehouseOption['floor_count'] }}"
+                        data-structured-locations="{{ $warehouseOption['uses_structured_locations'] ? '1' : '0' }}"
+                    >{{ $warehouseOption['name'] }}</option>
+                @endforeach
+            </select>
+        </label>
+        <label data-nikolacars-placement-floor-wrap>
+            <span>Этаж</span>
+            <select name="floor" data-nikolacars-placement-floor>
+                @foreach(\App\Models\Location::floorsForCount(20) as $floorValue => $floorLabel)
+                    <option value="{{ $floorValue }}">{{ $floorLabel }}</option>
+                @endforeach
+            </select>
+        </label>
+        <label data-nikolacars-placement-location-wrap>
+            <span>Ячейка</span>
+            <select name="location_id" data-nikolacars-placement-location>
+                <option value="">—</option>
+                @foreach($nikolaCarsPlacementLocationOptions as $locationOption)
+                    <option
+                        value="{{ $locationOption['id'] }}"
+                        data-warehouse-id="{{ $locationOption['warehouse_id'] }}"
+                        data-floor="{{ $locationOption['floor'] }}"
+                        data-has-cell="{{ $locationOption['has_cell'] ? '1' : '0' }}"
+                    >{{ $locationOption['floor_label'] }} · {{ $locationOption['label'] }}</option>
+                @endforeach
+            </select>
+        </label>
+        <div class="nikolacars-placement-editor__actions">
+            <button type="button" class="btn btn-small btn-secondary" data-nikolacars-placement-edit-cancel>Отмена</button>
+            <button type="submit" class="btn btn-small">Сохранить</button>
+        </div>
+    </form>
+</dialog>
 <dialog class="catalog-photo-lightbox" data-catalog-photo-lightbox>
     <div class="catalog-photo-lightbox__toolbar">
         <span data-catalog-photo-counter></span>

@@ -194,7 +194,7 @@ class DrivePartsCatalogImporterTest extends TestCase
             'source_url' => 'https://drive-parts.com.ua/36750-olyva-transmisiina-sp-matic-4036-5l/',
             'part_number' => '36750',
             'name' => 'UA oil',
-            'name_ua' => 'UA oil',
+            'name_ua' => $this->u('\u0423\u0410 \u043e\u043b\u0438\u0432\u0430'),
         ]);
         PartCatalogItem::query()->create([
             'source' => 'driveparts',
@@ -223,7 +223,7 @@ class DrivePartsCatalogImporterTest extends TestCase
         $this->assertDatabaseHas('part_catalog_items', [
             'source_url' => 'https://drive-parts.com.ua/36750-olyva-transmisiina-sp-matic-4036-5l/',
             'name_ru' => $this->u('\u0420\u0423 \u043c\u0430\u0441\u043b\u043e'),
-            'name_ua' => 'UA oil',
+            'name_ua' => $this->u('\u0423\u0410 \u043e\u043b\u0438\u0432\u0430'),
         ]);
     }
 

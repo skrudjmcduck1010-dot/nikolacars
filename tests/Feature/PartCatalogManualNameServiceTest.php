@@ -46,7 +46,7 @@ class PartCatalogManualNameServiceTest extends TestCase
         $this->assertSame(1, data_get($item->raw_attributes, 'name_language_marker_conflict_ua.count'));
     }
 
-    public function test_manual_name_lock_propagates_to_internal_seven_digit_part_prefix_matches(): void
+    public function test_manual_name_lock_propagates_to_exact_internal_part_matches(): void
     {
         $sourceItem = PartCatalogItem::query()->create([
             'source' => 'tesla_official',
@@ -108,21 +108,23 @@ class PartCatalogManualNameServiceTest extends TestCase
             'name_ru' => 'Manual RU',
         ]);
 
-        $this->assertSame(5, $counts['name_ru']);
+        $this->assertSame(3, $counts['name_ru']);
         $this->assertSame(0, $counts['name_ua']);
 
-        foreach ([$sourceItem, $donorItem, $nikolaCarsItem, $basePartItem, $rootPartItem] as $item) {
+        foreach ([$sourceItem, $donorItem, $nikolaCarsItem] as $item) {
             $item->refresh();
 
             $this->assertSame('Manual RU', $item->name_ru);
             $this->assertNotNull(data_get($item->raw_attributes, 'manual_name_locks.ru'));
         }
 
+        $this->assertNull($basePartItem->refresh()->name_ru);
+        $this->assertNull($rootPartItem->refresh()->name_ru);
         $this->assertSame('Common competitor RU', $commonCompetitorRow->refresh()->name_ru);
         $this->assertSame('Competitor RU', $competitorItem->refresh()->name_ru);
     }
 
-    public function test_manual_name_lock_from_nikolacars_propagates_to_internal_seven_digit_part_prefix_matches(): void
+    public function test_manual_name_lock_from_nikolacars_propagates_to_exact_internal_part_matches(): void
     {
         $nikolaCarsItem = PartCatalogItem::query()->create([
             'source' => 'nikolacars',
@@ -170,11 +172,11 @@ class PartCatalogManualNameServiceTest extends TestCase
 
         $this->assertSame('NikolaCars Manual RU', $nikolaCarsItem->refresh()->name_ru);
         $this->assertSame('NikolaCars Manual RU', $officialItem->refresh()->name_ru);
-        $this->assertSame('NikolaCars Manual RU', $samePrefixOfficialItem->refresh()->name_ru);
+        $this->assertSame('Old same prefix official RU', $samePrefixOfficialItem->refresh()->name_ru);
         $this->assertSame('NikolaCars Manual RU', $donorItem->refresh()->name_ru);
         $this->assertSame('DriveParts RU', $competitorItem->refresh()->name_ru);
         $this->assertNotNull(data_get($officialItem->raw_attributes, 'manual_name_locks.ru'));
-        $this->assertNotNull(data_get($samePrefixOfficialItem->raw_attributes, 'manual_name_locks.ru'));
+        $this->assertNull(data_get($samePrefixOfficialItem->raw_attributes, 'manual_name_locks.ru'));
         $this->assertNotNull(data_get($donorItem->raw_attributes, 'manual_name_locks.ru'));
     }
 }

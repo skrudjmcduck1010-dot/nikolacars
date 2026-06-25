@@ -289,7 +289,7 @@ class DonorCarProductCatalogCategoryTest extends TestCase
         $this->actingAs($user)
             ->get(route('admin.donor-cars.show', $donorCar))
             ->assertOk()
-            ->assertSee('&#1042;&#1088;&#1091;&#1095;&#1085;&#1091;&#1102;', false)
+            ->assertSee('Вручную')
             ->assertDontSee('example.test', false);
     }
 
@@ -743,6 +743,11 @@ class DonorCarProductCatalogCategoryTest extends TestCase
         $response->assertSee('/storage/donor-cars/front.jpg', false);
         $response->assertSee('/storage/donor-cars/rear.jpg', false);
         $response->assertSee(route('admin.donor-cars.photos.destroy', $donorCar), false);
+        $response->assertSee(route('admin.mobile.donor-cars.parts.show', $donorCar), false);
+        $response->assertSee('class="btn btn-secondary donor-mobile-action"', false);
+        $response->assertSee('aria-label="Мобильное добавление"', false);
+        $response->assertSee('<rect x="7" y="2" width="10" height="20" rx="2" ry="2"></rect>', false);
+        $response->assertDontSee(route('admin.mobile.donor-cars.products.create', $donorCar), false);
         $response->assertSee('data-donor-photo-delete-form', false);
         $response->assertSee('data-donor-photo-dropzone', false);
     }
@@ -889,17 +894,17 @@ class DonorCarProductCatalogCategoryTest extends TestCase
         $this->assertStringContainsString('data-donor-damage-select', $productRow);
         $this->assertStringNotContainsString('Проверена', $productRow);
         $this->assertStringContainsString('Добавлено вручну', $productRow);
-        $this->assertStringContainsString('>Р </span>', $productRow);
+        $this->assertStringContainsString('>Р</span>', $productRow);
         $englishNameRow = str($productRow)
             ->after('Manual checked bumper')
             ->before('</div>')
             ->toString();
-        $this->assertStringContainsString('>Р </span>', $englishNameRow);
+        $this->assertStringContainsString('>Р</span>', $englishNameRow);
         $damageCell = str($productRow)
             ->after('data-donor-damage-form')
             ->before('</td>')
             ->toString();
-        $this->assertStringNotContainsString('>Р </span>', $damageCell);
+        $this->assertStringNotContainsString('>Р</span>', $damageCell);
 
         $this->actingAs($user)
             ->patch(route('admin.donor-cars.products.official-fields.update', [$donorCar, $product]), [
@@ -968,12 +973,27 @@ class DonorCarProductCatalogCategoryTest extends TestCase
             ->assertOk()
             ->assertSee('data-donor-placement-dialog', false)
             ->assertSee('data-donor-placement-warehouse', false)
+            ->assertSee('<option value="">Выберите склад</option>', false)
             ->assertSee('Parts Warehouse')
             ->assertSee('data-previous-damage-note', false);
 
+        $checkedDamage = "\u{0411}\u{0435}\u{0437} \u{043F}\u{043E}\u{0432}\u{0440}\u{0435}\u{0436}\u{0434}\u{0435}\u{043D}\u{0438}\u{0439}";
+        $missingPlacementResponse = $this->actingAs($user)
+            ->patchJson(route('admin.donor-cars.products.official-fields.update', [$donorCar, $product]), [
+                'damage_note' => $checkedDamage,
+            ]);
+
+        $missingPlacementResponse
+            ->assertUnprocessable()
+            ->assertJsonValidationErrors(['warehouse_id']);
+
+        $product->refresh();
+        $this->assertNull($product->notes);
+        $this->assertSame(Product::STORAGE_STATUS_ON_DONOR, $product->storage_status);
+
         $response = $this->actingAs($user)
             ->patchJson(route('admin.donor-cars.products.official-fields.update', [$donorCar, $product]), [
-                'damage_note' => "\u{0411}\u{0435}\u{0437} \u{043F}\u{043E}\u{0432}\u{0440}\u{0435}\u{0436}\u{0434}\u{0435}\u{043D}\u{0438}\u{0439}",
+                'damage_note' => $checkedDamage,
                 'warehouse_id' => $warehouse->id,
                 'floor' => 'floor_2',
                 'location_id' => $targetLocation->id,
@@ -983,14 +1003,14 @@ class DonorCarProductCatalogCategoryTest extends TestCase
             ->assertOk()
             ->assertJsonPath('message', 'Данные запчасти обновлены.')
             ->assertJsonPath('destination', 'checked')
-            ->assertJsonPath('damage_note', "\u{0411}\u{0435}\u{0437} \u{043F}\u{043E}\u{0432}\u{0440}\u{0435}\u{0436}\u{0434}\u{0435}\u{043D}\u{0438}\u{0439}");
+            ->assertJsonPath('damage_note', $checkedDamage);
 
         $this->assertStringContainsString('Parts Warehouse', (string) $response->json('stock_label'));
         $this->assertStringContainsString('B7', (string) $response->json('stock_label'));
 
         $product->refresh();
         $this->assertSame(Product::STORAGE_STATUS_IN_STOCK, $product->storage_status);
-        $this->assertSame("\u{0411}\u{0435}\u{0437} \u{043F}\u{043E}\u{0432}\u{0440}\u{0435}\u{0436}\u{0434}\u{0435}\u{043D}\u{0438}\u{0439}", $product->notes);
+        $this->assertSame($checkedDamage, $product->notes);
         $this->assertDatabaseHas('stock_items', [
             'product_id' => $product->id,
             'warehouse_id' => $warehouse->id,
@@ -1056,7 +1076,79 @@ class DonorCarProductCatalogCategoryTest extends TestCase
         $this->assertSame('ON-DONOR-'.$donorCar->id, $donorStockItem->location?->full_code);
     }
 
-    public function test_donor_damage_note_update_keeps_missing_localized_names_static(): void
+    public function test_desktop_donor_damage_dialog_saves_selected_stock_location(): void
+    {
+        $user = User::query()->create([
+            'name' => 'Admin',
+            'email' => 'admin-donor-damage-dialog-placement@example.com',
+            'password' => Hash::make('password'),
+            'role' => 'admin',
+            'is_active' => true,
+        ]);
+        $donorCar = DonorCar::query()->create([
+            'vin' => '5YJ3E1EA7KF000073',
+            'brand' => 'Tesla',
+            'model' => 'Model 3',
+            'year' => 2020,
+        ]);
+        $warehouse = Warehouse::query()->create([
+            'name' => 'Desktop Parts Warehouse',
+            'floor_count' => 2,
+            'is_active' => true,
+        ]);
+        $location = Location::query()->create([
+            'warehouse_id' => $warehouse->id,
+            'floor' => 'floor_2',
+            'full_code' => 'DPW-F2-D4',
+            'cell' => 'D4',
+            'is_active' => true,
+        ]);
+        $product = Product::query()->create([
+            'sku' => 'DONOR-DAMAGE-DIALOG-001',
+            'external_sku' => '1084174-00-D',
+            'name' => 'Desktop placement checked bumper',
+            'slug' => 'desktop-placement-checked-bumper',
+            'donor_car_id' => $donorCar->id,
+            'storage_status' => Product::STORAGE_STATUS_ON_DONOR,
+            'condition_type' => 'used',
+            'notes' => null,
+            'testing_status' => 'not_tested',
+            'unit' => 'pcs',
+            'selling_price' => 100,
+            'currency' => 'USD',
+            'is_active' => true,
+        ]);
+
+        $checkedDamage = "\u{041B}\u{0435}\u{0433}\u{043A}\u{0438}\u{0435} \u{043F}\u{043E}\u{0432}\u{0440}\u{0435}\u{0436}\u{0434}\u{0435}\u{043D}\u{0438}\u{044F}";
+
+        $response = $this->actingAs($user)
+            ->postJson(route('admin.donor-cars.products.official-fields.update', [$donorCar, $product]), [
+                '_method' => 'PATCH',
+                'damage_note' => $checkedDamage,
+                'warehouse_id' => $warehouse->id,
+                'floor' => 'floor_2',
+                'location_id' => $location->id,
+            ]);
+
+        $response
+            ->assertOk()
+            ->assertJsonPath('destination', 'checked')
+            ->assertJsonPath('stock_location.warehouse_id', $warehouse->id)
+            ->assertJsonPath('stock_location.floor', 'floor_2')
+            ->assertJsonPath('stock_location.location_id', $location->id);
+
+        $product->refresh();
+        $this->assertSame(Product::STORAGE_STATUS_IN_STOCK, $product->storage_status);
+        $this->assertSame($checkedDamage, $product->notes);
+        $this->assertDatabaseHas('stock_items', [
+            'product_id' => $product->id,
+            'warehouse_id' => $warehouse->id,
+            'location_id' => $location->id,
+            'quantity' => 1,
+        ]);
+    }
+
+    public function test_donor_damage_note_update_autofills_missing_localized_names_from_local_catalog(): void
     {
         $user = User::query()->create([
             'name' => 'Admin',
@@ -1129,9 +1221,9 @@ class DonorCarProductCatalogCategoryTest extends TestCase
             ->where('source_url', 'nikolacars://donor-product/'.$product->id)
             ->firstOrFail();
 
-        $this->assertNull($mirror->name_ru);
-        $this->assertNull($mirror->name_ua);
-        $this->assertNull(data_get($mirror->raw_attributes, 'name_source_type_ua'));
+        $this->assertSame($sourceNameRu, $mirror->name_ru);
+        $this->assertSame($sourceNameUa, $mirror->name_ua);
+        $this->assertSame('donor_status_catalog_match', data_get($mirror->raw_attributes, 'name_source_type_ua'));
     }
 
     public function test_donor_damage_note_update_preserves_manual_nikolacars_category(): void
@@ -1202,8 +1294,10 @@ class DonorCarProductCatalogCategoryTest extends TestCase
             ->firstOrFail();
 
         $this->assertSame($category->id, $item->part_catalog_category_id);
-        $this->assertSame($category->name, data_get($item->raw_attributes, 'category_display'));
         $this->assertTrue((bool) data_get($item->raw_attributes, 'manual_category'));
+        $this->assertSame($category->id, (int) data_get($item->raw_attributes, 'manual_category_id'));
+        $this->assertNull(data_get($item->raw_attributes, 'category_display'));
+        $this->assertNull(data_get($item->raw_attributes, 'category_path'));
         $this->assertSame("\u{041B}\u{0435}\u{0433}\u{043A}\u{0438}\u{0435} \u{043F}\u{043E}\u{0432}\u{0440}\u{0435}\u{0436}\u{0434}\u{0435}\u{043D}\u{0438}\u{044F}", $item->quality);
     }
 
@@ -1981,9 +2075,18 @@ class DonorCarProductCatalogCategoryTest extends TestCase
 
         $response->assertOk();
         $response->assertSee('data-category-label="'.$undefinedCategoryLabel.'"', false);
-        $response->assertSee('data-donor-product-category="'.$undefinedCategoryKey.'"', false);
         $response->assertDontSee('Legacy donor group', false);
         $response->assertDontSee('Tesla; Tesla M3', false);
+
+        $salesHtml = $this->actingAs($user)
+            ->getJson(route('admin.donor-cars.sales.table', $donorCar))
+            ->assertOk()
+            ->json('html');
+
+        $this->assertStringContainsString('data-donor-product-category="'.$undefinedCategoryKey.'"', $salesHtml);
+        $this->assertStringContainsString('Лонжерон правий', $salesHtml);
+        $this->assertStringNotContainsString('Legacy donor group', $salesHtml);
+        $this->assertStringNotContainsString('Tesla; Tesla M3', $salesHtml);
     }
 
     public function test_donor_car_show_hides_sold_part_sale_products_from_active_tabs(): void
@@ -2061,7 +2164,13 @@ class DonorCarProductCatalogCategoryTest extends TestCase
         $response->assertOk();
         $response->assertDontSee('DONOR-PARTSALE-SOLD-001');
         $response->assertDontSee('Sold donor battery without catalog item');
-        $response->assertSee('Sold catalog bumper sale');
+
+        $salesHtml = $this->actingAs($user)
+            ->getJson(route('admin.donor-cars.sales.table', $donorCar))
+            ->assertOk()
+            ->json('html');
+
+        $this->assertStringContainsString('Sold catalog bumper sale', $salesHtml);
     }
 
     public function test_donor_car_show_hides_duplicate_manual_sold_orphan_sale(): void
@@ -2162,11 +2271,13 @@ class DonorCarProductCatalogCategoryTest extends TestCase
             'source_row_hash' => 'manual-sold-before-june-2026-product-'.$product->id,
         ]);
 
-        $response = $this->actingAs($user)->get(route('admin.donor-cars.show', $donorCar));
+        $salesHtml = $this->actingAs($user)
+            ->getJson(route('admin.donor-cars.sales.table', $donorCar))
+            ->assertOk()
+            ->json('html');
 
-        $response->assertOk();
-        $response->assertSeeText('Высоковольтная батарея');
-        $this->assertSame(1, substr_count($response->getContent(), route('admin.products.show', $product)));
+        $this->assertStringContainsString('Высоковольтная батарея', $salesHtml);
+        $this->assertSame(1, substr_count($salesHtml, route('admin.products.show', $product)));
     }
 
     public function test_donor_car_show_recovers_category_for_orphan_manual_sold_sale(): void
@@ -2244,12 +2355,14 @@ class DonorCarProductCatalogCategoryTest extends TestCase
             'source_row_hash' => 'manual-sold-before-june-2026-product-'.$product->id,
         ]);
 
-        $response = $this->actingAs($user)->get(route('admin.donor-cars.show', $donorCar));
+        $salesHtml = $this->actingAs($user)
+            ->getJson(route('admin.donor-cars.sales.table', $donorCar))
+            ->assertOk()
+            ->json('html');
 
-        $response->assertOk();
-        $response->assertSeeText('Высоковольтная батарея');
-        $response->assertDontSeeText('Не определено');
-        $this->assertSame(1, substr_count($response->getContent(), route('admin.products.show', $product)));
+        $this->assertStringContainsString('Высоковольтная батарея', $salesHtml);
+        $this->assertStringNotContainsString('Не определено', $salesHtml);
+        $this->assertSame(1, substr_count($salesHtml, route('admin.products.show', $product)));
     }
 
     public function test_donor_car_show_recovers_category_for_product_with_stale_catalog_link(): void
@@ -3975,7 +4088,7 @@ class DonorCarProductCatalogCategoryTest extends TestCase
             ->toString();
 
         $this->assertStringContainsString('Customer reserved donor mirror', $reservedPartRow);
-        $this->assertStringContainsString('&#1074; &#1088;&#1077;&#1079;&#1077;&#1088;&#1074;&#1077;', $reservedPartRow);
+        $this->assertStringContainsString('в резерве', $reservedPartRow);
         $this->assertStringContainsString('ORD-20260603-0021', $reservedPartRow);
         $this->assertStringContainsString('href="'.route('admin.customer-orders.show', $order).'"', $reservedPartRow);
     }
@@ -4246,30 +4359,28 @@ class DonorCarProductCatalogCategoryTest extends TestCase
                 'donorCar' => $donorCar,
                 'product_sort' => 'photo',
                 'product_direction' => 'asc',
-                'sale_sort' => 'sold_at',
-                'sale_direction' => 'desc',
             ]))
             ->assertSee(route('admin.donor-cars.show', [
                 'donorCar' => $donorCar,
                 'product_sort' => 'damage_note',
                 'product_direction' => 'asc',
-                'sale_sort' => 'sold_at',
-                'sale_direction' => 'desc',
             ]))
             ->assertSee(route('admin.donor-cars.show', [
                 'donorCar' => $donorCar,
                 'product_sort' => 'tesla_price',
                 'product_direction' => 'asc',
-                'sale_sort' => 'sold_at',
-                'sale_direction' => 'desc',
-            ]))
-            ->assertSee(route('admin.donor-cars.show', [
-                'donorCar' => $donorCar,
-                'product_sort' => 'price',
-                'product_direction' => 'desc',
-                'sale_sort' => 'total_amount',
-                'sale_direction' => 'asc',
             ]));
+
+        $salesHtml = $this->actingAs($user)
+            ->getJson(route('admin.donor-cars.sales.table', $donorCar))
+            ->assertOk()
+            ->json('html');
+
+        $this->assertStringContainsString(e(route('admin.donor-cars.show', [
+            'donorCar' => $donorCar,
+            'sale_sort' => 'total_amount',
+            'sale_direction' => 'asc',
+        ]).'#sold'), $salesHtml);
     }
 
     public function test_donor_show_limits_initial_products_and_ajax_search_returns_all_matches(): void

@@ -69,6 +69,49 @@
             padding: 6px 10px;
             border-radius: 10px;
         }
+        .customer-order-ttn-field {
+            position: relative;
+            display: inline-flex;
+        }
+        .customer-order-ttn-suggestions {
+            position: absolute;
+            z-index: 30;
+            top: calc(100% + 4px);
+            left: 0;
+            width: min(360px, calc(100vw - 32px));
+            max-height: 260px;
+            overflow: auto;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            background: #ffffff;
+            box-shadow: 0 12px 24px rgba(15, 23, 42, .18);
+        }
+        .customer-order-ttn-suggestion {
+            display: grid;
+            gap: 2px;
+            width: 100%;
+            padding: 8px 10px;
+            border: 0;
+            border-bottom: 1px solid #eef2f7;
+            background: transparent;
+            color: inherit;
+            text-align: left;
+            cursor: pointer;
+        }
+        .customer-order-ttn-suggestion:hover,
+        .customer-order-ttn-suggestion:focus {
+            background: #f8fafc;
+            outline: none;
+        }
+        .customer-order-ttn-suggestion strong {
+            font-size: 13px;
+            line-height: 1.25;
+        }
+        .customer-order-ttn-suggestion span {
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.25;
+        }
         .customer-order-ttn-save,
         .customer-order-ttn-cancel {
             min-height: 30px;
@@ -130,7 +173,10 @@
         <form data-customer-order-ttn-add-form>
             <label>
                 {{ "\u{041D}\u{043E}\u{043C}\u{0435}\u{0440} \u{0422}\u{0422}\u{041D}" }}
-                <input type="text" name="tracking_number" maxlength="64" inputmode="numeric" autocomplete="off" data-customer-order-ttn-add-input>
+                <span class="customer-order-ttn-field">
+                    <input type="text" name="tracking_number" maxlength="64" inputmode="numeric" autocomplete="off" data-customer-order-ttn-add-input>
+                    <span class="customer-order-ttn-suggestions" data-customer-order-ttn-add-suggestions hidden></span>
+                </span>
             </label>
             <div style="margin-top:12px;">
                 <div class="help">{{ "\u{0417}\u{0430}\u{043F}\u{0447}\u{0430}\u{0441}\u{0442}\u{0438} \u{0432} \u{044D}\u{0442}\u{043E}\u{0439} \u{0422}\u{0422}\u{041D}" }}</div>
@@ -152,6 +198,7 @@
         data-customer-order-id="{{ $order->id }}"
         data-customer-order-shipment-id="{{ $shipment?->id }}"
         data-update-url="{{ route('admin.customer-orders.nova-poshta.tracking-number.update', $order) }}"
+        data-suggestions-url="{{ route('admin.customer-orders.nova-poshta.tracking-number.suggestions', $order) }}"
         @if($showAddTrackingButton ?? false) data-store-url="{{ route('admin.customer-orders.nova-poshta.tracking-number.store', $order) }}" @endif
         @if($showAddTrackingButton ?? false) data-add-items='{{ $addTrackingItems->toJson(JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_HEX_TAG) }}' @endif
         @if($rowStyle ?? null) style="{{ $rowStyle }}" @endif
@@ -265,7 +312,10 @@
         @if($canEditTrackingNumber && $trackingNumber !== '')
             <form class="customer-order-ttn-form" data-customer-order-ttn-form hidden>
                 <label for="{{ $trackingId }}" class="sr-only">{{ "\u{041D}\u{043E}\u{043C}\u{0435}\u{0440} \u{0422}\u{0422}\u{041D}" }}</label>
-                <input id="{{ $trackingId }}" type="text" name="tracking_number" value="{{ $trackingNumber }}" maxlength="64" inputmode="numeric" data-customer-order-ttn-input>
+                <span class="customer-order-ttn-field">
+                    <input id="{{ $trackingId }}" type="text" name="tracking_number" value="{{ $trackingNumber }}" maxlength="64" inputmode="numeric" autocomplete="off" data-customer-order-ttn-input>
+                    <span class="customer-order-ttn-suggestions" data-customer-order-ttn-suggestions hidden></span>
+                </span>
                 <button type="submit" class="btn btn-small customer-order-ttn-save">{{ "\u{041E}\u{041A}" }}</button>
                 <button type="button" class="btn btn-small btn-secondary customer-order-ttn-cancel" data-customer-order-ttn-cancel>{{ "\u{00D7}" }}</button>
             </form>

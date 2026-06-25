@@ -164,9 +164,9 @@ class ProductStockStatusDisplayTest extends TestCase
         $this->actingAs($this->adminUser())
             ->get(route('admin.products.show', $product))
             ->assertOk()
-            ->assertSee('Повреждения:')
-            ->assertSee('Неизвестно')
-            ->assertDontSee('Без повреждений');
+            ->assertSee($this->u('\\u0421\\u0442\\u0430\\u0442\\u0443\\u0441:'))
+            ->assertSee($this->u('\\u041d\\u0435\\u0438\\u0437\\u0432\\u0435\\u0441\\u0442\\u043d\\u043e'))
+            ->assertDontSee($this->u('\\u0411\\u0435\\u0437 \\u043f\\u043e\\u0432\\u0440\\u0435\\u0436\\u0434\\u0435\\u043d\\u0438\\u0439'));
     }
 
     public function test_product_show_appends_first_donor_photo_for_on_donor_product(): void
@@ -300,5 +300,10 @@ class ProductStockStatusDisplayTest extends TestCase
             'role' => 'admin',
             'is_active' => true,
         ]);
+    }
+
+    protected function u(string $value): string
+    {
+        return json_decode('"'.$value.'"', true, 512, JSON_THROW_ON_ERROR);
     }
 }

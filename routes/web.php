@@ -184,9 +184,12 @@ Route::middleware(['auth', 'active'])->group(function (): void {
             Route::get('customer-orders/clients/search', [CustomerOrderController::class, 'clientSearch'])->name('customer-orders.clients.search');
             Route::get('customer-orders/nova-poshta/cities', [CustomerOrderController::class, 'novaPoshtaCities'])->name('customer-orders.nova-poshta.cities');
             Route::get('customer-orders/nova-poshta/warehouses', [CustomerOrderController::class, 'novaPoshtaWarehouses'])->name('customer-orders.nova-poshta.warehouses');
+            Route::get('customer-orders/nova-poshta/tracking-number/suggestions', [CustomerOrderController::class, 'novaPoshtaAvailableTrackingNumberSuggestions'])->name('customer-orders.nova-poshta.tracking-number.suggestions.available');
             Route::patch('customer-orders/{customerOrder}/delivery-method', [CustomerOrderController::class, 'updateDeliveryMethod'])->name('customer-orders.delivery-method.update');
             Route::patch('customer-orders/{customerOrder}/note', [CustomerOrderController::class, 'updateNote'])->name('customer-orders.note.update');
             Route::patch('customer-orders/{customerOrder}/status', [CustomerOrderController::class, 'updateStatus'])->name('customer-orders.status.update');
+            Route::post('customer-orders/{customerOrder}/return-to-stock', [CustomerOrderController::class, 'returnToStock'])->name('customer-orders.return-to-stock');
+            Route::get('customer-orders/{customerOrder}/nova-poshta/tracking-number/suggestions', [CustomerOrderController::class, 'novaPoshtaTrackingNumberSuggestions'])->name('customer-orders.nova-poshta.tracking-number.suggestions');
             Route::post('customer-orders/{customerOrder}/nova-poshta/tracking-number', [CustomerOrderController::class, 'storeNovaPoshtaTrackingNumber'])->name('customer-orders.nova-poshta.tracking-number.store');
             Route::patch('customer-orders/{customerOrder}/nova-poshta/tracking-number', [CustomerOrderController::class, 'updateNovaPoshtaTrackingNumber'])->name('customer-orders.nova-poshta.tracking-number.update');
             Route::get('customer-orders/{customerOrder}/nova-poshta/label', [CustomerOrderController::class, 'printNovaPoshtaLabel'])->name('customer-orders.nova-poshta.label');
@@ -273,6 +276,9 @@ Route::middleware(['auth', 'active'])->group(function (): void {
                 Route::patch($path.'/items/{partCatalogItem}/category', [PartCatalogController::class, 'updateNikolaCarsItemCategory'])
                     ->middleware($permission)
                     ->name($name.'.category.update');
+                Route::patch($path.'/items/{partCatalogItem}/placement', [PartCatalogController::class, 'updateNikolaCarsItemPlacement'])
+                    ->middleware($permission)
+                    ->name($name.'.placement.update');
                 Route::post($path.'/items/{partCatalogItem}/photos', [PartCatalogController::class, 'storeNikolaCarsItemPhotos'])
                     ->middleware($permission)
                     ->name($name.'.photos.store');
@@ -298,6 +304,7 @@ Route::middleware(['auth', 'active'])->group(function (): void {
         Route::patch('products/{product}/photos/order', [ProductController::class, 'updatePhotoOrder'])->middleware('permission:products.manage')->name('products.photos.order');
         Route::patch('products/{product}/photos/rotate', [ProductController::class, 'rotatePhoto'])->middleware('permission:products.manage')->name('products.photos.rotate');
         Route::patch('products/{product}/catalog-name', [ProductController::class, 'updateCatalogName'])->middleware('permission:products.manage')->name('products.catalog-name.update');
+        Route::patch('products/{product}/placement', [ProductController::class, 'updatePlacement'])->middleware('permission:products.manage')->name('products.placement.update');
         Route::resource('products', ProductController::class)
             ->middleware('permission:products.manage');
 

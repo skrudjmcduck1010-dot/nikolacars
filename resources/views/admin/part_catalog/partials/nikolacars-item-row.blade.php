@@ -37,6 +37,12 @@
             $group['categories']->isEmpty()
             || $group['categories']->contains(fn (string $category): bool => trim($category) === $nikolaCarsUndeterminedCategory)
         );
+    $nikolaCarsProduct = $nikolaCarsCatalogProduct($item);
+    $stockLocationRows = $nikolaCarsProductStockLocationRows($nikolaCarsProduct);
+    $stockLocationPayload = $nikolaCarsProductStockLocationPayload($nikolaCarsProduct);
+    $canEditNikolaCarsPlacement = $canUseNikolaCarsActions
+        && ! $isGrouped
+        && $nikolaCarsProduct instanceof \App\Models\Product;
     $nameRuValues = $group['items']
         ->pluck('name_ru')
         ->map(fn (?string $name): string => trim((string) $name))
@@ -315,13 +321,14 @@
                 @endif
             </span>
             @if($canUseNikolaCarsActions && ! $isGrouped)
-            <button
-                type="button"
-                class="nikolacars-icon-button"
+            <span
+                role="button"
+                tabindex="0"
+                class="nikolacars-inline-edit-button"
                 title="Редактировать цену продажи"
                 aria-label="Редактировать цену продажи"
                 data-nikolacars-price-edit-toggle
-            >&#9998;</button>
+            >&#9998;</span>
             @endif
         </div>
         @if($canUseNikolaCarsActions && ! $isGrouped)
@@ -388,6 +395,42 @@
         @else
             <span class="help">-</span>
         @endif
+    </td>
+    <td class="nikolacars-damages-cell nikolacars-storage-cell" data-nikolacars-placement-cell>
+        <div class="nikolacars-damages-text nikolacars-placement-display" data-nikolacars-placement-display>
+            @forelse($stockLocationRows->take(3) as $stockLocationRow)
+                <div>
+                    @foreach($stockLocationRow as $stockLocationPart)
+                        @if($loop->first)
+                            <div class="nikolacars-placement-line">
+                                <span>{{ $stockLocationPart }}</span>
+                                @if($canEditNikolaCarsPlacement)
+                                    <span
+                                        role="button"
+                                        tabindex="0"
+                                        class="nikolacars-placement-edit-button"
+                                        title="Редактировать склад"
+                                        aria-label="Редактировать склад"
+                                        data-placement-update-url="{{ route('admin.zapchasti.placement.update', $item) }}"
+                                        data-current-warehouse-id="{{ $stockLocationPayload['warehouse_id'] ?? '' }}"
+                                        data-current-floor="{{ $stockLocationPayload['floor'] ?? '' }}"
+                                        data-current-location-id="{{ $stockLocationPayload['location_id'] ?? '' }}"
+                                        data-nikolacars-placement-edit-toggle
+                                    >&#9998;</span>
+                                @endif
+                            </div>
+                        @else
+                            <div>{{ $stockLocationPart }}</div>
+                        @endif
+                    @endforeach
+                </div>
+            @empty
+                <span class="help">-</span>
+            @endforelse
+            @if($stockLocationRows->count() > 3)
+                <div class="help">+{{ $stockLocationRows->count() - 3 }}</div>
+            @endif
+        </div>
     </td>
     <td data-nikolacars-availability>
         {{ $stockDisplayText }}

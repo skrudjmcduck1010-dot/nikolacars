@@ -38,19 +38,21 @@ class NikolaCarsCatalogImporterTest extends TestCase
         $this->assertSame(5, $stats['rows_read']);
         $this->assertSame(2, $stats['donor_products_skipped_unchecked']);
         $this->assertSame(3, $stats['products_saved']);
+        $shelfProduct = Product::query()->where('sku', 'NC-SHELF-1')->firstOrFail();
+
         $this->assertDatabaseHas('part_catalog_items', [
             'source' => 'nikolacars',
-            'source_url' => 'nikolacars://product/SHELF-1',
+            'source_url' => 'nikolacars://inventory-product/'.$shelfProduct->id,
         ]);
         $this->assertDatabaseHas('part_catalog_items', [
             'source' => 'nikolacars',
             'source_url' => 'nikolacars://product/DONOR-1',
-            'quality' => 'Без повреждений',
+            'quality' => $this->u('\u0411\u0435\u0437 \u043f\u043e\u0432\u0440\u0435\u0436\u0434\u0435\u043d\u0438\u0439'),
         ]);
         $this->assertDatabaseHas('part_catalog_items', [
             'source' => 'nikolacars',
             'source_url' => 'nikolacars://product/DONOR-2',
-            'quality' => 'Легкие повреждения',
+            'quality' => $this->u('\u041b\u0435\u0433\u043a\u0438\u0435 \u043f\u043e\u0432\u0440\u0435\u0436\u0434\u0435\u043d\u0438\u044f'),
         ]);
         $this->assertDatabaseMissing('part_catalog_items', [
             'source' => 'nikolacars',
@@ -62,7 +64,7 @@ class NikolaCarsCatalogImporterTest extends TestCase
         ]);
 
         $checkedDonor = PartCatalogItem::query()->where('source_url', 'nikolacars://product/DONOR-1')->firstOrFail();
-        $this->assertSame('Без повреждений', data_get($checkedDonor->raw_attributes, 'donor_damage_status'));
+        $this->assertSame($this->u('\u0411\u0435\u0437 \u043f\u043e\u0432\u0440\u0435\u0436\u0434\u0435\u043d\u0438\u0439'), data_get($checkedDonor->raw_attributes, 'donor_damage_status'));
     }
 
     public function test_import_links_known_leftovers_category_to_pseudo_vin_donor(): void
@@ -99,7 +101,15 @@ class NikolaCarsCatalogImporterTest extends TestCase
             'storage_status' => Product::STORAGE_STATUS_ON_DONOR,
         ]);
 
-        $item = PartCatalogItem::query()->where('source_url', 'nikolacars://product/28')->firstOrFail();
+        $product = Product::query()->where('sku', 'NC-28')->firstOrFail();
+        $item = PartCatalogItem::query()
+            ->where('source_url', 'nikolacars://donor-product/'.$product->id)
+            ->firstOrFail();
         $this->assertSame($donorCar->vin, data_get($item->raw_attributes, 'donor_vin'));
+    }
+
+    protected function u(string $value): string
+    {
+        return json_decode('"'.$value.'"', true, 512, JSON_THROW_ON_ERROR);
     }
 }

@@ -983,70 +983,12 @@
     border-color: #fecaca;
     color: #991b1b;
 }
-.nikolacars-grouped-row,
-.nikolacars-grouped-row td {
-    background: #eef2f7;
-}
-.nikolacars-grouped-row td:first-child {
-    border-left: 4px solid var(--accent);
-}
 .nikolacars-adjacent-duplicate-row,
 .nikolacars-adjacent-duplicate-row td {
     background: #eaf4ff;
 }
 .nikolacars-adjacent-duplicate-row td:first-child {
     border-left: 4px solid #93c5fd;
-}
-.nikolacars-group-toggle {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    min-width: 0;
-    height: 24px;
-    padding: 0 8px;
-    flex: 0 0 auto;
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    background: #fff;
-    color: var(--accent);
-    font-size: 11px;
-    font-weight: 700;
-    line-height: 1;
-    white-space: nowrap;
-    cursor: pointer;
-}
-.nikolacars-group-toggle:hover {
-    border-color: var(--accent);
-    background: #eef6ff;
-}
-.nikolacars-group-toggle svg {
-    width: 13px;
-    height: 13px;
-    flex: 0 0 13px;
-    transition: transform .16s ease;
-}
-.nikolacars-group-toggle[aria-expanded="true"] svg {
-    transform: rotate(90deg);
-}
-.nikolacars-group-child-row--odd,
-.nikolacars-group-child-row--odd td {
-    background: #f4f8ff;
-}
-.nikolacars-group-child-row--even,
-.nikolacars-group-child-row--even td {
-    background: #e7f0ff;
-}
-.nikolacars-group-child-row td {
-    border-top: 1px dotted #dbeafe;
-}
-.nikolacars-group-child-row td:first-child {
-    border-left: 4px solid #bfdbfe;
-}
-.nikolacars-group-child-row .table-preview,
-.nikolacars-group-child-row .preview-placeholder {
-    width: 46px;
-    height: 34px;
 }
 .nikolacars-reserved-row,
 .nikolacars-reserved-row td {
@@ -1113,11 +1055,6 @@
     height: 58px;
     border-radius: 6px;
 }
-.nikolacars-parts-table .nikolacars-group-child-row .table-preview,
-.nikolacars-parts-table .nikolacars-group-child-row .preview-placeholder {
-    width: 56px;
-    height: 42px;
-}
 .nikolacars-parts-table .help {
     margin-top: 2px;
     line-height: 1.2;
@@ -1161,6 +1098,102 @@
 .nikolacars-compact-text {
     font-size: 12px;
     line-height: 1.2;
+}
+.nikolacars-storage-cell {
+    position: relative;
+    vertical-align: top;
+}
+.nikolacars-placement-display {
+    overflow-wrap: anywhere;
+}
+.nikolacars-placement-line {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+}
+.nikolacars-inline-edit-button,
+.nikolacars-placement-edit-button {
+    all: unset;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 12px;
+    height: 12px;
+    color: #6b7280;
+    font-size: 10px;
+    line-height: 1;
+    cursor: pointer;
+    vertical-align: baseline;
+}
+.nikolacars-placement-edit-button {
+    width: 11px;
+    height: 11px;
+}
+.nikolacars-inline-edit-button {
+    margin-left: 4px;
+}
+.nikolacars-inline-edit-button:hover,
+.nikolacars-placement-edit-button:hover {
+    color: var(--accent);
+}
+.nikolacars-inline-edit-button:focus,
+.nikolacars-placement-edit-button:focus {
+    outline: 1px dotted currentColor;
+    outline-offset: 2px;
+}
+.nikolacars-placement-editor {
+    width: min(420px, calc(100vw - 32px));
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    box-shadow: 0 24px 60px rgba(15, 23, 42, .28);
+}
+.nikolacars-placement-editor:not([open]) {
+    display: none !important;
+}
+.nikolacars-placement-editor[open] {
+    display: block;
+}
+.nikolacars-placement-editor::backdrop {
+    background: rgba(15, 23, 42, .35);
+}
+.nikolacars-placement-editor__form {
+    display: grid;
+    gap: 14px;
+    padding: 18px;
+    background: var(--panel);
+}
+.nikolacars-placement-editor__header,
+.nikolacars-placement-editor__actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+.nikolacars-placement-editor__header h2 {
+    margin: 0;
+    font-size: 18px;
+}
+.nikolacars-placement-editor__close {
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+}
+.nikolacars-placement-editor__form label {
+    display: grid;
+    gap: 5px;
+    color: var(--muted);
+    font-size: 12px;
+}
+.nikolacars-placement-editor select {
+    width: 100%;
+    padding: 7px 9px;
+    border-radius: 6px;
+    font-size: 14px;
 }
 .nikolacars-parts-table th:nth-child(7),
 .nikolacars-parts-table td[data-nikolacars-category-cell] {

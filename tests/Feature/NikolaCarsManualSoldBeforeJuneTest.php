@@ -101,12 +101,14 @@ class NikolaCarsManualSoldBeforeJuneTest extends TestCase
             ->assertSee(route('admin.nikolacars-sales.cancel-manual', $sale), false)
             ->assertSee('href="'.route('admin.products.show', $product).'"', false);
 
-        $this->actingAs($user)
-            ->get(route('admin.donor-cars.show', $donorCar))
+        $salesHtml = $this->actingAs($user)
+            ->getJson(route('admin.donor-cars.sales.table', $donorCar))
             ->assertOk()
-            ->assertSeeText('Manual cleanup sold part')
-            ->assertSeeText('manual-sold-before-june-2026')
-            ->assertSee('href="'.route('admin.products.show', $product).'"', false);
+            ->json('html');
+
+        $this->assertStringContainsString('Manual cleanup sold part', $salesHtml);
+        $this->assertStringContainsString('manual-sold-before-june-2026', $salesHtml);
+        $this->assertStringContainsString('href="'.route('admin.products.show', $product).'"', $salesHtml);
 
         $this->actingAs($user)
             ->get(route('admin.products.show', $product))
@@ -303,7 +305,7 @@ class NikolaCarsManualSoldBeforeJuneTest extends TestCase
         $product = Product::query()->create([
             'sku' => 'NC-582',
             'external_sku' => '5YJ3E1EA0LF611657',
-            'name' => 'РђРєСѓРјСѓР»СЏС‚РѕСЂРЅР° Р±Р°С‚Р°СЂРµСЏ Р’Р’Р‘ РІ Р·Р±РѕСЂС– 52 РєР’С‚ 5YJ3E1EA0LF611657',
+            'name' => $this->u('\\u0410\\u043a\\u0443\\u043c\\u0443\\u043b\\u044f\\u0442\\u043e\\u0440\\u043d\\u0430 \\u0431\\u0430\\u0442\\u0430\\u0440\\u0435\\u044f \\u0412\\u0412\\u0411 \\u0432 \\u0437\\u0431\\u043e\\u0440\\u0456 52 \\u043a\\u0412\\u0442 5YJ3E1EA0LF611657'),
             'slug' => 'nc-582-orphan-battery',
             'source_part_catalog_item_id' => 155102,
             'donor_car_id' => $donorCar->id,
@@ -347,12 +349,14 @@ class NikolaCarsManualSoldBeforeJuneTest extends TestCase
             ->assertSeeText('2026-05-31')
             ->assertSee(route('admin.nikolacars-sales.cancel-manual', $sale), false);
 
-        $this->actingAs($user)
-            ->get(route('admin.donor-cars.show', $donorCar))
+        $salesHtml = $this->actingAs($user)
+            ->getJson(route('admin.donor-cars.sales.table', $donorCar))
             ->assertOk()
-            ->assertSeeText($product->name)
-            ->assertSeeText('manual-sold-before-june-2026')
-            ->assertSee('href="'.route('admin.products.show', $product).'"', false);
+            ->json('html');
+
+        $this->assertStringContainsString($product->name, $salesHtml);
+        $this->assertStringContainsString('manual-sold-before-june-2026', $salesHtml);
+        $this->assertStringContainsString('href="'.route('admin.products.show', $product).'"', $salesHtml);
 
         $this->actingAs($user)
             ->patch(route('admin.nikolacars-sales.cancel-manual', $sale))
@@ -447,7 +451,7 @@ class NikolaCarsManualSoldBeforeJuneTest extends TestCase
             ->get(route('admin.nikolacars-sales.index', ['q' => 'NC-DUP']))
             ->assertOk()
             ->assertSeeText('Duplicate manual sold part')
-            ->assertDontSeeText('РќРµ РЅР°Р№РґРµРЅР° СЃС‚СЂРѕРєР° РєР°С‚Р°Р»РѕРіР° РїРѕ РєРѕРґСѓ');
+            ->assertDontSeeText($this->u('\\u041d\\u0435 \\u043d\\u0430\\u0439\\u0434\\u0435\\u043d\\u0430 \\u0441\\u0442\\u0440\\u043e\\u043a\\u0430 \\u043a\\u0430\\u0442\\u0430\\u043b\\u043e\\u0433\\u0430 \\u043f\\u043e \\u043a\\u043e\\u0434\\u0443'));
 
         $this->assertSame(1, substr_count($response->getContent(), route('admin.products.show', $product)));
 
@@ -506,8 +510,13 @@ class NikolaCarsManualSoldBeforeJuneTest extends TestCase
             ->get(route('admin.zapchasti.index', ['q' => 'Reserved manual cleanup part']))
             ->assertOk()
             ->assertSeeText('Reserved manual cleanup part')
-            ->assertSee('title="&#1053;&#1077;&#1083;&#1100;&#1079;&#1103; &#1087;&#1088;&#1086;&#1076;&#1072;&#1090;&#1100;: &#1087;&#1086;&#1079;&#1080;&#1094;&#1080;&#1103; &#1074; &#1088;&#1077;&#1079;&#1077;&#1088;&#1074;&#1077;"', false)
+            ->assertSee('title="'.$this->u('\u041d\u0435\u043b\u044c\u0437\u044f \u043f\u0440\u043e\u0434\u0430\u0442\u044c: \u043f\u043e\u0437\u0438\u0446\u0438\u044f \u0432 \u0440\u0435\u0437\u0435\u0440\u0432\u0435').'"', false)
             ->assertSee('disabled', false)
             ->assertDontSee('action="'.route('admin.zapchasti.sold', $item).'"', false);
+    }
+
+    protected function u(string $value): string
+    {
+        return json_decode('"'.$value.'"', true, 512, JSON_THROW_ON_ERROR);
     }
 }

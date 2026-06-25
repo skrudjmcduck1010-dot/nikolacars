@@ -37,7 +37,7 @@ class DonorCarSmallPartsTest extends TestCase
             'source_url' => 'https://parts.tesla.com/test-small-part',
             'part_number' => '1100000-00-A',
             'name' => 'Small bracket',
-            'name_ua' => 'РњР°Р»РёР№ РєСЂРѕРЅС€С‚РµР№РЅ',
+            'name_ua' => 'Малий кронштейн',
             'raw_attributes' => [],
         ]);
 
@@ -70,9 +70,9 @@ class DonorCarSmallPartsTest extends TestCase
         $this->actingAs($user)
             ->get(route('admin.donor-cars.small-parts.index', $donorCar))
             ->assertOk()
-            ->assertSee('РњРµР»РѕС‡РµРІРєР° '.$donorCar->vin)
+            ->assertSee('Мелочевка '.$donorCar->vin)
             ->assertSee('1100000-00-A')
-            ->assertSee('РњР°Р»РёР№ РєСЂРѕРЅС€С‚РµР№РЅ');
+            ->assertSee('Малий кронштейн');
     }
 
     public function test_small_parts_are_synchronized_by_part_number_across_donors(): void
@@ -220,7 +220,7 @@ class DonorCarSmallPartsTest extends TestCase
                 'part_number' => '1100001-00-A',
                 'affected_product_ids' => [$product->id],
             ])
-            ->assertJsonPath('message', 'Р—Р°РїС‡Р°СЃС‚СЊ РїРµСЂРµРЅРµСЃРµРЅР° РІ РњРµР»РѕС‡РµРІРєСѓ.');
+            ->assertJsonPath('message', 'Запчасть перенесена в Мелочевку.');
     }
 
     public function test_generation_refresh_keeps_small_parts_limited_to_existing_part_numbers(): void

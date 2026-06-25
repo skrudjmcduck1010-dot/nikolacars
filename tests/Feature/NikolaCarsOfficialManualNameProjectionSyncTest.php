@@ -82,7 +82,7 @@ class NikolaCarsOfficialManualNameProjectionSyncTest extends TestCase
         $mirror->refresh();
 
         $this->assertSame("\u{041A}\u{0443}\u{043B}\u{0430}\u{043A} \u{0437}\u{0430}\u{0434}\u{043D}\u{0456}\u{0439} \u{043B}\u{0456}\u{0432}\u{0438}\u{0439}", $mirror->name_ua);
-        $this->assertNotNull(data_get($mirror->raw_attributes, 'manual_name_locks.ua'));
+        $this->assertNull(data_get($mirror->raw_attributes, 'manual_name_locks.ua'));
         $this->assertNull(data_get($mirror->raw_attributes, 'name_source_site_ua'));
         $this->assertNull(data_get($mirror->raw_attributes, 'name_source_url_ua'));
         $this->assertSame($mirror->id, $product->refresh()->source_part_catalog_item_id);

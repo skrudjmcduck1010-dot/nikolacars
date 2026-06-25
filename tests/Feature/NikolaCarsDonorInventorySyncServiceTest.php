@@ -288,7 +288,7 @@ class NikolaCarsDonorInventorySyncServiceTest extends TestCase
             ->firstOrFail();
 
         $this->assertNull(data_get($item->raw_attributes, 'category_display'));
-        $this->assertSame("\u{041A}\u{0443}\u{0437}\u{043E}\u{0432} / \u{0414}\u{0432}\u{0435}\u{0440}\u{0438}, \u{043A}\u{0430}\u{043F}\u{043E}\u{0442} \u{0438} \u{0431}\u{0430}\u{0433}\u{0430}\u{0436}\u{043D}\u{0438}\u{043A} / \u{041A}\u{0430}\u{043F}\u{043E}\u{0442}", app(NikolaCarsInventoryService::class)->displayCategory($item));
+        $this->assertSame("\u{041A}\u{0443}\u{0437}\u{043E}\u{0432}", app(NikolaCarsInventoryService::class)->displayCategory($item));
         $this->assertSame('Body', $item->main_category_name);
         $this->assertSame('Closures', $item->subcategory_name);
         $this->assertSame('Hood', $item->node_name);

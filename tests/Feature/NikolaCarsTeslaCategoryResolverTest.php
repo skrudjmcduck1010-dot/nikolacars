@@ -198,6 +198,72 @@ class NikolaCarsTeslaCategoryResolverTest extends TestCase
         $this->assertSame("\u{041A}\u{041E}\u{041C}\u{041F}\u{041E}\u{041D}\u{0415}\u{041D}\u{0422}\u{042B} \u{0417}\u{0410}\u{041A}\u{0420}\u{042B}\u{0422}\u{0418}\u{042F}", $mirrorClosures->name_ru);
     }
 
+    public function test_nikolacars_display_category_prefers_tesla_official_path_over_stale_donor_category(): void
+    {
+        $model = PartCatalogCategory::query()->create([
+            'source' => 'tesla_official',
+            'source_url' => 'tesla-official://category/model-3-interior',
+            'depth' => 0,
+            'name' => 'Model 3',
+            'model_label' => 'Model 3',
+        ]);
+        $interior = PartCatalogCategory::query()->create([
+            'source' => 'tesla_official',
+            'source_url' => 'tesla-official://category/interior-trim',
+            'parent_id' => $model->id,
+            'depth' => 1,
+            'name' => 'INTERIOR TRIM',
+            'name_ru' => "\u{0412}\u{043D}\u{0443}\u{0442}\u{0440}\u{0435}\u{043D}\u{043D}\u{044F}\u{044F} \u{043E}\u{0442}\u{0434}\u{0435}\u{043B}\u{043A}\u{0430}",
+            'model_label' => 'Model 3',
+        ]);
+        $pillar = PartCatalogCategory::query()->create([
+            'source' => 'tesla_official',
+            'source_url' => 'tesla-official://category/pillar-and-sill-trim',
+            'parent_id' => $interior->id,
+            'depth' => 2,
+            'name' => 'Pillar and Sill Trim',
+            'name_ru' => "\u{041E}\u{0431}\u{0448}\u{0438}\u{0432}\u{043A}\u{0430} \u{0441}\u{0442}\u{043E}\u{0435}\u{043A} A-B-C \u{0438} \u{043F}\u{043E}\u{0440}\u{043E}\u{0433}\u{043E}\u{0432}",
+            'model_label' => 'Model 3',
+        ]);
+        $official = PartCatalogItem::query()->create([
+            'source' => 'tesla_official',
+            'source_url' => 'https://parts.tesla.com/en-US/find-part?searchTerm=1086255-01-J',
+            'part_number' => '1086255-01-J',
+            'name' => 'B-PILLAR UPPER TRIM ASSEMBLY - RIGHT HAND - PREMIUM',
+            'part_catalog_category_id' => $pillar->id,
+            'main_category_name' => 'INTERIOR TRIM',
+            'subcategory_name' => 'Pillar and Sill Trim',
+            'node_name' => 'A-B-C Post Interior Trim',
+        ]);
+        $staleCategory = PartCatalogCategory::query()->create([
+            'source' => 'nikolacars',
+            'source_url' => 'nikolacars://donor-car/18/category/stale',
+            'depth' => 1,
+            'name' => 'Stale donor category',
+            'name_ru' => 'Старая донорская категория',
+            'model_label' => 'Model 3',
+        ]);
+        $nikolaCarsItem = PartCatalogItem::query()->create([
+            'source' => 'nikolacars',
+            'source_url' => 'nikolacars://donor-product/96851',
+            'part_number' => '1086255-01-J',
+            'name' => 'Donor trim',
+            'part_catalog_category_id' => $staleCategory->id,
+            'main_category_name' => "\u{0412}\u{043D}\u{0443}\u{0442}\u{0440}\u{0435}\u{043D}\u{043D}\u{044F}\u{044F} \u{043E}\u{0442}\u{0434}\u{0435}\u{043B}\u{043A}\u{0430}",
+            'subcategory_name' => "\u{041E}\u{0431}\u{0448}\u{0438}\u{0432}\u{043A}\u{0430} \u{0441}\u{0442}\u{043E}\u{0435}\u{043A} a-b-c \u{0438} \u{043F}\u{043E}\u{0440}\u{043E}\u{0433}\u{043E}\u{0432}",
+            'node_name' => "\u{0421}\u{0442}\u{0430}\u{0440}\u{044B}\u{0439} / DriveParts / \u{043F}\u{0443}\u{0442}\u{044C}",
+            'raw_attributes' => [
+                'source_catalog_item_id' => $official->id,
+                'source_catalog_source' => 'tesla_official',
+            ],
+        ]);
+
+        $this->assertSame(
+            "\u{0412}\u{043D}\u{0443}\u{0442}\u{0440}\u{0435}\u{043D}\u{043D}\u{044F}\u{044F} \u{043E}\u{0442}\u{0434}\u{0435}\u{043B}\u{043A}\u{0430} / \u{041E}\u{0431}\u{0448}\u{0438}\u{0432}\u{043A}\u{0430} \u{0441}\u{0442}\u{043E}\u{0435}\u{043A} A-B-C \u{0438} \u{043F}\u{043E}\u{0440}\u{043E}\u{0433}\u{043E}\u{0432}",
+            app(NikolaCarsInventoryService::class)->displayCategory($nikolaCarsItem)
+        );
+    }
+
     public function test_nikolacars_tesla_category_tree_sync_updates_localized_names(): void
     {
         $model = PartCatalogCategory::query()->create([

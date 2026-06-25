@@ -1058,6 +1058,14 @@ class NikolaCarsInventoryService
 
     public function displayCategory(PartCatalogItem $item): string
     {
+        if ($this->shouldDisplayTeslaOfficialCategory($item)) {
+            $officialCategory = app(NikolaCarsOfficialPartEnrichmentService::class)->enrich($item)->categoryPath;
+
+            if (trim((string) $officialCategory) !== '') {
+                return $this->normalizeDisplayCategory((string) $officialCategory);
+            }
+        }
+
         $structuredCategory = trim(collect([
             $item->main_category_name,
             $item->subcategory_name,
@@ -1089,6 +1097,19 @@ class NikolaCarsInventoryService
         }
 
         return $this->normalizeDisplayCategory($category);
+    }
+
+    protected function hasManualCategory(PartCatalogItem $item): bool
+    {
+        return (bool) data_get($item->raw_attributes, 'manual_category')
+            && (int) $item->part_catalog_category_id > 0;
+    }
+
+    protected function shouldDisplayTeslaOfficialCategory(PartCatalogItem $item): bool
+    {
+        return $item->source === NikolaCarsProductInventorySyncService::SOURCE
+            && ! $this->hasManualCategory($item)
+            && data_get($item->raw_attributes, 'source_catalog_source') === 'tesla_official';
     }
 
     protected function normalizeDisplayCategory(string $category): string

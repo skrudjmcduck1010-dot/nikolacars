@@ -7,15 +7,18 @@ use App\Http\Requests\ProductRequest;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\DonorCar;
+use App\Models\Location;
 use App\Models\PartCatalogCategory;
 use App\Models\PartCatalogItem;
 use App\Models\Product;
+use App\Models\Warehouse;
 use App\Services\DeletedPartArchiveService;
 use App\Services\NikolaCarsOfficialPartEnrichmentService;
 use App\Services\NikolaCarsProductInventorySyncService;
 use App\Services\PartCatalogDeduplicator;
 use App\Services\PartCatalogDisplayService;
 use App\Services\PartCatalogManualNameService;
+use App\Services\StockService;
 use App\Services\TeslaCatalogDonorProductSync;
 use App\Support\ProductPhotoNormalizer;
 use Illuminate\Database\Eloquent\Builder;
@@ -365,6 +368,8 @@ class ProductController extends Controller
             $partNumber
         );
         $productHeading = trim((string) $product->name);
+        $placementWarehouses = $this->activeProductPlacementWarehouses($product);
+        $placementLocations = $this->activeProductPlacementLocations();
 
         return view('admin.products.show', [
             'product' => $product,
@@ -379,7 +384,52 @@ class ProductController extends Controller
                     'ru' => ['site' => null, 'url' => null],
                     'ua' => ['site' => null, 'url' => null],
                 ],
+            'productPlacementWarehouseOptions' => $this->productPlacementWarehouseOptions($placementWarehouses),
+            'productPlacementLocationOptions' => $this->productPlacementLocationOptions($placementLocations),
         ]);
+    }
+
+    public function updatePlacement(Request $request, Product $product): RedirectResponse
+    {
+        if ($this->isSoldProduct($product)) {
+            throw ValidationException::withMessages([
+                'warehouse_id' => "\u{041F}\u{0440}\u{043E}\u{0434}\u{0430}\u{043D}\u{043D}\u{0443}\u{044E} \u{0437}\u{0430}\u{043F}\u{0447}\u{0430}\u{0441}\u{0442}\u{044C} \u{043D}\u{0435}\u{043B}\u{044C}\u{0437}\u{044F} \u{043F}\u{0435}\u{0440}\u{0435}\u{043C}\u{0435}\u{0449}\u{0430}\u{0442}\u{044C}.",
+            ]);
+        }
+
+        $product->loadMissing(['donorCar', 'stockItems.location', 'stockItems.warehouse', 'sourcePartCatalogItem']);
+        $damageNote = trim((string) $product->notes);
+
+        if ($product->donorCar && in_array($damageNote, ['', "\u{041D}\u{0435}\u{0438}\u{0437}\u{0432}\u{0435}\u{0441}\u{0442}\u{043D}\u{043E}"], true)) {
+            throw ValidationException::withMessages([
+                'warehouse_id' => "\u{0421}\u{043D}\u{0430}\u{0447}\u{0430}\u{043B}\u{0430} \u{0443}\u{043A}\u{0430}\u{0436}\u{0438}\u{0442}\u{0435} \u{0441}\u{0442}\u{0430}\u{0442}\u{0443}\u{0441} \u{043F}\u{043E}\u{0432}\u{0440}\u{0435}\u{0436}\u{0434}\u{0435}\u{043D}\u{0438}\u{0439}.",
+            ]);
+        }
+
+        $stockItems = $product->stockItems
+            ->filter(fn ($stockItem): bool => (int) $stockItem->quantity > 0)
+            ->values();
+
+        if ($stockItems->isEmpty()) {
+            throw ValidationException::withMessages([
+                'warehouse_id' => "\u{0423} \u{0437}\u{0430}\u{043F}\u{0447}\u{0430}\u{0441}\u{0442}\u{0438} \u{043D}\u{0435}\u{0442} \u{0430}\u{043A}\u{0442}\u{0438}\u{0432}\u{043D}\u{043E}\u{0433}\u{043E} \u{043E}\u{0441}\u{0442}\u{0430}\u{0442}\u{043A}\u{0430} \u{0434}\u{043B}\u{044F} \u{043F}\u{0435}\u{0440}\u{0435}\u{043C}\u{0435}\u{0449}\u{0435}\u{043D}\u{0438}\u{044F}.",
+            ]);
+        }
+
+        if ($stockItems->sum(fn ($stockItem): int => (int) $stockItem->reserved_quantity) > 0) {
+            throw ValidationException::withMessages([
+                'warehouse_id' => "\u{0417}\u{0430}\u{043F}\u{0447}\u{0430}\u{0441}\u{0442}\u{044C} \u{0432} \u{0440}\u{0435}\u{0437}\u{0435}\u{0440}\u{0432}\u{0435}. \u{0421}\u{043D}\u{0430}\u{0447}\u{0430}\u{043B}\u{0430} \u{0441}\u{043D}\u{0438}\u{043C}\u{0438}\u{0442}\u{0435} \u{0440}\u{0435}\u{0437}\u{0435}\u{0440}\u{0432} \u{0438}\u{043B}\u{0438} \u{0437}\u{0430}\u{0432}\u{0435}\u{0440}\u{0448}\u{0438}\u{0442}\u{0435} \u{0437}\u{0430}\u{043A}\u{0430}\u{0437}.",
+            ]);
+        }
+
+        $location = $this->resolveProductPlacementLocation($request, $product);
+
+        $this->placeProductInWarehouse($product, $location);
+        app(NikolaCarsProductInventorySyncService::class)->syncProduct($product->refresh());
+
+        return redirect()
+            ->route('admin.products.show', $product)
+            ->with('status', "\u{0421}\u{043A}\u{043B}\u{0430}\u{0434} \u{0434}\u{043B}\u{044F} \u{0437}\u{0430}\u{043F}\u{0447}\u{0430}\u{0441}\u{0442}\u{0438} \u{043E}\u{0431}\u{043D}\u{043E}\u{0432}\u{043B}\u{0435}\u{043D}.");
     }
 
     public function updateCatalogName(Request $request, Product $product): RedirectResponse
@@ -929,6 +979,297 @@ class ProductController extends Controller
             ]);
         }
     }
+
+    protected function resolveProductPlacementLocation(Request $request, Product $product): Location
+    {
+        $validated = $request->validate([
+            'warehouse_id' => ['required', 'integer'],
+            'floor' => ['nullable', 'string'],
+            'location_id' => ['nullable', 'integer'],
+        ]);
+
+        $warehouse = Warehouse::query()
+            ->whereKey($validated['warehouse_id'])
+            ->where('is_active', true)
+            ->first();
+
+        if (! $warehouse instanceof Warehouse) {
+            throw ValidationException::withMessages([
+                'warehouse_id' => "\u{0412}\u{044B}\u{0431}\u{0435}\u{0440}\u{0438}\u{0442}\u{0435} \u{0441}\u{043A}\u{043B}\u{0430}\u{0434}.",
+            ]);
+        }
+
+        if ($warehouse->type === Warehouse::TYPE_DONOR) {
+            if (! $product->donorCar instanceof DonorCar) {
+                throw ValidationException::withMessages([
+                    'warehouse_id' => "\u{0421}\u{043A}\u{043B}\u{0430}\u{0434} \u{0434}\u{043E}\u{043D}\u{043E}\u{0440}\u{0430} \u{0434}\u{043E}\u{0441}\u{0442}\u{0443}\u{043F}\u{0435}\u{043D} \u{0442}\u{043E}\u{043B}\u{044C}\u{043A}\u{043E} \u{0434}\u{043B}\u{044F} \u{0437}\u{0430}\u{043F}\u{0447}\u{0430}\u{0441}\u{0442}\u{0435}\u{0439}, \u{0441}\u{0432}\u{044F}\u{0437}\u{0430}\u{043D}\u{043D}\u{044B}\u{0445} \u{0441} \u{0434}\u{043E}\u{043D}\u{043E}\u{0440}\u{043E}\u{043C}.",
+                ]);
+            }
+
+            return $this->donorStockLocation($product->donorCar);
+        }
+
+        $floor = $validated['floor'] ?? null;
+
+        if ($warehouse->hasMultipleFloors()) {
+            if (! is_string($floor) || ! array_key_exists($floor, $warehouse->availableFloors())) {
+                throw ValidationException::withMessages([
+                    'floor' => "\u{0412}\u{044B}\u{0431}\u{0435}\u{0440}\u{0438}\u{0442}\u{0435} \u{044D}\u{0442}\u{0430}\u{0436}.",
+                ]);
+            }
+        } else {
+            $floor = 'floor_1';
+        }
+
+        $floorForLocation = is_string($floor) && $floor !== '' ? $floor : 'floor_1';
+        $warehouseLocations = $this->activePlacementLocationsForWarehouseFloor($warehouse, $floorForLocation);
+        $hasCellLocations = $warehouse->usesStructuredLocations()
+            && $warehouseLocations->contains(fn (Location $location): bool => trim((string) $location->cell) !== '');
+
+        if (! $hasCellLocations) {
+            return $this->noCellPlacementLocation($warehouse, $floorForLocation);
+        }
+
+        $location = Location::query()
+            ->whereKey($validated['location_id'] ?? null)
+            ->where('warehouse_id', $warehouse->id)
+            ->where('is_active', true)
+            ->first();
+
+        if (! $location instanceof Location) {
+            throw ValidationException::withMessages([
+                'location_id' => "\u{0412}\u{044B}\u{0431}\u{0435}\u{0440}\u{0438}\u{0442}\u{0435} \u{044F}\u{0447}\u{0435}\u{0439}\u{043A}\u{0443}.",
+            ]);
+        }
+
+        if ($warehouse->hasMultipleFloors() && $this->normalizedLocationFloor($location) !== $floorForLocation) {
+            throw ValidationException::withMessages([
+                'location_id' => "\u{042F}\u{0447}\u{0435}\u{0439}\u{043A}\u{0430} \u{043D}\u{0435} \u{043E}\u{0442}\u{043D}\u{043E}\u{0441}\u{0438}\u{0442}\u{0441}\u{044F} \u{043A} \u{0432}\u{044B}\u{0431}\u{0440}\u{0430}\u{043D}\u{043D}\u{043E}\u{043C}\u{0443} \u{044D}\u{0442}\u{0430}\u{0436}\u{0443}.",
+            ]);
+        }
+
+        return $location;
+    }
+
+    protected function placeProductInWarehouse(Product $product, Location $location): void
+    {
+        DB::transaction(function () use ($product, $location): void {
+            $location->loadMissing('warehouse');
+
+            $product->forceFill([
+                'storage_status' => $location->warehouse?->type === Warehouse::TYPE_DONOR
+                    ? Product::STORAGE_STATUS_ON_DONOR
+                    : Product::STORAGE_STATUS_IN_STOCK,
+            ])->save();
+
+            $product->load('stockItems.location');
+            $stockItems = $product->stockItems
+                ->filter(fn ($stockItem): bool => (int) $stockItem->quantity > 0)
+                ->sortByDesc(fn ($stockItem): int => (int) $stockItem->available_quantity)
+                ->values();
+
+            if ($stockItems->isEmpty()) {
+                app(StockService::class)->intake([
+                    'product_id' => $product->id,
+                    'warehouse_id' => $location->warehouse_id,
+                    'location_id' => $location->id,
+                    'quantity' => 1,
+                    'comment' => 'Placement update from /admin/products.',
+                ]);
+
+                return;
+            }
+
+            foreach ($stockItems as $stockItem) {
+                $quantity = (int) $stockItem->available_quantity;
+
+                if ($quantity < 1 || (int) $stockItem->location_id === (int) $location->id) {
+                    continue;
+                }
+
+                app(StockService::class)->move($stockItem, $quantity, (int) $location->id, [
+                    'comment' => 'Placement update from /admin/products.',
+                ]);
+            }
+        });
+    }
+
+    protected function donorStockLocation(DonorCar $donorCar): Location
+    {
+        $warehouse = Warehouse::query()
+            ->where(fn (Builder $query) => $query
+                ->where('type', Warehouse::TYPE_DONOR)
+                ->orWhere('name', Warehouse::DONOR_WAREHOUSE_NAME))
+            ->first();
+
+        if (! $warehouse instanceof Warehouse) {
+            $warehouse = Warehouse::query()->create([
+                'name' => Warehouse::DONOR_WAREHOUSE_NAME,
+                'type' => Warehouse::TYPE_DONOR,
+                'floor_count' => 1,
+                'is_active' => true,
+            ]);
+        }
+
+        if ($warehouse->name !== Warehouse::DONOR_WAREHOUSE_NAME || $warehouse->type !== Warehouse::TYPE_DONOR || ! $warehouse->is_active) {
+            $warehouse->forceFill([
+                'name' => Warehouse::DONOR_WAREHOUSE_NAME,
+                'type' => Warehouse::TYPE_DONOR,
+                'floor_count' => max(1, (int) ($warehouse->floor_count ?: 1)),
+                'is_active' => true,
+            ])->save();
+        }
+
+        $fullCode = 'ON-DONOR-'.$donorCar->id;
+        $location = Location::query()
+            ->where('full_code', $fullCode)
+            ->first();
+
+        if ($location instanceof Location) {
+            if (! $location->is_active) {
+                $location->forceFill(['is_active' => true])->save();
+            }
+
+            return $location;
+        }
+
+        return Location::query()->firstOrCreate(
+            [
+                'warehouse_id' => $warehouse->id,
+                'full_code' => $fullCode,
+            ],
+            [
+                'floor' => 'floor_1',
+                'cell' => Str::limit($donorCar->vin ?: 'DONOR-'.$donorCar->id, 50, ''),
+                'is_active' => true,
+            ],
+        );
+    }
+
+    protected function activePlacementLocationsForWarehouseFloor(Warehouse $warehouse, string $floor): Collection
+    {
+        return Location::query()
+            ->where('warehouse_id', $warehouse->id)
+            ->where('is_active', true)
+            ->get(['id', 'warehouse_id', 'floor', 'cell', 'full_code', 'is_active'])
+            ->filter(fn (Location $location): bool => $this->normalizedLocationFloor($location) === $floor)
+            ->values();
+    }
+
+    protected function noCellPlacementLocation(Warehouse $warehouse, string $floor): Location
+    {
+        $warehouseLocations = $this->activePlacementLocationsForWarehouseFloor($warehouse, $floor);
+        $location = $warehouse->usesStructuredLocations()
+            ? $warehouseLocations->first(fn (Location $location): bool => trim((string) $location->cell) === '')
+            : $warehouseLocations->first();
+
+        if ($location instanceof Location) {
+            return $location;
+        }
+
+        return Location::query()->create([
+            'warehouse_id' => $warehouse->id,
+            'floor' => $floor,
+            'cell' => null,
+            'full_code' => $this->uniqueNoCellLocationCode($warehouse, $floor),
+            'is_active' => true,
+        ]);
+    }
+
+    protected function uniqueNoCellLocationCode(Warehouse $warehouse, string $floor): string
+    {
+        $floorNumber = Str::after($floor, 'floor_') ?: '1';
+        $base = "WH{$warehouse->id}-F{$floorNumber}-NO-CELL";
+        $code = $base;
+        $counter = 2;
+
+        while (Location::query()->where('full_code', $code)->exists()) {
+            $code = "{$base}-{$counter}";
+            $counter++;
+        }
+
+        return $code;
+    }
+
+    protected function activeProductPlacementWarehouses(Product $product): Collection
+    {
+        return Warehouse::query()
+            ->where('is_active', true)
+            ->when(! $product->donorCar, fn (Builder $query) => $query
+                ->where(fn (Builder $typeQuery) => $typeQuery
+                    ->whereNull('type')
+                    ->orWhere('type', '!=', Warehouse::TYPE_DONOR)))
+            ->orderBy('name')
+            ->get(['id', 'name', 'type', 'floor_count', 'is_active']);
+    }
+
+    protected function activeProductPlacementLocations(): Collection
+    {
+        return Location::query()
+            ->with('warehouse:id,name,type,floor_count,is_active')
+            ->where('is_active', true)
+            ->whereHas('warehouse', fn (Builder $query) => $query
+                ->where('is_active', true)
+                ->where(fn (Builder $typeQuery) => $typeQuery
+                    ->whereNull('type')
+                    ->orWhere('type', '!=', Warehouse::TYPE_DONOR)))
+            ->orderBy('warehouse_id')
+            ->orderBy('floor')
+            ->orderBy('full_code')
+            ->get(['id', 'warehouse_id', 'floor', 'cell', 'full_code']);
+    }
+
+    protected function productPlacementWarehouseOptions(Collection $warehouses): array
+    {
+        return $warehouses
+            ->sortBy(fn (Warehouse $warehouse): string => ($warehouse->type === Warehouse::TYPE_DONOR ? '0' : '1').(string) $warehouse->name, SORT_NATURAL | SORT_FLAG_CASE)
+            ->map(fn (Warehouse $warehouse): array => [
+                'id' => $warehouse->id,
+                'name' => $warehouse->name,
+                'type' => $warehouse->type,
+                'floor_count' => $warehouse->floor_count,
+                'uses_structured_locations' => $warehouse->usesStructuredLocations(),
+            ])
+            ->values()
+            ->all();
+    }
+
+    protected function productPlacementLocationOptions(Collection $locations): array
+    {
+        return $locations
+            ->map(fn (Location $location): array => [
+                'id' => $location->id,
+                'warehouse_id' => $location->warehouse_id,
+                'floor' => $this->normalizedLocationFloor($location),
+                'floor_label' => $this->locationFloorLabel($location),
+                'label' => $this->locationDisplayCode($location, "\u{0411}\u{0435}\u{0437} \u{044F}\u{0447}\u{0435}\u{0439}\u{043A}\u{0438}"),
+                'has_cell' => $location->warehouse?->usesStructuredLocations() && trim((string) $location->cell) !== '',
+            ])
+            ->values()
+            ->all();
+    }
+
+    protected function normalizedLocationFloor(Location $location): string
+    {
+        return is_string($location->floor) && $location->floor !== '' ? $location->floor : 'floor_1';
+    }
+
+    protected function locationFloorLabel(Location $location): string
+    {
+        $floor = $this->normalizedLocationFloor($location);
+
+        if (preg_match('/^floor_(\d+)$/', $floor, $matches)) {
+            return "\u{042D}\u{0442}\u{0430}\u{0436} {$matches[1]}";
+        }
+
+        return $location->floorLabel();
+    }
+
+    protected function locationDisplayCode(Location $location, string $fallback = ''): string
+    {
+        return trim((string) ($location->cell ?: $location->full_code)) ?: $fallback;
+    }
+
     protected function isSoldProduct(Product $product): bool
     {
         return $product->storage_status === Product::STORAGE_STATUS_SOLD;

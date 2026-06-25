@@ -30,42 +30,6 @@ const hidesNikolaCarsSoldItems = () => {
 };
 
 (() => {
-    document.addEventListener('click', (event) => {
-        const button = event.target instanceof Element
-            ? event.target.closest('[data-nikolacars-group-toggle]')
-            : null;
-
-        if (!button) return;
-
-        const groupId = button.dataset.nikolacarsGroupToggle;
-        if (!groupId) return;
-
-        const expanded = button.getAttribute('aria-expanded') === 'true';
-        const nextExpanded = !expanded;
-
-        button.setAttribute('aria-expanded', nextExpanded ? 'true' : 'false');
-        button.setAttribute(
-            'title',
-            nextExpanded
-                ? '\u0421\u043a\u0440\u044b\u0442\u044c \u043f\u043e\u0437\u0438\u0446\u0438\u0438'
-                : '\u041f\u043e\u043a\u0430\u0437\u0430\u0442\u044c \u043f\u043e\u0437\u0438\u0446\u0438\u0438',
-        );
-        button.setAttribute(
-            'aria-label',
-            nextExpanded
-                ? '\u0421\u043a\u0440\u044b\u0442\u044c \u043f\u043e\u0437\u0438\u0446\u0438\u0438'
-                : '\u041f\u043e\u043a\u0430\u0437\u0430\u0442\u044c \u043f\u043e\u0437\u0438\u0446\u0438\u0438',
-        );
-
-        document.querySelectorAll('[data-nikolacars-group-child]').forEach((row) => {
-            if (row.dataset.nikolacarsGroupChild === groupId) {
-                row.hidden = !nextExpanded;
-            }
-        });
-    });
-})();
-
-(() => {
     const panel = document.querySelector('[data-tcars-refresh-panel]');
     const button = document.querySelector('[data-tcars-refresh-button]');
     if (!panel && !button) return;
@@ -1383,7 +1347,7 @@ const hidesNikolaCarsSoldItems = () => {
             const button = event.submitter instanceof HTMLButtonElement
                 ? event.submitter
                 : form.querySelector('button[type="submit"]');
-            const row = form.closest('[data-nikolacars-item-row], [data-nikolacars-group-child]');
+            const row = form.closest('[data-nikolacars-item-row]');
             const partNumberInput = row?.querySelector('[data-nikolacars-part-number-input]');
             const partNumberText = row?.querySelector('[data-nikolacars-part-number-text]');
             const partNumberDisplay = row?.querySelector('[data-nikolacars-part-number-display]');
@@ -1543,6 +1507,13 @@ const hidesNikolaCarsSoldItems = () => {
             input?.select();
         });
 
+        toggle?.addEventListener('keydown', (event) => {
+            if (event.key !== 'Enter' && event.key !== ' ') return;
+
+            event.preventDefault();
+            toggle.click();
+        });
+
         cancel?.addEventListener('click', () => {
             if (!display || !editor) return;
 
@@ -1591,6 +1562,152 @@ const hidesNikolaCarsSoldItems = () => {
             }
         });
     });
+
+    (() => {
+        const editor = document.querySelector('[data-nikolacars-placement-editor]');
+        const form = editor?.querySelector('[data-nikolacars-placement-form]');
+        const warehouseSelect = editor?.querySelector('[data-nikolacars-placement-warehouse]');
+        const floorSelect = editor?.querySelector('[data-nikolacars-placement-floor]');
+        const locationSelect = editor?.querySelector('[data-nikolacars-placement-location]');
+        const floorWrap = editor?.querySelector('[data-nikolacars-placement-floor-wrap]');
+        const locationWrap = editor?.querySelector('[data-nikolacars-placement-location-wrap]');
+
+        if (!editor || !form || !warehouseSelect || !floorSelect || !locationSelect) return;
+
+        let defaultWarehouse = '';
+        let defaultFloor = 'floor_1';
+        let defaultLocation = '';
+
+        const renderPlacementOptions = () => {
+            const selectedWarehouse = warehouseSelect.selectedOptions[0];
+            const warehouseId = warehouseSelect.value;
+            const isDonorWarehouse = selectedWarehouse?.dataset.warehouseType === 'donor';
+            const usesStructuredLocations = selectedWarehouse?.dataset.structuredLocations !== '0';
+            const floorCount = usesStructuredLocations ? Math.max(1, Number(selectedWarehouse?.dataset.floorCount || 1)) : 1;
+            let visibleFloorSelected = false;
+
+            Array.from(floorSelect.options).forEach((option) => {
+                const match = /^floor_(\d+)$/.exec(option.value);
+                const floorNumber = match ? Number(match[1]) : 1;
+                const visible = !isDonorWarehouse && usesStructuredLocations && floorNumber <= floorCount;
+                option.hidden = !visible;
+                option.disabled = !visible;
+                if (visible && option.selected) {
+                    visibleFloorSelected = true;
+                }
+            });
+
+            floorSelect.hidden = isDonorWarehouse || !usesStructuredLocations || floorCount <= 1;
+            floorSelect.disabled = isDonorWarehouse || !usesStructuredLocations;
+            if (floorWrap) {
+                floorWrap.hidden = floorSelect.hidden;
+            }
+
+            if (!visibleFloorSelected) {
+                floorSelect.value = defaultFloor && Number((/^floor_(\d+)$/.exec(defaultFloor) || [0, 0])[1]) <= floorCount
+                    ? defaultFloor
+                    : 'floor_1';
+            }
+
+            const floor = floorSelect.value || 'floor_1';
+            let visibleLocationSelected = false;
+            let hasVisibleLocations = false;
+
+            Array.from(locationSelect.options).forEach((option) => {
+                if (!option.value) {
+                    option.hidden = false;
+                    option.disabled = false;
+                    return;
+                }
+
+                const visible = !isDonorWarehouse
+                    && String(option.dataset.warehouseId || '') === String(warehouseId)
+                    && String(option.dataset.floor || 'floor_1') === String(floor)
+                    && option.dataset.hasCell === '1';
+                option.hidden = !visible;
+                option.disabled = !visible;
+                hasVisibleLocations = hasVisibleLocations || visible;
+                if (visible && option.selected) {
+                    visibleLocationSelected = true;
+                }
+            });
+
+            locationSelect.hidden = isDonorWarehouse || !usesStructuredLocations || !hasVisibleLocations;
+            locationSelect.disabled = isDonorWarehouse || !usesStructuredLocations || !hasVisibleLocations;
+            if (locationWrap) {
+                locationWrap.hidden = locationSelect.hidden;
+            }
+
+            if (!visibleLocationSelected) {
+                locationSelect.value = '';
+            }
+        };
+
+        const openEditor = () => {
+            renderPlacementOptions();
+            if (typeof editor.showModal === 'function') {
+                editor.showModal();
+            } else {
+                editor.setAttribute('open', 'open');
+            }
+            warehouseSelect.focus();
+        };
+
+        const closeEditor = () => {
+            if (typeof editor.close === 'function') {
+                editor.close();
+            } else {
+                editor.removeAttribute('open');
+            }
+        };
+
+        const restoreDefaults = () => {
+            warehouseSelect.value = defaultWarehouse;
+            floorSelect.value = defaultFloor || 'floor_1';
+            locationSelect.value = defaultLocation;
+            renderPlacementOptions();
+        };
+
+        document.querySelectorAll('[data-nikolacars-placement-edit-toggle]').forEach((toggle) => {
+            const openFromToggle = () => {
+                defaultWarehouse = toggle.dataset.currentWarehouseId || '';
+                defaultFloor = toggle.dataset.currentFloor || 'floor_1';
+                defaultLocation = toggle.dataset.currentLocationId || '';
+                form.action = toggle.dataset.placementUpdateUrl || '#';
+                restoreDefaults();
+                openEditor();
+            };
+
+            toggle.addEventListener('click', openFromToggle);
+            toggle.addEventListener('keydown', (event) => {
+                if (event.key !== 'Enter' && event.key !== ' ') return;
+
+                event.preventDefault();
+                openFromToggle();
+            });
+        });
+
+        editor.querySelectorAll('[data-nikolacars-placement-edit-cancel]').forEach((cancel) => {
+            cancel.addEventListener('click', () => {
+                restoreDefaults();
+                closeEditor();
+            });
+        });
+
+        editor.addEventListener('cancel', () => {
+            restoreDefaults();
+        });
+
+        editor.addEventListener('click', (event) => {
+            if (event.target === editor) {
+                restoreDefaults();
+                closeEditor();
+            }
+        });
+
+        warehouseSelect.addEventListener('change', renderPlacementOptions);
+        floorSelect.addEventListener('change', renderPlacementOptions);
+    })();
 })();
 
 (() => {
@@ -1608,8 +1725,7 @@ const hidesNikolaCarsSoldItems = () => {
         if (!confirm(message)) return;
 
         const button = form.querySelector('button[type="submit"]');
-        const row = form.closest('[data-nikolacars-item-row], [data-nikolacars-group-child]');
-        const isGroupedChildRow = row?.matches('[data-nikolacars-group-child]') || false;
+        const row = form.closest('[data-nikolacars-item-row]');
         const removedPartsCount = Number(row?.dataset.nikolacarsPartsCount || 1);
         const countNodes = document.querySelectorAll('[data-nikolacars-items-count]');
         const uniqueArticleCountNodes = document.querySelectorAll('[data-nikolacars-unique-articles-count]');
@@ -1645,11 +1761,6 @@ const hidesNikolaCarsSoldItems = () => {
                 document.activeElement.blur();
             }
 
-            if (isGroupedChildRow) {
-                window.location.reload();
-                return;
-            }
-
             row?.remove();
             decrementTextCounters(visibleRowsCountNodes, removedPartsCount);
             requestAnimationFrame(() => {
@@ -1664,7 +1775,7 @@ const hidesNikolaCarsSoldItems = () => {
                 const emptyRow = document.querySelector('[data-nikolacars-empty-row]');
 
                 if (tableBody && !emptyRow) {
-                    tableBody.insertAdjacentHTML('beforeend', '<tr data-nikolacars-empty-row><td colspan="11" class="empty">\u0417\u0430\u043f\u0447\u0430\u0441\u0442\u0438 \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u044b.</td></tr>');
+                    tableBody.insertAdjacentHTML('beforeend', '<tr data-nikolacars-empty-row><td colspan="13" class="empty">\u0417\u0430\u043f\u0447\u0430\u0441\u0442\u0438 \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u044b.</td></tr>');
                 }
             }
 
@@ -1716,8 +1827,7 @@ const hidesNikolaCarsSoldItems = () => {
         if (!confirm(message)) return;
 
         const button = form.querySelector('button[type="submit"]');
-        const row = form.closest('[data-nikolacars-item-row], [data-nikolacars-group-child]');
-        const isGroupedChildRow = row?.matches('[data-nikolacars-group-child]') || false;
+        const row = form.closest('[data-nikolacars-item-row]');
         const soldPartsCount = Number(row?.dataset.nikolacarsPartsCount || 1);
         const countNodes = document.querySelectorAll('[data-nikolacars-items-count]');
         const uniqueArticleCountNodes = document.querySelectorAll('[data-nikolacars-unique-articles-count]');
@@ -1752,11 +1862,6 @@ const hidesNikolaCarsSoldItems = () => {
                 document.activeElement.blur();
             }
 
-            if (isGroupedChildRow) {
-                window.location.reload();
-                return;
-            }
-
             if (row) {
                 row.classList.add('nikolacars-sold-row', 'nikolacars-zero-stock-row');
                 row.querySelector('[data-nikolacars-availability]')?.replaceChildren(
@@ -1781,6 +1886,8 @@ const hidesNikolaCarsSoldItems = () => {
                     '[data-nikolacars-part-number-editor]',
                     '[data-nikolacars-category-edit-toggle]',
                     '[data-nikolacars-category-editor]',
+                    '[data-nikolacars-placement-edit-toggle]',
+                    '[data-nikolacars-placement-editor]',
                 ].join(',')).forEach((node) => node.remove());
                 row.closest('tbody')?.appendChild(row);
             }

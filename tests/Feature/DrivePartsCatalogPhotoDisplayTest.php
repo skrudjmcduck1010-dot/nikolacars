@@ -164,7 +164,7 @@ class DrivePartsCatalogPhotoDisplayTest extends TestCase
             ->content();
 
         $this->assertStringContainsString(Storage::url(DrivePartsCatalogImporter::PLACEHOLDER_IMAGE_PATH), $content);
-        $this->assertStringContainsString('&#1073;&#1077;&#1079; &#1092;&#1086;&#1090;&#1086;', $content);
+        $this->assertStringContainsString(json_decode('"\u0431\u0435\u0437 \u0444\u043e\u0442\u043e"', true, 512, JSON_THROW_ON_ERROR), $content);
         $this->assertStringNotContainsString('missing-local-image.png', $content);
     }
 

@@ -57,7 +57,7 @@ class CashbookUiTest extends TestCase
 
     public function test_selected_expense_labels_hide_employee_field_in_create_modal(): void
     {
-        foreach (['', '   ', '', ' '] as $label) {
+        foreach (['', '   ', '', ' ', 'Возврат Запчасти и денег'] as $label) {
             CashbookLabel::query()->updateOrCreate(
                 ['name' => $label],
                 ['operation_type' => 'expense'],
@@ -103,7 +103,7 @@ class CashbookUiTest extends TestCase
             ->assertSee('value="Сайт"', false)
             ->assertSee('value="Связь"', false)
             ->assertSee('value=" "', false)
-            ->assertSee("modalLabelSelect.dataset.cashbookParentMode === 'СТО'", false)
+            ->assertSee("modalLabelSelect.dataset.cashbookParentMode || ''", false)
             ->assertSee('option.dataset.cashbookParentLabel === parentLabel', false)
             ->assertSee('`${titles[mode] ?? titles.income} ${parentLabel}`', false);
     }
@@ -170,7 +170,10 @@ class CashbookUiTest extends TestCase
         ]);
 
         $this->actingAs($this->adminUser())
-            ->get(route('admin.cashbook.index'))
+            ->get(route('admin.cashbook.index', [
+                'from' => '2026-05-01',
+                'to' => '2026-05-01',
+            ]))
             ->assertOk()
             ->assertSee('tag-exchange', false)
             ->assertSee('Курс: 40,00')
@@ -297,7 +300,7 @@ class CashbookUiTest extends TestCase
     {
         $availableDonor = DonorCar::query()->create([
             'vin' => '5YJSA1E41MF424298',
-            'model' => 'РњРѕРґРµР»СЊ S',
+            'model' => $this->mojibake('Модель S'),
             'year' => 2021,
             'estimated_cost_usd' => 10000,
         ]);
@@ -329,7 +332,7 @@ class CashbookUiTest extends TestCase
             'klaipeda_ukraine_delivery_price_usd' => 1200,
         ]);
         $leftoverDonor = DonorCar::query()->create([
-            'vin' => 'TESLA Рњ3 2018 - 2023 Р·Р°Р»РёС€РєРё',
+            'vin' => $this->mojibake('TESLA М3 2018 - 2023 залишки'),
             'model' => 'Model 3',
             'year' => 2017,
         ]);
@@ -339,7 +342,7 @@ class CashbookUiTest extends TestCase
             ->assertOk()
             ->assertSee($availableDonor->vin)
             ->assertSee('Модель S')
-            ->assertDontSee('РњРѕРґРµР»СЊ S')
+            ->assertDontSee($this->mojibake('Модель S'))
             ->assertSee('data-donor-filled-expense-types', false)
             ->assertSee('purchase_with_fees', false)
             ->assertSee($newDonorWithoutCustoms->vin)
@@ -366,7 +369,7 @@ class CashbookUiTest extends TestCase
                 'expense_cash_usd' => 1250,
                 'expense_uah' => 0,
                 'expense_payment_method' => 'cash',
-                'comment' => ' ',
+                'comment' => 'Customs donor expense',
                 'source' => 'manual',
                 'exchange_rate' => 43,
             ])
@@ -669,5 +672,10 @@ class CashbookUiTest extends TestCase
             'role' => 'admin',
             'is_active' => true,
         ]);
+    }
+
+    private function mojibake(string $value): string
+    {
+        return mb_convert_encoding($value, 'UTF-8', 'Windows-1251');
     }
 }

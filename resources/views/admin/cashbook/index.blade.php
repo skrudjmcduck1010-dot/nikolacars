@@ -33,6 +33,31 @@
 
         return $uahAmount > 0 && $usdAmount > 0 ? $uahAmount / $usdAmount : null;
     };
+    $detailsWithWorkOrderLinks = function ($transaction) use ($workOrdersByNumber) {
+        $details = $transaction->detailsText();
+
+        if ($details === '') {
+            return new \Illuminate\Support\HtmlString('—');
+        }
+
+        $html = e($details);
+
+        foreach (($workOrdersByNumber ?? collect())->keys()->sortByDesc(fn ($number) => mb_strlen((string) $number)) as $number) {
+            $order = $workOrdersByNumber->get($number);
+
+            if (! $order) {
+                continue;
+            }
+
+            $html = str_replace(
+                e($number),
+                '<a href="'.route('admin.sto-work-orders.show', $order).'">'.e($number).'</a>',
+                $html,
+            );
+        }
+
+        return new \Illuminate\Support\HtmlString($html);
+    };
 @endphp
 
 @section('content')
@@ -456,11 +481,16 @@
                             @endif
                         @endif
                         @if ((float) $transaction->expense_cash_usd > 0)<div>{{ $money($transaction->expense_cash_usd) }} $</div>@endif
+                        @if ($transaction->isCancelled())
+                            @if ((float) $transaction->cancelled_amount_uah > 0)<div>{{ $money($transaction->cancelled_amount_uah) }} грн</div>@endif
+                            @if ((float) $transaction->cancelled_amount_usd > 0)<div>{{ $money($transaction->cancelled_amount_usd) }} $</div>@endif
+                        @endif
                     </td>
                     <td>
                         <span @class([
                             'tag',
                             'tag-danger' => $transaction->totalExpenseUah() > 0 || (float) $transaction->expense_cash_usd > 0,
+                            'tag-archived' => $transaction->isCancelled(),
                             'tag-exchange' => $transactionLabelType === 'exchange',
                             'tag-exchange-with-rate' => $transactionExchangeRate !== null,
                         ])>
@@ -469,11 +499,18 @@
                                 <span class="tag-exchange-rate">Курс: {{ $money($transactionExchangeRate) }}</span>
                             @endif
                         </span>
+                        @if ($transaction->valeraCashbookTransfer?->status === 'pending')
+                            <div class="help">Ожидает подтверждения</div>
+                        @elseif ($transaction->valeraCashbookTransfer?->status === 'confirmed')
+                            <div class="help">Подтверждено</div>
+                        @elseif ($transaction->valeraCashbookTransfer?->status === 'cancelled')
+                            <div class="help">Отменена</div>
+                        @endif
                     </td>
                     <td>{{ $workEmployee ?: ($transaction->employee ?: '—') }}</td>
                     <td>
                         @if ($transaction->vehicle_vin)<div class="help">{{ $transaction->vehicle_vin }}</div>@endif
-                        {{ $transaction->detailsText() ?: '—' }}
+                        {{ $detailsWithWorkOrderLinks($transaction) }}
                     </td>
                     <td class="actions">
                         <a class="btn btn-small btn-secondary" href="{{ route('admin.cashbook.show', $transaction) }}">Открыть</a>

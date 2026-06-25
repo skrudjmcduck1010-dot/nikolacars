@@ -3,10 +3,13 @@
 namespace Tests\Feature;
 
 use App\Models\DonorCar;
+use App\Models\Location;
 use App\Models\PartCatalogCategory;
 use App\Models\PartCatalogItem;
 use App\Models\Product;
+use App\Models\StockItem;
 use App\Models\User;
+use App\Models\Warehouse;
 use App\Services\DonorProductLocalizedNameAutofillService;
 use App\Services\NikolaCarsProductInventorySyncService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -446,7 +449,7 @@ class ProductSkuGenerationTest extends TestCase
             'source_url' => 'tesla-official://category/body',
             'depth' => 1,
             'name' => 'Body',
-            'name_ru' => 'РљСѓР·РѕРІ',
+            'name_ru' => $this->u('\\u041a\\u0443\\u0437\\u043e\\u0432'),
             'model_label' => 'Model S',
         ]);
         $officialItem = PartCatalogItem::query()->create([
@@ -495,12 +498,12 @@ class ProductSkuGenerationTest extends TestCase
         $this->actingAs($user)
             ->get(route('admin.products.show', $product))
             ->assertOk()
-            ->assertSee('Р”Р°РЅРЅС‹Рµ Tesla.com')
-            ->assertSee('РўРѕС‡РЅРѕРµ СЃРѕРІРїР°РґРµРЅРёРµ')
+            ->assertSee($this->u('\\u0414\\u0430\\u043d\\u043d\\u044b\\u0435 Tesla.com'))
+            ->assertSee($this->u('\\u0422\\u043e\\u0447\\u043d\\u043e\\u0435 \\u0441\\u043e\\u0432\\u043f\\u0430\\u0434\\u0435\\u043d\\u0438\\u0435'))
             ->assertSee(route('admin.tesla-official-catalog.show', $officialItem), false)
             ->assertSee('1002066-00-A')
             ->assertSee('ASSEMBLY - FRONT DOOR')
-            ->assertSee('РљСѓР·РѕРІ')
+            ->assertSee($this->u('\\u041a\\u0443\\u0437\\u043e\\u0432'))
             ->assertSee('Model S 2012-2016')
             ->assertSee('12')
             ->assertSee('data-photo="/storage/tesla-official/part-images/1002066.jpeg"', false)
@@ -547,6 +550,157 @@ class ProductSkuGenerationTest extends TestCase
         $this->assertDoesNotMatchRegularExpression('/<h1[^>]*>\s*Official catalog name\s*<\/h1>/u', $html);
     }
 
+    public function test_product_show_page_allows_editing_stock_placement(): void
+    {
+        $user = $this->adminUser();
+        $sourceWarehouse = Warehouse::query()->create([
+            'name' => 'Product Shelf A',
+            'type' => Warehouse::TYPE_MAIN,
+            'floor_count' => 1,
+            'is_active' => true,
+        ]);
+        $targetWarehouse = Warehouse::query()->create([
+            'name' => 'Product Shelf B',
+            'type' => Warehouse::TYPE_MAIN,
+            'floor_count' => 1,
+            'is_active' => true,
+        ]);
+        $sourceLocation = Location::query()->create([
+            'warehouse_id' => $sourceWarehouse->id,
+            'floor' => 'floor_1',
+            'cell' => 'A-1',
+            'full_code' => 'A-1',
+            'is_active' => true,
+        ]);
+        $targetLocation = Location::query()->create([
+            'warehouse_id' => $targetWarehouse->id,
+            'floor' => 'floor_1',
+            'cell' => 'B-2',
+            'full_code' => 'B-2',
+            'is_active' => true,
+        ]);
+        $product = Product::query()->create([
+            'sku' => 'NC-PRODUCT-PLACEMENT',
+            'external_sku' => 'PRODUCT-PLACEMENT',
+            'name' => 'Product placement test part',
+            'slug' => 'product-placement-test-part',
+            'storage_status' => Product::STORAGE_STATUS_IN_STOCK,
+            'condition_type' => 'used',
+            'testing_status' => 'not_tested',
+            'unit' => 'pcs',
+            'selling_price' => 50,
+            'currency' => 'USD',
+            'is_active' => true,
+        ]);
+
+        StockItem::query()->create([
+            'product_id' => $product->id,
+            'warehouse_id' => $sourceWarehouse->id,
+            'location_id' => $sourceLocation->id,
+            'quantity' => 1,
+            'reserved_quantity' => 0,
+            'testing_status' => 'not_tested',
+            'received_at' => now(),
+        ]);
+
+        $this->actingAs($user)
+            ->get(route('admin.products.show', $product))
+            ->assertOk()
+            ->assertSee('data-product-placement-edit-toggle', false)
+            ->assertSee('data-product-placement-editor', false)
+            ->assertSee(route('admin.products.placement.update', $product), false);
+
+        $this->actingAs($user)
+            ->patch(route('admin.products.placement.update', $product), [
+                'warehouse_id' => $targetWarehouse->id,
+                'floor' => 'floor_1',
+                'location_id' => $targetLocation->id,
+            ])
+            ->assertRedirect(route('admin.products.show', $product));
+
+        $this->assertSame(0, (int) StockItem::query()->where('location_id', $sourceLocation->id)->value('quantity'));
+        $this->assertSame(1, (int) StockItem::query()->where('location_id', $targetLocation->id)->value('quantity'));
+        $this->assertSame(Product::STORAGE_STATUS_IN_STOCK, $product->refresh()->storage_status);
+    }
+
+    public function test_product_show_page_hides_stock_placement_edit_for_unknown_donor_damage_and_shows_damage_edit(): void
+    {
+        $user = $this->adminUser();
+        $donorCar = DonorCar::query()->create([
+            'vin' => '5YJPRODUCTDAMAGE01',
+            'brand' => 'Tesla',
+            'model' => 'Model Y',
+            'year' => 2022,
+            'status' => DonorCar::STATUS_AT_STO,
+        ]);
+        $warehouse = Warehouse::query()->create([
+            'name' => 'Unknown Damage Shelf',
+            'type' => Warehouse::TYPE_MAIN,
+            'floor_count' => 1,
+            'is_active' => true,
+        ]);
+        $location = Location::query()->create([
+            'warehouse_id' => $warehouse->id,
+            'floor' => 'floor_1',
+            'cell' => 'U-1',
+            'full_code' => 'U-1',
+            'is_active' => true,
+        ]);
+        $targetLocation = Location::query()->create([
+            'warehouse_id' => $warehouse->id,
+            'floor' => 'floor_1',
+            'cell' => 'U-2',
+            'full_code' => 'U-2',
+            'is_active' => true,
+        ]);
+        $product = Product::query()->create([
+            'sku' => 'DON-DAMAGE-UNKNOWN',
+            'external_sku' => 'DAMAGE-UNKNOWN-001',
+            'name' => 'Unknown damage donor part',
+            'slug' => 'unknown-damage-donor-part',
+            'donor_car_id' => $donorCar->id,
+            'storage_status' => Product::STORAGE_STATUS_IN_STOCK,
+            'condition_type' => 'used',
+            'testing_status' => 'not_tested',
+            'unit' => 'pcs',
+            'currency' => 'USD',
+            'notes' => "\u{041D}\u{0435}\u{0438}\u{0437}\u{0432}\u{0435}\u{0441}\u{0442}\u{043D}\u{043E}",
+            'is_active' => true,
+        ]);
+        StockItem::query()->create([
+            'product_id' => $product->id,
+            'warehouse_id' => $warehouse->id,
+            'location_id' => $location->id,
+            'quantity' => 1,
+            'reserved_quantity' => 0,
+            'testing_status' => 'not_tested',
+            'received_at' => now(),
+        ]);
+
+        $this->actingAs($user)
+            ->get(route('admin.products.show', $product))
+            ->assertOk()
+            ->assertSee("\u{0421}\u{0442}\u{0430}\u{0442}\u{0443}\u{0441}:")
+            ->assertDontSee("\u{041F}\u{043E}\u{0432}\u{0440}\u{0435}\u{0436}\u{0434}\u{0435}\u{043D}\u{0438}\u{044F}:")
+            ->assertSee('data-product-damage-edit-toggle', false)
+            ->assertSee('data-product-damage-select', false)
+            ->assertSee(route('admin.donor-cars.products.official-fields.update', [$donorCar, $product]), false)
+            ->assertDontSee(route('admin.products.placement.update', $product), false);
+
+        $this->actingAs($user)
+            ->from(route('admin.products.show', $product))
+            ->patch(route('admin.products.placement.update', $product), [
+                'warehouse_id' => $warehouse->id,
+                'floor' => 'floor_1',
+                'location_id' => $targetLocation->id,
+            ])
+            ->assertRedirect(route('admin.products.show', $product))
+            ->assertSessionHasErrors('warehouse_id');
+
+        $this->assertSame(1, (int) StockItem::query()->where('location_id', $location->id)->value('quantity'));
+        $this->assertSame(0, (int) StockItem::query()->where('location_id', $targetLocation->id)->value('quantity'));
+    }
+
     public function test_product_show_page_hides_auto_generated_badge_for_nomenclature_products(): void
     {
         $user = $this->adminUser();
@@ -576,7 +730,7 @@ class ProductSkuGenerationTest extends TestCase
             ->get(route('admin.products.show', $product))
             ->assertOk()
             ->assertDontSee('<span class="auto-generated-badge"', false)
-            ->assertDontSee('РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРё СЃРіРµРЅРµСЂРёСЂРѕРІР°РЅРѕ РёР· РєР°С‚Р°Р»РѕРіР° Р·Р°РїС‡Р°СЃС‚РµР№');
+            ->assertDontSee($this->u('\\u0410\\u0432\\u0442\\u043e\\u043c\\u0430\\u0442\\u0438\\u0447\\u0435\\u0441\\u043a\\u0438 \\u0441\\u0433\\u0435\\u043d\\u0435\\u0440\\u0438\\u0440\\u043e\\u0432\\u0430\\u043d\\u043e \\u0438\\u0437 \\u043a\\u0430\\u0442\\u0430\\u043b\\u043e\\u0433\\u0430 \\u0437\\u0430\\u043f\\u0447\\u0430\\u0441\\u0442\\u0435\\u0439'));
     }
 
     public function test_product_show_page_keeps_auto_generated_badge_for_external_catalog_products(): void
@@ -764,7 +918,7 @@ class ProductSkuGenerationTest extends TestCase
             ->assertOk()
             ->assertSee('Manual badge RU')
             ->assertSee('data-product-catalog-name-edit', false)
-            ->assertSee('&#1042;&#1088;&#1091;&#1095;&#1085;&#1091;&#1102;', false)
+            ->assertSee($this->u('\\u0412\\u0440\\u0443\\u0447\\u043d\\u0443\\u044e'), false)
             ->assertDontSee('https://parts.tesla.com/detail/manual-name/', false);
     }
 
@@ -1017,21 +1171,21 @@ class ProductSkuGenerationTest extends TestCase
             'source_url' => 'https://parts.tesla.com/catalogs/model-3/1511000-s0-a',
             'part_number' => '1511000-S0-A',
             'name' => 'ASSEMBLY - BODY SIDE OUTER LEFT HAND SERVICE E-COATED',
-            'name_ua' => 'Р‘С–С‡РЅР° РїР°РЅРµР»СЊ Р»С–РІР°',
+            'name_ua' => $this->u('\\u0411\\u0456\\u0447\\u043d\\u0430 \\u043f\\u0430\\u043d\\u0435\\u043b\\u044c \\u043b\\u0456\\u0432\\u0430'),
         ]);
         PartCatalogItem::query()->create([
             'source' => 'teslapartsukraine',
             'source_url' => 'https://teslapartsukraine.com.ua/source-that-should-not-win',
             'part_number' => '1511000-S0-A',
             'name' => 'ASSEMBLY - BODY SIDE OUTER LEFT HAND SERVICE E-COATED',
-            'name_ua' => 'Р‘С–С‡РЅР° РїР°РЅРµР»СЊ Р»С–РІР°',
+            'name_ua' => $this->u('\\u0411\\u0456\\u0447\\u043d\\u0430 \\u043f\\u0430\\u043d\\u0435\\u043b\\u044c \\u043b\\u0456\\u0432\\u0430'),
         ]);
         PartCatalogItem::query()->create([
             'source' => 'tsk',
             'source_url' => 'https://tsk.ua/1511000-s0-a/',
             'part_number' => '1511000-S0-A',
-            'name' => 'Р‘С–С‡РЅР° РїР°РЅРµР»СЊ Р»С–РІР°',
-            'name_ua' => 'Р‘С–С‡РЅР° РїР°РЅРµР»СЊ Р»С–РІР°',
+            'name' => $this->u('\\u0411\\u0456\\u0447\\u043d\\u0430 \\u043f\\u0430\\u043d\\u0435\\u043b\\u044c \\u043b\\u0456\\u0432\\u0430'),
+            'name_ua' => $this->u('\\u0411\\u0456\\u0447\\u043d\\u0430 \\u043f\\u0430\\u043d\\u0435\\u043b\\u044c \\u043b\\u0456\\u0432\\u0430'),
         ]);
         $product = Product::query()->create([
             'sku' => 'PRD-TSK-UA-SOURCE',
@@ -1048,7 +1202,7 @@ class ProductSkuGenerationTest extends TestCase
 
         $response
             ->assertOk()
-            ->assertSee('Р‘С–С‡РЅР° РїР°РЅРµР»СЊ Р»С–РІР°')
+            ->assertSee($this->u('\\u0411\\u0456\\u0447\\u043d\\u0430 \\u043f\\u0430\\u043d\\u0435\\u043b\\u044c \\u043b\\u0456\\u0432\\u0430'))
             ->assertSee('<a class="tag" href="https://tsk.ua/1511000-s0-a/" target="_blank" rel="noopener">tsk.ua</a>', false)
             ->assertDontSee('teslapartsukraine.com.ua/source-that-should-not-win');
     }
@@ -1174,5 +1328,10 @@ class ProductSkuGenerationTest extends TestCase
             'role' => 'admin',
             'is_active' => true,
         ]);
+    }
+
+    protected function u(string $value): string
+    {
+        return json_decode('"'.$value.'"', true, 512, JSON_THROW_ON_ERROR);
     }
 }

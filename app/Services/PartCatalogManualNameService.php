@@ -234,30 +234,16 @@ class PartCatalogManualNameService
 
     public function internalManualNameItemsForPartNumber(string $normalizedPartNumber): Builder
     {
-        $query = PartCatalogItem::query()
+        return PartCatalogItem::query()
             ->whereIn('source', self::INTERNAL_MANUAL_NAME_SOURCES)
             ->whereNotNull('part_number')
-            ->where(fn (Builder $query): Builder => $this->whereInternalManualNameItem($query));
-
-        $partPrefix = $this->teslaPartPrefix($normalizedPartNumber);
-
-        if ($partPrefix !== null) {
-            return $query->whereRaw('upper(trim(part_number)) like ?', [$partPrefix.'%']);
-        }
-
-        return $query->whereRaw('upper(trim(part_number)) = ?', [$normalizedPartNumber]);
+            ->where(fn (Builder $query): Builder => $this->whereInternalManualNameItem($query))
+            ->whereRaw('upper(trim(part_number)) = ?', [$normalizedPartNumber]);
     }
 
     public function normalizedPartNumber(?string $partNumber): string
     {
         return Str::upper(trim((string) $partNumber));
-    }
-
-    protected function teslaPartPrefix(string $normalizedPartNumber): ?string
-    {
-        return preg_match('/^(\d{7})/', $normalizedPartNumber, $matches) === 1
-            ? $matches[1]
-            : null;
     }
 
     protected function lockPayload(array $updates, mixed $lockedAt): array

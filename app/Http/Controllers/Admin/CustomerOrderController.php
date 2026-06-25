@@ -8,16 +8,20 @@ use App\Models\CustomerOrder;
 use App\Models\CustomerOrderHistoryEvent;
 use App\Models\CustomerOrderItem;
 use App\Models\CustomerOrderShipment;
+use App\Models\Location;
 use App\Models\PartCatalogItem;
 use App\Models\Product;
+use App\Models\StockItem;
+use App\Models\Warehouse;
 use App\Services\CustomerOrderIssuedSaleService;
 use App\Services\CustomerOrderNovaPoshtaStatusSyncService;
 use App\Services\CustomerOrderReservationProjectionService;
 use App\Services\ExchangeRateService;
-use App\Services\NovaPoshtaDirectoryService;
-use App\Services\NovaPoshtaInternetDocumentService;
 use App\Services\NikolaCarsInventoryService;
 use App\Services\NikolaCarsProductInventorySyncService;
+use App\Services\NovaPoshtaDirectoryService;
+use App\Services\NovaPoshtaInternetDocumentService;
+use App\Services\StockService;
 use App\Support\CatalogTextEncoding;
 use App\Support\PartCatalogRawAttributes;
 use App\Support\ProductPhotoNormalizer;
@@ -53,7 +57,6 @@ class CustomerOrderController extends Controller
                 $tab === 'cancelled',
                 fn (Builder $builder) => $builder->whereIn('status', [
                     CustomerOrder::STATUS_CANCELLED,
-                    CustomerOrder::STATUS_REFUSED,
                 ]),
                 fn (Builder $builder) => $builder->whereNotIn('status', [
                     CustomerOrder::STATUS_CANCELLED,
@@ -107,6 +110,8 @@ class CustomerOrderController extends Controller
                 ->limit(30)
                 ->get()
             : collect();
+        $returnToStockWarehouses = $this->activeReturnToStockWarehouses();
+        $returnToStockLocations = $this->activeReturnToStockLocations();
         $completedOrders = $tab === 'active'
             ? (clone $ordersQuery)
                 ->where(function (Builder $builder): void {
@@ -147,6 +152,9 @@ class CustomerOrderController extends Controller
             'itemDisplayCodes' => $this->customerOrderItemDisplayCodes($ordersForTotals->pluck('items')->flatten()),
             'itemDisplayPartNumbers' => $this->customerOrderItemDisplayPartNumbers($ordersForTotals->pluck('items')->flatten()),
             'itemDisplayNames' => $this->customerOrderItemDisplayNames($ordersForTotals->pluck('items')->flatten()),
+            'returnToStockWarehouseOptions' => $this->returnToStockWarehouseOptions($returnToStockWarehouses),
+            'returnToStockLocationOptions' => $this->returnToStockLocationOptions($returnToStockLocations),
+            'returnToStockDefaults' => $this->returnToStockDefaults($ordersForTotals, $returnToStockLocations),
             'query' => $query,
             'tab' => $tab,
         ]);
@@ -351,8 +359,7 @@ class CustomerOrderController extends Controller
         Request $request,
         CustomerOrder $customerOrder,
         CustomerOrderNovaPoshtaStatusSyncService $syncService,
-    ): JsonResponse
-    {
+    ): JsonResponse {
         if ($customerOrder->delivery_method !== CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA) {
             throw ValidationException::withMessages([
                 'tracking_number' => "\u{0422}\u{0422}\u{041D} \u{043C}\u{043E}\u{0436}\u{043D}\u{043E} \u{043C}\u{0435}\u{043D}\u{044F}\u{0442}\u{044C} \u{0442}\u{043E}\u{043B}\u{044C}\u{043A}\u{043E} \u{0434}\u{043B}\u{044F} \u{0437}\u{0430}\u{043A}\u{0430}\u{0437}\u{043E}\u{0432} \u{041D}\u{043E}\u{0432}\u{043E}\u{0439} \u{043F}\u{043E}\u{0447}\u{0442}\u{044B}.",
@@ -432,6 +439,64 @@ class CustomerOrderController extends Controller
             'display_status_class' => $this->customerOrderDisplayStatusClass($customerOrder),
             'message' => "\u{0422}\u{0422}\u{041D} \u{0441}\u{043E}\u{0445}\u{0440}\u{0430}\u{043D}\u{0435}\u{043D}\u{0430}.",
         ]);
+    }
+
+    public function novaPoshtaTrackingNumberSuggestions(
+        Request $request,
+        CustomerOrder $customerOrder,
+        NovaPoshtaInternetDocumentService $novaPoshtaService,
+    ): JsonResponse {
+        if ($customerOrder->delivery_method !== CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA) {
+            return response()->json([]);
+        }
+
+        return $this->novaPoshtaAvailableTrackingNumberSuggestions($request, $novaPoshtaService, $customerOrder);
+    }
+
+    public function novaPoshtaAvailableTrackingNumberSuggestions(
+        Request $request,
+        NovaPoshtaInternetDocumentService $novaPoshtaService,
+        ?CustomerOrder $customerOrder = null,
+    ): JsonResponse {
+        try {
+            $usedTrackingNumbers = CustomerOrderShipment::query()
+                ->where('carrier', CustomerOrderShipment::CARRIER_NOVA_POSHTA)
+                ->when($customerOrder instanceof CustomerOrder, fn (Builder $builder) => $builder
+                    ->where('customer_order_id', '!=', $customerOrder->id))
+                ->whereNotNull('tracking_number')
+                ->pluck('tracking_number')
+                ->map(fn (?string $trackingNumber): string => preg_replace('/\s+/', '', trim((string) $trackingNumber)) ?: '')
+                ->filter()
+                ->flip();
+
+            $blockedStatuses = [
+                "\u{043E}\u{0442}\u{0440}\u{0438}\u{043C}\u{0430}\u{043D}\u{043E}",
+                "\u{0432}\u{0456}\u{0434}\u{043C}\u{043E}\u{0432}\u{0430} \u{043E}\u{0434}\u{0435}\u{0440}\u{0436}\u{0443}\u{0432}\u{0430}\u{0447}\u{0430}",
+            ];
+
+            $suggestions = collect($novaPoshtaService->documentSuggestions(
+                (string) $request->query('query', ''),
+                20,
+            ))
+                ->reject(fn (array $suggestion): bool => $usedTrackingNumbers->has((string) ($suggestion['tracking_number'] ?? '')))
+                ->reject(function (array $suggestion) use ($blockedStatuses): bool {
+                    $status = mb_strtolower(trim((string) ($suggestion['status'] ?? '')));
+
+                    return $status !== ''
+                        && collect($blockedStatuses)->contains(fn (string $blockedStatus): bool => str_contains($status, $blockedStatus));
+                })
+                ->values();
+
+            return response()->json($suggestions);
+        } catch (RuntimeException $exception) {
+            Log::warning('Nova Poshta TTN suggestions request failed.', [
+                'customer_order_id' => $customerOrder?->id,
+                'query' => (string) $request->query('query', ''),
+                'message' => $exception->getMessage(),
+            ]);
+
+            return response()->json(['message' => $exception->getMessage()], 503);
+        }
     }
 
     public function storeNovaPoshtaTrackingNumber(
@@ -624,8 +689,7 @@ class CustomerOrderController extends Controller
         CustomerOrder $customerOrder,
         ExchangeRateService $exchangeRateService,
         NovaPoshtaInternetDocumentService $novaPoshtaService,
-    ): RedirectResponse
-    {
+    ): RedirectResponse {
         $validated = $request->validate([
             'status' => ['required', Rule::in([
                 CustomerOrder::STATUS_ASSEMBLED,
@@ -891,6 +955,98 @@ class CustomerOrderController extends Controller
         return redirect()
             ->back()
             ->with('status', $message);
+    }
+
+    public function returnToStock(Request $request, CustomerOrder $customerOrder): RedirectResponse
+    {
+        $customerOrder->loadMissing([
+            'novaPoshtaShipment',
+            'historyEvents',
+            'items.partCatalogItem',
+            'items.product.stockItems.location.warehouse',
+            'items.product.sourcePartCatalogItem',
+        ]);
+
+        if (! $customerOrder->canBeReturnedToStock()) {
+            throw ValidationException::withMessages([
+                'return_to_stock' => "\u{0412}\u{0435}\u{0440}\u{043D}\u{0443}\u{0442}\u{044C} \u{043D}\u{0430} \u{0441}\u{043A}\u{043B}\u{0430}\u{0434} \u{043C}\u{043E}\u{0436}\u{043D}\u{043E} \u{0442}\u{043E}\u{043B}\u{044C}\u{043A}\u{043E} \u{043E}\u{0442}\u{043A}\u{0430}\u{0437} \u{041D}\u{043E}\u{0432}\u{043E}\u{0439} \u{043F}\u{043E}\u{0447}\u{0442}\u{044B} \u{0441} \u{043F}\u{043E}\u{043B}\u{0443}\u{0447}\u{0435}\u{043D}\u{043D}\u{044B}\u{043C} \u{0432}\u{043E}\u{0437}\u{0432}\u{0440}\u{0430}\u{0442}\u{043E}\u{043C}.",
+            ]);
+        }
+
+        $validated = $request->validate([
+            'warehouse_id' => ['required', 'integer', 'exists:warehouses,id'],
+            'floor' => ['nullable', 'string', 'max:50'],
+            'location_id' => ['required', 'integer', 'exists:locations,id'],
+        ]);
+
+        $warehouse = Warehouse::query()
+            ->whereKey($validated['warehouse_id'])
+            ->where('is_active', true)
+            ->where('type', '!=', Warehouse::TYPE_DONOR)
+            ->first();
+        $location = Location::query()
+            ->whereKey($validated['location_id'])
+            ->where('warehouse_id', $validated['warehouse_id'])
+            ->where('is_active', true)
+            ->whereHas('warehouse', fn (Builder $query) => $query
+                ->where('type', '!=', Warehouse::TYPE_DONOR))
+            ->first();
+
+        if (! $warehouse instanceof Warehouse) {
+            throw ValidationException::withMessages([
+                'warehouse_id' => "\u{0412}\u{044B}\u{0431}\u{0435}\u{0440}\u{0438}\u{0442}\u{0435} \u{0441}\u{043A}\u{043B}\u{0430}\u{0434}.",
+            ]);
+        }
+
+        if (! $location instanceof Location) {
+            throw ValidationException::withMessages([
+                'location_id' => "\u{0412}\u{044B}\u{0431}\u{0435}\u{0440}\u{0438}\u{0442}\u{0435} \u{044F}\u{0447}\u{0435}\u{0439}\u{043A}\u{0443}.",
+            ]);
+        }
+
+        $floor = is_string($validated['floor'] ?? null) && $validated['floor'] !== ''
+            ? $validated['floor']
+            : 'floor_1';
+        if ($warehouse->hasMultipleFloors() && $this->normalizedReturnLocationFloor($location) !== $floor) {
+            throw ValidationException::withMessages([
+                'location_id' => "\u{042F}\u{0447}\u{0435}\u{0439}\u{043A}\u{0430} \u{043D}\u{0435} \u{043E}\u{0442}\u{043D}\u{043E}\u{0441}\u{0438}\u{0442}\u{0441}\u{044F} \u{043A} \u{0432}\u{044B}\u{0431}\u{0440}\u{0430}\u{043D}\u{043D}\u{043E}\u{043C}\u{0443} \u{044D}\u{0442}\u{0430}\u{0436}\u{0443}.",
+            ]);
+        }
+
+        DB::transaction(function () use ($customerOrder, $location, $warehouse): void {
+            [$catalogItemIds, $productIds] = $this->reservedInventoryIds($customerOrder);
+
+            $this->recordCustomerOrderHistoryEvent(
+                $customerOrder,
+                'returned_to_stock',
+                "\u{0412}\u{043E}\u{0437}\u{0432}\u{0440}\u{0430}\u{0442} \u{043F}\u{0440}\u{0438}\u{043D}\u{044F}\u{0442} \u{043D}\u{0430} \u{0441}\u{043A}\u{043B}\u{0430}\u{0434}",
+                trim(($warehouse->name ?: '').' / '.$this->returnLocationDisplayCode($location)),
+                null,
+                [
+                    'warehouse_id' => $warehouse->id,
+                    'warehouse_name' => $warehouse->name,
+                    'location_id' => $location->id,
+                    'location_code' => $this->returnLocationDisplayCode($location),
+                ],
+            );
+
+            PartCatalogItem::query()
+                ->whereIn('id', $catalogItemIds)
+                ->get()
+                ->each(fn (PartCatalogItem $catalogItem) => $this->refreshCatalogItemReservationProjection($catalogItem));
+            Product::query()
+                ->whereIn('id', $productIds)
+                ->with(['stockItems', 'sourcePartCatalogItem'])
+                ->get()
+                ->each(function (Product $product) use ($customerOrder, $location): void {
+                    $this->returnProductToStockLocation($product, $customerOrder, $location);
+                    $this->refreshProductReservationProjection($product->refresh());
+                });
+        });
+
+        return redirect()
+            ->back()
+            ->with('status', "\u{0412}\u{043E}\u{0437}\u{0432}\u{0440}\u{0430}\u{0442} \u{043F}\u{0440}\u{0438}\u{043D}\u{044F}\u{0442} \u{043D}\u{0430} \u{0441}\u{043A}\u{043B}\u{0430}\u{0434}.");
     }
 
     public function recreate(CustomerOrder $customerOrder, ExchangeRateService $exchangeRateService): RedirectResponse
@@ -2567,6 +2723,194 @@ class CustomerOrderController extends Controller
         app(CustomerOrderReservationProjectionService::class)->refresh($product);
     }
 
+    protected function returnProductToStockLocation(Product $product, CustomerOrder $order, Location $location): void
+    {
+        $location->loadMissing('warehouse');
+        $quantity = max(1, (int) ceil((float) $order->items
+            ->where('product_id', $product->id)
+            ->sum(fn (CustomerOrderItem $item): float => (float) $item->quantity)));
+
+        $product->load('stockItems');
+        $targetStockItem = $product->stockItems
+            ->first(fn (StockItem $stockItem): bool => (int) $stockItem->location_id === (int) $location->id);
+
+        if (! $targetStockItem instanceof StockItem) {
+            $targetStockItem = StockItem::query()->firstOrNew([
+                'product_id' => $product->id,
+                'location_id' => $location->id,
+                'testing_status' => $product->testing_status ?: 'not_tested',
+            ]);
+            $targetStockItem->warehouse_id = $location->warehouse_id;
+            $targetStockItem->quantity = (int) $targetStockItem->quantity;
+            $targetStockItem->reserved_quantity = (int) $targetStockItem->reserved_quantity;
+            $targetStockItem->received_at ??= now();
+            $targetStockItem->save();
+        }
+
+        $product->load('stockItems');
+        $remainingToMove = max(0, $quantity - (int) $product->stockItems
+            ->where('location_id', $location->id)
+            ->sum('quantity'));
+
+        if ($remainingToMove > 0) {
+            $product->stockItems
+                ->reject(fn (StockItem $stockItem): bool => (int) $stockItem->location_id === (int) $location->id)
+                ->sortByDesc('available_quantity')
+                ->each(function (StockItem $stockItem) use (&$remainingToMove, $location, $order): void {
+                    if ($remainingToMove <= 0) {
+                        return;
+                    }
+
+                    $moveQuantity = min($remainingToMove, (int) $stockItem->available_quantity);
+
+                    if ($moveQuantity <= 0) {
+                        return;
+                    }
+
+                    app(StockService::class)->move($stockItem, $moveQuantity, (int) $location->id, [
+                        'document_number' => $order->number,
+                        'comment' => 'Nova Poshta refused order returned to selected stock location.',
+                    ]);
+
+                    $remainingToMove -= $moveQuantity;
+                });
+        }
+
+        $targetStockItem = StockItem::query()
+            ->where('product_id', $product->id)
+            ->where('location_id', $location->id)
+            ->orderByDesc('id')
+            ->first();
+
+        if ($targetStockItem instanceof StockItem && (int) $targetStockItem->quantity < $quantity) {
+            app(StockService::class)->adjust($targetStockItem, $quantity, [
+                'reason' => 'customer_order_return_received',
+                'document_number' => $order->number,
+                'comment' => 'Nova Poshta refused order returned to stock.',
+            ]);
+        }
+
+        $product->forceFill([
+            'storage_status' => $location->warehouse?->type === Warehouse::TYPE_DONOR
+                ? Product::STORAGE_STATUS_ON_DONOR
+                : Product::STORAGE_STATUS_IN_STOCK,
+            'is_active' => true,
+        ])->save();
+
+        app(NikolaCarsProductInventorySyncService::class)->syncProduct($product->refresh());
+    }
+
+    protected function activeReturnToStockWarehouses(): Collection
+    {
+        return Warehouse::query()
+            ->where('is_active', true)
+            ->where('type', '!=', Warehouse::TYPE_DONOR)
+            ->orderBy('name')
+            ->get(['id', 'name', 'type', 'floor_count', 'is_active']);
+    }
+
+    protected function activeReturnToStockLocations(): Collection
+    {
+        return Location::query()
+            ->with('warehouse:id,name,type,floor_count,is_active')
+            ->where('is_active', true)
+            ->whereHas('warehouse', fn (Builder $query) => $query
+                ->where('is_active', true)
+                ->where('type', '!=', Warehouse::TYPE_DONOR))
+            ->orderBy('warehouse_id')
+            ->orderBy('floor')
+            ->orderBy('full_code')
+            ->get(['id', 'warehouse_id', 'floor', 'cell', 'full_code', 'is_active']);
+    }
+
+    protected function returnToStockWarehouseOptions(Collection $warehouses): array
+    {
+        return $warehouses
+            ->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE)
+            ->map(fn (Warehouse $warehouse): array => [
+                'id' => $warehouse->id,
+                'name' => $warehouse->name,
+                'type' => $warehouse->type,
+                'floor_count' => $warehouse->floor_count,
+                'uses_structured_locations' => $warehouse->usesStructuredLocations(),
+                'floors' => collect($warehouse->availableFloors())
+                    ->map(fn (string $label, string $value): array => [
+                        'value' => $value,
+                        'label' => $label,
+                    ])
+                    ->values()
+                    ->all(),
+            ])
+            ->values()
+            ->all();
+    }
+
+    protected function returnToStockLocationOptions(Collection $locations): array
+    {
+        return $locations
+            ->map(fn (Location $location): array => [
+                'id' => $location->id,
+                'warehouse_id' => $location->warehouse_id,
+                'floor' => $this->normalizedReturnLocationFloor($location),
+                'floor_label' => $location->floorLabel(),
+                'label' => $this->returnLocationDisplayCode($location),
+            ])
+            ->values()
+            ->all();
+    }
+
+    protected function returnToStockDefaults(Collection $orders, Collection $locations): Collection
+    {
+        return $orders->mapWithKeys(function (CustomerOrder $order) use ($locations): array {
+            $location = $this->defaultReturnToStockLocation($order, $locations);
+
+            return [
+                $order->id => [
+                    'warehouse_id' => $location?->warehouse_id,
+                    'floor' => $location instanceof Location ? $this->normalizedReturnLocationFloor($location) : null,
+                    'location_id' => $location?->id,
+                    'label' => $location instanceof Location ? $this->returnLocationDisplayCode($location) : null,
+                ],
+            ];
+        });
+    }
+
+    protected function defaultReturnToStockLocation(CustomerOrder $order, Collection $locations): ?Location
+    {
+        $order->loadMissing('items.product.stockItems.location');
+
+        $stockLocationId = $order->items
+            ->pluck('product.stockItems')
+            ->flatten()
+            ->filter(fn ($stockItem): bool => $stockItem instanceof StockItem)
+            ->sortByDesc(fn (StockItem $stockItem): int => (int) $stockItem->id)
+            ->pluck('location_id')
+            ->filter()
+            ->first();
+
+        if ($stockLocationId !== null) {
+            $location = $locations->first(fn (Location $location): bool => (int) $location->id === (int) $stockLocationId);
+
+            if ($location instanceof Location) {
+                return $location;
+            }
+
+            return null;
+        }
+
+        return $locations->first();
+    }
+
+    protected function normalizedReturnLocationFloor(Location $location): string
+    {
+        return is_string($location->floor) && $location->floor !== '' ? $location->floor : 'floor_1';
+    }
+
+    protected function returnLocationDisplayCode(Location $location): string
+    {
+        return trim((string) ($location->cell ?: $location->full_code)) ?: "\u{0411}\u{0435}\u{0437} \u{044F}\u{0447}\u{0435}\u{0439}\u{043A}\u{0438}";
+    }
+
     protected function reservedInventoryIds(CustomerOrder $order): array
     {
         $items = $order->items()
@@ -2638,7 +2982,7 @@ class CustomerOrderController extends Controller
             ?? new Counterparty;
 
         if ($counterparty->exists && (int) $counterparty->id === Counterparty::ANONYMOUS_ID && $counterparty->name !== Counterparty::ANONYMOUS_NAME) {
-            throw new \RuntimeException('Anonymous counterparty id is already occupied.');
+            throw new RuntimeException('Anonymous counterparty id is already occupied.');
         }
 
         $counterparty->forceFill([

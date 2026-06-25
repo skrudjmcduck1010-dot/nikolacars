@@ -172,13 +172,18 @@ class NikolaCarsProductInventorySyncService
         Product $product,
         ?PartCatalogItem $item,
         mixed $previousDamageStatus,
-        mixed $currentDamageStatus
+        mixed $currentDamageStatus,
+        bool $force = false
     ): void {
         if ($product->donor_car_id === null || ! $item instanceof PartCatalogItem || $item->source !== self::SOURCE) {
             return;
         }
 
-        if (! $this->isUnknownDamageStatus($previousDamageStatus) || ! $this->isCheckedDamageStatus($currentDamageStatus)) {
+        if (! $this->isCheckedDamageStatus($currentDamageStatus)) {
+            return;
+        }
+
+        if (! $force && ! $this->isUnknownDamageStatus($previousDamageStatus) && $this->normalizedDamageStatus($previousDamageStatus) === $this->normalizedDamageStatus($currentDamageStatus)) {
             return;
         }
 
@@ -238,9 +243,12 @@ class NikolaCarsProductInventorySyncService
 
     protected function isCheckedDamageStatus(mixed $status): bool
     {
-        $status = trim((string) CatalogTextEncoding::repair(is_string($status) ? $status : (string) $status));
+        return in_array($this->normalizedDamageStatus($status), self::CHECKED_DAMAGE_STATUSES, true);
+    }
 
-        return in_array($status, self::CHECKED_DAMAGE_STATUSES, true);
+    protected function normalizedDamageStatus(mixed $status): string
+    {
+        return trim((string) CatalogTextEncoding::repair(is_string($status) ? $status : (string) $status));
     }
 
     protected function propagateManualLocalizedNamesAfterSourceChange(

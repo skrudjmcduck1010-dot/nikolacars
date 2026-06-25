@@ -32,7 +32,7 @@ class DeletedPartTrashTest extends TestCase
             'source_url' => 'nikolacars://product/73634',
             'part_number' => '1044831-99-E',
             'name' => 'Steering gear',
-            'name_ru' => 'Р СѓР»РµРІР°СЏ СЂРµР№РєР°',
+            'name_ru' => 'Рулевая рейка',
             'raw_attributes' => [
                 'code' => '73634',
                 'donor_vin' => $donorCar->vin,
@@ -51,7 +51,7 @@ class DeletedPartTrashTest extends TestCase
             'unit' => 'pcs',
             'selling_price' => 250,
             'currency' => 'USD',
-            'notes' => 'Р‘РµР· РїРѕРІСЂРµР¶РґРµРЅРёР№',
+            'notes' => 'Без повреждений',
             'is_active' => true,
         ]);
 
@@ -90,7 +90,7 @@ class DeletedPartTrashTest extends TestCase
             'source_url' => 'https://parts.tesla.com/1044831-99-e',
             'part_number' => '1044831-99-E',
             'name' => 'STEERING GEAR ASSEMBLY - LEFT HAND DRIVE',
-            'name_ru' => 'Р СѓР»РµРІР°СЏ СЂРµР№РєР°',
+            'name_ru' => 'Рулевая рейка',
         ]);
         $product = Product::query()->create([
             'sku' => 'DON28-1260',
@@ -105,7 +105,7 @@ class DeletedPartTrashTest extends TestCase
             'unit' => 'pcs',
             'selling_price' => 250,
             'currency' => 'USD',
-            'notes' => 'Р‘РµР· РїРѕРІСЂРµР¶РґРµРЅРёР№',
+            'notes' => 'Без повреждений',
             'is_active' => true,
         ]);
         $nikolaCarsItem = PartCatalogItem::query()->create([
@@ -164,7 +164,7 @@ class DeletedPartTrashTest extends TestCase
             'unit' => 'pcs',
             'selling_price' => 250,
             'currency' => 'USD',
-            'notes' => 'Р‘РµР· РїРѕРІСЂРµР¶РґРµРЅРёР№',
+            'notes' => 'Без повреждений',
             'is_active' => true,
         ]);
         PartCatalogItem::query()->create([
@@ -208,7 +208,7 @@ class DeletedPartTrashTest extends TestCase
             'source_url' => 'nikolacars://product/restore-73634',
             'part_number' => '1044831-99-E',
             'name' => 'Steering gear',
-            'name_ru' => 'Р СѓР»РµРІР°СЏ СЂРµР№РєР°',
+            'name_ru' => 'Рулевая рейка',
             'raw_attributes' => [
                 'code' => '73634',
                 'donor_vin' => $donorCar->vin,
@@ -227,7 +227,7 @@ class DeletedPartTrashTest extends TestCase
             'unit' => 'pcs',
             'selling_price' => 250,
             'currency' => 'USD',
-            'notes' => 'Р‘РµР· РїРѕРІСЂРµР¶РґРµРЅРёР№',
+            'notes' => 'Без повреждений',
             'is_active' => true,
         ]);
 
@@ -320,7 +320,7 @@ class DeletedPartTrashTest extends TestCase
             ->post(route('admin.deleted-parts.restore', $deletedPart))
             ->assertRedirect(route('admin.deleted-parts.index'))
             ->assertSessionHasErrors([
-                'restore' => 'РќРµР»СЊР·СЏ РІРѕСЃСЃС‚Р°РЅРѕРІРёС‚СЊ Р·Р°РїС‡Р°СЃС‚СЊ: Сѓ СЌС‚РѕРіРѕ РґРѕРЅРѕСЂР° СѓР¶Рµ РµСЃС‚СЊ Р·Р°РїС‡Р°СЃС‚СЊ, СЃРІСЏР·Р°РЅРЅР°СЏ СЃ С‚РѕР№ Р¶Рµ СЃС‚СЂРѕРєРѕР№ РєР°С‚Р°Р»РѕРіР°.',
+                'restore' => 'Нельзя восстановить запчасть: у этого донора уже есть запчасть, связанная с той же строкой каталога.',
             ]);
     }
 
@@ -394,7 +394,7 @@ class DeletedPartTrashTest extends TestCase
             ->assertOk()
             ->assertSee(route('admin.deleted-parts.show', $deletedPart), false)
             ->assertSee(route('admin.deleted-parts.restore', $deletedPart), false)
-            ->assertSee('aria-label="Р’РѕСЃСЃС‚Р°РЅРѕРІРёС‚СЊ Steering gear"', false);
+            ->assertSee('aria-label="Восстановить Steering gear"', false);
     }
 
     public function test_deleted_part_show_displays_saved_snapshots(): void
@@ -423,7 +423,7 @@ class DeletedPartTrashTest extends TestCase
                 'source' => 'nikolacars',
                 'source_url' => 'nikolacars://donor-product/71952',
                 'part_number' => '1127502-11-D',
-                'name_ru' => 'Р”Р°С‚С‡РёРє РїР°СЂРєС‚СЂРѕРЅРёРєР°',
+                'name_ru' => 'Датчик парктроника',
             ],
             'related_product_snapshots' => [[
                 'id' => 71952,
@@ -433,7 +433,7 @@ class DeletedPartTrashTest extends TestCase
                 'donor_car_id' => $donorCar->id,
                 'source_part_catalog_item_id' => 279874,
                 'storage_status' => Product::STORAGE_STATUS_ON_DONOR,
-                'notes' => 'Р‘РµР· РїРѕРІСЂРµР¶РґРµРЅРёР№',
+                'notes' => 'Без повреждений',
             ]],
             'deleted_at' => now(),
         ]);
@@ -445,7 +445,7 @@ class DeletedPartTrashTest extends TestCase
             ->assertSee('1127502-11-D')
             ->assertSee('Ultrasonic sensor')
             ->assertSee('nikolacars://donor-product/71952')
-            ->assertSee('Р”Р°С‚С‡РёРє РїР°СЂРєС‚СЂРѕРЅРёРєР°')
+            ->assertSee('Датчик парктроника')
             ->assertSee(route('admin.deleted-parts.restore', $deletedPart), false);
     }
 }

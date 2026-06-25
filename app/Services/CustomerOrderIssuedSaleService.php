@@ -25,6 +25,7 @@ class CustomerOrderIssuedSaleService
         $createdOrUpdated = 0;
 
         $order->loadMissing(['items.partCatalogItem', 'items.product.donorCar', 'items.product.sourcePartCatalogItem']);
+        $this->releaseIssuedOrderReservations($order);
 
         foreach ($order->items as $item) {
             if ($this->syncItem($order, $item)) {
@@ -95,9 +96,7 @@ class CustomerOrderIssuedSaleService
             ->where('source', NikolaCarsInventoryService::SOURCE)
             ->where('source_row_hash', $hash)
             ->first();
-        $stockAfterSale = $existingSale instanceof PartSale
-            ? $stockBeforeSale
-            : max(0.0, round($stockBeforeSale - $quantity, 3));
+        $stockAfterSale = $this->stockAfterSale($existingSale, $stockBeforeSale, $quantity);
 
         $sale = PartSale::query()->updateOrCreate(
             [
@@ -166,6 +165,23 @@ class CustomerOrderIssuedSaleService
         return $sale->wasRecentlyCreated || $sale->wasChanged();
     }
 
+    protected function releaseIssuedOrderReservations(CustomerOrder $order): void
+    {
+        $projectionService = app(CustomerOrderReservationProjectionService::class);
+
+        $order->items
+            ->pluck('product')
+            ->filter(fn ($product): bool => $product instanceof Product)
+            ->unique('id')
+            ->each(fn (Product $product) => $projectionService->refresh($product->refresh()));
+
+        $order->items
+            ->pluck('partCatalogItem')
+            ->filter(fn ($item): bool => $item instanceof PartCatalogItem)
+            ->unique('id')
+            ->each(fn (PartCatalogItem $item) => $projectionService->refresh($item->refresh()));
+    }
+
     protected function catalogItemForOrderItem(CustomerOrderItem $orderItem, ?Product $product): ?PartCatalogItem
     {
         if ($product instanceof Product) {
@@ -207,6 +223,23 @@ class CustomerOrderIssuedSaleService
             '~^nikolacars://(?:donor-product|inventory-product)/'.preg_quote((string) $product->id, '~').'$~',
             (string) $catalogItem->source_url,
         ) === 1;
+    }
+
+    protected function stockAfterSale(?PartSale $existingSale, float $stockBeforeSale, float $quantity): float
+    {
+        $expectedStockAfterSale = max(0.0, round($stockBeforeSale - $quantity, 3));
+
+        if (! $existingSale instanceof PartSale) {
+            return $expectedStockAfterSale;
+        }
+
+        $recordedStockAfterSale = $this->numericQuantity(data_get($existingSale->raw_attributes, 'stock_quantity_after_sale'));
+
+        if ($recordedStockAfterSale !== null && $recordedStockAfterSale < $stockBeforeSale) {
+            return $recordedStockAfterSale;
+        }
+
+        return $expectedStockAfterSale;
     }
 
     protected function refreshReservationProjection(?PartCatalogItem $catalogItem, ?Product $product): void

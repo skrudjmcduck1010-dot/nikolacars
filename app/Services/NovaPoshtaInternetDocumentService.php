@@ -130,6 +130,26 @@ class NovaPoshtaInternetDocumentService
         return $documentRef !== '' ? $documentRef : null;
     }
 
+    public function documentSuggestions(string $query = '', int $limit = 20): array
+    {
+        $apiKey = (string) config('services.nova_poshta.api_key');
+
+        if ($apiKey === '') {
+            throw new RuntimeException('Nova Poshta API key is not configured.');
+        }
+
+        $query = preg_replace('/\s+/', '', trim($query)) ?: '';
+        $limit = max(1, min($limit, 100));
+        $documents = $this->recentDocumentList($apiKey, max($limit * 3, 60));
+
+        return collect($documents)
+            ->filter(fn (array $document): bool => $this->documentSuggestionMatches($document, $query))
+            ->take($limit)
+            ->map(fn (array $document): array => $this->documentSuggestionPayload($document))
+            ->values()
+            ->all();
+    }
+
     private function printDocument(CustomerOrderShipment $shipment, string $type): string
     {
         $apiKey = (string) config('services.nova_poshta.api_key');
@@ -195,6 +215,80 @@ class NovaPoshtaInternetDocumentService
                 && (trim((string) ($document['IntDocNumber'] ?? '')) === '' || trim((string) $document['IntDocNumber']) === $trackingNumber));
 
         return is_array($document) ? trim((string) ($document['Ref'] ?? '')) : '';
+    }
+
+    private function recentDocumentList(string $apiKey, int $limit): array
+    {
+        $response = Http::timeout((int) config('services.nova_poshta.timeout', 15))
+            ->connectTimeout((int) config('services.nova_poshta.connect_timeout', 30))
+            ->acceptJson()
+            ->post((string) config('services.nova_poshta.api_url'), [
+                'apiKey' => $apiKey,
+                'modelName' => 'InternetDocument',
+                'calledMethod' => 'getDocumentList',
+                'methodProperties' => [
+                    'DateTimeFrom' => now()->subDays(90)->format('d.m.Y'),
+                    'DateTimeTo' => now()->format('d.m.Y'),
+                    'Page' => '1',
+                    'Limit' => (string) max(1, min($limit, 100)),
+                ],
+            ]);
+
+        if (! $response->ok()) {
+            throw new RuntimeException('Nova Poshta document list API HTTP '.$response->status().'.');
+        }
+
+        $body = $response->json();
+
+        if (! is_array($body)) {
+            throw new RuntimeException('Nova Poshta document list API returned an invalid response.');
+        }
+
+        if (($body['success'] ?? false) !== true) {
+            throw new RuntimeException($this->apiMessage($body));
+        }
+
+        return collect($body['data'] ?? [])
+            ->filter(fn (mixed $document): bool => is_array($document))
+            ->values()
+            ->all();
+    }
+
+    private function documentSuggestionMatches(array $document, string $query): bool
+    {
+        $trackingNumber = $this->documentSuggestionTrackingNumber($document);
+
+        if ($trackingNumber === '') {
+            return false;
+        }
+
+        if ($query === '') {
+            return true;
+        }
+
+        return str_contains($trackingNumber, $query);
+    }
+
+    private function documentSuggestionPayload(array $document): array
+    {
+        return [
+            'tracking_number' => $this->documentSuggestionTrackingNumber($document),
+            'ref' => trim((string) ($document['Ref'] ?? '')),
+            'date' => trim((string) ($document['DateTime'] ?? $document['DateTimeSender'] ?? '')),
+            'status' => $this->documentSuggestionStatus($document),
+            'recipient' => trim((string) ($document['RecipientDescription'] ?? $document['RecipientContactPerson'] ?? '')),
+            'city' => trim((string) ($document['CityRecipientDescription'] ?? $document['RecipientCityName'] ?? '')),
+        ];
+    }
+
+    private function documentSuggestionTrackingNumber(array $document): string
+    {
+        return preg_replace('/\s+/', '', trim((string) ($document['IntDocNumber'] ?? $document['Number'] ?? ''))) ?: '';
+    }
+
+    private function documentSuggestionStatus(array $document): string
+    {
+        return trim((string) ($document['StateName'] ?? $document['Status'] ?? ''));
     }
 
     private function looksLikeMissingPrintDocumentPage(string $body): bool

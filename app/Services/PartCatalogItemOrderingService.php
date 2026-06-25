@@ -17,6 +17,8 @@ class PartCatalogItemOrderingService
         $categoryDisplay = $this->jsonText('raw_attributes', 'category_display');
         $categoryPath = $this->jsonText('raw_attributes', 'category_path');
         $donorDamageCheckedAt = "nullif({$this->jsonText('raw_attributes', 'donor_damage_checked_at')}, '')";
+        $normalizedDonorDamageCheckedAt = "replace(substr({$donorDamageCheckedAt}, 1, 19), 'T', ' ')";
+        $changedAt = "coalesce({$normalizedDonorDamageCheckedAt}, updated_at, created_at)";
 
         match ($sort) {
             'stock', 'quantity' => $query
@@ -40,8 +42,8 @@ class PartCatalogItemOrderingService
                 ->orderBy('name_ua')
                 ->orderBy('name'),
             'created_at' => $query
-                ->orderByRaw("coalesce({$donorDamageCheckedAt}, created_at) is null")
-                ->orderByRaw("coalesce({$donorDamageCheckedAt}, created_at) {$direction}")
+                ->orderByRaw("{$changedAt} is null")
+                ->orderByRaw("{$changedAt} {$direction}")
                 ->orderBy('id', $direction),
             default => $query
                 ->orderByRaw("coalesce({$categoryDisplay}, {$categoryPath}, '') {$direction}")

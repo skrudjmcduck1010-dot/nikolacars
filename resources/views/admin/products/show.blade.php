@@ -129,6 +129,7 @@
         };
 
         $stockQuantity = (int) $product->stockItems->sum('quantity');
+        $productReservedQuantity = (int) $product->stockItems->sum('reserved_quantity');
         $vehicleQuantityText = null;
 
         if ($product->donorCar) {
@@ -148,6 +149,19 @@
             $storageStatusLabel = \App\Models\Product::STORAGE_STATUSES[\App\Models\Product::STORAGE_STATUS_SOLD];
         }
         $isSoldProduct = $product->storage_status === \App\Models\Product::STORAGE_STATUS_SOLD;
+        $unknownDamageNote = "\u{041D}\u{0435}\u{0438}\u{0437}\u{0432}\u{0435}\u{0441}\u{0442}\u{043D}\u{043E}";
+        $productDamageValue = trim((string) ($product->notes ?? ''));
+        $productDamageDisplay = $productDamageValue !== '' ? \Illuminate\Support\Str::ucfirst($productDamageValue) : $unknownDamageNote;
+        $isUnknownProductDamage = $product->donorCar && in_array($productDamageValue, ['', $unknownDamageNote], true);
+        $canEditProductDamage = $product->donorCar && ! $isSoldProduct && $isUnknownProductDamage;
+        $productDamageOptions = [
+            '' => $unknownDamageNote,
+            ...collect(\App\Services\NikolaCarsProductInventorySyncService::CHECKED_DAMAGE_STATUSES)
+                ->mapWithKeys(fn (string $status): array => [$status => $status])
+                ->all(),
+            \App\Services\NikolaCarsProductInventorySyncService::BROKEN_DAMAGE_STATUS => \App\Services\NikolaCarsProductInventorySyncService::BROKEN_DAMAGE_STATUS,
+            \App\Services\NikolaCarsProductInventorySyncService::NON_LIQUID_DAMAGE_STATUS => \App\Services\NikolaCarsProductInventorySyncService::NON_LIQUID_DAMAGE_STATUS,
+        ];
         $isTeslaOfficialProduct = $product->isTeslaOfficialGenerated();
         $primaryArticle = trim((string) ($product->external_sku ?: $product->sourcePartCatalogItem?->part_number));
         $nikolaCarsOfficialEnrichment = $nikolaCarsOfficialEnrichment ?? null;
@@ -166,12 +180,19 @@
 
             return "\u{2014}";
         };
+        $stockPlacementFloorValue = fn ($location): string => is_string($location?->floor ?? null) && $location->floor !== ''
+            ? $location->floor
+            : 'floor_1';
+        $canEditProductPlacement = ! $isSoldProduct && ! $isUnknownProductDamage && $stockQuantity > 0 && $productReservedQuantity === 0;
         $stockPlacementRows = $product->stockItems
             ->filter(fn ($stockItem): bool => (int) $stockItem->quantity > 0)
             ->map(fn ($stockItem): array => [
                 'warehouse' => $stockItem->warehouse?->name ?: "\u{2014}",
+                'warehouse_id' => $stockItem->warehouse_id,
                 'is_donor_warehouse' => $stockItem->warehouse?->type === \App\Models\Warehouse::TYPE_DONOR,
+                'floor_key' => $stockPlacementFloorValue($stockItem->location),
                 'floor' => $stockPlacementFloorLabel($stockItem->location),
+                'location_id' => $stockItem->location_id,
                 'cell' => $stockItem->location?->shortCode() ?: "\u{2014}",
                 'quantity' => (int) $stockItem->quantity,
             ])
@@ -275,7 +296,23 @@
                                 <div class="product-stock-placement-list">
                                     @forelse($stockPlacementRows as $placement)
                                         <div class="product-stock-placement">
-                                            <span><strong>{{ "\u{0421}\u{043A}\u{043B}\u{0430}\u{0434}" }}:</strong> {{ $placement['warehouse'] }}</span>
+                                            <span class="product-placement-line">
+                                                <span><strong>{{ "\u{0421}\u{043A}\u{043B}\u{0430}\u{0434}" }}:</strong> {{ $placement['warehouse'] }}</span>
+                                                @if($loop->first && $canEditProductPlacement)
+                                                    <span
+                                                        role="button"
+                                                        tabindex="0"
+                                                        class="product-placement-edit-button"
+                                                        title="{{ "\u{0420}\u{0435}\u{0434}\u{0430}\u{043A}\u{0442}\u{0438}\u{0440}\u{043E}\u{0432}\u{0430}\u{0442}\u{044C} \u{0441}\u{043A}\u{043B}\u{0430}\u{0434}" }}"
+                                                        aria-label="{{ "\u{0420}\u{0435}\u{0434}\u{0430}\u{043A}\u{0442}\u{0438}\u{0440}\u{043E}\u{0432}\u{0430}\u{0442}\u{044C} \u{0441}\u{043A}\u{043B}\u{0430}\u{0434}" }}"
+                                                        data-placement-update-url="{{ route('admin.products.placement.update', $product) }}"
+                                                        data-current-warehouse-id="{{ $placement['warehouse_id'] ?? '' }}"
+                                                        data-current-floor="{{ $placement['floor_key'] ?? 'floor_1' }}"
+                                                        data-current-location-id="{{ $placement['location_id'] ?? '' }}"
+                                                        data-product-placement-edit-toggle
+                                                    >&#9998;</span>
+                                                @endif
+                                            </span>
                                             @unless($placement['is_donor_warehouse'])
                                                 <span><strong>{{ "\u{042D}\u{0442}\u{0430}\u{0436}" }}:</strong> {{ $placement['floor'] }}</span>
                                                 <span><strong>{{ "\u{042F}\u{0447}\u{0435}\u{0439}\u{043A}\u{0430}" }}:</strong> {{ $placement['cell'] }}</span>
@@ -351,7 +388,44 @@
                         @endif
                     </p>
                     <p><strong>Состояние:</strong> {{ $conditionTypeLabels[$product->condition_type] ?? $product->condition_type ?: '—' }}</p>
-                    <p><strong>Повреждения:</strong> {{ $product->notes ? \Illuminate\Support\Str::ucfirst($product->notes) : 'Неизвестно' }}</p>
+                    <div class="product-catalog-name-line product-damage-line" data-product-damage-line>
+                        <strong>Статус:</strong>
+                        <span data-product-damage-display>{{ $productDamageDisplay }}</span>
+                        @if($canEditProductDamage)
+                            <button
+                                type="button"
+                                class="product-catalog-name-edit"
+                                title="{{ "\u{0420}\u{0435}\u{0434}\u{0430}\u{043A}\u{0442}\u{0438}\u{0440}\u{043E}\u{0432}\u{0430}\u{0442}\u{044C} \u{0441}\u{0442}\u{0430}\u{0442}\u{0443}\u{0441}" }}"
+                                aria-label="{{ "\u{0420}\u{0435}\u{0434}\u{0430}\u{043A}\u{0442}\u{0438}\u{0440}\u{043E}\u{0432}\u{0430}\u{0442}\u{044C} \u{0441}\u{0442}\u{0430}\u{0442}\u{0443}\u{0441}" }}"
+                                data-product-damage-edit-toggle
+                            >&#9998;</button>
+                            <form
+                                method="POST"
+                                action="{{ route('admin.donor-cars.products.official-fields.update', [$product->donorCar, $product]) }}"
+                                class="product-damage-form"
+                                data-product-damage-form
+                                hidden
+                            >
+                                @csrf
+                                @method('PATCH')
+                                <select
+                                    name="damage_note"
+                                    class="product-damage-select"
+                                    data-product-damage-select
+                                    data-previous-damage-note="{{ $productDamageValue !== '' ? $productDamageValue : $unknownDamageNote }}"
+                                    data-current-damage-value="{{ $productDamageValue !== $unknownDamageNote ? $productDamageValue : '' }}"
+                                >
+                                    @foreach($productDamageOptions as $value => $label)
+                                        <option
+                                            value="{{ $value }}"
+                                            data-checked-damage="{{ in_array((string) $value, \App\Services\NikolaCarsProductInventorySyncService::CHECKED_DAMAGE_STATUSES, true) ? '1' : '0' }}"
+                                            @selected($productDamageValue === (string) $value || ($productDamageValue === $unknownDamageNote && (string) $value === ''))
+                                        >{{ $label }}</option>
+                                    @endforeach
+                                </select>
+                            </form>
+                        @endif
+                    </div>
                     <p><strong>Наличие:</strong> {{ $storageStatusLabel ?: '—' }} <span class="help">Остаток: {{ $stockQuantity }} {{ $unitLabels[$product->unit] ?? $product->unit }}</span></p>
 
                     <div class="product-description-block">
@@ -476,7 +550,7 @@
                             <th>Донор</th>
                             <th>Авто</th>
                             <th>Тип</th>
-                            <th>Повреждения</th>
+                            <th>Статус</th>
                             <th>Статус</th>
                         </tr>
                     </thead>
@@ -723,7 +797,25 @@
                 <tbody>
                 @forelse($product->stockItems as $stockItem)
                     <tr>
-                        <td>{{ $stockItem->warehouse?->name ?: '—' }}</td>
+                        <td>
+                            <span class="product-placement-line">
+                                <span>{{ $stockItem->warehouse?->name ?: '—' }}</span>
+                                @if($loop->first && $canEditProductPlacement)
+                                    <span
+                                        role="button"
+                                        tabindex="0"
+                                        class="product-placement-edit-button"
+                                        title="{{ "\u{0420}\u{0435}\u{0434}\u{0430}\u{043A}\u{0442}\u{0438}\u{0440}\u{043E}\u{0432}\u{0430}\u{0442}\u{044C} \u{0441}\u{043A}\u{043B}\u{0430}\u{0434}" }}"
+                                        aria-label="{{ "\u{0420}\u{0435}\u{0434}\u{0430}\u{043A}\u{0442}\u{0438}\u{0440}\u{043E}\u{0432}\u{0430}\u{0442}\u{044C} \u{0441}\u{043A}\u{043B}\u{0430}\u{0434}" }}"
+                                        data-placement-update-url="{{ route('admin.products.placement.update', $product) }}"
+                                        data-current-warehouse-id="{{ $stockItem->warehouse_id ?? '' }}"
+                                        data-current-floor="{{ $stockPlacementFloorValue($stockItem->location) }}"
+                                        data-current-location-id="{{ $stockItem->location_id ?? '' }}"
+                                        data-product-placement-edit-toggle
+                                    >&#9998;</span>
+                                @endif
+                            </span>
+                        </td>
                         <td>{{ $stockItem->location?->full_code ?: '—' }}</td>
                         <td>{{ $stockItem->quantity }}</td>
                         <td>{{ $stockItem->reserved_quantity }}</td>
@@ -845,6 +937,58 @@
         </section>
     </div>
 
+    <dialog class="product-placement-editor" data-product-placement-editor>
+        <form method="POST" action="#" class="product-placement-editor__form" data-product-placement-form>
+            @csrf
+            @method('PATCH')
+            <input type="hidden" name="damage_note" value="" data-product-placement-damage-note disabled>
+            <div class="product-placement-editor__header">
+                <h2>{{ "\u{0420}\u{0430}\u{0437}\u{043C}\u{0435}\u{0449}\u{0435}\u{043D}\u{0438}\u{0435} \u{0437}\u{0430}\u{043F}\u{0447}\u{0430}\u{0441}\u{0442}\u{0438}" }}</h2>
+                <button type="button" class="product-placement-editor__close" data-product-placement-edit-cancel aria-label="{{ "\u{0417}\u{0430}\u{043A}\u{0440}\u{044B}\u{0442}\u{044C}" }}">&times;</button>
+            </div>
+            <label>
+                <span>{{ "\u{0421}\u{043A}\u{043B}\u{0430}\u{0434}" }}</span>
+                <select name="warehouse_id" data-product-placement-warehouse>
+                    <option value="">{{ "\u{0412}\u{044B}\u{0431}\u{0435}\u{0440}\u{0438}\u{0442}\u{0435} \u{0441}\u{043A}\u{043B}\u{0430}\u{0434}" }}</option>
+                    @foreach($productPlacementWarehouseOptions as $warehouseOption)
+                        <option
+                            value="{{ $warehouseOption['id'] }}"
+                            data-warehouse-type="{{ $warehouseOption['type'] }}"
+                            data-floor-count="{{ $warehouseOption['floor_count'] }}"
+                            data-structured-locations="{{ $warehouseOption['uses_structured_locations'] ? '1' : '0' }}"
+                        >{{ $warehouseOption['name'] }}</option>
+                    @endforeach
+                </select>
+            </label>
+            <label data-product-placement-floor-wrap>
+                <span>{{ "\u{042D}\u{0442}\u{0430}\u{0436}" }}</span>
+                <select name="floor" data-product-placement-floor>
+                    @foreach(\App\Models\Location::floorsForCount(20) as $floorValue => $floorLabel)
+                        <option value="{{ $floorValue }}">{{ $floorLabel }}</option>
+                    @endforeach
+                </select>
+            </label>
+            <label data-product-placement-location-wrap>
+                <span>{{ "\u{042F}\u{0447}\u{0435}\u{0439}\u{043A}\u{0430}" }}</span>
+                <select name="location_id" data-product-placement-location>
+                    <option value="">—</option>
+                    @foreach($productPlacementLocationOptions as $locationOption)
+                        <option
+                            value="{{ $locationOption['id'] }}"
+                            data-warehouse-id="{{ $locationOption['warehouse_id'] }}"
+                            data-floor="{{ $locationOption['floor'] }}"
+                            data-has-cell="{{ $locationOption['has_cell'] ? '1' : '0' }}"
+                        >{{ $locationOption['floor_label'] }} · {{ $locationOption['label'] }}</option>
+                    @endforeach
+                </select>
+            </label>
+            <div class="product-placement-editor__actions">
+                <button type="button" class="btn btn-small btn-secondary" data-product-placement-edit-cancel>{{ "\u{041E}\u{0442}\u{043C}\u{0435}\u{043D}\u{0430}" }}</button>
+                <button type="submit" class="btn btn-small">{{ "\u{0421}\u{043E}\u{0445}\u{0440}\u{0430}\u{043D}\u{0438}\u{0442}\u{044C}" }}</button>
+            </div>
+        </form>
+    </dialog>
+
     <style>
         .page-heading-row { display: flex; align-items: center; gap: 8px; }
         .page-heading-row h1 { min-width: 0; overflow-wrap: anywhere; }
@@ -868,6 +1012,9 @@
         .product-catalog-name-edit { width: 22px; height: 22px; padding: 0; border: 0; border-radius: 999px; background: transparent; color: var(--accent); font-size: 14px; line-height: 1; }
         .product-catalog-name-edit:hover,
         .product-catalog-name-edit:focus { background: var(--accent-soft); outline: none; }
+        .product-damage-line { margin: 1em 0; }
+        .product-damage-form { display: inline-flex; min-width: min(260px, 100%); }
+        .product-damage-select { width: 100%; padding: 6px 8px; border-radius: 6px; font-size: 14px; }
         .product-donor-summary { display: flex; align-items: center; gap: 12px; margin: 12px 0 16px; padding: 10px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
         .product-donor-summary__photo { flex: 0 0 auto; display: block; width: 86px; overflow: hidden; border-radius: 8px; }
         .product-donor-summary__photo img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
@@ -879,6 +1026,21 @@
         .product-stock-placement { display: flex; flex-wrap: wrap; gap: 4px 10px; color: var(--muted); font-size: 13px; overflow-wrap: anywhere; }
         .product-stock-placement strong { color: var(--text); }
         .product-stock-placement--empty { color: var(--muted); }
+        .product-placement-line { display: inline-flex; align-items: baseline; gap: 4px; }
+        .product-placement-edit-button { all: unset; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; width: 11px; height: 11px; color: #6b7280; font-size: 10px; line-height: 1; cursor: pointer; vertical-align: baseline; }
+        .product-placement-edit-button:hover { color: var(--accent); }
+        .product-placement-edit-button:focus { outline: 1px dotted currentColor; outline-offset: 2px; }
+        .product-placement-editor { width: min(420px, calc(100vw - 32px)); padding: 0; border: 0; border-radius: 8px; box-shadow: 0 24px 60px rgba(15, 23, 42, .28); }
+        .product-placement-editor:not([open]) { display: none !important; }
+        .product-placement-editor[open] { display: block; }
+        .product-placement-editor::backdrop { background: rgba(15, 23, 42, .35); }
+        .product-placement-editor__form { display: grid; gap: 14px; padding: 18px; background: var(--panel); }
+        .product-placement-editor__header,
+        .product-placement-editor__actions { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+        .product-placement-editor__header h2 { margin: 0; font-size: 18px; }
+        .product-placement-editor__close { border: 0; background: transparent; color: var(--muted); font-size: 24px; line-height: 1; cursor: pointer; }
+        .product-placement-editor__form label { display: grid; gap: 5px; color: var(--muted); font-size: 12px; }
+        .product-placement-editor select { width: 100%; padding: 7px 9px; border-radius: 6px; font-size: 14px; }
         .product-description-block { display: grid; gap: 8px; margin: 16px 0; }
         .product-photo-manager { display: grid; gap: 10px; padding-top: 28px; }
         .product-photo-manager__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
@@ -976,6 +1138,250 @@
             const uploadDropzone = document.querySelector('[data-product-photo-dropzone]');
             const uploadStatus = document.querySelector('[data-product-photo-upload-status]');
             let currentIndex = 0;
+
+            (() => {
+                const editor = document.querySelector('[data-product-placement-editor]');
+                const form = editor?.querySelector('[data-product-placement-form]');
+                const warehouseSelect = editor?.querySelector('[data-product-placement-warehouse]');
+                const floorSelect = editor?.querySelector('[data-product-placement-floor]');
+                const locationSelect = editor?.querySelector('[data-product-placement-location]');
+                const floorWrap = editor?.querySelector('[data-product-placement-floor-wrap]');
+                const locationWrap = editor?.querySelector('[data-product-placement-location-wrap]');
+                const placementDamageNote = editor?.querySelector('[data-product-placement-damage-note]');
+
+                if (!editor || !form || !warehouseSelect || !floorSelect || !locationSelect) return;
+
+                let defaultWarehouse = '';
+                let defaultFloor = 'floor_1';
+                let defaultLocation = '';
+                let activeDamageSelect = null;
+
+                const renderPlacementOptions = () => {
+                    const selectedWarehouse = warehouseSelect.selectedOptions[0];
+                    const warehouseId = warehouseSelect.value;
+                    const hasWarehouse = warehouseId !== '';
+                    const isDonorWarehouse = hasWarehouse && selectedWarehouse?.dataset.warehouseType === 'donor';
+                    const usesStructuredLocations = hasWarehouse && selectedWarehouse?.dataset.structuredLocations !== '0';
+                    const floorCount = usesStructuredLocations ? Math.max(1, Number(selectedWarehouse?.dataset.floorCount || 1)) : 1;
+                    let visibleFloorSelected = false;
+
+                    Array.from(floorSelect.options).forEach((option) => {
+                        const match = /^floor_(\d+)$/.exec(option.value);
+                        const floorNumber = match ? Number(match[1]) : 1;
+                        const visible = hasWarehouse && !isDonorWarehouse && usesStructuredLocations && floorNumber <= floorCount;
+                        option.hidden = !visible;
+                        option.disabled = !visible;
+                        if (visible && option.selected) {
+                            visibleFloorSelected = true;
+                        }
+                    });
+
+                    floorSelect.hidden = !hasWarehouse || isDonorWarehouse || !usesStructuredLocations || floorCount <= 1;
+                    floorSelect.disabled = !hasWarehouse || isDonorWarehouse || !usesStructuredLocations;
+                    if (floorWrap) {
+                        floorWrap.hidden = floorSelect.hidden;
+                    }
+
+                    if (!visibleFloorSelected) {
+                        floorSelect.value = defaultFloor && Number((/^floor_(\d+)$/.exec(defaultFloor) || [0, 0])[1]) <= floorCount
+                            ? defaultFloor
+                            : 'floor_1';
+                    }
+
+                    const floor = floorSelect.value || 'floor_1';
+                    let visibleLocationSelected = false;
+                    let hasVisibleLocations = false;
+
+                    Array.from(locationSelect.options).forEach((option) => {
+                        if (!option.value) {
+                            option.hidden = false;
+                            option.disabled = false;
+                            return;
+                        }
+
+                        const visible = hasWarehouse
+                            && !isDonorWarehouse
+                            && String(option.dataset.warehouseId || '') === String(warehouseId)
+                            && String(option.dataset.floor || 'floor_1') === String(floor)
+                            && option.dataset.hasCell === '1';
+                        option.hidden = !visible;
+                        option.disabled = !visible;
+                        hasVisibleLocations = hasVisibleLocations || visible;
+                        if (visible && option.selected) {
+                            visibleLocationSelected = true;
+                        }
+                    });
+
+                    locationSelect.hidden = !hasWarehouse || isDonorWarehouse || !usesStructuredLocations || !hasVisibleLocations;
+                    locationSelect.disabled = !hasWarehouse || isDonorWarehouse || !usesStructuredLocations || !hasVisibleLocations;
+                    if (locationWrap) {
+                        locationWrap.hidden = locationSelect.hidden;
+                    }
+
+                    if (!visibleLocationSelected) {
+                        locationSelect.value = '';
+                    }
+                };
+
+                const setPlacementDamageNote = (damageNote = null) => {
+                    if (!placementDamageNote) {
+                        return;
+                    }
+
+                    if (damageNote === null) {
+                        placementDamageNote.value = '';
+                        placementDamageNote.disabled = true;
+
+                        return;
+                    }
+
+                    placementDamageNote.value = damageNote;
+                    placementDamageNote.disabled = false;
+                };
+
+                const resetDamageEditor = () => {
+                    if (!activeDamageSelect) {
+                        return;
+                    }
+
+                    activeDamageSelect.value = activeDamageSelect.dataset.currentDamageValue || '';
+                    const damageForm = activeDamageSelect.closest('[data-product-damage-form]');
+                    if (damageForm) {
+                        damageForm.hidden = true;
+                    }
+                    activeDamageSelect = null;
+                    setPlacementDamageNote(null);
+                };
+
+                const openEditor = () => {
+                    renderPlacementOptions();
+                    if (typeof editor.showModal === 'function') {
+                        editor.showModal();
+                    } else {
+                        editor.setAttribute('open', 'open');
+                    }
+                    warehouseSelect.focus();
+                };
+
+                const closeEditor = () => {
+                    if (typeof editor.close === 'function') {
+                        editor.close();
+                    } else {
+                        editor.removeAttribute('open');
+                    }
+                };
+
+                const restoreDefaults = () => {
+                    warehouseSelect.value = defaultWarehouse;
+                    floorSelect.value = defaultFloor || 'floor_1';
+                    locationSelect.value = defaultLocation;
+                    renderPlacementOptions();
+                };
+
+                document.querySelectorAll('[data-product-placement-edit-toggle]').forEach((toggle) => {
+                    const openFromToggle = () => {
+                        activeDamageSelect = null;
+                        setPlacementDamageNote(null);
+                        defaultWarehouse = toggle.dataset.currentWarehouseId || '';
+                        defaultFloor = toggle.dataset.currentFloor || 'floor_1';
+                        defaultLocation = toggle.dataset.currentLocationId || '';
+                        form.action = toggle.dataset.placementUpdateUrl || '#';
+                        restoreDefaults();
+                        openEditor();
+                    };
+
+                    toggle.addEventListener('click', openFromToggle);
+                    toggle.addEventListener('keydown', (event) => {
+                        if (event.key !== 'Enter' && event.key !== ' ') return;
+
+                        event.preventDefault();
+                        openFromToggle();
+                    });
+                });
+
+                document.querySelectorAll('[data-product-damage-edit-toggle]').forEach((toggle) => {
+                    toggle.addEventListener('click', () => {
+                        const line = toggle.closest('[data-product-damage-line]');
+                        const damageForm = line?.querySelector('[data-product-damage-form]');
+                        const damageSelect = damageForm?.querySelector('[data-product-damage-select]');
+
+                        if (!damageForm || !damageSelect) {
+                            return;
+                        }
+
+                        damageForm.hidden = false;
+                        damageSelect.focus();
+                    });
+                });
+
+                document.querySelectorAll('[data-product-damage-select]').forEach((damageSelect) => {
+                    damageSelect.addEventListener('change', () => {
+                        const damageForm = damageSelect.closest('[data-product-damage-form]');
+                        const selectedOption = damageSelect.selectedOptions[0];
+
+                        if (!damageForm) {
+                            return;
+                        }
+
+                        if (!damageSelect.value || damageSelect.value === (damageSelect.dataset.currentDamageValue || '')) {
+                            damageForm.hidden = true;
+                            damageSelect.value = damageSelect.dataset.currentDamageValue || '';
+                            return;
+                        }
+
+                        if (selectedOption?.dataset.checkedDamage === '1') {
+                            activeDamageSelect = damageSelect;
+                            defaultWarehouse = '';
+                            defaultFloor = 'floor_1';
+                            defaultLocation = '';
+                            form.action = damageForm.action;
+                            setPlacementDamageNote(damageSelect.value);
+                            restoreDefaults();
+                            openEditor();
+                            return;
+                        }
+
+                        damageForm.submit();
+                    });
+
+                    damageSelect.addEventListener('keydown', (event) => {
+                        if (event.key !== 'Escape') {
+                            return;
+                        }
+
+                        event.preventDefault();
+                        damageSelect.value = damageSelect.dataset.currentDamageValue || '';
+                        const damageForm = damageSelect.closest('[data-product-damage-form]');
+                        if (damageForm) {
+                            damageForm.hidden = true;
+                        }
+                    });
+                });
+
+                editor.querySelectorAll('[data-product-placement-edit-cancel]').forEach((cancel) => {
+                    cancel.addEventListener('click', () => {
+                        restoreDefaults();
+                        resetDamageEditor();
+                        closeEditor();
+                    });
+                });
+
+                editor.addEventListener('cancel', () => {
+                    restoreDefaults();
+                    resetDamageEditor();
+                });
+
+                editor.addEventListener('click', (event) => {
+                    if (event.target === editor) {
+                        restoreDefaults();
+                        resetDamageEditor();
+                        closeEditor();
+                    }
+                });
+
+                warehouseSelect.addEventListener('change', renderPlacementOptions);
+                floorSelect.addEventListener('change', renderPlacementOptions);
+            })();
 
             const setUploadStatus = (message) => {
                 if (uploadStatus) {

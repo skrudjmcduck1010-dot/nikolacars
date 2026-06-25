@@ -16,7 +16,6 @@ use App\Support\ProductPhotoNormalizer;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
 class DonorProductGenerationService
@@ -225,7 +224,7 @@ class DonorProductGenerationService
                 return $product;
             }, 3);
 
-            if ($createdProduct instanceof Product && $this->canAutofillLocalizedCatalogNames()) {
+            if ($createdProduct instanceof Product) {
                 app(DonorProductLocalizedNameAutofillService::class)->fillMissingNames($createdProduct);
             }
         }
@@ -244,12 +243,6 @@ class DonorProductGenerationService
             'selected' => $selectedIds->count(),
             'damage_zones' => $damageZones,
         ];
-    }
-
-    protected function canAutofillLocalizedCatalogNames(): bool
-    {
-        return Schema::hasColumn('part_catalog_items', 'name_ru_manually_locked_at')
-            && Schema::hasColumn('part_catalog_items', 'name_ua_manually_locked_at');
     }
 
     protected function updateExistingGeneratedProducts(DonorCar $donorCar, array $conditionsByCatalogItemId, array $damageZones): int

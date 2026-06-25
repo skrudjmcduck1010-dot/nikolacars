@@ -1,5 +1,8 @@
 @php
     $useFixedColumns = $useFixedColumns ?? false;
+    $returnToStockWarehouseOptions = $returnToStockWarehouseOptions ?? [];
+    $returnToStockLocationOptions = $returnToStockLocationOptions ?? [];
+    $returnToStockDefaults = $returnToStockDefaults ?? collect();
     $statusClass = fn (\App\Models\CustomerOrder $order): string => match ($order->status) {
         \App\Models\CustomerOrder::STATUS_WAITING_PREPAYMENT => 'tag-warning',
         \App\Models\CustomerOrder::STATUS_CANCELLED => 'tag-danger',
@@ -592,6 +595,48 @@
                                 </div>
                             @endif
                         @endif
+                        @if($order->canBeReturnedToStock() && $returnToStockWarehouseOptions !== [] && $returnToStockLocationOptions !== [])
+                            @php($returnDialogId = 'customer-order-return-to-stock-'.$order->id)
+                            @php($returnDefault = ($returnToStockDefaults ?? collect())->get($order->id, []))
+                            <button type="button" class="btn btn-small" style="margin-top:6px;" onclick="document.getElementById(@js($returnDialogId))?.showModal()">{{ "\u{0412}\u{0435}\u{0440}\u{043D}\u{0443}\u{0442}\u{044C} \u{043D}\u{0430} \u{0441}\u{043A}\u{043B}\u{0430}\u{0434}" }}</button>
+                            <dialog
+                                class="modal"
+                                id="{{ $returnDialogId }}"
+                                data-return-to-stock-dialog
+                            >
+                                <div class="modal-header">
+                                    <h2>{{ "\u{0412}\u{0435}\u{0440}\u{043D}\u{0443}\u{0442}\u{044C} \u{043D}\u{0430} \u{0441}\u{043A}\u{043B}\u{0430}\u{0434}" }}</h2>
+                                    <button type="button" class="btn btn-secondary btn-small" onclick="this.closest('dialog')?.close()" aria-label="{{ "\u{0417}\u{0430}\u{043A}\u{0440}\u{044B}\u{0442}\u{044C}" }}">&times;</button>
+                                </div>
+                                <form method="POST" action="{{ route('admin.customer-orders.return-to-stock', $order) }}">
+                                    @csrf
+                                    <label>
+                                        <span>{{ "\u{0421}\u{043A}\u{043B}\u{0430}\u{0434}" }}</span>
+                                        <select name="warehouse_id" required data-return-warehouse data-selected="{{ old('warehouse_id', $returnDefault['warehouse_id'] ?? '') }}">
+                                            <option value="">{{ "\u{0412}\u{044B}\u{0431}\u{0440}\u{0430}\u{0442}\u{044C}" }}</option>
+                                            @foreach($returnToStockWarehouseOptions as $warehouseOption)
+                                                <option value="{{ $warehouseOption['id'] }}" @selected((string) old('warehouse_id', $returnDefault['warehouse_id'] ?? '') === (string) $warehouseOption['id'])>{{ $warehouseOption['name'] }}</option>
+                                            @endforeach
+                                        </select>
+                                    </label>
+                                    <label data-return-floor-wrap>
+                                        <span>{{ "\u{042D}\u{0442}\u{0430}\u{0436}" }}</span>
+                                        <select name="floor" data-return-floor data-selected="{{ old('floor', $returnDefault['floor'] ?? '') }}"></select>
+                                    </label>
+                                    <label data-return-location-wrap>
+                                        <span>{{ "\u{042F}\u{0447}\u{0435}\u{0439}\u{043A}\u{0430}" }}</span>
+                                        <select name="location_id" required data-return-location data-selected="{{ old('location_id', $returnDefault['location_id'] ?? '') }}"></select>
+                                    </label>
+                                    @if(! empty($returnDefault['label']))
+                                        <div class="help">{{ "\u{041F}\u{043E} \u{0443}\u{043C}\u{043E}\u{043B}\u{0447}\u{0430}\u{043D}\u{0438}\u{044E}: " }}{{ $returnDefault['label'] }}</div>
+                                    @endif
+                                    <div class="actions">
+                                        <button type="button" class="btn btn-small btn-secondary" onclick="this.closest('dialog')?.close()">{{ "\u{041E}\u{0442}\u{043C}\u{0435}\u{043D}\u{0430}" }}</button>
+                                        <button type="submit" class="btn btn-small">{{ "\u{0412}\u{0435}\u{0440}\u{043D}\u{0443}\u{0442}\u{044C}" }}</button>
+                                    </div>
+                                </form>
+                            </dialog>
+                        @endif
                         @if($order->canBeMarkedAsAssembled())
                             @if($order->delivery_method === \App\Models\CustomerOrder::DELIVERY_METHOD_NOVA_POSHTA)
                                 @php($assembleDialogId = 'customer-order-assemble-'.$order->id)
@@ -768,3 +813,76 @@
     @endforelse
     </tbody>
 </table>
+
+@if($returnToStockWarehouseOptions !== [] && $returnToStockLocationOptions !== [])
+    <script>
+        (() => {
+            const warehouses = @json($returnToStockWarehouseOptions);
+            const locations = @json($returnToStockLocationOptions);
+
+            document.querySelectorAll('[data-return-to-stock-dialog]').forEach((dialog) => {
+                if (dialog.dataset.returnToStockReady === '1') return;
+                dialog.dataset.returnToStockReady = '1';
+
+                const warehouseSelect = dialog.querySelector('[data-return-warehouse]');
+                const floorWrap = dialog.querySelector('[data-return-floor-wrap]');
+                const floorSelect = dialog.querySelector('[data-return-floor]');
+                const locationWrap = dialog.querySelector('[data-return-location-wrap]');
+                const locationSelect = dialog.querySelector('[data-return-location]');
+
+                if (!warehouseSelect || !floorWrap || !floorSelect || !locationWrap || !locationSelect) return;
+
+                const fillSelect = (select, placeholder, options, selectedValue) => {
+                    select.innerHTML = `<option value="">${placeholder}</option>` + options.map((option) => {
+                        const selected = String(option.value) === String(selectedValue) ? ' selected' : '';
+                        return `<option value="${option.value}"${selected}>${option.label}</option>`;
+                    }).join('');
+                };
+
+                const render = () => {
+                    const warehouseId = String(warehouseSelect.value || warehouseSelect.dataset.selected || '');
+                    if (warehouseId && !warehouseSelect.value) warehouseSelect.value = warehouseId;
+
+                    const warehouse = warehouses.find((item) => String(item.id) === String(warehouseSelect.value));
+                    const warehouseLocations = locations.filter((item) => String(item.warehouse_id) === String(warehouseSelect.value));
+                    const floors = warehouse?.floors?.length
+                        ? warehouse.floors
+                        : [...new Map(warehouseLocations.map((item) => [item.floor, { value: item.floor, label: item.floor_label }])).values()];
+                    const selectedFloor = floorSelect.dataset.selected || floorSelect.value || floors[0]?.value || '';
+
+                    floorWrap.hidden = !warehouse || floors.length <= 1;
+                    floorSelect.disabled = floorWrap.hidden;
+                    floorSelect.required = !floorWrap.hidden;
+                    fillSelect(floorSelect, @json("\u{042D}\u{0442}\u{0430}\u{0436}"), floors, selectedFloor);
+                    floorSelect.dataset.selected = '';
+
+                    const activeFloor = floorWrap.hidden ? (floors[0]?.value || 'floor_1') : floorSelect.value;
+                    const filteredLocations = warehouseLocations.filter((item) => !activeFloor || item.floor === activeFloor);
+                    const selectedLocation = locationSelect.dataset.selected || locationSelect.value || filteredLocations[0]?.id || '';
+
+                    locationWrap.hidden = !warehouse || filteredLocations.length === 0;
+                    locationSelect.disabled = locationWrap.hidden;
+                    locationSelect.required = !locationWrap.hidden;
+                    fillSelect(
+                        locationSelect,
+                        @json("\u{042F}\u{0447}\u{0435}\u{0439}\u{043A}\u{0430}"),
+                        filteredLocations.map((item) => ({ value: item.id, label: item.label })),
+                        selectedLocation
+                    );
+                    locationSelect.dataset.selected = '';
+                };
+
+                warehouseSelect.addEventListener('change', () => {
+                    floorSelect.dataset.selected = '';
+                    locationSelect.dataset.selected = '';
+                    render();
+                });
+                floorSelect.addEventListener('change', () => {
+                    locationSelect.dataset.selected = '';
+                    render();
+                });
+                render();
+            });
+        })();
+    </script>
+@endif

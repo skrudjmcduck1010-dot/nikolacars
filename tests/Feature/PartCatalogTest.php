@@ -10,6 +10,7 @@ use App\Models\PartCatalogCategory;
 use App\Models\PartCatalogItem;
 use App\Models\PartCatalogItemOccurrence;
 use App\Models\Product;
+use App\Models\StockItem;
 use App\Models\User;
 use App\Models\Warehouse;
 use App\Services\NikolaCarsProductInventorySyncService;
@@ -143,6 +144,112 @@ class PartCatalogTest extends TestCase
         $this->assertSame('Крышка багажника', $item->name_ru);
         $this->assertSame('purchase', data_get($item->raw_attributes, 'source_type'));
         $this->assertSame(125.5, data_get($item->raw_attributes, 'purchase_price_usd'));
+    }
+
+    public function test_nikolacars_catalog_shows_and_updates_stock_location(): void
+    {
+        $user = User::query()->create([
+            'name' => 'Admin',
+            'email' => 'admin-nikolacars-placement@example.com',
+            'password' => Hash::make('password'),
+            'role' => 'admin',
+            'is_active' => true,
+        ]);
+        $sourceWarehouse = Warehouse::query()->create([
+            'name' => 'Shelf A',
+            'type' => Warehouse::TYPE_MAIN,
+            'floor_count' => 1,
+            'is_active' => true,
+        ]);
+        $targetWarehouse = Warehouse::query()->create([
+            'name' => 'Shelf B',
+            'type' => Warehouse::TYPE_MAIN,
+            'floor_count' => 1,
+            'is_active' => true,
+        ]);
+        $sourceLocation = Location::query()->create([
+            'warehouse_id' => $sourceWarehouse->id,
+            'floor' => 'floor_1',
+            'cell' => 'A-1',
+            'full_code' => 'A-1',
+            'is_active' => true,
+        ]);
+        $targetLocation = Location::query()->create([
+            'warehouse_id' => $targetWarehouse->id,
+            'floor' => 'floor_1',
+            'cell' => 'B-2',
+            'full_code' => 'B-2',
+            'is_active' => true,
+        ]);
+        $item = PartCatalogItem::query()->create([
+            'source' => 'nikolacars',
+            'source_url' => 'nikolacars://inventory-product/pending',
+            'part_number' => 'PLACEMENT-TEST',
+            'name' => 'Placement test part',
+            'price_amount' => 100,
+            'currency' => 'USD',
+            'raw_attributes' => [
+                'code' => 'PLACE',
+                'stock_quantity' => 1,
+            ],
+        ]);
+        $product = Product::query()->create([
+            'sku' => 'NC-PLACEMENT-TEST',
+            'external_sku' => 'PLACEMENT-TEST',
+            'name' => 'Placement test part',
+            'slug' => 'placement-test-part',
+            'source_part_catalog_item_id' => $item->id,
+            'is_auto_generated' => false,
+            'storage_status' => Product::STORAGE_STATUS_IN_STOCK,
+            'condition_type' => 'used',
+            'testing_status' => 'not_tested',
+            'unit' => 'pcs',
+            'selling_price' => 100,
+            'currency' => 'USD',
+            'is_active' => true,
+        ]);
+        $item->forceFill([
+            'source_url' => 'nikolacars://inventory-product/'.$product->id,
+            'raw_attributes' => [
+                'code' => 'PLACE',
+                'stock_quantity' => 1,
+                'product_id' => $product->id,
+            ],
+        ])->save();
+        StockItem::query()->create([
+            'product_id' => $product->id,
+            'warehouse_id' => $sourceWarehouse->id,
+            'location_id' => $sourceLocation->id,
+            'quantity' => 1,
+            'reserved_quantity' => 0,
+            'testing_status' => 'not_tested',
+            'received_at' => now(),
+        ]);
+
+        $this->actingAs($user)
+            ->get(route('admin.zapchasti.index'))
+            ->assertOk()
+            ->assertSeeText('Склад')
+            ->assertSeeText('Shelf A')
+            ->assertSeeText('A-1')
+            ->assertSee('data-nikolacars-placement-edit-toggle', false);
+
+        $this->actingAs($user)
+            ->patch(route('admin.zapchasti.placement.update', $item), [
+                'warehouse_id' => $targetWarehouse->id,
+                'floor' => 'floor_1',
+                'location_id' => $targetLocation->id,
+            ])
+            ->assertRedirect();
+
+        $this->assertSame(0, (int) StockItem::query()->where('location_id', $sourceLocation->id)->value('quantity'));
+        $this->assertSame(1, (int) StockItem::query()->where('location_id', $targetLocation->id)->value('quantity'));
+
+        $this->actingAs($user)
+            ->get(route('admin.zapchasti.index'))
+            ->assertOk()
+            ->assertSeeText('Shelf B')
+            ->assertSeeText('B-2');
     }
 
     public function test_nikolacars_manual_donor_part_uses_ron_sku_sequence(): void
@@ -564,7 +671,7 @@ class PartCatalogTest extends TestCase
         $this->assertNull($officialElectric->name_ua);
     }
 
-    public function test_manual_catalog_name_update_locks_internal_seven_digit_part_prefix_matches(): void
+    public function test_manual_catalog_name_update_locks_exact_internal_part_matches_only(): void
     {
         $user = User::query()->create([
             'name' => 'Admin',
@@ -659,15 +766,15 @@ class PartCatalogTest extends TestCase
         $this->assertNotNull($sameExactNikolaCars->name_ru_manually_locked_at);
         $this->assertNotNull(data_get($sameExactNikolaCars->raw_attributes, 'manual_name_locks.ua'));
 
-        $this->assertSame('Manual RU', $blankSamePrefix->refresh()->name_ru);
-        $this->assertSame('Manual UA', $blankSamePrefix->name_ua);
-        $this->assertNotNull($blankSamePrefix->name_ru_manually_locked_at);
-        $this->assertNotNull(data_get($blankSamePrefix->raw_attributes, 'manual_name_locks.ua'));
+        $this->assertNull($blankSamePrefix->refresh()->name_ru);
+        $this->assertNull($blankSamePrefix->name_ua);
+        $this->assertNull($blankSamePrefix->name_ru_manually_locked_at);
+        $this->assertNull(data_get($blankSamePrefix->raw_attributes, 'manual_name_locks.ua'));
 
-        $this->assertSame('Manual RU', $filledSamePrefix->refresh()->name_ru);
-        $this->assertSame('Manual UA', $filledSamePrefix->name_ua);
-        $this->assertNotNull($filledSamePrefix->name_ru_manually_locked_at);
-        $this->assertNotNull(data_get($filledSamePrefix->raw_attributes, 'manual_name_locks.ua'));
+        $this->assertSame('Filled RU', $filledSamePrefix->refresh()->name_ru);
+        $this->assertSame('Filled UA', $filledSamePrefix->name_ua);
+        $this->assertNull($filledSamePrefix->name_ru_manually_locked_at);
+        $this->assertNull(data_get($filledSamePrefix->raw_attributes, 'manual_name_locks.ua'));
         $this->assertNull($commonCompetitorRow->refresh()->name_ru);
         $this->assertNull($commonCompetitorRow->name_ua);
         $this->assertSame('Competitor RU', $competitor->refresh()->name_ru);
@@ -680,13 +787,13 @@ class PartCatalogTest extends TestCase
 
         $this->assertSame('Manual RU', $official->refresh()->name_ru);
         $this->assertSame('Manual UA', $official->name_ua);
-        $this->assertSame('Manual RU', $blankSamePrefix->refresh()->name_ru);
-        $this->assertSame('Manual UA', $blankSamePrefix->name_ua);
+        $this->assertNull($blankSamePrefix->refresh()->name_ru);
+        $this->assertNull($blankSamePrefix->name_ua);
         $this->assertSame('Manual RU', $sameExactDonor->refresh()->name_ru);
         $this->assertSame('Manual UA', $sameExactDonor->name_ua);
     }
 
-    public function test_tesla_catalog_manual_name_update_overwrites_internal_seven_digit_prefix_matches(): void
+    public function test_tesla_catalog_manual_name_update_overwrites_exact_internal_matches_only(): void
     {
         $user = User::query()->create([
             'name' => 'Admin',
@@ -734,12 +841,12 @@ class PartCatalogTest extends TestCase
         $this->assertSame($official->name_ru, $duplicate->refresh()->name_ru);
         $this->assertSame('Old UA', $duplicate->name_ua);
         $this->assertNotNull($duplicate->name_ru_manually_locked_at);
-        $this->assertSame($official->name_ru, $blankPrefix->refresh()->name_ru);
-        $this->assertSame('Old UA', $blankPrefix->name_ua);
-        $this->assertNotNull($blankPrefix->name_ru_manually_locked_at);
+        $this->assertNull($blankPrefix->refresh()->name_ru);
+        $this->assertNull($blankPrefix->name_ua);
+        $this->assertNull($blankPrefix->name_ru_manually_locked_at);
     }
 
-    public function test_nikolacars_manual_name_update_locks_and_propagates_seven_digit_prefix_internal_names(): void
+    public function test_nikolacars_manual_name_update_locks_and_propagates_exact_internal_names_only(): void
     {
         $user = User::query()->create([
             'name' => 'Admin',
@@ -792,11 +899,11 @@ class PartCatalogTest extends TestCase
 
         $this->assertSame('Main battery 82 kWh', $freshNikolaCarsItem->name_ru);
         $this->assertSame('Main battery 82 kWh', $officialItem->refresh()->name_ru);
-        $this->assertSame('Main battery 82 kWh', $basePartItem->refresh()->name_ru);
+        $this->assertNull($basePartItem->refresh()->name_ru);
         $this->assertSame('Competitor RU', $competitorItem->refresh()->name_ru);
         $this->assertNotNull(data_get($freshNikolaCarsItem->raw_attributes, 'manual_name_locks.ru'));
         $this->assertNotNull($officialItem->name_ru_manually_locked_at);
-        $this->assertNotNull($basePartItem->name_ru_manually_locked_at);
+        $this->assertNull($basePartItem->name_ru_manually_locked_at);
     }
 
     public function test_nikolacars_catalog_hides_part_number_from_display_name(): void
@@ -916,8 +1023,8 @@ class PartCatalogTest extends TestCase
         $this->assertSame($categoryMain, $item->main_category_name);
         $this->assertSame($categorySubcategory, $item->subcategory_name);
         $this->assertSame($categoryNode, $item->node_name);
-        $this->assertSame($categoryLabel, data_get($item->raw_attributes, 'category_display'));
-        $this->assertSame($categoryLabel, data_get($item->raw_attributes, 'category_path'));
+        $this->assertNull(data_get($item->raw_attributes, 'category_display'));
+        $this->assertNull(data_get($item->raw_attributes, 'category_path'));
         $this->assertTrue((bool) data_get($item->raw_attributes, 'manual_category'));
         $this->assertSame($hood->id, data_get($item->raw_attributes, 'manual_category_id'));
     }
@@ -1087,34 +1194,23 @@ class PartCatalogTest extends TestCase
         $html = $response->getContent();
 
         $response->assertSeeText("\u{0417}\u{0430}\u{043F}\u{0447}\u{0430}\u{0441}\u{0442}\u{0435}\u{0439}");
-        $response->assertSeeText("\u{0423}\u{043D}\u{0438}\u{043A}\u{0430}\u{043B}\u{044C}\u{043D}\u{044B}\u{0445} \u{0430}\u{0440}\u{0442}\u{0438}\u{043A}\u{0443}\u{043B}\u{043E}\u{0432}: 2");
-        $this->assertStringContainsString('data-nikolacars-items-count>3</div>', $html);
+        $response->assertSeeText("2 \u{0443}\u{043D}\u{0438}\u{043A}\u{0430}\u{043B}\u{044C}\u{043D}\u{044B}\u{0445} \u{0430}\u{0440}\u{0442}\u{0438}\u{043A}\u{0443}\u{043B}\u{043E}\u{0432}");
+        $this->assertStringContainsString('data-nikolacars-items-count>3</span>', $html);
         $this->assertStringContainsString('data-nikolacars-unique-articles-count>2</span>', $html);
         $this->assertStringContainsString('data-nikolacars-visible-rows-count>3</span>', $html);
-        $this->assertSame(2, substr_count($html, 'data-nikolacars-item-row'));
-        $this->assertStringContainsString('data-nikolacars-parts-count="2"', $html);
-        $this->assertStringContainsString('data-nikolacars-group-toggle=', $html);
-        $this->assertStringContainsString('2 &#1089;&#1090;&#1088;&#1086;&#1082;', $html);
-        $this->assertStringNotContainsString('nikolacars-group-heading', $html);
-        $this->assertStringContainsString('aria-expanded="false"', $html);
-        $this->assertSame(2, substr_count($html, 'data-nikolacars-group-child='));
-        $this->assertMatchesRegularExpression('/<tr[^>]*data-nikolacars-group-child="nikolacars-group-\d+"[^>]*hidden/s', $html);
-        $this->assertStringContainsString('nikolacars-group-child-row--odd', $html);
-        $this->assertStringContainsString('nikolacars-group-child-row--even', $html);
+        $this->assertSame(3, substr_count($html, 'data-nikolacars-item-row'));
+        $this->assertSame(3, substr_count($html, 'data-nikolacars-parts-count="1"'));
+        $this->assertSame(2, substr_count($html, 'nikolacars-adjacent-duplicate-row'));
+        $this->assertStringNotContainsString('data-nikolacars-parts-count="2"', $html);
+        $this->assertStringNotContainsString('data-nikolacars-group-toggle=', $html);
+        $this->assertStringNotContainsString('data-nikolacars-group-child=', $html);
+        $this->assertStringNotContainsString('nikolacars-grouped-row', $html);
         $this->assertSame(3, substr_count($html, 'data-nikolacars-cart-add'));
         $this->assertSame(3, substr_count($html, 'data-nikolacars-price-edit-toggle'));
         $this->assertSame(3, substr_count($html, 'data-nikolacars-update-form'));
         $this->assertSame(3, substr_count($html, 'data-nikolacars-delete-form'));
         $this->assertSame(3, substr_count($html, 'data-nikolacars-manual-sold-form'));
-        $groupedRow = $this->tableRowContaining($html, 'data-nikolacars-parts-count="2"');
-        $this->assertStringNotContainsString('data-nikolacars-cart-add', $groupedRow);
-        $this->assertStringNotContainsString('data-nikolacars-price-edit-toggle', $groupedRow);
-        $this->assertStringNotContainsString('data-nikolacars-update-form', $groupedRow);
-        $this->assertStringNotContainsString('<a class="nikolacars-part-name-link"', $groupedRow);
-        $this->assertStringContainsString('<span class="nikolacars-part-name-link">Repeated article count test</span>', $groupedRow);
-        preg_match_all('/<tr[^>]*nikolacars-group-child-row[^>]*>.*?<\/tr>/s', $html, $childRows);
-        $this->assertSame(2, collect($childRows[0])->sum(fn (string $row): int => substr_count($row, '<a class="nikolacars-part-name-link"')));
-        $this->assertStringContainsString('nikolacars-grouped-row', $html);
+        $this->assertSame(3, substr_count($html, '<a class="nikolacars-part-name-link"'));
         $this->assertStringNotContainsString('data-nikolacars-visible-rows-word', $html);
     }
 
@@ -1147,7 +1243,7 @@ class PartCatalogTest extends TestCase
 
         $html = $response->getContent();
 
-        $this->assertStringContainsString('data-nikolacars-items-count>105</div>', $html);
+        $this->assertStringContainsString('data-nikolacars-items-count>105</span>', $html);
         $this->assertStringContainsString('data-nikolacars-unique-articles-count>105</span>', $html);
         $this->assertStringContainsString('data-nikolacars-visible-rows-count>105</span>', $html);
         $this->assertSame(100, substr_count($html, 'data-nikolacars-item-row'));
@@ -1234,7 +1330,7 @@ class PartCatalogTest extends TestCase
             ->assertDontSeeText('Unknown donor projection count part')
             ->getContent();
 
-        $this->assertStringContainsString('data-nikolacars-items-count>1</div>', $html);
+        $this->assertStringContainsString('data-nikolacars-items-count>1</span>', $html);
         $this->assertStringContainsString('data-nikolacars-visible-rows-count>1</span>', $html);
     }
 
@@ -1521,11 +1617,11 @@ class PartCatalogTest extends TestCase
         $this->assertSame('70.00', $samePrefixVariant->refresh()->price_amount);
     }
 
-    public function test_nikolacars_catalog_default_sort_prioritizes_recently_checked_donor_parts(): void
+    public function test_nikolacars_catalog_default_sort_prioritizes_recent_part_changes(): void
     {
         $user = User::query()->create([
             'name' => 'Admin',
-            'email' => 'admin-recently-checked-donor-sort@example.com',
+            'email' => 'admin-recent-part-changes-sort@example.com',
             'password' => Hash::make('password'),
             'role' => 'admin',
             'is_active' => true,
@@ -1558,15 +1654,33 @@ class PartCatalogTest extends TestCase
                 'stock_quantity' => 1,
             ],
         ]);
+        Carbon::setTestNow('2026-06-16 09:00:00');
+        $updatedItem = PartCatalogItem::query()->create([
+            'source' => 'nikolacars',
+            'source_url' => 'nikolacars://product/recently-updated-sort',
+            'part_number' => 'RECENTLY-UPDATED-SORT',
+            'name' => 'Recently updated NikolaCars part',
+            'raw_attributes' => [
+                'code' => 'RECENTLY-UPDATED-SORT',
+                'stock_quantity' => 1,
+            ],
+        ]);
+        Carbon::setTestNow('2026-06-16 13:00:00');
+        $updatedItem->forceFill(['price_amount' => 125, 'currency' => 'USD'])->save();
         Carbon::setTestNow();
 
         $html = $this->actingAs($user)
             ->get(route('admin.zapchasti.index'))
             ->assertOk()
+            ->assertSeeText('Recently updated NikolaCars part')
             ->assertSeeText('Recently checked donor NikolaCars part')
             ->assertSeeText('Newer created NikolaCars part')
             ->getContent();
 
+        $this->assertLessThan(
+            strpos($html, 'Recently checked donor NikolaCars part'),
+            strpos($html, 'Recently updated NikolaCars part')
+        );
         $this->assertLessThan(
             strpos($html, 'Newer created NikolaCars part'),
             strpos($html, 'Recently checked donor NikolaCars part')
@@ -1642,7 +1756,8 @@ class PartCatalogTest extends TestCase
         $this->assertStringContainsString('nikolacars-reserved-row', $reservedRow);
         $this->assertStringContainsString('nikolacars-zero-stock-row', $reservedRow);
         $this->assertStringContainsString('nikolacars-reserved-note', $reservedRow);
-        $this->assertStringContainsString('0 шт', $reservedRow);
+        $this->assertStringContainsString('1 шт', $reservedRow);
+        $this->assertStringContainsString('в резерве 1 шт', $reservedRow);
         $this->assertStringNotContainsString('data-nikolacars-cart-add', $reservedRow);
 
         $this->assertStringContainsString('nikolacars-zero-stock-row', $zeroRow);
@@ -2888,7 +3003,7 @@ class PartCatalogTest extends TestCase
         $this->assertNull($official->name_ua);
     }
 
-    public function test_translation_backfill_keeps_source_priority_before_name_completeness(): void
+    public function test_translation_backfill_uses_russian_source_priority(): void
     {
         $official = PartCatalogItem::query()->create([
             'source' => 'tesla_official',
@@ -2923,7 +3038,7 @@ class PartCatalogTest extends TestCase
             'part_numbers' => ['1044343-00-L'],
         ]);
 
-        $this->assertSame(PartCatalogLocalizedNameCleaner::clean($shortName), $official->refresh()->name_ru);
+        $this->assertSame(PartCatalogLocalizedNameCleaner::clean($completeName), $official->refresh()->name_ru);
     }
 
     public function test_translation_backfill_respects_source_locale_policy(): void
@@ -2971,7 +3086,7 @@ class PartCatalogTest extends TestCase
         $this->assertSame(PartCatalogLocalizedNameCleaner::clean($ukName), $teslaPartsUkraineOfficial->refresh()->name_ua);
         $this->assertNull($teslaPartsUkraineOfficial->name_ru);
         $this->assertSame(PartCatalogLocalizedNameCleaner::clean($ukName), $teslaWestOfficial->refresh()->name_ua);
-        $this->assertSame(PartCatalogLocalizedNameCleaner::clean($ruName), $teslaWestOfficial->name_ru);
+        $this->assertNull($teslaWestOfficial->name_ru);
     }
 
     public function test_translation_backfill_uses_tsk_mixed_language_names_by_detected_language(): void

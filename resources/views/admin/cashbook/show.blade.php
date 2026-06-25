@@ -5,6 +5,31 @@
 
 @php
     $money = fn ($value) => number_format((float) $value, 2, ',', ' ');
+    $detailsWithWorkOrderLinks = function ($transaction) use ($workOrdersByNumber) {
+        $details = $transaction->detailsText();
+
+        if ($details === '') {
+            return new \Illuminate\Support\HtmlString('—');
+        }
+
+        $html = e($details);
+
+        foreach (($workOrdersByNumber ?? collect())->keys()->sortByDesc(fn ($number) => mb_strlen((string) $number)) as $number) {
+            $order = $workOrdersByNumber->get($number);
+
+            if (! $order) {
+                continue;
+            }
+
+            $html = str_replace(
+                e($number),
+                '<a href="'.route('admin.sto-work-orders.show', $order).'">'.e($number).'</a>',
+                $html,
+            );
+        }
+
+        return new \Illuminate\Support\HtmlString($html);
+    };
 @endphp
 
 @section('content')
@@ -41,7 +66,7 @@
                     @if ($transaction->totalExpenseUah() <= 0 && (float) $transaction->expense_cash_usd <= 0)—@endif
                 </td>
             </tr>
-            <tr><th>Комментарий</th><td>{{ $transaction->detailsText() ?: '—' }}</td></tr>
+            <tr><th>Комментарий</th><td>{{ $detailsWithWorkOrderLinks($transaction) }}</td></tr>
             <tr><th>Месяц</th><td>{{ $transaction->source_sheet ?: '—' }}</td></tr>
             <tr><th>Источник</th><td>{{ $transaction->source ?: 'manual' }}</td></tr>
             </tbody>

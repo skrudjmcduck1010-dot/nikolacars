@@ -120,6 +120,7 @@ class CustomerOrder extends Model
         self::STATUS_WAITING_PREPAYMENT,
         self::STATUS_ASSEMBLED,
         self::STATUS_SHIPPED,
+        self::STATUS_REFUSED,
         self::STATUS_PAID,
     ];
 
@@ -225,6 +226,20 @@ class CustomerOrder extends Model
                     ->where('status', '!=', self::STATUS_PAID)
                     ->orWhere('delivery_method', '!=', self::DELIVERY_METHOD_NOVA_POSHTA)
                     ->orWhereNull('delivery_method');
+            })
+            ->where(function (Builder $query): void {
+                $query
+                    ->where('delivery_method', '!=', self::DELIVERY_METHOD_NOVA_POSHTA)
+                    ->orWhereNull('delivery_method')
+                    ->orWhereDoesntHave('novaPoshtaShipment', fn (Builder $query) => $query
+                        ->where('np_status_code', self::NOVA_POSHTA_STATUS_RECEIVED));
+            })
+            ->whereDoesntHave('historyEvents', fn (Builder $query) => $query
+                ->where('event_type', 'returned_to_stock'))
+            ->where(function (Builder $query): void {
+                $query
+                    ->where('status', '!=', self::STATUS_REFUSED)
+                    ->orWhere('delivery_method', self::DELIVERY_METHOD_NOVA_POSHTA);
             });
     }
 
@@ -237,6 +252,13 @@ class CustomerOrder extends Model
                     $query
                         ->where('status', self::STATUS_PAID)
                         ->where('delivery_method', self::DELIVERY_METHOD_NOVA_POSHTA);
+                })
+                ->orWhere(function (Builder $query): void {
+                    $query
+                        ->where('status', '!=', self::STATUS_REFUSED)
+                        ->where('delivery_method', self::DELIVERY_METHOD_NOVA_POSHTA)
+                        ->whereHas('novaPoshtaShipment', fn (Builder $query) => $query
+                            ->where('np_status_code', self::NOVA_POSHTA_STATUS_RECEIVED));
                 });
         });
     }
@@ -244,7 +266,8 @@ class CustomerOrder extends Model
     public function isIssuedToClient(): bool
     {
         return $this->status === self::STATUS_COMPLETED
-            || ($this->status === self::STATUS_PAID && $this->delivery_method === self::DELIVERY_METHOD_NOVA_POSHTA);
+            || ($this->status === self::STATUS_PAID && $this->delivery_method === self::DELIVERY_METHOD_NOVA_POSHTA)
+            || ($this->status !== self::STATUS_REFUSED && $this->hasNovaPoshtaReceivedStatus());
     }
 
     public function canBeMarkedAsAssembled(): bool
@@ -285,6 +308,32 @@ class CustomerOrder extends Model
     {
         return $this->delivery_method === self::DELIVERY_METHOD_NOVA_POSHTA
             && $this->novaPoshtaShipment?->np_status_code === self::NOVA_POSHTA_STATUS_RECEIVED;
+    }
+
+    public function hasNovaPoshtaReturnReceivedStatus(): bool
+    {
+        return $this->delivery_method === self::DELIVERY_METHOD_NOVA_POSHTA
+            && $this->status === self::STATUS_REFUSED
+            && $this->novaPoshtaShipment?->np_return_status_code === self::NOVA_POSHTA_STATUS_RECEIVED;
+    }
+
+    public function hasReturnedToStockEvent(): bool
+    {
+        if ($this->relationLoaded('historyEvents')) {
+            return $this->historyEvents->contains(
+                fn (CustomerOrderHistoryEvent $event): bool => $event->event_type === 'returned_to_stock'
+            );
+        }
+
+        return $this->historyEvents()
+            ->where('event_type', 'returned_to_stock')
+            ->exists();
+    }
+
+    public function canBeReturnedToStock(): bool
+    {
+        return $this->hasNovaPoshtaReturnReceivedStatus()
+            && ! $this->hasReturnedToStockEvent();
     }
 
     public function canUpdateNovaPoshtaTrackingNumber(): bool

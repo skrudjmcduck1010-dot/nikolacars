@@ -10,6 +10,8 @@ use App\Models\PartCatalogItem;
 use App\Models\Product;
 use App\Models\Warehouse;
 use App\Models\User;
+use App\Services\NikolaCarsProductInventorySyncService;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Config;
@@ -350,6 +352,83 @@ class MobileDonorPartsIndexTest extends TestCase
         $this->assertStringContainsString("status !== 'sold'", $showResponse->getContent());
     }
 
+    public function test_mobile_checked_donor_parts_are_sorted_by_latest_check_first(): void
+    {
+        $user = User::factory()->create([
+            'role' => User::ROLE_ADMIN,
+            'is_active' => true,
+        ]);
+        $donorCar = DonorCar::query()->create([
+            'vin' => '5YJCHECKSORT0001',
+            'brand' => 'Tesla',
+            'model' => 'Model Y',
+            'year' => 2025,
+            'status' => DonorCar::STATUS_AT_STO,
+            'purchase_date' => '2026-04-01',
+        ]);
+        $checked = NikolaCarsProductInventorySyncService::CHECKED_DAMAGE_STATUSES[0];
+        $olderItem = PartCatalogItem::query()->create([
+            'source' => 'nikolacars',
+            'source_url' => 'nikolacars://donor-product/mobile-older-check',
+            'part_number' => 'MOBILE-OLDER-CHECK',
+            'name' => 'Older checked mobile part',
+            'raw_attributes' => [
+                'donor_damage_checked_at' => '2026-06-20T10:00:00+03:00',
+            ],
+        ]);
+        $newerItem = PartCatalogItem::query()->create([
+            'source' => 'nikolacars',
+            'source_url' => 'nikolacars://donor-product/mobile-newer-check',
+            'part_number' => 'MOBILE-NEWER-CHECK',
+            'name' => 'Newer checked mobile part',
+            'raw_attributes' => [
+                'donor_damage_checked_at' => '2026-06-21T10:00:00+03:00',
+            ],
+        ]);
+
+        Product::query()->create([
+            'sku' => 'MOBILE-OLDER-CHECK',
+            'external_sku' => 'MOBILE-OLDER-CHECK',
+            'name' => 'Older checked mobile part',
+            'slug' => 'mobile-older-check',
+            'donor_car_id' => $donorCar->id,
+            'source_part_catalog_item_id' => $olderItem->id,
+            'storage_status' => Product::STORAGE_STATUS_IN_STOCK,
+            'condition_type' => 'used',
+            'testing_status' => 'not_tested',
+            'unit' => 'pcs',
+            'selling_price' => 999,
+            'currency' => 'USD',
+            'notes' => $checked,
+            'is_active' => true,
+        ]);
+        Product::query()->create([
+            'sku' => 'MOBILE-NEWER-CHECK',
+            'external_sku' => 'MOBILE-NEWER-CHECK',
+            'name' => 'Newer checked mobile part',
+            'slug' => 'mobile-newer-check',
+            'donor_car_id' => $donorCar->id,
+            'source_part_catalog_item_id' => $newerItem->id,
+            'storage_status' => Product::STORAGE_STATUS_IN_STOCK,
+            'condition_type' => 'used',
+            'testing_status' => 'not_tested',
+            'unit' => 'pcs',
+            'selling_price' => 1,
+            'currency' => 'USD',
+            'notes' => $checked,
+            'is_active' => true,
+        ]);
+
+        $this->actingAs($user)
+            ->get(route('admin.mobile.donor-cars.parts.show', [$donorCar, 'status' => 'checked']))
+            ->assertOk()
+            ->assertDontSee('style="order:', false)
+            ->assertSeeInOrder([
+                'Newer checked mobile part',
+                'Older checked mobile part',
+            ]);
+    }
+
     public function test_mobile_donor_parts_show_uses_nikolacars_product_mirror_category_over_product_import_category(): void
     {
         $user = User::factory()->create([
@@ -643,6 +722,31 @@ class MobileDonorPartsIndexTest extends TestCase
         $this->assertNotEmpty(data_get($catalogItem->raw_attributes, 'donor_damage_checked_at'));
         $this->assertSame($user->id, data_get($catalogItem->raw_attributes, 'donor_damage_status_changed_by'));
 
+        $rawAttributes = $catalogItem->raw_attributes instanceof \ArrayObject
+            ? $catalogItem->raw_attributes->getArrayCopy()
+            : (array) ($catalogItem->raw_attributes ?? []);
+        $rawAttributes['donor_damage_checked_at'] = '2026-06-20T10:00:00+03:00';
+        $catalogItem->forceFill(['raw_attributes' => $rawAttributes])->save();
+
+        $updatedChecked = NikolaCarsProductInventorySyncService::CHECKED_DAMAGE_STATUSES[1];
+        $expectedCheckedAt = Carbon::parse('2026-06-21T11:30:00+03:00');
+        Carbon::setTestNow($expectedCheckedAt);
+
+        try {
+            $this->actingAs($user)
+                ->patch(route('admin.mobile.donor-cars.products.damage-status.update', [$donorCar, $product]), [
+                    'damage_note' => $updatedChecked,
+                ])
+                ->assertRedirect(route('admin.mobile.donor-cars.parts.show', $donorCar).'#part-'.$product->id);
+        } finally {
+            Carbon::setTestNow();
+        }
+
+        $catalogItem = $product->refresh()->sourcePartCatalogItem;
+
+        $this->assertSame($updatedChecked, data_get($catalogItem->raw_attributes, 'donor_damage_status'));
+        $this->assertSame($expectedCheckedAt->toIso8601String(), data_get($catalogItem->raw_attributes, 'donor_damage_checked_at'));
+
         $this->actingAs($user)
             ->patch(route('admin.mobile.donor-cars.products.damage-status.update', [$donorCar, $product]), [
                 'damage_note' => $unknown,
@@ -653,6 +757,67 @@ class MobileDonorPartsIndexTest extends TestCase
 
         $this->assertNull($product->donor_damage_status_changed_by);
         $this->assertNull($catalogItem);
+    }
+
+    public function test_mobile_donor_part_edit_refreshes_checked_timestamp_when_status_is_unchanged(): void
+    {
+        $user = User::factory()->create([
+            'role' => User::ROLE_ADMIN,
+            'is_active' => true,
+        ]);
+        $donorCar = DonorCar::query()->create([
+            'vin' => '5YJEDITCHECK0001',
+            'brand' => 'Tesla',
+            'model' => 'Model 3',
+            'year' => 2024,
+            'status' => DonorCar::STATUS_AT_STO,
+            'purchase_date' => '2026-04-01',
+        ]);
+        $checked = NikolaCarsProductInventorySyncService::CHECKED_DAMAGE_STATUSES[0];
+        $catalogItem = PartCatalogItem::query()->create([
+            'source' => 'nikolacars',
+            'source_url' => 'nikolacars://donor-product/mobile-edit-refresh-check',
+            'part_number' => 'MOBILE-EDIT-REFRESH-CHECK',
+            'name' => 'Mobile edit refresh check part',
+            'raw_attributes' => [
+                'donor_damage_status' => $checked,
+                'donor_damage_checked_at' => '2026-06-20T10:00:00+03:00',
+            ],
+        ]);
+        $product = Product::query()->create([
+            'sku' => 'MOBILE-EDIT-REFRESH-CHECK',
+            'external_sku' => 'MOBILE-EDIT-REFRESH-CHECK',
+            'name' => 'Mobile edit refresh check part',
+            'slug' => 'mobile-edit-refresh-check',
+            'donor_car_id' => $donorCar->id,
+            'source_part_catalog_item_id' => $catalogItem->id,
+            'storage_status' => Product::STORAGE_STATUS_IN_STOCK,
+            'condition_type' => 'used',
+            'testing_status' => 'not_tested',
+            'unit' => 'pcs',
+            'selling_price' => 120,
+            'currency' => 'USD',
+            'notes' => $checked,
+            'is_active' => true,
+        ]);
+
+        $expectedCheckedAt = Carbon::parse('2026-06-21T12:15:00+03:00');
+        Carbon::setTestNow($expectedCheckedAt);
+
+        try {
+            $this->actingAs($user)
+                ->patch(route('admin.mobile.donor-cars.products.update', [$donorCar, $product]), [
+                    'damage_note' => $checked,
+                ])
+                ->assertRedirect(route('admin.mobile.donor-cars.products.edit', [$donorCar, $product]));
+        } finally {
+            Carbon::setTestNow();
+        }
+
+        $catalogItem = $product->refresh()->sourcePartCatalogItem;
+
+        $this->assertSame($checked, $product->notes);
+        $this->assertSame($expectedCheckedAt->toIso8601String(), data_get($catalogItem->raw_attributes, 'donor_damage_checked_at'));
     }
 
     public function test_mobile_donor_part_damage_status_autofills_missing_names_from_local_catalog(): void
@@ -1066,7 +1231,7 @@ class MobileDonorPartsIndexTest extends TestCase
             ->assertOk()
             ->assertSee(route('admin.mobile.donor-cars.products.photos.destroy', [$donorCar, $product]), false)
             ->assertSee('data-mobile-photo-delete-form', false)
-            ->assertSee('aria-label="&#1059;&#1076;&#1072;&#1083;&#1080;&#1090;&#1100; &#1092;&#1086;&#1090;&#1086;"', false)
+            ->assertSee('aria-label="'.json_decode('"\u0423\u0434\u0430\u043b\u0438\u0442\u044c \u0444\u043e\u0442\u043e"', true, 512, JSON_THROW_ON_ERROR).'"', false)
             ->assertSee('tesla.com')
             ->assertSee('mobile-photo-source-tag', false);
         $html = $response->getContent();
@@ -1543,7 +1708,7 @@ class MobileDonorPartsIndexTest extends TestCase
             ->assertSee('data-mobile-photo-viewer-next', false)
             ->assertDontSee('/storage//nikolacars/prod/main.jpg', false)
             ->assertSee('tesla-official/resources-images/node-detail.png', false)
-            ->assertSee(route('admin.donor-cars.show', $donorCar).'#part-'.$product->id, false)
+            ->assertSee(route('admin.mobile.donor-cars.parts.show', $donorCar).'#part-'.$product->id, false)
             ->assertSee(route('admin.mobile.donor-cars.products.update', [$donorCar, $product]), false)
             ->assertSee(route('admin.mobile.donor-cars.products.photos.store', [$donorCar, $product]), false);
 

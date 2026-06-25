@@ -5,6 +5,7 @@
     const addModal = document.querySelector('[data-customer-order-ttn-add-modal]');
     const addForm = addModal?.querySelector('[data-customer-order-ttn-add-form]');
     const addInput = addModal?.querySelector('[data-customer-order-ttn-add-input]');
+    const addSuggestions = addModal?.querySelector('[data-customer-order-ttn-add-suggestions]');
     const addItemsNode = addModal?.querySelector('[data-customer-order-ttn-add-items]');
     const addError = addModal?.querySelector('[data-customer-order-ttn-add-error]');
     let activeAddEditor = null;
@@ -18,6 +19,9 @@
         });
         const form = editor.querySelector('[data-customer-order-ttn-form]');
         form?.toggleAttribute('hidden', !editing);
+        if (!editing) {
+            hideSuggestions(editor.querySelector('[data-customer-order-ttn-suggestions]'));
+        }
         if (editing) {
             const input = editor.querySelector('[data-customer-order-ttn-input]');
             input?.focus();
@@ -38,10 +42,107 @@
         addError.toggleAttribute('hidden', message === '');
     };
 
+    const hideSuggestions = (suggestionsNode) => {
+        suggestionsNode?.replaceChildren();
+        suggestionsNode?.toggleAttribute('hidden', true);
+    };
+
+    const suggestionSummary = (item) => {
+        return [item.date, item.status, item.city, item.recipient].filter(Boolean).join(' · ');
+    };
+
+    const renderSuggestions = (suggestionsNode, items, onChoose) => {
+        if (!suggestionsNode) return;
+        suggestionsNode.replaceChildren();
+
+        if (!items.length) {
+            hideSuggestions(suggestionsNode);
+            return;
+        }
+
+        items.forEach((item) => {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'customer-order-ttn-suggestion';
+
+            const number = document.createElement('strong');
+            number.textContent = item.tracking_number || '';
+            button.appendChild(number);
+
+            const summary = suggestionSummary(item);
+            if (summary !== '') {
+                const detail = document.createElement('span');
+                detail.textContent = summary;
+                button.appendChild(detail);
+            }
+
+            button.addEventListener('click', () => {
+                onChoose(item);
+                hideSuggestions(suggestionsNode);
+            });
+
+            suggestionsNode.appendChild(button);
+        });
+
+        suggestionsNode.toggleAttribute('hidden', false);
+    };
+
+    const attachTtnSuggestions = (input, suggestionsNode, urlForInput) => {
+        if (!input || !suggestionsNode) return;
+
+        let timer = null;
+        let controller = null;
+
+        const load = () => {
+            const url = urlForInput();
+
+            if (!url) {
+                hideSuggestions(suggestionsNode);
+                return;
+            }
+
+            controller?.abort();
+            controller = new AbortController();
+            const requestUrl = new URL(url, window.location.origin);
+            requestUrl.searchParams.set('query', input.value.trim());
+
+            fetch(requestUrl.toString(), {
+                headers: { Accept: 'application/json' },
+                signal: controller.signal,
+            })
+                .then((response) => response.ok ? response.json() : [])
+                .then((items) => {
+                    renderSuggestions(suggestionsNode, Array.isArray(items) ? items : [], (item) => {
+                        input.value = item.tracking_number || '';
+                        input.focus();
+                    });
+                })
+                .catch((error) => {
+                    if (error.name !== 'AbortError') {
+                        hideSuggestions(suggestionsNode);
+                    }
+                });
+        };
+
+        const schedule = () => {
+            window.clearTimeout(timer);
+            timer = window.setTimeout(load, 220);
+        };
+
+        input.addEventListener('input', schedule);
+        input.addEventListener('focus', schedule);
+        input.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                hideSuggestions(suggestionsNode);
+            }
+        });
+    };
+
     const closeAddModal = () => {
         activeAddEditor = null;
         setAddError();
         addForm?.reset();
+        hideSuggestions(addSuggestions);
         addItemsNode?.replaceChildren();
         addModal?.close();
     };
@@ -187,10 +288,12 @@
         });
 
         addButton?.addEventListener('click', () => openAddModal(editor));
+        attachTtnSuggestions(input, editor.querySelector('[data-customer-order-ttn-suggestions]'), () => editor.dataset.suggestionsUrl || '');
 
         form?.addEventListener('submit', async (event) => {
             event.preventDefault();
             setError(editor);
+            hideSuggestions(editor.querySelector('[data-customer-order-ttn-suggestions]'));
 
             const submitButton = form.querySelector('button[type="submit"]');
             submitButton?.setAttribute('disabled', 'disabled');
@@ -227,6 +330,17 @@
     addModal?.querySelector('[data-customer-order-ttn-add-cancel]')?.addEventListener('click', closeAddModal);
     addModal?.addEventListener('cancel', () => {
         activeAddEditor = null;
+        hideSuggestions(addSuggestions);
+    });
+    attachTtnSuggestions(addInput, addSuggestions, () => activeAddEditor?.dataset.suggestionsUrl || '');
+    document.addEventListener('click', (event) => {
+        if (! (event.target instanceof Element)) return;
+
+        if (event.target.closest('[data-customer-order-ttn-suggestions], [data-customer-order-ttn-input], [data-customer-order-ttn-add-input]')) {
+            return;
+        }
+
+        document.querySelectorAll('[data-customer-order-ttn-suggestions], [data-customer-order-ttn-add-suggestions]').forEach(hideSuggestions);
     });
     addForm?.addEventListener('submit', async (event) => {
         event.preventDefault();
@@ -248,6 +362,7 @@
 
         setAddError();
         setError(activeAddEditor);
+        hideSuggestions(addSuggestions);
         addButton?.setAttribute('disabled', 'disabled');
 
         try {

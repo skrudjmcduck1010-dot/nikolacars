@@ -111,8 +111,12 @@
                 </div>
 
                 <div data-mobile-edit-location-wrap hidden>
-                    <label for="edit-location-id">Ячейка</label>
-                    <select id="edit-location-id" name="location_id" data-mobile-edit-location-select data-selected-location="{{ $currentLocationId }}" disabled></select>
+                    <label for="edit-location-search">Ячейка</label>
+                    <div class="autocomplete" data-mobile-location-autocomplete>
+                        <input id="edit-location-search" type="text" value="" autocomplete="off" inputmode="text" placeholder="Напр. A, A1, A/1" data-mobile-edit-location-search disabled>
+                        <input id="edit-location-id" type="hidden" name="location_id" value="{{ $currentLocationId }}" data-mobile-edit-location-select data-selected-location="{{ $currentLocationId }}" disabled>
+                        <div class="suggestions" data-mobile-edit-location-suggestions hidden></div>
+                    </div>
                     @error('location_id')<div class="error">{{ $message }}</div>@enderror
                 </div>
             </div>
@@ -234,6 +238,15 @@
             const editFloorSelect = document.querySelector('[data-mobile-edit-floor-select]');
             const editLocationWrap = document.querySelector('[data-mobile-edit-location-wrap]');
             const editLocationSelect = document.querySelector('[data-mobile-edit-location-select]');
+            const editLocationSearch = document.querySelector('[data-mobile-edit-location-search]');
+            const editLocationSuggestions = document.querySelector('[data-mobile-edit-location-suggestions]');
+            const rememberedWarehouseKey = 'mobile-donor-parts:last-placement-warehouse-id';
+            const rememberedWarehouseCookieKey = 'mobile_donor_parts_last_placement_warehouse_id';
+            const rememberedLocationKey = 'mobile-donor-parts:last-placement-location-id';
+            const rememberedLocationCookieKey = 'mobile_donor_parts_last_placement_location_id';
+            const rememberedServerWarehouseId = @json((string) ($rememberedPlacementWarehouseId ?? ''));
+            const rememberedServerLocationId = @json((string) ($rememberedPlacementLocationId ?? ''));
+            let currentCellLocations = [];
 
             document.querySelectorAll('[data-quantity-step]').forEach((button) => {
                 button.addEventListener('click', () => {
@@ -278,8 +291,169 @@
 
                 return Array.from(floors, ([value, label]) => ({ value, label }));
             };
+            const normalizeLocationQuery = (value) => String(value || '')
+                .toLocaleUpperCase('ru-RU')
+                .replace(/[^0-9A-ZА-ЯЁІЇЄҐ]/g, '');
+            const locationSearchText = (location) => normalizeLocationQuery(location.label);
+            const hasPlacementWarehouse = (warehouseId) => placementWarehouses.some((item) => String(item.id) === String(warehouseId || ''));
+            const selectedLocation = () => currentCellLocations.find((location) => String(location.id) === String(editLocationSelect?.value || ''));
+            const cookieValue = (key) => {
+                const match = document.cookie.match(new RegExp(`(?:^|; )${key}=([^;]*)`));
+
+                return match ? window.decodeURIComponent(match[1]) : '';
+            };
+            const storeBrowserValue = (storageKey, cookieKey, value) => {
+                if (! value) {
+                    return;
+                }
+
+                try {
+                    window.localStorage.setItem(storageKey, String(value));
+                } catch (error) {
+                    // localStorage can be unavailable in private or locked-down WebViews.
+                }
+
+                document.cookie = `${cookieKey}=${window.encodeURIComponent(String(value))}; max-age=31536000; path=/; samesite=lax`;
+            };
+            const storedBrowserValue = (storageKey, cookieKey) => {
+                try {
+                    const storedValue = window.localStorage.getItem(storageKey) || '';
+
+                    if (storedValue) {
+                        return storedValue;
+                    }
+                } catch (error) {
+                    // localStorage can be unavailable in private or locked-down WebViews.
+                }
+
+                return cookieValue(cookieKey);
+            };
+            const rememberedWarehouseCookie = () => {
+                return cookieValue(rememberedWarehouseCookieKey);
+            };
+            const rememberedWarehouseId = () => {
+                return storedBrowserValue(rememberedWarehouseKey, rememberedWarehouseCookieKey) || rememberedWarehouseCookie();
+            };
+            const rememberWarehouseId = (warehouseId) => {
+                storeBrowserValue(rememberedWarehouseKey, rememberedWarehouseCookieKey, warehouseId);
+            };
+            const rememberedLocationId = () => {
+                return String(rememberedServerLocationId || storedBrowserValue(rememberedLocationKey, rememberedLocationCookieKey) || '');
+            };
+            const rememberLocationId = (locationId) => {
+                storeBrowserValue(rememberedLocationKey, rememberedLocationCookieKey, locationId);
+            };
+            const setLocationSuggestionState = (isOpen) => {
+                if (editLocationSuggestions) {
+                    editLocationSuggestions.hidden = ! isOpen;
+                }
+            };
+            const clearLocationSuggestions = () => {
+                editLocationSuggestions?.replaceChildren();
+                setLocationSuggestionState(false);
+            };
+            const selectEditLocation = (location, closeSuggestions = true) => {
+                if (! location || ! editLocationSelect || ! editLocationSearch) {
+                    return;
+                }
+
+                editLocationSelect.value = String(location.id);
+                editLocationSelect.dataset.selectedLocation = String(location.id);
+                editFloorSelect.value = location.floor || 'floor_1';
+                editFloorSelect.dataset.selectedFloor = editFloorSelect.value;
+                editLocationSearch.value = location.label || '';
+                editLocationSearch.setCustomValidity('');
+                rememberWarehouseId(editWarehouseSelect?.value || '');
+                rememberLocationId(location.id);
+
+                if (closeSuggestions) {
+                    clearLocationSuggestions();
+                }
+            };
+            const renderLocationSuggestions = () => {
+                if (! editLocationSearch || ! editLocationSelect || ! editLocationSuggestions || editLocationSearch.disabled) {
+                    clearLocationSuggestions();
+                    return;
+                }
+
+                const query = normalizeLocationQuery(editLocationSearch.value);
+                const lastLocationId = rememberedLocationId();
+                const matches = currentCellLocations
+                    .filter((location) => query === '' || locationSearchText(location).startsWith(query))
+                    .sort((a, b) => {
+                        const aIsLast = String(a.id) === lastLocationId;
+                        const bIsLast = String(b.id) === lastLocationId;
+
+                        if (aIsLast !== bIsLast) {
+                            return aIsLast ? -1 : 1;
+                        }
+
+                        return String(a.label || '').localeCompare(String(b.label || ''), 'ru', { numeric: true, sensitivity: 'base' });
+                    })
+                    .slice(0, 30);
+
+                editLocationSuggestions.replaceChildren();
+
+                if (matches.length === 0) {
+                    const empty = document.createElement('div');
+                    empty.className = 'suggestion-empty';
+                    empty.textContent = 'Нет ячеек по этому вводу';
+                    editLocationSuggestions.append(empty);
+                    setLocationSuggestionState(true);
+                    return;
+                }
+
+                matches.forEach((location) => {
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.className = 'suggestion';
+
+                    const title = document.createElement('span');
+                    title.className = 'suggestion__title';
+                    title.textContent = location.label || '';
+
+                    const meta = document.createElement('span');
+                    meta.className = 'suggestion__meta';
+                    meta.textContent = location.floor_label || '';
+
+                    button.append(title, meta);
+                    button.addEventListener('mousedown', (event) => event.preventDefault());
+                    button.addEventListener('click', () => selectEditLocation(location));
+                    editLocationSuggestions.append(button);
+                });
+
+                const exactMatches = matches.filter((location) => locationSearchText(location) === query);
+                if (exactMatches.length === 1) {
+                    editLocationSelect.value = String(exactMatches[0].id);
+                    editLocationSelect.dataset.selectedLocation = editLocationSelect.value;
+                    editFloorSelect.value = exactMatches[0].floor || 'floor_1';
+                    editFloorSelect.dataset.selectedFloor = editFloorSelect.value;
+                } else {
+                    editLocationSelect.value = '';
+                    editLocationSelect.dataset.selectedLocation = '';
+                    editFloorSelect.dataset.selectedFloor = '';
+                }
+                editLocationSearch.setCustomValidity('');
+                setLocationSuggestionState(true);
+            };
+            const setLocationSearchFromSelectedValue = () => {
+                if (! editLocationSelect || ! editLocationSearch) {
+                    return;
+                }
+
+                const location = selectedLocation()
+                    || currentCellLocations.find((item) => String(item.id) === String(editLocationSelect.dataset.selectedLocation || ''));
+
+                if (location) {
+                    selectEditLocation(location, true);
+                } else {
+                    editLocationSelect.value = '';
+                    editLocationSearch.value = '';
+                    clearLocationSuggestions();
+                }
+            };
             const updateEditPlacement = () => {
-                if (! editDamageSelect || ! editPlacement || ! editWarehouseSelect || ! editFloorWrap || ! editFloorSelect || ! editLocationWrap || ! editLocationSelect) {
+                if (! editDamageSelect || ! editPlacement || ! editWarehouseSelect || ! editFloorWrap || ! editFloorSelect || ! editLocationWrap || ! editLocationSelect || ! editLocationSearch) {
                     return;
                 }
 
@@ -294,13 +468,25 @@
                     editFloorSelect.required = false;
                     editLocationWrap.hidden = true;
                     editLocationSelect.disabled = true;
-                    editLocationSelect.required = false;
+                    editLocationSearch.disabled = true;
+                    editLocationSearch.required = false;
+                    currentCellLocations = [];
+                    clearLocationSuggestions();
                     return;
                 }
 
-                const warehouseId = String(editWarehouseSelect.value || editWarehouseSelect.dataset.selectedWarehouse || '');
+                const selectedWarehouseId = String(editWarehouseSelect.value || '');
+                const currentWarehouseId = String(editWarehouseSelect.dataset.selectedWarehouse || '');
+                const serverWarehouseId = String(rememberedServerWarehouseId || '');
+                const storedWarehouseId = String(rememberedWarehouseId() || '');
+                const warehouseId = [selectedWarehouseId, currentWarehouseId, serverWarehouseId, storedWarehouseId]
+                    .find((candidate) => candidate !== '' && hasPlacementWarehouse(candidate)) || '';
+
                 if (warehouseId && ! editWarehouseSelect.value) {
                     editWarehouseSelect.value = warehouseId;
+                }
+                if (warehouseId) {
+                    rememberWarehouseId(warehouseId);
                 }
 
                 const warehouse = placementWarehouses.find((item) => String(item.id) === warehouseId);
@@ -309,40 +495,57 @@
                     ? warehouse.floors
                     : floorsFromLocations(warehouseLocations);
 
-                editFloorWrap.hidden = ! warehouseId || floors.length <= 1;
-                editFloorSelect.disabled = editFloorWrap.hidden;
-                editFloorSelect.required = ! editFloorWrap.hidden;
+                editFloorWrap.hidden = true;
+                editFloorSelect.disabled = ! warehouseId;
+                editFloorSelect.required = false;
                 fillSelect(editFloorSelect, 'Выберите этаж', floors, editFloorSelect.dataset.selectedFloor || 'floor_1');
 
                 if (floors.length === 1) {
                     editFloorSelect.value = floors[0].value;
                 }
 
-                const selectedFloor = floors.length === 1 ? floors[0]?.value : editFloorSelect.value;
                 const cellLocations = warehouseLocations
-                    .filter((location) => location.floor === selectedFloor)
                     .filter((location) => location.has_cell);
 
                 editLocationWrap.hidden = ! warehouseId || cellLocations.length === 0;
                 editLocationSelect.disabled = editLocationWrap.hidden;
-                editLocationSelect.required = ! editLocationWrap.hidden;
-                fillSelect(editLocationSelect, 'Выберите ячейку', cellLocations, editLocationSelect.dataset.selectedLocation || '');
+                editLocationSearch.disabled = editLocationWrap.hidden;
+                editLocationSearch.required = ! editLocationWrap.hidden;
+                currentCellLocations = cellLocations;
+                setLocationSearchFromSelectedValue();
             };
 
             editDamageSelect?.addEventListener('change', updateEditPlacement);
             editWarehouseSelect?.addEventListener('change', () => {
                 editWarehouseSelect.dataset.selectedWarehouse = '';
+                rememberWarehouseId(editWarehouseSelect.value);
                 editFloorSelect.dataset.selectedFloor = '';
                 editLocationSelect.dataset.selectedLocation = '';
                 editFloorSelect.value = '';
                 editLocationSelect.value = '';
+                if (editLocationSearch) {
+                    editLocationSearch.value = '';
+                }
                 updateEditPlacement();
             });
             editFloorSelect?.addEventListener('change', () => {
                 editFloorSelect.dataset.selectedFloor = '';
                 editLocationSelect.dataset.selectedLocation = '';
                 editLocationSelect.value = '';
+                if (editLocationSearch) {
+                    editLocationSearch.value = '';
+                }
                 updateEditPlacement();
+            });
+            editLocationSearch?.addEventListener('input', () => {
+                editLocationSelect.value = '';
+                editLocationSelect.dataset.selectedLocation = '';
+                editFloorSelect.dataset.selectedFloor = '';
+                renderLocationSuggestions();
+            });
+            editLocationSearch?.addEventListener('focus', renderLocationSuggestions);
+            editLocationSearch?.addEventListener('blur', () => {
+                window.setTimeout(() => setLocationSuggestionState(false), 120);
             });
             updateEditPlacement();
 
@@ -389,6 +592,25 @@
 
             const editForm = document.querySelector('[data-mobile-edit-form]');
             const editStateFieldNames = ['name_ru', 'name_ua', 'external_sku', 'damage_note', 'stock_quantity', 'warehouse_id', 'floor', 'location_id'];
+            editForm?.addEventListener('submit', (event) => {
+                rememberWarehouseId(editWarehouseSelect?.value || '');
+
+                if (! editLocationSearch || editLocationSearch.disabled || ! editLocationSearch.required || editLocationSelect.value) {
+                    return;
+                }
+
+                const query = normalizeLocationQuery(editLocationSearch.value);
+                const exactMatches = currentCellLocations.filter((location) => locationSearchText(location) === query);
+
+                if (exactMatches.length === 1) {
+                    selectEditLocation(exactMatches[0], true);
+                    return;
+                }
+
+                editLocationSearch.setCustomValidity('Выберите ячейку из подсказок');
+                editLocationSearch.reportValidity();
+                event.preventDefault();
+            });
             const syncPhotoFormEditState = (photoForm) => {
                 if (! photoForm || ! editForm) {
                     return;

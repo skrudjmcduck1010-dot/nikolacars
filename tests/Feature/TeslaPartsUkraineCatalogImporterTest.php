@@ -13,24 +13,26 @@ class TeslaPartsUkraineCatalogImporterTest extends TestCase
         $method = new \ReflectionMethod($importer, 'partOriginFromName');
         $method->setAccessible(true);
 
+        $name = $this->u('\u041a\u0440\u043e\u043d\u0448\u0442\u0435\u0439\u043d Tesla Model 3');
+
         $this->assertSame(
-            ['name' => 'РљСЂРѕРЅС€С‚РµР№РЅ Tesla Model 3', 'part_origin' => 'analog'],
-            $method->invoke($importer, 'РљСЂРѕРЅС€С‚РµР№РЅ Tesla Model 3 Р°РЅР°Р»РѕРі')
+            ['name' => $name, 'part_origin' => 'analog'],
+            $method->invoke($importer, $name.' '.$this->u('\u0430\u043d\u0430\u043b\u043e\u0433'))
         );
 
         $this->assertSame(
-            ['name' => 'РљСЂРѕРЅС€С‚РµР№РЅ Tesla Model 3', 'part_origin' => 'analog'],
-            $method->invoke($importer, 'РљСЂРѕРЅС€С‚РµР№РЅ Tesla Model 3 РћСЂРёРіРёРЅР°Р» Р°РЅР°Р»РѕРі')
+            ['name' => $name, 'part_origin' => 'analog'],
+            $method->invoke($importer, $name.' '.$this->u('\u041e\u0440\u0438\u0433\u0438\u043d\u0430\u043b \u0430\u043d\u0430\u043b\u043e\u0433'))
         );
 
         $this->assertSame(
-            ['name' => 'РљСЂРѕРЅС€С‚РµР№РЅ Tesla Model 3', 'part_origin' => 'original'],
-            $method->invoke($importer, 'РљСЂРѕРЅС€С‚РµР№РЅ Tesla Model 3 РћСЂРёРіРёРЅР°Р»')
+            ['name' => $name, 'part_origin' => 'original'],
+            $method->invoke($importer, $name.' '.$this->u('\u041e\u0440\u0438\u0433\u0438\u043d\u0430\u043b'))
         );
 
         $this->assertSame(
-            ['name' => 'РљСЂРѕРЅС€С‚РµР№РЅ Tesla Model 3', 'part_origin' => 'original'],
-            $method->invoke($importer, 'РљСЂРѕРЅС€С‚РµР№РЅ Tesla Model 3 РћСЂРёРіС–РЅР°Р»')
+            ['name' => $name, 'part_origin' => 'original'],
+            $method->invoke($importer, $name.' '.$this->u('\u041e\u0440\u0438\u0433\u0456\u043d\u0430\u043b'))
         );
     }
 
@@ -40,19 +42,22 @@ class TeslaPartsUkraineCatalogImporterTest extends TestCase
         $method = new \ReflectionMethod($importer, 'withoutListingModelName');
         $method->setAccessible(true);
 
+        $name = $this->u('\u041a\u0440\u043e\u043d\u0448\u0442\u0435\u0439\u043d');
+        $modelName = $name.' Tesla Model 3';
+
         $this->assertSame(
-            'РљСЂРѕРЅС€С‚РµР№РЅ',
-            $method->invoke($importer, 'РљСЂРѕРЅС€С‚РµР№РЅ Tesla Model 3', 'Model 3')
+            $name,
+            $method->invoke($importer, $modelName, 'Model 3')
         );
 
         $this->assertSame(
-            'РљСЂРѕРЅС€С‚РµР№РЅ',
-            $method->invoke($importer, 'РљСЂРѕРЅС€С‚РµР№РЅ Tesla Model 3', 'Tesla Model 3')
+            $name,
+            $method->invoke($importer, $modelName, 'Tesla Model 3')
         );
 
         $this->assertSame(
-            'РљСЂРѕРЅС€С‚РµР№РЅ Tesla Model 3',
-            $method->invoke($importer, 'РљСЂРѕРЅС€С‚РµР№РЅ Tesla Model 3', 'Model Y')
+            $modelName,
+            $method->invoke($importer, $modelName, 'Model Y')
         );
     }
 
@@ -62,14 +67,16 @@ class TeslaPartsUkraineCatalogImporterTest extends TestCase
         $method = new \ReflectionMethod($importer, 'partConditionFromName');
         $method->setAccessible(true);
 
+        $name = $this->u('\u041a\u0440\u043e\u043d\u0448\u0442\u0435\u0439\u043d Tesla Model 3');
+
         $this->assertSame(
-            ['name' => 'РљСЂРѕРЅС€С‚РµР№РЅ Tesla Model 3', 'condition' => 'Р‘/РЈ'],
-            $method->invoke($importer, 'РљСЂРѕРЅС€С‚РµР№РЅ Tesla Model 3 Р‘Р’')
+            ['name' => $name, 'condition' => $this->u('\u0411/\u0423')],
+            $method->invoke($importer, $name.' '.$this->u('\u0411\u0412'))
         );
 
         $this->assertSame(
-            ['name' => 'РљСЂРѕРЅС€С‚РµР№РЅ Tesla Model 3 Р±РІ', 'condition' => null],
-            $method->invoke($importer, 'РљСЂРѕРЅС€С‚РµР№РЅ Tesla Model 3 Р±РІ')
+            ['name' => $name.' '.$this->u('\u0431\u0432'), 'condition' => null],
+            $method->invoke($importer, $name.' '.$this->u('\u0431\u0432'))
         );
     }
 
@@ -80,5 +87,10 @@ class TeslaPartsUkraineCatalogImporterTest extends TestCase
         $mixedName = "\u{042D}\u{043B}\u{0435}\u{043A}\u{0442}\u{0440}\u{043E}\u{043F}\u{0440}\u{043E}\u{0432}\u{043E}\u{0434}\u{043A}\u{0430} \u{0446}\u{0435}\u{043D}\u{0442}\u{0440}\u{0430}\u{043B}\u{044C}\u{043D}\u{043E}\u{0457} \u{043A}\u{043E}\u{043D}\u{0441}\u{043E}\u{043B}\u{0456}";
 
         $this->assertSame([], $importer->localizedNamePayload($mixedName));
+    }
+
+    private function u(string $value): string
+    {
+        return json_decode('"'.$value.'"', true, 512, JSON_THROW_ON_ERROR);
     }
 }

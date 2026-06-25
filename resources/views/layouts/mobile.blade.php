@@ -118,6 +118,8 @@
         .part-card__placement button:disabled { opacity: .62; cursor: not-allowed; }
         .part-card__damage-form label { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.2; }
         .part-card__damage-form select { min-height: 38px; padding: 8px 10px; font-size: 13px; }
+        .part-card--success .part-card__damage-form select { border-color: #aed8b7; background: #e7f5e8; color: #146c2e; font-weight: 700; }
+        .part-card--danger .part-card__damage-form select { border-color: #efb7b7; background: #f8e2e2; color: #9b1c1c; font-weight: 700; }
         .part-card__foot { display: flex; gap: 7px; flex-wrap: wrap; align-items: center; }
         .tag-warning { background: #fff3cd; color: #866000; }
         .tag-danger { background: #f8e2e2; color: var(--danger); }

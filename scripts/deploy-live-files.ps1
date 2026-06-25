@@ -375,7 +375,7 @@ try {
         $codeEntries = @(
             '.editorconfig', '.env.example', '.env.production.example', '.gitattributes', '.gitignore', '.npmrc',
             'AGENTS.md', 'README.md', 'app', 'artisan', 'bootstrap', 'capacitor.config.json',
-            'composer.json', 'composer.lock', 'config', 'database', 'docs', 'package-lock.json',
+            'composer.json', 'composer.lock', 'config', 'database', 'package-lock.json',
             'package.json', 'phpunit.xml', 'resources', 'routes', 'scripts',
             'tests', 'vite.config.js'
         )

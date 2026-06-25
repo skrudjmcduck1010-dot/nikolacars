@@ -52,6 +52,26 @@
         </div>
     </div>
 
+    <div
+        class="panel"
+        style="margin-bottom:14px;"
+        data-customer-order-available-ttns
+        data-url="{{ route('admin.customer-orders.nova-poshta.tracking-number.suggestions.available') }}"
+        hidden
+    >
+        <div style="display:flex; justify-content:space-between; gap:12px; align-items:center; flex-wrap:wrap;">
+            <h2 class="section-title" style="margin:0;">{{ "\u{0421}\u{0432}\u{043E}\u{0431}\u{043E}\u{0434}\u{043D}\u{044B}\u{0435} \u{0422}\u{0422}\u{041D} \u{041D}\u{043E}\u{0432}\u{043E}\u{0439} \u{043F}\u{043E}\u{0447}\u{0442}\u{044B}" }}</h2>
+            <button type="button" class="btn btn-small btn-secondary" data-customer-order-available-ttns-refresh>
+                {{ "\u{041E}\u{0431}\u{043D}\u{043E}\u{0432}\u{0438}\u{0442}\u{044C}" }}
+            </button>
+        </div>
+        <div class="help" style="margin-top:6px;">
+            Из кабинета НП, кроме полученных, отказных и уже привязанных к заказам.
+        </div>
+        <div data-customer-order-available-ttns-status class="help" style="margin-top:10px;">{{ "\u{0417}\u{0430}\u{0433}\u{0440}\u{0443}\u{0436}\u{0430}\u{044E}..." }}</div>
+        <div data-customer-order-available-ttns-list style="display:grid; gap:8px; margin-top:10px;"></div>
+    </div>
+
     <div class="actions" style="margin-bottom:14px;">
         <a
             href="{{ $ordersTabUrl(null) }}"
@@ -113,5 +133,80 @@
     <script>
         @include('admin.customer_orders._payment_modal_scripts')
         @include('admin.customer_orders._tracking_number_editor_scripts')
+
+        (() => {
+            const panel = document.querySelector('[data-customer-order-available-ttns]');
+            if (!panel) return;
+
+            const url = panel.dataset.url || '';
+            const status = panel.querySelector('[data-customer-order-available-ttns-status]');
+            const list = panel.querySelector('[data-customer-order-available-ttns-list]');
+            const refresh = panel.querySelector('[data-customer-order-available-ttns-refresh]');
+
+            const setStatus = (message = '') => {
+                if (!status) return;
+                status.textContent = message;
+                status.toggleAttribute('hidden', message === '');
+            };
+
+            const render = (items) => {
+                if (!list) return;
+                list.replaceChildren();
+
+                if (!items.length) {
+                    panel.hidden = true;
+                    return;
+                }
+
+                panel.hidden = false;
+                setStatus('');
+                items.forEach((item) => {
+                    const row = document.createElement('div');
+                    row.style.display = 'grid';
+                    row.style.gridTemplateColumns = 'minmax(140px, auto) minmax(0, 1fr)';
+                    row.style.gap = '8px 12px';
+                    row.style.alignItems = 'baseline';
+                    row.style.padding = '8px 0';
+                    row.style.borderTop = '1px solid #e5e7eb';
+
+                    const number = document.createElement('strong');
+                    number.textContent = item.tracking_number || '';
+
+                    const detail = document.createElement('div');
+                    detail.className = 'help';
+                    detail.textContent = [item.date, item.status, item.city, item.recipient].filter(Boolean).join(' · ');
+
+                    row.append(number, detail);
+                    list.appendChild(row);
+                });
+            };
+
+            const load = async () => {
+                if (!url) return;
+                refresh?.setAttribute('disabled', 'disabled');
+                setStatus(@json("\u{0417}\u{0430}\u{0433}\u{0440}\u{0443}\u{0436}\u{0430}\u{044E}..."));
+                list?.replaceChildren();
+
+                try {
+                    const response = await fetch(url, { headers: { Accept: 'application/json' } });
+                    const payload = await response.json().catch(() => ([]));
+
+                    if (!response.ok) {
+                        panel.hidden = true;
+                        return;
+                    }
+
+                    render(Array.isArray(payload) ? payload : []);
+                } catch (error) {
+                    console.error(error);
+                    panel.hidden = true;
+                } finally {
+                    refresh?.removeAttribute('disabled');
+                }
+            };
+
+            refresh?.addEventListener('click', load);
+            load();
+        })();
     </script>
 @endsection

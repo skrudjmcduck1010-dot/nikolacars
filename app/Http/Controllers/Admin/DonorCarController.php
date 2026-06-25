@@ -52,6 +52,8 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 class DonorCarController extends Controller
 {
     private const DONOR_PRODUCTS_INITIAL_LIMIT = 80;
+    private const MOBILE_LAST_PLACEMENT_WAREHOUSE_SESSION_KEY = 'mobile_donor_parts.last_placement_warehouse_id';
+    private const MOBILE_LAST_PLACEMENT_LOCATION_SESSION_KEY = 'mobile_donor_parts.last_placement_location_id';
 
     protected ?PartCatalogDisplayService $catalogDisplayService = null;
 
@@ -169,6 +171,12 @@ class DonorCarController extends Controller
         $statusLabel = fn (?string $value): string => trim((string) $value) !== ''
             ? "\u{0421}\u{0442}\u{0430}\u{0442}\u{0443}\u{0441}: ".trim((string) $value)
             : '';
+        $donorYearLabel = fn (?DonorCar $donorCar): ?string => $donorCar?->year
+            ? "\u{0413}\u{043E}\u{0434}: ".$donorCar->year
+            : null;
+        $warehouseArrivalLabel = fn (?DonorCar $donorCar): ?string => $donorCar?->warehouse_arrival_date
+            ? "\u{0421}\u{0422}\u{041E}: ".$donorCar->warehouse_arrival_date->format('d.m.Y')
+            : null;
         $soldStatus = "\u{041F}\u{0440}\u{043E}\u{0434}\u{0430}\u{043D}";
 
         $donorPhotoUrl = function (?DonorCar $donorCar): ?string {
@@ -181,7 +189,7 @@ class DonorCarController extends Controller
 
         $productsQuery = Product::query()
             ->with([
-                'donorCar:id,vin,status,model,year,photos',
+                'donorCar:id,vin,status,model,year,warehouse_arrival_date,photos',
                 'sourcePartCatalogItem:id,name_ru,name_ua,name_en,name,part_number',
             ])
             ->whereNotNull('donor_car_id')
@@ -232,7 +240,7 @@ class DonorCarController extends Controller
 
         $salesQuery = PartSale::query()
             ->with([
-                'donorCar:id,vin,status,model,year,photos',
+                'donorCar:id,vin,status,model,year,warehouse_arrival_date,photos',
                 'partCatalogItem:id,name_ru,name_ua,name_en,name,part_number',
                 'product:id,source_part_catalog_item_id',
                 'product.sourcePartCatalogItem:id,name_ru,name_ua,name_en,name,part_number',
@@ -298,7 +306,7 @@ class DonorCarController extends Controller
                 ->get(),
         };
 
-        $productSuggestions = $products->map(function (Product $product) use ($damageStatus, $donorPhotoUrl, $isMobileContext, $matchesQuery, $soldStatus, $statusLabel): array {
+        $productSuggestions = $products->map(function (Product $product) use ($damageStatus, $donorPhotoUrl, $donorYearLabel, $isMobileContext, $matchesQuery, $soldStatus, $statusLabel, $warehouseArrivalLabel): array {
             $partNumber = $product->external_sku ?: $product->sku;
             $catalogItem = $product->sourcePartCatalogItem;
             $matchesPartNumber = $matchesQuery($product->external_sku)
@@ -320,6 +328,8 @@ class DonorCarController extends Controller
                 'name' => $displayName,
                 'part_number' => $partNumber,
                 'donor' => $product->donorCar?->display_vin,
+                'donor_year' => $product->donorCar?->year,
+                'donor_warehouse_arrival_date' => $product->donorCar?->warehouse_arrival_date?->format('d.m.Y'),
                 'donor_photo_url' => $donorPhotoUrl($product->donorCar),
                 'status' => $partStatus,
                 'meta' => collect([
@@ -328,6 +338,8 @@ class DonorCarController extends Controller
                     $displayName !== $product->name ? $product->name : null,
                     $product->donorCar?->display_vin,
                     $product->donorCar?->display_model,
+                    $donorYearLabel($product->donorCar),
+                    $warehouseArrivalLabel($product->donorCar),
                 ])->filter()->join(' · '),
                 'url' => $product->donorCar
                     ? ($isMobileContext
@@ -337,7 +349,7 @@ class DonorCarController extends Controller
             ];
         });
 
-        $saleSuggestions = $sales->map(function (PartSale $sale) use ($donorPhotoUrl, $isMobileContext, $matchesQuery, $soldStatus, $statusLabel): array {
+        $saleSuggestions = $sales->map(function (PartSale $sale) use ($donorPhotoUrl, $donorYearLabel, $isMobileContext, $matchesQuery, $soldStatus, $statusLabel, $warehouseArrivalLabel): array {
             $partNumber = $sale->part_number ?: $sale->code;
             $catalogItem = $sale->partCatalogItem ?: $sale->product?->sourcePartCatalogItem;
             $matchesPartNumber = $matchesQuery($sale->part_number)
@@ -357,6 +369,8 @@ class DonorCarController extends Controller
                 'name' => $displayName,
                 'part_number' => $partNumber,
                 'donor' => $sale->donorCar?->display_vin,
+                'donor_year' => $sale->donorCar?->year,
+                'donor_warehouse_arrival_date' => $sale->donorCar?->warehouse_arrival_date?->format('d.m.Y'),
                 'donor_photo_url' => $donorPhotoUrl($sale->donorCar),
                 'status' => $partStatus,
                 'meta' => collect([
@@ -365,6 +379,8 @@ class DonorCarController extends Controller
                     $displayName !== $sale->name ? $sale->name : null,
                     $sale->donorCar?->display_vin,
                     $sale->donorCar?->display_model,
+                    $donorYearLabel($sale->donorCar),
+                    $warehouseArrivalLabel($sale->donorCar),
                     $sale->sold_at?->timezone('Europe/Kiev')->format('d.m.Y'),
                 ])->filter()->join(' · '),
                 'url' => $sale->donorCar
@@ -1682,6 +1698,37 @@ class DonorCarController extends Controller
         };
     }
 
+    protected function applyMobileDonorProductOrdering(Builder|HasMany $query, string $status): Builder|HasMany
+    {
+        if ($status !== 'checked') {
+            return $query
+                ->orderByDesc('selling_price')
+                ->orderBy('sku');
+        }
+
+        $checkedAt = $this->mobileDonorProductCheckedAtExpression('mobile_checked_sort_items.raw_attributes');
+        $normalizedCheckedAt = "replace(substr(nullif({$checkedAt}, ''), 1, 19), 'T', ' ')";
+
+        return $query
+            ->leftJoin('part_catalog_items as mobile_checked_sort_items', 'products.source_part_catalog_item_id', '=', 'mobile_checked_sort_items.id')
+            ->orderByRaw("case when nullif({$checkedAt}, '') is null then 1 else 0 end")
+            ->orderByRaw("{$normalizedCheckedAt} desc")
+            ->orderByDesc('products.updated_at')
+            ->orderByDesc('products.id')
+            ->select('products.*');
+    }
+
+    protected function mobileDonorProductCheckedAtExpression(string $column): string
+    {
+        $path = '$.donor_damage_checked_at';
+
+        return match (DB::connection()->getDriverName()) {
+            'pgsql' => "{$column}::jsonb ->> 'donor_damage_checked_at'",
+            'sqlite' => "json_extract({$column}, '{$path}')",
+            default => "json_unquote(json_extract(if(json_valid({$column}), {$column}, json_object()), '{$path}'))",
+        };
+    }
+
     protected function applyMobileDonorSaleSearch(HasMany $query, string $search): HasMany
     {
         $search = trim($search);
@@ -1763,11 +1810,10 @@ class DonorCarController extends Controller
                 'stockItems.warehouse:id,name,type',
                 'stockItems.location:id,warehouse_id,floor,full_code,cell',
                 'stoWorkOrderParts.order:id,number,status',
-            ])
-            ->orderByDesc('selling_price')
-            ->orderBy('sku');
+            ]);
         $this->applyMobileDonorProductSearch($productsQuery, $search);
         $this->applyMobileDonorProductStatusFilter($productsQuery, $activeStatus);
+        $this->applyMobileDonorProductOrdering($productsQuery, $activeStatus);
         $productPaginator = $productsQuery
             ->paginate($perPage)
             ->withQueryString();
@@ -1840,7 +1886,8 @@ class DonorCarController extends Controller
             $product->refresh(),
             $syncResult['item'] ?? null,
             $previousDamageNote,
-            $damageNote
+            $damageNote,
+            true
         );
         $inventorySync->syncDonorDamageStatusChanger(
             $product->refresh(),
@@ -1949,7 +1996,7 @@ class DonorCarController extends Controller
         abort(404);
     }
 
-    public function mobileEditProduct(DonorCar $donorCar, Product $product): View
+    public function mobileEditProduct(Request $request, DonorCar $donorCar, Product $product): View
     {
         abort_if($donorCar->status === DonorCar::STATUS_IN_TRANSIT, 404);
         abort_unless((int) $product->donor_car_id === (int) $donorCar->id, 404);
@@ -1961,13 +2008,18 @@ class DonorCarController extends Controller
             'stockItems.location',
         ]);
 
+        $placementWarehouses = $this->activePlacementWarehouses();
+        $placementLocations = $this->activePlacementLocations();
+
         return view('admin.mobile.parts.edit', [
             'donorCar' => $donorCar,
             'product' => $product,
             'damageOptions' => $this->mobilePartDamageOptions(),
             'checkedDamageStatuses' => NikolaCarsProductInventorySyncService::CHECKED_DAMAGE_STATUSES,
-            'placementWarehouseOptions' => $this->placementWarehouseOptions($this->activePlacementWarehouses()),
-            'placementLocationOptions' => $this->placementLocationOptions($this->activePlacementLocations()),
+            'placementWarehouseOptions' => $this->placementWarehouseOptions($placementWarehouses),
+            'placementLocationOptions' => $this->placementLocationOptions($placementLocations),
+            'rememberedPlacementWarehouseId' => $this->rememberedMobilePlacementWarehouseId($request, $placementWarehouses),
+            'rememberedPlacementLocationId' => $this->rememberedMobilePlacementLocationId($request, $placementLocations),
         ]);
     }
 
@@ -2033,6 +2085,7 @@ class DonorCarController extends Controller
         ])->save();
 
         if ($placementLocation instanceof Location) {
+            $this->rememberMobilePlacementWarehouse($request, $placementLocation);
             $this->placeDonorProductInWarehouse($product->refresh(), $placementLocation, $stockQuantity);
         } elseif ($this->isUnknownDonorDamageStatus($damageNote)) {
             $this->returnDonorProductToDonorLocation($product->refresh(), $donorCar);
@@ -2046,7 +2099,8 @@ class DonorCarController extends Controller
             $product->refresh(),
             $syncResult['item'] ?? null,
             $previousDamageNote,
-            $damageNote
+            $damageNote,
+            true
         );
         $inventorySync->syncDonorDamageStatusChanger(
             $product->refresh(),
@@ -3359,7 +3413,10 @@ class DonorCarController extends Controller
         $placementDamageNote = array_key_exists('damage_note', $validated)
             ? (string) ($damageNote ?? '')
             : (string) ($product->notes ?? '');
-        $placementLocation = $placementRequested && $this->isCheckedDonorDamageStatus($placementDamageNote)
+        $placementRequired = array_key_exists('damage_note', $validated)
+            && $this->isUnknownDonorDamageStatus($previousDamageNote)
+            && $this->isCheckedDonorDamageStatus($placementDamageNote);
+        $placementLocation = ($placementRequested || $placementRequired) && $this->isCheckedDonorDamageStatus($placementDamageNote)
             ? $this->mobileDamageStatusPlacementLocation($request, $previousDamageNote, $placementDamageNote, $donorCar, true)
             : null;
 
@@ -4510,6 +4567,9 @@ class DonorCarController extends Controller
     {
         return Warehouse::query()
             ->where('is_active', true)
+            ->where(fn (Builder $query) => $query
+                ->whereNull('type')
+                ->orWhere('type', '!=', Warehouse::TYPE_DONOR))
             ->orderBy('name')
             ->get(['id', 'name', 'type', 'floor_count', 'is_active']);
     }
@@ -4534,6 +4594,47 @@ class DonorCarController extends Controller
             ])
             ->values()
             ->all();
+    }
+
+    protected function rememberedMobilePlacementWarehouseId(Request $request, Collection $placementWarehouses): ?int
+    {
+        $warehouseId = (int) $request->session()->get(self::MOBILE_LAST_PLACEMENT_WAREHOUSE_SESSION_KEY, 0);
+
+        if ($warehouseId <= 0) {
+            return null;
+        }
+
+        return $placementWarehouses->contains(fn (Warehouse $warehouse): bool => (int) $warehouse->id === $warehouseId)
+            ? $warehouseId
+            : null;
+    }
+
+    protected function rememberedMobilePlacementLocationId(Request $request, Collection $placementLocations): ?int
+    {
+        $locationId = (int) $request->session()->get(self::MOBILE_LAST_PLACEMENT_LOCATION_SESSION_KEY, 0);
+
+        if ($locationId <= 0) {
+            return null;
+        }
+
+        return $placementLocations->contains(fn (Location $location): bool => (int) $location->id === $locationId)
+            ? $locationId
+            : null;
+    }
+
+    protected function rememberMobilePlacementWarehouse(Request $request, Location $location): void
+    {
+        $location->loadMissing('warehouse');
+
+        if (! $location->warehouse instanceof Warehouse || $location->warehouse->type === Warehouse::TYPE_DONOR) {
+            return;
+        }
+
+        $request->session()->put(self::MOBILE_LAST_PLACEMENT_WAREHOUSE_SESSION_KEY, (int) $location->warehouse_id);
+
+        if ($location->warehouse->usesStructuredLocations() && trim((string) $location->cell) !== '') {
+            $request->session()->put(self::MOBILE_LAST_PLACEMENT_LOCATION_SESSION_KEY, (int) $location->id);
+        }
     }
 
     protected function placementLocationOptions(Collection $locations): array
