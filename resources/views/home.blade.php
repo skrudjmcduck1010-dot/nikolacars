@@ -92,7 +92,11 @@
               <div class="hero-content">
 
                 <div>
-                  <h1 class="hero-title">{{ $slide['title'] }}</h1>
+                  @if($index === 0)
+                    <h1 class="hero-title">{{ $slide['title'] }}</h1>
+                  @else
+                    <h2 class="hero-title">{{ $slide['title'] }}</h2>
+                  @endif
                   <div class="hero-subtitle">{{ $slide['subtitle'] }}</div>
                 </div>
 
@@ -238,7 +242,7 @@
       <button class="services-arrow next" type="button" aria-label="{{ $isRu ? 'Следующие услуги' : 'Наступні послуги' }}">›</button>
 
       <div class="services-grid" data-services-track>
-      <a href="{{ $isRu ? '/ru/services/prigon-tesla-usa' : '/services/prigon-tesla-usa' }}" class="service-card">
+      <a href="{{ $isRu ? '/ru/services/prigon-tesla-usa/' : '/services/prigon-tesla-usa/' }}" class="service-card">
         <div class="service-icon">🚗</div>
         <div class="service-title">{{ $isRu ? 'ПРИГОН ИЗ США' : 'ПРИГІН З США' }}</div>
         <div class="service-text">
@@ -257,6 +261,18 @@
           {{ $isRu
             ? 'Электромобили требуют минимального объёма работ для поддержания идеального состояния.'
             : 'Електричні автомобілі потребують меншого обсягу робіт для підтримання гарного стану.'
+          }}
+        </div>
+        <div class="service-more">{{ $isRu ? 'Читать далее' : 'Читати далі' }}</div>
+      </a>
+
+      <a href="{{ $isRu ? '/ru/services/tesla-electricmotor-repair/' : '/services/tesla-electricmotor-repair/' }}" class="service-card">
+        <div class="service-icon">⚙️</div>
+        <div class="service-title">{{ $isRu ? 'РЕМОНТ ЭЛЕКТРОМОТОРА TESLA' : 'РЕМОНТ ЕЛЕКТРОМОТОРА TESLA' }}</div>
+        <div class="service-text">
+          {{ $isRu
+            ? 'Диагностика, ремонт и восстановление электромотора Tesla для Model S, Model 3, Model X и Model Y.'
+            : 'Діагностика, ремонт і відновлення електромотора Tesla для Model S, Model 3, Model X та Model Y.'
           }}
         </div>
         <div class="service-more">{{ $isRu ? 'Читать далее' : 'Читати далі' }}</div>

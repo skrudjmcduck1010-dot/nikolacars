@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LeadController;
+use App\Http\Controllers\SiteController;
 /*
 |--------------------------------------------------------------------------
 | HOME — UA (default)
@@ -18,12 +19,12 @@ Route::get('/', function () {
             'desc'  => 'Діагностика, ремонт та технічне обслуговування'
         ],
         [
-            'slug'  => 'services/restore-certificates',
+            'slug'  => 'services/vidnovlennya-sertyfikativ-tesla',
             'title' => 'Відновлення сертифікатів',
             'desc'  => 'Офіційні рішення для функцій Tesla'
         ],
         [
-            'slug'  => 'services/import-usa',
+            'slug'  => 'services/prigon-tesla-usa',
             'title' => 'Пригін із США',
             'desc'  => 'Підбір, доставка, розмитнення'
         ],
@@ -48,12 +49,12 @@ Route::get('/ru/', function () {
             'desc'  => 'Диагностика, ремонт и техническое обслуживание'
         ],
         [
-            'slug'  => 'services/restore-certificates',
+            'slug'  => 'services/vidnovlennya-sertyfikativ-tesla',
             'title' => 'Восстановление сертификатов',
             'desc'  => 'Официальные решения для функций Tesla'
         ],
         [
-            'slug'  => 'services/import-usa',
+            'slug'  => 'services/prigon-tesla-usa',
             'title' => 'Пригон из США',
             'desc'  => 'Подбор, доставка, растаможка'
         ],
@@ -64,6 +65,20 @@ Route::get('/ru/', function () {
 
 
 Route::post('/lead/callback', [LeadController::class, 'callback'])->name('lead.callback');
+Route::get('/sitemap.xml', [SiteController::class, 'sitemap'])->name('sitemap');
+Route::get('/robots.txt', [SiteController::class, 'robots'])->name('robots');
+$legacyRedirects = [
+    '/services/import-usa/' => '/services/prigon-tesla-usa/',
+    '/ru/services/import-usa/' => '/ru/services/prigon-tesla-usa/',
+    '/services/prigon-usa/' => '/services/prigon-tesla-usa/',
+    '/ru/services/prigon-usa/' => '/ru/services/prigon-tesla-usa/',
+    '/services/restore-certificates/' => '/services/vidnovlennya-sertyfikativ-tesla/',
+    '/ru/services/restore-certificates/' => '/ru/services/vidnovlennya-sertyfikativ-tesla/',
+];
+
+foreach ($legacyRedirects as $from => $to) {
+    Route::permanentRedirect($from, $to);
+}
 
 $targetedServices = collect(config('targeted_services', []))->keyBy('slug');
 $targetedServiceSlugPattern = $targetedServices
@@ -123,14 +138,14 @@ Route::get('/ru/services/tesla-service/', function () {
 });
 
 
-Route::get('/services/tesla-electricmotor-repair', function () {
+Route::get('/services/tesla-electricmotor-repair/', function () {
     return view('services.tesla-electricmotor-repair', [
         'pageTitle' => 'Ремонт електромотора Tesla Model S – NikolaCars',
         'metaDescription' => 'Ремонт електромотора Tesla Model S у Києві: діагностика, відновлення drive unit, ремонт інвертора та тестування під навантаженням.'
     ]);
 });
 
-Route::get('/ru/services/tesla-electricmotor-repair', function () {
+Route::get('/ru/services/tesla-electricmotor-repair/', function () {
     return view('services.tesla-electricmotor-repair', [
         'locale' => 'ru',
         'pageTitle' => 'Ремонт электромотора Tesla Model S – NikolaCars',
@@ -138,14 +153,14 @@ Route::get('/ru/services/tesla-electricmotor-repair', function () {
     ]);
 });
 
-Route::get('/services/tesla-battery-repair', function () {
+Route::get('/services/tesla-battery-repair/', function () {
     return view('services.tesla-battery-repair', [
         'pageTitle' => 'Ремонт батарей Tesla – NikolaCars',
         'metaDescription' => 'Ремонт батарей Tesla в Киеве: диагностика, восстановление модулей, балансировка и обслуживание высоковольтной батареи.'
     ]);
 });
 
-Route::get('/ru/services/tesla-battery-repair', function () {
+Route::get('/ru/services/tesla-battery-repair/', function () {
     return view('services.tesla-battery-repair', [
         'locale' => 'ru',
         'pageTitle' => 'Ремонт батарей Tesla – NikolaCars',
@@ -258,8 +273,8 @@ Route::get('/ru/contacts/', fn() => view('contacts', [
   'metaDescription' => 'Контакты NikolaCars в Киеве.'
 ]));
 
-Route::view('/privacy-policy', 'privacy');
-Route::view('/ru/privacy-policy', 'privacy');
+Route::view('/privacy-policy/', 'privacy', ['locale' => 'uk']);
+Route::view('/ru/privacy-policy/', 'privacy', ['locale' => 'ru']);
 
 
 Route::get('/services/prigon-tesla-usa/', function () {

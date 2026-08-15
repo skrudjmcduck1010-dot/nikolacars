@@ -548,6 +548,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Если в форме поле называется phone_digits — можно удалить его, чтобы на сервер не улетало
     fd.delete('phone_digits');
+    fd.set('service_title', (document.querySelector('h1')?.textContent || document.title).replace(/\s+/g, ' ').trim());
 
     // page + utm
     fd.append('page', window.location.href);

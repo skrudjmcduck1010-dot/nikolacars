@@ -1484,6 +1484,54 @@ main{
   font-weight: 900;
   color:#111;
 }
+.service-related{
+  margin-top: 34px;
+  padding-top: 26px;
+  border-top: 1px solid rgba(0,0,0,.08);
+}
+
+.service-related-title{
+  margin: 0 0 18px;
+  font-size: 22px;
+  line-height: 1.2;
+  font-weight: 900;
+  color:#111;
+}
+
+.service-related-grid{
+  display:grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.service-related-link{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  min-height: 58px;
+  padding: 12px 14px;
+  border:1px solid rgba(0,0,0,.08);
+  border-radius: 8px;
+  color:#222;
+  background:#f7f7f7;
+  text-decoration:none;
+  font-size:14px;
+  font-weight:700;
+  line-height:1.25;
+  transition: .2s ease;
+}
+
+.service-related-link:hover{
+  background:#fff;
+  border-color: rgba(214,40,40,.35);
+  box-shadow: 0 10px 24px rgba(0,0,0,.08);
+  transform: translateY(-2px);
+}
+
+.service-related-icon{
+  flex: 0 0 auto;
+  font-size: 20px;
+}
 
 @media (max-width: 900px){
   .service-article-card{
@@ -1492,6 +1540,9 @@ main{
   }
   .service-article-text{
     font-size:18px;
+  }
+  .service-related-grid{
+    grid-template-columns: 1fr;
   }
 }
 
@@ -1508,7 +1559,7 @@ main{
   position:absolute;
   inset:0;
   background:
-    url('/images/services/tesla-usa-steps.jpg') center/cover no-repeat;
+    url('/assets/img/slider/tesla-black.webp') center/cover no-repeat;
   transform: scale(1.02);
 }
 
@@ -2248,6 +2299,10 @@ main{
   margin: 0 auto;
 }
 
+.page-simple.page-services .container {
+  max-width: 1500px;
+}
+
 .page-simple-card {
   background: #ffffff; /* белый центральный блок */
   border-radius: 18px;
@@ -2328,7 +2383,7 @@ main{
 
 .page-simple .services-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 30px;
 }
 
