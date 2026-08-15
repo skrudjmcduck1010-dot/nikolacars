@@ -75,11 +75,26 @@ class PartsController extends Controller
         abort_unless($response->successful() && is_array($response->json()), 404);
         $productData = $response->json();
 
+        $name = trim((string) ($productData['name'] ?? ''));
+        $model = trim((string) ($productData['model'] ?? ''));
+        $model = trim((string) preg_replace('/^tesla\s+/iu', '', $model));
+        $vehicle = trim('Tesla '.$model);
+        $article = trim((string) ($productData['part_number'] ?? ''));
+        if ($article === '') {
+            $article = trim((string) ($productData['sku'] ?? $productData['id'] ?? $product));
+        }
+
+        $productTitle = $name;
+        if ($vehicle !== '' && mb_stripos($productTitle, $vehicle) === false) {
+            $productTitle = trim($productTitle.' '.$vehicle);
+        }
+        $seoTitle = $productTitle.' — '.$article.' | NikolaCars';
+
         return view('parts.show', [
             'locale' => $locale,
             'product' => $productData,
-            'seoTitle' => $productData['name'].' — NikolaCars',
-            'seoDescription' => $productData['name'].($locale === 'ru'
+            'seoTitle' => $seoTitle,
+            'seoDescription' => $name.($locale === 'ru'
                 ? '. Оригинальные запчасти Tesla в наличии у NikolaCars.'
                 : '. Оригінальні запчастини Tesla в наявності у NikolaCars.'),
         ]);
