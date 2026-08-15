@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const state = {
     model: initialParams.get('model') || '',
     category: initialParams.get('category') || '',
+    modelSlug: root.dataset.modelSlug || '',
+    categorySlug: root.dataset.categorySlug || '',
     q: initialParams.get('q') || '',
     sort: initialParams.get('sort') || 'newest',
     page: 1, lastPage: 1, models: [], categories: [], products: [], total: 0
@@ -21,6 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const money = value => `${new Intl.NumberFormat(root.dataset.locale === 'ru' ? 'ru-UA' : 'uk-UA', { maximumFractionDigits: 0 }).format(value)} ${t.uah}`;
   const escapeHtml = value => String(value ?? '').replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char]));
   const saveCart = () => { localStorage.setItem(cartKey, JSON.stringify(cart)); renderCart(); renderProducts(); };
+  const sectionUrl = (modelSlug = '', categorySlug = '') => {
+    const base = root.dataset.catalogBase;
+    if (modelSlug && categorySlug) return `${base}/${modelSlug}/${categorySlug}/`;
+    if (modelSlug) return `${base}/${modelSlug}/`;
+    if (categorySlug) return `${base}/category/${categorySlug}/`;
+    return `${base}/`;
+  };
 
   function renderLoading() {
     $('[data-products]').innerHTML = Array.from({ length: 6 }, () => `
@@ -30,10 +39,25 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>`).join('');
   }
 
+  function applyCatalog(data, append = false) {
+    state.models = data.models || [];
+    state.categories = data.categories || [];
+    state.model = data.selection?.model || state.model;
+    state.category = data.selection?.category || state.category;
+    state.modelSlug = data.selection?.model_slug || state.modelSlug;
+    state.categorySlug = data.selection?.category_slug || state.categorySlug;
+    state.products = append ? [...state.products, ...(data.products || [])] : (data.products || []);
+    state.total = data.pagination?.total || 0;
+    state.lastPage = data.pagination?.last_page || 1;
+    render();
+  }
+
   async function loadCatalog(append = false) {
     const params = new URLSearchParams({ page: state.page, per_page: 24, sort: state.sort });
     if (state.model) params.set('model', state.model);
     if (state.category) params.set('category', state.category);
+    if (state.modelSlug) params.set('model_slug', state.modelSlug);
+    if (state.categorySlug) params.set('category_slug', state.categorySlug);
     if (state.q) params.set('q', state.q);
     if (!append && state.products.length === 0) renderLoading();
     $('[data-products]').classList.add('loading');
@@ -41,12 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const response = await fetch(`${root.dataset.catalogUrl}?${params}`, { headers: { Accept: 'application/json' } });
       const data = await response.json();
       if (!response.ok) throw new Error(data.message || t.loadError);
-      state.models = data.models || [];
-      state.categories = data.categories || [];
-      state.products = append ? [...state.products, ...(data.products || [])] : (data.products || []);
-      state.total = data.pagination?.total || 0;
-      state.lastPage = data.pagination?.last_page || 1;
-      render();
+      applyCatalog(data, append);
     } catch (error) {
       if (!append) $('[data-products]').innerHTML = '';
       $('[data-empty]').hidden = false;
@@ -67,25 +86,27 @@ document.addEventListener('DOMContentLoaded', () => {
     $('[data-more]').hidden = state.page >= state.lastPage;
     $('[data-empty]').hidden = state.products.length > 0;
     if (!state.products.length) $('[data-empty]').textContent = t.empty;
+    document.title = [t.seoBase, state.category, state.model, t.seoSuffix].filter(Boolean).join(' — ');
   }
 
   function renderModels() {
-    const html = [{ value: '', label: t.allModels, count: null }, ...state.models].map(item => `
-      <button type="button" class="${item.value === state.model ? 'active' : ''}" data-model="${escapeHtml(item.value)}">
+    const html = [{ value: '', label: t.allModels, slug: '', count: null }, ...state.models].map(item => `
+      <a href="${sectionUrl(item.slug)}" class="${item.value === state.model ? 'active' : ''}">
         ${escapeHtml(item.label)} ${item.count === null ? '' : `<span>${item.count}</span>`}
-      </button>`).join('');
+      </a>`).join('');
     $('[data-models]').innerHTML = html;
   }
 
   function renderCategories() {
     $('[data-sidebar-title]').textContent = state.model || t.catalog;
+    $('[data-all-parts]').href = sectionUrl(state.modelSlug);
+    $('[data-all-parts]').classList.toggle('active', state.category === '');
     $('[data-categories]').innerHTML = state.categories.map(item => `
-      <button type="button" class="parts-category ${state.category === item.value ? 'active' : ''}" data-category="${escapeHtml(item.value)}">
+      <a href="${sectionUrl(state.modelSlug, item.slug)}" class="parts-category ${state.category === item.value ? 'active' : ''}">
         <span>${escapeHtml(item.label)}</span><b>${item.count}</b>
-      </button>`).join('');
-    $$('[data-category=""]')[0]?.classList.toggle('active', state.category === '');
+      </a>`).join('');
     $('[data-category-grid]').innerHTML = state.category ? '' : state.categories.map(item => `
-      <button type="button" data-category="${escapeHtml(item.value)}"><b>${escapeHtml(item.label)}</b><span>${item.count} ${t.positions}</span></button>`).join('');
+      <a href="${sectionUrl(state.modelSlug, item.slug)}"><b>${escapeHtml(item.label)}</b><span>${item.count} ${t.positions}</span></a>`).join('');
   }
 
   function renderProducts() {
@@ -135,10 +156,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   document.addEventListener('click', event => {
-    const model = event.target.closest('[data-model]');
-    if (model) { state.model = model.dataset.model; state.category = ''; state.page = 1; loadCatalog(); }
-    const category = event.target.closest('[data-category]');
-    if (category) { state.category = category.dataset.category; state.page = 1; loadCatalog(); }
     const add = event.target.closest('[data-add-cart]');
     if (add) {
       const product = state.products.find(item => item.id === Number(add.dataset.addCart));
@@ -219,6 +236,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if ($(`[data-filter-form] select[name="sort"] option[value="${CSS.escape(state.sort)}"]`)) {
     $('[data-filter-form] select[name="sort"]').value = state.sort;
   }
-  renderCart(); loadCatalog();
+  renderCart();
+  if (window.initialPartsCatalog) applyCatalog(window.initialPartsCatalog);
+  else loadCatalog();
   if (initialParams.get('cart') === 'open') openCart();
 });

@@ -12,7 +12,11 @@
     <nav class="product-breadcrumbs">
       <a href="{{ $catalogUrl }}">{{ $isRu ? 'Каталог' : 'Каталог' }}</a>
       <span>›</span>
-      <a href="{{ $catalogUrl }}?model={{ urlencode($product['model'] ?? '') }}">{{ $product['model'] ?? '' }}</a>
+      <a href="{{ $catalogUrl.($product['model_slug'] ?? '').'/' }}">{{ $product['model'] ?? '' }}</a>
+      @if(!empty($product['category_slug']))
+        <span>›</span>
+        <a href="{{ $catalogUrl.($product['model_slug'] ?? '').'/'.$product['category_slug'].'/' }}">{{ $product['category'] ?? '' }}</a>
+      @endif
       <span>›</span>
       <span>{{ $product['name'] }}</span>
     </nav>

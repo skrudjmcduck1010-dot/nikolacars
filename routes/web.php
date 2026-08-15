@@ -76,6 +76,8 @@ Route::prefix('parts')->group(function (): void {
     Route::get('api/nova-poshta/warehouses/', [PartsController::class, 'warehouses'])->name('parts.warehouses');
     Route::post('api/orders', [PartsController::class, 'storeOrder'])->defaults('locale', 'uk')->name('parts.orders');
     Route::get('{product}/', [PartsController::class, 'show'])->whereNumber('product')->defaults('locale', 'uk')->name('parts.show');
+    Route::get('category/{categorySlug}/', [PartsController::class, 'index'])->defaults('locale', 'uk')->name('parts.category');
+    Route::get('{modelSlug}/{categorySlug?}/', [PartsController::class, 'index'])->where(['modelSlug' => '[a-z0-9-]+', 'categorySlug' => '[a-z0-9-]+'])->defaults('locale', 'uk')->name('parts.section');
 });
 
 Route::prefix('ru/parts')->group(function (): void {
@@ -85,6 +87,8 @@ Route::prefix('ru/parts')->group(function (): void {
     Route::get('api/nova-poshta/warehouses/', [PartsController::class, 'warehouses'])->name('parts.ru.warehouses');
     Route::post('api/orders', [PartsController::class, 'storeOrder'])->defaults('locale', 'ru')->name('parts.ru.orders');
     Route::get('{product}/', [PartsController::class, 'show'])->whereNumber('product')->defaults('locale', 'ru')->name('parts.ru.show');
+    Route::get('category/{categorySlug}/', [PartsController::class, 'index'])->defaults('locale', 'ru')->name('parts.ru.category');
+    Route::get('{modelSlug}/{categorySlug?}/', [PartsController::class, 'index'])->where(['modelSlug' => '[a-z0-9-]+', 'categorySlug' => '[a-z0-9-]+'])->defaults('locale', 'ru')->name('parts.ru.section');
 });
 $legacyRedirects = [
     '/services/import-usa/' => '/services/prigon-tesla-usa/',

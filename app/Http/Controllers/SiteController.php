@@ -10,13 +10,14 @@ use Illuminate\Support\Facades\Response;
 
 class SiteController extends Controller
 {
-    public function show(Request $request, string $path = null)
+    public function show(Request $request, ?string $path = null)
     {
         $locale = $request->route('locale') ?? 'uk';
-        $path = $path ? '/' . trim($path, '/') . '/' : '/';
+        $path = $path ? '/'.trim($path, '/').'/' : '/';
 
         // Cache on path+locale for speed
         $cacheKey = "route:{$locale}:{$path}";
+
         return Cache::remember($cacheKey, 60, function () use ($locale, $path) {
 
             // Try Page first
@@ -24,6 +25,7 @@ class SiteController extends Controller
             if ($page) {
                 $data = $page->toViewData($locale);
                 abort_if($data['noindex'] ?? false, 404); // optional: or just set meta robots noindex
+
                 return response()->view('page', $data);
             }
 
@@ -31,6 +33,7 @@ class SiteController extends Controller
             $post = Post::where('path', $path)->first();
             if ($post) {
                 $data = $post->toViewData($locale);
+
                 return response()->view('post', $data);
             }
 
@@ -40,13 +43,13 @@ class SiteController extends Controller
 
     public function sitemap(Request $request)
     {
-        $urls = Cache::remember('sitemap:urls', 60, function () {
+        $urls = Cache::remember('sitemap:urls:v2', 60, function () {
             $base = 'https://nikolacars.kiev.ua';
             $items = [];
 
             $add = static function (string $path) use (&$items, $base): void {
-                $path = '/' . trim($path, '/');
-                $items[] = $base . ($path === '/' ? '/' : $path . '/');
+                $path = '/'.trim($path, '/');
+                $items[] = $base.($path === '/' ? '/' : $path.'/');
             };
 
             $staticPaths = [
@@ -60,6 +63,8 @@ class SiteController extends Controller
                 '/ru/news/',
                 '/contacts/',
                 '/ru/contacts/',
+                '/parts/',
+                '/ru/parts/',
                 '/privacy-policy/',
                 '/ru/privacy-policy/',
                 '/services/tesla-service/',
@@ -86,23 +91,26 @@ class SiteController extends Controller
 
             foreach (config('targeted_services', []) as $service) {
                 $slug = $service['slug'] ?? null;
-                if (! $slug || ! view()->exists('services.targeted.' . $slug)) {
+                if (! $slug || ! view()->exists('services.targeted.'.$slug)) {
                     continue;
                 }
 
-                $add('/services/' . $slug . '/');
-                $add('/ru/services/' . $slug . '/');
+                $add('/services/'.$slug.'/');
+                $add('/ru/services/'.$slug.'/');
             }
 
             return array_values(array_unique($items));
         });
 
         $xml = view('sitemap', ['urls' => $urls])->render();
+
         return Response::make($xml, 200, ['Content-Type' => 'application/xml; charset=UTF-8']);
     }
+
     public function robots(Request $request)
     {
         $txt = "User-agent: *\nAllow: /\n\nSitemap: https://nikolacars.kiev.ua/sitemap.xml\n";
+
         return Response::make($txt, 200, ['Content-Type' => 'text/plain; charset=UTF-8']);
     }
 }

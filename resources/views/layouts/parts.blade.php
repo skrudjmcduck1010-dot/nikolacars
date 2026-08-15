@@ -4,11 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>{{ $locale === 'ru' ? 'Запчасти Tesla' : 'Запчастини Tesla' }} — NikolaCars</title>
-  <meta name="description" content="{{ $locale === 'ru' ? 'Оригинальные запчасти Tesla в наличии в Киеве.' : 'Оригінальні запчастини Tesla в наявності у Києві.' }}">
-  <link rel="canonical" href="https://nikolacars.kiev.ua{{ $locale === 'ru' ? '/ru/parts/' : '/parts/' }}">
-  <link rel="alternate" hreflang="uk-UA" href="https://nikolacars.kiev.ua/parts/">
-  <link rel="alternate" hreflang="ru-UA" href="https://nikolacars.kiev.ua/ru/parts/">
+  @php
+    $seoPath = '/'.trim(request()->path(), '/').'/';
+    $seoUaPath = preg_replace('#^/ru/#', '/', $seoPath);
+    $seoRuPath = '/ru'.$seoUaPath;
+  @endphp
+  <title>{{ $seoTitle ?? ($locale === 'ru' ? 'Запчасти Tesla — NikolaCars' : 'Запчастини Tesla — NikolaCars') }}</title>
+  <meta name="description" content="{{ $seoDescription ?? ($locale === 'ru' ? 'Оригинальные запчасти Tesla в наличии в Киеве.' : 'Оригінальні запчастини Tesla в наявності у Києві.') }}">
+  <link rel="canonical" href="https://nikolacars.kiev.ua{{ $locale === 'ru' ? $seoRuPath : $seoUaPath }}">
+  <link rel="alternate" hreflang="uk-UA" href="https://nikolacars.kiev.ua{{ $seoUaPath }}">
+  <link rel="alternate" hreflang="ru-UA" href="https://nikolacars.kiev.ua{{ $seoRuPath }}">
   <link rel="icon" href="{{ asset('favicon.ico') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}?v=12">
   <link rel="stylesheet" href="{{ asset('assets/css/parts.css') }}?v=4">

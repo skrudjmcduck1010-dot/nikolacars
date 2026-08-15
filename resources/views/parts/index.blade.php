@@ -4,10 +4,28 @@
 @php
   $isRu = $locale === 'ru';
   $apiPrefix = $isRu ? '/ru/parts/api' : '/parts/api';
+  $catalogBase = $isRu ? '/ru/parts' : '/parts';
+  $models = $initialCatalog['models'] ?? [];
+  $categories = $initialCatalog['categories'] ?? [];
+  $products = $initialCatalog['products'] ?? [];
+  $pagination = $initialCatalog['pagination'] ?? [];
+  $selection = $initialCatalog['selection'] ?? [];
+  $selectedModel = $selection['model'] ?? '';
+  $selectedCategory = $selection['category'] ?? '';
+  $selectedModelSlug = $selection['model_slug'] ?? '';
+  $sectionUrl = static function (string $model = '', string $category = '') use ($catalogBase): string {
+    if ($model !== '' && $category !== '') return $catalogBase.'/'.$model.'/'.$category.'/';
+    if ($model !== '') return $catalogBase.'/'.$model.'/';
+    if ($category !== '') return $catalogBase.'/category/'.$category.'/';
+    return $catalogBase.'/';
+  };
 @endphp
 <main class="parts-main" id="partsCatalog"
       data-locale="{{ $locale }}"
       data-product-base="{{ $isRu ? '/ru/parts' : '/parts' }}"
+      data-catalog-base="{{ $isRu ? '/ru/parts' : '/parts' }}"
+      data-model-slug="{{ $modelSlug }}"
+      data-category-slug="{{ $categorySlug }}"
       data-catalog-url="{{ $apiPrefix }}/catalog/"
       data-cities-url="{{ $apiPrefix }}/nova-poshta/cities/"
       data-warehouses-url="{{ $apiPrefix }}/nova-poshta/warehouses/"
@@ -21,35 +39,67 @@
       <div class="parts-total" data-total></div>
     </div>
 
-    <div class="parts-model-tabs" data-models></div>
+    <div class="parts-model-tabs" data-models>
+      <a href="{{ $sectionUrl() }}" class="{{ $selectedModel === '' ? 'active' : '' }}">{{ $isRu ? 'Все модели' : 'Усі моделі' }}</a>
+      @foreach($models as $model)
+        <a href="{{ $sectionUrl($model['slug']) }}" class="{{ $selectedModel === $model['value'] ? 'active' : '' }}">{{ $model['label'] }} <span>{{ $model['count'] }}</span></a>
+      @endforeach
+    </div>
 
     <form class="parts-toolbar" data-filter-form>
-      <input type="search" name="q" autocomplete="off" placeholder="{{ $isRu ? 'Название, артикул, VIN' : 'Назва, артикул, VIN' }}">
+      <input type="search" name="q" value="{{ request('q') }}" autocomplete="off" placeholder="{{ $isRu ? 'Название, артикул, VIN' : 'Назва, артикул, VIN' }}">
       <select name="sort" aria-label="{{ $isRu ? 'Сортировка' : 'Сортування' }}">
-        <option value="newest">{{ $isRu ? 'Сначала новые' : 'Спочатку нові' }}</option>
-        <option value="price_asc">{{ $isRu ? 'Цена: по возрастанию' : 'Ціна: за зростанням' }}</option>
-        <option value="price_desc">{{ $isRu ? 'Цена: по убыванию' : 'Ціна: за спаданням' }}</option>
-        <option value="name">{{ $isRu ? 'По названию' : 'За назвою' }}</option>
+        <option value="newest" @selected(request('sort', 'newest') === 'newest')>{{ $isRu ? 'Сначала новые' : 'Спочатку нові' }}</option>
+        <option value="price_asc" @selected(request('sort') === 'price_asc')>{{ $isRu ? 'Цена: по возрастанию' : 'Ціна: за зростанням' }}</option>
+        <option value="price_desc" @selected(request('sort') === 'price_desc')>{{ $isRu ? 'Цена: по убыванию' : 'Ціна: за спаданням' }}</option>
+        <option value="name" @selected(request('sort') === 'name')>{{ $isRu ? 'По названию' : 'За назвою' }}</option>
       </select>
       <button type="submit">{{ $isRu ? 'Найти' : 'Знайти' }}</button>
     </form>
 
     <div class="parts-layout">
       <aside class="parts-sidebar">
-        <div class="parts-sidebar-title" data-sidebar-title>{{ $isRu ? 'Все запчасти' : 'Усі запчастини' }}</div>
-        <button type="button" class="parts-category active" data-category=""><span>{{ $isRu ? 'Все запчасти модели' : 'Усі запчастини моделі' }}</span><b data-model-total>0</b></button>
-        <div data-categories></div>
+        <div class="parts-sidebar-title" data-sidebar-title>{{ $selectedModel ?: ($isRu ? 'Все запчасти' : 'Усі запчастини') }}</div>
+        <a href="{{ $sectionUrl($selectedModelSlug) }}" class="parts-category {{ $selectedCategory === '' ? 'active' : '' }}" data-all-parts><span>{{ $isRu ? 'Все запчасти модели' : 'Усі запчастини моделі' }}</span><b data-model-total>{{ collect($categories)->sum('count') }}</b></a>
+        <div data-categories>
+          @foreach($categories as $category)
+            <a href="{{ $sectionUrl($selectedModelSlug, $category['slug']) }}" class="parts-category {{ $selectedCategory === $category['value'] ? 'active' : '' }}"><span>{{ $category['label'] }}</span><b>{{ $category['count'] }}</b></a>
+          @endforeach
+        </div>
       </aside>
 
       <section class="parts-results">
         <div class="parts-results-head">
-          <h2 data-results-title>{{ $isRu ? 'Каталог' : 'Каталог' }}</h2>
-          <span data-results-count></span>
+          <h2 data-results-title>{{ $selectedCategory ?: ($selectedModel ?: 'Каталог') }}</h2>
+          <span data-results-count>{{ $pagination['total'] ?? 0 }} {{ $isRu ? 'позиций' : 'позицій' }}</span>
         </div>
-        <div class="parts-category-grid" data-category-grid></div>
-        <div class="parts-products" data-products></div>
-        <div class="parts-empty" data-empty hidden></div>
-        <button type="button" class="parts-more" data-more hidden>{{ $isRu ? 'Показать ещё' : 'Показати ще' }}</button>
+        <div class="parts-category-grid" data-category-grid>
+          @if($selectedCategory === '')
+            @foreach($categories as $category)
+              <a href="{{ $sectionUrl($selectedModelSlug, $category['slug']) }}"><b>{{ $category['label'] }}</b><span>{{ $category['count'] }} {{ $isRu ? 'позиций' : 'позицій' }}</span></a>
+            @endforeach
+          @endif
+        </div>
+        <div class="parts-products" data-products>
+          @foreach($products as $product)
+            <article class="part-card">
+              <a href="{{ $catalogBase.'/'.$product['id'].'/' }}" class="part-image {{ empty($product['image_url']) ? 'no-image' : '' }}">
+                @if(!empty($product['image_url']))<img src="{{ $product['image_url'] }}" alt="{{ $product['name'] }}" loading="lazy">@endif
+                <span>NIKOLACARS</span>
+              </a>
+              <div class="part-card-body">
+                <h3><a href="{{ $catalogBase.'/'.$product['id'].'/' }}">{{ $product['name'] }}</a></h3>
+                <div class="part-codes">{{ collect([$product['part_number'] ?? null, $product['sku'] ?? null, $product['vin'] ?? null])->filter()->implode(' · ') }}</div>
+                <div class="part-category-path">{{ $product['category_path'] }}</div>
+                <div class="part-price">{{ number_format((float) $product['price_uah'], 0, '.', ' ') }} грн</div>
+                <div class="part-stock">{{ $isRu ? 'В наличии' : 'В наявності' }}: {{ $product['quantity'] }}</div>
+                <button type="button" class="add-cart" data-add-cart="{{ $product['id'] }}">{{ $isRu ? 'В корзину' : 'У кошик' }}</button>
+              </div>
+            </article>
+          @endforeach
+        </div>
+        <div class="parts-empty" data-empty @if(count($products)) hidden @endif>{{ $isRu ? 'По выбранным фильтрам запчастей не найдено.' : 'За вибраними фільтрами запчастин не знайдено.' }}</div>
+        <button type="button" class="parts-more" data-more @if(($pagination['page'] ?? 1) >= ($pagination['last_page'] ?? 1)) hidden @endif>{{ $isRu ? 'Показать ещё' : 'Показати ще' }}</button>
       </section>
     </div>
   </div>
@@ -113,10 +163,13 @@
     'required' => $isRu ? 'Заполните обязательные поля.' : 'Заповніть обов’язкові поля.',
     'success' => $isRu ? 'Номер вашего заказа: :number. Мы свяжемся с вами для подтверждения.' : 'Номер вашого замовлення: :number. Ми зв’яжемося з вами для підтвердження.',
     'uah' => 'грн',
+    'seoBase' => $isRu ? 'Запчасти Tesla' : 'Запчастини Tesla',
+    'seoSuffix' => 'NikolaCars',
   ];
 @endphp
 <script>
 window.partsI18n = @json($partsI18n);
+window.initialPartsCatalog = @json($initialCatalog);
 </script>
-<script src="{{ asset('assets/js/parts.js') }}?v=3" defer></script>
+<script src="{{ asset('assets/js/parts.js') }}?v=4" defer></script>
 @endpush
