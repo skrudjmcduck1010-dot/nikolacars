@@ -8,15 +8,21 @@
     $seoPath = '/'.trim(request()->path(), '/').'/';
     $seoUaPath = preg_replace('#^/ru/#', '/', $seoPath);
     $seoRuPath = '/ru'.$seoUaPath;
+    $seoPageQuery = ($seoPage ?? 1) > 1 ? '?page='.(int) $seoPage : '';
   @endphp
   <title>{{ $seoTitle ?? ($locale === 'ru' ? 'Запчасти Tesla — NikolaCars' : 'Запчастини Tesla — NikolaCars') }}</title>
   <meta name="description" content="{{ $seoDescription ?? ($locale === 'ru' ? 'Оригинальные запчасти Tesla в наличии в Киеве.' : 'Оригінальні запчастини Tesla в наявності у Києві.') }}">
-  <link rel="canonical" href="https://nikolacars.kiev.ua{{ $locale === 'ru' ? $seoRuPath : $seoUaPath }}">
-  <link rel="alternate" hreflang="uk-UA" href="https://nikolacars.kiev.ua{{ $seoUaPath }}">
-  <link rel="alternate" hreflang="ru-UA" href="https://nikolacars.kiev.ua{{ $seoRuPath }}">
+  @if($seoNoindex ?? false)<meta name="robots" content="noindex, follow">@endif
+  <link rel="canonical" href="https://nikolacars.kiev.ua{{ $locale === 'ru' ? $seoRuPath : $seoUaPath }}{{ $seoPageQuery }}">
+  <link rel="alternate" hreflang="uk-UA" href="https://nikolacars.kiev.ua{{ $seoUaPath }}{{ $seoPageQuery }}">
+  <link rel="alternate" hreflang="ru-UA" href="https://nikolacars.kiev.ua{{ $seoRuPath }}{{ $seoPageQuery }}">
+  <link rel="alternate" hreflang="x-default" href="https://nikolacars.kiev.ua{{ $seoUaPath }}{{ $seoPageQuery }}">
+  @foreach(($seoStructuredData ?? []) as $schema)
+    <script type="application/ld+json">{!! json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}</script>
+  @endforeach
   <link rel="icon" href="{{ asset('favicon.ico') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}?v=12">
-  <link rel="stylesheet" href="{{ asset('assets/css/parts.css') }}?v=4">
+  <link rel="stylesheet" href="{{ asset('assets/css/parts.css') }}?v=5">
 </head>
 <body class="parts-page">
 @php

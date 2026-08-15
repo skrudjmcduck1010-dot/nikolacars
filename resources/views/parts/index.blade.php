@@ -13,12 +13,23 @@
   $selectedModel = $selection['model'] ?? '';
   $selectedCategory = $selection['category'] ?? '';
   $selectedModelSlug = $selection['model_slug'] ?? '';
+  $currentPage = (int) ($pagination['page'] ?? 1);
+  $lastPage = (int) ($pagination['last_page'] ?? 1);
   $sectionUrl = static function (string $model = '', string $category = '') use ($catalogBase): string {
     if ($model !== '' && $category !== '') return $catalogBase.'/'.$model.'/'.$category.'/';
     if ($model !== '') return $catalogBase.'/'.$model.'/';
     if ($category !== '') return $catalogBase.'/category/'.$category.'/';
     return $catalogBase.'/';
   };
+  $pageUrl = static function (int $page) use ($sectionUrl, $selectedModelSlug, $categorySlug): string {
+    $url = $sectionUrl($selectedModelSlug, $categorySlug);
+    return $page > 1 ? $url.'?page='.$page : $url;
+  };
+  $pageNumbers = collect([1, $lastPage, $currentPage - 2, $currentPage - 1, $currentPage, $currentPage + 1, $currentPage + 2])
+    ->filter(fn (int $page): bool => $page >= 1 && $page <= $lastPage)
+    ->unique()
+    ->sort()
+    ->values();
 @endphp
 <main class="parts-main" id="partsCatalog"
       data-locale="{{ $locale }}"
@@ -100,6 +111,20 @@
         </div>
         <div class="parts-empty" data-empty @if(count($products)) hidden @endif>{{ $isRu ? 'По выбранным фильтрам запчастей не найдено.' : 'За вибраними фільтрами запчастин не знайдено.' }}</div>
         <button type="button" class="parts-more" data-more @if(($pagination['page'] ?? 1) >= ($pagination['last_page'] ?? 1)) hidden @endif>{{ $isRu ? 'Показать ещё' : 'Показати ще' }}</button>
+        <nav class="parts-pagination" data-pagination aria-label="{{ $isRu ? 'Страницы каталога' : 'Сторінки каталогу' }}" @if($lastPage <= 1) hidden @endif>
+          @if($currentPage > 1)<a href="{{ $pageUrl($currentPage - 1) }}" rel="prev">← {{ $isRu ? 'Назад' : 'Назад' }}</a>@endif
+          @php $previousPageNumber = null; @endphp
+          @foreach($pageNumbers as $pageNumber)
+            @if($previousPageNumber !== null && $pageNumber > $previousPageNumber + 1)<span class="parts-pagination-gap">…</span>@endif
+            @if($pageNumber === $currentPage)
+              <span class="active" aria-current="page">{{ $pageNumber }}</span>
+            @else
+              <a href="{{ $pageUrl($pageNumber) }}">{{ $pageNumber }}</a>
+            @endif
+            @php $previousPageNumber = $pageNumber; @endphp
+          @endforeach
+          @if($currentPage < $lastPage)<a href="{{ $pageUrl($currentPage + 1) }}" rel="next">{{ $isRu ? 'Далее' : 'Далі' }} →</a>@endif
+        </nav>
       </section>
     </div>
   </div>
@@ -171,5 +196,5 @@
 window.partsI18n = @json($partsI18n);
 window.initialPartsCatalog = @json($initialCatalog);
 </script>
-<script src="{{ asset('assets/js/parts.js') }}?v=4" defer></script>
+<script src="{{ asset('assets/js/parts.js') }}?v=5" defer></script>
 @endpush

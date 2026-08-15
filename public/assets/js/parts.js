@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     categorySlug: root.dataset.categorySlug || '',
     q: initialParams.get('q') || '',
     sort: initialParams.get('sort') || 'newest',
-    page: 1, lastPage: 1, models: [], categories: [], products: [], total: 0
+    page: Math.max(1, Number(initialParams.get('page')) || 1), lastPage: 1, models: [], categories: [], products: [], total: 0
   };
   const cartKey = 'nikolacars-parts-cart-v1';
   let cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     state.categorySlug = data.selection?.category_slug || state.categorySlug;
     state.products = append ? [...state.products, ...(data.products || [])] : (data.products || []);
     state.total = data.pagination?.total || 0;
+    state.page = data.pagination?.page || state.page;
     state.lastPage = data.pagination?.last_page || 1;
     render();
   }
@@ -79,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderModels();
     renderCategories();
     renderProducts();
+    renderPagination();
     $('[data-total]').textContent = `${state.total} ${t.positions}`;
     $('[data-results-count]').textContent = `${state.total} ${t.positions}`;
     $('[data-model-total]').textContent = state.categories.reduce((sum, item) => sum + Number(item.count), 0);
@@ -87,6 +89,41 @@ document.addEventListener('DOMContentLoaded', () => {
     $('[data-empty]').hidden = state.products.length > 0;
     if (!state.products.length) $('[data-empty]').textContent = t.empty;
     document.title = [t.seoBase, state.category, state.model, t.seoSuffix].filter(Boolean).join(' — ');
+  }
+
+  function paginationUrl(page) {
+    const params = new URLSearchParams();
+    if (page > 1) params.set('page', page);
+    if (state.q) params.set('q', state.q);
+    if (state.sort !== 'newest') params.set('sort', state.sort);
+    const query = params.toString();
+    return `${location.pathname}${query ? `?${query}` : ''}`;
+  }
+
+  function renderPagination() {
+    const pagination = $('[data-pagination]');
+    if (!pagination) return;
+    pagination.hidden = state.lastPage <= 1;
+    if (state.lastPage <= 1) {
+      pagination.innerHTML = '';
+      return;
+    }
+
+    const pages = [...new Set([1, state.lastPage, state.page - 2, state.page - 1, state.page, state.page + 1, state.page + 2])]
+      .filter(page => page >= 1 && page <= state.lastPage)
+      .sort((a, b) => a - b);
+    let previous = null;
+    const links = [];
+    if (state.page > 1) links.push(`<a href="${paginationUrl(state.page - 1)}" rel="prev">← ${root.dataset.locale === 'ru' ? 'Назад' : 'Назад'}</a>`);
+    pages.forEach(page => {
+      if (previous !== null && page > previous + 1) links.push('<span class="parts-pagination-gap">…</span>');
+      links.push(page === state.page
+        ? `<span class="active" aria-current="page">${page}</span>`
+        : `<a href="${paginationUrl(page)}">${page}</a>`);
+      previous = page;
+    });
+    if (state.page < state.lastPage) links.push(`<a href="${paginationUrl(state.page + 1)}" rel="next">${root.dataset.locale === 'ru' ? 'Далее' : 'Далі'} →</a>`);
+    pagination.innerHTML = links.join('');
   }
 
   function renderModels() {
@@ -177,7 +214,9 @@ document.addEventListener('DOMContentLoaded', () => {
   $('[data-filter-form]').addEventListener('submit', event => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    state.q = String(data.get('q') || '').trim(); state.sort = data.get('sort'); state.page = 1; loadCatalog();
+    state.q = String(data.get('q') || '').trim(); state.sort = data.get('sort'); state.page = 1;
+    history.replaceState(null, '', paginationUrl(1));
+    loadCatalog();
   });
   $('[data-more]').addEventListener('click', () => { state.page += 1; loadCatalog(true); });
 

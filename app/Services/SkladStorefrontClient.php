@@ -24,6 +24,11 @@ class SkladStorefrontClient
         return $this->request()->get($this->url('products/'.$productId), ['locale' => $locale]);
     }
 
+    public function seoIndex(): Response
+    {
+        return $this->request()->get($this->url('seo-index'));
+    }
+
     public function warehouses(array $query): Response
     {
         return $this->request()->get($this->url('nova-poshta/warehouses'), $query);

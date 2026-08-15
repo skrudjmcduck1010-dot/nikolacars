@@ -16,15 +16,21 @@ class PartsController extends Controller
         $locale = $request->route('locale') === 'ru' ? 'ru' : 'uk';
         $modelSlug = (string) $request->route('modelSlug', '');
         $categorySlug = (string) $request->route('categorySlug', '');
+        $page = max(1, $request->integer('page', 1));
+        $query = trim((string) $request->query('q', ''));
+        $sort = (string) $request->query('sort', 'newest');
+        if (! in_array($sort, ['newest', 'price_asc', 'price_desc', 'name'], true)) {
+            $sort = 'newest';
+        }
 
         try {
             $response = $client->catalog(array_filter([
                 'locale' => $locale,
                 'model_slug' => $modelSlug,
                 'category_slug' => $categorySlug,
-                'q' => trim((string) $request->query('q', '')),
-                'sort' => (string) $request->query('sort', 'newest'),
-                'page' => 1,
+                'q' => $query,
+                'sort' => $sort,
+                'page' => $page,
                 'per_page' => 24,
             ], fn (mixed $value): bool => $value !== ''));
         } catch (ConnectionException|RuntimeException $exception) {
@@ -35,16 +41,22 @@ class PartsController extends Controller
         abort_unless($response->successful() && is_array($response->json()), 404);
 
         $initialCatalog = $response->json();
+        $lastPage = (int) ($initialCatalog['pagination']['last_page'] ?? 1);
+        abort_if($page > max(1, $lastPage), 404);
+
         $selection = $initialCatalog['selection'] ?? [];
         $sectionName = trim(implode(' — ', array_filter([
             $selection['category'] ?? '',
             $selection['model'] ?? '',
         ])));
         $baseTitle = $locale === 'ru' ? 'Запчасти Tesla' : 'Запчастини Tesla';
-        $seoTitle = implode(' — ', array_filter([$baseTitle, $sectionName, 'NikolaCars']));
+        $pageLabel = $page > 1 ? ($locale === 'ru' ? 'Страница '.$page : 'Сторінка '.$page) : '';
+        $seoTitle = implode(' — ', array_filter([$baseTitle, $sectionName, $pageLabel, 'NikolaCars']));
         $seoDescription = $locale === 'ru'
-            ? 'Оригинальные запчасти Tesla в наличии в Киеве'.($sectionName !== '' ? ': '.$sectionName : '').'.'
-            : 'Оригінальні запчастини Tesla в наявності у Києві'.($sectionName !== '' ? ': '.$sectionName : '').'.';
+            ? 'Оригинальные запчасти Tesla в наличии в Киеве'.($sectionName !== '' ? ': '.$sectionName : '').($page > 1 ? '. Страница '.$page : '').'.'
+            : 'Оригінальні запчастини Tesla в наявності у Києві'.($sectionName !== '' ? ': '.$sectionName : '').($page > 1 ? '. Сторінка '.$page : '').'.';
+        $seoNoindex = $query !== '' || $request->has('sort') || $request->has('model') || $request->has('category');
+        $seoPage = $seoNoindex ? 1 : $page;
 
         return view('parts.index', compact(
             'locale',
@@ -53,6 +65,8 @@ class PartsController extends Controller
             'initialCatalog',
             'seoTitle',
             'seoDescription',
+            'seoNoindex',
+            'seoPage',
         ));
     }
 
@@ -89,14 +103,94 @@ class PartsController extends Controller
             $productTitle = trim($productTitle.' '.$vehicle);
         }
         $seoTitle = $productTitle.' — '.$article.' | NikolaCars';
+        $price = number_format((float) ($productData['price_uah'] ?? 0), 0, '.', ' ');
+        $seoDescription = $locale === 'ru'
+            ? $productTitle.', артикул '.$article.' — '.$price.' грн. В наличии в NikolaCars, Киев.'
+            : $productTitle.', артикул '.$article.' — '.$price.' грн. В наявності у NikolaCars, Київ.';
+
+        $baseUrl = 'https://nikolacars.kiev.ua';
+        $catalogPath = $locale === 'ru' ? '/ru/parts/' : '/parts/';
+        $productUrl = $baseUrl.$catalogPath.$product.'/';
+        $images = collect($productData['images'] ?? [])
+            ->push($productData['image_url'] ?? null)
+            ->filter()
+            ->unique()
+            ->values()
+            ->all();
+        $condition = mb_strtolower(trim((string) ($productData['condition'] ?? '')), 'UTF-8');
+        $itemCondition = match (true) {
+            preg_match('/(^|\s)(new|нов|нова|новая)(\s|$)/u', $condition) === 1 => 'https://schema.org/NewCondition',
+            preg_match('/(used|б\/у|вживан|уживан)/u', $condition) === 1 => 'https://schema.org/UsedCondition',
+            default => null,
+        };
+        $offer = array_filter([
+            '@type' => 'Offer',
+            'url' => $productUrl,
+            'priceCurrency' => 'UAH',
+            'price' => number_format((float) ($productData['price_uah'] ?? 0), 2, '.', ''),
+            'availability' => (int) ($productData['quantity'] ?? 0) > 0
+                ? 'https://schema.org/InStock'
+                : 'https://schema.org/OutOfStock',
+            'itemCondition' => $itemCondition,
+            'seller' => ['@type' => 'Organization', 'name' => 'NikolaCars'],
+        ]);
+        $productSchema = array_filter([
+            '@context' => 'https://schema.org',
+            '@type' => 'Product',
+            'name' => $productTitle,
+            'image' => $images,
+            'description' => trim((string) ($productData['description'] ?? '')) ?: $seoDescription,
+            'sku' => trim((string) ($productData['sku'] ?? '')) ?: $article,
+            'mpn' => trim((string) ($productData['part_number'] ?? '')) ?: null,
+            'brand' => ['@type' => 'Brand', 'name' => 'Tesla'],
+            'category' => trim((string) ($productData['category_path'] ?? '')) ?: null,
+            'offers' => $offer,
+        ]);
+
+        $breadcrumbItems = [[
+            '@type' => 'ListItem',
+            'position' => 1,
+            'name' => $locale === 'ru' ? 'Запчасти Tesla' : 'Запчастини Tesla',
+            'item' => $baseUrl.$catalogPath,
+        ]];
+        $modelSlug = trim((string) ($productData['model_slug'] ?? ''));
+        if ($modelSlug !== '') {
+            $breadcrumbItems[] = [
+                '@type' => 'ListItem',
+                'position' => count($breadcrumbItems) + 1,
+                'name' => (string) ($productData['model'] ?? ''),
+                'item' => $baseUrl.$catalogPath.$modelSlug.'/',
+            ];
+        }
+        $categorySlug = trim((string) ($productData['category_slug'] ?? ''));
+        if ($modelSlug !== '' && $categorySlug !== '') {
+            $breadcrumbItems[] = [
+                '@type' => 'ListItem',
+                'position' => count($breadcrumbItems) + 1,
+                'name' => (string) ($productData['category'] ?? ''),
+                'item' => $baseUrl.$catalogPath.$modelSlug.'/'.$categorySlug.'/',
+            ];
+        }
+        $breadcrumbItems[] = [
+            '@type' => 'ListItem',
+            'position' => count($breadcrumbItems) + 1,
+            'name' => $name,
+            'item' => $productUrl,
+        ];
 
         return view('parts.show', [
             'locale' => $locale,
             'product' => $productData,
             'seoTitle' => $seoTitle,
-            'seoDescription' => $name.($locale === 'ru'
-                ? '. Оригинальные запчасти Tesla в наличии у NikolaCars.'
-                : '. Оригінальні запчастини Tesla в наявності у NikolaCars.'),
+            'seoDescription' => $seoDescription,
+            'seoStructuredData' => [
+                $productSchema,
+                [
+                    '@context' => 'https://schema.org',
+                    '@type' => 'BreadcrumbList',
+                    'itemListElement' => $breadcrumbItems,
+                ],
+            ],
         ]);
     }
 
