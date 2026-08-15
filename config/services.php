@@ -34,10 +34,15 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
-	'telegram' => [
-    'bot_token' => env('TELEGRAM_BOT_TOKEN'),
-    'chat_id'   => env('TELEGRAM_CHAT_ID'),
-],
+    'telegram' => [
+        'bot_token' => env('TELEGRAM_BOT_TOKEN'),
+        'chat_id' => env('TELEGRAM_CHAT_ID'),
+    ],
 
+    'sklad_storefront' => [
+        'base_url' => env('SKLAD_STOREFRONT_URL', 'http://sklad-zapchastey.test/api/storefront/v1'),
+        'token' => env('SKLAD_STOREFRONT_TOKEN'),
+        'timeout' => env('SKLAD_STOREFRONT_TIMEOUT', 20),
+    ],
 
 ];

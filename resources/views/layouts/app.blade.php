@@ -183,7 +183,7 @@
         </div>
       </div>
 
-      <a href="https://nikolacars.com.ua/ua/">{{ $L['parts'] }}</a>
+      <a href="{{ $loc === 'ru' ? '/ru/parts/' : '/parts/' }}">{{ $L['parts'] }}</a>
       <a href="{{ $loc === 'ru' ? '/ru/testimonial/' : '/testimonial/' }}">{{ $L['reviews'] }}</a>
       <a href="{{ $loc === 'ru' ? '/ru/news/' : '/news/' }}">{{ $L['news'] }}</a>
       <a href="{{ $loc === 'ru' ? '/ru/contacts/' : '/contacts/' }}">{{ $L['contacts'] }}</a>
