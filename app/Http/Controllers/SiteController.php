@@ -41,27 +41,68 @@ class SiteController extends Controller
     public function sitemap(Request $request)
     {
         $urls = Cache::remember('sitemap:urls', 60, function () {
-            $base = config('app.url');
+            $base = 'https://nikolacars.kiev.ua';
             $items = [];
 
-            foreach (Page::all() as $p) {
-                $items[] = $base . rtrim($p->path, '/');
-                $items[] = $base . '/ru' . rtrim($p->path, '/');
+            $add = static function (string $path) use (&$items, $base): void {
+                $path = '/' . trim($path, '/');
+                $items[] = $base . ($path === '/' ? '/' : $path . '/');
+            };
+
+            $staticPaths = [
+                '/',
+                '/ru/',
+                '/services/',
+                '/ru/services/',
+                '/testimonial/',
+                '/ru/testimonial/',
+                '/news/',
+                '/ru/news/',
+                '/contacts/',
+                '/ru/contacts/',
+                '/privacy-policy/',
+                '/ru/privacy-policy/',
+                '/services/tesla-service/',
+                '/ru/services/tesla-service/',
+                '/services/tesla-electricmotor-repair/',
+                '/ru/services/tesla-electricmotor-repair/',
+                '/services/tesla-battery-repair/',
+                '/ru/services/tesla-battery-repair/',
+                '/services/repair-tesla-door-handle/',
+                '/ru/services/repair-tesla-door-handle/',
+                '/services/tesla-subframe-repair/',
+                '/ru/services/tesla-subframe-repair/',
+                '/services/vidnovlennya-sertyfikativ-tesla/',
+                '/ru/services/vidnovlennya-sertyfikativ-tesla/',
+                '/services/firmware-auto/',
+                '/ru/services/firmware-auto/',
+                '/services/prigon-tesla-usa/',
+                '/ru/services/prigon-tesla-usa/',
+            ];
+
+            foreach ($staticPaths as $path) {
+                $add($path);
             }
-            foreach (Post::all() as $p) {
-                $items[] = $base . rtrim($p->path, '/');
-                $items[] = $base . '/ru' . rtrim($p->path, '/');
+
+            foreach (config('targeted_services', []) as $service) {
+                $slug = $service['slug'] ?? null;
+                if (! $slug || ! view()->exists('services.targeted.' . $slug)) {
+                    continue;
+                }
+
+                $add('/services/' . $slug . '/');
+                $add('/ru/services/' . $slug . '/');
             }
-            return $items;
+
+            return array_values(array_unique($items));
         });
 
         $xml = view('sitemap', ['urls' => $urls])->render();
         return Response::make($xml, 200, ['Content-Type' => 'application/xml; charset=UTF-8']);
     }
-
     public function robots(Request $request)
     {
-        $txt = "User-agent: *\nAllow: /\n\nSitemap: " . rtrim(config('app.url'), '/') . "/sitemap.xml\n";
+        $txt = "User-agent: *\nAllow: /\n\nSitemap: https://nikolacars.kiev.ua/sitemap.xml\n";
         return Response::make($txt, 200, ['Content-Type' => 'text/plain; charset=UTF-8']);
     }
 }

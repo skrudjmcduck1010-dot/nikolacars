@@ -4,6 +4,17 @@
     </IfModule>
 
     RewriteEngine On
+    # Legacy service URL redirects.
+    RewriteRule ^services/(import-usa|prigon-usa)/?$ https://nikolacars.kiev.ua/services/prigon-tesla-usa/ [L,R=301]
+    RewriteRule ^ru/services/(import-usa|prigon-usa)/?$ https://nikolacars.kiev.ua/ru/services/prigon-tesla-usa/ [L,R=301]
+    RewriteRule ^services/restore-certificates/?$ https://nikolacars.kiev.ua/services/vidnovlennya-sertyfikativ-tesla/ [L,R=301]
+    RewriteRule ^ru/services/restore-certificates/?$ https://nikolacars.kiev.ua/ru/services/vidnovlennya-sertyfikativ-tesla/ [L,R=301]
+
+    # Canonical HTTPS host for production only.
+    RewriteCond %{HTTP_HOST} ^(www\.)?nikolacars\.kiev\.ua$ [NC]
+    RewriteCond %{HTTPS} !=on [OR]
+    RewriteCond %{HTTP_HOST} ^www\.nikolacars\.kiev\.ua$ [NC]
+    RewriteRule ^ https://nikolacars.kiev.ua%{REQUEST_URI} [L,R=301]
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
@@ -12,11 +23,6 @@
     # Handle X-XSRF-Token Header
     RewriteCond %{HTTP:x-xsrf-token} .
     RewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
-
-    # Redirect Trailing Slashes If Not A Folder...
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_URI} (.+)/$
-    RewriteRule ^ %1 [L,R=301]
 
     # Send Requests To Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d

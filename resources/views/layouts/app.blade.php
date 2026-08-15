@@ -6,13 +6,30 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <title>@yield('title', 'NikolaCars')</title>
+  @php
+    $metaLoc = (($locale ?? 'uk') === 'ru') ? 'ru' : 'uk';
+    $metaPath = '/' . ltrim(request()->path(), '/');
+    $metaPath = rtrim($metaPath, '/') . '/';
+    if ($metaPath === '//') $metaPath = '/';
+
+    $metaUaPath = preg_replace('#^/ru/#', '/', $metaPath);
+    $metaRuPath = $metaUaPath === '/' ? '/ru/' : '/ru' . $metaUaPath;
+    $metaCanonicalPath = $metaLoc === 'ru' ? $metaRuPath : $metaUaPath;
+    $metaBaseUrl = 'https://nikolacars.kiev.ua';
+  @endphp
   <meta name="description" content="@yield('description', (($locale ?? 'uk') === 'ru') ? 'Сервис Tesla, ремонт Tesla, СТО Tesla в Киеве.' : 'Сервіс Tesla, ремонт Tesla, СТО Tesla у Києві.')">
 
-  <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon.png') }}">
-  <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon.png') }}">
-  <link rel="apple-touch-icon" href="{{ asset('favicon.png') }}">
+  <link rel="canonical" href="{{ $metaBaseUrl . $metaCanonicalPath }}">
+  <link rel="alternate" hreflang="uk-UA" href="{{ $metaBaseUrl . $metaUaPath }}">
+  <link rel="alternate" hreflang="ru-UA" href="{{ $metaBaseUrl . $metaRuPath }}">
+  <link rel="alternate" hreflang="x-default" href="{{ $metaBaseUrl . $metaUaPath }}">
 
-  <link rel="stylesheet" href="/assets/css/app.css?v=8">
+  <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
+  <link rel="icon" type="image/png" sizes="48x48" href="{{ asset('favicon-48x48.png') }}">
+  <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('favicon-96x96.png') }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
+
+  <link rel="stylesheet" href="/assets/css/app.css?v=12">
 </head>
 
 <body>
@@ -159,7 +176,7 @@
         </a>
 
         <div class="dropdown-menu">
-          <a href="{{ $loc === 'ru' ? '/ru/services/prigon-tesla-usa' : '/services/prigon-tesla-usa' }}">{{ $L['srv1'] }}</a>
+          <a href="{{ $loc === 'ru' ? '/ru/services/prigon-tesla-usa/' : '/services/prigon-tesla-usa/' }}">{{ $L['srv1'] }}</a>
           <a href="{{ $loc === 'ru' ? '/ru/services/tesla-service/' : '/services/tesla-service/' }}">{{ $L['srv2'] }}</a>
           <a href="{{ $loc === 'ru' ? '/ru/services/vidnovlennya-sertyfikativ-tesla/' : '/services/vidnovlennya-sertyfikativ-tesla/' }}">{{ $L['srv3'] }}</a>
           <a href="{{ $loc === 'ru' ? '/ru/services/firmware-auto/' : '/services/firmware-auto/' }}">{{ $L['srv4'] }}</a>

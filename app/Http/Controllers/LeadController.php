@@ -46,6 +46,7 @@ class LeadController extends Controller
             'source_page'  => ['nullable', 'string', 'max:50'],   // например: home
             'slide_title'  => ['nullable', 'string', 'max:255'],  // например: "Пригін Tesla із США під ключ"
             'slide_service'=> ['nullable', 'string', 'max:50'],   // например: import/service/fw/cert (если добавишь)
+            'service_title'=> ['nullable', 'string', 'max:255'],
         ]);
 
         $token = config('services.telegram.bot_token');
@@ -60,7 +61,7 @@ class LeadController extends Controller
 
         $source = $data['source_page'] ?? null;
         $slideTitle = $data['slide_title'] ?? null;
-        $slideService = $data['slide_service'] ?? null;
+        $serviceTitle = $data['service_title'] ?? ($data['slide_service'] ?? null);
 
         // Если пришло source_page=home — пишем "Главная"
         $sourceLabel = ($source === 'home') ? 'Головна' : ($source ? $this->tgEscape($source) : null);
@@ -71,14 +72,14 @@ class LeadController extends Controller
             ."📞 Телефон: *{$phone}*\n"
             .($sourceLabel ? "📍 Джерело: *{$sourceLabel}*\n" : "")
             .(!empty($slideTitle) ? "🎞 Слайд: *".$this->tgEscape($slideTitle)."*\n" : "")
-            .(!empty($slideService) ? "🧩 Послуга: *".$this->tgEscape($slideService)."*\n" : "")
+            .(!empty($serviceTitle) ? "🧩 Послуга: *".$this->tgEscape($serviceTitle)."*\n" : "")
             .(!empty($data['page']) ? "🌐 Сторінка: ".$this->tgEscape($data['page'])."\n" : "")
             .(!empty($data['details']) ? "\n📝 Деталі:\n".$this->tgEscape($data['details']) : "");
 
         $resp = Http::timeout(8)->post("https://api.telegram.org/bot{$token}/sendMessage", [
             'chat_id' => $chatId,
             'text' => $text,
-            'parse_mode' => 'Markdown',
+            'parse_mode' => 'MarkdownV2',
             'disable_web_page_preview' => true,
         ]);
 
