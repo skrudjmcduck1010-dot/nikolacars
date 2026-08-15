@@ -48,7 +48,12 @@
         <div class="product-buy-box">
           <div class="product-detail-price">{{ number_format((float) $product['price_uah'], 0, '.', ' ') }} грн</div>
           <div class="product-detail-stock">{{ $isRu ? 'В наличии' : 'В наявності' }}: {{ $product['quantity'] }}</div>
-          <button type="button" data-product-add>{{ $isRu ? 'Добавить в корзину' : 'Додати в кошик' }}</button>
+          <button
+            type="button"
+            data-product-add
+            data-added-label="{{ $isRu ? 'В корзине' : 'У кошику' }}"
+            aria-pressed="false"
+          >{{ $isRu ? 'Добавить в корзину' : 'Додати в кошик' }}</button>
         </div>
 
         <dl class="product-specs">
@@ -72,5 +77,5 @@
 
 @push('scripts')
 <script>window.productPageConfig = @json(['catalogUrl' => $catalogUrl]);</script>
-<script src="{{ asset('assets/js/parts-product.js') }}?v=1" defer></script>
+<script src="{{ asset('assets/js/parts-product.js') }}?v=2" defer></script>
 @endpush
