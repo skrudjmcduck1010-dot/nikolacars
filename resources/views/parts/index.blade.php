@@ -7,6 +7,7 @@
 @endphp
 <main class="parts-main" id="partsCatalog"
       data-locale="{{ $locale }}"
+      data-product-base="{{ $isRu ? '/ru/parts' : '/parts' }}"
       data-catalog-url="{{ $apiPrefix }}/catalog/"
       data-cities-url="{{ $apiPrefix }}/nova-poshta/cities/"
       data-warehouses-url="{{ $apiPrefix }}/nova-poshta/warehouses/"
@@ -117,5 +118,5 @@
 <script>
 window.partsI18n = @json($partsI18n);
 </script>
-<script src="{{ asset('assets/js/parts.js') }}?v=1" defer></script>
+<script src="{{ asset('assets/js/parts.js') }}?v=3" defer></script>
 @endpush

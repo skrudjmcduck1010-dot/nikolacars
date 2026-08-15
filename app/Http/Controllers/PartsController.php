@@ -23,6 +23,25 @@ class PartsController extends Controller
         return $this->proxy(fn () => $client->catalog($request->query() + ['locale' => $locale]));
     }
 
+    public function show(SkladStorefrontClient $client, int $product, string $locale = 'uk'): View
+    {
+        $locale = $locale === 'ru' ? 'ru' : 'uk';
+
+        try {
+            $response = $client->product($product, $locale);
+        } catch (ConnectionException|RuntimeException $exception) {
+            report($exception);
+            abort(503, 'Склад временно недоступен.');
+        }
+
+        abort_unless($response->successful() && is_array($response->json()), 404);
+
+        return view('parts.show', [
+            'locale' => $locale,
+            'product' => $response->json(),
+        ]);
+    }
+
     public function cities(Request $request, SkladStorefrontClient $client): JsonResponse
     {
         return $this->proxy(fn () => $client->cities($request->query()));

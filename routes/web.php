@@ -75,6 +75,7 @@ Route::prefix('parts')->group(function (): void {
     Route::get('api/nova-poshta/cities/', [PartsController::class, 'cities'])->name('parts.cities');
     Route::get('api/nova-poshta/warehouses/', [PartsController::class, 'warehouses'])->name('parts.warehouses');
     Route::post('api/orders', [PartsController::class, 'storeOrder'])->defaults('locale', 'uk')->name('parts.orders');
+    Route::get('{product}/', [PartsController::class, 'show'])->whereNumber('product')->defaults('locale', 'uk')->name('parts.show');
 });
 
 Route::prefix('ru/parts')->group(function (): void {
@@ -83,6 +84,7 @@ Route::prefix('ru/parts')->group(function (): void {
     Route::get('api/nova-poshta/cities/', [PartsController::class, 'cities'])->name('parts.ru.cities');
     Route::get('api/nova-poshta/warehouses/', [PartsController::class, 'warehouses'])->name('parts.ru.warehouses');
     Route::post('api/orders', [PartsController::class, 'storeOrder'])->defaults('locale', 'ru')->name('parts.ru.orders');
+    Route::get('{product}/', [PartsController::class, 'show'])->whereNumber('product')->defaults('locale', 'ru')->name('parts.ru.show');
 });
 $legacyRedirects = [
     '/services/import-usa/' => '/services/prigon-tesla-usa/',

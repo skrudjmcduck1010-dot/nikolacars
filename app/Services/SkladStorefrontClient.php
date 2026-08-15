@@ -19,6 +19,11 @@ class SkladStorefrontClient
         return $this->request()->get($this->url('nova-poshta/cities'), $query);
     }
 
+    public function product(int $productId, string $locale): Response
+    {
+        return $this->request()->get($this->url('products/'.$productId), ['locale' => $locale]);
+    }
+
     public function warehouses(array $query): Response
     {
         return $this->request()->get($this->url('nova-poshta/warehouses'), $query);

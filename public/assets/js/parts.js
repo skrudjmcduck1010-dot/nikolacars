@@ -5,7 +5,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const t = window.partsI18n || {};
   const $ = (selector, context = document) => context.querySelector(selector);
   const $$ = (selector, context = document) => [...context.querySelectorAll(selector)];
-  const state = { model: '', category: '', q: '', sort: 'newest', page: 1, lastPage: 1, models: [], categories: [], products: [], total: 0 };
+  const initialParams = new URLSearchParams(location.search);
+  const state = {
+    model: initialParams.get('model') || '',
+    category: initialParams.get('category') || '',
+    q: initialParams.get('q') || '',
+    sort: initialParams.get('sort') || 'newest',
+    page: 1, lastPage: 1, models: [], categories: [], products: [], total: 0
+  };
   const cartKey = 'nikolacars-parts-cart-v1';
   let cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
   let cityTimer;
@@ -15,11 +22,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const escapeHtml = value => String(value ?? '').replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char]));
   const saveCart = () => { localStorage.setItem(cartKey, JSON.stringify(cart)); renderCart(); renderProducts(); };
 
+  function renderLoading() {
+    $('[data-products]').innerHTML = Array.from({ length: 6 }, () => `
+      <div class="part-card part-skeleton" aria-hidden="true">
+        <div class="part-image"></div>
+        <div class="part-card-body"><i></i><i></i><i></i><i></i></div>
+      </div>`).join('');
+  }
+
   async function loadCatalog(append = false) {
     const params = new URLSearchParams({ page: state.page, per_page: 24, sort: state.sort });
     if (state.model) params.set('model', state.model);
     if (state.category) params.set('category', state.category);
     if (state.q) params.set('q', state.q);
+    if (!append && state.products.length === 0) renderLoading();
     $('[data-products]').classList.add('loading');
     try {
       const response = await fetch(`${root.dataset.catalogUrl}?${params}`, { headers: { Accept: 'application/json' } });
@@ -32,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
       state.lastPage = data.pagination?.last_page || 1;
       render();
     } catch (error) {
+      if (!append) $('[data-products]').innerHTML = '';
       $('[data-empty]').hidden = false;
       $('[data-empty]').textContent = error.message || t.loadError;
     } finally {
@@ -75,10 +92,11 @@ document.addEventListener('DOMContentLoaded', () => {
     $('[data-products]').innerHTML = state.products.map(product => {
       const inCart = cart.some(item => item.id === product.id);
       const image = product.image_url ? `<img src="${escapeHtml(product.image_url)}" alt="${escapeHtml(product.name)}" loading="lazy" onerror="this.closest('.part-image').classList.add('no-image');this.remove()">` : '';
+      const productUrl = `${root.dataset.productBase}/${product.id}/`;
       return `<article class="part-card">
-        <div class="part-image ${image ? '' : 'no-image'}">${image}<span>NIKOLACARS</span></div>
+        <a href="${productUrl}" class="part-image ${image ? '' : 'no-image'}">${image}<span>NIKOLACARS</span></a>
         <div class="part-card-body">
-          <h3>${escapeHtml(product.name)}</h3>
+          <h3><a href="${productUrl}">${escapeHtml(product.name)}</a></h3>
           <div class="part-codes">${escapeHtml([product.part_number, product.sku, product.vin].filter(Boolean).join(' · '))}</div>
           <div class="part-category-path">${escapeHtml(product.category_path)}</div>
           <div class="part-price">${money(product.price_uah)}</div>
@@ -197,5 +215,10 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   cart = cart.filter(item => item && Number.isInteger(item.id));
+  $('[data-filter-form] input[name="q"]').value = state.q;
+  if ($(`[data-filter-form] select[name="sort"] option[value="${CSS.escape(state.sort)}"]`)) {
+    $('[data-filter-form] select[name="sort"]').value = state.sort;
+  }
   renderCart(); loadCatalog();
+  if (initialParams.get('cart') === 'open') openCart();
 });

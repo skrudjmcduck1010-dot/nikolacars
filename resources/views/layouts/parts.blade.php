@@ -10,7 +10,7 @@
   <link rel="alternate" hreflang="uk-UA" href="https://nikolacars.kiev.ua/parts/">
   <link rel="alternate" hreflang="ru-UA" href="https://nikolacars.kiev.ua/ru/parts/">
   <link rel="icon" href="{{ asset('favicon.ico') }}">
-  <link rel="stylesheet" href="{{ asset('assets/css/parts.css') }}?v=2">
+  <link rel="stylesheet" href="{{ asset('assets/css/parts.css') }}?v=3">
 </head>
 <body class="parts-page">
   <header class="parts-header">
