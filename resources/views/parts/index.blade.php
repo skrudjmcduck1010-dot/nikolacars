@@ -62,7 +62,7 @@
       <form class="parts-toolbar parts-title-search" id="partsFilterForm" data-filter-form role="search">
         <div class="parts-search-field">
           <input type="search" name="q" value="{{ request('q') }}" autocomplete="off"
-                 placeholder="{{ $isRu ? 'Название, артикул, VIN' : 'Назва, артикул, VIN' }}"
+                 placeholder="{{ $isRu ? 'Название, Артикул' : 'Назва, Артикул' }}"
                  aria-label="{{ $isRu ? 'Поиск запчастей' : 'Пошук запчастин' }}"
                  aria-autocomplete="list" aria-controls="partsSearchSuggestions" aria-expanded="false"
                  data-search-input>
