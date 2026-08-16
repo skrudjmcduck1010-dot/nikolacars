@@ -12,7 +12,7 @@
 <main class="product-page">
   <div class="parts-container">
     <nav class="product-breadcrumbs">
-      <a href="{{ $catalogUrl }}">{{ $isRu ? 'Каталог' : 'Каталог' }}</a>
+      <a href="{{ $catalogUrl }}">{{ $isRu ? 'Запчасти' : 'Запчастини' }}</a>
       <span>›</span>
       <a href="{{ $catalogUrl.($product['model_slug'] ?? '').'/' }}">{{ $product['model'] ?? '' }}</a>
       @if(!empty($product['category_slug']))
