@@ -8,6 +8,15 @@
   if ($images->isEmpty() && !empty($product['image_url'])) $images = collect([$product['image_url']]);
   $similarProducts = collect($product['similar_products'] ?? []);
   $subcategoryProducts = collect($product['subcategory_products'] ?? []);
+  $productModel = trim((string) ($product['model'] ?? ''));
+  $productModel = $productModel !== '' && !str_starts_with(mb_strtolower($productModel), 'tesla ')
+    ? 'Tesla '.$productModel
+    : $productModel;
+  $productHeading = collect([
+    $product['name'] ?? '',
+    $productModel,
+    $product['part_number'] ?? '',
+  ])->map(fn ($value) => trim((string) $value))->filter()->unique()->implode(' — ');
 @endphp
 <main class="product-page">
   <div class="parts-container">
@@ -49,7 +58,7 @@
 
       <section class="product-info">
         <div class="product-model">{{ $product['model'] ?? '' }}</div>
-        <h1>{{ $product['name'] }}</h1>
+        <h1>{{ $productHeading }}</h1>
         <div class="product-code-line">{{ collect([$product['part_number'] ?? null, $product['sku'] ?? null, $product['vin'] ?? null])->filter()->implode(' · ') }}</div>
         <div class="product-category-label">{{ $product['category_path'] ?? '' }}</div>
 
