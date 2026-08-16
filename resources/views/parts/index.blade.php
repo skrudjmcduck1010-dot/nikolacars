@@ -87,9 +87,10 @@
         </div>
         <div class="parts-products" data-products>
           @foreach($products as $product)
+            @php $cardImage = $product['thumbnail_url'] ?? $product['image_url'] ?? null; @endphp
             <article class="part-card">
-              <a href="{{ $catalogBase.'/'.$product['id'].'/' }}" class="part-image {{ empty($product['image_url']) ? 'no-image' : '' }}">
-                @if(!empty($product['image_url']))<img src="{{ $product['image_url'] }}" alt="{{ $product['name'] }}" loading="lazy">@endif
+              <a href="{{ $catalogBase.'/'.$product['id'].'/' }}" class="part-image {{ empty($cardImage) ? 'no-image' : '' }}">
+                @if(!empty($cardImage))<img src="{{ $cardImage }}" alt="{{ $product['name'] }}" loading="lazy" decoding="async">@endif
                 <span>NIKOLACARS</span>
               </a>
               <div class="part-card-body">
@@ -191,5 +192,5 @@
 window.partsI18n = @json($partsI18n);
 window.initialPartsCatalog = @json($initialCatalog);
 </script>
-<script src="{{ asset('assets/js/parts.js') }}?v=7" defer></script>
+<script src="{{ asset('assets/js/parts.js') }}?v=8" defer></script>
 @endpush

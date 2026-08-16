@@ -147,7 +147,8 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderProducts() {
     $('[data-products]').innerHTML = state.products.map(product => {
       const inCart = cart.some(item => item.id === product.id);
-      const image = product.image_url ? `<img src="${escapeHtml(product.image_url)}" alt="${escapeHtml(product.name)}" loading="lazy" onerror="this.closest('.part-image').classList.add('no-image');this.remove()">` : '';
+      const imageUrl = product.thumbnail_url || product.image_url;
+      const image = imageUrl ? `<img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(product.name)}" loading="lazy" decoding="async" onerror="this.closest('.part-image').classList.add('no-image');this.remove()">` : '';
       const productUrl = `${root.dataset.productBase}/${product.id}/`;
       return `<article class="part-card">
         <a href="${productUrl}" class="part-image ${image ? '' : 'no-image'}">${image}<span>NIKOLACARS</span></a>
@@ -167,13 +168,16 @@ document.addEventListener('DOMContentLoaded', () => {
     $('[data-cart-count]').textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
     $('[data-cart-empty]').hidden = cart.length > 0;
     $('[data-checkout]').hidden = cart.length === 0;
-    $('[data-cart-lines]').innerHTML = cart.map(item => `
+    $('[data-cart-lines]').innerHTML = cart.map(item => {
+      const imageUrl = item.thumbnail_url || item.image_url;
+      return `
       <div class="cart-line">
-        <div class="cart-line-image">${item.image_url ? `<img src="${escapeHtml(item.image_url)}" alt="">` : ''}</div>
+        <div class="cart-line-image">${imageUrl ? `<img src="${escapeHtml(imageUrl)}" alt="">` : ''}</div>
         <div class="cart-line-info"><b>${escapeHtml(item.name)}</b><span>${money(item.price_uah)}</span>
           <div class="cart-quantity"><button type="button" data-cart-minus="${item.id}">−</button><span>${item.quantity}</span><button type="button" data-cart-plus="${item.id}">+</button><button class="cart-remove" type="button" data-cart-remove="${item.id}">×</button></div>
         </div>
-      </div>`).join('');
+      </div>`;
+    }).join('');
     $('[data-cart-total]').textContent = money(cart.reduce((sum, item) => sum + item.price_uah * item.quantity, 0));
   }
 
