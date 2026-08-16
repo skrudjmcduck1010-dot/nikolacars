@@ -22,3 +22,4 @@
 .part-purchase-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto}.part-purchase-row .part-price{margin-top:0}.part-card .add-cart{flex:0 0 42px;width:42px;height:38px;display:grid;place-items:center;padding:0}.part-card .add-cart svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 .parts-page .parts-sort,.parts-page .parts-sort option{font-size:11px}
 .parts-title-search input::placeholder{color:#b8bec5;opacity:1}
+.parts-search-suggestion-copy strong,.parts-search-suggestion-copy .parts-search-suggestion-model,.parts-search-suggestion-copy small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.parts-search-suggestion-model{margin-top:3px;color:#c83a34;font-size:11px;line-height:1.15}.parts-search-suggestion-model+small{margin-top:2px}

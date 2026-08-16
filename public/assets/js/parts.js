@@ -102,6 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
           </span>
           <span class="parts-search-suggestion-copy">
             <strong>${escapeHtml(product.name)}</strong>
+            ${product.model ? `<span class="parts-search-suggestion-model">${escapeHtml(product.model)}</span>` : ''}
             <small>${escapeHtml(codes)}</small>
           </span>
           <b>${money(product.price_uah)}</b>
