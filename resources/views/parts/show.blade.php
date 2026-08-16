@@ -67,6 +67,11 @@
         <dl class="product-specs">
           @if(!empty($product['part_number']))<div><dt>{{ $isRu ? 'Артикул' : 'Артикул' }}</dt><dd>{{ $product['part_number'] }}</dd></div>@endif
           @if(!empty($product['sku']))<div><dt>{{ $isRu ? 'Код склада' : 'Код складу' }}</dt><dd>{{ $product['sku'] }}</dd></div>@endif
+          @if(!empty($product['condition']))<div><dt>{{ $isRu ? 'Состояние' : 'Стан' }}</dt><dd>{{ $product['condition'] }}</dd></div>@endif
+          @if(!empty($product['part_origin']))<div><dt>{{ $isRu ? 'Тип запчасти' : 'Тип запчастини' }}</dt><dd>{{ $product['part_origin'] }}</dd></div>@endif
+          @if(!empty($product['damage_status']))
+            <div><dt>{{ $isRu ? 'Повреждения' : 'Пошкодження' }}</dt><dd>{{ $product['damage_status'] }}@if(!empty($product['damage_description']))<span class="product-spec-note">{{ $product['damage_description'] }}</span>@endif</dd></div>
+          @endif
           @if(!empty($product['vin']))<div><dt>VIN</dt><dd>{{ $product['vin'] }}</dd></div>@endif
           @if(!empty($product['color']))<div><dt>{{ $isRu ? 'Цвет' : 'Колір' }}</dt><dd>{{ $product['color'] }}</dd></div>@endif
           @if(!empty($product['compatibility']))<div><dt>{{ $isRu ? 'Совместимость' : 'Сумісність' }}</dt><dd>{{ $product['compatibility'] }}</dd></div>@endif
