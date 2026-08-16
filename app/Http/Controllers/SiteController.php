@@ -44,68 +44,118 @@ class SiteController extends Controller
         });
     }
 
-    public function sitemap(Request $request, SkladStorefrontClient $storefront)
+    public function sitemap(Request $request)
     {
-        $base = 'https://nikolacars.kiev.ua';
-        $items = [];
-        $add = static function (string $path, ?string $lastModified = null) use (&$items, $base): void {
-            $path = '/'.trim($path, '/');
-            $url = $base.($path === '/' ? '/' : $path.'/');
-            $items[$url] = array_filter([
-                'loc' => $url,
-                'lastmod' => $lastModified ? substr($lastModified, 0, 10) : null,
-            ]);
-        };
+        $xml = Cache::rememberForever('sitemap:index:xml:v1', fn (): string => view('sitemap-index', [
+            'sitemaps' => [
+                'https://nikolacars.kiev.ua/sitemaps/pages.xml',
+                'https://nikolacars.kiev.ua/sitemaps/parts-uk.xml',
+                'https://nikolacars.kiev.ua/sitemaps/parts-ru.xml',
+            ],
+        ])->render());
 
-        $staticPaths = [
-            '/',
-            '/ru/',
-            '/services/',
-            '/ru/services/',
-            '/testimonial/',
-            '/ru/testimonial/',
-            '/news/',
-            '/ru/news/',
-            '/contacts/',
-            '/ru/contacts/',
-            '/parts/',
-            '/ru/parts/',
-            '/privacy-policy/',
-            '/ru/privacy-policy/',
-            '/services/tesla-service/',
-            '/ru/services/tesla-service/',
-            '/services/tesla-electricmotor-repair/',
-            '/ru/services/tesla-electricmotor-repair/',
-            '/services/tesla-battery-repair/',
-            '/ru/services/tesla-battery-repair/',
-            '/services/repair-tesla-door-handle/',
-            '/ru/services/repair-tesla-door-handle/',
-            '/services/tesla-subframe-repair/',
-            '/ru/services/tesla-subframe-repair/',
-            '/services/vidnovlennya-sertyfikativ-tesla/',
-            '/ru/services/vidnovlennya-sertyfikativ-tesla/',
-            '/services/firmware-auto/',
-            '/ru/services/firmware-auto/',
-            '/services/prigon-tesla-usa/',
-            '/ru/services/prigon-tesla-usa/',
-        ];
+        return $this->xmlResponse($request, $xml, 86400);
+    }
 
-        foreach ($staticPaths as $path) {
-            $add($path);
-        }
+    public function sitemapPages(Request $request)
+    {
+        $xml = Cache::remember('sitemap:pages:xml:v1', now()->addDay(), function (): string {
+            $paths = [
+                '/',
+                '/ru/',
+                '/services/',
+                '/ru/services/',
+                '/testimonial/',
+                '/ru/testimonial/',
+                '/news/',
+                '/ru/news/',
+                '/contacts/',
+                '/ru/contacts/',
+                '/privacy-policy/',
+                '/ru/privacy-policy/',
+                '/services/tesla-service/',
+                '/ru/services/tesla-service/',
+                '/services/tesla-electricmotor-repair/',
+                '/ru/services/tesla-electricmotor-repair/',
+                '/services/tesla-battery-repair/',
+                '/ru/services/tesla-battery-repair/',
+                '/services/repair-tesla-door-handle/',
+                '/ru/services/repair-tesla-door-handle/',
+                '/services/tesla-subframe-repair/',
+                '/ru/services/tesla-subframe-repair/',
+                '/services/vidnovlennya-sertyfikativ-tesla/',
+                '/ru/services/vidnovlennya-sertyfikativ-tesla/',
+                '/services/firmware-auto/',
+                '/ru/services/firmware-auto/',
+                '/services/prigon-tesla-usa/',
+                '/ru/services/prigon-tesla-usa/',
+            ];
 
-        foreach (config('targeted_services', []) as $service) {
-            $slug = $service['slug'] ?? null;
-            if (! $slug || ! view()->exists('services.targeted.'.$slug)) {
-                continue;
+            foreach (config('targeted_services', []) as $service) {
+                $slug = $service['slug'] ?? null;
+                if ($slug && view()->exists('services.targeted.'.$slug)) {
+                    $paths[] = '/services/'.$slug.'/';
+                    $paths[] = '/ru/services/'.$slug.'/';
+                }
             }
 
-            $add('/services/'.$slug.'/');
-            $add('/ru/services/'.$slug.'/');
-        }
+            return view('sitemap', ['urls' => $this->sitemapItems($paths)])->render();
+        });
 
+        return $this->xmlResponse($request, $xml, 86400);
+    }
+
+    public function sitemapParts(Request $request, string $locale, SkladStorefrontClient $storefront)
+    {
+        abort_unless(in_array($locale, ['uk', 'ru'], true), 404);
+
+        $xml = Cache::flexible(
+            'sitemap:parts:'.$locale.':xml:v1',
+            [3600, 604800],
+            function () use ($locale, $storefront): string {
+                $partsIndex = $this->partsIndex($storefront);
+                $prefix = $locale === 'ru' ? '/ru/parts' : '/parts';
+                $paths = [[$prefix, $partsIndex['updated_at'] ?? null]];
+                $sections = $partsIndex['locales'][$locale] ?? [];
+
+                foreach (($sections['models'] ?? []) as $model) {
+                    if (! empty($model['slug'])) {
+                        $paths[] = [$prefix.'/'.$model['slug'], $partsIndex['updated_at'] ?? null];
+                    }
+                }
+
+                foreach (($sections['categories'] ?? []) as $category) {
+                    if (! empty($category['slug'])) {
+                        $paths[] = [$prefix.'/category/'.$category['slug'], $partsIndex['updated_at'] ?? null];
+                    }
+                }
+
+                foreach (($sections['sections'] ?? []) as $section) {
+                    if (! empty($section['model_slug']) && ! empty($section['category_slug'])) {
+                        $paths[] = [
+                            $prefix.'/'.$section['model_slug'].'/'.$section['category_slug'],
+                            $partsIndex['updated_at'] ?? null,
+                        ];
+                    }
+                }
+
+                foreach (($partsIndex['products'] ?? []) as $product) {
+                    if (! empty($product['id'])) {
+                        $paths[] = [$prefix.'/'.$product['id'], $product['updated_at'] ?? null];
+                    }
+                }
+
+                return view('sitemap', ['urls' => $this->sitemapItems($paths)])->render();
+            },
+        );
+
+        return $this->xmlResponse($request, $xml, 3600);
+    }
+
+    protected function partsIndex(SkladStorefrontClient $storefront): array
+    {
         try {
-            $partsIndex = Cache::remember('sitemap:parts-index:v1', now()->addHour(), function () use ($storefront): array {
+            return Cache::remember('sitemap:parts-index:v1', now()->addHour(), function () use ($storefront): array {
                 $response = $storefront->seoIndex();
                 if (! $response->successful() || ! is_array($response->json())) {
                     throw new RuntimeException('Warehouse SEO index returned HTTP '.$response->status().'.');
@@ -118,44 +168,37 @@ class SiteController extends Controller
             });
         } catch (ConnectionException|RuntimeException $exception) {
             report($exception);
-            $partsIndex = Cache::get('sitemap:parts-index:stale:v1', []);
+
+            return Cache::get('sitemap:parts-index:stale:v1', []);
+        }
+    }
+
+    protected function sitemapItems(array $paths): array
+    {
+        $base = 'https://nikolacars.kiev.ua';
+        $items = [];
+
+        foreach ($paths as $entry) {
+            [$path, $lastModified] = is_array($entry) ? [$entry[0], $entry[1] ?? null] : [$entry, null];
+            $path = '/'.trim((string) $path, '/');
+            $url = $base.($path === '/' ? '/' : $path.'/');
+            $items[$url] = array_filter([
+                'loc' => $url,
+                'lastmod' => $lastModified ? substr((string) $lastModified, 0, 10) : null,
+            ]);
         }
 
-        $partsUpdatedAt = $partsIndex['updated_at'] ?? null;
-        foreach (($partsIndex['locales'] ?? []) as $locale => $sections) {
-            $prefix = $locale === 'ru' ? '/ru/parts' : '/parts';
+        return array_values($items);
+    }
 
-            foreach (($sections['models'] ?? []) as $model) {
-                if (! empty($model['slug'])) {
-                    $add($prefix.'/'.$model['slug'], $partsUpdatedAt);
-                }
-            }
+    protected function xmlResponse(Request $request, string $xml, int $maxAge)
+    {
+        $response = Response::make($xml, 200, ['Content-Type' => 'application/xml; charset=UTF-8']);
+        $response->setEtag(sha1($xml));
+        $response->headers->set('Cache-Control', 'public, max-age='.$maxAge.', s-maxage='.$maxAge.', stale-while-revalidate=86400');
+        $response->isNotModified($request);
 
-            foreach (($sections['categories'] ?? []) as $category) {
-                if (! empty($category['slug'])) {
-                    $add($prefix.'/category/'.$category['slug'], $partsUpdatedAt);
-                }
-            }
-
-            foreach (($sections['sections'] ?? []) as $section) {
-                if (! empty($section['model_slug']) && ! empty($section['category_slug'])) {
-                    $add($prefix.'/'.$section['model_slug'].'/'.$section['category_slug'], $partsUpdatedAt);
-                }
-            }
-        }
-
-        foreach (($partsIndex['products'] ?? []) as $product) {
-            if (empty($product['id'])) {
-                continue;
-            }
-
-            $add('/parts/'.$product['id'], $product['updated_at'] ?? null);
-            $add('/ru/parts/'.$product['id'], $product['updated_at'] ?? null);
-        }
-
-        $xml = view('sitemap', ['urls' => array_values($items)])->render();
-
-        return Response::make($xml, 200, ['Content-Type' => 'application/xml; charset=UTF-8']);
+        return $response;
     }
 
     public function robots(Request $request)

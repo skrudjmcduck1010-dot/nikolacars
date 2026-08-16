@@ -67,6 +67,10 @@ Route::get('/ru/', function () {
 
 Route::post('/lead/callback', [LeadController::class, 'callback'])->name('lead.callback');
 Route::get('/sitemap.xml', [SiteController::class, 'sitemap'])->name('sitemap');
+Route::get('/sitemaps/pages.xml', [SiteController::class, 'sitemapPages'])->name('sitemap.pages');
+Route::get('/sitemaps/parts-{locale}.xml', [SiteController::class, 'sitemapParts'])
+    ->whereIn('locale', ['uk', 'ru'])
+    ->name('sitemap.parts');
 Route::get('/robots.txt', [SiteController::class, 'robots'])->name('robots');
 
 Route::prefix('parts')->group(function (): void {
