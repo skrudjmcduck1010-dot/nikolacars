@@ -184,6 +184,20 @@ document.addEventListener('DOMContentLoaded', () => {
     searchTimer = setTimeout(() => loadSearchSuggestions(query, 1, false), 300);
   }
 
+  function resetSearch() {
+    clearTimeout(searchTimer);
+    searchAbort?.abort();
+    hideSearchSuggestions();
+    const needsReload = state.q !== '' || state.sort !== 'newest' || state.page !== 1;
+    state.q = '';
+    state.sort = 'newest';
+    state.page = 1;
+    const sort = $('[data-sort]');
+    if (sort) sort.value = 'newest';
+    history.replaceState(null, '', location.pathname);
+    if (needsReload) loadCatalog();
+  }
+
   function render() {
     renderModels();
     renderCategories();
@@ -363,7 +377,13 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   $('[data-more]').addEventListener('click', () => { state.page += 1; loadCatalog(true); });
 
-  searchInput.addEventListener('input', scheduleSearchSuggestions);
+  searchInput.addEventListener('input', () => {
+    if (searchInput.value === '') {
+      resetSearch();
+      return;
+    }
+    scheduleSearchSuggestions();
+  });
   searchInput.addEventListener('focus', scheduleSearchSuggestions);
   searchInput.addEventListener('keydown', event => {
     if (event.key === 'Escape') {

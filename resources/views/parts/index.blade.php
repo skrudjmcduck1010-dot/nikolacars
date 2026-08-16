@@ -249,5 +249,5 @@
 window.partsI18n = @json($partsI18n);
 window.initialPartsCatalog = @json($initialCatalog);
 </script>
-<script src="{{ asset('assets/js/parts.js') }}?v=17" defer></script>
+<script src="{{ asset('assets/js/parts.js') }}?v=18" defer></script>
 @endpush
