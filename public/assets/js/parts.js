@@ -81,8 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCategories();
     renderProducts();
     renderPagination();
-    $('[data-total]').textContent = `${state.total} ${t.positions}`;
-    $('[data-results-count]').textContent = `${state.total} ${t.positions}`;
     $('[data-model-total]').textContent = state.categories.reduce((sum, item) => sum + Number(item.count), 0);
     $('[data-results-title]').textContent = state.category || state.model || t.allProducts;
     $('[data-more]').hidden = state.page >= state.lastPage;

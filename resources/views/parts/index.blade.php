@@ -59,7 +59,6 @@
         <h1>{{ $isRu ? 'Запчасти Tesla' : 'Запчастини Tesla' }}</h1>
         <p data-current-context>{{ $isRu ? 'Оригинальные запчасти со склада NikolaCars' : 'Оригінальні запчастини зі складу NikolaCars' }}</p>
       </div>
-      <div class="parts-total" data-total></div>
     </div>
 
     <div class="parts-model-tabs" data-models>
@@ -102,7 +101,6 @@
               <option value="price_desc" @selected(request('sort') === 'price_desc')>{{ $isRu ? 'Цена: по убыванию' : 'Ціна: за спаданням' }}</option>
               <option value="name" @selected(request('sort') === 'name')>{{ $isRu ? 'По названию' : 'За назвою' }}</option>
             </select>
-            <span data-results-count>{{ $pagination['total'] ?? 0 }} {{ $isRu ? 'позиций' : 'позицій' }}</span>
           </div>
         </div>
         <div class="parts-products" data-products>
@@ -194,7 +192,6 @@
     'allParts' => $isRu ? 'Все запчасти модели' : 'Усі запчастини моделі',
     'allProducts' => $isRu ? 'Все запчасти' : 'Усі запчастини',
     'catalog' => 'Каталог',
-    'positions' => $isRu ? 'позиций' : 'позицій',
     'inStock' => $isRu ? 'В наличии' : 'В наявності',
     'toCart' => $isRu ? 'В корзину' : 'У кошик',
     'inCart' => $isRu ? 'В корзине' : 'У кошику',
@@ -212,5 +209,5 @@
 window.partsI18n = @json($partsI18n);
 window.initialPartsCatalog = @json($initialCatalog);
 </script>
-<script src="{{ asset('assets/js/parts.js') }}?v=10" defer></script>
+<script src="{{ asset('assets/js/parts.js') }}?v=11" defer></script>
 @endpush
