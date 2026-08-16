@@ -72,4 +72,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (main) main.src = button.dataset.productImage;
     document.querySelectorAll('[data-product-image]').forEach(item => item.classList.toggle('active', item === button));
   }));
+
+  document.querySelectorAll('[data-recommendations-carousel]').forEach(carousel => {
+    const track = carousel.querySelector('[data-recommendations-track]');
+    if (!track) return;
+
+    const scroll = direction => track.scrollBy({
+      left: direction * Math.max(280, track.clientWidth * 0.85),
+      behavior: 'smooth'
+    });
+    carousel.querySelector('[data-carousel-prev]')?.addEventListener('click', () => scroll(-1));
+    carousel.querySelector('[data-carousel-next]')?.addEventListener('click', () => scroll(1));
+  });
 });

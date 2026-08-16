@@ -91,7 +91,11 @@
           <h2>{{ $isRu ? 'Другие товары из подкатегории' : 'Інші товари з підкатегорії' }}</h2>
           <p>{{ $product['category_path'] ?? '' }}</p>
         </div>
-        @include('parts._recommendation_cards', ['products' => $subcategoryProducts])
+        <div class="product-recommendations-carousel" data-recommendations-carousel>
+          <button type="button" class="product-carousel-arrow product-carousel-prev" data-carousel-prev aria-label="{{ $isRu ? 'Предыдущие товары' : 'Попередні товари' }}">‹</button>
+          @include('parts._recommendation_cards', ['products' => $subcategoryProducts, 'carousel' => true])
+          <button type="button" class="product-carousel-arrow product-carousel-next" data-carousel-next aria-label="{{ $isRu ? 'Следующие товары' : 'Наступні товари' }}">›</button>
+        </div>
       </section>
     @endif
   </div>
@@ -102,5 +106,5 @@
 
 @push('scripts')
 <script>window.productPageConfig = @json(['catalogUrl' => $catalogUrl]);</script>
-<script src="{{ asset('assets/js/parts-product.js') }}?v=3" defer></script>
+<script src="{{ asset('assets/js/parts-product.js') }}?v=4" defer></script>
 @endpush

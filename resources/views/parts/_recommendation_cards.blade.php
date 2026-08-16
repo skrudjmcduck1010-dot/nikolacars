@@ -1,4 +1,4 @@
-<div class="product-recommendations-grid">
+<div class="{{ !empty($carousel) ? 'product-recommendations-track' : 'product-recommendations-grid' }}" @if(!empty($carousel)) data-recommendations-track @endif>
   @foreach($products as $item)
     @php
       $cardImage = $item['thumbnail_url'] ?? $item['image_url'] ?? null;
