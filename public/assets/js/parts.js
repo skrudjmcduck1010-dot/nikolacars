@@ -21,6 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
   let warehouseTimer;
   let searchTimer;
   let searchAbort;
+  let searchSuggestionQuery = '';
+  let searchSuggestionPage = 0;
+  let searchSuggestionLastPage = 1;
+  let searchSuggestionLoading = false;
+  let searchSuggestionProducts = [];
+  let searchSuggestionTotal = 0;
 
   const money = value => `${new Intl.NumberFormat(root.dataset.locale === 'ru' ? 'ru-UA' : 'uk-UA', { maximumFractionDigits: 0 }).format(value)} ${t.uah}`;
   const escapeHtml = value => String(value ?? '').replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char]));
@@ -87,11 +93,12 @@ document.addEventListener('DOMContentLoaded', () => {
     searchInput.setAttribute('aria-expanded', 'false');
   }
 
-  function renderSearchSuggestions(products) {
+  function renderSearchSuggestions(products, total = products.length, preserveScroll = false) {
+    const previousScrollTop = preserveScroll ? searchSuggestions.scrollTop : 0;
     if (!products.length) {
       searchSuggestions.innerHTML = `<div class="parts-search-empty">${escapeHtml(t.searchEmpty)}</div>`;
     } else {
-      searchSuggestions.innerHTML = products.map(product => {
+      const productRows = products.map(product => {
         const imageUrl = product.thumbnail_url || product.image_url;
         const productUrl = `${root.dataset.productBase}/${product.id}/`;
         const codes = [product.part_number, product.sku].filter(Boolean).join(' · ');
@@ -108,15 +115,23 @@ document.addEventListener('DOMContentLoaded', () => {
           <b>${money(product.price_uah)}</b>
         </a>`;
       }).join('');
+      const progress = products.length < total
+        ? `<div class="parts-search-progress">${products.length} / ${total}</div>`
+        : '';
+      searchSuggestions.innerHTML = productRows + progress;
     }
     searchSuggestions.hidden = false;
+    searchSuggestions.scrollTop = previousScrollTop;
     searchInput.setAttribute('aria-expanded', 'true');
   }
 
-  async function loadSearchSuggestions(query) {
+  async function loadSearchSuggestions(query, page = 1, append = false) {
+    if (searchSuggestionLoading && append) return;
     searchAbort?.abort();
-    searchAbort = new AbortController();
-    const params = new URLSearchParams({ q: query, page: 1, per_page: 6, sort: 'newest' });
+    const controller = new AbortController();
+    searchAbort = controller;
+    searchSuggestionLoading = true;
+    const params = new URLSearchParams({ q: query, page, per_page: 100, sort: 'newest' });
     if (state.model) params.set('model', state.model);
     if (state.category) params.set('category', state.category);
     if (state.modelSlug) params.set('model_slug', state.modelSlug);
@@ -124,14 +139,23 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const response = await fetch(`${root.dataset.catalogUrl}?${params}`, {
         headers: { Accept: 'application/json' },
-        signal: searchAbort.signal
+        signal: controller.signal
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.message || t.loadError);
       if (searchInput.value.trim() !== query) return;
-      renderSearchSuggestions(data.products || []);
+      const products = data.products || [];
+      const pagination = data.pagination || {};
+      searchSuggestionQuery = query;
+      searchSuggestionPage = Number(pagination.page || page);
+      searchSuggestionLastPage = Number(pagination.last_page || 1);
+      searchSuggestionTotal = Number(pagination.total || products.length);
+      searchSuggestionProducts = append ? [...searchSuggestionProducts, ...products] : products;
+      renderSearchSuggestions(searchSuggestionProducts, searchSuggestionTotal, append);
     } catch (error) {
       if (error.name !== 'AbortError') hideSearchSuggestions();
+    } finally {
+      if (searchAbort === controller) searchSuggestionLoading = false;
     }
   }
 
@@ -143,7 +167,8 @@ document.addEventListener('DOMContentLoaded', () => {
       hideSearchSuggestions();
       return;
     }
-    searchTimer = setTimeout(() => loadSearchSuggestions(query), 300);
+    if (query !== searchSuggestionQuery) hideSearchSuggestions();
+    searchTimer = setTimeout(() => loadSearchSuggestions(query, 1, false), 300);
   }
 
   function render() {
@@ -322,6 +347,12 @@ document.addEventListener('DOMContentLoaded', () => {
       hideSearchSuggestions();
       searchInput.blur();
     }
+  });
+  searchSuggestions.addEventListener('scroll', () => {
+    const nearBottom = searchSuggestions.scrollTop + searchSuggestions.clientHeight >= searchSuggestions.scrollHeight - 100;
+    if (!nearBottom || searchSuggestionLoading || searchSuggestionPage >= searchSuggestionLastPage) return;
+    if (searchInput.value.trim() !== searchSuggestionQuery) return;
+    loadSearchSuggestions(searchSuggestionQuery, searchSuggestionPage + 1, true);
   });
 
   $$('input[name="delivery_method"]').forEach(input => input.addEventListener('change', () => {
