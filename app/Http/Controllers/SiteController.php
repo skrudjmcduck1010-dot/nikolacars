@@ -110,7 +110,7 @@ class SiteController extends Controller
         abort_unless(in_array($locale, ['uk', 'ru'], true), 404);
 
         $xml = Cache::flexible(
-            'sitemap:parts:'.$locale.':xml:v1',
+            'sitemap:parts:'.$locale.':xml:v2',
             [3600, 604800],
             function () use ($locale, $storefront): string {
                 $partsIndex = $this->partsIndex($storefront);
@@ -155,21 +155,21 @@ class SiteController extends Controller
     protected function partsIndex(SkladStorefrontClient $storefront): array
     {
         try {
-            return Cache::remember('sitemap:parts-index:v1', now()->addHour(), function () use ($storefront): array {
+            return Cache::remember('sitemap:parts-index:v2', now()->addHour(), function () use ($storefront): array {
                 $response = $storefront->seoIndex();
                 if (! $response->successful() || ! is_array($response->json())) {
                     throw new RuntimeException('Warehouse SEO index returned HTTP '.$response->status().'.');
                 }
 
                 $payload = $response->json();
-                Cache::put('sitemap:parts-index:stale:v1', $payload, now()->addDays(7));
+                Cache::put('sitemap:parts-index:stale:v2', $payload, now()->addDays(7));
 
                 return $payload;
             });
         } catch (ConnectionException|RuntimeException $exception) {
             report($exception);
 
-            return Cache::get('sitemap:parts-index:stale:v1', []);
+            return Cache::get('sitemap:parts-index:stale:v2', []);
         }
     }
 

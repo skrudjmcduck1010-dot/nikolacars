@@ -5,17 +5,28 @@ namespace App\Http\Controllers;
 use App\Services\SkladStorefrontClient;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use RuntimeException;
 
 class PartsController extends Controller
 {
-    public function index(Request $request, SkladStorefrontClient $client): View
+    public function index(Request $request, SkladStorefrontClient $client): View|RedirectResponse
     {
         $locale = $request->route('locale') === 'ru' ? 'ru' : 'uk';
         $modelSlug = (string) $request->route('modelSlug', '');
         $categorySlug = (string) $request->route('categorySlug', '');
+        if ($modelSlug === 'model-s2-04-2016-01-2021') {
+            $target = ($locale === 'ru' ? '/ru/parts/' : '/parts/')
+                .'model-s-04-2016-01-2021/'
+                .($categorySlug !== '' ? $categorySlug.'/' : '');
+            $queryString = http_build_query($request->query());
+            $targetUrl = rtrim(url($target), '/').'/';
+
+            return redirect()->away($targetUrl.($queryString !== '' ? '?'.$queryString : ''), 301);
+        }
+
         $page = max(1, $request->integer('page', 1));
         $query = trim((string) $request->query('q', ''));
         $sort = (string) $request->query('sort', 'newest');
