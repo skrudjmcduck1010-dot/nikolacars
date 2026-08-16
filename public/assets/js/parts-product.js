@@ -69,11 +69,73 @@ document.addEventListener('DOMContentLoaded', () => {
     location.href = window.productPageConfig.catalogUrl;
   });
 
+  const galleryImages = (product.images || []).filter(Boolean);
+  if (!galleryImages.length && product.image_url) galleryImages.push(product.image_url);
+  const mainImage = document.querySelector('[data-product-main-image]');
+  const galleryOpen = document.querySelector('[data-gallery-open]');
+  const lightbox = document.querySelector('[data-product-lightbox]');
+  const lightboxImage = lightbox?.querySelector('[data-lightbox-image]');
+  const lightboxCounter = lightbox?.querySelector('[data-lightbox-counter]');
+  let currentImageIndex = 0;
+  let previousFocus = null;
+  let pointerStartX = null;
+
+  const selectGalleryImage = index => {
+    if (!galleryImages.length) return;
+    currentImageIndex = (index + galleryImages.length) % galleryImages.length;
+    if (mainImage) mainImage.src = galleryImages[currentImageIndex];
+    document.querySelectorAll('[data-product-image]').forEach(button => {
+      button.classList.toggle('active', Number(button.dataset.productImageIndex) === currentImageIndex);
+    });
+  };
+  const renderLightboxImage = () => {
+    if (!lightboxImage || !galleryImages.length) return;
+    lightboxImage.src = galleryImages[currentImageIndex];
+    if (lightboxCounter) lightboxCounter.textContent = `${currentImageIndex + 1} / ${galleryImages.length}`;
+  };
+  const openLightbox = () => {
+    if (!lightbox || !galleryImages.length) return;
+    previousFocus = document.activeElement;
+    renderLightboxImage();
+    lightbox.hidden = false;
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('product-lightbox-open');
+    lightbox.querySelector('[data-lightbox-close]:not(.product-lightbox-backdrop)')?.focus();
+  };
+  const closeLightbox = () => {
+    if (!lightbox || lightbox.hidden) return;
+    lightbox.hidden = true;
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('product-lightbox-open');
+    previousFocus?.focus?.();
+  };
+  const moveLightbox = direction => {
+    selectGalleryImage(currentImageIndex + direction);
+    renderLightboxImage();
+  };
+
   document.querySelectorAll('[data-product-image]').forEach(button => button.addEventListener('click', () => {
-    const main = document.querySelector('[data-product-main-image]');
-    if (main) main.src = button.dataset.productImage;
-    document.querySelectorAll('[data-product-image]').forEach(item => item.classList.toggle('active', item === button));
+    selectGalleryImage(Number(button.dataset.productImageIndex));
   }));
+  galleryOpen?.addEventListener('click', openLightbox);
+  lightbox?.querySelectorAll('[data-lightbox-close]').forEach(button => button.addEventListener('click', closeLightbox));
+  lightbox?.querySelector('[data-lightbox-prev]')?.addEventListener('click', () => moveLightbox(-1));
+  lightbox?.querySelector('[data-lightbox-next]')?.addEventListener('click', () => moveLightbox(1));
+  lightbox?.querySelector('[data-lightbox-stage]')?.addEventListener('pointerdown', event => {
+    pointerStartX = event.clientX;
+  });
+  lightbox?.querySelector('[data-lightbox-stage]')?.addEventListener('pointerup', event => {
+    if (pointerStartX === null) return;
+    const distance = event.clientX - pointerStartX;
+    pointerStartX = null;
+    if (Math.abs(distance) >= 50 && galleryImages.length > 1) moveLightbox(distance < 0 ? 1 : -1);
+  });
+  document.addEventListener('keydown', event => {
+    if (!lightbox || lightbox.hidden) return;
+    if (event.key === 'Escape') closeLightbox();
+    if (event.key === 'ArrowLeft' && galleryImages.length > 1) moveLightbox(-1);
+    if (event.key === 'ArrowRight' && galleryImages.length > 1) moveLightbox(1);
+  });
 
   document.querySelectorAll('[data-recommendations-carousel]').forEach(carousel => {
     const track = carousel.querySelector('[data-recommendations-track]');

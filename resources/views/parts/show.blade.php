@@ -35,17 +35,17 @@
     <div class="product-detail">
       <div class="product-visual">
         <section class="product-gallery">
-        <div class="product-main-image {{ $images->isEmpty() ? 'no-image' : '' }}">
-          @if($images->isNotEmpty())
+        @if($images->isNotEmpty())
+          <button type="button" class="product-main-image" data-gallery-open aria-label="{{ $isRu ? 'Открыть фото в полном размере' : 'Відкрити фото у повному розмірі' }}">
             <img src="{{ $images->first() }}" alt="{{ $product['name'] }}" data-product-main-image>
-          @else
-            <span>NIKOLACARS</span>
-          @endif
-        </div>
+          </button>
+        @else
+          <div class="product-main-image no-image"><span>NIKOLACARS</span></div>
+        @endif
         @if($images->count() > 1)
           <div class="product-thumbnails">
             @foreach($images as $image)
-              <button type="button" class="{{ $loop->first ? 'active' : '' }}" data-product-image="{{ $image }}"><img src="{{ $image }}" alt=""></button>
+              <button type="button" class="{{ $loop->first ? 'active' : '' }}" data-product-image="{{ $image }}" data-product-image-index="{{ $loop->index }}"><img src="{{ $image }}" alt=""></button>
             @endforeach
           </div>
         @endif
@@ -114,10 +114,25 @@
   </div>
 </main>
 
+@if($images->isNotEmpty())
+  <div class="product-lightbox" data-product-lightbox role="dialog" aria-modal="true" aria-label="{{ $isRu ? 'Галерея фотографий товара' : 'Галерея фотографій товару' }}" aria-hidden="true" hidden>
+    <button type="button" class="product-lightbox-backdrop" data-lightbox-close tabindex="-1" aria-label="{{ $isRu ? 'Закрыть галерею' : 'Закрити галерею' }}"></button>
+    <button type="button" class="product-lightbox-close" data-lightbox-close aria-label="{{ $isRu ? 'Закрыть' : 'Закрити' }}">×</button>
+    @if($images->count() > 1)
+      <button type="button" class="product-lightbox-arrow product-lightbox-prev" data-lightbox-prev aria-label="{{ $isRu ? 'Предыдущее фото' : 'Попереднє фото' }}">‹</button>
+      <button type="button" class="product-lightbox-arrow product-lightbox-next" data-lightbox-next aria-label="{{ $isRu ? 'Следующее фото' : 'Наступне фото' }}">›</button>
+    @endif
+    <div class="product-lightbox-stage" data-lightbox-stage>
+      <img src="{{ $images->first() }}" alt="{{ $product['name'] }}" data-lightbox-image>
+      @if($images->count() > 1)<div class="product-lightbox-counter" data-lightbox-counter>1 / {{ $images->count() }}</div>@endif
+    </div>
+  </div>
+@endif
+
 <script type="application/json" id="productData">@json($product)</script>
 @endsection
 
 @push('scripts')
 <script>window.productPageConfig = @json(['catalogUrl' => $catalogUrl]);</script>
-<script src="{{ asset('assets/js/parts-product.js') }}?v=6" defer></script>
+<script src="{{ asset('assets/js/parts-product.js') }}?v=7" defer></script>
 @endpush
