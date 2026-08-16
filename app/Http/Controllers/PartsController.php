@@ -215,12 +215,16 @@ class PartsController extends Controller
         $condition = $this->localizedProductAttribute((string) ($product['condition'] ?? ''), $locale, 'condition');
         $color = $this->localizedProductAttribute((string) ($product['color'] ?? ''), $locale, 'color');
         $quantity = max(0, (int) ($product['quantity'] ?? 0));
+        $compactArticle = preg_replace('/[^\p{L}\p{N}]+/u', '', $article) ?: $article;
 
         if ($locale === 'ru') {
             $details = [
                 $name.' — запчасть для '.$vehicle.'.',
                 'Артикул: '.$article.'.',
             ];
+            if ($compactArticle !== $article) {
+                $details[] = 'Артикул без дефисов: '.$compactArticle.'.';
+            }
             if ($category !== '') {
                 $details[] = 'Категория: '.$category.'.';
             }
@@ -238,13 +242,16 @@ class PartsController extends Controller
                 ? 'Запчасть в наличии на складе NikolaCars: '.$quantity.' шт.'
                 : 'Наличие запчасти уточняйте у менеджера NikolaCars.';
 
-            return implode(' ', $details)."\n\n".$availability.' Цена — '.$price.' грн. Перед заказом сверьте артикул и совместимость детали с вашим автомобилем Tesla.';
+            return implode(' ', $details)."\n\n".$availability.' Купить запчасть можно по цене '.$price.' грн. Перед заказом сверьте артикул и совместимость детали с вашим автомобилем Tesla.';
         }
 
         $details = [
             $name.' — запчастина для '.$vehicle.'.',
             'Артикул: '.$article.'.',
         ];
+        if ($compactArticle !== $article) {
+            $details[] = 'Артикул без дефісів: '.$compactArticle.'.';
+        }
         if ($category !== '') {
             $details[] = 'Категорія: '.$category.'.';
         }
@@ -262,7 +269,7 @@ class PartsController extends Controller
             ? 'Запчастина є в наявності на складі NikolaCars: '.$quantity.' шт.'
             : 'Наявність запчастини уточнюйте у менеджера NikolaCars.';
 
-        return implode(' ', $details)."\n\n".$availability.' Ціна — '.$price.' грн. Перед замовленням звірте артикул і сумісність деталі з вашим автомобілем Tesla.';
+        return implode(' ', $details)."\n\n".$availability.' Купити запчастину можна за ціною '.$price.' грн. Перед замовленням звірте артикул і сумісність деталі з вашим автомобілем Tesla.';
     }
 
     protected function localizedProductAttribute(string $value, string $locale, string $attribute): string
