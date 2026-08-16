@@ -79,7 +79,6 @@
       <section class="product-recommendations">
         <div class="product-recommendations-heading">
           <h2>{{ $isRu ? 'Похожие товары' : 'Схожі товари' }}</h2>
-          <p>{{ $isRu ? 'Совпадение по первым 7 символам артикула' : 'Збіг за першими 7 символами артикула' }}</p>
         </div>
         @include('parts._recommendation_cards', ['products' => $similarProducts])
       </section>
