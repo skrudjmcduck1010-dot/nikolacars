@@ -12,6 +12,28 @@ use RuntimeException;
 
 class PartsController extends Controller
 {
+    private const CATEGORY_LOCALE_SLUGS = [
+        ['uk' => 'informaciino-rozvazalna-sistema', 'ru' => 'informacionno-razvlekatelnaia-sistema'],
+        ['uk' => 'bezpeka-i-zaxist', 'ru' => 'bezopasnost-i-zashhita'],
+        ['uk' => 'visokovoltna-batareia', 'ru' => 'visokovoltna-batareia'],
+        ['uk' => 'visokovoltna-sistema', 'ru' => 'vysokovoltnaia-sistema'],
+        ['uk' => 'vnutrisnje-ozdoblennia', 'ru' => 'vnutrenniaia-otdelka'],
+        ['uk' => 'galma', 'ru' => 'tormoza'],
+        ['uk' => 'diski-i-sini', 'ru' => 'diski-i-siny'],
+        ['uk' => 'elektrika', 'ru' => 'elektrika'],
+        ['uk' => 'zadnii-motor', 'ru' => 'zadnii-motor'],
+        ['uk' => 'zovnisnia-furnitura', 'ru' => 'naruznaia-furnitura'],
+        ['uk' => 'komponenti-zakrittia', 'ru' => 'komponenty-zakrytiia'],
+        ['uk' => 'krisa', 'ru' => 'krysa'],
+        ['uk' => 'kuzov', 'ru' => 'kuzov'],
+        ['uk' => 'panel-priladiv', 'ru' => 'pribornaia-panel'],
+        ['uk' => 'perednii-motor', 'ru' => 'perednii-motor'],
+        ['uk' => 'pidviska', 'ru' => 'podveska'],
+        ['uk' => 'rulyovii-mexanizm', 'ru' => 'rulevoi-mexanizm'],
+        ['uk' => 'sidinnia', 'ru' => 'sidenia'],
+        ['uk' => 'upravlinnia-temperaturnim-rezimom', 'ru' => 'upravlenie-temperaturnym-rezimom'],
+    ];
+
     public function index(Request $request, SkladStorefrontClient $client): View|RedirectResponse
     {
         $locale = $request->route('locale') === 'ru' ? 'ru' : 'uk';
@@ -68,6 +90,7 @@ class PartsController extends Controller
             : 'Оригінальні запчастини Tesla в наявності у Києві'.($sectionName !== '' ? ': '.$sectionName : '').($page > 1 ? '. Сторінка '.$page : '').'.';
         $seoNoindex = $query !== '' || $request->has('sort') || $request->has('model') || $request->has('category');
         $seoPage = $seoNoindex ? 1 : $page;
+        $localeUrls = $this->partsLocaleUrls($modelSlug, $categorySlug);
 
         return view('parts.index', compact(
             'locale',
@@ -78,7 +101,36 @@ class PartsController extends Controller
             'seoDescription',
             'seoNoindex',
             'seoPage',
+            'localeUrls',
         ));
+    }
+
+    /** @return array{uk: string, ru: string} */
+    private function partsLocaleUrls(string $modelSlug, string $categorySlug): array
+    {
+        $categorySlugs = ['uk' => $categorySlug, 'ru' => $categorySlug];
+        foreach (self::CATEGORY_LOCALE_SLUGS as $localizedSlugs) {
+            if (in_array($categorySlug, $localizedSlugs, true)) {
+                $categorySlugs = $localizedSlugs;
+                break;
+            }
+        }
+
+        $urls = [];
+        foreach (['uk', 'ru'] as $locale) {
+            $base = $locale === 'ru' ? '/ru/parts' : '/parts';
+            if ($modelSlug !== '' && $categorySlugs[$locale] !== '') {
+                $urls[$locale] = $base.'/'.$modelSlug.'/'.$categorySlugs[$locale].'/';
+            } elseif ($modelSlug !== '') {
+                $urls[$locale] = $base.'/'.$modelSlug.'/';
+            } elseif ($categorySlugs[$locale] !== '') {
+                $urls[$locale] = $base.'/category/'.$categorySlugs[$locale].'/';
+            } else {
+                $urls[$locale] = $base.'/';
+            }
+        }
+
+        return $urls;
     }
 
     public function catalog(Request $request, SkladStorefrontClient $client, string $locale = 'uk'): JsonResponse

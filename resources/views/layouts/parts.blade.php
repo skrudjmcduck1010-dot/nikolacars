@@ -6,8 +6,8 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   @php
     $seoPath = '/'.trim(request()->path(), '/').'/';
-    $seoUaPath = preg_replace('#^/ru/#', '/', $seoPath);
-    $seoRuPath = '/ru'.$seoUaPath;
+    $seoUaPath = $localeUrls['uk'] ?? preg_replace('#^/ru/#', '/', $seoPath);
+    $seoRuPath = $localeUrls['ru'] ?? '/ru'.$seoUaPath;
     $seoPageQuery = ($seoPage ?? 1) > 1 ? '?page='.(int) $seoPage : '';
   @endphp
   <title>{{ $seoTitle ?? ($locale === 'ru' ? 'Запчасти Tesla — NikolaCars' : 'Запчастини Tesla — NikolaCars') }}</title>
@@ -31,8 +31,8 @@
   $home = $isRu ? '/ru/' : '/';
   $currentPath = '/'.ltrim(request()->path(), '/');
   $currentPath = rtrim($currentPath, '/').'/';
-  $uaUrl = $isRu ? preg_replace('#^/ru/#', '/', $currentPath) : $currentPath;
-  $ruUrl = $isRu ? $currentPath : '/ru'.$currentPath;
+  $uaUrl = $localeUrls['uk'] ?? ($isRu ? preg_replace('#^/ru/#', '/', $currentPath) : $currentPath);
+  $ruUrl = $localeUrls['ru'] ?? ($isRu ? $currentPath : '/ru'.$currentPath);
 @endphp
 
 <div class="topbar">
