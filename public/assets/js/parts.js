@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
     category: initialParams.get('category') || '',
     modelSlug: root.dataset.modelSlug || '',
     categorySlug: root.dataset.categorySlug || '',
+    categoryPath: '',
+    categoryPathSlug: root.dataset.categoryPathSlug || '',
     q: initialParams.get('q') || '',
     sort: initialParams.get('sort') || 'newest',
     page: Math.max(1, Number(initialParams.get('page')) || 1), lastPage: 1, models: [], categories: [], products: [], total: 0
@@ -38,6 +40,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (categorySlug) return `${base}/category/${categorySlug}/`;
     return `${base}/`;
   };
+  const subcategoryUrl = (modelSlug = '', categoryPathSlug = '') => {
+    const base = root.dataset.catalogBase;
+    if (!categoryPathSlug) return modelSlug ? `${base}/${modelSlug}/` : `${base}/`;
+    return modelSlug
+      ? `${base}/${modelSlug}/subcategory/${categoryPathSlug}/`
+      : `${base}/subcategory/${categoryPathSlug}/`;
+  };
 
   function renderLoading() {
     $('[data-products]').innerHTML = Array.from({ length: 6 }, () => `
@@ -54,6 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
     state.category = data.selection?.category || state.category;
     state.modelSlug = data.selection?.model_slug || state.modelSlug;
     state.categorySlug = data.selection?.category_slug || state.categorySlug;
+    state.categoryPath = data.selection?.category_path ?? state.categoryPath;
+    state.categoryPathSlug = data.selection?.category_path_slug ?? state.categoryPathSlug;
     state.products = append ? [...state.products, ...(data.products || [])] : (data.products || []);
     state.total = data.pagination?.total || 0;
     state.page = data.pagination?.page || state.page;
@@ -67,6 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (state.category) params.set('category', state.category);
     if (state.modelSlug) params.set('model_slug', state.modelSlug);
     if (state.categorySlug) params.set('category_slug', state.categorySlug);
+    if (state.categoryPathSlug) params.set('category_path_slug', state.categoryPathSlug);
     if (state.q) params.set('q', state.q);
     if (!append && state.products.length === 0) renderLoading();
     $('[data-products]').classList.add('loading');
@@ -136,6 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (state.category) params.set('category', state.category);
     if (state.modelSlug) params.set('model_slug', state.modelSlug);
     if (state.categorySlug) params.set('category_slug', state.categorySlug);
+    if (state.categoryPathSlug) params.set('category_path_slug', state.categoryPathSlug);
     try {
       const response = await fetch(`${root.dataset.catalogUrl}?${params}`, {
         headers: { Accept: 'application/json' },
@@ -177,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderProducts();
     renderPagination();
     $('[data-model-total]').textContent = state.categories.reduce((sum, item) => sum + Number(item.count), 0);
-    $('[data-results-title]').textContent = state.category || state.model || t.allProducts;
+    $('[data-results-title]').textContent = state.categoryPath.split(' / ').filter(Boolean).pop() || state.category || state.model || t.allProducts;
     $('[data-more]').hidden = state.page >= state.lastPage;
     $('[data-empty]').hidden = state.products.length > 0;
     if (!state.products.length) $('[data-empty]').textContent = t.empty;
@@ -229,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const html = [{ value: '', label: t.allModels, slug: '', count: null }, ...state.models].map(item => {
       const label = modelLabelParts(item.label);
       return `
-      <a href="${sectionUrl(item.slug, state.categorySlug)}" class="parts-model-tab ${item.value === state.model ? 'active' : ''}">
+      <a href="${state.categoryPathSlug ? subcategoryUrl(item.slug, state.categoryPathSlug) : sectionUrl(item.slug, state.categorySlug)}" class="parts-model-tab ${item.value === state.model ? 'active' : ''}">
         <span class="parts-model-copy"><span class="parts-model-name">${escapeHtml(label.name)}</span>${label.years ? `<span class="parts-model-years">${escapeHtml(label.years)}</span>` : ''}</span>
         ${item.count === null ? '' : `<span class="parts-model-count">${item.count}</span>`}
       </a>`;
@@ -253,12 +266,20 @@ document.addEventListener('DOMContentLoaded', () => {
       const imageUrl = product.thumbnail_url || product.image_url;
       const image = imageUrl ? `<img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(product.name)}" loading="lazy" decoding="async" onerror="this.closest('.part-image').classList.add('no-image');this.remove()">` : '';
       const productUrl = `${root.dataset.productBase}/${product.id}/`;
+      const categoryPath = (product.category_breadcrumbs || []).length
+        ? product.category_breadcrumbs.map((breadcrumb, index) => {
+            const href = index === 0
+              ? sectionUrl(state.modelSlug, breadcrumb.slug)
+              : subcategoryUrl(state.modelSlug, breadcrumb.slug);
+            return `${index ? '<span aria-hidden="true">/</span> ' : ''}<a href="${href}">${escapeHtml(breadcrumb.label)}</a>`;
+          }).join(' ')
+        : escapeHtml(product.category_path);
       return `<article class="part-card">
         <a href="${productUrl}" class="part-image ${image ? '' : 'no-image'}">${image}<span>NIKOLACARS</span></a>
         <div class="part-card-body">
           <h3><a href="${productUrl}">${escapeHtml(product.name)}</a></h3>
           <div class="part-codes">${escapeHtml([product.part_number, product.sku, product.vin].filter(Boolean).join(' · '))}</div>
-          <div class="part-category-path">${escapeHtml(product.category_path)}</div>
+          <div class="part-category-path">${categoryPath}</div>
           <div class="part-purchase-row">
             <div class="part-purchase-info">
               <div class="part-price">${money(product.price_uah)}</div>

@@ -22,7 +22,7 @@
   @endforeach
   <link rel="icon" href="{{ asset('favicon.ico') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}?v=12">
-  <link rel="stylesheet" href="{{ asset('assets/css/parts.css') }}?v=29">
+  <link rel="stylesheet" href="{{ asset('assets/css/parts.css') }}?v=30">
 </head>
 <body class="parts-page">
 @php

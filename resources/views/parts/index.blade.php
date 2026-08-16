@@ -14,6 +14,8 @@
   $selectedCategory = $selection['category'] ?? '';
   $selectedModelSlug = $selection['model_slug'] ?? '';
   $selectedCategorySlug = $selection['category_slug'] ?? '';
+  $selectedCategoryPathSlug = $selection['category_path_slug'] ?? '';
+  $selectedCategoryPathLabel = data_get(collect($selection['category_breadcrumbs'] ?? [])->last(), 'label', '');
   $currentPage = (int) ($pagination['page'] ?? 1);
   $lastPage = (int) ($pagination['last_page'] ?? 1);
   $sectionUrl = static function (string $model = '', string $category = '') use ($catalogBase): string {
@@ -21,6 +23,12 @@
     if ($model !== '') return $catalogBase.'/'.$model.'/';
     if ($category !== '') return $catalogBase.'/category/'.$category.'/';
     return $catalogBase.'/';
+  };
+  $subcategoryUrl = static function (string $model = '', string $categoryPath = '') use ($catalogBase): string {
+    if ($categoryPath === '') return $model !== '' ? $catalogBase.'/'.$model.'/' : $catalogBase.'/';
+    return $model !== ''
+      ? $catalogBase.'/'.$model.'/subcategory/'.$categoryPath.'/'
+      : $catalogBase.'/subcategory/'.$categoryPath.'/';
   };
   $modelLabelParts = static function (string $label): array {
     $label = trim($label);
@@ -33,8 +41,10 @@
       preg_replace('/\s*-\s*/u', '-', trim($matches[2])),
     ];
   };
-  $pageUrl = static function (int $page) use ($sectionUrl, $selectedModelSlug, $categorySlug): string {
-    $url = $sectionUrl($selectedModelSlug, $categorySlug);
+  $pageUrl = static function (int $page) use ($sectionUrl, $subcategoryUrl, $selectedModelSlug, $categorySlug, $categoryPathSlug): string {
+    $url = $categoryPathSlug !== ''
+      ? $subcategoryUrl($selectedModelSlug, $categoryPathSlug)
+      : $sectionUrl($selectedModelSlug, $categorySlug);
     return $page > 1 ? $url.'?page='.$page : $url;
   };
   $pageNumbers = collect([1, $lastPage, $currentPage - 2, $currentPage - 1, $currentPage, $currentPage + 1, $currentPage + 2])
@@ -49,6 +59,7 @@
       data-catalog-base="{{ $isRu ? '/ru/parts' : '/parts' }}"
       data-model-slug="{{ $modelSlug }}"
       data-category-slug="{{ $categorySlug }}"
+      data-category-path-slug="{{ $categoryPathSlug }}"
       data-catalog-url="{{ $apiPrefix }}/catalog/"
       data-cities-url="{{ $apiPrefix }}/nova-poshta/cities/"
       data-warehouses-url="{{ $apiPrefix }}/nova-poshta/warehouses/"
@@ -78,10 +89,10 @@
     </div>
 
     <div class="parts-model-tabs" data-models>
-      <a href="{{ $sectionUrl('', $selectedCategorySlug) }}" class="parts-model-tab {{ $selectedModel === '' ? 'active' : '' }}"><span class="parts-model-copy"><span class="parts-model-name">{{ $isRu ? 'Все модели' : 'Усі моделі' }}</span></span></a>
+      <a href="{{ $selectedCategoryPathSlug !== '' ? $subcategoryUrl('', $selectedCategoryPathSlug) : $sectionUrl('', $selectedCategorySlug) }}" class="parts-model-tab {{ $selectedModel === '' ? 'active' : '' }}"><span class="parts-model-copy"><span class="parts-model-name">{{ $isRu ? 'Все модели' : 'Усі моделі' }}</span></span></a>
       @foreach($models as $model)
         @php [$modelName, $modelYears] = $modelLabelParts($model['label']); @endphp
-        <a href="{{ $sectionUrl($model['slug'], $selectedCategorySlug) }}" class="parts-model-tab {{ $selectedModel === $model['value'] ? 'active' : '' }}">
+        <a href="{{ $selectedCategoryPathSlug !== '' ? $subcategoryUrl($model['slug'], $selectedCategoryPathSlug) : $sectionUrl($model['slug'], $selectedCategorySlug) }}" class="parts-model-tab {{ $selectedModel === $model['value'] ? 'active' : '' }}">
           <span class="parts-model-copy">
             <span class="parts-model-name">{{ $modelName }}</span>
             @if($modelYears !== '')<span class="parts-model-years">{{ $modelYears }}</span>@endif
@@ -104,7 +115,7 @@
 
       <section class="parts-results">
         <div class="parts-results-head">
-          <h2 data-results-title>{{ $selectedCategory ?: ($selectedModel ?: ($isRu ? 'Все запчасти' : 'Усі запчастини')) }}</h2>
+          <h2 data-results-title>{{ $selectedCategoryPathLabel ?: ($selectedCategory ?: ($selectedModel ?: ($isRu ? 'Все запчасти' : 'Усі запчастини'))) }}</h2>
           <div class="parts-results-controls">
             <select class="parts-sort" name="sort" form="partsFilterForm" data-sort aria-label="{{ $isRu ? 'Сортировка' : 'Сортування' }}">
               <option value="newest" @selected(request('sort', 'newest') === 'newest')>{{ $isRu ? 'Сначала новые' : 'Спочатку нові' }}</option>
@@ -125,7 +136,14 @@
               <div class="part-card-body">
                 <h3><a href="{{ $catalogBase.'/'.$product['id'].'/' }}">{{ $product['name'] }}</a></h3>
                 <div class="part-codes">{{ collect([$product['part_number'] ?? null, $product['sku'] ?? null, $product['vin'] ?? null])->filter()->implode(' · ') }}</div>
-                <div class="part-category-path">{{ $product['category_path'] }}</div>
+                <div class="part-category-path">
+                  @forelse(($product['category_breadcrumbs'] ?? []) as $breadcrumb)
+                    @if(!$loop->first) <span aria-hidden="true">/</span> @endif
+                    <a href="{{ $loop->first ? $sectionUrl($selectedModelSlug, $breadcrumb['slug']) : $subcategoryUrl($selectedModelSlug, $breadcrumb['slug']) }}">{{ $breadcrumb['label'] }}</a>
+                  @empty
+                    {{ $product['category_path'] }}
+                  @endforelse
+                </div>
                 <div class="part-purchase-row">
                   <div class="part-purchase-info">
                     <div class="part-price">{{ number_format((float) $product['price_uah'], 0, '.', ' ') }} грн</div>
@@ -231,5 +249,5 @@
 window.partsI18n = @json($partsI18n);
 window.initialPartsCatalog = @json($initialCatalog);
 </script>
-<script src="{{ asset('assets/js/parts.js') }}?v=16" defer></script>
+<script src="{{ asset('assets/js/parts.js') }}?v=17" defer></script>
 @endpush

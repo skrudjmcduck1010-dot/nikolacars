@@ -39,10 +39,14 @@ class PartsController extends Controller
         $locale = $request->route('locale') === 'ru' ? 'ru' : 'uk';
         $modelSlug = (string) $request->route('modelSlug', '');
         $categorySlug = (string) $request->route('categorySlug', '');
+        $categoryPathSlug = (string) $request->route('categoryPathSlug', '');
         if ($modelSlug === 'model-s2-04-2016-01-2021') {
-            $target = ($locale === 'ru' ? '/ru/parts/' : '/parts/')
-                .'model-s-04-2016-01-2021/'
-                .($categorySlug !== '' ? $categorySlug.'/' : '');
+            $target = ($locale === 'ru' ? '/ru/parts/' : '/parts/').'model-s-04-2016-01-2021/';
+            if ($categoryPathSlug !== '') {
+                $target .= 'subcategory/'.$categoryPathSlug.'/';
+            } elseif ($categorySlug !== '') {
+                $target .= $categorySlug.'/';
+            }
             $queryString = http_build_query($request->query());
             $targetUrl = rtrim(url($target), '/').'/';
 
@@ -61,6 +65,7 @@ class PartsController extends Controller
                 'locale' => $locale,
                 'model_slug' => $modelSlug,
                 'category_slug' => $categorySlug,
+                'category_path_slug' => $categoryPathSlug,
                 'q' => $query,
                 'sort' => $sort,
                 'page' => $page,
@@ -79,7 +84,7 @@ class PartsController extends Controller
 
         $selection = $initialCatalog['selection'] ?? [];
         $sectionName = trim(implode(' — ', array_filter([
-            $selection['category'] ?? '',
+            $selection['category_path'] ?? ($selection['category'] ?? ''),
             $selection['model'] ?? '',
         ])));
         $baseTitle = $locale === 'ru' ? 'Запчасти Tesla' : 'Запчастини Tesla';
@@ -90,12 +95,17 @@ class PartsController extends Controller
             : 'Оригінальні запчастини Tesla в наявності у Києві'.($sectionName !== '' ? ': '.$sectionName : '').($page > 1 ? '. Сторінка '.$page : '').'.';
         $seoNoindex = $query !== '' || $request->has('sort') || $request->has('model') || $request->has('category');
         $seoPage = $seoNoindex ? 1 : $page;
-        $localeUrls = $this->partsLocaleUrls($modelSlug, $categorySlug);
+        $localeUrls = $this->partsLocaleUrls(
+            $modelSlug,
+            $categorySlug,
+            (array) ($selection['category_path_locale_slugs'] ?? []),
+        );
 
         return view('parts.index', compact(
             'locale',
             'modelSlug',
             'categorySlug',
+            'categoryPathSlug',
             'initialCatalog',
             'seoTitle',
             'seoDescription',
@@ -106,7 +116,7 @@ class PartsController extends Controller
     }
 
     /** @return array{uk: string, ru: string} */
-    private function partsLocaleUrls(string $modelSlug, string $categorySlug): array
+    private function partsLocaleUrls(string $modelSlug, string $categorySlug, array $categoryPathLocaleSlugs = []): array
     {
         $categorySlugs = ['uk' => $categorySlug, 'ru' => $categorySlug];
         foreach (self::CATEGORY_LOCALE_SLUGS as $localizedSlugs) {
@@ -119,7 +129,12 @@ class PartsController extends Controller
         $urls = [];
         foreach (['uk', 'ru'] as $locale) {
             $base = $locale === 'ru' ? '/ru/parts' : '/parts';
-            if ($modelSlug !== '' && $categorySlugs[$locale] !== '') {
+            $categoryPathSlug = trim((string) ($categoryPathLocaleSlugs[$locale] ?? ''));
+            if ($modelSlug !== '' && $categoryPathSlug !== '') {
+                $urls[$locale] = $base.'/'.$modelSlug.'/subcategory/'.$categoryPathSlug.'/';
+            } elseif ($categoryPathSlug !== '') {
+                $urls[$locale] = $base.'/subcategory/'.$categoryPathSlug.'/';
+            } elseif ($modelSlug !== '' && $categorySlugs[$locale] !== '') {
                 $urls[$locale] = $base.'/'.$modelSlug.'/'.$categorySlugs[$locale].'/';
             } elseif ($modelSlug !== '') {
                 $urls[$locale] = $base.'/'.$modelSlug.'/';
