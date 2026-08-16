@@ -22,7 +22,7 @@
   @endforeach
   <link rel="icon" href="{{ asset('favicon.ico') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}?v=12">
-  <link rel="stylesheet" href="{{ asset('assets/css/parts.css') }}?v=15">
+  <link rel="stylesheet" href="{{ asset('assets/css/parts.css') }}?v=16">
 </head>
 <body class="parts-page">
 @php
@@ -70,7 +70,7 @@
           <a href="{{ $isRu ? '/ru/services/firmware-auto/' : '/services/firmware-auto/' }}">{{ $isRu ? 'Прошивка авто' : 'Прошивка авто' }}</a>
         </div>
       </div>
-      <a class="active" href="{{ $isRu ? '/ru/parts/' : '/parts/' }}">{{ $isRu ? 'Запчасти' : 'Запчастини' }}</a>
+      @include('partials.parts-dropdown', ['locale' => $loc, 'active' => true])
       <a href="{{ $isRu ? '/ru/testimonial/' : '/testimonial/' }}">{{ $isRu ? 'Отзывы' : 'Відгуки' }}</a>
       <a href="{{ $isRu ? '/ru/news/' : '/news/' }}">{{ $isRu ? 'Новости' : 'Новини' }}</a>
       <a href="{{ $isRu ? '/ru/contacts/' : '/contacts/' }}">{{ $isRu ? 'Контакты' : 'Контакти' }}</a>
@@ -89,8 +89,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const burger = document.querySelector('.burger-btn');
   const menu = document.getElementById('mobileMenu');
   const close = menu?.querySelector('.mobile-menu-close');
-  const dropdown = menu?.querySelector('.dropdown');
-  const dropdownToggle = menu?.querySelector('[data-dd-toggle]');
+  const dropdowns = Array.from(menu?.querySelectorAll('.dropdown') ?? []);
+  const dropdownToggles = Array.from(menu?.querySelectorAll('[data-dd-toggle]') ?? []);
   if (!burger || !menu || !close) return;
   const closeMenu = () => {
     menu.classList.remove('is-open');
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     menu.setAttribute('aria-hidden', 'true');
     document.documentElement.style.overflow = '';
     document.body.style.overflow = '';
-    dropdown?.classList.remove('open');
+    dropdowns.forEach(dropdown => dropdown.classList.remove('open'));
   };
   burger.addEventListener('click', () => {
     menu.classList.add('is-open');
@@ -108,8 +108,16 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.overflow = 'hidden';
   });
   close.addEventListener('click', closeMenu);
-  dropdownToggle?.addEventListener('click', event => {
-    if (matchMedia('(max-width: 900px)').matches) { event.preventDefault(); dropdown?.classList.toggle('open'); }
+  dropdownToggles.forEach(toggle => {
+    toggle.addEventListener('click', event => {
+      if (!matchMedia('(max-width: 900px)').matches) return;
+      event.preventDefault();
+      const currentDropdown = toggle.closest('.dropdown');
+      dropdowns.forEach(dropdown => {
+        if (dropdown !== currentDropdown) dropdown.classList.remove('open');
+      });
+      currentDropdown?.classList.toggle('open');
+    });
   });
   menu.addEventListener('click', event => { if (event.target.closest('a:not([data-dd-toggle])')) closeMenu(); });
   document.addEventListener('keydown', event => { if (event.key === 'Escape') closeMenu(); });
