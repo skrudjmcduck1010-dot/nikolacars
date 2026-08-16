@@ -183,7 +183,7 @@
         </div>
       </div>
 
-      <a href="https://nikolacars.com.ua/ua/">{{ $L['parts'] }}</a>
+      @include('partials.parts-dropdown', ['locale' => $loc])
       <a href="{{ $loc === 'ru' ? '/ru/testimonial/' : '/testimonial/' }}">{{ $L['reviews'] }}</a>
       <a href="{{ $loc === 'ru' ? '/ru/news/' : '/news/' }}">{{ $L['news'] }}</a>
       <a href="{{ $loc === 'ru' ? '/ru/contacts/' : '/contacts/' }}">{{ $L['contacts'] }}</a>
@@ -403,8 +403,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (!burger || !menu || !closeBtn) return;
 
-  const dropdown = menu.querySelector('.dropdown');
-  const dropdownToggle = menu.querySelector('[data-dd-toggle]');
+  const dropdowns = Array.from(menu.querySelectorAll('.dropdown'));
+  const dropdownToggles = Array.from(menu.querySelectorAll('[data-dd-toggle]'));
 
   function openMenu(){
     menu.classList.add('is-open');
@@ -420,7 +420,7 @@ document.addEventListener('DOMContentLoaded', function () {
     menu.setAttribute('aria-hidden', 'true');
     document.documentElement.style.overflow = '';
     document.body.style.overflow = '';
-    dropdown?.classList.remove('open');
+    dropdowns.forEach(dropdown => dropdown.classList.remove('open'));
   }
 
   burger.addEventListener('click', function(){
@@ -433,15 +433,20 @@ document.addEventListener('DOMContentLoaded', function () {
     if (e.key === 'Escape' && menu.classList.contains('is-open')) closeMenu();
   });
 
-  // "Услуги" — раскрытие только на мобилке
-  dropdownToggle?.addEventListener('click', function(e){
-    if (window.matchMedia('(max-width: 900px)').matches) {
+  // Выпадающие разделы раскрываются по нажатию только на мобильных.
+  dropdownToggles.forEach(function(toggle){
+    toggle.addEventListener('click', function(e){
+      if (!window.matchMedia('(max-width: 900px)').matches) return;
       e.preventDefault();
-      dropdown?.classList.toggle('open');
-    }
+      const currentDropdown = toggle.closest('.dropdown');
+      dropdowns.forEach(dropdown => {
+        if (dropdown !== currentDropdown) dropdown.classList.remove('open');
+      });
+      currentDropdown?.classList.toggle('open');
+    });
   });
 
-  // Клик по ссылкам закрывает меню, НО не по "Услуги"
+  // Клик по обычной ссылке закрывает мобильное меню.
   menu.addEventListener('click', function(e){
     const a = e.target.closest('a');
     if (!a) return;
