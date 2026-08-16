@@ -107,6 +107,14 @@ class PartsController extends Controller
         $seoDescription = $locale === 'ru'
             ? $productTitle.', артикул '.$article.' — '.$price.' грн. В наличии в NikolaCars, Киев.'
             : $productTitle.', артикул '.$article.' — '.$price.' грн. В наявності у NikolaCars, Київ.';
+        $productData['description'] = $this->generateProductDescription(
+            $productData,
+            $locale,
+            $name,
+            $vehicle,
+            $article,
+            $price,
+        );
 
         $baseUrl = 'https://nikolacars.kiev.ua';
         $catalogPath = $locale === 'ru' ? '/ru/parts/' : '/parts/';
@@ -139,7 +147,7 @@ class PartsController extends Controller
             '@type' => 'Product',
             'name' => $productTitle,
             'image' => $images,
-            'description' => trim((string) ($productData['description'] ?? '')) ?: $seoDescription,
+            'description' => $productData['description'],
             'sku' => trim((string) ($productData['sku'] ?? '')) ?: $article,
             'mpn' => trim((string) ($productData['part_number'] ?? '')) ?: null,
             'brand' => ['@type' => 'Brand', 'name' => 'Tesla'],
@@ -192,6 +200,114 @@ class PartsController extends Controller
                 ],
             ],
         ]);
+    }
+
+    protected function generateProductDescription(
+        array $product,
+        string $locale,
+        string $name,
+        string $vehicle,
+        string $article,
+        string $price,
+    ): string {
+        $category = trim((string) ($product['category_path'] ?? $product['category'] ?? ''));
+        $compatibility = trim((string) ($product['compatibility'] ?? ''));
+        $condition = $this->localizedProductAttribute((string) ($product['condition'] ?? ''), $locale, 'condition');
+        $color = $this->localizedProductAttribute((string) ($product['color'] ?? ''), $locale, 'color');
+        $quantity = max(0, (int) ($product['quantity'] ?? 0));
+
+        if ($locale === 'ru') {
+            $details = [
+                $name.' — запчасть для '.$vehicle.'.',
+                'Артикул: '.$article.'.',
+            ];
+            if ($category !== '') {
+                $details[] = 'Категория: '.$category.'.';
+            }
+            if ($compatibility !== '') {
+                $details[] = 'Совместимость: '.$compatibility.'.';
+            }
+            if ($condition !== '') {
+                $details[] = 'Состояние: '.$condition.'.';
+            }
+            if ($color !== '') {
+                $details[] = 'Цвет: '.$color.'.';
+            }
+
+            $availability = $quantity > 0
+                ? 'Запчасть в наличии на складе NikolaCars: '.$quantity.' шт.'
+                : 'Наличие запчасти уточняйте у менеджера NikolaCars.';
+
+            return implode(' ', $details)."\n\n".$availability.' Цена — '.$price.' грн. Перед заказом сверьте артикул и совместимость детали с вашим автомобилем Tesla.';
+        }
+
+        $details = [
+            $name.' — запчастина для '.$vehicle.'.',
+            'Артикул: '.$article.'.',
+        ];
+        if ($category !== '') {
+            $details[] = 'Категорія: '.$category.'.';
+        }
+        if ($compatibility !== '') {
+            $details[] = 'Сумісність: '.$compatibility.'.';
+        }
+        if ($condition !== '') {
+            $details[] = 'Стан: '.$condition.'.';
+        }
+        if ($color !== '') {
+            $details[] = 'Колір: '.$color.'.';
+        }
+
+        $availability = $quantity > 0
+            ? 'Запчастина є в наявності на складі NikolaCars: '.$quantity.' шт.'
+            : 'Наявність запчастини уточнюйте у менеджера NikolaCars.';
+
+        return implode(' ', $details)."\n\n".$availability.' Ціна — '.$price.' грн. Перед замовленням звірте артикул і сумісність деталі з вашим автомобілем Tesla.';
+    }
+
+    protected function localizedProductAttribute(string $value, string $locale, string $attribute): string
+    {
+        $value = mb_strtolower(trim($value), 'UTF-8');
+        if ($value === '' || $locale === 'ru') {
+            return $value;
+        }
+
+        $translations = $attribute === 'condition'
+            ? [
+                'new' => 'нова',
+                'новая' => 'нова',
+                'новый' => 'новий',
+                'used' => 'вживана',
+                'б/у' => 'вживана',
+            ]
+            : [
+                'black' => 'чорний',
+                'черный' => 'чорний',
+                'чёрный' => 'чорний',
+                'white' => 'білий',
+                'белый' => 'білий',
+                'red' => 'червоний',
+                'красный' => 'червоний',
+                'blue' => 'синій',
+                'синий' => 'синій',
+                'grey' => 'сірий',
+                'gray' => 'сірий',
+                'серый' => 'сірий',
+                'silver' => 'сріблястий',
+                'серебристый' => 'сріблястий',
+                'green' => 'зелений',
+                'зеленый' => 'зелений',
+                'brown' => 'коричневий',
+                'коричневый' => 'коричневий',
+                'beige' => 'бежевий',
+                'бежевый' => 'бежевий',
+                'yellow' => 'жовтий',
+                'желтый' => 'жовтий',
+                'orange' => 'помаранчевий',
+                'оранжевый' => 'помаранчевий',
+            ];
+
+        return strtr($value, $translations);
     }
 
     public function cities(Request $request, SkladStorefrontClient $client): JsonResponse
