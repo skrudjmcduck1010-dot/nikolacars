@@ -127,10 +127,20 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function renderModels() {
-    const html = [{ value: '', label: t.allModels, slug: '', count: null }, ...state.models].map(item => `
-      <a href="${sectionUrl(item.slug, state.categorySlug)}" class="${item.value === state.model ? 'active' : ''}">
-        ${escapeHtml(item.label)} ${item.count === null ? '' : `<span>${item.count}</span>`}
-      </a>`).join('');
+    const modelLabelParts = label => {
+      const match = String(label || '').trim().match(/^(.*?)(\d{2}\.\d{4}\s*-\s*(?:\d{2}\.\d{4})?)$/);
+      return match
+        ? { name: match[1].trim(), years: match[2].trim().replace(/\s*-\s*/g, '-') }
+        : { name: String(label || '').trim(), years: '' };
+    };
+    const html = [{ value: '', label: t.allModels, slug: '', count: null }, ...state.models].map(item => {
+      const label = modelLabelParts(item.label);
+      return `
+      <a href="${sectionUrl(item.slug, state.categorySlug)}" class="parts-model-tab ${item.value === state.model ? 'active' : ''}">
+        <span class="parts-model-copy"><span class="parts-model-name">${escapeHtml(label.name)}</span>${label.years ? `<span class="parts-model-years">${escapeHtml(label.years)}</span>` : ''}</span>
+        ${item.count === null ? '' : `<span class="parts-model-count">${item.count}</span>`}
+      </a>`;
+    }).join('');
     $('[data-models]').innerHTML = html;
   }
 

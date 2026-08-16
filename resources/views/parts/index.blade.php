@@ -22,6 +22,17 @@
     if ($category !== '') return $catalogBase.'/category/'.$category.'/';
     return $catalogBase.'/';
   };
+  $modelLabelParts = static function (string $label): array {
+    $label = trim($label);
+    if (preg_match('/^(.*?)(\d{2}\.\d{4}\s*-\s*(?:\d{2}\.\d{4})?)$/u', $label, $matches) !== 1) {
+      return [$label, ''];
+    }
+
+    return [
+      trim($matches[1]),
+      preg_replace('/\s*-\s*/u', '-', trim($matches[2])),
+    ];
+  };
   $pageUrl = static function (int $page) use ($sectionUrl, $selectedModelSlug, $categorySlug): string {
     $url = $sectionUrl($selectedModelSlug, $categorySlug);
     return $page > 1 ? $url.'?page='.$page : $url;
@@ -52,9 +63,16 @@
     </div>
 
     <div class="parts-model-tabs" data-models>
-      <a href="{{ $sectionUrl('', $selectedCategorySlug) }}" class="{{ $selectedModel === '' ? 'active' : '' }}">{{ $isRu ? 'Все модели' : 'Усі моделі' }}</a>
+      <a href="{{ $sectionUrl('', $selectedCategorySlug) }}" class="parts-model-tab {{ $selectedModel === '' ? 'active' : '' }}"><span class="parts-model-copy"><span class="parts-model-name">{{ $isRu ? 'Все модели' : 'Усі моделі' }}</span></span></a>
       @foreach($models as $model)
-        <a href="{{ $sectionUrl($model['slug'], $selectedCategorySlug) }}" class="{{ $selectedModel === $model['value'] ? 'active' : '' }}">{{ $model['label'] }} <span>{{ $model['count'] }}</span></a>
+        @php [$modelName, $modelYears] = $modelLabelParts($model['label']); @endphp
+        <a href="{{ $sectionUrl($model['slug'], $selectedCategorySlug) }}" class="parts-model-tab {{ $selectedModel === $model['value'] ? 'active' : '' }}">
+          <span class="parts-model-copy">
+            <span class="parts-model-name">{{ $modelName }}</span>
+            @if($modelYears !== '')<span class="parts-model-years">{{ $modelYears }}</span>@endif
+          </span>
+          <span class="parts-model-count">{{ $model['count'] }}</span>
+        </a>
       @endforeach
     </div>
 
@@ -192,5 +210,5 @@
 window.partsI18n = @json($partsI18n);
 window.initialPartsCatalog = @json($initialCatalog);
 </script>
-<script src="{{ asset('assets/js/parts.js') }}?v=8" defer></script>
+<script src="{{ asset('assets/js/parts.js') }}?v=9" defer></script>
 @endpush
