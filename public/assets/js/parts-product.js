@@ -77,10 +77,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const track = carousel.querySelector('[data-recommendations-track]');
     if (!track) return;
 
-    const scroll = direction => track.scrollBy({
-      left: direction * Math.max(280, track.clientWidth * 0.85),
-      behavior: 'smooth'
-    });
+    const scroll = direction => {
+      const maxScrollLeft = Math.max(0, track.scrollWidth - track.clientWidth);
+      const edgeTolerance = 2;
+
+      if (direction > 0 && track.scrollLeft >= maxScrollLeft - edgeTolerance) {
+        track.scrollTo({ left: 0, behavior: 'smooth' });
+        return;
+      }
+
+      if (direction < 0 && track.scrollLeft <= edgeTolerance) {
+        track.scrollTo({ left: maxScrollLeft, behavior: 'smooth' });
+        return;
+      }
+
+      track.scrollBy({
+        left: direction * Math.max(280, track.clientWidth * 0.85),
+        behavior: 'smooth'
+      });
+    };
     carousel.querySelector('[data-carousel-prev]')?.addEventListener('click', () => scroll(-1));
     carousel.querySelector('[data-carousel-next]')?.addEventListener('click', () => scroll(1));
   });
