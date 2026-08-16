@@ -29,7 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const renderRecommendationButtons = cart => {
     document.querySelectorAll('[data-recommendation-add]').forEach(button => {
       const isAdded = cart.some(item => item.id === Number(button.dataset.recommendationAdd));
-      button.textContent = isAdded ? button.dataset.addedLabel : button.dataset.defaultLabel;
+      const label = isAdded ? button.dataset.addedLabel : button.dataset.defaultLabel;
+      button.setAttribute('aria-label', label);
+      button.title = label;
       button.classList.toggle('added', isAdded);
       button.setAttribute('aria-pressed', String(isAdded));
     });
