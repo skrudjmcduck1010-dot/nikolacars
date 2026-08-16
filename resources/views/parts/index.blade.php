@@ -13,6 +13,7 @@
   $selectedModel = $selection['model'] ?? '';
   $selectedCategory = $selection['category'] ?? '';
   $selectedModelSlug = $selection['model_slug'] ?? '';
+  $selectedCategorySlug = $selection['category_slug'] ?? '';
   $currentPage = (int) ($pagination['page'] ?? 1);
   $lastPage = (int) ($pagination['last_page'] ?? 1);
   $sectionUrl = static function (string $model = '', string $category = '') use ($catalogBase): string {
@@ -51,9 +52,9 @@
     </div>
 
     <div class="parts-model-tabs" data-models>
-      <a href="{{ $sectionUrl() }}" class="{{ $selectedModel === '' ? 'active' : '' }}">{{ $isRu ? 'Все модели' : 'Усі моделі' }}</a>
+      <a href="{{ $sectionUrl('', $selectedCategorySlug) }}" class="{{ $selectedModel === '' ? 'active' : '' }}">{{ $isRu ? 'Все модели' : 'Усі моделі' }}</a>
       @foreach($models as $model)
-        <a href="{{ $sectionUrl($model['slug']) }}" class="{{ $selectedModel === $model['value'] ? 'active' : '' }}">{{ $model['label'] }} <span>{{ $model['count'] }}</span></a>
+        <a href="{{ $sectionUrl($model['slug'], $selectedCategorySlug) }}" class="{{ $selectedModel === $model['value'] ? 'active' : '' }}">{{ $model['label'] }} <span>{{ $model['count'] }}</span></a>
       @endforeach
     </div>
 
@@ -190,5 +191,5 @@
 window.partsI18n = @json($partsI18n);
 window.initialPartsCatalog = @json($initialCatalog);
 </script>
-<script src="{{ asset('assets/js/parts.js') }}?v=6" defer></script>
+<script src="{{ asset('assets/js/parts.js') }}?v=7" defer></script>
 @endpush

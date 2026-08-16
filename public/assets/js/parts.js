@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderModels() {
     const html = [{ value: '', label: t.allModels, slug: '', count: null }, ...state.models].map(item => `
-      <a href="${sectionUrl(item.slug)}" class="${item.value === state.model ? 'active' : ''}">
+      <a href="${sectionUrl(item.slug, state.categorySlug)}" class="${item.value === state.model ? 'active' : ''}">
         ${escapeHtml(item.label)} ${item.count === null ? '' : `<span>${item.count}</span>`}
       </a>`).join('');
     $('[data-models]').innerHTML = html;
