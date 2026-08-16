@@ -17,6 +17,23 @@
     $productModel,
     $product['part_number'] ?? '',
   ])->map(fn ($value) => trim((string) $value))->filter()->unique()->implode(' — ');
+  $categoryBreadcrumbs = collect($product['category_breadcrumbs'] ?? [])->filter(fn ($breadcrumb) =>
+    is_array($breadcrumb) && !empty($breadcrumb['label']) && !empty($breadcrumb['slug'])
+  )->values();
+  if ($categoryBreadcrumbs->isEmpty() && !empty($product['category_slug'])) {
+    $categoryBreadcrumbs = collect([[
+      'label' => $product['category'] ?? '',
+      'slug' => $product['category_slug'],
+    ]]);
+  }
+  $categoryBreadcrumbUrl = static function (array $breadcrumb, int $index) use ($catalogUrl, $product): string {
+    $modelSlug = trim((string) ($product['model_slug'] ?? ''));
+    $slug = trim((string) ($breadcrumb['slug'] ?? ''));
+    if ($index === 0) {
+      return $modelSlug !== '' ? $catalogUrl.$modelSlug.'/'.$slug.'/' : $catalogUrl.'category/'.$slug.'/';
+    }
+    return $modelSlug !== '' ? $catalogUrl.$modelSlug.'/subcategory/'.$slug.'/' : $catalogUrl.'subcategory/'.$slug.'/';
+  };
 @endphp
 <main class="product-page">
   <div class="parts-container">
@@ -24,10 +41,10 @@
       <a href="{{ $catalogUrl }}">{{ $isRu ? 'Запчасти' : 'Запчастини' }}</a>
       <span>›</span>
       <a href="{{ $catalogUrl.($product['model_slug'] ?? '').'/' }}">{{ $product['model'] ?? '' }}</a>
-      @if(!empty($product['category_slug']))
+      @foreach($categoryBreadcrumbs as $categoryBreadcrumb)
         <span>›</span>
-        <a href="{{ $catalogUrl.($product['model_slug'] ?? '').'/'.$product['category_slug'].'/' }}">{{ $product['category'] ?? '' }}</a>
-      @endif
+        <a href="{{ $categoryBreadcrumbUrl($categoryBreadcrumb, $loop->index) }}">{{ $categoryBreadcrumb['label'] }}</a>
+      @endforeach
       <span>›</span>
       <span>{{ $product['name'] }}</span>
     </nav>

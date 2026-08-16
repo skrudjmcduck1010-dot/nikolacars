@@ -249,12 +249,27 @@ class PartsController extends Controller
             ];
         }
         $categorySlug = trim((string) ($productData['category_slug'] ?? ''));
-        if ($modelSlug !== '' && $categorySlug !== '') {
+        $categoryBreadcrumbs = collect($productData['category_breadcrumbs'] ?? [])
+            ->filter(fn (mixed $breadcrumb): bool => is_array($breadcrumb)
+                && trim((string) ($breadcrumb['label'] ?? '')) !== ''
+                && trim((string) ($breadcrumb['slug'] ?? '')) !== '')
+            ->values();
+        if ($categoryBreadcrumbs->isEmpty() && $categorySlug !== '') {
+            $categoryBreadcrumbs = collect([[
+                'label' => (string) ($productData['category'] ?? ''),
+                'slug' => $categorySlug,
+            ]]);
+        }
+        foreach ($categoryBreadcrumbs as $index => $breadcrumb) {
+            $slug = trim((string) $breadcrumb['slug']);
+            $categoryPath = $index === 0
+                ? ($modelSlug !== '' ? $modelSlug.'/'.$slug.'/' : 'category/'.$slug.'/')
+                : ($modelSlug !== '' ? $modelSlug.'/subcategory/'.$slug.'/' : 'subcategory/'.$slug.'/');
             $breadcrumbItems[] = [
                 '@type' => 'ListItem',
                 'position' => count($breadcrumbItems) + 1,
-                'name' => (string) ($productData['category'] ?? ''),
-                'item' => $baseUrl.$catalogPath.$modelSlug.'/'.$categorySlug.'/',
+                'name' => (string) $breadcrumb['label'],
+                'item' => $baseUrl.$catalogPath.$categoryPath,
             ];
         }
         $breadcrumbItems[] = [
