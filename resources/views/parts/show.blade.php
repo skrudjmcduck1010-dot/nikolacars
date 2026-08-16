@@ -22,7 +22,8 @@
     </nav>
 
     <div class="product-detail">
-      <section class="product-gallery">
+      <div class="product-visual">
+        <section class="product-gallery">
         <div class="product-main-image {{ $images->isEmpty() ? 'no-image' : '' }}">
           @if($images->isNotEmpty())
             <img src="{{ $images->first() }}" alt="{{ $product['name'] }}" data-product-main-image>
@@ -37,7 +38,12 @@
             @endforeach
           </div>
         @endif
-      </section>
+        </section>
+
+        @if(!empty($product['description']))
+          <section class="product-description"><h2>{{ $isRu ? 'Описание' : 'Опис' }}</h2><p>{{ $product['description'] }}</p></section>
+        @endif
+      </div>
 
       <section class="product-info">
         <div class="product-model">{{ $product['model'] ?? '' }}</div>
@@ -64,9 +70,6 @@
           @if(!empty($product['compatibility']))<div><dt>{{ $isRu ? 'Совместимость' : 'Сумісність' }}</dt><dd>{{ $product['compatibility'] }}</dd></div>@endif
         </dl>
 
-        @if(!empty($product['description']))
-          <div class="product-description"><h2>{{ $isRu ? 'Описание' : 'Опис' }}</h2><p>{{ $product['description'] }}</p></div>
-        @endif
       </section>
     </div>
   </div>
