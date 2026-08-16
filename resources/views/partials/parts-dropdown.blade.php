@@ -18,7 +18,6 @@
     {{ $partsMenuLocale === 'ru' ? 'Запчасти' : 'Запчастини' }} <span class="chev">▾</span>
   </a>
   <div class="dropdown-menu">
-    <a href="{{ $partsMenuBase }}/">{{ $partsMenuLocale === 'ru' ? 'Все запчасти Tesla' : 'Усі запчастини Tesla' }}</a>
     @foreach($partsMenuModels as $model)
       <a href="{{ $partsMenuBase }}/{{ $model['slug'] }}/">{{ $model['label'] }}</a>
     @endforeach
