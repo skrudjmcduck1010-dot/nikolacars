@@ -55,10 +55,26 @@
       data-order-url="{{ $apiPrefix }}/orders">
   <div class="parts-container">
     <div class="parts-title-row">
-      <div>
+      <div class="parts-title-copy">
         <h1>{{ $isRu ? 'Запчасти Tesla' : 'Запчастини Tesla' }}</h1>
         <p data-current-context>{{ $isRu ? 'Оригинальные запчасти со склада NikolaCars' : 'Оригінальні запчастини зі складу NikolaCars' }}</p>
       </div>
+      <form class="parts-toolbar parts-title-search" id="partsFilterForm" data-filter-form role="search">
+        <div class="parts-search-field">
+          <input type="search" name="q" value="{{ request('q') }}" autocomplete="off"
+                 placeholder="{{ $isRu ? 'Название, артикул, VIN' : 'Назва, артикул, VIN' }}"
+                 aria-label="{{ $isRu ? 'Поиск запчастей' : 'Пошук запчастин' }}"
+                 aria-autocomplete="list" aria-controls="partsSearchSuggestions" aria-expanded="false"
+                 data-search-input>
+          <div class="parts-search-suggestions" id="partsSearchSuggestions" data-search-suggestions role="listbox" hidden></div>
+        </div>
+        <button type="submit" class="parts-search-submit" aria-label="{{ $isRu ? 'Найти' : 'Знайти' }}" title="{{ $isRu ? 'Найти' : 'Знайти' }}">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="11" cy="11" r="6.5"></circle>
+            <path d="m16 16 4.5 4.5"></path>
+          </svg>
+        </button>
+      </form>
     </div>
 
     <div class="parts-model-tabs" data-models>
@@ -74,11 +90,6 @@
         </a>
       @endforeach
     </div>
-
-    <form class="parts-toolbar" id="partsFilterForm" data-filter-form>
-      <input type="search" name="q" value="{{ request('q') }}" autocomplete="off" placeholder="{{ $isRu ? 'Название, артикул, VIN' : 'Назва, артикул, VIN' }}">
-      <button type="submit">{{ $isRu ? 'Найти' : 'Знайти' }}</button>
-    </form>
 
     <div class="parts-layout">
       <aside class="parts-sidebar">
@@ -197,6 +208,7 @@
     'inCart' => $isRu ? 'В корзине' : 'У кошику',
     'empty' => $isRu ? 'По выбранным фильтрам запчастей не найдено.' : 'За вибраними фільтрами запчастин не знайдено.',
     'loadError' => $isRu ? 'Не удалось загрузить каталог. Попробуйте ещё раз.' : 'Не вдалося завантажити каталог. Спробуйте ще раз.',
+    'searchEmpty' => $isRu ? 'Ничего не найдено' : 'Нічого не знайдено',
     'orderError' => $isRu ? 'Не удалось оформить заказ.' : 'Не вдалося оформити замовлення.',
     'required' => $isRu ? 'Заполните обязательные поля.' : 'Заповніть обов’язкові поля.',
     'success' => $isRu ? 'Номер вашего заказа: :number. Мы свяжемся с вами для подтверждения.' : 'Номер вашого замовлення: :number. Ми зв’яжемося з вами для підтвердження.',
@@ -209,5 +221,5 @@
 window.partsI18n = @json($partsI18n);
 window.initialPartsCatalog = @json($initialCatalog);
 </script>
-<script src="{{ asset('assets/js/parts.js') }}?v=11" defer></script>
+<script src="{{ asset('assets/js/parts.js') }}?v=12" defer></script>
 @endpush

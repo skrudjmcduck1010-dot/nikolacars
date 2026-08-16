@@ -19,6 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
   let cityTimer;
   let warehouseTimer;
+  let searchTimer;
+  let searchAbort;
 
   const money = value => `${new Intl.NumberFormat(root.dataset.locale === 'ru' ? 'ru-UA' : 'uk-UA', { maximumFractionDigits: 0 }).format(value)} ${t.uah}`;
   const escapeHtml = value => String(value ?? '').replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char]));
@@ -74,6 +76,73 @@ document.addEventListener('DOMContentLoaded', () => {
     } finally {
       $('[data-products]').classList.remove('loading');
     }
+  }
+
+  const searchInput = $('[data-search-input]');
+  const searchSuggestions = $('[data-search-suggestions]');
+
+  function hideSearchSuggestions() {
+    searchSuggestions.hidden = true;
+    searchSuggestions.innerHTML = '';
+    searchInput.setAttribute('aria-expanded', 'false');
+  }
+
+  function renderSearchSuggestions(products) {
+    if (!products.length) {
+      searchSuggestions.innerHTML = `<div class="parts-search-empty">${escapeHtml(t.searchEmpty)}</div>`;
+    } else {
+      searchSuggestions.innerHTML = products.map(product => {
+        const imageUrl = product.thumbnail_url || product.image_url;
+        const productUrl = `${root.dataset.productBase}/${product.id}/`;
+        const codes = [product.part_number, product.sku].filter(Boolean).join(' · ');
+        return `<a href="${productUrl}" class="parts-search-suggestion" role="option">
+          <span class="parts-search-suggestion-image ${imageUrl ? '' : 'no-image'}">
+            ${imageUrl ? `<img src="${escapeHtml(imageUrl)}" alt="" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('no-image');this.remove()">` : ''}
+            <span>N</span>
+          </span>
+          <span class="parts-search-suggestion-copy">
+            <strong>${escapeHtml(product.name)}</strong>
+            <small>${escapeHtml(codes)}</small>
+          </span>
+          <b>${money(product.price_uah)}</b>
+        </a>`;
+      }).join('');
+    }
+    searchSuggestions.hidden = false;
+    searchInput.setAttribute('aria-expanded', 'true');
+  }
+
+  async function loadSearchSuggestions(query) {
+    searchAbort?.abort();
+    searchAbort = new AbortController();
+    const params = new URLSearchParams({ q: query, page: 1, per_page: 6, sort: 'newest' });
+    if (state.model) params.set('model', state.model);
+    if (state.category) params.set('category', state.category);
+    if (state.modelSlug) params.set('model_slug', state.modelSlug);
+    if (state.categorySlug) params.set('category_slug', state.categorySlug);
+    try {
+      const response = await fetch(`${root.dataset.catalogUrl}?${params}`, {
+        headers: { Accept: 'application/json' },
+        signal: searchAbort.signal
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || t.loadError);
+      if (searchInput.value.trim() !== query) return;
+      renderSearchSuggestions(data.products || []);
+    } catch (error) {
+      if (error.name !== 'AbortError') hideSearchSuggestions();
+    }
+  }
+
+  function scheduleSearchSuggestions() {
+    clearTimeout(searchTimer);
+    const query = searchInput.value.trim();
+    if (query.length < 2) {
+      searchAbort?.abort();
+      hideSearchSuggestions();
+      return;
+    }
+    searchTimer = setTimeout(() => loadSearchSuggestions(query), 300);
   }
 
   function render() {
@@ -219,10 +288,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (event.target.closest('[data-close-cart]') || event.target.matches('[data-overlay]')) closeCart();
     if (event.target.closest('[data-scroll-catalog]')) root.scrollIntoView({ behavior: 'smooth' });
     if (event.target.closest('[data-success-close]')) $('[data-success]').hidden = true;
+    if (!event.target.closest('.parts-title-search')) hideSearchSuggestions();
   });
 
   $('[data-filter-form]').addEventListener('submit', event => {
     event.preventDefault();
+    clearTimeout(searchTimer); searchAbort?.abort(); hideSearchSuggestions();
     const data = new FormData(event.currentTarget);
     state.q = String(data.get('q') || '').trim(); state.sort = data.get('sort') || 'newest'; state.page = 1;
     history.replaceState(null, '', paginationUrl(1));
@@ -235,6 +306,15 @@ document.addEventListener('DOMContentLoaded', () => {
     loadCatalog();
   });
   $('[data-more]').addEventListener('click', () => { state.page += 1; loadCatalog(true); });
+
+  searchInput.addEventListener('input', scheduleSearchSuggestions);
+  searchInput.addEventListener('focus', scheduleSearchSuggestions);
+  searchInput.addEventListener('keydown', event => {
+    if (event.key === 'Escape') {
+      hideSearchSuggestions();
+      searchInput.blur();
+    }
+  });
 
   $$('input[name="delivery_method"]').forEach(input => input.addEventListener('change', () => {
     $('[data-np-fields]').hidden = input.form.delivery_method.value !== 'nova_poshta';
