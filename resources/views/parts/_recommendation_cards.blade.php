@@ -15,7 +15,10 @@
         <h3><a href="{{ $productUrl }}">{{ $item['name'] }}</a></h3>
         <div class="part-codes">{{ collect([$item['part_number'] ?? null, $item['sku'] ?? null])->filter()->implode(' · ') }}</div>
         <div class="part-purchase-row">
-          <div class="part-price">{{ number_format((float) $item['price_uah'], 0, '.', ' ') }} грн</div>
+          <div class="part-purchase-info">
+            <div class="part-price">{{ number_format((float) $item['price_uah'], 0, '.', ' ') }} грн</div>
+            <div class="part-stock">{{ $isRu ? 'В наличии' : 'В наявності' }}: {{ $item['quantity'] }}</div>
+          </div>
           <button
             type="button"
             class="add-cart"
@@ -31,7 +34,6 @@
             </svg>
           </button>
         </div>
-        <div class="part-stock">{{ $isRu ? 'В наличии' : 'В наявності' }}: {{ $item['quantity'] }}</div>
       </div>
     </article>
   @endforeach

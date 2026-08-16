@@ -260,7 +260,10 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="part-codes">${escapeHtml([product.part_number, product.sku, product.vin].filter(Boolean).join(' · '))}</div>
           <div class="part-category-path">${escapeHtml(product.category_path)}</div>
           <div class="part-purchase-row">
-            <div class="part-price">${money(product.price_uah)}</div>
+            <div class="part-purchase-info">
+              <div class="part-price">${money(product.price_uah)}</div>
+              <div class="part-stock">${t.inStock}: ${product.quantity}</div>
+            </div>
             <button type="button" class="add-cart ${inCart ? 'added' : ''}" data-add-cart="${product.id}" aria-label="${inCart ? t.inCart : t.toCart}" title="${inCart ? t.inCart : t.toCart}">
               <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <path d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 1.9-1.4L21 7H6"></path>
@@ -268,7 +271,6 @@ document.addEventListener('DOMContentLoaded', () => {
               </svg>
             </button>
           </div>
-          <div class="part-stock">${t.inStock}: ${product.quantity}</div>
         </div>
       </article>`;
     }).join('');

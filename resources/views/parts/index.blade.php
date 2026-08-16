@@ -127,7 +127,10 @@
                 <div class="part-codes">{{ collect([$product['part_number'] ?? null, $product['sku'] ?? null, $product['vin'] ?? null])->filter()->implode(' · ') }}</div>
                 <div class="part-category-path">{{ $product['category_path'] }}</div>
                 <div class="part-purchase-row">
-                  <div class="part-price">{{ number_format((float) $product['price_uah'], 0, '.', ' ') }} грн</div>
+                  <div class="part-purchase-info">
+                    <div class="part-price">{{ number_format((float) $product['price_uah'], 0, '.', ' ') }} грн</div>
+                    <div class="part-stock">{{ $isRu ? 'В наличии' : 'В наявності' }}: {{ $product['quantity'] }}</div>
+                  </div>
                   <button type="button" class="add-cart" data-add-cart="{{ $product['id'] }}"
                           aria-label="{{ $isRu ? 'В корзину' : 'У кошик' }}" title="{{ $isRu ? 'В корзину' : 'У кошик' }}">
                     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -136,7 +139,6 @@
                     </svg>
                   </button>
                 </div>
-                <div class="part-stock">{{ $isRu ? 'В наличии' : 'В наявності' }}: {{ $product['quantity'] }}</div>
               </div>
             </article>
           @endforeach
@@ -229,5 +231,5 @@
 window.partsI18n = @json($partsI18n);
 window.initialPartsCatalog = @json($initialCatalog);
 </script>
-<script src="{{ asset('assets/js/parts.js') }}?v=15" defer></script>
+<script src="{{ asset('assets/js/parts.js') }}?v=16" defer></script>
 @endpush
