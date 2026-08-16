@@ -220,11 +220,8 @@ class PartsController extends Controller
         if ($locale === 'ru') {
             $details = [
                 $name.' — запчасть для '.$vehicle.'.',
-                'Артикул: '.$article.'.',
+                'Артикул: '.$article.($compactArticle !== $article ? ' ('.$compactArticle.')' : '').'.',
             ];
-            if ($compactArticle !== $article) {
-                $details[] = 'Артикул без дефисов: '.$compactArticle.'.';
-            }
             if ($category !== '') {
                 $details[] = 'Категория: '.$category.'.';
             }
@@ -247,11 +244,8 @@ class PartsController extends Controller
 
         $details = [
             $name.' — запчастина для '.$vehicle.'.',
-            'Артикул: '.$article.'.',
+            'Артикул: '.$article.($compactArticle !== $article ? ' ('.$compactArticle.')' : '').'.',
         ];
-        if ($compactArticle !== $article) {
-            $details[] = 'Артикул без дефісів: '.$compactArticle.'.';
-        }
         if ($category !== '') {
             $details[] = 'Категорія: '.$category.'.';
         }
