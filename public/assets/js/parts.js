@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
     $('[data-total]').textContent = `${state.total} ${t.positions}`;
     $('[data-results-count]').textContent = `${state.total} ${t.positions}`;
     $('[data-model-total]').textContent = state.categories.reduce((sum, item) => sum + Number(item.count), 0);
-    $('[data-results-title]').textContent = state.category || state.model || t.catalog;
+    $('[data-results-title]').textContent = state.category || state.model || t.allProducts;
     $('[data-more]').hidden = state.page >= state.lastPage;
     $('[data-empty]').hidden = state.products.length > 0;
     if (!state.products.length) $('[data-empty]').textContent = t.empty;
@@ -142,8 +142,6 @@ document.addEventListener('DOMContentLoaded', () => {
       <a href="${sectionUrl(state.modelSlug, item.slug)}" class="parts-category ${state.category === item.value ? 'active' : ''}">
         <span>${escapeHtml(item.label)}</span><b>${item.count}</b>
       </a>`).join('');
-    $('[data-category-grid]').innerHTML = state.category ? '' : state.categories.map(item => `
-      <a href="${sectionUrl(state.modelSlug, item.slug)}"><b>${escapeHtml(item.label)}</b><span>${item.count} ${t.positions}</span></a>`).join('');
   }
 
   function renderProducts() {

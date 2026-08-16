@@ -81,15 +81,8 @@
 
       <section class="parts-results">
         <div class="parts-results-head">
-          <h2 data-results-title>{{ $selectedCategory ?: ($selectedModel ?: 'Каталог') }}</h2>
+          <h2 data-results-title>{{ $selectedCategory ?: ($selectedModel ?: ($isRu ? 'Все запчасти' : 'Усі запчастини')) }}</h2>
           <span data-results-count>{{ $pagination['total'] ?? 0 }} {{ $isRu ? 'позиций' : 'позицій' }}</span>
-        </div>
-        <div class="parts-category-grid" data-category-grid>
-          @if($selectedCategory === '')
-            @foreach($categories as $category)
-              <a href="{{ $sectionUrl($selectedModelSlug, $category['slug']) }}"><b>{{ $category['label'] }}</b><span>{{ $category['count'] }} {{ $isRu ? 'позиций' : 'позицій' }}</span></a>
-            @endforeach
-          @endif
         </div>
         <div class="parts-products" data-products>
           @foreach($products as $product)
@@ -177,6 +170,7 @@
   $partsI18n = [
     'allModels' => $isRu ? 'Все модели' : 'Усі моделі',
     'allParts' => $isRu ? 'Все запчасти модели' : 'Усі запчастини моделі',
+    'allProducts' => $isRu ? 'Все запчасти' : 'Усі запчастини',
     'catalog' => 'Каталог',
     'positions' => $isRu ? 'позиций' : 'позицій',
     'inStock' => $isRu ? 'В наличии' : 'В наявності',
@@ -196,5 +190,5 @@
 window.partsI18n = @json($partsI18n);
 window.initialPartsCatalog = @json($initialCatalog);
 </script>
-<script src="{{ asset('assets/js/parts.js') }}?v=5" defer></script>
+<script src="{{ asset('assets/js/parts.js') }}?v=6" defer></script>
 @endpush
