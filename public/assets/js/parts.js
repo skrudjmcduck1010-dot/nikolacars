@@ -226,7 +226,13 @@ document.addEventListener('DOMContentLoaded', () => {
   $('[data-filter-form]').addEventListener('submit', event => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    state.q = String(data.get('q') || '').trim(); state.sort = data.get('sort'); state.page = 1;
+    state.q = String(data.get('q') || '').trim(); state.sort = data.get('sort') || 'newest'; state.page = 1;
+    history.replaceState(null, '', paginationUrl(1));
+    loadCatalog();
+  });
+  $('[data-sort]')?.addEventListener('change', event => {
+    state.sort = event.currentTarget.value || 'newest';
+    state.page = 1;
     history.replaceState(null, '', paginationUrl(1));
     loadCatalog();
   });
@@ -284,8 +290,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   cart = cart.filter(item => item && Number.isInteger(item.id));
   $('[data-filter-form] input[name="q"]').value = state.q;
-  if ($(`[data-filter-form] select[name="sort"] option[value="${CSS.escape(state.sort)}"]`)) {
-    $('[data-filter-form] select[name="sort"]').value = state.sort;
+  if ($(`[data-sort] option[value="${CSS.escape(state.sort)}"]`)) {
+    $('[data-sort]').value = state.sort;
   }
   renderCart();
   if (window.initialPartsCatalog) applyCatalog(window.initialPartsCatalog);

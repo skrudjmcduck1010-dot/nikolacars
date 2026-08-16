@@ -76,14 +76,8 @@
       @endforeach
     </div>
 
-    <form class="parts-toolbar" data-filter-form>
+    <form class="parts-toolbar" id="partsFilterForm" data-filter-form>
       <input type="search" name="q" value="{{ request('q') }}" autocomplete="off" placeholder="{{ $isRu ? 'Название, артикул, VIN' : 'Назва, артикул, VIN' }}">
-      <select name="sort" aria-label="{{ $isRu ? 'Сортировка' : 'Сортування' }}">
-        <option value="newest" @selected(request('sort', 'newest') === 'newest')>{{ $isRu ? 'Сначала новые' : 'Спочатку нові' }}</option>
-        <option value="price_asc" @selected(request('sort') === 'price_asc')>{{ $isRu ? 'Цена: по возрастанию' : 'Ціна: за зростанням' }}</option>
-        <option value="price_desc" @selected(request('sort') === 'price_desc')>{{ $isRu ? 'Цена: по убыванию' : 'Ціна: за спаданням' }}</option>
-        <option value="name" @selected(request('sort') === 'name')>{{ $isRu ? 'По названию' : 'За назвою' }}</option>
-      </select>
       <button type="submit">{{ $isRu ? 'Найти' : 'Знайти' }}</button>
     </form>
 
@@ -101,7 +95,15 @@
       <section class="parts-results">
         <div class="parts-results-head">
           <h2 data-results-title>{{ $selectedCategory ?: ($selectedModel ?: ($isRu ? 'Все запчасти' : 'Усі запчастини')) }}</h2>
-          <span data-results-count>{{ $pagination['total'] ?? 0 }} {{ $isRu ? 'позиций' : 'позицій' }}</span>
+          <div class="parts-results-controls">
+            <select class="parts-sort" name="sort" form="partsFilterForm" data-sort aria-label="{{ $isRu ? 'Сортировка' : 'Сортування' }}">
+              <option value="newest" @selected(request('sort', 'newest') === 'newest')>{{ $isRu ? 'Сначала новые' : 'Спочатку нові' }}</option>
+              <option value="price_asc" @selected(request('sort') === 'price_asc')>{{ $isRu ? 'Цена: по возрастанию' : 'Ціна: за зростанням' }}</option>
+              <option value="price_desc" @selected(request('sort') === 'price_desc')>{{ $isRu ? 'Цена: по убыванию' : 'Ціна: за спаданням' }}</option>
+              <option value="name" @selected(request('sort') === 'name')>{{ $isRu ? 'По названию' : 'За назвою' }}</option>
+            </select>
+            <span data-results-count>{{ $pagination['total'] ?? 0 }} {{ $isRu ? 'позиций' : 'позицій' }}</span>
+          </div>
         </div>
         <div class="parts-products" data-products>
           @foreach($products as $product)
@@ -210,5 +212,5 @@
 window.partsI18n = @json($partsI18n);
 window.initialPartsCatalog = @json($initialCatalog);
 </script>
-<script src="{{ asset('assets/js/parts.js') }}?v=9" defer></script>
+<script src="{{ asset('assets/js/parts.js') }}?v=10" defer></script>
 @endpush
