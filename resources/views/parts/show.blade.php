@@ -6,6 +6,8 @@
   $catalogUrl = $isRu ? '/ru/parts/' : '/parts/';
   $images = collect($product['images'] ?? [])->filter()->values();
   if ($images->isEmpty() && !empty($product['image_url'])) $images = collect([$product['image_url']]);
+  $similarProducts = collect($product['similar_products'] ?? []);
+  $subcategoryProducts = collect($product['subcategory_products'] ?? []);
 @endphp
 <main class="product-page">
   <div class="parts-container">
@@ -72,6 +74,26 @@
 
       </section>
     </div>
+
+    @if($similarProducts->isNotEmpty())
+      <section class="product-recommendations">
+        <div class="product-recommendations-heading">
+          <h2>{{ $isRu ? 'Похожие товары' : 'Схожі товари' }}</h2>
+          <p>{{ $isRu ? 'Совпадение по первым 7 символам артикула' : 'Збіг за першими 7 символами артикула' }}</p>
+        </div>
+        @include('parts._recommendation_cards', ['products' => $similarProducts])
+      </section>
+    @endif
+
+    @if($subcategoryProducts->isNotEmpty())
+      <section class="product-recommendations">
+        <div class="product-recommendations-heading">
+          <h2>{{ $isRu ? 'Другие товары из подкатегории' : 'Інші товари з підкатегорії' }}</h2>
+          <p>{{ $product['category_path'] ?? '' }}</p>
+        </div>
+        @include('parts._recommendation_cards', ['products' => $subcategoryProducts])
+      </section>
+    @endif
   </div>
 </main>
 
@@ -80,5 +102,5 @@
 
 @push('scripts')
 <script>window.productPageConfig = @json(['catalogUrl' => $catalogUrl]);</script>
-<script src="{{ asset('assets/js/parts-product.js') }}?v=2" defer></script>
+<script src="{{ asset('assets/js/parts-product.js') }}?v=3" defer></script>
 @endpush

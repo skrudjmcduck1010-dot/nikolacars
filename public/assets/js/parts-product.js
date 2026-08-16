@@ -6,6 +6,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const cartKey = 'nikolacars-parts-cart-v1';
   const addButton = document.querySelector('[data-product-add]');
   const addButtonLabel = addButton?.textContent.trim() || '';
+  const recommendationProducts = [
+    ...(product.similar_products || []),
+    ...(product.subcategory_products || [])
+  ];
+  const cartProduct = { ...product };
+  delete cartProduct.similar_products;
+  delete cartProduct.subcategory_products;
   const readCart = () => JSON.parse(localStorage.getItem(cartKey) || '[]').filter(item => item && Number.isInteger(item.id));
   const renderCount = cart => {
     const count = cart.reduce((sum, item) => sum + Number(item.quantity || 0), 0);
@@ -19,19 +26,39 @@ document.addEventListener('DOMContentLoaded', () => {
     addButton.classList.toggle('added', isAdded);
     addButton.setAttribute('aria-pressed', String(isAdded));
   };
+  const renderRecommendationButtons = cart => {
+    document.querySelectorAll('[data-recommendation-add]').forEach(button => {
+      const isAdded = cart.some(item => item.id === Number(button.dataset.recommendationAdd));
+      button.textContent = isAdded ? button.dataset.addedLabel : button.dataset.defaultLabel;
+      button.classList.toggle('added', isAdded);
+      button.setAttribute('aria-pressed', String(isAdded));
+    });
+  };
 
   let cart = readCart();
   renderCount(cart);
   renderAddButton(cart);
+  renderRecommendationButtons(cart);
 
   addButton?.addEventListener('click', () => {
     if (!cart.some(item => item.id === product.id)) {
-      cart.push({ ...product, available: product.quantity, quantity: 1 });
+      cart.push({ ...cartProduct, available: product.quantity, quantity: 1 });
       localStorage.setItem(cartKey, JSON.stringify(cart));
     }
     renderCount(cart);
     renderAddButton(cart);
   });
+
+  document.querySelectorAll('[data-recommendation-add]').forEach(button => button.addEventListener('click', () => {
+    const recommendation = recommendationProducts.find(item => item.id === Number(button.dataset.recommendationAdd));
+    if (recommendation && !cart.some(item => item.id === recommendation.id)) {
+      cart.push({ ...recommendation, available: recommendation.quantity, quantity: 1 });
+      localStorage.setItem(cartKey, JSON.stringify(cart));
+    }
+    renderCount(cart);
+    renderAddButton(cart);
+    renderRecommendationButtons(cart);
+  }));
 
   document.querySelector('[data-open-cart]')?.addEventListener('click', () => {
     location.href = `${window.productPageConfig.catalogUrl}?cart=open`;
