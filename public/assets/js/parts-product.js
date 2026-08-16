@@ -140,6 +140,14 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('[data-recommendations-carousel]').forEach(carousel => {
     const track = carousel.querySelector('[data-recommendations-track]');
     if (!track) return;
+    const arrows = Array.from(carousel.querySelectorAll('.product-carousel-arrow'));
+
+    const updateCarouselState = () => {
+      const isScrollable = track.scrollWidth > track.clientWidth + 2;
+      carousel.classList.toggle('is-scrollable', isScrollable);
+      arrows.forEach(arrow => { arrow.hidden = !isScrollable; });
+      if (!isScrollable && track.scrollLeft !== 0) track.scrollTo({ left: 0 });
+    };
 
     const scroll = direction => {
       const maxScrollLeft = Math.max(0, track.scrollWidth - track.clientWidth);
@@ -162,5 +170,11 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     carousel.querySelector('[data-carousel-prev]')?.addEventListener('click', () => scroll(-1));
     carousel.querySelector('[data-carousel-next]')?.addEventListener('click', () => scroll(1));
+    requestAnimationFrame(updateCarouselState);
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(updateCarouselState).observe(track);
+    } else {
+      window.addEventListener('resize', updateCarouselState);
+    }
   });
 });

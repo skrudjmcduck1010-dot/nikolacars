@@ -105,9 +105,9 @@
           <p>{{ $product['category_path'] ?? '' }}</p>
         </div>
         <div class="product-recommendations-carousel" data-recommendations-carousel>
-          <button type="button" class="product-carousel-arrow product-carousel-prev" data-carousel-prev aria-label="{{ $isRu ? 'Предыдущие товары' : 'Попередні товари' }}">‹</button>
+          <button type="button" class="product-carousel-arrow product-carousel-prev" data-carousel-prev aria-label="{{ $isRu ? 'Предыдущие товары' : 'Попередні товари' }}" hidden>‹</button>
           @include('parts._recommendation_cards', ['products' => $subcategoryProducts, 'carousel' => true])
-          <button type="button" class="product-carousel-arrow product-carousel-next" data-carousel-next aria-label="{{ $isRu ? 'Следующие товары' : 'Наступні товари' }}">›</button>
+          <button type="button" class="product-carousel-arrow product-carousel-next" data-carousel-next aria-label="{{ $isRu ? 'Следующие товары' : 'Наступні товари' }}" hidden>›</button>
         </div>
       </section>
     @endif
@@ -134,5 +134,5 @@
 
 @push('scripts')
 <script>window.productPageConfig = @json(['catalogUrl' => $catalogUrl]);</script>
-<script src="{{ asset('assets/js/parts-product.js') }}?v=7" defer></script>
+<script src="{{ asset('assets/js/parts-product.js') }}?v=8" defer></script>
 @endpush
