@@ -7,7 +7,7 @@
     <article class="part-card">
       <a href="{{ $productUrl }}" class="part-image {{ empty($cardImage) ? 'no-image' : '' }}">
         @if(!empty($cardImage))
-          <img src="{{ $cardImage }}" alt="{{ $item['name'] }}" loading="lazy" decoding="async">
+          <img src="{{ $cardImage }}" alt="{{ $item['name'] }}" width="{{ $item['thumbnail_width'] ?? 360 }}" height="{{ $item['thumbnail_height'] ?? 300 }}" loading="lazy" decoding="async">
         @endif
         <span>NIKOLACARS</span>
       </a>

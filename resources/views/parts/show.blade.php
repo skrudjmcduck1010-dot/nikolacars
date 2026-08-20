@@ -54,7 +54,7 @@
         <section class="product-gallery">
         @if($images->isNotEmpty())
           <button type="button" class="product-main-image" data-gallery-open aria-label="{{ $isRu ? 'Открыть фото в полном размере' : 'Відкрити фото у повному розмірі' }}">
-            <img src="{{ $images->first() }}" alt="{{ $product['name'] }}" data-product-main-image>
+            <img src="{{ $images->first() }}" alt="{{ $product['name'] }}" decoding="async" fetchpriority="high" data-product-main-image>
           </button>
         @else
           <div class="product-main-image no-image"><span>NIKOLACARS</span></div>
@@ -62,7 +62,7 @@
         @if($images->count() > 1)
           <div class="product-thumbnails">
             @foreach($images as $image)
-              <button type="button" class="{{ $loop->first ? 'active' : '' }}" data-product-image="{{ $image }}" data-product-image-index="{{ $loop->index }}"><img src="{{ $image }}" alt=""></button>
+              <button type="button" class="{{ $loop->first ? 'active' : '' }}" data-product-image="{{ $image }}" data-product-image-index="{{ $loop->index }}"><img src="{{ $image }}" alt="" loading="lazy" decoding="async"></button>
             @endforeach
           </div>
         @endif
@@ -140,7 +140,7 @@
       <button type="button" class="product-lightbox-arrow product-lightbox-next" data-lightbox-next aria-label="{{ $isRu ? 'Следующее фото' : 'Наступне фото' }}">›</button>
     @endif
     <div class="product-lightbox-stage" data-lightbox-stage>
-      <img src="{{ $images->first() }}" alt="{{ $product['name'] }}" data-lightbox-image>
+      <img src="{{ $images->first() }}" alt="{{ $product['name'] }}" loading="lazy" decoding="async" data-lightbox-image>
       @if($images->count() > 1)<div class="product-lightbox-counter" data-lightbox-counter>1 / {{ $images->count() }}</div>@endif
     </div>
   </div>

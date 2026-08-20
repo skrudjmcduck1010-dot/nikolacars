@@ -112,11 +112,13 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       const productRows = products.map(product => {
         const imageUrl = product.thumbnail_url || product.image_url;
+        const imageWidth = Number(product.thumbnail_width || 360);
+        const imageHeight = Number(product.thumbnail_height || 300);
         const productUrl = `${root.dataset.productBase}/${product.id}/`;
         const codes = [product.part_number, product.sku].filter(Boolean).join(' · ');
         return `<a href="${productUrl}" class="parts-search-suggestion" role="option">
           <span class="parts-search-suggestion-image ${imageUrl ? '' : 'no-image'}">
-            ${imageUrl ? `<img src="${escapeHtml(imageUrl)}" alt="" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('no-image');this.remove()">` : ''}
+            ${imageUrl ? `<img src="${escapeHtml(imageUrl)}" alt="" width="${imageWidth}" height="${imageHeight}" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('no-image');this.remove()">` : ''}
             <span>N</span>
           </span>
           <span class="parts-search-suggestion-copy">
@@ -204,11 +206,22 @@ document.addEventListener('DOMContentLoaded', () => {
     renderProducts();
     renderPagination();
     $('[data-model-total]').textContent = state.categories.reduce((sum, item) => sum + Number(item.count), 0);
-    $('[data-results-title]').textContent = state.categoryPath.split(' / ').filter(Boolean).pop() || state.category || state.model || t.allProducts;
+    const selectedCategory = state.categoryPath.split(' / ').filter(Boolean).pop() || state.category;
+    const selectedModel = state.model
+      ? `Tesla ${state.model.replace(/^tesla\s+/i, '').trim()}`
+      : '';
+    let catalogTitle = t.seoBase;
+    if (selectedCategory && selectedModel) catalogTitle = `${selectedCategory} — ${selectedModel}`;
+    else if (selectedCategory) catalogTitle = `${selectedCategory} — ${t.seoBase}`;
+    else if (selectedModel) catalogTitle = `${t.seoBase} — ${selectedModel}`;
+
+    $('[data-page-title]').textContent = catalogTitle;
+    $('[data-results-title]').textContent = selectedCategory || state.model || t.allProducts;
     $('[data-more]').hidden = state.page >= state.lastPage;
     $('[data-empty]').hidden = state.products.length > 0;
     if (!state.products.length) $('[data-empty]').textContent = t.empty;
-    document.title = [t.seoBase, state.category, state.model, t.seoSuffix].filter(Boolean).join(' — ');
+    const pageLabel = state.page > 1 ? `${t.pagePrefix} ${state.page}` : '';
+    document.title = [catalogTitle, pageLabel, t.seoSuffix].filter(Boolean).join(' — ');
   }
 
   function paginationUrl(page) {
@@ -275,10 +288,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function renderProducts() {
-    $('[data-products]').innerHTML = state.products.map(product => {
+    $('[data-products]').innerHTML = state.products.map((product, index) => {
       const inCart = cart.some(item => item.id === product.id);
       const imageUrl = product.thumbnail_url || product.image_url;
-      const image = imageUrl ? `<img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(product.name)}" loading="lazy" decoding="async" onerror="this.closest('.part-image').classList.add('no-image');this.remove()">` : '';
+      const imageWidth = Number(product.thumbnail_width || 360);
+      const imageHeight = Number(product.thumbnail_height || 300);
+      const image = imageUrl ? `<img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(product.name)}" width="${imageWidth}" height="${imageHeight}" loading="${index === 0 ? 'eager' : 'lazy'}" decoding="async"${index === 0 ? ' fetchpriority="high"' : ''} onerror="this.closest('.part-image').classList.add('no-image');this.remove()">` : '';
       const productUrl = `${root.dataset.productBase}/${product.id}/`;
       const categoryPath = (product.category_breadcrumbs || []).length
         ? product.category_breadcrumbs.map((breadcrumb, index) => {
@@ -317,9 +332,11 @@ document.addEventListener('DOMContentLoaded', () => {
     $('[data-checkout]').hidden = cart.length === 0;
     $('[data-cart-lines]').innerHTML = cart.map(item => {
       const imageUrl = item.thumbnail_url || item.image_url;
+      const imageWidth = Number(item.thumbnail_width || 360);
+      const imageHeight = Number(item.thumbnail_height || 300);
       return `
       <div class="cart-line">
-        <div class="cart-line-image">${imageUrl ? `<img src="${escapeHtml(imageUrl)}" alt="">` : ''}</div>
+        <div class="cart-line-image">${imageUrl ? `<img src="${escapeHtml(imageUrl)}" alt="" width="${imageWidth}" height="${imageHeight}" loading="lazy" decoding="async">` : ''}</div>
         <div class="cart-line-info"><b>${escapeHtml(item.name)}</b><span>${money(item.price_uah)}</span>
           <div class="cart-quantity"><button type="button" data-cart-minus="${item.id}">−</button><span>${item.quantity}</span><button type="button" data-cart-plus="${item.id}">+</button><button class="cart-remove" type="button" data-cart-remove="${item.id}">×</button></div>
         </div>

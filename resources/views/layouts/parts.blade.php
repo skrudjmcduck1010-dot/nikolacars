@@ -21,6 +21,8 @@
     <script type="application/ld+json">{!! json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}</script>
   @endforeach
   <link rel="icon" href="{{ asset('favicon.ico') }}">
+  <link rel="preconnect" href="https://sklad.nikolacars.kiev.ua" crossorigin>
+  <link rel="dns-prefetch" href="//sklad.nikolacars.kiev.ua">
   <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}?v=12">
   <link rel="stylesheet" href="{{ asset('assets/css/parts.css') }}?v=33">
 </head>
@@ -56,7 +58,7 @@
 
 <header class="nav">
   <div class="container nav-inner">
-    <a class="logo" href="{{ $home }}"><img src="{{ asset('images/logo.png') }}" alt="NikolaCars"></a>
+    <a class="logo" href="{{ $home }}"><img src="{{ asset('images/logo.png') }}" alt="NikolaCars" width="163" height="26" decoding="async"></a>
     <button class="burger-btn" type="button" aria-label="{{ $isRu ? 'Открыть меню' : 'Відкрити меню' }}" aria-controls="mobileMenu" aria-expanded="false"><span></span><span></span><span></span></button>
     <nav class="menu" id="mobileMenu" aria-hidden="true">
       <div class="mobile-menu-top"><div class="mobile-menu-title">NikolaCars</div><button class="mobile-menu-close" type="button" aria-label="{{ $isRu ? 'Закрыть меню' : 'Закрити меню' }}">×</button></div>

@@ -67,7 +67,7 @@
   <div class="parts-container">
     <div class="parts-title-row">
       <div class="parts-title-copy">
-        <h1>{{ $isRu ? 'Запчасти Tesla' : 'Запчастини Tesla' }}</h1>
+        <h1 data-page-title>{{ $catalogTitle }}</h1>
         <p data-current-context>{{ $isRu ? 'Оригинальные запчасти со склада NikolaCars' : 'Оригінальні запчастини зі складу NikolaCars' }}</p>
       </div>
       <form class="parts-toolbar parts-title-search" id="partsFilterForm" data-filter-form role="search">
@@ -130,7 +130,7 @@
             @php $cardImage = $product['thumbnail_url'] ?? $product['image_url'] ?? null; @endphp
             <article class="part-card">
               <a href="{{ $catalogBase.'/'.$product['id'].'/' }}" class="part-image {{ empty($cardImage) ? 'no-image' : '' }}">
-                @if(!empty($cardImage))<img src="{{ $cardImage }}" alt="{{ $product['name'] }}" loading="lazy" decoding="async">@endif
+                @if(!empty($cardImage))<img src="{{ $cardImage }}" alt="{{ $product['name'] }}" width="{{ $product['thumbnail_width'] ?? 360 }}" height="{{ $product['thumbnail_height'] ?? 300 }}" loading="{{ $loop->first ? 'eager' : 'lazy' }}" decoding="async" @if($loop->first) fetchpriority="high" @endif>@endif
                 <span>NIKOLACARS</span>
               </a>
               <div class="part-card-body">
@@ -243,11 +243,12 @@
     'uah' => 'грн',
     'seoBase' => $isRu ? 'Запчасти Tesla' : 'Запчастини Tesla',
     'seoSuffix' => 'NikolaCars',
+    'pagePrefix' => $isRu ? 'Страница' : 'Сторінка',
   ];
 @endphp
 <script>
 window.partsI18n = @json($partsI18n);
 window.initialPartsCatalog = @json($initialCatalog);
 </script>
-<script src="{{ asset('assets/js/parts.js') }}?v=18" defer></script>
+<script src="{{ asset('assets/js/parts.js') }}?v=20" defer></script>
 @endpush
