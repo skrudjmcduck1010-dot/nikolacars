@@ -13,7 +13,7 @@
 )
 
 @section('content')
-<section class="page-simple">
+<section class="page-simple page-services">
   <div class="container">
     <div class="page-simple-card">
 
@@ -30,7 +30,7 @@
       <div class="services-grid">
 
         <!-- Пригон -->
-        <a href="{{ $isRu ? '/ru/services/prigon-tesla-usa' : '/services/prigon-tesla-usa' }}" class="service-box">
+        <a href="{{ $isRu ? '/ru/services/prigon-tesla-usa/' : '/services/prigon-tesla-usa/' }}" class="service-box">
           <div class="service-icon">🚗</div>
           <h3>{{ $isRu ? 'ПРИГОН ИЗ США' : 'ПРИГІН З США' }}</h3>
           <p>
@@ -45,7 +45,7 @@
         </a>
 
         <!-- Обслуживание -->
-        <a href="{{ $isRu ? '/ru/services/tesla-service' : '/services/tesla-service' }}" class="service-box">
+        <a href="{{ $isRu ? '/ru/services/tesla-service/' : '/services/tesla-service/' }}" class="service-box">
           <div class="service-icon">🛠️</div>
           <h3>{{ $isRu ? 'ОБСЛУЖИВАНИЕ TESLA' : 'ОБСЛУГОВУВАННЯ АВТО' }}</h3>
           <p>
@@ -59,8 +59,23 @@
           </span>
         </a>
 
+        <!-- Ремонт электромотора -->
+        <a href="{{ $isRu ? '/ru/services/tesla-electricmotor-repair/' : '/services/tesla-electricmotor-repair/' }}" class="service-box">
+          <div class="service-icon">⚙️</div>
+          <h3>{{ $isRu ? 'РЕМОНТ ЭЛЕКТРОМОТОРА TESLA' : 'РЕМОНТ ЕЛЕКТРОМОТОРА TESLA' }}</h3>
+          <p>
+            {{ $isRu
+              ? 'Диагностика, ремонт и восстановление электромотора Tesla для Model S, Model 3, Model X и Model Y.'
+              : 'Діагностика, ремонт і відновлення електромотора Tesla для Model S, Model 3, Model X та Model Y.'
+            }}
+          </p>
+          <span class="service-link">
+            {{ $isRu ? 'Читать далее' : 'Читати далі' }}
+          </span>
+        </a>
+
         <!-- Прошивка -->
-        <a href="{{ $isRu ? '/ru/services/firmware-auto' : '/services/firmware-auto' }}" class="service-box">
+        <a href="{{ $isRu ? '/ru/services/firmware-auto/' : '/services/firmware-auto/' }}" class="service-box">
           <div class="service-icon">💻</div>
           <h3>{{ $isRu ? 'ПРОШИВКА TESLA' : 'ПРОШИВКА АВТО' }}</h3>
           <p>
@@ -75,7 +90,7 @@
         </a>
 
         <!-- Сертификаты -->
-        <a href="{{ $isRu ? '/ru/services/vidnovlennya-sertyfikativ-tesla' : '/services/vidnovlennya-sertyfikativ-tesla' }}" class="service-box">
+        <a href="{{ $isRu ? '/ru/services/vidnovlennya-sertyfikativ-tesla/' : '/services/vidnovlennya-sertyfikativ-tesla/' }}" class="service-box">
           <div class="service-icon">🔐</div>
           <h3>{{ $isRu ? 'ВОССТАНОВЛЕНИЕ СЕРТИФИКАТОВ' : 'ВІДНОВЛЕННЯ СЕРТИФІКАТІВ' }}</h3>
           <p>
@@ -90,7 +105,7 @@
         </a>
 
         <!-- Ремонт батарей -->
-        <a href="{{ $isRu ? '/ru/services/tesla-battery-repair' : '/services/tesla-battery-repair' }}" class="service-box">
+        <a href="{{ $isRu ? '/ru/services/tesla-battery-repair/' : '/services/tesla-battery-repair/' }}" class="service-box">
           <div class="service-icon">🔋</div>
           <h3>{{ $isRu ? 'РЕМОНТ БАТАРЕЙ TESLA' : 'РЕМОНТ БАТАРЕЙ TESLA' }}</h3>
           <p>
@@ -105,7 +120,7 @@
         </a>
 
         <!-- Ремонт ручки -->
-        <a href="{{ $isRu ? '/ru/services/repair-tesla-door-handle' : '/services/repair-tesla-door-handle' }}" class="service-box">
+        <a href="{{ $isRu ? '/ru/services/repair-tesla-door-handle/' : '/services/repair-tesla-door-handle/' }}" class="service-box">
           <div class="service-icon">🚪</div>
           <h3>{{ $isRu ? 'РЕМОНТ РУЧКИ TESLA' : 'РЕМОНТ РУЧКИ TESLA' }}</h3>
           <p>
@@ -120,7 +135,7 @@
         </a>
 
         <!-- Ремонт подрамника -->
-        <a href="{{ $isRu ? '/ru/services/tesla-subframe-repair' : '/services/tesla-subframe-repair' }}" class="service-box">
+        <a href="{{ $isRu ? '/ru/services/tesla-subframe-repair/' : '/services/tesla-subframe-repair/' }}" class="service-box">
           <div class="service-icon">🧰</div>
           <h3>{{ $isRu ? 'РЕМОНТ ПОДРАМНИКА TESLA' : 'РЕМОНТ ПІДРАМНИКА TESLA' }}</h3>
           <p>
@@ -135,7 +150,7 @@
         </a>
 
         <!-- Запчасти -->
-        <a href="https://nikolacars.com.ua/ua/" class="service-box" target="_blank" rel="noopener noreferrer">
+        <a href="{{ $isRu ? '/ru/parts/' : '/parts/' }}" class="service-box">
           <div class="service-icon">🧩</div>
           <h3>{{ $isRu ? 'ЗАПЧАСТИ TESLA' : 'ЗАПЧАСТИНИ TESLA' }}</h3>
           <p>
@@ -150,7 +165,7 @@
         </a>
 
         @foreach($targetedServices as $service)
-          <a href="{{ $isRu ? '/ru/services/' . $service['slug'] : '/services/' . $service['slug'] }}" class="service-box">
+          <a href="{{ $isRu ? '/ru/services/' . $service['slug'] . '/' : '/services/' . $service['slug'] . '/' }}" class="service-box">
             <div class="service-icon">{{ $service['icon'] }}</div>
             <h3>{{ mb_strtoupper($isRu ? $service['name_ru'] : $service['name_uk']) }}</h3>
             <p>

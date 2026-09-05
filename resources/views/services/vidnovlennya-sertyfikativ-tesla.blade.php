@@ -15,7 +15,7 @@
 )
 
 @section('content')
-<section class="service-hero">
+<section class="service-hero service-hero--long-title">
   <div class="hero-wrap">
     <div class="service-hero-slider" aria-label="Hero">
       <div class="service-hero-slide" style="background: url('/assets/img/slider/vidnovlennya-sertyfikativ.webp') center/cover no-repeat, #000;">
@@ -535,6 +535,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const fd = new FormData(form);
     fd.set('phone', fullPhone);
     fd.delete('phone_digits');
+    fd.set('service_title', (document.querySelector('h1')?.textContent || document.title).replace(/\s+/g, ' ').trim());
 
     // page + utm
     fd.append('page', window.location.href);

@@ -298,10 +298,28 @@ main{
   position: relative;
 }
 
+.hero-media{
+  position:absolute;
+  z-index:0;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+}
+
+.hero-picture{
+  position:absolute;
+  z-index:0;
+  inset:0;
+  display:block;
+}
+
 /* затемнение (мягче, не уголь) */
 .hero-slide::before{
   content:"";
   position:absolute;
+  z-index:1;
   inset:0;
   background: linear-gradient(
     90deg,
@@ -315,7 +333,7 @@ main{
 /* внутренняя обертка */
 .hero-inner{
   position: relative;
-  z-index: 1;
+  z-index: 2;
   height: 100%;
   display:flex;                  /* ВАЖНО: центрирование */
   align-items: center;
@@ -571,7 +589,7 @@ main{
 
 .about-kicker{
   font-size: 18px;
-  color:#8b8b8b;
+  color:#666;
   margin-bottom: 18px;
 }
 
@@ -638,7 +656,7 @@ main{
 }
 
 .services-kicker{
-  color:#9a9a9a;
+  color:#666;
   font-size: 18px;
   margin-bottom: 10px;
 }
@@ -753,13 +771,13 @@ main{
 .service-text{
   font-size: 16px;
   line-height: 1.6;
-  color:#9a9a9a;
+  color:#666;
   margin-bottom: 28px;
 }
 
 .service-more{
   font-size: 15px;
-  color:#b0b0b0;
+  color:#666;
   transition: color .2s ease;
 }
 
@@ -822,7 +840,7 @@ main{
 
 .contacts-kicker{
   font-size:18px;
-  color:#9a9a9a;
+  color:#666;
   margin-bottom:10px;
 }
 
@@ -900,7 +918,7 @@ main{
 
 .contact-value{
   font-size:16px;
-  color:#9a9a9a;
+  color:#666;
 }
 
 .contact-value a{
@@ -913,13 +931,66 @@ main{
   border-radius:6px;
   overflow:hidden;
   box-shadow: 0 20px 45px rgba(0,0,0,.08);
+  min-height:360px;
+  background:linear-gradient(135deg, #f2f3f5, #dfe3e8);
 }
 
 .contacts-map iframe{
+  display:block;
   width:100%;
   height:100%;
   min-height:360px;
   border:0;
+}
+
+.map-placeholder{
+  width:100%;
+  min-height:360px;
+  border:0;
+  padding:32px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  color:#20242a;
+  background:
+    radial-gradient(circle at 25% 20%, rgba(255,255,255,.95), transparent 38%),
+    linear-gradient(135deg, #eef1f4, #d8dde3);
+  cursor:pointer;
+  font:inherit;
+  text-align:center;
+}
+
+.map-placeholder:hover,
+.map-placeholder:focus-visible{
+  background:
+    radial-gradient(circle at 25% 20%, #fff, transparent 38%),
+    linear-gradient(135deg, #e6eaee, #cfd5dc);
+}
+
+.map-placeholder:focus-visible{
+  outline:3px solid #e21b23;
+  outline-offset:-5px;
+}
+
+.map-placeholder-icon{
+  font-size:42px;
+  line-height:1;
+}
+
+.map-placeholder-title{
+  font-size:22px;
+  font-weight:800;
+}
+
+.map-placeholder-action{
+  padding:10px 16px;
+  border-radius:999px;
+  color:#fff;
+  background:#20242a;
+  font-size:14px;
+  font-weight:700;
 }
 
 /* RESPONSIVE */
@@ -929,7 +1000,9 @@ main{
     grid-template-columns: 1fr;
   }
 
-  .contacts-map iframe{
+  .contacts-map,
+  .contacts-map iframe,
+  .map-placeholder{
     min-height:300px;
   }
 }
@@ -1508,7 +1581,7 @@ main{
   position:absolute;
   inset:0;
   background:
-    url('/images/services/tesla-usa-steps.jpg') center/cover no-repeat;
+    url('/assets/img/slider/tesla-black.webp') center/cover no-repeat;
   transform: scale(1.02);
 }
 
@@ -1834,7 +1907,7 @@ main{
 }
 
 .service-final-content{
-  color:#8a8a8a;
+  color:#666;
   font-size:16px;
   line-height:1.85;
 }
@@ -1916,6 +1989,12 @@ main{
 .service-hero-left{
   margin-top: -260px; /* регулируй */
   text-align: left;
+}
+
+/* The main Tesla service title is long, so keep it fully inside the hero. */
+.service-hero--tesla-main .service-hero-left,
+.service-hero--long-title .service-hero-left{
+  margin-top: -120px;
 }
 
 
@@ -2248,6 +2327,10 @@ main{
   margin: 0 auto;
 }
 
+.page-simple.page-services .container {
+  max-width: 1500px;
+}
+
 .page-simple-card {
   background: #ffffff; /* белый центральный блок */
   border-radius: 18px;
@@ -2328,7 +2411,7 @@ main{
 
 .page-simple .services-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 30px;
 }
 

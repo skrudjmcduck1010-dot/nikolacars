@@ -12,3 +12,12 @@
 .env
 .env.*
 !.env.example
+# Local data and deployment backups
+*.sqlite
+*.sqlite-*
+*.zip
+*.backup-*
+/.ftp-download*
+/.local-*
+/.vscode/
+/storage/app/private/*

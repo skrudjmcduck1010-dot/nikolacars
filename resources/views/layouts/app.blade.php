@@ -6,13 +6,31 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <title>@yield('title', 'NikolaCars')</title>
+  @php
+    $metaLoc = (($locale ?? 'uk') === 'ru') ? 'ru' : 'uk';
+    $metaPath = '/' . ltrim(request()->path(), '/');
+    $metaPath = rtrim($metaPath, '/') . '/';
+    if ($metaPath === '//') $metaPath = '/';
+
+    $metaUaPath = preg_replace('#^/ru/#', '/', $metaPath);
+    $metaRuPath = $metaUaPath === '/' ? '/ru/' : '/ru' . $metaUaPath;
+    $metaCanonicalPath = $metaLoc === 'ru' ? $metaRuPath : $metaUaPath;
+    $metaBaseUrl = rtrim(request()->getSchemeAndHttpHost(), '/');
+  @endphp
   <meta name="description" content="@yield('description', (($locale ?? 'uk') === 'ru') ? 'Сервис Tesla, ремонт Tesla, СТО Tesla в Киеве.' : 'Сервіс Tesla, ремонт Tesla, СТО Tesla у Києві.')">
 
-  <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon.png') }}">
-  <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon.png') }}">
-  <link rel="apple-touch-icon" href="{{ asset('favicon.png') }}">
+  <link rel="canonical" href="{{ $metaBaseUrl . $metaCanonicalPath }}">
+  <link rel="alternate" hreflang="uk-UA" href="{{ $metaBaseUrl . $metaUaPath }}">
+  <link rel="alternate" hreflang="ru-UA" href="{{ $metaBaseUrl . $metaRuPath }}">
+  <link rel="alternate" hreflang="x-default" href="{{ $metaBaseUrl . $metaUaPath }}">
 
-  <link rel="stylesheet" href="/assets/css/app.css?v=8">
+  <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
+  <link rel="icon" type="image/png" sizes="48x48" href="{{ asset('favicon-48x48.png') }}">
+  <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('favicon-96x96.png') }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
+
+  @stack('head')
+  <link rel="stylesheet" href="{{ asset('assets/css/app.min.css') }}?v=20260822">
 </head>
 
 <body>
@@ -130,7 +148,7 @@
 
 <header class="nav">
   <div class="container nav-inner">
-    <a class="logo" href="{{ $home }}"><img src="{{ asset('images/logo.png') }}" alt="NikolaCars"></a>
+    <a class="logo" href="{{ $home }}"><img src="{{ asset('images/logo.webp') }}" srcset="{{ asset('images/logo.webp') }} 1x, {{ asset('images/logo@2x.webp') }} 2x" alt="NikolaCars" width="163" height="26" decoding="async"></a>
 
     <!-- BURGER (mobile only by CSS) -->
     <button class="burger-btn" type="button"
@@ -141,7 +159,7 @@
     </button>
 
     <!-- MENU -->
-    <nav class="menu" id="mobileMenu" aria-hidden="true">
+    <nav class="menu" id="mobileMenu">
 
       <!-- mobile-only top bar (shown only on mobile by CSS) -->
       <div class="mobile-menu-top">
@@ -159,14 +177,14 @@
         </a>
 
         <div class="dropdown-menu">
-          <a href="{{ $loc === 'ru' ? '/ru/services/prigon-tesla-usa' : '/services/prigon-tesla-usa' }}">{{ $L['srv1'] }}</a>
+          <a href="{{ $loc === 'ru' ? '/ru/services/prigon-tesla-usa/' : '/services/prigon-tesla-usa/' }}">{{ $L['srv1'] }}</a>
           <a href="{{ $loc === 'ru' ? '/ru/services/tesla-service/' : '/services/tesla-service/' }}">{{ $L['srv2'] }}</a>
           <a href="{{ $loc === 'ru' ? '/ru/services/vidnovlennya-sertyfikativ-tesla/' : '/services/vidnovlennya-sertyfikativ-tesla/' }}">{{ $L['srv3'] }}</a>
           <a href="{{ $loc === 'ru' ? '/ru/services/firmware-auto/' : '/services/firmware-auto/' }}">{{ $L['srv4'] }}</a>
         </div>
       </div>
 
-      <a href="https://nikolacars.com.ua/ua/">{{ $L['parts'] }}</a>
+      @include('partials.parts-dropdown', ['locale' => $loc])
       <a href="{{ $loc === 'ru' ? '/ru/testimonial/' : '/testimonial/' }}">{{ $L['reviews'] }}</a>
       <a href="{{ $loc === 'ru' ? '/ru/news/' : '/news/' }}">{{ $L['news'] }}</a>
       <a href="{{ $loc === 'ru' ? '/ru/contacts/' : '/contacts/' }}">{{ $L['contacts'] }}</a>
@@ -184,7 +202,7 @@
   @yield('content')
 </main>
 
-<script src="/assets/js/slider.js" defer></script>
+<script src="{{ asset('assets/js/slider.js') }}?v={{ filemtime(public_path('assets/js/slider.js')) }}" defer></script>
 @stack('scripts')
 
 @include('partials.footer')
@@ -388,11 +406,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const dropdown = menu.querySelector('.dropdown');
   const dropdownToggle = menu.querySelector('[data-dd-toggle]');
+  const mobileMenuQuery = window.matchMedia('(max-width: 900px)');
+
+  function setMenuHidden(hidden){
+    menu.inert = hidden;
+
+    if (hidden) {
+      menu.setAttribute('aria-hidden', 'true');
+    } else {
+      menu.removeAttribute('aria-hidden');
+    }
+  }
 
   function openMenu(){
+    if (!mobileMenuQuery.matches) return;
+
     menu.classList.add('is-open');
     burger.setAttribute('aria-expanded', 'true');
-    menu.setAttribute('aria-hidden', 'false');
+    setMenuHidden(false);
     document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
   }
@@ -400,10 +431,19 @@ document.addEventListener('DOMContentLoaded', function () {
   function closeMenu(){
     menu.classList.remove('is-open');
     burger.setAttribute('aria-expanded', 'false');
-    menu.setAttribute('aria-hidden', 'true');
+    setMenuHidden(mobileMenuQuery.matches);
     document.documentElement.style.overflow = '';
     document.body.style.overflow = '';
     dropdown?.classList.remove('open');
+  }
+
+  function syncMenuState(){
+    if (mobileMenuQuery.matches) {
+      setMenuHidden(!menu.classList.contains('is-open'));
+      return;
+    }
+
+    closeMenu();
   }
 
   burger.addEventListener('click', function(){
@@ -433,6 +473,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (menu.classList.contains('is-open')) closeMenu();
   });
+
+  mobileMenuQuery.addEventListener('change', syncMenuState);
+  syncMenuState();
 
 });
 </script>

@@ -32,7 +32,7 @@ class ForceTrailingSlash
         if (!str_ends_with($path, '/')) {
             $to = $path . '/';
             if (!empty($query)) $to .= '?' . $query;
-            return redirect($to, 301);
+            return redirect()->away($request->getSchemeAndHttpHost() . $to, 301);
         }
 
         return $next($request);

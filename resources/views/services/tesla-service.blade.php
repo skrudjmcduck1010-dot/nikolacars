@@ -4,16 +4,36 @@
   $isRu = (($locale ?? 'uk') === 'ru');
   $serviceData = $serviceData ?? null;
   $isTargetedPage = is_array($serviceData);
+  $hasLongHeroTitle = $isTargetedPage && in_array($serviceData['slug'] ?? '', [
+    'tesla-air-strut-repair',
+    'tesla-ccs-charge-port-repair',
+    'tesla-model-s-battery-fuse',
+    'tesla-headlight-drl-repair',
+  ], true);
   $serviceName = $isTargetedPage ? ($isRu ? $serviceData['name_ru'] : $serviceData['name_uk']) : null;
   $metaTitle = $isTargetedPage ? ($isRu ? ($serviceData['meta_title_ru'] ?? ($serviceData['name_ru'] . ' — NikolaCars')) : ($serviceData['meta_title_uk'] ?? ($serviceData['name_uk'] . ' — NikolaCars'))) : null;
   $metaDescription = $isTargetedPage ? ($isRu ? ($serviceData['meta_description_ru'] ?? ($serviceData['name_ru'] . ' в Киеве. Профильный сервис Tesla для Tesla Model 3, Tesla Model Y, Tesla Model X и Tesla Model S.')) : ($serviceData['meta_description_uk'] ?? ($serviceData['name_uk'] . ' у Києві. Профільний сервіс Tesla для Tesla Model 3, Tesla Model Y, Tesla Model X та Tesla Model S.'))) : null;
+  $articleHtml = $isTargetedPage ? ($isRu ? ($serviceData['article_html_ru'] ?? '') : ($serviceData['article_html_uk'] ?? '')) : '';
+  $articleHtml = preg_replace('#<h1(\s[^>]*)?>(.*?)</h1>#is', '<h2$1>$2</h2>', $articleHtml);
+  $relatedServices = collect();
+  if ($isTargetedPage) {
+    $allTargetedServices = collect(config('targeted_services', []))
+      ->filter(fn ($item) => !empty($item['slug']) && view()->exists('services.targeted.' . $item['slug']))
+      ->values();
+    $currentServiceIndex = $allTargetedServices->search(fn ($item) => ($item['slug'] ?? null) === ($serviceData['slug'] ?? null));
+    if ($currentServiceIndex !== false && $allTargetedServices->count() > 1) {
+      for ($offset = 1; $offset <= min(8, $allTargetedServices->count() - 1); $offset++) {
+        $relatedServices->push($allTargetedServices[($currentServiceIndex + $offset) % $allTargetedServices->count()]);
+      }
+    }
+  }
 @endphp
 
 @section('title', $isTargetedPage ? $metaTitle : ($isRu ? 'Услуги 🛠️ NikolaCars — всё для авто Tesla' : 'Послуги 🛠️ NikolaCars — все для авто Tesla'))
 
 @section('description', $isTargetedPage ? $metaDescription : ($isRu ? 'Услуги 🚗 Подбор и доставка автомобилей Tesla в Украину под ключ. Обслуживание на нашем СТО, прошивка авто. Ваши желания — наши решения.' : 'Послуги 🚗 Підбір та доставка автомобілів Tesla в Україну під ключ. Обслуговування на нашому СТО, Прошивка авто. Ваші бажання — Наші рішення.'))
 @section('content')
-<section class="service-hero">
+<section class="service-hero{{ $isTargetedPage ? ($hasLongHeroTitle ? ' service-hero--long-title' : '') : ' service-hero--tesla-main' }}">
   <div class="hero-wrap">
     <div class="service-hero-slider" aria-label="Hero">
       <div class="service-hero-slide" style="background: url('/assets/img/slider/tesla-service.webp') center/cover no-repeat, #000;">
@@ -104,7 +124,7 @@
 
       <div class="service-article-text">
         @if($isTargetedPage)
-          {!! $isRu ? ($serviceData['article_html_ru'] ?? '') : ($serviceData['article_html_uk'] ?? '') !!}
+          {!! $articleHtml !!}
         @else
           <p>
             {!! $isRu
@@ -139,6 +159,20 @@
           </p>
         @endif
       </div>
+
+      @if($isTargetedPage && $relatedServices->isNotEmpty())
+        <div class="service-related">
+          <h2 class="service-related-title">{{ $isRu ? 'Похожие услуги Tesla' : 'Схожі послуги Tesla' }}</h2>
+          <div class="service-related-grid">
+            @foreach($relatedServices as $relatedService)
+              <a class="service-related-link" href="{{ ($isRu ? '/ru/services/' : '/services/') . $relatedService['slug'] . '/' }}">
+                <span class="service-related-icon">{{ $relatedService['icon'] ?? 'Tesla' }}</span>
+                <span>{{ $isRu ? $relatedService['name_ru'] : $relatedService['name_uk'] }}</span>
+              </a>
+            @endforeach
+          </div>
+        </div>
+      @endif
     </div>
   </div>
 
@@ -543,6 +577,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const fd = new FormData(form);
     fd.set('phone', fullPhone);
     fd.delete('phone_digits');
+    fd.set('service_title', (document.querySelector('h1')?.textContent || document.title).replace(/\s+/g, ' ').trim());
 
     // page + utm
     fd.append('page', window.location.href);

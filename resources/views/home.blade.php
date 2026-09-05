@@ -4,6 +4,11 @@
   $isRu = (($locale ?? 'uk') === 'ru');
 @endphp
 
+@push('head')
+  <link rel="preload" as="image" type="image/webp" href="{{ asset('images/hero/import-mobile.webp') }}" media="(max-width: 640px)" fetchpriority="high">
+  <link rel="preload" as="image" type="image/webp" href="{{ asset('images/hero/import.webp') }}" media="(min-width: 641px)" fetchpriority="high">
+@endpush
+
 @section('title', $isRu
   ? 'NikolaCars 🛠️ Сервис СТО Tesla и ремонт Tesla в Киеве'
   : 'NikolaCars 🛠️ Сервіс СТО Тесла та ремонт авто Tesla в Києві'
@@ -85,14 +90,41 @@
 
           <div class="hero-slide"
                data-index="{{ $index }}"
-               data-service="{{ $slide['service'] }}"
-               style="background-image: url('{{ asset($slide['image']) }}');">
+               data-service="{{ $slide['service'] }}">
+
+            @if($index === 0)
+              <picture class="hero-picture">
+                <source media="(max-width: 640px)" srcset="{{ asset('images/hero/import-mobile.webp') }}" type="image/webp">
+                <img class="hero-media"
+                     src="{{ asset($slide['image']) }}"
+                     fetchpriority="high"
+                     loading="eager"
+                     width="1536"
+                     height="1024"
+                     decoding="sync"
+                     alt=""
+                     aria-hidden="true">
+              </picture>
+            @else
+              <img class="hero-media"
+                   data-src="{{ asset($slide['image']) }}"
+                   loading="lazy"
+                   width="1536"
+                   height="1024"
+                   decoding="async"
+                   alt=""
+                   aria-hidden="true">
+            @endif
 
             <div class="hero-inner">
               <div class="hero-content">
 
                 <div>
-                  <h1 class="hero-title">{{ $slide['title'] }}</h1>
+                  @if($index === 0)
+                    <h1 class="hero-title">{{ $slide['title'] }}</h1>
+                  @else
+                    <h2 class="hero-title">{{ $slide['title'] }}</h2>
+                  @endif
                   <div class="hero-subtitle">{{ $slide['subtitle'] }}</div>
                 </div>
 
@@ -238,7 +270,7 @@
       <button class="services-arrow next" type="button" aria-label="{{ $isRu ? 'Следующие услуги' : 'Наступні послуги' }}">›</button>
 
       <div class="services-grid" data-services-track>
-      <a href="{{ $isRu ? '/ru/services/prigon-tesla-usa' : '/services/prigon-tesla-usa' }}" class="service-card">
+      <a href="{{ $isRu ? '/ru/services/prigon-tesla-usa/' : '/services/prigon-tesla-usa/' }}" class="service-card">
         <div class="service-icon">🚗</div>
         <div class="service-title">{{ $isRu ? 'ПРИГОН ИЗ США' : 'ПРИГІН З США' }}</div>
         <div class="service-text">
@@ -322,7 +354,7 @@
         <div class="service-more">{{ $isRu ? 'Читать далее' : 'Читати далі' }}</div>
       </a>
 
-      <a href="https://nikolacars.com.ua/ua/" class="service-card" target="_blank" rel="noopener noreferrer">
+      <a href="{{ $isRu ? '/ru/parts/' : '/parts/' }}" class="service-card">
         <div class="service-icon">🧩</div>
         <div class="service-title">{{ $isRu ? 'ЗАПЧАСТИ TESLA' : 'ЗАПЧАСТИНИ TESLA' }}</div>
         <div class="service-text">
@@ -393,15 +425,31 @@
         </div>
       </div>
 
-      <div class="contacts-map">
-        <iframe
-          src="https://www.google.com/maps?q=Київ,+вулиця+Колекторна,+30&amp;output=embed"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          title="{{ ($locale ?? 'uk') === 'ru'
-            ? 'Карта расположения NikolaCars в Киеве, улица Коллекторная, 30'
-            : 'Карта розташування NikolaCars у Києві, вулиця Колекторна, 30' }}">
-        </iframe>
+      @php
+        $mapTitle = ($locale ?? 'uk') === 'ru'
+          ? 'Карта расположения NikolaCars в Киеве, улица Коллекторная, 30'
+          : 'Карта розташування NikolaCars у Києві, вулиця Колекторна, 30';
+      @endphp
+      <div class="contacts-map" data-map-container>
+        <button
+          class="map-placeholder"
+          type="button"
+          data-map-load
+          data-map-src="https://www.google.com/maps?q=Київ,+вулиця+Колекторна,+30&amp;output=embed"
+          data-map-title="{{ $mapTitle }}"
+          aria-label="{{ $mapTitle }}">
+          <span class="map-placeholder-icon" aria-hidden="true">📍</span>
+          <span class="map-placeholder-title">{{ $isRu ? 'NikolaCars на карте' : 'NikolaCars на карті' }}</span>
+          <span class="map-placeholder-action">{{ $isRu ? 'Показать интерактивную карту' : 'Показати інтерактивну карту' }}</span>
+        </button>
+        <noscript>
+          <iframe
+            src="https://www.google.com/maps?q=Київ,+вулиця+Колекторна,+30&amp;output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="{{ $mapTitle }}">
+          </iframe>
+        </noscript>
       </div>
     </div>
   </div>
@@ -463,6 +511,22 @@
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+  // Google Maps is intentionally created only after an explicit request. The
+  // embed otherwise downloads hundreds of KiB of third-party JS on first load.
+  const mapButton = document.querySelector('[data-map-load]');
+  mapButton?.addEventListener('click', () => {
+    const src = mapButton.dataset.mapSrc;
+    if (!src) return;
+
+    const iframe = document.createElement('iframe');
+    iframe.src = src;
+    iframe.title = mapButton.dataset.mapTitle || '';
+    iframe.loading = 'eager';
+    iframe.referrerPolicy = 'no-referrer-when-downgrade';
+    iframe.allowFullscreen = true;
+    mapButton.replaceWith(iframe);
+  }, { once: true });
+
   // ====== helper: utm ======
   function collectUtm() {
     const params = new URLSearchParams(window.location.search);
