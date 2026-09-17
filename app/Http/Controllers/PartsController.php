@@ -191,7 +191,7 @@ class PartsController extends Controller
 
         try {
             $productData = $this->cachedStorefrontPayload(
-                'storefront:product:v1:'.$locale.':'.$product,
+                'storefront:product:v2:'.$locale.':'.$product,
                 fn (): Response => $client->product($product, $locale),
                 [404, 410, 422],
             );
@@ -218,10 +218,15 @@ class PartsController extends Controller
             $productTitle = trim($productTitle.' '.$vehicle);
         }
         $seoTitle = $productTitle.' — '.$article.' | NikolaCars';
-        $price = number_format((float) ($productData['price_uah'] ?? 0), 0, '.', ' ');
+        $priceValue = (float) ($productData['price_uah'] ?? 0);
+        $hasPrice = $priceValue > 0;
+        $price = number_format($priceValue, 0, '.', ' ');
+        $priceDescription = $hasPrice
+            ? $price.' грн'
+            : ($locale === 'ru' ? 'цену уточняйте' : 'ціну уточнюйте');
         $seoDescription = $locale === 'ru'
-            ? $productTitle.', артикул '.$article.' — '.$price.' грн. В наличии в NikolaCars, Киев.'
-            : $productTitle.', артикул '.$article.' — '.$price.' грн. В наявності у NikolaCars, Київ.';
+            ? $productTitle.', артикул '.$article.' — '.$priceDescription.'. В наличии в NikolaCars, Киев.'
+            : $productTitle.', артикул '.$article.' — '.$priceDescription.'. В наявності у NikolaCars, Київ.';
         $productData['description'] = $this->generateProductDescription(
             $productData,
             $locale,
@@ -229,6 +234,7 @@ class PartsController extends Controller
             $vehicle,
             $article,
             $price,
+            $hasPrice,
         );
 
         $baseUrl = 'https://nikolacars.kiev.ua';
@@ -246,7 +252,7 @@ class PartsController extends Controller
             preg_match('/(used|б\/у|вживан|уживан)/u', $condition) === 1 => 'https://schema.org/UsedCondition',
             default => null,
         };
-        $offer = array_filter([
+        $offer = $hasPrice ? array_filter([
             '@type' => 'Offer',
             'url' => $productUrl,
             'priceCurrency' => 'UAH',
@@ -256,7 +262,7 @@ class PartsController extends Controller
                 : 'https://schema.org/OutOfStock',
             'itemCondition' => $itemCondition,
             'seller' => ['@type' => 'Organization', 'name' => 'NikolaCars'],
-        ]);
+        ]) : null;
         $productSchema = array_filter([
             '@context' => 'https://schema.org',
             '@type' => 'Product',
@@ -378,6 +384,7 @@ class PartsController extends Controller
         string $vehicle,
         string $article,
         string $price,
+        bool $hasPrice,
     ): string {
         $category = trim((string) ($product['category_path'] ?? $product['category'] ?? ''));
         $compatibility = trim((string) ($product['compatibility'] ?? ''));
@@ -408,7 +415,11 @@ class PartsController extends Controller
                 ? 'Запчасть в наличии на складе NikolaCars: '.$quantity.' шт.'
                 : 'Наличие запчасти уточняйте у менеджера NikolaCars.';
 
-            return implode(' ', $details)."\n\n".$availability.' Купить запчасть можно по цене '.$price.' грн. Перед заказом сверьте артикул и совместимость детали с вашим автомобилем Tesla.';
+            $priceSentence = $hasPrice
+                ? 'Купить запчасть можно по цене '.$price.' грн.'
+                : 'Цену запчасти уточняйте у менеджера NikolaCars.';
+
+            return implode(' ', $details)."\n\n".$availability.' '.$priceSentence.' Перед заказом сверьте артикул и совместимость детали с вашим автомобилем Tesla.';
         }
 
         $details = [
@@ -432,7 +443,11 @@ class PartsController extends Controller
             ? 'Запчастина є в наявності на складі NikolaCars: '.$quantity.' шт.'
             : 'Наявність запчастини уточнюйте у менеджера NikolaCars.';
 
-        return implode(' ', $details)."\n\n".$availability.' Купити запчастину можна за ціною '.$price.' грн. Перед замовленням звірте артикул і сумісність деталі з вашим автомобілем Tesla.';
+        $priceSentence = $hasPrice
+            ? 'Купити запчастину можна за ціною '.$price.' грн.'
+            : 'Ціну запчастини уточнюйте у менеджера NikolaCars.';
+
+        return implode(' ', $details)."\n\n".$availability.' '.$priceSentence.' Перед замовленням звірте артикул і сумісність деталі з вашим автомобілем Tesla.';
     }
 
     protected function localizedProductAttribute(string $value, string $locale, string $attribute): string

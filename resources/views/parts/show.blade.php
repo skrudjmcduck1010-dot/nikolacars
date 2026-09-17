@@ -80,14 +80,15 @@
         <div class="product-category-label">{{ $product['category_path'] ?? '' }}</div>
 
         <div class="product-buy-box">
-          <div class="product-detail-price">{{ number_format((float) $product['price_uah'], 0, '.', ' ') }} грн</div>
+          @php $hasPrice = (float) ($product['price_uah'] ?? 0) > 0; @endphp
+          <div class="product-detail-price">{{ $hasPrice ? number_format((float) $product['price_uah'], 0, '.', ' ').' грн' : ($isRu ? 'Цену уточняйте' : 'Ціну уточнюйте') }}</div>
           <div class="product-detail-stock">{{ $isRu ? 'В наличии' : 'В наявності' }}: {{ $product['quantity'] }}</div>
-          <button
+          @if($hasPrice)<button
             type="button"
             data-product-add
             data-added-label="{{ $isRu ? 'В корзине' : 'У кошику' }}"
             aria-pressed="false"
-          >{{ $isRu ? 'Добавить в корзину' : 'Додати в кошик' }}</button>
+          >{{ $isRu ? 'Добавить в корзину' : 'Додати в кошик' }}</button>@endif
         </div>
 
         <dl class="product-specs">
@@ -151,5 +152,5 @@
 
 @push('scripts')
 <script>window.productPageConfig = @json(['catalogUrl' => $catalogUrl]);</script>
-<script src="{{ asset('assets/js/parts-product.js') }}?v=8" defer></script>
+<script src="{{ asset('assets/js/parts-product.js') }}?v=9" defer></script>
 @endpush

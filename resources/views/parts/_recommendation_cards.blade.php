@@ -3,6 +3,7 @@
     @php
       $cardImage = $item['thumbnail_url'] ?? $item['image_url'] ?? null;
       $productUrl = rtrim($catalogUrl, '/').'/'.$item['id'].'/';
+      $hasPrice = (float) ($item['price_uah'] ?? 0) > 0;
     @endphp
     <article class="part-card">
       <a href="{{ $productUrl }}" class="part-image {{ empty($cardImage) ? 'no-image' : '' }}">
@@ -16,10 +17,10 @@
         <div class="part-codes">{{ collect([$item['part_number'] ?? null, $item['sku'] ?? null])->filter()->implode(' · ') }}</div>
         <div class="part-purchase-row">
           <div class="part-purchase-info">
-            <div class="part-price">{{ number_format((float) $item['price_uah'], 0, '.', ' ') }} грн</div>
+            <div class="part-price">{{ $hasPrice ? number_format((float) $item['price_uah'], 0, '.', ' ').' грн' : ($isRu ? 'Цену уточняйте' : 'Ціну уточнюйте') }}</div>
             <div class="part-stock">{{ $isRu ? 'В наличии' : 'В наявності' }}: {{ $item['quantity'] }}</div>
           </div>
-          <button
+          @if($hasPrice)<button
             type="button"
             class="add-cart"
             data-recommendation-add="{{ $item['id'] }}"
@@ -32,7 +33,7 @@
               <path d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 1.9-1.4L21 7H6"></path>
               <circle cx="10" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle>
             </svg>
-          </button>
+          </button>@endif
         </div>
       </div>
     </article>

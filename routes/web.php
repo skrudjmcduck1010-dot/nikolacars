@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 $loadFeaturedParts = static function (SkladStorefrontClient $client, string $locale): array {
     try {
         return Cache::flexible(
-            'home:featured-parts:'.$locale.':v1',
+            'home:featured-parts:'.$locale.':v2',
             [3600, 86400],
             static function () use ($client, $locale): array {
                 $response = $client->catalog([

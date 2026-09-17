@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     page: Math.max(1, Number(initialParams.get('page')) || 1), lastPage: 1, models: [], categories: [], products: [], total: 0
   };
   const cartKey = 'nikolacars-parts-cart-v1';
-  let cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
+  let cart = JSON.parse(localStorage.getItem(cartKey) || '[]').filter(item => Number(item?.price_uah) > 0);
   let cityTimer;
   let warehouseTimer;
   let searchTimer;
@@ -31,6 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let searchSuggestionTotal = 0;
 
   const money = value => `${new Intl.NumberFormat(root.dataset.locale === 'ru' ? 'ru-UA' : 'uk-UA', { maximumFractionDigits: 0 }).format(value)} ${t.uah}`;
+  const hasPrice = product => Number(product?.price_uah) > 0;
+  const priceLabel = product => hasPrice(product) ? money(product.price_uah) : t.priceOnRequest;
   const escapeHtml = value => String(value ?? '').replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char]));
   const saveCart = () => { localStorage.setItem(cartKey, JSON.stringify(cart)); renderCart(); renderProducts(); };
   const sectionUrl = (modelSlug = '', categorySlug = '') => {
@@ -126,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ${product.model ? `<span class="parts-search-suggestion-model">${escapeHtml(product.model)}</span>` : ''}
             <small>${escapeHtml(codes)}</small>
           </span>
-          <b>${money(product.price_uah)}</b>
+          <b>${priceLabel(product)}</b>
         </a>`;
       }).join('');
       const progress = products.length < total
@@ -311,15 +313,15 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="part-category-path">${categoryPath}</div>
           <div class="part-purchase-row">
             <div class="part-purchase-info">
-              <div class="part-price">${money(product.price_uah)}</div>
+              <div class="part-price">${priceLabel(product)}</div>
               <div class="part-stock">${t.inStock}: ${product.quantity}</div>
             </div>
-            <button type="button" class="add-cart ${inCart ? 'added' : ''}" data-add-cart="${product.id}" aria-label="${inCart ? t.inCart : t.toCart}" title="${inCart ? t.inCart : t.toCart}">
+            ${hasPrice(product) ? `<button type="button" class="add-cart ${inCart ? 'added' : ''}" data-add-cart="${product.id}" aria-label="${inCart ? t.inCart : t.toCart}" title="${inCart ? t.inCart : t.toCart}">
               <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <path d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 1.9-1.4L21 7H6"></path>
                 <circle cx="10" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle>
               </svg>
-            </button>
+            </button>` : ''}
           </div>
         </div>
       </article>`;
@@ -362,7 +364,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const add = event.target.closest('[data-add-cart]');
     if (add) {
       const product = state.products.find(item => item.id === Number(add.dataset.addCart));
-      if (product && !cart.some(item => item.id === product.id)) cart.push({ ...product, available: product.quantity, quantity: 1 });
+      if (product && hasPrice(product) && !cart.some(item => item.id === product.id)) cart.push({ ...product, available: product.quantity, quantity: 1 });
       saveCart(); openCart();
     }
     const minus = event.target.closest('[data-cart-minus]');

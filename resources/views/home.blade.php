@@ -415,7 +415,7 @@
             <div class="featured-part-name">{{ $part['name'] }}</div>
             <div class="featured-part-meta">
               <span class="featured-part-code">{{ $part['part_number'] ?? '' }}</span>
-              <strong class="featured-part-price">{{ number_format((float) ($part['price_uah'] ?? 0), 0, ',', ' ') }} ₴</strong>
+              <strong class="featured-part-price">{{ (float) ($part['price_uah'] ?? 0) > 0 ? number_format((float) $part['price_uah'], 0, ',', ' ').' ₴' : ($isRu ? 'Цену уточняйте' : 'Ціну уточнюйте') }}</strong>
             </div>
           </div>
         </a>

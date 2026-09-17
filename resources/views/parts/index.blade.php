@@ -127,7 +127,10 @@
         </div>
         <div class="parts-products" data-products>
           @foreach($products as $product)
-            @php $cardImage = $product['thumbnail_url'] ?? $product['image_url'] ?? null; @endphp
+            @php
+              $cardImage = $product['thumbnail_url'] ?? $product['image_url'] ?? null;
+              $hasPrice = (float) ($product['price_uah'] ?? 0) > 0;
+            @endphp
             <article class="part-card">
               <a href="{{ $catalogBase.'/'.$product['id'].'/' }}" class="part-image {{ empty($cardImage) ? 'no-image' : '' }}">
                 @if(!empty($cardImage))<img src="{{ $cardImage }}" alt="{{ $product['name'] }}" width="{{ $product['thumbnail_width'] ?? 360 }}" height="{{ $product['thumbnail_height'] ?? 300 }}" loading="{{ $loop->first ? 'eager' : 'lazy' }}" decoding="async" @if($loop->first) fetchpriority="high" @endif>@endif
@@ -146,16 +149,16 @@
                 </div>
                 <div class="part-purchase-row">
                   <div class="part-purchase-info">
-                    <div class="part-price">{{ number_format((float) $product['price_uah'], 0, '.', ' ') }} грн</div>
+                    <div class="part-price">{{ $hasPrice ? number_format((float) $product['price_uah'], 0, '.', ' ').' грн' : ($isRu ? 'Цену уточняйте' : 'Ціну уточнюйте') }}</div>
                     <div class="part-stock">{{ $isRu ? 'В наличии' : 'В наявності' }}: {{ $product['quantity'] }}</div>
                   </div>
-                  <button type="button" class="add-cart" data-add-cart="{{ $product['id'] }}"
+                  @if($hasPrice)<button type="button" class="add-cart" data-add-cart="{{ $product['id'] }}"
                           aria-label="{{ $isRu ? 'В корзину' : 'У кошик' }}" title="{{ $isRu ? 'В корзину' : 'У кошик' }}">
                     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                       <path d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 1.9-1.4L21 7H6"></path>
                       <circle cx="10" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle>
                     </svg>
-                  </button>
+                  </button>@endif
                 </div>
               </div>
             </article>
@@ -233,6 +236,7 @@
     'catalog' => 'Каталог',
     'inStock' => $isRu ? 'В наличии' : 'В наявності',
     'toCart' => $isRu ? 'В корзину' : 'У кошик',
+    'priceOnRequest' => $isRu ? 'Цену уточняйте' : 'Ціну уточнюйте',
     'inCart' => $isRu ? 'В корзине' : 'У кошику',
     'empty' => $isRu ? 'По выбранным фильтрам запчастей не найдено.' : 'За вибраними фільтрами запчастин не знайдено.',
     'loadError' => $isRu ? 'Не удалось загрузить каталог. Попробуйте ещё раз.' : 'Не вдалося завантажити каталог. Спробуйте ще раз.',
@@ -250,5 +254,5 @@
 window.partsI18n = @json($partsI18n);
 window.initialPartsCatalog = @json($initialCatalog);
 </script>
-<script src="{{ asset('assets/js/parts.js') }}?v=20" defer></script>
+<script src="{{ asset('assets/js/parts.js') }}?v=21" defer></script>
 @endpush

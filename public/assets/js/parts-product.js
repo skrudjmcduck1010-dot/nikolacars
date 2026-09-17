@@ -13,7 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const cartProduct = { ...product };
   delete cartProduct.similar_products;
   delete cartProduct.subcategory_products;
-  const readCart = () => JSON.parse(localStorage.getItem(cartKey) || '[]').filter(item => item && Number.isInteger(item.id));
+  const hasPrice = item => Number(item?.price_uah) > 0;
+  const readCart = () => JSON.parse(localStorage.getItem(cartKey) || '[]').filter(item => item && Number.isInteger(item.id) && hasPrice(item));
   const renderCount = cart => {
     const count = cart.reduce((sum, item) => sum + Number(item.quantity || 0), 0);
     document.querySelectorAll('[data-cart-count]').forEach(element => { element.textContent = count; });
@@ -43,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderRecommendationButtons(cart);
 
   addButton?.addEventListener('click', () => {
-    if (!cart.some(item => item.id === product.id)) {
+    if (hasPrice(product) && !cart.some(item => item.id === product.id)) {
       cart.push({ ...cartProduct, available: product.quantity, quantity: 1 });
       localStorage.setItem(cartKey, JSON.stringify(cart));
     }
@@ -53,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('[data-recommendation-add]').forEach(button => button.addEventListener('click', () => {
     const recommendation = recommendationProducts.find(item => item.id === Number(button.dataset.recommendationAdd));
-    if (recommendation && !cart.some(item => item.id === recommendation.id)) {
+    if (recommendation && hasPrice(recommendation) && !cart.some(item => item.id === recommendation.id)) {
       cart.push({ ...recommendation, available: recommendation.quantity, quantity: 1 });
       localStorage.setItem(cartKey, JSON.stringify(cart));
     }
