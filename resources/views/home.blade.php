@@ -401,7 +401,13 @@
     <div class="featured-parts-grid">
       @foreach($featuredParts as $part)
         @php
-          $partUrl = ($isRu ? '/ru/parts/' : '/parts/').($part['url_slug'] ?? $part['id']).'/';
+          $partSegment = trim((string) ($part['url_slug'] ?? ''));
+          if ($partSegment === '') {
+            $partSource = trim((string) ($part['part_number'] ?? '')) ?: trim((string) ($part['sku'] ?? ''));
+            $partSlug = \Illuminate\Support\Str::slug($partSource);
+            $partSegment = ($partSlug !== '' ? $partSlug : 'part').'-'.(int) $part['id'];
+          }
+          $partUrl = ($isRu ? '/ru/parts/' : '/parts/').$partSegment.'/';
           $partImage = $part['thumbnail_url'] ?? $part['image_url'] ?? null;
         @endphp
         <a class="featured-part" href="{{ $partUrl }}">

@@ -130,14 +130,21 @@
             @php
               $cardImage = $product['thumbnail_url'] ?? $product['image_url'] ?? null;
               $hasPrice = (float) ($product['price_uah'] ?? 0) > 0;
+              $productSegment = trim((string) ($product['url_slug'] ?? ''));
+              if ($productSegment === '') {
+                $productSource = trim((string) ($product['part_number'] ?? '')) ?: trim((string) ($product['sku'] ?? ''));
+                $productSlug = \Illuminate\Support\Str::slug($productSource);
+                $productSegment = ($productSlug !== '' ? $productSlug : 'part').'-'.(int) $product['id'];
+              }
+              $productUrl = $catalogBase.'/'.$productSegment.'/';
             @endphp
             <article class="part-card">
-              <a href="{{ $catalogBase.'/'.($product['url_slug'] ?? $product['id']).'/' }}" class="part-image {{ empty($cardImage) ? 'no-image' : '' }}">
+              <a href="{{ $productUrl }}" class="part-image {{ empty($cardImage) ? 'no-image' : '' }}">
                 @if(!empty($cardImage))<img src="{{ $cardImage }}" alt="{{ $product['name'] }}" width="{{ $product['thumbnail_width'] ?? 360 }}" height="{{ $product['thumbnail_height'] ?? 300 }}" loading="{{ $loop->first ? 'eager' : 'lazy' }}" decoding="async" @if($loop->first) fetchpriority="high" @endif>@endif
                 <span>NIKOLACARS</span>
               </a>
               <div class="part-card-body">
-                <h3><a href="{{ $catalogBase.'/'.($product['url_slug'] ?? $product['id']).'/' }}">{{ $product['name'] }}</a></h3>
+                <h3><a href="{{ $productUrl }}">{{ $product['name'] }}</a></h3>
                 <div class="part-codes">{{ collect([$product['part_number'] ?? null, $product['sku'] ?? null, $product['vin'] ?? null])->filter()->implode(' · ') }}</div>
                 <div class="part-category-path">
                   @forelse(($product['category_breadcrumbs'] ?? []) as $breadcrumb)

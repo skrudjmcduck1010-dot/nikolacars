@@ -2,7 +2,13 @@
   @foreach($products as $item)
     @php
       $cardImage = $item['thumbnail_url'] ?? $item['image_url'] ?? null;
-      $productUrl = rtrim($catalogUrl, '/').'/'.($item['url_slug'] ?? $item['id']).'/';
+      $productSegment = trim((string) ($item['url_slug'] ?? ''));
+      if ($productSegment === '') {
+        $productSource = trim((string) ($item['part_number'] ?? '')) ?: trim((string) ($item['sku'] ?? ''));
+        $productSlug = \Illuminate\Support\Str::slug($productSource);
+        $productSegment = ($productSlug !== '' ? $productSlug : 'part').'-'.(int) $item['id'];
+      }
+      $productUrl = rtrim($catalogUrl, '/').'/'.$productSegment.'/';
       $hasPrice = (float) ($item['price_uah'] ?? 0) > 0;
     @endphp
     <article class="part-card">
