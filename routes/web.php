@@ -7,11 +7,12 @@ use App\Services\SkladStorefrontClient;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 $loadFeaturedParts = static function (SkladStorefrontClient $client, string $locale): array {
     try {
         return Cache::flexible(
-            'home:featured-parts:'.$locale.':v2',
+            'home:featured-parts:'.$locale.':v3',
             [3600, 86400],
             static function () use ($client, $locale): array {
                 $response = $client->catalog([
@@ -26,12 +27,21 @@ $loadFeaturedParts = static function (SkladStorefrontClient $client, string $loc
                     throw new RuntimeException('Warehouse storefront returned HTTP '.$response->status().'.');
                 }
 
-                return array_values(array_filter(
+                $products = array_values(array_filter(
                     $payload['products'] ?? [],
                     static fn (mixed $product): bool => is_array($product)
                         && ! empty($product['id'])
                         && ! empty($product['name']),
                 ));
+
+                return array_map(static function (array $product): array {
+                    $source = trim((string) ($product['part_number'] ?? ''))
+                        ?: trim((string) ($product['sku'] ?? ''));
+                    $slug = Str::slug($source);
+                    $product['url_slug'] = ($slug !== '' ? $slug : 'part').'-'.(int) $product['id'];
+
+                    return $product;
+                }, $products);
             },
         );
     } catch (ConnectionException|RuntimeException $exception) {
