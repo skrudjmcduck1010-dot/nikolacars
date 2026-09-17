@@ -471,26 +471,14 @@
           ? 'Карта расположения NikolaCars в Киеве, улица Коллекторная, 30'
           : 'Карта розташування NikolaCars у Києві, вулиця Колекторна, 30';
       @endphp
-      <div class="contacts-map" data-map-container>
-        <button
-          class="map-placeholder"
-          type="button"
-          data-map-load
-          data-map-src="https://www.google.com/maps?q=Київ,+вулиця+Колекторна,+30&amp;output=embed"
-          data-map-title="{{ $mapTitle }}"
-          aria-label="{{ $mapTitle }}">
-          <span class="map-placeholder-icon" aria-hidden="true">📍</span>
-          <span class="map-placeholder-title">{{ $isRu ? 'NikolaCars на карте' : 'NikolaCars на карті' }}</span>
-          <span class="map-placeholder-action">{{ $isRu ? 'Показать интерактивную карту' : 'Показати інтерактивну карту' }}</span>
-        </button>
-        <noscript>
-          <iframe
-            src="https://www.google.com/maps?q=Київ,+вулиця+Колекторна,+30&amp;output=embed"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            title="{{ $mapTitle }}">
-          </iframe>
-        </noscript>
+      <div class="contacts-map">
+        <iframe
+          src="https://www.google.com/maps?q=Київ,+вулиця+Колекторна,+30&amp;output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen
+          title="{{ $mapTitle }}">
+        </iframe>
       </div>
     </div>
   </div>
@@ -552,22 +540,6 @@
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  // Google Maps is intentionally created only after an explicit request. The
-  // embed otherwise downloads hundreds of KiB of third-party JS on first load.
-  const mapButton = document.querySelector('[data-map-load]');
-  mapButton?.addEventListener('click', () => {
-    const src = mapButton.dataset.mapSrc;
-    if (!src) return;
-
-    const iframe = document.createElement('iframe');
-    iframe.src = src;
-    iframe.title = mapButton.dataset.mapTitle || '';
-    iframe.loading = 'eager';
-    iframe.referrerPolicy = 'no-referrer-when-downgrade';
-    iframe.allowFullscreen = true;
-    mapButton.replaceWith(iframe);
-  }, { once: true });
-
   // ====== helper: utm ======
   function collectUtm() {
     const params = new URLSearchParams(window.location.search);
