@@ -115,7 +115,7 @@ class SiteController extends Controller
         abort_unless(in_array($locale, ['uk', 'ru'], true), 404);
 
         $xml = Cache::flexible(
-            'sitemap:parts:'.$locale.':xml:v5',
+            'sitemap:parts:'.$locale.':xml:v6',
             [3600, 604800],
             function () use ($locale, $storefront): string {
                 $partsIndex = $this->partsIndex($storefront);
@@ -151,8 +151,8 @@ class SiteController extends Controller
                 }
 
                 foreach (($partsIndex['products'] ?? []) as $product) {
-                    if (! empty($product['id'])) {
-                        $paths[] = [$prefix.'/'.$product['id'], $product['updated_at'] ?? null];
+                    if (! empty($product['id']) && ! empty($product['url_slug'])) {
+                        $paths[] = [$prefix.'/'.$product['url_slug'], $product['updated_at'] ?? null];
                     }
                 }
 
@@ -166,21 +166,21 @@ class SiteController extends Controller
     protected function partsIndex(SkladStorefrontClient $storefront): array
     {
         try {
-            return Cache::remember('sitemap:parts-index:v4', now()->addHour(), function () use ($storefront): array {
+            return Cache::remember('sitemap:parts-index:v5', now()->addHour(), function () use ($storefront): array {
                 $response = $storefront->seoIndex();
                 if (! $response->successful() || ! is_array($response->json())) {
                     throw new RuntimeException('Warehouse SEO index returned HTTP '.$response->status().'.');
                 }
 
                 $payload = $response->json();
-                Cache::put('sitemap:parts-index:stale:v4', $payload, now()->addDays(7));
+                Cache::put('sitemap:parts-index:stale:v5', $payload, now()->addDays(7));
 
                 return $payload;
             });
         } catch (ConnectionException|RuntimeException $exception) {
             report($exception);
 
-            return Cache::get('sitemap:parts-index:stale:v4', Cache::get('sitemap:parts-index:stale:v3', []));
+            return Cache::get('sitemap:parts-index:stale:v5', Cache::get('sitemap:parts-index:stale:v4', []));
         }
     }
 

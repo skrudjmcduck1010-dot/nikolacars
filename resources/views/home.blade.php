@@ -401,7 +401,7 @@
     <div class="featured-parts-grid">
       @foreach($featuredParts as $part)
         @php
-          $partUrl = ($isRu ? '/ru/parts/' : '/parts/').$part['id'].'/';
+          $partUrl = ($isRu ? '/ru/parts/' : '/parts/').($part['url_slug'] ?? $part['id']).'/';
           $partImage = $part['thumbnail_url'] ?? $part['image_url'] ?? null;
         @endphp
         <a class="featured-part" href="{{ $partUrl }}">

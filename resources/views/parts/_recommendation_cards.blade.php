@@ -2,7 +2,7 @@
   @foreach($products as $item)
     @php
       $cardImage = $item['thumbnail_url'] ?? $item['image_url'] ?? null;
-      $productUrl = rtrim($catalogUrl, '/').'/'.$item['id'].'/';
+      $productUrl = rtrim($catalogUrl, '/').'/'.($item['url_slug'] ?? $item['id']).'/';
       $hasPrice = (float) ($item['price_uah'] ?? 0) > 0;
     @endphp
     <article class="part-card">

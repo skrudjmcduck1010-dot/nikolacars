@@ -119,7 +119,7 @@ Route::prefix('parts')->group(function (): void {
     Route::post('api/orders', [PartsController::class, 'storeOrder'])->defaults('locale', 'uk')->name('parts.orders');
     Route::get('subcategory/{categoryPathSlug}/', [PartsController::class, 'index'])->where('categoryPathSlug', '[a-z0-9-]+')->defaults('locale', 'uk')->name('parts.subcategory');
     Route::get('{modelSlug}/subcategory/{categoryPathSlug}/', [PartsController::class, 'index'])->where(['modelSlug' => '[a-z0-9-]+', 'categoryPathSlug' => '[a-z0-9-]+'])->defaults('locale', 'uk')->name('parts.model-subcategory');
-    Route::get('{product}/', [PartsController::class, 'show'])->whereNumber('product')->defaults('locale', 'uk')->name('parts.show');
+    Route::get('{productSlug}/', [PartsController::class, 'show'])->where('productSlug', '(?:[0-9]+|[a-z0-9-]+-[0-9]{5,})')->defaults('locale', 'uk')->name('parts.show');
     Route::get('category/{categorySlug}/', [PartsController::class, 'index'])->defaults('locale', 'uk')->name('parts.category');
     Route::get('{modelSlug}/{categorySlug?}/', [PartsController::class, 'index'])->where(['modelSlug' => '[a-z0-9-]+', 'categorySlug' => '[a-z0-9-]+'])->defaults('locale', 'uk')->name('parts.section');
 });
@@ -132,7 +132,7 @@ Route::prefix('ru/parts')->group(function (): void {
     Route::post('api/orders', [PartsController::class, 'storeOrder'])->defaults('locale', 'ru')->name('parts.ru.orders');
     Route::get('subcategory/{categoryPathSlug}/', [PartsController::class, 'index'])->where('categoryPathSlug', '[a-z0-9-]+')->defaults('locale', 'ru')->name('parts.ru.subcategory');
     Route::get('{modelSlug}/subcategory/{categoryPathSlug}/', [PartsController::class, 'index'])->where(['modelSlug' => '[a-z0-9-]+', 'categoryPathSlug' => '[a-z0-9-]+'])->defaults('locale', 'ru')->name('parts.ru.model-subcategory');
-    Route::get('{product}/', [PartsController::class, 'show'])->whereNumber('product')->defaults('locale', 'ru')->name('parts.ru.show');
+    Route::get('{productSlug}/', [PartsController::class, 'show'])->where('productSlug', '(?:[0-9]+|[a-z0-9-]+-[0-9]{5,})')->defaults('locale', 'ru')->name('parts.ru.show');
     Route::get('category/{categorySlug}/', [PartsController::class, 'index'])->defaults('locale', 'ru')->name('parts.ru.category');
     Route::get('{modelSlug}/{categorySlug?}/', [PartsController::class, 'index'])->where(['modelSlug' => '[a-z0-9-]+', 'categorySlug' => '[a-z0-9-]+'])->defaults('locale', 'ru')->name('parts.ru.section');
 });

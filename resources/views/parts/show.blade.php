@@ -152,5 +152,5 @@
 
 @push('scripts')
 <script>window.productPageConfig = @json(['catalogUrl' => $catalogUrl]);</script>
-<script src="{{ asset('assets/js/parts-product.js') }}?v=9" defer></script>
+<script src="{{ asset('assets/js/parts-product.js') }}?v=10" defer></script>
 @endpush

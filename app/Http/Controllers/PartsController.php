@@ -9,6 +9,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 use RuntimeException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
@@ -80,9 +81,10 @@ class PartsController extends Controller
 
         try {
             $initialCatalog = $this->cachedStorefrontPayload(
-                'storefront:catalog:v1:'.sha1(json_encode($catalogQuery, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)),
+                'storefront:catalog:v2:'.sha1(json_encode($catalogQuery, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)),
                 fn (): Response => $client->catalog($catalogQuery),
             );
+            $initialCatalog = $this->withProductUrlSlugs($initialCatalog);
         } catch (ConnectionException|RuntimeException $exception) {
             if ($exception instanceof HttpExceptionInterface) {
                 throw $exception;
@@ -182,16 +184,23 @@ class PartsController extends Controller
 
     public function catalog(Request $request, SkladStorefrontClient $client, string $locale = 'uk'): JsonResponse
     {
-        return $this->proxy(fn () => $client->catalog($request->query() + ['locale' => $locale]));
+        return $this->proxy(
+            fn () => $client->catalog($request->query() + ['locale' => $locale]),
+            fn (array $payload): array => $this->withProductUrlSlugs($payload),
+        );
     }
 
-    public function show(SkladStorefrontClient $client, int $product, string $locale = 'uk'): View
+    public function show(SkladStorefrontClient $client, string $productSlug, string $locale = 'uk'): View|RedirectResponse
     {
         $locale = $locale === 'ru' ? 'ru' : 'uk';
+        $product = ctype_digit($productSlug)
+            ? (int) $productSlug
+            : (preg_match('/-(\d+)$/', $productSlug, $matches) === 1 ? (int) $matches[1] : 0);
+        abort_if($product <= 0, 404);
 
         try {
             $productData = $this->cachedStorefrontPayload(
-                'storefront:product:v2:'.$locale.':'.$product,
+                'storefront:product:v3:'.$locale.':'.$product,
                 fn (): Response => $client->product($product, $locale),
                 [404, 410, 422],
             );
@@ -202,6 +211,14 @@ class PartsController extends Controller
 
             report($exception);
             abort(503, 'Склад временно недоступен.');
+        }
+
+        $canonicalSegment = $this->productUrlSlug($productData, $product);
+        $productData['url_slug'] = $canonicalSegment;
+        $productData = $this->withProductUrlSlugs($productData);
+        $catalogPath = $locale === 'ru' ? '/ru/parts/' : '/parts/';
+        if ($productSlug !== $canonicalSegment) {
+            return redirect()->away(rtrim(url($catalogPath.$canonicalSegment), '/').'/', 301);
         }
 
         $name = trim((string) ($productData['name'] ?? ''));
@@ -238,8 +255,7 @@ class PartsController extends Controller
         );
 
         $baseUrl = 'https://nikolacars.kiev.ua';
-        $catalogPath = $locale === 'ru' ? '/ru/parts/' : '/parts/';
-        $productUrl = $baseUrl.$catalogPath.$product.'/';
+        $productUrl = $baseUrl.$catalogPath.$canonicalSegment.'/';
         $images = collect($productData['images'] ?? [])
             ->push($productData['image_url'] ?? null)
             ->filter()
@@ -325,6 +341,10 @@ class PartsController extends Controller
         return view('parts.show', [
             'locale' => $locale,
             'product' => $productData,
+            'localeUrls' => [
+                'uk' => '/parts/'.$canonicalSegment.'/',
+                'ru' => '/ru/parts/'.$canonicalSegment.'/',
+            ],
             'seoTitle' => $seoTitle,
             'seoDescription' => $seoDescription,
             'seoStructuredData' => [
@@ -336,6 +356,40 @@ class PartsController extends Controller
                 ],
             ],
         ]);
+    }
+
+    protected function productUrlSlug(array $product, int $id): string
+    {
+        $urlSlug = trim((string) ($product['url_slug'] ?? ''));
+        if ($urlSlug !== '') {
+            return $urlSlug;
+        }
+
+        $source = trim((string) ($product['part_number'] ?? '')) ?: trim((string) ($product['sku'] ?? ''));
+        $slug = Str::slug($source);
+
+        return ($slug !== '' ? $slug : 'part').'-'.$id;
+    }
+
+    protected function withProductUrlSlugs(array $payload): array
+    {
+        foreach (['products', 'similar_products', 'subcategory_products'] as $key) {
+            if (! is_array($payload[$key] ?? null)) {
+                continue;
+            }
+
+            $payload[$key] = array_map(function (mixed $product): mixed {
+                if (! is_array($product) || empty($product['id'])) {
+                    return $product;
+                }
+
+                $product['url_slug'] = $this->productUrlSlug($product, (int) $product['id']);
+
+                return $product;
+            }, $payload[$key]);
+        }
+
+        return $payload;
     }
 
     /**
@@ -510,11 +564,14 @@ class PartsController extends Controller
         return $this->proxy(fn () => $client->createOrder($request->all() + ['locale' => $locale]));
     }
 
-    protected function proxy(callable $callback): JsonResponse
+    protected function proxy(callable $callback, ?callable $transform = null): JsonResponse
     {
         try {
             $response = $callback();
             $payload = $response->json();
+            if (is_array($payload) && $transform !== null) {
+                $payload = $transform($payload);
+            }
 
             return response()->json(is_array($payload) ? $payload : ['message' => 'Invalid warehouse response.'], $response->status());
         } catch (ConnectionException|RuntimeException $exception) {

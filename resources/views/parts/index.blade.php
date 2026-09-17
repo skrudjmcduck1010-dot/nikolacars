@@ -132,12 +132,12 @@
               $hasPrice = (float) ($product['price_uah'] ?? 0) > 0;
             @endphp
             <article class="part-card">
-              <a href="{{ $catalogBase.'/'.$product['id'].'/' }}" class="part-image {{ empty($cardImage) ? 'no-image' : '' }}">
+              <a href="{{ $catalogBase.'/'.($product['url_slug'] ?? $product['id']).'/' }}" class="part-image {{ empty($cardImage) ? 'no-image' : '' }}">
                 @if(!empty($cardImage))<img src="{{ $cardImage }}" alt="{{ $product['name'] }}" width="{{ $product['thumbnail_width'] ?? 360 }}" height="{{ $product['thumbnail_height'] ?? 300 }}" loading="{{ $loop->first ? 'eager' : 'lazy' }}" decoding="async" @if($loop->first) fetchpriority="high" @endif>@endif
                 <span>NIKOLACARS</span>
               </a>
               <div class="part-card-body">
-                <h3><a href="{{ $catalogBase.'/'.$product['id'].'/' }}">{{ $product['name'] }}</a></h3>
+                <h3><a href="{{ $catalogBase.'/'.($product['url_slug'] ?? $product['id']).'/' }}">{{ $product['name'] }}</a></h3>
                 <div class="part-codes">{{ collect([$product['part_number'] ?? null, $product['sku'] ?? null, $product['vin'] ?? null])->filter()->implode(' · ') }}</div>
                 <div class="part-category-path">
                   @forelse(($product['category_breadcrumbs'] ?? []) as $breadcrumb)
@@ -254,5 +254,5 @@
 window.partsI18n = @json($partsI18n);
 window.initialPartsCatalog = @json($initialCatalog);
 </script>
-<script src="{{ asset('assets/js/parts.js') }}?v=21" defer></script>
+<script src="{{ asset('assets/js/parts.js') }}?v=22" defer></script>
 @endpush

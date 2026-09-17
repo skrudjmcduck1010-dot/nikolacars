@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const imageUrl = product.thumbnail_url || product.image_url;
         const imageWidth = Number(product.thumbnail_width || 360);
         const imageHeight = Number(product.thumbnail_height || 300);
-        const productUrl = `${root.dataset.productBase}/${product.id}/`;
+        const productUrl = `${root.dataset.productBase}/${product.url_slug || product.id}/`;
         const codes = [product.part_number, product.sku].filter(Boolean).join(' · ');
         return `<a href="${productUrl}" class="parts-search-suggestion" role="option">
           <span class="parts-search-suggestion-image ${imageUrl ? '' : 'no-image'}">
@@ -296,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const imageWidth = Number(product.thumbnail_width || 360);
       const imageHeight = Number(product.thumbnail_height || 300);
       const image = imageUrl ? `<img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(product.name)}" width="${imageWidth}" height="${imageHeight}" loading="${index === 0 ? 'eager' : 'lazy'}" decoding="async"${index === 0 ? ' fetchpriority="high"' : ''} onerror="this.closest('.part-image').classList.add('no-image');this.remove()">` : '';
-      const productUrl = `${root.dataset.productBase}/${product.id}/`;
+      const productUrl = `${root.dataset.productBase}/${product.url_slug || product.id}/`;
       const categoryPath = (product.category_breadcrumbs || []).length
         ? product.category_breadcrumbs.map((breadcrumb, index) => {
             const href = index === 0
