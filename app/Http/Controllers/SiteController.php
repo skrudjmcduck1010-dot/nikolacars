@@ -13,6 +13,11 @@ use RuntimeException;
 
 class SiteController extends Controller
 {
+    private const NON_INDEXABLE_CATEGORY_SLUGS = [
+        'ne-viznaceno',
+        'ne-opredeleno',
+    ];
+
     public function show(Request $request, ?string $path = null)
     {
         $locale = $request->route('locale') ?? 'uk';
@@ -110,7 +115,7 @@ class SiteController extends Controller
         abort_unless(in_array($locale, ['uk', 'ru'], true), 404);
 
         $xml = Cache::flexible(
-            'sitemap:parts:'.$locale.':xml:v3',
+            'sitemap:parts:'.$locale.':xml:v4',
             [3600, 604800],
             function () use ($locale, $storefront): string {
                 $partsIndex = $this->partsIndex($storefront);
@@ -125,31 +130,19 @@ class SiteController extends Controller
                 }
 
                 foreach (($sections['categories'] ?? []) as $category) {
-                    if (! empty($category['slug'])) {
+                    if (! empty($category['slug'])
+                        && ! in_array($category['slug'], self::NON_INDEXABLE_CATEGORY_SLUGS, true)) {
                         $paths[] = [$prefix.'/category/'.$category['slug'], $partsIndex['updated_at'] ?? null];
                     }
                 }
 
-                foreach (($sections['category_paths'] ?? []) as $categoryPath) {
-                    if (! empty($categoryPath['category_path_slug'])) {
-                        $paths[] = [
-                            $prefix.'/subcategory/'.$categoryPath['category_path_slug'],
-                            $partsIndex['updated_at'] ?? null,
-                        ];
-                    }
-                }
-
-                foreach (($sections['category_path_sections'] ?? []) as $section) {
-                    if (! empty($section['model_slug']) && ! empty($section['category_path_slug'])) {
-                        $paths[] = [
-                            $prefix.'/'.$section['model_slug'].'/subcategory/'.$section['category_path_slug'],
-                            $partsIndex['updated_at'] ?? null,
-                        ];
-                    }
-                }
-
+                // Deep category-path combinations remain crawlable through the
+                // catalog. The sitemap stays focused on products and top-level
+                // model/category landing pages.
                 foreach (($sections['sections'] ?? []) as $section) {
-                    if (! empty($section['model_slug']) && ! empty($section['category_slug'])) {
+                    if (! empty($section['model_slug'])
+                        && ! empty($section['category_slug'])
+                        && ! in_array($section['category_slug'], self::NON_INDEXABLE_CATEGORY_SLUGS, true)) {
                         $paths[] = [
                             $prefix.'/'.$section['model_slug'].'/'.$section['category_slug'],
                             $partsIndex['updated_at'] ?? null,

@@ -29,9 +29,9 @@
   }
 @endphp
 
-@section('title', $isTargetedPage ? $metaTitle : ($isRu ? 'Услуги 🛠️ NikolaCars — всё для авто Tesla' : 'Послуги 🛠️ NikolaCars — все для авто Tesla'))
+@section('title', $isTargetedPage ? $metaTitle : ($pageTitle ?? ($isRu ? 'Сервис Tesla в Киеве — диагностика и ремонт | NikolaCars' : 'Сервіс Tesla у Києві — діагностика та ремонт | NikolaCars')))
 
-@section('description', $isTargetedPage ? $metaDescription : ($isRu ? 'Услуги 🚗 Подбор и доставка автомобилей Tesla в Украину под ключ. Обслуживание на нашем СТО, прошивка авто. Ваши желания — наши решения.' : 'Послуги 🚗 Підбір та доставка автомобілів Tesla в Україну під ключ. Обслуговування на нашому СТО, Прошивка авто. Ваші бажання — Наші рішення.'))
+@section('description', $isTargetedPage ? $metaDescription : ($metaDescription ?? ($isRu ? 'СТО Tesla в Киеве: компьютерная диагностика, ремонт батарей, электромоторов, подвески и электроники. Запись на сервис NikolaCars.' : 'СТО Tesla у Києві: комп’ютерна діагностика, ремонт батарей, електромоторів, підвіски та електроніки. Запис на сервіс NikolaCars.')))
 @section('content')
 <section class="service-hero{{ $isTargetedPage ? ($hasLongHeroTitle ? ' service-hero--long-title' : '') : ' service-hero--tesla-main' }}">
   <div class="hero-wrap">

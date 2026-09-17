@@ -4,14 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Services\SkladStorefrontClient;
 use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Http\Client\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 use RuntimeException;
 
 class PartsController extends Controller
 {
+    private const STOREFRONT_CACHE_FRESH_SECONDS = 60;
+
+    private const STOREFRONT_CACHE_STALE_SECONDS = 600;
+
     private const CATEGORY_LOCALE_SLUGS = [
         ['uk' => 'informaciino-rozvazalna-sistema', 'ru' => 'informacionno-razvlekatelnaia-sistema'],
         ['uk' => 'bezpeka-i-zaxist', 'ru' => 'bezopasnost-i-zashhita'],
@@ -60,25 +66,26 @@ class PartsController extends Controller
             $sort = 'newest';
         }
 
+        $catalogQuery = array_filter([
+            'locale' => $locale,
+            'model_slug' => $modelSlug,
+            'category_slug' => $categorySlug,
+            'category_path_slug' => $categoryPathSlug,
+            'q' => $query,
+            'sort' => $sort,
+            'page' => $page,
+            'per_page' => 24,
+        ], fn (mixed $value): bool => $value !== '');
+
         try {
-            $response = $client->catalog(array_filter([
-                'locale' => $locale,
-                'model_slug' => $modelSlug,
-                'category_slug' => $categorySlug,
-                'category_path_slug' => $categoryPathSlug,
-                'q' => $query,
-                'sort' => $sort,
-                'page' => $page,
-                'per_page' => 24,
-            ], fn (mixed $value): bool => $value !== ''));
+            $initialCatalog = $this->cachedStorefrontPayload(
+                'storefront:catalog:v1:'.sha1(json_encode($catalogQuery, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)),
+                fn (): Response => $client->catalog($catalogQuery),
+            );
         } catch (ConnectionException|RuntimeException $exception) {
             report($exception);
             abort(503, 'Склад временно недоступен.');
         }
-
-        abort_unless($response->successful() && is_array($response->json()), 404);
-
-        $initialCatalog = $response->json();
         $lastPage = (int) ($initialCatalog['pagination']['last_page'] ?? 1);
         abort_if($page > max(1, $lastPage), 404);
 
@@ -178,14 +185,14 @@ class PartsController extends Controller
         $locale = $locale === 'ru' ? 'ru' : 'uk';
 
         try {
-            $response = $client->product($product, $locale);
+            $productData = $this->cachedStorefrontPayload(
+                'storefront:product:v1:'.$locale.':'.$product,
+                fn (): Response => $client->product($product, $locale),
+            );
         } catch (ConnectionException|RuntimeException $exception) {
             report($exception);
             abort(503, 'Склад временно недоступен.');
         }
-
-        abort_unless($response->successful() && is_array($response->json()), 404);
-        $productData = $response->json();
 
         $name = trim((string) ($productData['name'] ?? ''));
         $model = trim((string) ($productData['model'] ?? ''));
@@ -313,6 +320,44 @@ class PartsController extends Controller
                 ],
             ],
         ]);
+    }
+
+    /**
+     * Cache read-only storefront responses so crawlers do not trigger a remote
+     * warehouse request for every catalog and product page view.
+     *
+     * @param  callable(): Response  $fetch
+     */
+    private function cachedStorefrontPayload(string $cacheKey, callable $fetch): array
+    {
+        $result = Cache::flexible(
+            $cacheKey,
+            [self::STOREFRONT_CACHE_FRESH_SECONDS, self::STOREFRONT_CACHE_STALE_SECONDS],
+            function () use ($fetch): array {
+                $response = $fetch();
+                $status = $response->status();
+                $data = $response->json();
+
+                if ($status !== 404 && ($status < 200 || $status >= 300 || ! is_array($data))) {
+                    throw new RuntimeException('Warehouse storefront returned HTTP '.$status.'.');
+                }
+
+                return [
+                    'status' => $status,
+                    'data' => $data,
+                ];
+            },
+        );
+
+        $status = (int) ($result['status'] ?? 500);
+        if ($status === 404) {
+            abort(404);
+        }
+        if ($status < 200 || $status >= 300 || ! is_array($result['data'] ?? null)) {
+            throw new RuntimeException('Warehouse storefront returned HTTP '.$status.'.');
+        }
+
+        return $result['data'];
     }
 
     protected function generateProductDescription(

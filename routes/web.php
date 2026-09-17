@@ -99,6 +99,8 @@ Route::prefix('ru/parts')->group(function (): void {
     Route::get('{modelSlug}/{categorySlug?}/', [PartsController::class, 'index'])->where(['modelSlug' => '[a-z0-9-]+', 'categorySlug' => '[a-z0-9-]+'])->defaults('locale', 'ru')->name('parts.ru.section');
 });
 $legacyRedirects = [
+    '/privacy_policy/' => '/privacy-policy/',
+    '/ru/ru/privacy-policy/' => '/ru/privacy-policy/',
     '/services/import-usa/' => '/services/prigon-tesla-usa/',
     '/ru/services/import-usa/' => '/ru/services/prigon-tesla-usa/',
     '/services/prigon-usa/' => '/services/prigon-tesla-usa/',
@@ -108,7 +110,7 @@ $legacyRedirects = [
 ];
 
 foreach ($legacyRedirects as $from => $to) {
-    Route::permanentRedirect($from, $to);
+    Route::get($from, fn () => new \Illuminate\Http\RedirectResponse($to, 301));
 }
 
 $targetedServices = collect(config('targeted_services', []))->keyBy('slug');
@@ -153,16 +155,16 @@ Route::fallback(function () {
 
 Route::get('/services/tesla-service/', function () {
     return view('services.tesla-service', [
-        'pageTitle' => 'Сервіс Tesla – NikolaCars',
-        'metaDescription' => 'Діагностика, ремонт та технічне обслуговування Tesla у Києві. Запис на сервіс онлайн.',
+        'pageTitle' => 'Сервіс Tesla у Києві — діагностика та ремонт | NikolaCars',
+        'metaDescription' => 'СТО Tesla у Києві: комп’ютерна діагностика, ремонт батарей, електромоторів, підвіски та електроніки. Запис на сервіс NikolaCars.',
     ]);
 });
 
 Route::get('/ru/services/tesla-service/', function () {
     return view('services.tesla-service', [
         'locale' => 'ru',
-        'pageTitle' => 'Сервис Tesla – NikolaCars',
-        'metaDescription' => 'Диагностика, ремонт и техническое обслуживание Tesla в Киеве. Онлайн-заявка.',
+        'pageTitle' => 'Сервис Tesla в Киеве — диагностика и ремонт | NikolaCars',
+        'metaDescription' => 'СТО Tesla в Киеве: компьютерная диагностика, ремонт батарей, электромоторов, подвески и электроники. Запись на сервис NikolaCars.',
     ]);
 });
 
