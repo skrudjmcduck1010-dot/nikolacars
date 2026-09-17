@@ -84,7 +84,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const selectGalleryImage = index => {
     if (!galleryImages.length) return;
     currentImageIndex = (index + galleryImages.length) % galleryImages.length;
-    if (mainImage) mainImage.src = galleryImages[currentImageIndex];
+    if (mainImage) {
+      mainImage.closest('[data-product-main-picture]')?.querySelector('source')?.remove();
+      mainImage.src = galleryImages[currentImageIndex];
+    }
     document.querySelectorAll('[data-product-image]').forEach(button => {
       button.classList.toggle('active', Number(button.dataset.productImageIndex) === currentImageIndex);
     });

@@ -24,7 +24,7 @@
   <link rel="preconnect" href="https://sklad.nikolacars.kiev.ua" crossorigin>
   <link rel="dns-prefetch" href="//sklad.nikolacars.kiev.ua">
   <link rel="stylesheet" href="{{ asset('assets/css/app.min.css') }}?v=20260822">
-  <link rel="stylesheet" href="{{ asset('assets/css/parts.css') }}?v=33">
+  <link rel="stylesheet" href="{{ asset('assets/css/parts.css') }}?v=34">
 </head>
 <body class="parts-page">
 @php

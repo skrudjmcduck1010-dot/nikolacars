@@ -54,7 +54,12 @@
         <section class="product-gallery">
         @if($images->isNotEmpty())
           <button type="button" class="product-main-image" data-gallery-open aria-label="{{ $isRu ? 'Открыть фото в полном размере' : 'Відкрити фото у повному розмірі' }}">
-            <img src="{{ $images->first() }}" alt="{{ $product['name'] }}" decoding="async" fetchpriority="high" data-product-main-image>
+            <picture data-product-main-picture>
+              @if(!empty($product['thumbnail_url']))
+                <source media="(max-width: 600px)" srcset="{{ $product['thumbnail_url'] }}" type="image/webp">
+              @endif
+              <img src="{{ $images->first() }}" alt="{{ $product['name'] }}" decoding="async" fetchpriority="high" data-product-main-image>
+            </picture>
           </button>
         @else
           <div class="product-main-image no-image"><span>NIKOLACARS</span></div>
@@ -152,5 +157,5 @@
 
 @push('scripts')
 <script>window.productPageConfig = @json(['catalogUrl' => $catalogUrl]);</script>
-<script src="{{ asset('assets/js/parts-product.js') }}?v=10" defer></script>
+<script src="{{ asset('assets/js/parts-product.js') }}?v=11" defer></script>
 @endpush
