@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 use RuntimeException;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 class PartsController extends Controller
 {
@@ -83,6 +84,10 @@ class PartsController extends Controller
                 fn (): Response => $client->catalog($catalogQuery),
             );
         } catch (ConnectionException|RuntimeException $exception) {
+            if ($exception instanceof HttpExceptionInterface) {
+                throw $exception;
+            }
+
             report($exception);
             abort(503, 'Склад временно недоступен.');
         }
@@ -188,8 +193,13 @@ class PartsController extends Controller
             $productData = $this->cachedStorefrontPayload(
                 'storefront:product:v1:'.$locale.':'.$product,
                 fn (): Response => $client->product($product, $locale),
+                [404, 410, 422],
             );
         } catch (ConnectionException|RuntimeException $exception) {
+            if ($exception instanceof HttpExceptionInterface) {
+                throw $exception;
+            }
+
             report($exception);
             abort(503, 'Склад временно недоступен.');
         }
@@ -327,18 +337,19 @@ class PartsController extends Controller
      * warehouse request for every catalog and product page view.
      *
      * @param  callable(): Response  $fetch
+     * @param  list<int>  $notFoundStatuses
      */
-    private function cachedStorefrontPayload(string $cacheKey, callable $fetch): array
+    private function cachedStorefrontPayload(string $cacheKey, callable $fetch, array $notFoundStatuses = [404]): array
     {
         $result = Cache::flexible(
             $cacheKey,
             [self::STOREFRONT_CACHE_FRESH_SECONDS, self::STOREFRONT_CACHE_STALE_SECONDS],
-            function () use ($fetch): array {
+            function () use ($fetch, $notFoundStatuses): array {
                 $response = $fetch();
                 $status = $response->status();
                 $data = $response->json();
 
-                if ($status !== 404 && ($status < 200 || $status >= 300 || ! is_array($data))) {
+                if (! in_array($status, $notFoundStatuses, true) && ($status < 200 || $status >= 300 || ! is_array($data))) {
                     throw new RuntimeException('Warehouse storefront returned HTTP '.$status.'.');
                 }
 
@@ -350,7 +361,7 @@ class PartsController extends Controller
         );
 
         $status = (int) ($result['status'] ?? 500);
-        if ($status === 404) {
+        if (in_array($status, $notFoundStatuses, true)) {
             abort(404);
         }
         if ($status < 200 || $status >= 300 || ! is_array($result['data'] ?? null)) {
