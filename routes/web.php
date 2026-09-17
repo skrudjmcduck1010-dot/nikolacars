@@ -3,16 +3,53 @@
 use App\Http\Controllers\LeadController;
 use App\Http\Controllers\PartsController;
 use App\Http\Controllers\SiteController;
+use App\Services\SkladStorefrontClient;
+use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
+
+$loadFeaturedParts = static function (SkladStorefrontClient $client, string $locale): array {
+    try {
+        return Cache::flexible(
+            'home:featured-parts:'.$locale.':v1',
+            [3600, 86400],
+            static function () use ($client, $locale): array {
+                $response = $client->catalog([
+                    'locale' => $locale,
+                    'sort' => 'newest',
+                    'page' => 1,
+                    'per_page' => 8,
+                ]);
+                $payload = $response->json();
+
+                if (! $response->successful() || ! is_array($payload)) {
+                    throw new RuntimeException('Warehouse storefront returned HTTP '.$response->status().'.');
+                }
+
+                return array_values(array_filter(
+                    $payload['products'] ?? [],
+                    static fn (mixed $product): bool => is_array($product)
+                        && ! empty($product['id'])
+                        && ! empty($product['name']),
+                ));
+            },
+        );
+    } catch (ConnectionException|RuntimeException $exception) {
+        report($exception);
+
+        return [];
+    }
+};
 
 /*
 |--------------------------------------------------------------------------
 | HOME — UA (default)
 |--------------------------------------------------------------------------
 */
-Route::get('/', function () {
+Route::get('/', function (SkladStorefrontClient $client) use ($loadFeaturedParts) {
     $locale = 'uk';
     $pathNoLocale = '/';
+    $featuredParts = $loadFeaturedParts($client, $locale);
 
     $services = [
         [
@@ -32,7 +69,7 @@ Route::get('/', function () {
         ],
     ];
 
-    return view('home', compact('locale', 'pathNoLocale', 'services'));
+    return view('home', compact('locale', 'pathNoLocale', 'services', 'featuredParts'));
 });
 
 /*
@@ -40,9 +77,10 @@ Route::get('/', function () {
 | HOME — RU
 |--------------------------------------------------------------------------
 */
-Route::get('/ru/', function () {
+Route::get('/ru/', function (SkladStorefrontClient $client) use ($loadFeaturedParts) {
     $locale = 'ru';
     $pathNoLocale = '/';
+    $featuredParts = $loadFeaturedParts($client, $locale);
 
     $services = [
         [
@@ -62,7 +100,7 @@ Route::get('/ru/', function () {
         ],
     ];
 
-    return view('home', compact('locale', 'pathNoLocale', 'services'));
+    return view('home', compact('locale', 'pathNoLocale', 'services', 'featuredParts'));
 });
 
 Route::post('/lead/callback', [LeadController::class, 'callback'])->name('lead.callback');

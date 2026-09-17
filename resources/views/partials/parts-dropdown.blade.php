@@ -3,7 +3,6 @@
   $partsMenuBase = $partsMenuLocale === 'ru' ? '/ru/parts' : '/parts';
   $partsMenuModels = [
     ['slug' => 'model-3-06-2017-12-2023', 'label' => 'Model 3 06.2017–12.2023'],
-    ['slug' => 'model-3-highland-01-2024', 'label' => 'Model 3 Highland 01.2024–'],
     ['slug' => 'model-s-02-2012-03-2016', 'label' => 'Model S 02.2012–03.2016'],
     ['slug' => 'model-s-04-2016-01-2021', 'label' => 'Model S 04.2016–01.2021'],
     ['slug' => 'model-x-09-2015-02-2021', 'label' => 'Model X 09.2015–02.2021'],

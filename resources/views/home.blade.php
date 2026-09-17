@@ -7,6 +7,9 @@
 @push('head')
   <link rel="preload" as="image" type="image/webp" href="{{ asset('images/hero/import-mobile.webp') }}" media="(max-width: 640px)" fetchpriority="high">
   <link rel="preload" as="image" type="image/webp" href="{{ asset('images/hero/import.webp') }}" media="(min-width: 641px)" fetchpriority="high">
+  <style>
+    .featured-parts{padding:72px 0;background:#f3f3f3}.featured-parts-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:28px}.featured-parts-kicker{color:#999;font-size:16px;margin-bottom:8px}.featured-parts-title{margin:0;color:#111;font-size:42px;line-height:1.05;font-weight:900;text-transform:uppercase}.featured-parts-all{color:#d62828;font-weight:800;text-decoration:none}.featured-parts-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}.featured-part{display:flex;min-width:0;flex-direction:column;overflow:hidden;border-radius:14px;background:#fff;color:#111;text-decoration:none;box-shadow:0 10px 28px rgba(0,0,0,.07);transition:transform .2s ease,box-shadow .2s ease}.featured-part:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(0,0,0,.12)}.featured-part-image{aspect-ratio:1.35;background:#e7e7e7;overflow:hidden}.featured-part-image img{display:block;width:100%;height:100%;object-fit:cover}.featured-part-body{display:flex;flex:1;flex-direction:column;padding:16px}.featured-part-model{color:#999;font-size:12px}.featured-part-name{margin:7px 0 14px;font-size:16px;line-height:1.3;font-weight:800}.featured-part-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto}.featured-part-code{color:#777;font-size:12px}.featured-part-price{white-space:nowrap;color:#d62828;font-size:18px;font-weight:900}@media(max-width:1000px){.featured-parts-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:620px){.featured-parts{padding:50px 0}.featured-parts-head{align-items:flex-start;flex-direction:column}.featured-parts-title{font-size:30px}.featured-parts-grid{grid-template-columns:1fr 1fr;gap:10px}.featured-part-body{padding:12px}.featured-part-name{font-size:14px}.featured-part-meta{align-items:flex-start;flex-direction:column;gap:5px}.featured-part-price{font-size:16px}}
+  </style>
 @endpush
 
 @section('title', $isRu
@@ -383,6 +386,44 @@
     </div>
   </div>
 </section>
+
+@if(!empty($featuredParts))
+<section class="featured-parts" aria-labelledby="featuredPartsTitle">
+  <div class="container">
+    <div class="featured-parts-head">
+      <div>
+        <div class="featured-parts-kicker">{{ $isRu ? 'Последние поступления на склад' : 'Останні надходження на склад' }}</div>
+        <h2 class="featured-parts-title" id="featuredPartsTitle">{{ $isRu ? 'Новые запчасти Tesla' : 'Нові запчастини Tesla' }}</h2>
+      </div>
+      <a class="featured-parts-all" href="{{ $isRu ? '/ru/parts/' : '/parts/' }}">{{ $isRu ? 'Все запчасти →' : 'Усі запчастини →' }}</a>
+    </div>
+
+    <div class="featured-parts-grid">
+      @foreach($featuredParts as $part)
+        @php
+          $partUrl = ($isRu ? '/ru/parts/' : '/parts/').$part['id'].'/';
+          $partImage = $part['thumbnail_url'] ?? $part['image_url'] ?? null;
+        @endphp
+        <a class="featured-part" href="{{ $partUrl }}">
+          <div class="featured-part-image">
+            @if($partImage)
+              <img src="{{ $partImage }}" width="360" height="267" loading="lazy" decoding="async" alt="{{ $part['name'] }}">
+            @endif
+          </div>
+          <div class="featured-part-body">
+            <div class="featured-part-model">{{ $part['model'] ?? 'Tesla' }}</div>
+            <div class="featured-part-name">{{ $part['name'] }}</div>
+            <div class="featured-part-meta">
+              <span class="featured-part-code">{{ $part['part_number'] ?? '' }}</span>
+              <strong class="featured-part-price">{{ number_format((float) ($part['price_uah'] ?? 0), 0, ',', ' ') }} ₴</strong>
+            </div>
+          </div>
+        </a>
+      @endforeach
+    </div>
+  </div>
+</section>
+@endif
 
 <section class="contacts">
   <div class="container">
