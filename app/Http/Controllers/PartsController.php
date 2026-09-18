@@ -200,7 +200,7 @@ class PartsController extends Controller
 
         try {
             $productData = $this->cachedStorefrontPayload(
-                'storefront:product:v4:'.$locale.':'.$product,
+                'storefront:product:v5:'.$locale.':'.$product,
                 fn (): Response => $client->product($product, $locale),
                 [404, 410, 422],
             );
