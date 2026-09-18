@@ -115,7 +115,7 @@ class SiteController extends Controller
         abort_unless(in_array($locale, ['uk', 'ru'], true), 404);
 
         $xml = Cache::flexible(
-            'sitemap:parts:'.$locale.':xml:v6',
+            'sitemap:parts:'.$locale.':xml:v7',
             [3600, 604800],
             function () use ($locale, $storefront): string {
                 $partsIndex = $this->partsIndex($storefront);
@@ -132,7 +132,7 @@ class SiteController extends Controller
                 foreach (($sections['categories'] ?? []) as $category) {
                     if (! empty($category['slug'])
                         && ! in_array($category['slug'], self::NON_INDEXABLE_CATEGORY_SLUGS, true)) {
-                        $paths[] = [$prefix.'/category/'.$category['slug'], $partsIndex['updated_at'] ?? null];
+                        $paths[] = [$prefix.'/'.$category['slug'], $partsIndex['updated_at'] ?? null];
                     }
                 }
 

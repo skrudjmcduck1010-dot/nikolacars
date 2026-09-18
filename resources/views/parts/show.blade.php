@@ -31,9 +31,9 @@
     $slug = trim((string) ($breadcrumb['slug'] ?? ''));
     $path = str_replace('--', '/', $slug);
     if ($index === 0) {
-      return $modelSlug !== '' ? $catalogUrl.$modelSlug.'/'.$slug.'/' : $catalogUrl.'category/'.$slug.'/';
+      return $modelSlug !== '' ? $catalogUrl.$modelSlug.'/'.$slug.'/' : $catalogUrl.$slug.'/';
     }
-    return $modelSlug !== '' ? $catalogUrl.$modelSlug.'/'.$path.'/' : $catalogUrl.'category/'.$path.'/';
+    return $modelSlug !== '' ? $catalogUrl.$modelSlug.'/'.$path.'/' : $catalogUrl.$path.'/';
   };
 @endphp
 <main class="product-page">

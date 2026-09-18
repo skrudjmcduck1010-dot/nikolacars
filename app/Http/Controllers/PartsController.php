@@ -49,8 +49,34 @@ class PartsController extends Controller
         $categorySlug = (string) $request->route('categorySlug', '');
         $categoryPathSlug = (string) $request->route('categoryPathSlug', '');
         $categoryPath = trim((string) $request->route('categoryPath', ''), '/');
+        $catalogPath = trim((string) $request->route('catalogPath', ''), '/');
+        $routeName = (string) $request->route()?->getName();
         $legacySubcategoryUrl = $categoryPathSlug !== ''
-            && str_contains((string) $request->route()?->getName(), 'subcategory');
+            && str_contains($routeName, 'subcategory');
+        $legacyCategoryUrl = $categoryPath !== ''
+            && str_contains($routeName, 'legacy-category');
+
+        if ($catalogPath !== '') {
+            $pathSegments = array_values(array_filter(explode('/', $catalogPath)));
+            $firstSegment = (string) ($pathSegments[0] ?? '');
+            $categorySlugs = collect(self::CATEGORY_LOCALE_SLUGS)->flatten()->all();
+
+            if (in_array($firstSegment, $categorySlugs, true)) {
+                if (count($pathSegments) === 1) {
+                    $categorySlug = $firstSegment;
+                } else {
+                    $categoryPathSlug = implode('--', $pathSegments);
+                }
+            } else {
+                $modelSlug = $firstSegment;
+                $categorySegments = array_slice($pathSegments, 1);
+                if (count($categorySegments) === 1) {
+                    $categorySlug = $categorySegments[0];
+                } elseif ($categorySegments !== []) {
+                    $categoryPathSlug = implode('--', $categorySegments);
+                }
+            }
+        }
 
         if ($categoryPath !== '') {
             $pathSegments = array_values(array_filter(explode('/', $categoryPath)));
@@ -122,8 +148,21 @@ class PartsController extends Controller
         if ($legacySubcategoryUrl) {
             $targetPath = str_replace('--', '/', $categoryPathSlug);
             $target = ($locale === 'ru' ? '/ru/parts/' : '/parts/')
-                .($modelSlug !== '' ? $modelSlug.'/' : 'category/')
+                .($modelSlug !== '' ? $modelSlug.'/' : '')
                 .$targetPath.'/';
+            $queryString = http_build_query($request->query());
+
+            return redirect()->away(
+                rtrim(url($target), '/').'/'.($queryString !== '' ? '?'.$queryString : ''),
+                301,
+            );
+        }
+
+        if ($legacyCategoryUrl) {
+            $targetPath = $categoryPathSlug !== ''
+                ? str_replace('--', '/', $categoryPathSlug)
+                : $categorySlug;
+            $target = ($locale === 'ru' ? '/ru/parts/' : '/parts/').$targetPath.'/';
             $queryString = http_build_query($request->query());
 
             return redirect()->away(
@@ -207,13 +246,13 @@ class PartsController extends Controller
             if ($modelSlug !== '' && $categoryPathSlug !== '') {
                 $urls[$locale] = $base.'/'.$modelSlug.'/'.$categoryPath.'/';
             } elseif ($categoryPathSlug !== '') {
-                $urls[$locale] = $base.'/category/'.$categoryPath.'/';
+                $urls[$locale] = $base.'/'.$categoryPath.'/';
             } elseif ($modelSlug !== '' && $categorySlugs[$locale] !== '') {
                 $urls[$locale] = $base.'/'.$modelSlug.'/'.$categorySlugs[$locale].'/';
             } elseif ($modelSlug !== '') {
                 $urls[$locale] = $base.'/'.$modelSlug.'/';
             } elseif ($categorySlugs[$locale] !== '') {
-                $urls[$locale] = $base.'/category/'.$categorySlugs[$locale].'/';
+                $urls[$locale] = $base.'/'.$categorySlugs[$locale].'/';
             } else {
                 $urls[$locale] = $base.'/';
             }
@@ -365,8 +404,8 @@ class PartsController extends Controller
             $slug = trim((string) $breadcrumb['slug']);
             $path = str_replace('--', '/', $slug);
             $categoryPath = $index === 0
-                ? ($modelSlug !== '' ? $modelSlug.'/'.$slug.'/' : 'category/'.$slug.'/')
-                : ($modelSlug !== '' ? $modelSlug.'/'.$path.'/' : 'category/'.$path.'/');
+                ? ($modelSlug !== '' ? $modelSlug.'/'.$slug.'/' : $slug.'/')
+                : ($modelSlug !== '' ? $modelSlug.'/'.$path.'/' : $path.'/');
             $breadcrumbItems[] = [
                 '@type' => 'ListItem',
                 'position' => count($breadcrumbItems) + 1,

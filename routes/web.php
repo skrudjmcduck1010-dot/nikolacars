@@ -130,9 +130,8 @@ Route::prefix('parts')->group(function (): void {
     Route::get('subcategory/{categoryPathSlug}/', [PartsController::class, 'index'])->where('categoryPathSlug', '[a-z0-9-]+')->defaults('locale', 'uk')->name('parts.subcategory');
     Route::get('{modelSlug}/subcategory/{categoryPathSlug}/', [PartsController::class, 'index'])->where(['modelSlug' => '[a-z0-9-]+', 'categoryPathSlug' => '[a-z0-9-]+'])->defaults('locale', 'uk')->name('parts.model-subcategory');
     Route::get('{productSlug}/', [PartsController::class, 'show'])->where('productSlug', '(?:[0-9]+|[a-z0-9-]+-[0-9]{5,})')->defaults('locale', 'uk')->name('parts.show');
-    Route::get('category/{categoryPath}/', [PartsController::class, 'index'])->where('categoryPath', '[a-z0-9-]+(?:/[a-z0-9-]+)*')->defaults('locale', 'uk')->name('parts.category');
-    Route::get('{modelSlug}/{categoryPath}/', [PartsController::class, 'index'])->where(['modelSlug' => '[a-z0-9-]+', 'categoryPath' => '[a-z0-9-]+(?:/[a-z0-9-]+)+'])->defaults('locale', 'uk')->name('parts.category-path');
-    Route::get('{modelSlug}/{categorySlug?}/', [PartsController::class, 'index'])->where(['modelSlug' => '[a-z0-9-]+', 'categorySlug' => '[a-z0-9-]+'])->defaults('locale', 'uk')->name('parts.section');
+    Route::get('category/{categoryPath}/', [PartsController::class, 'index'])->where('categoryPath', '[a-z0-9-]+(?:/[a-z0-9-]+)*')->defaults('locale', 'uk')->name('parts.legacy-category');
+    Route::get('{catalogPath}/', [PartsController::class, 'index'])->where('catalogPath', '[a-z0-9-]+(?:/[a-z0-9-]+)*')->defaults('locale', 'uk')->name('parts.section');
 });
 
 Route::prefix('ru/parts')->group(function (): void {
@@ -144,9 +143,8 @@ Route::prefix('ru/parts')->group(function (): void {
     Route::get('subcategory/{categoryPathSlug}/', [PartsController::class, 'index'])->where('categoryPathSlug', '[a-z0-9-]+')->defaults('locale', 'ru')->name('parts.ru.subcategory');
     Route::get('{modelSlug}/subcategory/{categoryPathSlug}/', [PartsController::class, 'index'])->where(['modelSlug' => '[a-z0-9-]+', 'categoryPathSlug' => '[a-z0-9-]+'])->defaults('locale', 'ru')->name('parts.ru.model-subcategory');
     Route::get('{productSlug}/', [PartsController::class, 'show'])->where('productSlug', '(?:[0-9]+|[a-z0-9-]+-[0-9]{5,})')->defaults('locale', 'ru')->name('parts.ru.show');
-    Route::get('category/{categoryPath}/', [PartsController::class, 'index'])->where('categoryPath', '[a-z0-9-]+(?:/[a-z0-9-]+)*')->defaults('locale', 'ru')->name('parts.ru.category');
-    Route::get('{modelSlug}/{categoryPath}/', [PartsController::class, 'index'])->where(['modelSlug' => '[a-z0-9-]+', 'categoryPath' => '[a-z0-9-]+(?:/[a-z0-9-]+)+'])->defaults('locale', 'ru')->name('parts.ru.category-path');
-    Route::get('{modelSlug}/{categorySlug?}/', [PartsController::class, 'index'])->where(['modelSlug' => '[a-z0-9-]+', 'categorySlug' => '[a-z0-9-]+'])->defaults('locale', 'ru')->name('parts.ru.section');
+    Route::get('category/{categoryPath}/', [PartsController::class, 'index'])->where('categoryPath', '[a-z0-9-]+(?:/[a-z0-9-]+)*')->defaults('locale', 'ru')->name('parts.ru.legacy-category');
+    Route::get('{catalogPath}/', [PartsController::class, 'index'])->where('catalogPath', '[a-z0-9-]+(?:/[a-z0-9-]+)*')->defaults('locale', 'ru')->name('parts.ru.section');
 });
 $legacyRedirects = [
     '/privacy_policy/' => '/privacy-policy/',
