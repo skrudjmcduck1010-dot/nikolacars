@@ -16,9 +16,9 @@ use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 class PartsController extends Controller
 {
-    private const STOREFRONT_CACHE_FRESH_SECONDS = 60;
+    private const STOREFRONT_CACHE_FRESH_SECONDS = 300;
 
-    private const STOREFRONT_CACHE_STALE_SECONDS = 600;
+    private const STOREFRONT_CACHE_STALE_SECONDS = 86400;
 
     private const CATEGORY_LOCALE_SLUGS = [
         ['uk' => 'informaciino-rozvazalna-sistema', 'ru' => 'informacionno-razvlekatelnaia-sistema'],
