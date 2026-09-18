@@ -49,19 +49,8 @@ class PartsController extends Controller
         $categorySlug = (string) $request->route('categorySlug', '');
         $categoryPathSlug = (string) $request->route('categoryPathSlug', '');
         $categoryPath = trim((string) $request->route('categoryPath', ''), '/');
-
-        if ($categoryPathSlug !== '' && str_contains((string) $request->route()?->getName(), 'subcategory')) {
-            $targetPath = str_replace('--', '/', $categoryPathSlug);
-            $target = ($locale === 'ru' ? '/ru/parts/' : '/parts/')
-                .($modelSlug !== '' ? $modelSlug.'/' : 'category/')
-                .$targetPath.'/';
-            $queryString = http_build_query($request->query());
-
-            return redirect()->away(
-                rtrim(url($target), '/').'/'.($queryString !== '' ? '?'.$queryString : ''),
-                301,
-            );
-        }
+        $legacySubcategoryUrl = $categoryPathSlug !== ''
+            && str_contains((string) $request->route()?->getName(), 'subcategory');
 
         if ($categoryPath !== '') {
             $pathSegments = array_values(array_filter(explode('/', $categoryPath)));
@@ -129,6 +118,20 @@ class PartsController extends Controller
             report($exception);
             abort(503, 'Склад временно недоступен.');
         }
+
+        if ($legacySubcategoryUrl) {
+            $targetPath = str_replace('--', '/', $categoryPathSlug);
+            $target = ($locale === 'ru' ? '/ru/parts/' : '/parts/')
+                .($modelSlug !== '' ? $modelSlug.'/' : 'category/')
+                .$targetPath.'/';
+            $queryString = http_build_query($request->query());
+
+            return redirect()->away(
+                rtrim(url($target), '/').'/'.($queryString !== '' ? '?'.$queryString : ''),
+                301,
+            );
+        }
+
         $lastPage = (int) ($initialCatalog['pagination']['last_page'] ?? 1);
         abort_if($page > max(1, $lastPage), 404);
 
