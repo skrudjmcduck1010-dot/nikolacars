@@ -26,9 +26,10 @@
   };
   $subcategoryUrl = static function (string $model = '', string $categoryPath = '') use ($catalogBase): string {
     if ($categoryPath === '') return $model !== '' ? $catalogBase.'/'.$model.'/' : $catalogBase.'/';
+    $categoryPath = str_replace('--', '/', $categoryPath);
     return $model !== ''
-      ? $catalogBase.'/'.$model.'/subcategory/'.$categoryPath.'/'
-      : $catalogBase.'/subcategory/'.$categoryPath.'/';
+      ? $catalogBase.'/'.$model.'/'.$categoryPath.'/'
+      : $catalogBase.'/category/'.$categoryPath.'/';
   };
   $modelLabelParts = static function (string $label): array {
     $label = trim($label);
@@ -261,5 +262,5 @@
 window.partsI18n = @json($partsI18n);
 window.initialPartsCatalog = @json($initialCatalog);
 </script>
-<script src="{{ asset('assets/js/parts.js') }}?v=22" defer></script>
+<script src="{{ asset('assets/js/parts.js') }}?v=23" defer></script>
 @endpush

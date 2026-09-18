@@ -45,9 +45,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const subcategoryUrl = (modelSlug = '', categoryPathSlug = '') => {
     const base = root.dataset.catalogBase;
     if (!categoryPathSlug) return modelSlug ? `${base}/${modelSlug}/` : `${base}/`;
+    const categoryPath = categoryPathSlug.split('--').filter(Boolean).join('/');
     return modelSlug
-      ? `${base}/${modelSlug}/subcategory/${categoryPathSlug}/`
-      : `${base}/subcategory/${categoryPathSlug}/`;
+      ? `${base}/${modelSlug}/${categoryPath}/`
+      : `${base}/category/${categoryPath}/`;
   };
 
   function renderLoading() {

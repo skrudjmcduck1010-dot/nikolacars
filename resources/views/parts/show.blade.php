@@ -29,10 +29,11 @@
   $categoryBreadcrumbUrl = static function (array $breadcrumb, int $index) use ($catalogUrl, $product): string {
     $modelSlug = trim((string) ($product['model_slug'] ?? ''));
     $slug = trim((string) ($breadcrumb['slug'] ?? ''));
+    $path = str_replace('--', '/', $slug);
     if ($index === 0) {
       return $modelSlug !== '' ? $catalogUrl.$modelSlug.'/'.$slug.'/' : $catalogUrl.'category/'.$slug.'/';
     }
-    return $modelSlug !== '' ? $catalogUrl.$modelSlug.'/subcategory/'.$slug.'/' : $catalogUrl.'subcategory/'.$slug.'/';
+    return $modelSlug !== '' ? $catalogUrl.$modelSlug.'/'.$path.'/' : $catalogUrl.'category/'.$path.'/';
   };
 @endphp
 <main class="product-page">
