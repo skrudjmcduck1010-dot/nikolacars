@@ -131,6 +131,7 @@
             @php
               $cardImage = $product['thumbnail_url'] ?? $product['image_url'] ?? null;
               $hasPrice = (float) ($product['price_uah'] ?? 0) > 0;
+              $isSold = ($product['availability_status'] ?? '') === 'sold';
               $productSegment = trim((string) ($product['url_slug'] ?? ''));
               if ($productSegment === '') {
                 $productSource = trim((string) ($product['part_number'] ?? '')) ?: trim((string) ($product['sku'] ?? ''));
@@ -139,10 +140,11 @@
               }
               $productUrl = $catalogBase.'/'.$productSegment.'/';
             @endphp
-            <article class="part-card">
+            <article class="part-card{{ $isSold ? ' is-sold' : '' }}">
               <a href="{{ $productUrl }}" class="part-image {{ empty($cardImage) ? 'no-image' : '' }}">
                 @if(!empty($cardImage))<img src="{{ $cardImage }}" alt="{{ $product['name'] }}" width="{{ $product['thumbnail_width'] ?? 360 }}" height="{{ $product['thumbnail_height'] ?? 300 }}" loading="{{ $loop->first ? 'eager' : 'lazy' }}" decoding="async" @if($loop->first) fetchpriority="high" @endif>@endif
                 <span>NIKOLACARS</span>
+                @if($isSold)<b class="part-sold-badge">{{ $isRu ? 'Продано' : 'Продано' }}</b>@endif
               </a>
               <div class="part-card-body">
                 <h3><a href="{{ $productUrl }}">{{ $product['name'] }}</a></h3>
@@ -158,9 +160,9 @@
                 <div class="part-purchase-row">
                   <div class="part-purchase-info">
                     <div class="part-price">{{ $hasPrice ? number_format((float) $product['price_uah'], 0, '.', ' ').' грн' : ($isRu ? 'Цену уточняйте' : 'Ціну уточнюйте') }}</div>
-                    <div class="part-stock">{{ $isRu ? 'В наличии' : 'В наявності' }}: {{ $product['quantity'] }}</div>
+                    <div class="part-stock{{ $isSold ? ' is-sold' : '' }}">{{ $isSold ? 'Продано' : (($isRu ? 'В наличии' : 'В наявності').': '.$product['quantity']) }}</div>
                   </div>
-                  @if($hasPrice)<button type="button" class="add-cart" data-add-cart="{{ $product['id'] }}"
+                  @if($hasPrice && !$isSold)<button type="button" class="add-cart" data-add-cart="{{ $product['id'] }}"
                           aria-label="{{ $isRu ? 'В корзину' : 'У кошик' }}" title="{{ $isRu ? 'В корзину' : 'У кошик' }}">
                     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                       <path d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 1.9-1.4L21 7H6"></path>
@@ -243,6 +245,7 @@
     'allProducts' => $isRu ? 'Все запчасти' : 'Усі запчастини',
     'catalog' => 'Каталог',
     'inStock' => $isRu ? 'В наличии' : 'В наявності',
+    'sold' => 'Продано',
     'toCart' => $isRu ? 'В корзину' : 'У кошик',
     'priceOnRequest' => $isRu ? 'Цену уточняйте' : 'Ціну уточнюйте',
     'inCart' => $isRu ? 'В корзине' : 'У кошику',
@@ -262,5 +265,5 @@
 window.partsI18n = @json($partsI18n);
 window.initialPartsCatalog = @json($initialCatalog);
 </script>
-<script src="{{ asset('assets/js/parts.js') }}?v=24" defer></script>
+<script src="{{ asset('assets/js/parts.js') }}?v=25" defer></script>
 @endpush

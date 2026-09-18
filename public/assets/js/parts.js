@@ -293,6 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderProducts() {
     $('[data-products]').innerHTML = state.products.map((product, index) => {
       const inCart = cart.some(item => item.id === product.id);
+      const isSold = product.availability_status === 'sold';
       const imageUrl = product.thumbnail_url || product.image_url;
       const imageWidth = Number(product.thumbnail_width || 360);
       const imageHeight = Number(product.thumbnail_height || 300);
@@ -306,8 +307,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return `${index ? '<span aria-hidden="true">/</span> ' : ''}<a href="${href}">${escapeHtml(breadcrumb.label)}</a>`;
           }).join(' ')
         : escapeHtml(product.category_path);
-      return `<article class="part-card">
-        <a href="${productUrl}" class="part-image ${image ? '' : 'no-image'}">${image}<span>NIKOLACARS</span></a>
+      return `<article class="part-card ${isSold ? 'is-sold' : ''}">
+        <a href="${productUrl}" class="part-image ${image ? '' : 'no-image'}">${image}<span>NIKOLACARS</span>${isSold ? `<b class="part-sold-badge">${escapeHtml(t.sold)}</b>` : ''}</a>
         <div class="part-card-body">
           <h3><a href="${productUrl}">${escapeHtml(product.name)}</a></h3>
           <div class="part-codes">${escapeHtml([product.part_number, product.sku, product.vin].filter(Boolean).join(' · '))}</div>
@@ -315,9 +316,9 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="part-purchase-row">
             <div class="part-purchase-info">
               <div class="part-price">${priceLabel(product)}</div>
-              <div class="part-stock">${t.inStock}: ${product.quantity}</div>
+              <div class="part-stock ${isSold ? 'is-sold' : ''}">${isSold ? escapeHtml(t.sold) : `${t.inStock}: ${product.quantity}`}</div>
             </div>
-            ${hasPrice(product) ? `<button type="button" class="add-cart ${inCart ? 'added' : ''}" data-add-cart="${product.id}" aria-label="${inCart ? t.inCart : t.toCart}" title="${inCart ? t.inCart : t.toCart}">
+            ${hasPrice(product) && !isSold ? `<button type="button" class="add-cart ${inCart ? 'added' : ''}" data-add-cart="${product.id}" aria-label="${inCart ? t.inCart : t.toCart}" title="${inCart ? t.inCart : t.toCart}">
               <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <path d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 1.9-1.4L21 7H6"></path>
                 <circle cx="10" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle>
