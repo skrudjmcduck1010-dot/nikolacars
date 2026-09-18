@@ -89,9 +89,10 @@
           @php
             $hasPrice = (float) ($product['price_uah'] ?? 0) > 0;
             $hasStock = (int) ($product['quantity'] ?? 0) > 0;
+            $isSold = ($product['availability_status'] ?? '') === 'sold';
           @endphp
           <div class="product-detail-price">{{ $hasPrice ? number_format((float) $product['price_uah'], 0, '.', ' ').' грн' : ($isRu ? 'Цену уточняйте' : 'Ціну уточнюйте') }}</div>
-          <div class="product-detail-stock">{{ $hasStock ? (($isRu ? 'В наличии' : 'В наявності').': '.$product['quantity']) : ($isRu ? 'Временно нет в наличии' : 'Тимчасово немає в наявності') }}</div>
+          <div class="product-detail-stock{{ $isSold ? ' is-sold' : '' }}">{{ $isSold ? 'Продано' : ($hasStock ? (($isRu ? 'В наличии' : 'В наявності').': '.$product['quantity']) : ($isRu ? 'Временно нет в наличии' : 'Тимчасово немає в наявності')) }}</div>
           @if($hasPrice && $hasStock)<button
             type="button"
             data-product-add
