@@ -81,8 +81,9 @@ class PartsController extends Controller
 
         try {
             $initialCatalog = $this->cachedStorefrontPayload(
-                'storefront:catalog:v2:'.sha1(json_encode($catalogQuery, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)),
+                'storefront:catalog:v3:'.sha1(json_encode($catalogQuery, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)),
                 fn (): Response => $client->catalog($catalogQuery),
+                [404, 410, 422],
             );
             $initialCatalog = $this->withProductUrlSlugs($initialCatalog);
         } catch (ConnectionException|RuntimeException $exception) {
