@@ -85,10 +85,13 @@
         <div class="product-category-label">{{ $product['category_path'] ?? '' }}</div>
 
         <div class="product-buy-box">
-          @php $hasPrice = (float) ($product['price_uah'] ?? 0) > 0; @endphp
+          @php
+            $hasPrice = (float) ($product['price_uah'] ?? 0) > 0;
+            $hasStock = (int) ($product['quantity'] ?? 0) > 0;
+          @endphp
           <div class="product-detail-price">{{ $hasPrice ? number_format((float) $product['price_uah'], 0, '.', ' ').' грн' : ($isRu ? 'Цену уточняйте' : 'Ціну уточнюйте') }}</div>
-          <div class="product-detail-stock">{{ $isRu ? 'В наличии' : 'В наявності' }}: {{ $product['quantity'] }}</div>
-          @if($hasPrice)<button
+          <div class="product-detail-stock">{{ $hasStock ? (($isRu ? 'В наличии' : 'В наявності').': '.$product['quantity']) : ($isRu ? 'Временно нет в наличии' : 'Тимчасово немає в наявності') }}</div>
+          @if($hasPrice && $hasStock)<button
             type="button"
             data-product-add
             data-added-label="{{ $isRu ? 'В корзине' : 'У кошику' }}"

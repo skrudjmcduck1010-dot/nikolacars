@@ -237,13 +237,15 @@ class PartsController extends Controller
         $seoTitle = $productTitle.' — '.$article.' | NikolaCars';
         $priceValue = (float) ($productData['price_uah'] ?? 0);
         $hasPrice = $priceValue > 0;
+        $hasStock = (int) ($productData['quantity'] ?? 0) > 0;
         $price = number_format($priceValue, 0, '.', ' ');
         $priceDescription = $hasPrice
             ? $price.' грн'
             : ($locale === 'ru' ? 'цену уточняйте' : 'ціну уточнюйте');
-        $seoDescription = $locale === 'ru'
-            ? $productTitle.', артикул '.$article.' — '.$priceDescription.'. В наличии в NikolaCars, Киев.'
-            : $productTitle.', артикул '.$article.' — '.$priceDescription.'. В наявності у NikolaCars, Київ.';
+        $availabilityDescription = $hasStock
+            ? ($locale === 'ru' ? 'В наличии в NikolaCars, Киев.' : 'В наявності у NikolaCars, Київ.')
+            : ($locale === 'ru' ? 'Временно нет в наличии.' : 'Тимчасово немає в наявності.');
+        $seoDescription = $productTitle.', артикул '.$article.' — '.$priceDescription.'. '.$availabilityDescription;
         $productData['description'] = $this->generateProductDescription(
             $productData,
             $locale,
