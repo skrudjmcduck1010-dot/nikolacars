@@ -88,6 +88,17 @@ class PartsController extends Controller
             $initialCatalog = $this->withProductUrlSlugs($initialCatalog);
         } catch (ConnectionException|RuntimeException $exception) {
             if ($exception instanceof HttpExceptionInterface) {
+                if ($exception->getStatusCode() === 404 && $categoryPathSlug !== '') {
+                    $target = ($locale === 'ru' ? '/ru/parts/' : '/parts/')
+                        .($modelSlug !== '' ? $modelSlug.'/' : '');
+                    $queryString = http_build_query($request->query());
+
+                    return redirect()->away(
+                        rtrim(url($target), '/').'/'.($queryString !== '' ? '?'.$queryString : ''),
+                        301,
+                    );
+                }
+
                 throw $exception;
             }
 
