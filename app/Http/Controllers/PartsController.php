@@ -365,7 +365,7 @@ class PartsController extends Controller
             'itemCondition' => $itemCondition,
             'seller' => ['@type' => 'Organization', 'name' => 'NikolaCars'],
         ]) : null;
-        $productSchema = array_filter([
+        $productSchema = $images !== [] ? array_filter([
             '@context' => 'https://schema.org',
             '@type' => 'Product',
             'name' => $productTitle,
@@ -376,7 +376,7 @@ class PartsController extends Controller
             'brand' => ['@type' => 'Brand', 'name' => 'Tesla'],
             'category' => trim((string) ($productData['category_path'] ?? '')) ?: null,
             'offers' => $offer,
-        ]);
+        ]) : null;
 
         $breadcrumbItems = [[
             '@type' => 'ListItem',
@@ -434,14 +434,14 @@ class PartsController extends Controller
             ],
             'seoTitle' => $seoTitle,
             'seoDescription' => $seoDescription,
-            'seoStructuredData' => [
+            'seoStructuredData' => array_values(array_filter([
                 $productSchema,
                 [
                     '@context' => 'https://schema.org',
                     '@type' => 'BreadcrumbList',
                     'itemListElement' => $breadcrumbItems,
                 ],
-            ],
+            ])),
         ]);
     }
 
