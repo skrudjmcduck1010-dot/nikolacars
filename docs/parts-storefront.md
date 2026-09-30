@@ -26,9 +26,10 @@ Do not expose `STOREFRONT_API_TOKEN` in browser JavaScript. The NikolaCars serve
 
 ## Call tracking
 
-The department follows the page currently being viewed. `/parts/`, `/ru/parts/`,
-and every nested catalog, product, and checkout page expose the Disassembly phone
-numbers to the Binotel call-tracking widget. The home page and service pages keep
-the STO phone number. Do not persist the Parts department in browser session
-storage: moving from the catalog to the home page must immediately restore the
-STO number while Binotel retains its own advertising-source attribution.
+Every page on `nikolacars.com.ua` exposes the Disassembly phone numbers. On
+`nikolacars.kiev.ua`, `/parts/`, `/ru/parts/`, `/ua/parts/` and every nested
+catalog, product, and checkout page expose the Disassembly numbers; the home page
+and service pages keep the STO number. Do not persist the department in browser
+session storage: moving from the catalog to the home page on `nikolacars.kiev.ua`
+must immediately restore the STO number while Binotel retains its own advertising
+source attribution.

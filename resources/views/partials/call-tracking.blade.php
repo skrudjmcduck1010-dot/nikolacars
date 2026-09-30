@@ -1,10 +1,21 @@
 @php
-  $callTrackingIsPartsPage = request()->is('parts', 'parts/*', 'ru/parts', 'ru/parts/*');
+  $callTrackingHost = strtolower(request()->getHost());
+  $callTrackingUsesDisassemblyNumbers = in_array($callTrackingHost, [
+    'nikolacars.com.ua',
+    'www.nikolacars.com.ua',
+  ], true) || request()->is(
+    'parts',
+    'parts/*',
+    'ru/parts',
+    'ru/parts/*',
+    'ua/parts',
+    'ua/parts/*',
+  );
 @endphp
 <script>
 (function () {
-  const isPartsPage = {{ $callTrackingIsPartsPage ? 'true' : 'false' }};
-  if (!isPartsPage) return;
+  const usesDisassemblyNumbers = {{ $callTrackingUsesDisassemblyNumbers ? 'true' : 'false' }};
+  if (!usesDisassemblyNumbers) return;
 
   const partsPhoneHref = 'tel:+380990698380';
   const partsPhoneLabel = '+38 (099) 069 83 80';
