@@ -459,5 +459,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 
+@include('partials.call-tracking')
 </body>
 </html>

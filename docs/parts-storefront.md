@@ -23,3 +23,12 @@ Deploy the warehouse API before the public site. Configure the same random secre
 - Warehouse Telegram notification: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`.
 
 Do not expose `STOREFRONT_API_TOKEN` in browser JavaScript. The NikolaCars server is the only public proxy for it.
+
+## Call tracking
+
+The department follows the page currently being viewed. `/parts/`, `/ru/parts/`,
+and every nested catalog, product, and checkout page expose the Disassembly phone
+numbers to the Binotel call-tracking widget. The home page and service pages keep
+the STO phone number. Do not persist the Parts department in browser session
+storage: moving from the catalog to the home page must immediately restore the
+STO number while Binotel retains its own advertising-source attribution.
