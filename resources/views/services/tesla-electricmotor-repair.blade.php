@@ -406,7 +406,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      form.reset();
+      window.ncAnalytics?.lead('service_callback');
+          form.reset();
       form.classList.add('is-success');
     } catch (err) {
       console.error(err);

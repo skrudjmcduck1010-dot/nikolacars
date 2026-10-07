@@ -15,7 +15,7 @@
 )
 
 @section('content')
-<section class="service-hero">
+<section class="service-hero service-hero--long-title">
   <div class="hero-wrap">
     <div class="service-hero-slider" aria-label="Hero">
       <div class="service-hero-slide" style="background: url('/assets/img/slider/vidnovlennya-sertyfikativ.webp') center/cover no-repeat, #000;">
@@ -564,7 +564,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      form.reset();
+      window.ncAnalytics?.lead('service_callback');
+          form.reset();
       form.classList.add('is-success');
     } catch (err) {
       console.error(err);

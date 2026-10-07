@@ -4,14 +4,22 @@
   $isRu = (($locale ?? 'uk') === 'ru');
 @endphp
 
+@push('head')
+  <link rel="preload" as="image" type="image/webp" href="{{ asset('images/hero/service.webp') }}" fetchpriority="high">
+  <style>
+    .home-hero-links{display:flex;flex-wrap:wrap;gap:12px 24px;margin-top:24px}.home-hero-links a{color:#fff;font-weight:700;text-decoration:underline;text-underline-offset:4px}.home-hero-links a:focus-visible{outline:2px solid #fff;outline-offset:4px}
+    .featured-parts{padding:72px 0;background:#f3f3f3}.featured-parts-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:28px}.featured-parts-kicker{color:#999;font-size:16px;margin-bottom:8px}.featured-parts-title{margin:0;color:#111;font-size:42px;line-height:1.05;font-weight:900;text-transform:uppercase}.featured-parts-all{color:#d62828;font-weight:800;text-decoration:none}.featured-parts-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}.featured-part{display:flex;min-width:0;flex-direction:column;overflow:hidden;border-radius:14px;background:#fff;color:#111;text-decoration:none;box-shadow:0 10px 28px rgba(0,0,0,.07);transition:transform .2s ease,box-shadow .2s ease}.featured-part:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(0,0,0,.12)}.featured-part-image{aspect-ratio:1.35;background:#e7e7e7;overflow:hidden}.featured-part-image img{display:block;width:100%;height:100%;object-fit:cover}.featured-part-body{display:flex;flex:1;flex-direction:column;padding:16px}.featured-part-model{color:#999;font-size:12px}.featured-part-name{margin:7px 0 14px;font-size:16px;line-height:1.3;font-weight:800}.featured-part-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto}.featured-part-code{color:#777;font-size:12px}.featured-part-price{white-space:nowrap;color:#d62828;font-size:18px;font-weight:900}@media(max-width:1000px){.featured-parts-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:620px){.featured-parts{padding:50px 0}.featured-parts-head{align-items:flex-start;flex-direction:column}.featured-parts-title{font-size:30px}.featured-parts-grid{grid-template-columns:1fr 1fr;gap:10px}.featured-part-body{padding:12px}.featured-part-name{font-size:14px}.featured-part-meta{align-items:flex-start;flex-direction:column;gap:5px}.featured-part-price{font-size:16px}}
+  </style>
+@endpush
+
 @section('title', $isRu
-  ? 'NikolaCars 🛠️ Сервис СТО Tesla и ремонт Tesla в Киеве'
-  : 'NikolaCars 🛠️ Сервіс СТО Тесла та ремонт авто Tesla в Києві'
+  ? 'СТО Tesla в Киеве — сервис и ремонт Tesla | NikolaCars'
+  : 'СТО Tesla у Києві — сервіс та ремонт Tesla | NikolaCars'
 )
 
 @section('description', $isRu
-  ? 'NikolaCars 🚘 Подбор и доставка автомобилей Tesla в Украину под ключ. Обслуживание на нашем СТО, прошивка авто, восстановление сертификатов. Ваши желания — наши решения.'
-  : 'NikolaCars 🚘 Підбір та доставка автомобілів Tesla в Україну під ключ. Обслуговування на нашому СТО, Прошивка авто, відновлення сертифікатів. Ваші бажання — Наші рішення.'
+  ? 'Сервис Tesla в Киеве: диагностика, ТО, ремонт батарей, электромоторов, подвески и электроники. СТО NikolaCars, ул. Коллекторная, 30. Запишитесь на ремонт Tesla.'
+  : 'Сервіс Tesla у Києві: діагностика, ТО, ремонт батарей, електромоторів, підвіски та електроніки. СТО NikolaCars, вул. Колекторна, 30. Запишіться на ремонт Tesla.'
 )
 
 @section('content')
@@ -34,7 +42,7 @@
             [
               'image' => 'images/hero/service.webp',
               'service' => 'service',
-              'title' => 'Профессиональное обслуживание Tesla',
+              'title' => 'Сервис Tesla в Киеве — диагностика и ремонт',
               'subtitle' => 'СТО Tesla в Киеве — диагностика, ТО и ремонт',
             ],
             [
@@ -59,7 +67,7 @@
             [
               'image' => 'images/hero/service.webp',
               'service' => 'service',
-              'title' => 'Професійне обслуговування Tesla',
+              'title' => 'Сервіс Tesla у Києві — діагностика та ремонт',
               'subtitle' => 'СТО Tesla у Києві — діагностика, техобслуговування та ремонт',
             ],
             [
@@ -75,6 +83,8 @@
               'subtitle' => 'Повернення Tesla App, оновлень та повного функціоналу авто',
             ],
           ];
+          // Service leads the home page; import retains its slide and dedicated URL.
+          $slides = [$slides[1], $slides[0], $slides[2], $slides[3]];
         @endphp
 
         @foreach($slides as $index => $slide)
@@ -85,8 +95,30 @@
 
           <div class="hero-slide"
                data-index="{{ $index }}"
-               data-service="{{ $slide['service'] }}"
-               style="background-image: url('{{ asset($slide['image']) }}');">
+               data-service="{{ $slide['service'] }}">
+
+            @if($index === 0)
+              <picture class="hero-picture">
+                <img class="hero-media"
+                     src="{{ asset($slide['image']) }}"
+                     fetchpriority="high"
+                     loading="eager"
+                     width="1536"
+                     height="1024"
+                     decoding="sync"
+                     alt=""
+                     aria-hidden="true">
+              </picture>
+            @else
+              <img class="hero-media"
+                   data-src="{{ asset($slide['image']) }}"
+                   loading="lazy"
+                   width="1536"
+                   height="1024"
+                   decoding="async"
+                   alt=""
+                   aria-hidden="true">
+            @endif
 
             <div class="hero-inner">
               <div class="hero-content">
@@ -98,6 +130,12 @@
                     <h2 class="hero-title">{{ $slide['title'] }}</h2>
                   @endif
                   <div class="hero-subtitle">{{ $slide['subtitle'] }}</div>
+                  @if($index === 0)
+                    <div class="home-hero-links">
+                      <a href="{{ $isRu ? '/ru/services/tesla-service/' : '/services/tesla-service/' }}">{{ $isRu ? 'Услуги СТО Tesla' : 'Послуги СТО Tesla' }}</a>
+                      <a href="{{ $isRu ? '/ru/services/prigon-tesla-usa/' : '/services/prigon-tesla-usa/' }}">{{ $isRu ? 'Пригон Tesla из США' : 'Пригін Tesla із США' }}</a>
+                    </div>
+                  @endif
                 </div>
 
                 {{-- FORM (как на prigon-usa) --}}
@@ -151,7 +189,11 @@
                     <button class="call-submit" type="submit">{{ $isRu ? 'Перезвонить' : 'Передзвонити' }}</button>
                   </div>
 
-                  <div class="call-success">
+                  <div class="call-success"
+                       data-call-success
+                       data-default-message="{{ $isRu ? 'Спасибо! Мы перезвоним вам в течение нескольких минут' : 'Дякуємо, ми Вам передзвонимо через декілька хвилин' }}"
+                       data-after-hours-message="{{ $isRu ? 'Спасибо! Сейчас мы не работаем. Перезвоним вам в ближайшее рабочее время.' : 'Дякуємо! Зараз ми не працюємо. Передзвонимо вам у найближчий робочий час.' }}"
+                       data-next-working-label="{{ $isRu ? 'Ближайшее время для звонка' : 'Найближчий час для дзвінка' }}">
                     {{ $isRu ? 'Спасибо! Мы перезвоним вам в течение нескольких минут' : 'Дякуємо, ми Вам передзвонимо через декілька хвилин' }}
                   </div>
                 </form>
@@ -266,18 +308,6 @@
         <div class="service-more">{{ $isRu ? 'Читать далее' : 'Читати далі' }}</div>
       </a>
 
-      <a href="{{ $isRu ? '/ru/services/tesla-electricmotor-repair/' : '/services/tesla-electricmotor-repair/' }}" class="service-card">
-        <div class="service-icon">⚙️</div>
-        <div class="service-title">{{ $isRu ? 'РЕМОНТ ЭЛЕКТРОМОТОРА TESLA' : 'РЕМОНТ ЕЛЕКТРОМОТОРА TESLA' }}</div>
-        <div class="service-text">
-          {{ $isRu
-            ? 'Диагностика, ремонт и восстановление электромотора Tesla для Model S, Model 3, Model X и Model Y.'
-            : 'Діагностика, ремонт і відновлення електромотора Tesla для Model S, Model 3, Model X та Model Y.'
-          }}
-        </div>
-        <div class="service-more">{{ $isRu ? 'Читать далее' : 'Читати далі' }}</div>
-      </a>
-
       <a href="{{ $isRu ? '/ru/services/firmware-auto/' : '/services/firmware-auto/' }}" class="service-card">
         <div class="service-icon">⚡</div>
         <div class="service-title">{{ $isRu ? 'ПРОШИВКА TESLA' : 'ПРОШИВКА АВТО' }}</div>
@@ -338,7 +368,7 @@
         <div class="service-more">{{ $isRu ? 'Читать далее' : 'Читати далі' }}</div>
       </a>
 
-      <a href="https://nikolacars.com.ua/ua/" class="service-card" target="_blank" rel="noopener noreferrer">
+      <a href="{{ $isRu ? '/ru/parts/' : '/parts/' }}" class="service-card">
         <div class="service-icon">🧩</div>
         <div class="service-title">{{ $isRu ? 'ЗАПЧАСТИ TESLA' : 'ЗАПЧАСТИНИ TESLA' }}</div>
         <div class="service-text">
@@ -367,6 +397,50 @@
     </div>
   </div>
 </section>
+
+@if(!empty($featuredParts))
+<section class="featured-parts" aria-labelledby="featuredPartsTitle">
+  <div class="container">
+    <div class="featured-parts-head">
+      <div>
+        <div class="featured-parts-kicker">{{ $isRu ? 'Последние поступления на склад' : 'Останні надходження на склад' }}</div>
+        <h2 class="featured-parts-title" id="featuredPartsTitle">{{ $isRu ? 'Новые запчасти Tesla' : 'Нові запчастини Tesla' }}</h2>
+      </div>
+      <a class="featured-parts-all" href="{{ $isRu ? '/ru/parts/' : '/parts/' }}">{{ $isRu ? 'Все запчасти →' : 'Усі запчастини →' }}</a>
+    </div>
+
+    <div class="featured-parts-grid">
+      @foreach($featuredParts as $part)
+        @php
+          $partSegment = trim((string) ($part['url_slug'] ?? ''));
+          if ($partSegment === '') {
+            $partSource = trim((string) ($part['part_number'] ?? '')) ?: trim((string) ($part['sku'] ?? ''));
+            $partSlug = \Illuminate\Support\Str::slug($partSource);
+            $partSegment = ($partSlug !== '' ? $partSlug : 'part').'-'.(int) $part['id'];
+          }
+          $partUrl = ($isRu ? '/ru/parts/' : '/parts/').$partSegment.'/';
+          $partImage = $part['thumbnail_url'] ?? $part['image_url'] ?? null;
+        @endphp
+        <a class="featured-part" href="{{ $partUrl }}">
+          <div class="featured-part-image">
+            @if($partImage)
+              <img src="{{ $partImage }}" width="360" height="267" loading="lazy" decoding="async" alt="{{ $part['name'] }}">
+            @endif
+          </div>
+          <div class="featured-part-body">
+            <div class="featured-part-model">{{ $part['model'] ?? 'Tesla' }}</div>
+            <div class="featured-part-name">{{ $part['name'] }}</div>
+            <div class="featured-part-meta">
+              <span class="featured-part-code">{{ $part['part_number'] ?? '' }}</span>
+              <strong class="featured-part-price">{{ (float) ($part['price_uah'] ?? 0) > 0 ? number_format((float) $part['price_uah'], 0, ',', ' ').' ₴' : ($isRu ? 'Цену уточняйте' : 'Ціну уточнюйте') }}</strong>
+            </div>
+          </div>
+        </a>
+      @endforeach
+    </div>
+  </div>
+</section>
+@endif
 
 <section class="contacts">
   <div class="container">
@@ -409,14 +483,18 @@
         </div>
       </div>
 
+      @php
+        $mapTitle = ($locale ?? 'uk') === 'ru'
+          ? 'Карта расположения NikolaCars в Киеве, улица Коллекторная, 30'
+          : 'Карта розташування NikolaCars у Києві, вулиця Колекторна, 30';
+      @endphp
       <div class="contacts-map">
         <iframe
           src="https://www.google.com/maps?q=Київ,+вулиця+Колекторна,+30&amp;output=embed"
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
-          title="{{ ($locale ?? 'uk') === 'ru'
-            ? 'Карта расположения NikolaCars в Киеве, улица Коллекторная, 30'
-            : 'Карта розташування NikolaCars у Києві, вулиця Колекторна, 30' }}">
+          allowfullscreen
+          title="{{ $mapTitle }}">
         </iframe>
       </div>
     </div>
@@ -490,10 +568,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ====== PHONE validation (UA mobile) ======
   const uaPhoneRegex = /^\+380(39|50|63|66|67|68|73|77|91|92|93|94|95|96|97|98|99)\d{7}$/;
+  const formatNextWorkingTime = value => {
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return '';
+    return new Intl.DateTimeFormat(@json($isRu ? 'ru-UA' : 'uk-UA'), {
+      day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Kyiv'
+    }).format(date);
+  };
 
   // ====== Bind each call form (one per slide) ======
   document.querySelectorAll('form.call-form[data-call-form="1"]').forEach(form => {
     const submitBtn = form.querySelector('.call-submit');
+    const successMessage = form.querySelector('[data-call-success]');
     const csrf = form.querySelector('input[name="_token"]')?.value || '';
 
     const phoneInput = form.querySelector('input[name="phone_digits"]');
@@ -559,6 +645,16 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
 
+        window.ncAnalytics?.lead('home_callback');
+        if (successMessage) {
+          if (json.after_hours) {
+            const nextWorkingTime = formatNextWorkingTime(json.next_working_at);
+            successMessage.textContent = successMessage.dataset.afterHoursMessage
+              + (nextWorkingTime ? ` ${successMessage.dataset.nextWorkingLabel}: ${nextWorkingTime}.` : '');
+          } else {
+            successMessage.textContent = successMessage.dataset.defaultMessage;
+          }
+        }
         form.reset();
         form.classList.add('is-success');
       } catch (err) {

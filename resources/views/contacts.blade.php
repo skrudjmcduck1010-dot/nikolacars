@@ -51,13 +51,23 @@
           </div>
         </a>
 
-        <a class="contact-item" href="tel:+380990698380">
+        <a class="contact-item binct-phone-number-1" href="tel:+380990698380">
           <div class="contact-icon">📱</div>
           <div>
             <div class="contact-label">
               {{ $isRu ? 'ТЕЛЕФОН (ЗАПЧАСТИ)' : 'ТЕЛЕФОН (ЗАПЧАСТИНИ)' }}
             </div>
             <div class="contact-value">+38 (099) 069 83 80</div>
+          </div>
+        </a>
+
+        <a class="contact-item binct-phone-number-2" href="tel:+380634730819">
+          <div class="contact-icon">📱</div>
+          <div>
+            <div class="contact-label">
+              {{ $isRu ? 'ТЕЛЕФОН (ЗАПЧАСТИ)' : 'ТЕЛЕФОН (ЗАПЧАСТИНИ)' }}
+            </div>
+            <div class="contact-value">+38 (063) 473 08 19</div>
           </div>
         </a>
 
@@ -235,6 +245,7 @@
 
         if (res.ok && json && (json.ok === true || json.success === true)) {
           if (status) status.textContent = t('✅ Отправлено! Мы свяжемся с вами.', '✅ Надіслано! Ми зв’яжемося з вами.');
+          window.ncAnalytics?.lead('contacts_callback');
           form.reset();
           if (phoneInput) phoneInput.value = '+380';
         } else {

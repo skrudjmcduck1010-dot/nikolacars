@@ -150,7 +150,7 @@
         </a>
 
         <!-- Запчасти -->
-        <a href="https://nikolacars.com.ua/ua/" class="service-box" target="_blank" rel="noopener noreferrer">
+        <a href="{{ $isRu ? '/ru/parts/' : '/parts/' }}" class="service-box">
           <div class="service-icon">🧩</div>
           <h3>{{ $isRu ? 'ЗАПЧАСТИ TESLA' : 'ЗАПЧАСТИНИ TESLA' }}</h3>
           <p>
