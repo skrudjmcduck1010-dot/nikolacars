@@ -13,6 +13,11 @@ use RuntimeException;
 
 class SiteController extends Controller
 {
+    private const NON_INDEXABLE_CATEGORY_SLUGS = [
+        'ne-viznaceno',
+        'ne-opredeleno',
+    ];
+
     public function show(Request $request, ?string $path = null)
     {
         $locale = $request->route('locale') ?? 'uk';
@@ -110,7 +115,7 @@ class SiteController extends Controller
         abort_unless(in_array($locale, ['uk', 'ru'], true), 404);
 
         $xml = Cache::flexible(
-            'sitemap:parts:'.$locale.':xml:v3',
+            'sitemap:parts:'.$locale.':xml:v9',
             [3600, 604800],
             function () use ($locale, $storefront): string {
                 $partsIndex = $this->partsIndex($storefront);
@@ -125,31 +130,19 @@ class SiteController extends Controller
                 }
 
                 foreach (($sections['categories'] ?? []) as $category) {
-                    if (! empty($category['slug'])) {
-                        $paths[] = [$prefix.'/category/'.$category['slug'], $partsIndex['updated_at'] ?? null];
+                    if (! empty($category['slug'])
+                        && ! in_array($category['slug'], self::NON_INDEXABLE_CATEGORY_SLUGS, true)) {
+                        $paths[] = [$prefix.'/'.$category['slug'], $partsIndex['updated_at'] ?? null];
                     }
                 }
 
-                foreach (($sections['category_paths'] ?? []) as $categoryPath) {
-                    if (! empty($categoryPath['category_path_slug'])) {
-                        $paths[] = [
-                            $prefix.'/subcategory/'.$categoryPath['category_path_slug'],
-                            $partsIndex['updated_at'] ?? null,
-                        ];
-                    }
-                }
-
-                foreach (($sections['category_path_sections'] ?? []) as $section) {
-                    if (! empty($section['model_slug']) && ! empty($section['category_path_slug'])) {
-                        $paths[] = [
-                            $prefix.'/'.$section['model_slug'].'/subcategory/'.$section['category_path_slug'],
-                            $partsIndex['updated_at'] ?? null,
-                        ];
-                    }
-                }
-
+                // Deep category-path combinations remain crawlable through the
+                // catalog. The sitemap stays focused on products and top-level
+                // model/category landing pages.
                 foreach (($sections['sections'] ?? []) as $section) {
-                    if (! empty($section['model_slug']) && ! empty($section['category_slug'])) {
+                    if (! empty($section['model_slug'])
+                        && ! empty($section['category_slug'])
+                        && ! in_array($section['category_slug'], self::NON_INDEXABLE_CATEGORY_SLUGS, true)) {
                         $paths[] = [
                             $prefix.'/'.$section['model_slug'].'/'.$section['category_slug'],
                             $partsIndex['updated_at'] ?? null,
@@ -158,8 +151,12 @@ class SiteController extends Controller
                 }
 
                 foreach (($partsIndex['products'] ?? []) as $product) {
-                    if (! empty($product['id'])) {
-                        $paths[] = [$prefix.'/'.$product['id'], $product['updated_at'] ?? null];
+                    if (! empty($product['id']) && ! empty($product['url_slug'])) {
+                        $paths[] = [
+                            $prefix.'/'.$product['url_slug'],
+                            $product['updated_at'] ?? null,
+                            array_values(array_filter([$product['image_url'] ?? null])),
+                        ];
                     }
                 }
 
@@ -173,21 +170,21 @@ class SiteController extends Controller
     protected function partsIndex(SkladStorefrontClient $storefront): array
     {
         try {
-            return Cache::remember('sitemap:parts-index:v3', now()->addHour(), function () use ($storefront): array {
+            return Cache::remember('sitemap:parts-index:v6', now()->addHour(), function () use ($storefront): array {
                 $response = $storefront->seoIndex();
                 if (! $response->successful() || ! is_array($response->json())) {
                     throw new RuntimeException('Warehouse SEO index returned HTTP '.$response->status().'.');
                 }
 
                 $payload = $response->json();
-                Cache::put('sitemap:parts-index:stale:v3', $payload, now()->addDays(7));
+                Cache::put('sitemap:parts-index:stale:v6', $payload, now()->addDays(7));
 
                 return $payload;
             });
         } catch (ConnectionException|RuntimeException $exception) {
             report($exception);
 
-            return Cache::get('sitemap:parts-index:stale:v3', Cache::get('sitemap:parts-index:stale:v2', []));
+            return Cache::get('sitemap:parts-index:stale:v6', Cache::get('sitemap:parts-index:stale:v5', []));
         }
     }
 
@@ -197,12 +194,15 @@ class SiteController extends Controller
         $items = [];
 
         foreach ($paths as $entry) {
-            [$path, $lastModified] = is_array($entry) ? [$entry[0], $entry[1] ?? null] : [$entry, null];
+            [$path, $lastModified, $images] = is_array($entry)
+                ? [$entry[0], $entry[1] ?? null, $entry[2] ?? []]
+                : [$entry, null, []];
             $path = '/'.trim((string) $path, '/');
             $url = $base.($path === '/' ? '/' : $path.'/');
             $items[$url] = array_filter([
                 'loc' => $url,
                 'lastmod' => $lastModified ? substr((string) $lastModified, 0, 10) : null,
+                'images' => $images ?: null,
             ]);
         }
 

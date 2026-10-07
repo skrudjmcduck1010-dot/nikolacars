@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     page: Math.max(1, Number(initialParams.get('page')) || 1), lastPage: 1, models: [], categories: [], products: [], total: 0
   };
   const cartKey = 'nikolacars-parts-cart-v1';
-  let cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
+  let cart = JSON.parse(localStorage.getItem(cartKey) || '[]').filter(item => Number(item?.price_uah) > 0);
   let cityTimer;
   let warehouseTimer;
   let searchTimer;
@@ -31,21 +31,26 @@ document.addEventListener('DOMContentLoaded', () => {
   let searchSuggestionTotal = 0;
 
   const money = value => `${new Intl.NumberFormat(root.dataset.locale === 'ru' ? 'ru-UA' : 'uk-UA', { maximumFractionDigits: 0 }).format(value)} ${t.uah}`;
+  const hasPrice = product => Number(product?.price_uah) > 0;
+  const priceLabel = product => hasPrice(product)
+    ? money(product.price_uah)
+    : `<strong>${escapeHtml(t.priceOnRequest)}</strong><span>${escapeHtml(t.byPhone)}</span><span><a href="tel:+380990698380" class="binct-phone-number-1">${escapeHtml(t.pricePhone)}</a></span><span><a href="tel:+380634730819" class="binct-phone-number-2">${escapeHtml(t.pricePhoneSecondary)}</a></span>`;
   const escapeHtml = value => String(value ?? '').replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char]));
   const saveCart = () => { localStorage.setItem(cartKey, JSON.stringify(cart)); renderCart(); renderProducts(); };
   const sectionUrl = (modelSlug = '', categorySlug = '') => {
     const base = root.dataset.catalogBase;
     if (modelSlug && categorySlug) return `${base}/${modelSlug}/${categorySlug}/`;
     if (modelSlug) return `${base}/${modelSlug}/`;
-    if (categorySlug) return `${base}/category/${categorySlug}/`;
+    if (categorySlug) return `${base}/${categorySlug}/`;
     return `${base}/`;
   };
   const subcategoryUrl = (modelSlug = '', categoryPathSlug = '') => {
     const base = root.dataset.catalogBase;
     if (!categoryPathSlug) return modelSlug ? `${base}/${modelSlug}/` : `${base}/`;
+    const categoryPath = categoryPathSlug.split(/(?:\/|--)+/).filter(Boolean).join('/');
     return modelSlug
-      ? `${base}/${modelSlug}/subcategory/${categoryPathSlug}/`
-      : `${base}/subcategory/${categoryPathSlug}/`;
+      ? `${base}/${modelSlug}/${categoryPath}/`
+      : `${base}/${categoryPath}/`;
   };
 
   function renderLoading() {
@@ -56,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>`).join('');
   }
 
+  let trackedSearch = '';
   function applyCatalog(data, append = false) {
     state.models = data.models || [];
     state.categories = data.categories || [];
@@ -67,6 +73,10 @@ document.addEventListener('DOMContentLoaded', () => {
     state.categoryPathSlug = data.selection?.category_path_slug ?? state.categoryPathSlug;
     state.products = append ? [...state.products, ...(data.products || [])] : (data.products || []);
     state.total = data.pagination?.total || 0;
+    if (!append && state.q !== trackedSearch) {
+      trackedSearch = state.q;
+      window.ncAnalytics?.search(state.q, state.total);
+    }
     state.page = data.pagination?.page || state.page;
     state.lastPage = data.pagination?.last_page || 1;
     render();
@@ -112,11 +122,13 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       const productRows = products.map(product => {
         const imageUrl = product.thumbnail_url || product.image_url;
-        const productUrl = `${root.dataset.productBase}/${product.id}/`;
+        const imageWidth = Number(product.thumbnail_width || 360);
+        const imageHeight = Number(product.thumbnail_height || 300);
+        const productUrl = `${root.dataset.productBase}/${product.url_slug || product.id}/`;
         const codes = [product.part_number, product.sku].filter(Boolean).join(' · ');
         return `<a href="${productUrl}" class="parts-search-suggestion" role="option">
           <span class="parts-search-suggestion-image ${imageUrl ? '' : 'no-image'}">
-            ${imageUrl ? `<img src="${escapeHtml(imageUrl)}" alt="" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('no-image');this.remove()">` : ''}
+            ${imageUrl ? `<img src="${escapeHtml(imageUrl)}" alt="" width="${imageWidth}" height="${imageHeight}" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('no-image');this.remove()">` : ''}
             <span>N</span>
           </span>
           <span class="parts-search-suggestion-copy">
@@ -124,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ${product.model ? `<span class="parts-search-suggestion-model">${escapeHtml(product.model)}</span>` : ''}
             <small>${escapeHtml(codes)}</small>
           </span>
-          <b>${money(product.price_uah)}</b>
+          <b>${priceLabel(product)}</b>
         </a>`;
       }).join('');
       const progress = products.length < total
@@ -143,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const controller = new AbortController();
     searchAbort = controller;
     searchSuggestionLoading = true;
-    const params = new URLSearchParams({ q: query, page, per_page: 100, sort: 'newest' });
+    const params = new URLSearchParams({ q: query, page, per_page: 100, sort: 'relevance' });
     if (state.model) params.set('model', state.model);
     if (state.category) params.set('category', state.category);
     if (state.modelSlug) params.set('model_slug', state.modelSlug);
@@ -204,11 +216,22 @@ document.addEventListener('DOMContentLoaded', () => {
     renderProducts();
     renderPagination();
     $('[data-model-total]').textContent = state.categories.reduce((sum, item) => sum + Number(item.count), 0);
-    $('[data-results-title]').textContent = state.categoryPath.split(' / ').filter(Boolean).pop() || state.category || state.model || t.allProducts;
+    const selectedCategory = state.categoryPath.split(' / ').filter(Boolean).pop() || state.category;
+    const selectedModel = state.model
+      ? `Tesla ${state.model.replace(/^tesla\s+/i, '').trim()}`
+      : '';
+    let catalogTitle = t.seoBase;
+    if (selectedCategory && selectedModel) catalogTitle = `${selectedCategory} — ${selectedModel}`;
+    else if (selectedCategory) catalogTitle = `${selectedCategory} — ${t.seoBase}`;
+    else if (selectedModel) catalogTitle = `${t.seoBase} — ${selectedModel}`;
+
+    $('[data-page-title]').textContent = catalogTitle;
+    $('[data-results-title]').textContent = selectedCategory || state.model || t.allProducts;
     $('[data-more]').hidden = state.page >= state.lastPage;
     $('[data-empty]').hidden = state.products.length > 0;
     if (!state.products.length) $('[data-empty]').textContent = t.empty;
-    document.title = [t.seoBase, state.category, state.model, t.seoSuffix].filter(Boolean).join(' — ');
+    const pageLabel = state.page > 1 ? `${t.pagePrefix} ${state.page}` : '';
+    document.title = [catalogTitle, pageLabel, t.seoSuffix].filter(Boolean).join(' — ');
   }
 
   function paginationUrl(page) {
@@ -275,11 +298,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function renderProducts() {
-    $('[data-products]').innerHTML = state.products.map(product => {
+    $('[data-products]').innerHTML = state.products.map((product, index) => {
       const inCart = cart.some(item => item.id === product.id);
+      const isSold = product.availability_status === 'sold';
       const imageUrl = product.thumbnail_url || product.image_url;
-      const image = imageUrl ? `<img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(product.name)}" loading="lazy" decoding="async" onerror="this.closest('.part-image').classList.add('no-image');this.remove()">` : '';
-      const productUrl = `${root.dataset.productBase}/${product.id}/`;
+      const imageWidth = Number(product.thumbnail_width || 360);
+      const imageHeight = Number(product.thumbnail_height || 300);
+      const image = imageUrl ? `<img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(product.name)}" width="${imageWidth}" height="${imageHeight}" loading="${index === 0 ? 'eager' : 'lazy'}" decoding="async"${index === 0 ? ' fetchpriority="high"' : ''} onerror="this.closest('.part-image').classList.add('no-image');this.remove()">` : '';
+      const productUrl = `${root.dataset.productBase}/${product.url_slug || product.id}/`;
       const categoryPath = (product.category_breadcrumbs || []).length
         ? product.category_breadcrumbs.map((breadcrumb, index) => {
             const href = index === 0
@@ -288,23 +314,23 @@ document.addEventListener('DOMContentLoaded', () => {
             return `${index ? '<span aria-hidden="true">/</span> ' : ''}<a href="${href}">${escapeHtml(breadcrumb.label)}</a>`;
           }).join(' ')
         : escapeHtml(product.category_path);
-      return `<article class="part-card">
-        <a href="${productUrl}" class="part-image ${image ? '' : 'no-image'}">${image}<span>NIKOLACARS</span></a>
+      return `<article class="part-card ${isSold ? 'is-sold' : ''}">
+        <a href="${productUrl}" class="part-image ${image ? '' : 'no-image'}">${image}<span>NIKOLACARS</span>${isSold ? `<b class="part-sold-badge">${escapeHtml(t.sold)}</b>` : ''}</a>
         <div class="part-card-body">
           <h3><a href="${productUrl}">${escapeHtml(product.name)}</a></h3>
           <div class="part-codes">${escapeHtml([product.part_number, product.sku, product.vin].filter(Boolean).join(' · '))}</div>
           <div class="part-category-path">${categoryPath}</div>
           <div class="part-purchase-row">
             <div class="part-purchase-info">
-              <div class="part-price">${money(product.price_uah)}</div>
-              <div class="part-stock">${t.inStock}: ${product.quantity}</div>
+              ${isSold ? '' : `<div class="part-price ${hasPrice(product) ? '' : 'part-price-on-request'}">${priceLabel(product)}</div>`}
+              <div class="part-stock ${isSold ? 'is-sold' : ''}">${isSold ? escapeHtml(t.sold) : `${t.inStock}: ${product.quantity}`}</div>
             </div>
-            <button type="button" class="add-cart ${inCart ? 'added' : ''}" data-add-cart="${product.id}" aria-label="${inCart ? t.inCart : t.toCart}" title="${inCart ? t.inCart : t.toCart}">
+            ${hasPrice(product) && !isSold ? `<button type="button" class="add-cart ${inCart ? 'added' : ''}" data-add-cart="${product.id}" aria-label="${inCart ? t.inCart : t.toCart}" title="${inCart ? t.inCart : t.toCart}">
               <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <path d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 1.9-1.4L21 7H6"></path>
                 <circle cx="10" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle>
               </svg>
-            </button>
+            </button>` : ''}
           </div>
         </div>
       </article>`;
@@ -313,13 +339,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderCart() {
     $('[data-cart-count]').textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+    window.dispatchEvent(new Event('nc:cart-updated'));
     $('[data-cart-empty]').hidden = cart.length > 0;
     $('[data-checkout]').hidden = cart.length === 0;
     $('[data-cart-lines]').innerHTML = cart.map(item => {
       const imageUrl = item.thumbnail_url || item.image_url;
+      const imageWidth = Number(item.thumbnail_width || 360);
+      const imageHeight = Number(item.thumbnail_height || 300);
       return `
       <div class="cart-line">
-        <div class="cart-line-image">${imageUrl ? `<img src="${escapeHtml(imageUrl)}" alt="">` : ''}</div>
+        <div class="cart-line-image">${imageUrl ? `<img src="${escapeHtml(imageUrl)}" alt="" width="${imageWidth}" height="${imageHeight}" loading="lazy" decoding="async">` : ''}</div>
         <div class="cart-line-info"><b>${escapeHtml(item.name)}</b><span>${money(item.price_uah)}</span>
           <div class="cart-quantity"><button type="button" data-cart-minus="${item.id}">−</button><span>${item.quantity}</span><button type="button" data-cart-plus="${item.id}">+</button><button class="cart-remove" type="button" data-cart-remove="${item.id}">×</button></div>
         </div>
@@ -328,12 +357,10 @@ document.addEventListener('DOMContentLoaded', () => {
     $('[data-cart-total]').textContent = money(cart.reduce((sum, item) => sum + item.price_uah * item.quantity, 0));
   }
 
-  function openCart() {
-    $('[data-cart-drawer]').classList.add('open');
-    $('[data-cart-drawer]').setAttribute('aria-hidden', 'false');
-    $('[data-overlay]').hidden = false;
-    document.body.classList.add('cart-open');
-  }
+  function openCart() { window.ncCartModal.open(); }
+  window.addEventListener('nc:cart-edited', () => { cart = JSON.parse(localStorage.getItem(cartKey) || '[]'); renderCart(); renderProducts(); });
+  window.addEventListener('nc:checkout', () => { openCheckout(); $('[name="client_first_name"]').focus(); });
+  function openCheckout() { location.href = root.dataset.locale === 'ru' ? '/ru/parts/checkout/' : '/parts/checkout/'; }
   function closeCart() {
     $('[data-cart-drawer]').classList.remove('open');
     $('[data-cart-drawer]').setAttribute('aria-hidden', 'true');
@@ -345,7 +372,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const add = event.target.closest('[data-add-cart]');
     if (add) {
       const product = state.products.find(item => item.id === Number(add.dataset.addCart));
-      if (product && !cart.some(item => item.id === product.id)) cart.push({ ...product, available: product.quantity, quantity: 1 });
+      if (product && hasPrice(product) && !cart.some(item => item.id === product.id)) {
+        cart.push({ ...product, available: product.quantity, quantity: 1 });
+        window.ncAnalytics?.addToCart(product);
+      }
       saveCart(); openCart();
     }
     const minus = event.target.closest('[data-cart-minus]');
@@ -442,6 +472,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const response = await fetch(root.dataset.orderUrl, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json', 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').content }, body: JSON.stringify(data) });
       const result = await response.json();
       if (!response.ok) throw new Error(result.message || Object.values(result.errors || {}).flat()[0] || t.orderError);
+      window.ncAnalytics?.lead('parts_order');
       cart = []; saveCart(); form.reset(); closeCart();
       $('[data-success-text]').textContent = t.success.replace(':number', result.number); $('[data-success]').hidden = false;
     } catch (error) { errorBox.textContent = error.message || t.orderError; errorBox.hidden = false; }
@@ -456,5 +487,6 @@ document.addEventListener('DOMContentLoaded', () => {
   renderCart();
   if (window.initialPartsCatalog) applyCatalog(window.initialPartsCatalog);
   else loadCatalog();
-  if (initialParams.get('cart') === 'open') openCart();
+  if (location.hash === '#cart') openCart();
+  if (initialParams.get('checkout') === 'open') openCheckout();
 });

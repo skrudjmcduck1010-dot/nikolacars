@@ -2,12 +2,19 @@
   @foreach($products as $item)
     @php
       $cardImage = $item['thumbnail_url'] ?? $item['image_url'] ?? null;
-      $productUrl = rtrim($catalogUrl, '/').'/'.$item['id'].'/';
+      $productSegment = trim((string) ($item['url_slug'] ?? ''));
+      if ($productSegment === '') {
+        $productSource = trim((string) ($item['part_number'] ?? '')) ?: trim((string) ($item['sku'] ?? ''));
+        $productSlug = \Illuminate\Support\Str::slug($productSource);
+        $productSegment = ($productSlug !== '' ? $productSlug : 'part').'-'.(int) $item['id'];
+      }
+      $productUrl = rtrim($catalogUrl, '/').'/'.$productSegment.'/';
+      $hasPrice = (float) ($item['price_uah'] ?? 0) > 0;
     @endphp
     <article class="part-card">
       <a href="{{ $productUrl }}" class="part-image {{ empty($cardImage) ? 'no-image' : '' }}">
         @if(!empty($cardImage))
-          <img src="{{ $cardImage }}" alt="{{ $item['name'] }}" loading="lazy" decoding="async">
+          <img src="{{ $cardImage }}" alt="{{ $item['name'] }}" width="{{ $item['thumbnail_width'] ?? 360 }}" height="{{ $item['thumbnail_height'] ?? 300 }}" loading="lazy" decoding="async">
         @endif
         <span>NIKOLACARS</span>
       </a>
@@ -16,10 +23,21 @@
         <div class="part-codes">{{ collect([$item['part_number'] ?? null, $item['sku'] ?? null])->filter()->implode(' · ') }}</div>
         <div class="part-purchase-row">
           <div class="part-purchase-info">
-            <div class="part-price">{{ number_format((float) $item['price_uah'], 0, '.', ' ') }} грн</div>
+            @if(($item['availability_status'] ?? '') !== 'sold')
+              <div class="part-price{{ $hasPrice ? '' : ' part-price-on-request' }}">
+                @if($hasPrice)
+                  {{ number_format((float) $item['price_uah'], 0, '.', ' ') }} грн
+                @else
+                  <strong>{{ $isRu ? 'Цену уточняйте' : 'Ціну уточнюйте' }}</strong>
+                  <span>{{ $isRu ? 'по телефонам' : 'за телефонами' }}</span>
+                  <span><a href="tel:+380990698380" class="binct-phone-number-1">+38 (099) 069 83 80</a></span>
+                  <span><a href="tel:+380634730819" class="binct-phone-number-2">+38 (063) 473 08 19</a></span>
+                @endif
+              </div>
+            @endif
             <div class="part-stock">{{ $isRu ? 'В наличии' : 'В наявності' }}: {{ $item['quantity'] }}</div>
           </div>
-          <button
+          @if($hasPrice)<button
             type="button"
             class="add-cart"
             data-recommendation-add="{{ $item['id'] }}"
@@ -32,7 +50,7 @@
               <path d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 1.9-1.4L21 7H6"></path>
               <circle cx="10" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle>
             </svg>
-          </button>
+          </button>@endif
         </div>
       </div>
     </article>

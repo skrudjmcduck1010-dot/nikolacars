@@ -21,14 +21,15 @@
   $sectionUrl = static function (string $model = '', string $category = '') use ($catalogBase): string {
     if ($model !== '' && $category !== '') return $catalogBase.'/'.$model.'/'.$category.'/';
     if ($model !== '') return $catalogBase.'/'.$model.'/';
-    if ($category !== '') return $catalogBase.'/category/'.$category.'/';
+    if ($category !== '') return $catalogBase.'/'.$category.'/';
     return $catalogBase.'/';
   };
   $subcategoryUrl = static function (string $model = '', string $categoryPath = '') use ($catalogBase): string {
     if ($categoryPath === '') return $model !== '' ? $catalogBase.'/'.$model.'/' : $catalogBase.'/';
+    $categoryPath = \App\Services\CatalogPath::normalize($categoryPath);
     return $model !== ''
-      ? $catalogBase.'/'.$model.'/subcategory/'.$categoryPath.'/'
-      : $catalogBase.'/subcategory/'.$categoryPath.'/';
+      ? $catalogBase.'/'.$model.'/'.$categoryPath.'/'
+      : $catalogBase.'/'.$categoryPath.'/';
   };
   $modelLabelParts = static function (string $label): array {
     $label = trim($label);
@@ -67,7 +68,7 @@
   <div class="parts-container">
     <div class="parts-title-row">
       <div class="parts-title-copy">
-        <h1>{{ $isRu ? 'Запчасти Tesla' : 'Запчастини Tesla' }}</h1>
+        <h1 data-page-title>{{ $catalogTitle }}</h1>
         <p data-current-context>{{ $isRu ? 'Оригинальные запчасти со склада NikolaCars' : 'Оригінальні запчастини зі складу NikolaCars' }}</p>
       </div>
       <form class="parts-toolbar parts-title-search" id="partsFilterForm" data-filter-form role="search">
@@ -127,14 +128,26 @@
         </div>
         <div class="parts-products" data-products>
           @foreach($products as $product)
-            @php $cardImage = $product['thumbnail_url'] ?? $product['image_url'] ?? null; @endphp
-            <article class="part-card">
-              <a href="{{ $catalogBase.'/'.$product['id'].'/' }}" class="part-image {{ empty($cardImage) ? 'no-image' : '' }}">
-                @if(!empty($cardImage))<img src="{{ $cardImage }}" alt="{{ $product['name'] }}" loading="lazy" decoding="async">@endif
+            @php
+              $cardImage = $product['thumbnail_url'] ?? $product['image_url'] ?? null;
+              $hasPrice = (float) ($product['price_uah'] ?? 0) > 0;
+              $isSold = ($product['availability_status'] ?? '') === 'sold';
+              $productSegment = trim((string) ($product['url_slug'] ?? ''));
+              if ($productSegment === '') {
+                $productSource = trim((string) ($product['part_number'] ?? '')) ?: trim((string) ($product['sku'] ?? ''));
+                $productSlug = \Illuminate\Support\Str::slug($productSource);
+                $productSegment = ($productSlug !== '' ? $productSlug : 'part').'-'.(int) $product['id'];
+              }
+              $productUrl = $catalogBase.'/'.$productSegment.'/';
+            @endphp
+            <article class="part-card{{ $isSold ? ' is-sold' : '' }}">
+              <a href="{{ $productUrl }}" class="part-image {{ empty($cardImage) ? 'no-image' : '' }}">
+                @if(!empty($cardImage))<img src="{{ $cardImage }}" alt="{{ $product['name'] }}" width="{{ $product['thumbnail_width'] ?? 360 }}" height="{{ $product['thumbnail_height'] ?? 300 }}" loading="{{ $loop->first ? 'eager' : 'lazy' }}" decoding="async" @if($loop->first) fetchpriority="high" @endif>@endif
                 <span>NIKOLACARS</span>
+                @if($isSold)<b class="part-sold-badge">{{ $isRu ? 'Продано' : 'Продано' }}</b>@endif
               </a>
               <div class="part-card-body">
-                <h3><a href="{{ $catalogBase.'/'.$product['id'].'/' }}">{{ $product['name'] }}</a></h3>
+                <h3><a href="{{ $productUrl }}">{{ $product['name'] }}</a></h3>
                 <div class="part-codes">{{ collect([$product['part_number'] ?? null, $product['sku'] ?? null, $product['vin'] ?? null])->filter()->implode(' · ') }}</div>
                 <div class="part-category-path">
                   @forelse(($product['category_breadcrumbs'] ?? []) as $breadcrumb)
@@ -146,16 +159,27 @@
                 </div>
                 <div class="part-purchase-row">
                   <div class="part-purchase-info">
-                    <div class="part-price">{{ number_format((float) $product['price_uah'], 0, '.', ' ') }} грн</div>
-                    <div class="part-stock">{{ $isRu ? 'В наличии' : 'В наявності' }}: {{ $product['quantity'] }}</div>
+                    @if(!$isSold)
+                      <div class="part-price{{ $hasPrice ? '' : ' part-price-on-request' }}">
+                        @if($hasPrice)
+                          {{ number_format((float) $product['price_uah'], 0, '.', ' ') }} грн
+                        @else
+                          <strong>{{ $isRu ? 'Цену уточняйте' : 'Ціну уточнюйте' }}</strong>
+                          <span>{{ $isRu ? 'по телефонам' : 'за телефонами' }}</span>
+                          <span><a href="tel:+380990698380" class="binct-phone-number-1">+38 (099) 069 83 80</a></span>
+                          <span><a href="tel:+380634730819" class="binct-phone-number-2">+38 (063) 473 08 19</a></span>
+                        @endif
+                      </div>
+                    @endif
+                    <div class="part-stock{{ $isSold ? ' is-sold' : '' }}">{{ $isSold ? 'Продано' : (($isRu ? 'В наличии' : 'В наявності').': '.$product['quantity']) }}</div>
                   </div>
-                  <button type="button" class="add-cart" data-add-cart="{{ $product['id'] }}"
+                  @if($hasPrice && !$isSold)<button type="button" class="add-cart" data-add-cart="{{ $product['id'] }}"
                           aria-label="{{ $isRu ? 'В корзину' : 'У кошик' }}" title="{{ $isRu ? 'В корзину' : 'У кошик' }}">
                     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                       <path d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 1.9-1.4L21 7H6"></path>
                       <circle cx="10" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle>
                     </svg>
-                  </button>
+                  </button>@endif
                 </div>
               </div>
             </article>
@@ -232,7 +256,12 @@
     'allProducts' => $isRu ? 'Все запчасти' : 'Усі запчастини',
     'catalog' => 'Каталог',
     'inStock' => $isRu ? 'В наличии' : 'В наявності',
+    'sold' => 'Продано',
     'toCart' => $isRu ? 'В корзину' : 'У кошик',
+    'priceOnRequest' => $isRu ? 'Цену уточняйте' : 'Ціну уточнюйте',
+    'byPhone' => $isRu ? 'по телефонам' : 'за телефонами',
+    'pricePhone' => '+38 (099) 069 83 80',
+    'pricePhoneSecondary' => '+38 (063) 473 08 19',
     'inCart' => $isRu ? 'В корзине' : 'У кошику',
     'empty' => $isRu ? 'По выбранным фильтрам запчастей не найдено.' : 'За вибраними фільтрами запчастин не знайдено.',
     'loadError' => $isRu ? 'Не удалось загрузить каталог. Попробуйте ещё раз.' : 'Не вдалося завантажити каталог. Спробуйте ще раз.',
@@ -243,11 +272,12 @@
     'uah' => 'грн',
     'seoBase' => $isRu ? 'Запчасти Tesla' : 'Запчастини Tesla',
     'seoSuffix' => 'NikolaCars',
+    'pagePrefix' => $isRu ? 'Страница' : 'Сторінка',
   ];
 @endphp
 <script>
 window.partsI18n = @json($partsI18n);
 window.initialPartsCatalog = @json($initialCatalog);
 </script>
-<script src="{{ asset('assets/js/parts.js') }}?v=18" defer></script>
+<script src="{{ asset('assets/js/parts.js') }}?v=20261008-category-levels" defer></script>
 @endpush

@@ -3,16 +3,63 @@
 use App\Http\Controllers\LeadController;
 use App\Http\Controllers\PartsController;
 use App\Http\Controllers\SiteController;
+use App\Services\SkladStorefrontClient;
+use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
+
+$loadFeaturedParts = static function (SkladStorefrontClient $client, string $locale): array {
+    try {
+        return \App\Services\StorefrontPhotoFilter::clean(Cache::flexible(
+            'home:featured-parts:'.$locale.':v3',
+            [3600, 86400],
+            static function () use ($client, $locale): array {
+                $response = $client->catalog([
+                    'locale' => $locale,
+                    'sort' => 'newest',
+                    'page' => 1,
+                    'per_page' => 8,
+                ]);
+                $payload = $response->json();
+
+                if (! $response->successful() || ! is_array($payload)) {
+                    throw new RuntimeException('Warehouse storefront returned HTTP '.$response->status().'.');
+                }
+
+                $products = array_values(array_filter(
+                    $payload['products'] ?? [],
+                    static fn (mixed $product): bool => is_array($product)
+                        && ! empty($product['id'])
+                        && ! empty($product['name']),
+                ));
+
+                return array_map(static function (array $product): array {
+                    $source = trim((string) ($product['part_number'] ?? ''))
+                        ?: trim((string) ($product['sku'] ?? ''));
+                    $slug = Str::slug($source);
+                    $product['url_slug'] = ($slug !== '' ? $slug : 'part').'-'.(int) $product['id'];
+
+                    return $product;
+                }, $products);
+            },
+        ));
+    } catch (ConnectionException|RuntimeException $exception) {
+        report($exception);
+
+        return [];
+    }
+};
 
 /*
 |--------------------------------------------------------------------------
 | HOME — UA (default)
 |--------------------------------------------------------------------------
 */
-Route::get('/', function () {
+Route::get('/', function (SkladStorefrontClient $client) use ($loadFeaturedParts) {
     $locale = 'uk';
     $pathNoLocale = '/';
+    $featuredParts = $loadFeaturedParts($client, $locale);
 
     $services = [
         [
@@ -32,7 +79,7 @@ Route::get('/', function () {
         ],
     ];
 
-    return view('home', compact('locale', 'pathNoLocale', 'services'));
+    return view('home', compact('locale', 'pathNoLocale', 'services', 'featuredParts'));
 });
 
 /*
@@ -40,9 +87,10 @@ Route::get('/', function () {
 | HOME — RU
 |--------------------------------------------------------------------------
 */
-Route::get('/ru/', function () {
+Route::get('/ru/', function (SkladStorefrontClient $client) use ($loadFeaturedParts) {
     $locale = 'ru';
     $pathNoLocale = '/';
+    $featuredParts = $loadFeaturedParts($client, $locale);
 
     $services = [
         [
@@ -62,7 +110,7 @@ Route::get('/ru/', function () {
         ],
     ];
 
-    return view('home', compact('locale', 'pathNoLocale', 'services'));
+    return view('home', compact('locale', 'pathNoLocale', 'services', 'featuredParts'));
 });
 
 Route::post('/lead/callback', [LeadController::class, 'callback'])->name('lead.callback');
@@ -74,6 +122,7 @@ Route::get('/sitemaps/parts-{locale}.xml', [SiteController::class, 'sitemapParts
 Route::get('/robots.txt', [SiteController::class, 'robots'])->name('robots');
 
 Route::prefix('parts')->group(function (): void {
+    Route::get('checkout/', [PartsController::class, 'checkout'])->defaults('locale', 'uk')->name('parts.checkout');
     Route::get('/', [PartsController::class, 'index'])->defaults('locale', 'uk')->name('parts.index');
     Route::get('api/catalog/', [PartsController::class, 'catalog'])->defaults('locale', 'uk')->name('parts.catalog');
     Route::get('api/nova-poshta/cities/', [PartsController::class, 'cities'])->name('parts.cities');
@@ -81,12 +130,13 @@ Route::prefix('parts')->group(function (): void {
     Route::post('api/orders', [PartsController::class, 'storeOrder'])->defaults('locale', 'uk')->name('parts.orders');
     Route::get('subcategory/{categoryPathSlug}/', [PartsController::class, 'index'])->where('categoryPathSlug', '[a-z0-9-]+')->defaults('locale', 'uk')->name('parts.subcategory');
     Route::get('{modelSlug}/subcategory/{categoryPathSlug}/', [PartsController::class, 'index'])->where(['modelSlug' => '[a-z0-9-]+', 'categoryPathSlug' => '[a-z0-9-]+'])->defaults('locale', 'uk')->name('parts.model-subcategory');
-    Route::get('{product}/', [PartsController::class, 'show'])->whereNumber('product')->defaults('locale', 'uk')->name('parts.show');
-    Route::get('category/{categorySlug}/', [PartsController::class, 'index'])->defaults('locale', 'uk')->name('parts.category');
-    Route::get('{modelSlug}/{categorySlug?}/', [PartsController::class, 'index'])->where(['modelSlug' => '[a-z0-9-]+', 'categorySlug' => '[a-z0-9-]+'])->defaults('locale', 'uk')->name('parts.section');
+    Route::get('{productSlug}/', [PartsController::class, 'show'])->where('productSlug', '(?:[0-9]+|[a-z0-9-]+-[0-9]{5,})')->defaults('locale', 'uk')->name('parts.show');
+    Route::get('category/{categoryPath}/', [PartsController::class, 'index'])->where('categoryPath', '[a-z0-9-]+(?:/[a-z0-9-]+)*')->defaults('locale', 'uk')->name('parts.legacy-category');
+    Route::get('{catalogPath}/', [PartsController::class, 'index'])->where('catalogPath', '[a-z0-9-]+(?:/[a-z0-9-]+)*')->defaults('locale', 'uk')->name('parts.section');
 });
 
 Route::prefix('ru/parts')->group(function (): void {
+    Route::get('checkout/', [PartsController::class, 'checkout'])->defaults('locale', 'ru')->name('parts.ru.checkout');
     Route::get('/', [PartsController::class, 'index'])->defaults('locale', 'ru')->name('parts.ru.index');
     Route::get('api/catalog/', [PartsController::class, 'catalog'])->defaults('locale', 'ru')->name('parts.ru.catalog');
     Route::get('api/nova-poshta/cities/', [PartsController::class, 'cities'])->name('parts.ru.cities');
@@ -94,11 +144,13 @@ Route::prefix('ru/parts')->group(function (): void {
     Route::post('api/orders', [PartsController::class, 'storeOrder'])->defaults('locale', 'ru')->name('parts.ru.orders');
     Route::get('subcategory/{categoryPathSlug}/', [PartsController::class, 'index'])->where('categoryPathSlug', '[a-z0-9-]+')->defaults('locale', 'ru')->name('parts.ru.subcategory');
     Route::get('{modelSlug}/subcategory/{categoryPathSlug}/', [PartsController::class, 'index'])->where(['modelSlug' => '[a-z0-9-]+', 'categoryPathSlug' => '[a-z0-9-]+'])->defaults('locale', 'ru')->name('parts.ru.model-subcategory');
-    Route::get('{product}/', [PartsController::class, 'show'])->whereNumber('product')->defaults('locale', 'ru')->name('parts.ru.show');
-    Route::get('category/{categorySlug}/', [PartsController::class, 'index'])->defaults('locale', 'ru')->name('parts.ru.category');
-    Route::get('{modelSlug}/{categorySlug?}/', [PartsController::class, 'index'])->where(['modelSlug' => '[a-z0-9-]+', 'categorySlug' => '[a-z0-9-]+'])->defaults('locale', 'ru')->name('parts.ru.section');
+    Route::get('{productSlug}/', [PartsController::class, 'show'])->where('productSlug', '(?:[0-9]+|[a-z0-9-]+-[0-9]{5,})')->defaults('locale', 'ru')->name('parts.ru.show');
+    Route::get('category/{categoryPath}/', [PartsController::class, 'index'])->where('categoryPath', '[a-z0-9-]+(?:/[a-z0-9-]+)*')->defaults('locale', 'ru')->name('parts.ru.legacy-category');
+    Route::get('{catalogPath}/', [PartsController::class, 'index'])->where('catalogPath', '[a-z0-9-]+(?:/[a-z0-9-]+)*')->defaults('locale', 'ru')->name('parts.ru.section');
 });
 $legacyRedirects = [
+    '/privacy_policy/' => '/privacy-policy/',
+    '/ru/ru/privacy-policy/' => '/ru/privacy-policy/',
     '/services/import-usa/' => '/services/prigon-tesla-usa/',
     '/ru/services/import-usa/' => '/ru/services/prigon-tesla-usa/',
     '/services/prigon-usa/' => '/services/prigon-tesla-usa/',
@@ -108,7 +160,7 @@ $legacyRedirects = [
 ];
 
 foreach ($legacyRedirects as $from => $to) {
-    Route::permanentRedirect($from, $to);
+    Route::get($from, fn () => new \Illuminate\Http\RedirectResponse($to, 301));
 }
 
 $targetedServices = collect(config('targeted_services', []))->keyBy('slug');
@@ -153,16 +205,16 @@ Route::fallback(function () {
 
 Route::get('/services/tesla-service/', function () {
     return view('services.tesla-service', [
-        'pageTitle' => 'Сервіс Tesla – NikolaCars',
-        'metaDescription' => 'Діагностика, ремонт та технічне обслуговування Tesla у Києві. Запис на сервіс онлайн.',
+        'pageTitle' => 'Сервіс Tesla у Києві — діагностика та ремонт | NikolaCars',
+        'metaDescription' => 'СТО Tesla у Києві: комп’ютерна діагностика, ремонт батарей, електромоторів, підвіски та електроніки. Запис на сервіс NikolaCars.',
     ]);
 });
 
 Route::get('/ru/services/tesla-service/', function () {
     return view('services.tesla-service', [
         'locale' => 'ru',
-        'pageTitle' => 'Сервис Tesla – NikolaCars',
-        'metaDescription' => 'Диагностика, ремонт и техническое обслуживание Tesla в Киеве. Онлайн-заявка.',
+        'pageTitle' => 'Сервис Tesla в Киеве — диагностика и ремонт | NikolaCars',
+        'metaDescription' => 'СТО Tesla в Киеве: компьютерная диагностика, ремонт батарей, электромоторов, подвески и электроники. Запись на сервис NikolaCars.',
     ]);
 });
 
