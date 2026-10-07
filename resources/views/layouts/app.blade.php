@@ -2,6 +2,7 @@
 <html lang="{{ ($locale ?? 'uk') === 'ru' ? 'ru' : 'uk' }}">
 <head>
   <meta charset="utf-8">
+  @include('partials.analytics')
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -15,7 +16,7 @@
     $metaUaPath = preg_replace('#^/ru/#', '/', $metaPath);
     $metaRuPath = $metaUaPath === '/' ? '/ru/' : '/ru' . $metaUaPath;
     $metaCanonicalPath = $metaLoc === 'ru' ? $metaRuPath : $metaUaPath;
-    $metaBaseUrl = 'https://nikolacars.kiev.ua';
+    $metaBaseUrl = rtrim(request()->getSchemeAndHttpHost(), '/');
   @endphp
   <meta name="description" content="@yield('description', (($locale ?? 'uk') === 'ru') ? 'Сервис Tesla, ремонт Tesla, СТО Tesla в Киеве.' : 'Сервіс Tesla, ремонт Tesla, СТО Tesla у Києві.')">
 
@@ -29,7 +30,9 @@
   <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('favicon-96x96.png') }}">
   <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
 
-  <link rel="stylesheet" href="/assets/css/app.css?v=12">
+  @stack('head')
+  <link rel="stylesheet" href="{{ asset('assets/css/app.min.css') }}?v=20260822">
+  <link rel="stylesheet" href="{{ asset('assets/css/language-switch.css') }}?v=20261008-1">
 </head>
 
 <body>
@@ -91,7 +94,7 @@
     <div class="topbar-left">
       <span class="topbar-item">
         <span class="emoji">🕒</span>
-        {{ $isRu ? 'с 9:00 до 19:00' : 'з 9:00 до 19:00' }}
+        {{ $isRu ? 'с 10:00 до 18:00' : 'з 10:00 до 18:00' }}
       </span>
 
       <a class="topbar-item" href="mailto:nikola.carsua@gmail.com">
@@ -147,7 +150,7 @@
 
 <header class="nav">
   <div class="container nav-inner">
-    <a class="logo" href="{{ $home }}"><img src="{{ asset('images/logo.png') }}" alt="NikolaCars"></a>
+    <a class="logo" href="{{ $home }}"><img src="{{ asset('images/logo.webp') }}" srcset="{{ asset('images/logo.webp') }} 1x, {{ asset('images/logo@2x.webp') }} 2x" alt="NikolaCars" width="163" height="26" decoding="async"></a>
 
     <!-- BURGER (mobile only by CSS) -->
     <button class="burger-btn" type="button"
@@ -158,7 +161,7 @@
     </button>
 
     <!-- MENU -->
-    <nav class="menu" id="mobileMenu" aria-hidden="true">
+    <nav class="menu" id="mobileMenu">
 
       <!-- mobile-only top bar (shown only on mobile by CSS) -->
       <div class="mobile-menu-top">
@@ -189,9 +192,9 @@
       <a href="{{ $loc === 'ru' ? '/ru/contacts/' : '/contacts/' }}">{{ $L['contacts'] }}</a>
     </nav>
 
-    <div class="lang">
-      <a class="pill {{ $loc === 'uk' ? 'active' : '' }}" href="{{ $uaUrl }}">UA</a>
-      <a class="pill {{ $loc === 'ru' ? 'active' : '' }}" href="{{ $ruUrl }}">RU</a>
+    <div class="lang">@include('partials.header-cart')
+      <a class="pill {{ $loc === 'uk' ? 'active' : '' }}" href="{{ $uaUrl }}" @if($loc === 'uk') aria-current="page" @endif>UA</a>
+      <a class="pill {{ $loc === 'ru' ? 'active' : '' }}" href="{{ $ruUrl }}" @if($loc === 'ru') aria-current="page" @endif>RU</a>
     </div>
 
   </div>
@@ -201,7 +204,7 @@
   @yield('content')
 </main>
 
-<script src="/assets/js/slider.js" defer></script>
+<script src="{{ asset('assets/js/slider.js') }}?v={{ filemtime(public_path('assets/js/slider.js')) }}" defer></script>
 @stack('scripts')
 
 @include('partials.footer')
@@ -297,10 +300,20 @@ document.addEventListener('DOMContentLoaded', function(){
     invalidPhone: @json($isRu ? 'Введите корректный украинский номер (9 цифр после +380)' : 'Введіть коректний український номер (9 цифр після +380)'),
     sendFail: @json($isRu ? 'Не удалось отправить заявку. Попробуйте ещё раз.' : 'Не вдалося відправити заявку. Спробуйте ще раз.'),
     thanks: @json($isRu ? 'Спасибо! Мы скоро вам перезвоним.' : 'Дякуємо! Ми скоро вам передзвонимо.'),
+    afterHours: @json($isRu ? 'Спасибо! Сейчас мы не работаем. Перезвоним вам в ближайшее рабочее время.' : 'Дякуємо! Зараз ми не працюємо. Передзвонимо вам у найближчий робочий час.'),
+    nextWorkingLabel: @json($isRu ? 'Ближайшее время для звонка' : 'Найближчий час для дзвінка'),
     netErr: @json($isRu ? 'Ошибка сети. Попробуйте ещё раз.' : 'Помилка мережі. Спробуйте ще раз.'),
     leadName: @json($isRu ? 'Виджет: Перезвоните мне' : 'Віджет: Передзвоніть мені'),
     leadDetails: @json($isRu ? 'Заявка из плавающего виджета (callback)' : 'Заявка з плаваючого віджета (callback)'),
   };
+
+  function formatNextWorkingTime(value){
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return '';
+    return new Intl.DateTimeFormat(@json($isRu ? 'ru-UA' : 'uk-UA'), {
+      day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Kyiv'
+    }).format(date);
+  }
 
   function closeAll(){
     panel.classList.remove('active');
@@ -378,8 +391,12 @@ document.addEventListener('DOMContentLoaded', function(){
         return;
       }
 
+      window.ncAnalytics?.lead('callback_widget');
       phoneInput.value = '';
-      alert(i18n.thanks);
+      const nextWorkingTime = formatNextWorkingTime(json.next_working_at);
+      alert(json.after_hours
+        ? i18n.afterHours + (nextWorkingTime ? ` ${i18n.nextWorkingLabel}: ${nextWorkingTime}.` : '')
+        : i18n.thanks);
       closeAll();
     } catch (err) {
       console.error(err);
@@ -403,13 +420,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (!burger || !menu || !closeBtn) return;
 
-  const dropdowns = Array.from(menu.querySelectorAll('.dropdown'));
-  const dropdownToggles = Array.from(menu.querySelectorAll('[data-dd-toggle]'));
+  const dropdown = menu.querySelector('.dropdown');
+  const dropdownToggle = menu.querySelector('[data-dd-toggle]');
+  const mobileMenuQuery = window.matchMedia('(max-width: 900px)');
+
+  function setMenuHidden(hidden){
+    menu.inert = hidden;
+
+    if (hidden) {
+      menu.setAttribute('aria-hidden', 'true');
+    } else {
+      menu.removeAttribute('aria-hidden');
+    }
+  }
 
   function openMenu(){
+    if (!mobileMenuQuery.matches) return;
+
     menu.classList.add('is-open');
     burger.setAttribute('aria-expanded', 'true');
-    menu.setAttribute('aria-hidden', 'false');
+    setMenuHidden(false);
     document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
   }
@@ -417,10 +447,19 @@ document.addEventListener('DOMContentLoaded', function () {
   function closeMenu(){
     menu.classList.remove('is-open');
     burger.setAttribute('aria-expanded', 'false');
-    menu.setAttribute('aria-hidden', 'true');
+    setMenuHidden(mobileMenuQuery.matches);
     document.documentElement.style.overflow = '';
     document.body.style.overflow = '';
-    dropdowns.forEach(dropdown => dropdown.classList.remove('open'));
+    dropdown?.classList.remove('open');
+  }
+
+  function syncMenuState(){
+    if (mobileMenuQuery.matches) {
+      setMenuHidden(!menu.classList.contains('is-open'));
+      return;
+    }
+
+    closeMenu();
   }
 
   burger.addEventListener('click', function(){
@@ -433,20 +472,15 @@ document.addEventListener('DOMContentLoaded', function () {
     if (e.key === 'Escape' && menu.classList.contains('is-open')) closeMenu();
   });
 
-  // Выпадающие разделы раскрываются по нажатию только на мобильных.
-  dropdownToggles.forEach(function(toggle){
-    toggle.addEventListener('click', function(e){
-      if (!window.matchMedia('(max-width: 900px)').matches) return;
+  // "Услуги" — раскрытие только на мобилке
+  dropdownToggle?.addEventListener('click', function(e){
+    if (window.matchMedia('(max-width: 900px)').matches) {
       e.preventDefault();
-      const currentDropdown = toggle.closest('.dropdown');
-      dropdowns.forEach(dropdown => {
-        if (dropdown !== currentDropdown) dropdown.classList.remove('open');
-      });
-      currentDropdown?.classList.toggle('open');
-    });
+      dropdown?.classList.toggle('open');
+    }
   });
 
-  // Клик по обычной ссылке закрывает мобильное меню.
+  // Клик по ссылкам закрывает меню, НО не по "Услуги"
   menu.addEventListener('click', function(e){
     const a = e.target.closest('a');
     if (!a) return;
@@ -455,6 +489,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (menu.classList.contains('is-open')) closeMenu();
   });
+
+  mobileMenuQuery.addEventListener('change', syncMenuState);
+  syncMenuState();
 
 });
 </script>

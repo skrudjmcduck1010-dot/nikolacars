@@ -2,6 +2,7 @@
 <html lang="{{ $locale === 'ru' ? 'ru' : 'uk' }}">
 <head>
   <meta charset="utf-8">
+  @include('partials.analytics')
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   @php
@@ -21,8 +22,11 @@
     <script type="application/ld+json">{!! json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}</script>
   @endforeach
   <link rel="icon" href="{{ asset('favicon.ico') }}">
-  <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}?v=12">
-  <link rel="stylesheet" href="{{ asset('assets/css/parts.css') }}?v=33">
+  <link rel="preconnect" href="https://sklad.nikolacars.kiev.ua" crossorigin>
+  <link rel="dns-prefetch" href="//sklad.nikolacars.kiev.ua">
+  <link rel="stylesheet" href="{{ asset('assets/css/app.min.css') }}?v=20260822">
+  <link rel="stylesheet" href="{{ asset('assets/css/language-switch.css') }}?v=20261008-1">
+  <link rel="stylesheet" href="{{ asset('assets/css/parts.css') }}?v=46">
 </head>
 <body class="parts-page">
 @php
@@ -38,11 +42,12 @@
 <div class="topbar">
   <div class="container topbar-inner">
     <div class="topbar-left">
-      <span class="topbar-item"><span class="emoji">🕒</span>{{ $isRu ? 'с 9:00 до 19:00' : 'з 9:00 до 19:00' }}</span>
+      <span class="topbar-item"><span class="emoji">🕒</span>{{ $isRu ? 'с 10:00 до 18:00' : 'з 10:00 до 18:00' }}</span>
       <a class="topbar-item" href="mailto:nikola.carsua@gmail.com"><span class="emoji">✉️</span>nikola.carsua@gmail.com</a>
     </div>
     <div class="topbar-right">
-      <a class="topbar-item" href="tel:+380975120255"><span class="emoji">📞</span>+38 (097) 512 02 55</a>
+      <a class="topbar-item binct-phone-number-1" href="tel:+380990698380"><span class="emoji">📞</span>+38 (099) 069 83 80</a>
+      <a class="topbar-item binct-phone-number-2" href="tel:+380634730819"><span class="emoji">📞</span>+38 (063) 473 08 19</a>
       <span class="topbar-item"><span class="emoji">📍</span>{{ $isRu ? 'г. Киев, ул. Коллекторная, 30' : 'м. Київ, вул. Колекторна, 30' }}</span>
       <div class="social" aria-label="{{ $isRu ? 'Соцсети' : 'Соцмережі' }}">
         <a href="https://www.facebook.com/nikolacarsua/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-7H8.1V12h2.34V9.8c0-2.32 1.38-3.6 3.5-3.6 1.02 0 2.08.18 2.08.18v2.28h-1.17c-1.15 0-1.5.71-1.5 1.44V12h2.56l-.41 2.88h-2.15v7A10 10 0 0 0 22 12z"/></svg></a>
@@ -56,9 +61,9 @@
 
 <header class="nav">
   <div class="container nav-inner">
-    <a class="logo" href="{{ $home }}"><img src="{{ asset('images/logo.png') }}" alt="NikolaCars"></a>
+    <a class="logo" href="{{ $home }}"><img src="{{ asset('images/logo.webp') }}" srcset="{{ asset('images/logo.webp') }} 1x, {{ asset('images/logo@2x.webp') }} 2x" alt="NikolaCars" width="163" height="26" decoding="async"></a>
     <button class="burger-btn" type="button" aria-label="{{ $isRu ? 'Открыть меню' : 'Відкрити меню' }}" aria-controls="mobileMenu" aria-expanded="false"><span></span><span></span><span></span></button>
-    <nav class="menu" id="mobileMenu" aria-hidden="true">
+    <nav class="menu" id="mobileMenu">
       <div class="mobile-menu-top"><div class="mobile-menu-title">NikolaCars</div><button class="mobile-menu-close" type="button" aria-label="{{ $isRu ? 'Закрыть меню' : 'Закрити меню' }}">×</button></div>
       <a href="{{ $home }}">{{ $isRu ? 'Главная' : 'Головна' }}</a>
       <div class="dropdown">
@@ -75,13 +80,14 @@
       <a href="{{ $isRu ? '/ru/news/' : '/news/' }}">{{ $isRu ? 'Новости' : 'Новини' }}</a>
       <a href="{{ $isRu ? '/ru/contacts/' : '/contacts/' }}">{{ $isRu ? 'Контакты' : 'Контакти' }}</a>
     </nav>
-    <div class="lang"><a class="pill {{ !$isRu ? 'active' : '' }}" href="{{ $uaUrl }}">UA</a><a class="pill {{ $isRu ? 'active' : '' }}" href="{{ $ruUrl }}">RU</a></div>
+    <div class="lang">@include('partials.header-cart')<a class="pill {{ !$isRu ? 'active' : '' }}" href="{{ $uaUrl }}" @if(!$isRu) aria-current="page" @endif>UA</a><a class="pill {{ $isRu ? 'active' : '' }}" href="{{ $ruUrl }}" @if($isRu) aria-current="page" @endif>RU</a></div>
   </div>
 </header>
 
 <button type="button" class="parts-floating-cart" data-open-cart aria-label="{{ $isRu ? 'Открыть корзину' : 'Відкрити кошик' }}">
   {{ $isRu ? 'Корзина' : 'Кошик' }} <span data-cart-count>0</span>
 </button>
+  @include('partials.cart-modal')
   @yield('content')
   @stack('scripts')
 <script>
@@ -92,18 +98,25 @@ document.addEventListener('DOMContentLoaded', () => {
   const dropdowns = Array.from(menu?.querySelectorAll('.dropdown') ?? []);
   const dropdownToggles = Array.from(menu?.querySelectorAll('[data-dd-toggle]') ?? []);
   if (!burger || !menu || !close) return;
+  const mobileMenuQuery = matchMedia('(max-width: 900px)');
+  const setMenuHidden = hidden => {
+    menu.inert = hidden;
+    if (hidden) menu.setAttribute('aria-hidden', 'true');
+    else menu.removeAttribute('aria-hidden');
+  };
   const closeMenu = () => {
     menu.classList.remove('is-open');
     burger.setAttribute('aria-expanded', 'false');
-    menu.setAttribute('aria-hidden', 'true');
+    setMenuHidden(mobileMenuQuery.matches);
     document.documentElement.style.overflow = '';
     document.body.style.overflow = '';
     dropdowns.forEach(dropdown => dropdown.classList.remove('open'));
   };
   burger.addEventListener('click', () => {
+    if (!mobileMenuQuery.matches) return;
     menu.classList.add('is-open');
     burger.setAttribute('aria-expanded', 'true');
-    menu.setAttribute('aria-hidden', 'false');
+    setMenuHidden(false);
     document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
   });
@@ -121,6 +134,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   menu.addEventListener('click', event => { if (event.target.closest('a:not([data-dd-toggle])')) closeMenu(); });
   document.addEventListener('keydown', event => { if (event.key === 'Escape') closeMenu(); });
+  mobileMenuQuery.addEventListener('change', closeMenu);
+  closeMenu();
 });
 </script>
 @include('partials.call-tracking')

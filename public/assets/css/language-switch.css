@@ -1,0 +1,6 @@
+/* Shared header state for both the main site and the parts storefront. */
+.lang .pill.active {
+  color: #fff;
+  border-color: rgba(255, 255, 255, .3);
+  background: rgba(255, 255, 255, .08);
+}
