@@ -132,3 +132,19 @@ Eight live pages (home, service, contacts and a product, both locales) returned
 HTTP 200 with the correct active language. Browser checks confirmed distinct
 computed colors/backgrounds and actual UA/RU switching on home and service
 pages. Pre-change layout backups are `.codex-tmp/language-active-*-backup-*`.
+
+## Portable front controller (2026-10-08)
+
+`public/index.php` selects `public/laravel_app` when that directory contains
+`bootstrap/app.php` (the existing HOSTiQ layout), otherwise the repository root
+(the standard local Laravel layout). Autoloading, bootstrap and maintenance
+mode all use the selected root. The hosted layout takes precedence if both
+exist; maintenance in an inactive layout must not stop the selected application.
+
+`tests/front-controller-regression.php` exercises both layouts, precedence and
+maintenance behavior in six isolated PHP processes without database or API
+requests. Temporary fixtures are confined to `.codex-tmp/` and removed after
+the check. The real local entry point was also exercised through PHP CLI:
+Laravel bootstrapped and handled the `/up` health request with status 200.
+This is not an HTTP-server or live-hosting test. This compatibility change is
+committed locally only, not published to HOSTiQ.
