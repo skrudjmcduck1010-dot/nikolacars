@@ -439,3 +439,16 @@ real form/order submission, indexing request or automation was performed.
 Evidence: mirror `docs/reports/seo-package2-release-2026-10-29.md`, its technical
 report/IAB sources, and this checkout's ignored SEO release directory.
 The earlier deferred-battery status is superseded; ranking changes are not yet measured.
+
+
+## 2026-10-29 — selected category tree and catalog intro cleanup released
+
+The owner's explicit approval covered one temporary clean backend checkout and this scoped release. Backend `980fda919993c9d07742b8b5dce25f76ef2f0a46` adds `category_navigation` from complete already-loaded available/sold rows, with pure missing-breadcrumb fallback before filtering. It preserves battery localization and raw snapshots. Counts represent available cards and follow the selected model; roots and the expanded selected branch are returned. The two runtime files were released through the normal wrapper from live5d9deca6, with no dependency/schema change or foreign WIP included.
+
+Frontend `33e1ce1988e7f5ed741a05bd5f17f2076d299d58` publishes nine runtime files: canonical SSR/JS tree links in the sidebar, current/ancestor states and responsive indentation; the three top SEO links, generic intro blocks and tagline above products are removed. H1/title/description, cards, photos, model links, cart and contacts remain. Independent verified-FTPS before/stage/immediate-rename/after guards passed for9payload/145paths; hosting overrides and security settings were preserved.
+
+Fresh backend gates passed encoding1689/0, configured PHPStan,62PHPtests/717assertions, Composer/npm audits0, production build and74E2E; fresh DB/code backups, verified retention, no pending migrations, normal cache/warmup/up completed. Latest frontend checks passed554assertions/48SSR,24focused browser cases,6journeys/36model transitions and10regressions/failure probe. The earlier50cart/compat run covers the tree before the small intro-removal delta; it is not misreported as a fresh final-payload run.
+
+Live IAB verified all6models/2886available cards at the root, preserved first24titles/first8photo URLs and loaded state, category/leaf/locale/model/sort transitions, and actual320/390px without label overflow. ModelY/Highland retain metadata and have no generic intros. No real form/order was submitted. Bounded frontend logs show0ERROR/5xx and3slow successful200; backend retains45 pre-existing Nova Poshta tracking404s plus1known scheduler failure, also present before release. Whole-host uptime or resolution of earlier503s is not claimed.
+
+The clean checkout was removed with native Git without force after independent recovery verification. The pushed task branch remains; all35canonical dirty-file hashes/statuses, original branch and35535c7HEAD are unchanged. Recovery receipts/13DBarchives/codebackup remain outside the removed checkout. Rollback uses the nine frontend before files with own-after guards, then the previous Query through the normal backend wrapper; leave unrelated WIP, battery/Mime, DB, environment, media and durable receipts intact. Local report: mirror `docs/reports/catalog-tree-2026-10-29.md`; private receipts are not committed. Published and verified; no further agreed changes or monitoring scheduled.
