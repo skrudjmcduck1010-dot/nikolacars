@@ -359,3 +359,37 @@ Battery frontend must not remain active if backend normalization is rolled back.
 Status here is local preparation; release_verifier/root records deployment and
 live verification separately. GSC observations through 27 October are baseline
 selection evidence, not a measured ranking effect of this package.
+
+### Independent frontend released and verified — 29 October 2026, 18:33 Kyiv
+
+The eight runtime files were published at16:29:18 UTC from runtime commit
+`857a4aed59f07441f787c6448dddfe118a979868`; documentation successor
+`d489958cf1798042ccf98f853ac9b8d264cde390` contains no runtime changes.
+Immutable manifest SHA256:
+`5b2519aee9458063aba1a0aef193146624bbdb2dd98a376ed933117a0b85196f`.
+Verified FTPS staging, immediate-before checks, readback and full protected
+source/environment/dependency guard passed:8 payload files,143 guarded paths.
+The two earlier stops occurred before any rename (FTPS session closure and
+the completed documentation edit); receipts are retained. The same stage
+was verified and resumed without repeating an unknown mutation.
+
+Existing PHP regressions9+failure sentinel, new314 assertions/32routes,
+landing browsers16, cart/compatibility E2E50, actual anchor navigation16,
+and offline transport/recovery guards6 passed. The live autoloader supports
+App PSR4 fallback; no Composer/vendor changes were needed.
+
+In-app browser verification covered all8 localized landings, both12V service
+locales, two old Russian parent aliases and the warehouse health page.
+New title/H1/intro/canonical content, actual language navigation and final
+alias destinations passed. Highland photos/header basket/contact launcher
+rendered. No forms, orders or live basket contents were changed; HTTP status
+codes were not inferred from DOM. A bounded Laravel log tail through16:32:45UTC
+contained no post-release ERROR/upstream503/no-response; three slow successful
+catalog200 entries were recorded. This does not establish future host uptime.
+
+Release report and recovery evidence are in the mirror's
+`docs/reports/seo-package2-release-2026-10-29.md` and this checkout's
+`.codex-tmp/seo-package2-release-20261029/`. Backend battery normalization and
+its five-file frontend overlay remain deferred pending the clean-tree
+procedure decision; this independent publication does not claim that fix
+or resolution of the earlier5xx observations.
