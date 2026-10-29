@@ -37,20 +37,23 @@ const { chromium } = require('C:/Users/user/.cache/codex-runtimes/codex-primary-
       await page.goto('https://nikolacars.kiev.ua' + f.path, {waitUntil: 'networkidle'});
       if (await page.locator('h1').count() !== 1 || (await page.locator('h1').innerText()).trim() !== f.h1) throw new Error(`${f.id} ${width}: H1 after JS`);
       if (!(await page.title()).includes(f.h1)) throw new Error(`${f.id}: title after JS`);
-      if (!(await page.locator('[data-model-intro]').isVisible())) throw new Error(`${f.id}: intro hidden initially`);
+      if (await page.locator('[data-model-intro], [data-current-context]').count()) throw new Error(`${f.id}: generic intro/tagline still rendered`);
+      if (await page.locator('.parts-sidebar [data-categories]').count()!==1) throw new Error(`${f.id}: tree absent`);
       if (await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 2)) throw new Error(`${f.id}: horizontal overflow at ${width}`);
       if (width === 390 && ['0-uk','3-ru'].includes(f.id)) await page.screenshot({path:path.join(path.dirname(fixturesPath),`${f.id}-mobile.png`),fullPage:true});
-      await page.locator('[data-sort]').selectOption('price_asc');
-      await page.waitForFunction(() => document.querySelector('[data-model-intro]')?.hidden === true);
+      await Promise.all([page.waitForResponse(response=>response.url().includes('/parts/api/catalog/')),page.locator('[data-sort]').selectOption('price_asc')]);
+      await page.waitForFunction(() => !document.querySelector('[data-products]').classList.contains('loading'));
+      if (await page.locator('[data-model-intro], [data-current-context]').count()) throw new Error(`${f.id}: generic intro/tagline restored after AJAX`);
+      if (await page.locator('.parts-sidebar [data-categories]').count()!==1) throw new Error(`${f.id}: tree absent after AJAX`);
       if ((await page.locator('h1').innerText()).trim() !== f.h1 || !(await page.title()).includes(f.h1)) throw new Error(`${f.id}: category heading lost after AJAX`);
       await page.locator('[data-add-cart="1001"]').click();
       await page.waitForFunction(() => JSON.parse(localStorage.getItem('nikolacars-parts-cart-v1') || '[]').some(item => item.id === 1001 && item.quantity === 1));
       if (!(await page.locator('[data-cart-drawer]').isVisible())) throw new Error(`${f.id}: cart drawer did not open`);
       if (errors.length) throw new Error(`${f.id}: ${errors.join('; ')}`);
-      results.push({id:f.id,width,status:'PASS',checks:['heading/title after JS','intro','viewport','AJAX sort','cart count','no page errors']});
+      results.push({id:f.id,width,status:'PASS',checks:['heading/title after JS','no generic SSR/AJAX guidance','tree retained','viewport','AJAX sort','cart count','no page errors']});
       await context.close();
     }
     fs.writeFileSync(path.join(path.dirname(fixturesPath),'browser-result.json'),JSON.stringify({status:'PASS',cases:results.length,results},null,2));
-    console.log(`PASS ${results.length} browser cases: 8 localized landings × mobile/desktop; AJAX and cart retained.`);
+    console.log(`PASS ${results.length} browser cases: ${fixtures.length} localized landings × mobile/desktop; no guidance, AJAX and cart retained.`);
   } finally { await browser.close(); }
 })().catch(error => { console.error(error.stack); process.exit(1); });

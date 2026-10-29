@@ -8,6 +8,7 @@ $scripts = [
     'language-switch-regression.php', 'merchant-policy-regression.php',
     'product-delivery-layout-regression.php', 'service-page-regression.php',
     'storefront-cache-regression.php',
+    'catalog-tree-regression.php',
 ];
 $sentinel = '__NC_REGRESSION_COMPLETED__';
 if (($argv[1] ?? '') === '--child') {

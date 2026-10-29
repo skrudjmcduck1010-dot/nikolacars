@@ -41,11 +41,17 @@ try {
         ['model'=>'','uk'=>'zovnisnia-furnitura/podium-nomernogo-znaka/podium-nomernogo-znaka','ru'=>'naruznaia-furnitura/podium-nomernogo-znaka/podium-nomernogo-znaka','uk_h1'=>'Подіуми та кронштейни номерного знака Tesla','ru_h1'=>'Подиумы и кронштейны номерного знака Tesla'],
         ['model'=>'','uk'=>'galma/galmivni-diski-i-suporta/zadni-tormozni-diski-suporta-i-kolodki','ru'=>'tormoza/tormoznye-diski-i-supporta/zadnie-tormoznye-diski-supporta-i-kolodki','uk_h1'=>'Задні гальмівні диски, супорти та колодки Tesla','ru_h1'=>'Задние тормозные диски, суппорты и колодки Tesla'],
         ['model'=>'model-s-04-2016-01-2021','uk'=>'','ru'=>'','uk_h1'=>'Запчастини Tesla Model S 2016–2021','ru_h1'=>'Запчасти Tesla Model S 2016–2021'],
+        ['model'=>'model-3-06-2017-12-2023','uk'=>'','ru'=>'','uk_h1'=>'Запчастини Tesla Model 3 2017–2023','ru_h1'=>'Запчасти Tesla Model 3 2017–2023'],
+        ['model'=>'model-y-01-2020-01-2025','uk'=>'','ru'=>'','uk_h1'=>'Запчастини Tesla Model Y 2020–2025','ru_h1'=>'Запчасти Tesla Model Y 2020–2025'],
     ];
+    $metadataBefore=json_decode(file_get_contents(__DIR__.'/fixtures/catalog-seo-metadata.json'),true,512,JSON_THROW_ON_ERROR);
     $fixtures=[];
     foreach ($sections as $index=>$section) foreach (['uk','ru'] as $locale) {
         $prefix=$locale==='ru'?'/ru/parts/':'/parts/';
         $path=$prefix.($section['model']!==''?$section['model'].'/':'').($section[$locale]!==''?$section[$locale].'/':'');
+        $profile=$section[$locale]==='' ? App\Services\ModelCatalogSeo::forModel($section['model'],$locale) : App\Services\CategoryCatalogSeo::forSection($section['model'],$section[$locale],$locale);
+        $profileKey=$section['model'].($section[$locale]!==''?'/'.$section[$locale]:'');
+        $assert($profile===$metadataBefore[$locale][$profileKey],'all heading/title/description bytes unchanged; no generated guidance');
         $payload=cartCatalogFixture($locale);
         $payload['selection']=['model_slug'=>$section['model'],'model'=>$index===3?'Model S 04.2016 - 01.2021':'','category_path_locale_slugs'=>['uk'=>str_replace('/','--',$section['uk']),'ru'=>str_replace('/','--',$section['ru'])]];
         $payload['categories']=[['value'=>'Кузов','label'=>'Кузов','slug'=>'kuzov','count'=>3],['value'=>'Підвіска','label'=>'Підвіска','slug'=>'pidviska','count'=>0]];
@@ -70,18 +76,16 @@ try {
             $assert($xpath->query('//link[@rel="canonical"]')->item(0)->getAttribute('href')===$canonical,"canonical $path$query");
             $assert($xpath->query('//link[@hreflang]')->length===3,"three hreflang $path$query");
             $assert(($xpath->query('//meta[@name="robots"]')->length>0)===in_array($query,['?q=test','?sort=price_asc'],true),"query noindex $path$query");
-            $assert($xpath->query('//*[@data-model-intro]')->length===1,"useful intro $path$query");
-            $assert($xpath->query('//*[@data-model-intro]')->item(0)->hasAttribute('hidden')===($query!==''),"intro visibility $path$query");
+            $assert($xpath->query('//*[@data-model-intro or @data-current-context]')->length===0,"no generic visible intro/tagline $path$query");
+            $assert(str_starts_with($xpath->query('//meta[@name="description"]')->item(0)->getAttribute('content'),$profile['description']),"description preserved $path$query");
+            $assert($xpath->query('//aside//nav/ul[@data-categories]')->length===1 && $xpath->query('//*[@data-products]//article')->length>0,"tree and products retained $path$query");
+            $assert($xpath->query('//*[@data-models]//a')->length>0 && $xpath->query('//*[@data-filter-form]')->length===1 && $xpath->query('//*[@data-sort]')->length===1,"model/filter controls retained $path$query");
             Illuminate\Support\Facades\Http::assertSentCount(1);
             $assert(true,"one API fetch $path$query");
             $kernel->terminate($request,$response);
             if ($query==='') {
                 file_put_contents($runtime.'/section-'.$index.'-'.$locale.'.html',$html);
                 $fixtures[]=['id'=>$index.'-'.$locale,'path'=>$path,'h1'=>$section[$locale.'_h1'],'html'=>$runtime.'/section-'.$index.'-'.$locale.'.html','payload'=>$payload];
-                if ($index===3) {
-                    $assert(str_contains($html,$path.'kuzov/'),'model links use available categories');
-                    $assert($xpath->query('//*[@data-model-intro]//a[@href="'.$path.'pidviska/"]')->length===0,'zero-count category not linked in helper');
-                }
             }
         }
         if ($index<2) {
@@ -99,11 +103,6 @@ try {
     }
     $assert(App\Services\ModelCatalogSeo::forModel('model-s-02-2012-03-2016','uk')===null,'earlier Model S not rewritten');
     $assert(App\Services\CatalogPath::preferred('panel-priladiv/panel-priladiv/rama-pribornoyi-paneli','model-y-01-2020-01-2025')==='panel-priladiv/panel-priladiv/rama-pribornoyi-paneli','unrelated official repeated levels retained');
-    foreach (['uk','ru'] as $locale) {
-        $links=App\Services\CategoryCatalogSeo::links('','','',$locale);
-        $assert(count($links)===3,'catalog hub exposes three existing section links');
-        foreach ($links as $link) $assert(str_ends_with($link['url'],'/') && !str_contains($link['url'],'?'),'clean section link');
-    }
     if ($overlay !== '') {
         $batteryPaths=['uk'=>'visokovoltna-batareia/visokovoltna-batareia/visokovoltna-batareia','ru'=>'vysokovoltnaia-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia'];
         $legacyRu='visokovoltna-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia';
@@ -154,8 +153,9 @@ try {
         $kernel->terminate($request,$response);
     }
     file_put_contents($runtime.'/fixtures.json',json_encode($fixtures,JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT));
-    file_put_contents($runtime.'/result.json',json_encode(['status'=>'PASS','checks'=>$checks,'landing_routes'=>32,'battery_overlay'=>$overlay!==''? $overlay:null,'fixtures'=>count($fixtures)],JSON_PRETTY_PRINT));
-    echo "PASS $checks assertions; 32 landing route/Blade variants; 8 browser fixtures".($overlay!==''?'; battery overlay verified':'')."\n$runtime\n";
+    $routeVariants=count($sections)*2*4;
+    file_put_contents($runtime.'/result.json',json_encode(['status'=>'PASS','checks'=>$checks,'landing_routes'=>$routeVariants,'battery_overlay'=>$overlay!==''? $overlay:null,'fixtures'=>count($fixtures)],JSON_PRETTY_PRINT));
+    echo "PASS $checks assertions; $routeVariants landing route/Blade variants; ".count($fixtures)." browser fixtures".($overlay!==''?'; battery overlay verified':'')."\n$runtime\n";
 } catch (Throwable $exception) {
     fwrite(STDERR,'SEO PACKAGE2 FAILED: '.$exception->getMessage()."\n".$exception->getTraceAsString()."\n");
     exit(1);

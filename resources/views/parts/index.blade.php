@@ -69,7 +69,6 @@
     <div class="parts-title-row">
       <div class="parts-title-copy">
         <h1 data-page-title>{{ $catalogTitle }}</h1>
-        <p data-current-context>{{ $isRu ? 'Оригинальные запчасти со склада NikolaCars' : 'Оригінальні запчастини зі складу NikolaCars' }}</p>
       </div>
       <form class="parts-toolbar parts-title-search" id="partsFilterForm" data-filter-form role="search">
         <div class="parts-search-field">
@@ -89,19 +88,6 @@
       </form>
     </div>
 
-    @if(!empty($modelLanding))
-      @include('parts._model_intro')
-    @elseif(!empty($catalogLanding))
-      @include('parts._category_intro')
-    @endif
-    @if(!empty($catalogLinks) && $currentPage === 1 && !($seoNoindex ?? false))
-      <nav class="parts-model-links" aria-label="{{ $isRu ? 'Разделы каталога' : 'Розділи каталогу' }}">
-        @foreach($catalogLinks as $link)
-          <a href="{{ $link['url'] }}">{{ $link['label'] }}</a>
-        @endforeach
-      </nav>
-    @endif
-
     <div class="parts-model-tabs" data-models>
       <a href="{{ $selectedCategoryPathSlug !== '' ? $subcategoryUrl('', $selectedCategoryPathSlug) : $sectionUrl('', $selectedCategorySlug) }}" class="parts-model-tab {{ $selectedModel === '' ? 'active' : '' }}"><span class="parts-model-copy"><span class="parts-model-name">{{ $isRu ? 'Все модели' : 'Усі моделі' }}</span></span></a>
       @foreach($models as $model)
@@ -119,12 +105,8 @@
     <div class="parts-layout">
       <aside class="parts-sidebar">
         <div class="parts-sidebar-title" data-sidebar-title>{{ $selectedModel ?: ($isRu ? 'Все запчасти' : 'Усі запчастини') }}</div>
-        <a href="{{ $sectionUrl($selectedModelSlug) }}" class="parts-category {{ $selectedCategory === '' ? 'active' : '' }}" data-all-parts><span>{{ $isRu ? 'Все запчасти модели' : 'Усі запчастини моделі' }}</span><b data-model-total>{{ collect($categories)->sum('count') }}</b></a>
-        <div data-categories>
-          @foreach($categories as $category)
-            <a href="{{ $sectionUrl($selectedModelSlug, $category['slug']) }}" class="parts-category {{ $selectedCategory === $category['value'] ? 'active' : '' }}"><span>{{ $category['label'] }}</span><b>{{ $category['count'] }}</b></a>
-          @endforeach
-        </div>
+        <a href="{{ $sectionUrl($selectedModelSlug) }}" class="parts-category {{ $selectedCategory === '' ? 'active' : '' }}" data-all-parts @if($selectedCategory === '') aria-current="page" @endif><span>{{ $selectedModelSlug !== '' ? ($isRu ? 'Все запчасти модели' : 'Усі запчастини моделі') : ($isRu ? 'Все запчасти' : 'Усі запчастини') }}</span><b data-model-total>{{ collect($categories)->sum('count') }}</b></a>
+        @include('parts._catalog_navigation')
       </aside>
 
       <section class="parts-results">
@@ -284,5 +266,5 @@ window.initialPartsCatalog = @json($initialCatalog);
 window.partsPreferredCategoryPaths = @json(\App\Services\CatalogPath::preferredPaths());
 window.partsModelLanding = @json($catalogLanding ?? $modelLanding ?? null);
 </script>
-<script src="{{ asset('assets/js/parts.js') }}?v=20261029-seo-package2" defer></script>
+<script src="{{ asset('assets/js/parts.js') }}?v=20261029-category-tree2" defer></script>
 @endpush

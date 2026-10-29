@@ -1,0 +1,66 @@
+{
+    "uk": {
+        "model-3-06-2017-12-2023": {
+            "heading": "Запчастини Tesla Model 3 2017–2023",
+            "title": "Запчастини Tesla Model 3 2017–2023 у Києві",
+            "description": "Запчастини Tesla Model 3 2017–2023: каталог NikolaCars, артикули, ціни та фото деталей. Підбір за номером деталі; сумісність уточнюйте за VIN перед замовленням."
+        },
+        "model-y-01-2020-01-2025": {
+            "heading": "Запчастини Tesla Model Y 2020–2025",
+            "title": "Запчастини Tesla Model Y 2020–2025 у Києві",
+            "description": "Запчастини Tesla Model Y 2020–2025: каталог NikolaCars, артикули, ціни та фото деталей. Підбір за номером деталі; сумісність уточнюйте за VIN перед замовленням."
+        },
+        "model-s-04-2016-01-2021": {
+            "heading": "Запчастини Tesla Model S 2016–2021",
+            "title": "Запчастини Tesla Model S 2016–2021 у Києві",
+            "description": "Запчастини Tesla Model S 2016–2021: каталог NikolaCars, артикули, ціни та фото деталей. Підбір за номером деталі; сумісність уточнюйте за VIN перед замовленням."
+        },
+        "model-3-highland-01-2024/diski-i-sini/diski/diski": {
+            "heading": "Диски та ковпаки Tesla Model 3 Highland",
+            "title": "Диски та ковпаки Tesla Model 3 Highland у Києві",
+            "description": "Диски та ковпаки Tesla Model 3 Highland: каталог NikolaCars, артикули, фото та стан деталей. Перевіряйте наявність і комплектність у картці; сумісність уточнюйте за VIN."
+        },
+        "/zovnisnia-furnitura/podium-nomernogo-znaka/podium-nomernogo-znaka": {
+            "heading": "Подіуми та кронштейни номерного знака Tesla",
+            "title": "Подіуми та кронштейни номерного знака Tesla у Києві",
+            "description": "Подіуми та кронштейни номерного знака Tesla: каталог NikolaCars, артикули, фото та стан деталей. Перевіряйте наявність і комплектність у картці; сумісність уточнюйте за VIN."
+        },
+        "/galma/galmivni-diski-i-suporta/zadni-tormozni-diski-suporta-i-kolodki": {
+            "heading": "Задні гальмівні диски, супорти та колодки Tesla",
+            "title": "Задні гальмівні диски, супорти та колодки Tesla у Києві",
+            "description": "Задні гальмівні диски, супорти та колодки Tesla: каталог NikolaCars, артикули, фото та стан деталей. Перевіряйте наявність і комплектність у картці; сумісність уточнюйте за VIN."
+        }
+    },
+    "ru": {
+        "model-3-06-2017-12-2023": {
+            "heading": "Запчасти Tesla Model 3 2017–2023",
+            "title": "Запчасти Tesla Model 3 2017–2023 в Киеве",
+            "description": "Запчасти Tesla Model 3 2017–2023: каталог NikolaCars, артикулы, цены и фото деталей. Подбор по номеру детали; совместимость уточняйте по VIN перед заказом."
+        },
+        "model-y-01-2020-01-2025": {
+            "heading": "Запчасти Tesla Model Y 2020–2025",
+            "title": "Запчасти Tesla Model Y 2020–2025 в Киеве",
+            "description": "Запчасти Tesla Model Y 2020–2025: каталог NikolaCars, артикулы, цены и фото деталей. Подбор по номеру детали; совместимость уточняйте по VIN перед заказом."
+        },
+        "model-s-04-2016-01-2021": {
+            "heading": "Запчасти Tesla Model S 2016–2021",
+            "title": "Запчасти Tesla Model S 2016–2021 в Киеве",
+            "description": "Запчасти Tesla Model S 2016–2021: каталог NikolaCars, артикулы, цены и фото деталей. Подбор по номеру детали; совместимость уточняйте по VIN перед заказом."
+        },
+        "model-3-highland-01-2024/diski-i-siny/diski/diski": {
+            "heading": "Диски и колпаки Tesla Model 3 Highland",
+            "title": "Диски и колпаки Tesla Model 3 Highland в Киеве",
+            "description": "Диски и колпаки Tesla Model 3 Highland: каталог NikolaCars, артикулы, фото и состояние деталей. Проверяйте наличие и комплектность в карточке; совместимость уточняйте по VIN."
+        },
+        "/naruznaia-furnitura/podium-nomernogo-znaka/podium-nomernogo-znaka": {
+            "heading": "Подиумы и кронштейны номерного знака Tesla",
+            "title": "Подиумы и кронштейны номерного знака Tesla в Киеве",
+            "description": "Подиумы и кронштейны номерного знака Tesla: каталог NikolaCars, артикулы, фото и состояние деталей. Проверяйте наличие и комплектность в карточке; совместимость уточняйте по VIN."
+        },
+        "/tormoza/tormoznye-diski-i-supporta/zadnie-tormoznye-diski-supporta-i-kolodki": {
+            "heading": "Задние тормозные диски, суппорты и колодки Tesla",
+            "title": "Задние тормозные диски, суппорты и колодки Tesla в Киеве",
+            "description": "Задние тормозные диски, суппорты и колодки Tesla: каталог NikolaCars, артикулы, фото и состояние деталей. Проверяйте наличие и комплектность в карточке; совместимость уточняйте по VIN."
+        }
+    }
+}

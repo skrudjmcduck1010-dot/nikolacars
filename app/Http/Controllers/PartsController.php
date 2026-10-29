@@ -6,6 +6,7 @@ use App\Services\SkladStorefrontClient;
 use App\Services\CatalogPath;
 use App\Services\ModelCatalogSeo;
 use App\Services\CategoryCatalogSeo;
+use App\Services\CatalogNavigation;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\Response;
 use Illuminate\Http\JsonResponse;
@@ -161,11 +162,12 @@ class PartsController extends Controller
 
         try {
             $initialCatalog = $this->cachedStorefrontPayload(
-                'storefront:catalog:v7:'.sha1(json_encode($catalogQuery, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)),
+                'storefront:catalog:v8:'.sha1(json_encode($catalogQuery, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)),
                 fn (): Response => $client->catalog($catalogQuery),
                 [404, 410, 422],
             );
             $initialCatalog = $this->withProductUrlSlugs($initialCatalog);
+            $initialCatalog['navigation'] = CatalogNavigation::items($initialCatalog, $locale);
         } catch (ConnectionException|RuntimeException $exception) {
             if ($exception instanceof HttpExceptionInterface) {
                 if ($exception->getStatusCode() === 404 && $categoryPathSlug !== '') {
@@ -249,7 +251,6 @@ class PartsController extends Controller
             ? ModelCatalogSeo::forModel($modelSlug, $locale)
             : null;
         $catalogLanding = $modelLanding ?? CategoryCatalogSeo::forSection($modelSlug, $categoryPathSlug, $locale);
-        $catalogLinks = CategoryCatalogSeo::links($modelSlug, $categorySlug, $categoryPathSlug, $locale);
         if ($catalogLanding !== null) {
             $catalogTitle = $catalogLanding['heading'];
             $seoTitle = implode(' — ', array_filter([$catalogLanding['title'], $pageLabel, 'NikolaCars']));
@@ -288,7 +289,6 @@ class PartsController extends Controller
             'localeUrls',
             'modelLanding',
             'catalogLanding',
-            'catalogLinks',
         ));
     }
 
@@ -330,7 +330,7 @@ class PartsController extends Controller
     {
         $query = $request->query() + ['locale' => $locale];
         ksort($query);
-        $cacheKey = 'storefront:ajax-catalog:v2:'.sha1(json_encode($query, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+        $cacheKey = 'storefront:ajax-catalog:v3:'.sha1(json_encode($query, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
         try {
             $payload = Cache::flexible($cacheKey, [60, 300], function () use ($client, $query): array {
                 $response = $client->catalog($query);
@@ -345,6 +345,8 @@ class PartsController extends Controller
 
                 return $response->json();
             }, ['seconds' => 30]);
+
+            $payload['navigation'] = CatalogNavigation::items($payload, $locale);
 
             return response()->json($this->withProductUrlSlugs(\App\Services\StorefrontPhotoFilter::clean($payload)));
         } catch (\Illuminate\Http\Exceptions\HttpResponseException $exception) {

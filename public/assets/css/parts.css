@@ -141,3 +141,10 @@
 
 /* Model catalogue guidance: first page only, no layout changes to cart/contact UI. */
 .parts-model-intro{margin:18px 0 4px;padding:16px 18px;border:1px solid var(--line);border-radius:9px;background:#fff;font-size:14px;line-height:1.55}.parts-model-intro p{margin:0 0 8px}.parts-model-intro p:last-child{margin-bottom:0}.parts-model-links{display:flex;flex-wrap:wrap;gap:8px 16px;margin:10px 0}.parts-model-links a,.parts-model-generation a{color:#256b36;text-decoration:underline;text-underline-offset:3px}.parts-model-generation{font-size:13px;color:#59636e}@media(max-width:620px){.parts-model-intro{padding:12px;font-size:13px}.parts-model-links{gap:8px 12px}}
+
+/* Category navigation: official open branch, no separate SEO link strip. */
+.parts-category-tree{list-style:none;margin:0;padding:0}.parts-category-tree li{margin:0;padding:0}.parts-category-node{padding-left:calc(8px + var(--category-depth,0)*16px);gap:7px;align-items:flex-start}.parts-category-chevron{flex:0 0 10px;line-height:1.4;font-size:16px}.parts-category-label{min-width:0;flex:1;overflow-wrap:anywhere;line-height:1.4}.parts-category-node b{flex:0 0 auto;margin-left:2px;line-height:1.4}.parts-category-label small{display:block;font-size:10px;font-weight:400;opacity:.8;margin-top:2px}.parts-category-node.is-ancestor:not(.active){background:#fbe9e9;color:#8d2020}.parts-category-node.is-unavailable:not(.active):not(.is-ancestor){color:#70777d}.parts-category-node:focus-visible{outline:2px solid #a81818;outline-offset:1px}.parts-category-node.active .parts-category-label small{color:inherit}
+
+.parts-category-node .parts-category-label{white-space:normal;overflow:visible;text-overflow:clip;word-break:normal}.parts-category-node .parts-category-chevron{white-space:normal;overflow:visible}.parts-category-node{min-width:0;max-width:100%}
+
+.parts-layout>.parts-sidebar{min-width:0;width:100%;max-width:100%}.parts-category-tree,.parts-category-tree li{min-width:0;max-width:100%}.parts-category-node .parts-category-label small{white-space:normal}@media(max-width:800px){.parts-layout{grid-template-columns:minmax(0,1fr)}}

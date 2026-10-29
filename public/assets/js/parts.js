@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function applyCatalog(data, append = false) {
     state.models = data.models || [];
     state.categories = data.categories || [];
+    state.navigation = Array.isArray(data.navigation) ? data.navigation : null;
     state.model = data.selection?.model || state.model;
     state.category = data.selection?.category || state.category;
     state.modelSlug = data.selection?.model_slug || state.modelSlug;
@@ -227,9 +228,6 @@ document.addEventListener('DOMContentLoaded', () => {
     else if (selectedModel) catalogTitle = `${t.seoBase} — ${selectedModel}`;
     const modelLanding = window.partsModelLanding || null;
     if (modelLanding) catalogTitle = modelLanding.heading;
-    const modelIntro = $('[data-model-intro]');
-    if (modelIntro) modelIntro.hidden = state.page !== 1 || state.q !== '' || state.sort !== 'newest'
-      || initialParams.has('sort') || initialParams.has('model') || initialParams.has('category');
 
     $('[data-page-title]').textContent = catalogTitle;
     $('[data-results-title]').textContent = selectedCategory || state.model || t.allProducts;
@@ -297,10 +295,17 @@ document.addEventListener('DOMContentLoaded', () => {
     $('[data-sidebar-title]').textContent = state.model || t.catalog;
     $('[data-all-parts]').href = sectionUrl(state.modelSlug);
     $('[data-all-parts]').classList.toggle('active', state.category === '');
-    $('[data-categories]').innerHTML = state.categories.map(item => `
-      <a href="${sectionUrl(state.modelSlug, item.slug)}" class="parts-category ${state.category === item.value ? 'active' : ''}">
-        <span>${escapeHtml(item.label)}</span><b>${item.count}</b>
-      </a>`).join('');
+    if (state.category === '') $('[data-all-parts]').setAttribute('aria-current', 'page');
+    else $('[data-all-parts]').removeAttribute('aria-current');
+    const nodes = state.navigation || state.categories.map(item => ({
+      url: sectionUrl(state.modelSlug, item.slug), label: item.label, count: item.count,
+      depth: 0, active: state.category === item.value, ancestor: false, has_children: false
+    }));
+    $('[data-categories]').innerHTML = nodes.map(item => `<li>
+      <a href="${escapeHtml(item.url)}" class="parts-category parts-category-node${item.active ? ' active' : ''}${item.ancestor ? ' is-ancestor' : ''}${Number(item.count) === 0 ? ' is-unavailable' : ''}" style="--category-depth:${Math.max(0, Number(item.depth) || 0)}"${item.active ? ' aria-current="page"' : ''}>
+        <span class="parts-category-chevron" aria-hidden="true">${item.has_children ? (item.active || item.ancestor ? '⌄' : '›') : ''}</span>
+        <span class="parts-category-label">${escapeHtml(item.label)}${Number(item.count) === 0 ? `<small>${root.dataset.locale === 'ru' ? 'Нет в наличии' : 'Немає в наявності'}</small>` : ''}</span><b>${Number(item.count) || 0}</b>
+      </a></li>`).join('');
   }
 
   function renderProducts() {
