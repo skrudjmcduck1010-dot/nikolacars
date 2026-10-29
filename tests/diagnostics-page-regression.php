@@ -69,6 +69,10 @@ foreach (['uk', 'ru'] as $locale) {
         diagnosticsAssert($subtitles->length === 1, "$locale: other service has one subtitle: ".$service['slug']);
         $subtitle = trim(preg_replace('/\s+/u', ' ', $subtitles->item(0)->textContent));
         $custom = [
+            'tesla-12v-battery-replacement' => [
+                'ru' => 'Проверка и замена низковольтной батареи: 12V или lithium-ion по комплектации вашей Tesla.',
+                'uk' => 'Перевірка та заміна низьковольтної батареї: 12V або lithium-ion за комплектацією вашої Tesla.',
+            ],
             'tesla-navigation-firmware' => [
                 'ru' => 'Карты, GPS и маршруты: диагностика, настройка и проверка доступных функций для вашей Tesla.',
                 'uk' => 'Карти, GPS і маршрути: діагностика, налаштування та перевірка доступних функцій для вашої Tesla.',

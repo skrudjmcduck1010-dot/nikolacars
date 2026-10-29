@@ -91,6 +91,15 @@
 
     @if(!empty($modelLanding))
       @include('parts._model_intro')
+    @elseif(!empty($catalogLanding))
+      @include('parts._category_intro')
+    @endif
+    @if(!empty($catalogLinks) && $currentPage === 1 && !($seoNoindex ?? false))
+      <nav class="parts-model-links" aria-label="{{ $isRu ? 'Разделы каталога' : 'Розділи каталогу' }}">
+        @foreach($catalogLinks as $link)
+          <a href="{{ $link['url'] }}">{{ $link['label'] }}</a>
+        @endforeach
+      </nav>
     @endif
 
     <div class="parts-model-tabs" data-models>
@@ -273,7 +282,7 @@
 window.partsI18n = @json($partsI18n);
 window.initialPartsCatalog = @json($initialCatalog);
 window.partsPreferredCategoryPaths = @json(\App\Services\CatalogPath::preferredPaths());
-window.partsModelLanding = @json($modelLanding ?? null);
+window.partsModelLanding = @json($catalogLanding ?? $modelLanding ?? null);
 </script>
-<script src="{{ asset('assets/js/parts.js') }}?v=20261028-cart-fix1" defer></script>
+<script src="{{ asset('assets/js/parts.js') }}?v=20261029-seo-package2" defer></script>
 @endpush

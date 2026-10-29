@@ -9,6 +9,7 @@ final class ModelCatalogSeo
         $models = [
             'model-3-06-2017-12-2023' => ['name' => 'Model 3', 'years' => '2017–2023', 'period' => '06.2017–12.2023'],
             'model-y-01-2020-01-2025' => ['name' => 'Model Y', 'years' => '2020–2025', 'period' => '01.2020–01.2025'],
+            'model-s-04-2016-01-2021' => ['name' => 'Model S', 'years' => '2016–2021', 'period' => '04.2016–01.2021'],
         ];
         if (!isset($models[$modelSlug])) return null;
         $model = $models[$modelSlug];

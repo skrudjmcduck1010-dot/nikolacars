@@ -17,11 +17,17 @@ final class CatalogPath
             'visokovoltna-sistema/bortovii-zariadnii-modul-cardzer' => 'visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer',
             'vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer' => 'vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer',
         ],
+        'model-3-highland-01-2024' => [
+            'diski-i-sini/diski' => 'diski-i-sini/diski/diski',
+            'diski-i-siny/diski' => 'diski-i-siny/diski/diski',
+        ],
         '' => [
             'galma/pedal-galma' => 'galma/pedal-galma/pedal-galma',
             'tormoza/pedal-tormoza' => 'tormoza/pedal-tormoza/pedal-tormoza',
             'zadnii-motor/zadni-pivosi' => 'zadnii-motor/zadni-pivosi/zadni-pivosi',
             'zadnii-motor/zadnie-poluosi' => 'zadnii-motor/zadnie-poluosi/zadnie-poluosi',
+            'zovnisnia-furnitura/podium-nomernogo-znaka' => 'zovnisnia-furnitura/podium-nomernogo-znaka/podium-nomernogo-znaka',
+            'naruznaia-furnitura/podium-nomernogo-znaka' => 'naruznaia-furnitura/podium-nomernogo-znaka/podium-nomernogo-znaka',
         ],
     ];
 

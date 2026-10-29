@@ -225,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (selectedCategory && selectedModel) catalogTitle = `${selectedCategory} — ${selectedModel}`;
     else if (selectedCategory) catalogTitle = `${selectedCategory} — ${t.seoBase}`;
     else if (selectedModel) catalogTitle = `${t.seoBase} — ${selectedModel}`;
-    const modelLanding = !selectedCategory ? window.partsModelLanding : null;
+    const modelLanding = window.partsModelLanding || null;
     if (modelLanding) catalogTitle = modelLanding.heading;
     const modelIntro = $('[data-model-intro]');
     if (modelIntro) modelIntro.hidden = state.page !== 1 || state.q !== '' || state.sort !== 'newest'

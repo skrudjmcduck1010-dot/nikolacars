@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\SkladStorefrontClient;
 use App\Services\CatalogPath;
 use App\Services\ModelCatalogSeo;
+use App\Services\CategoryCatalogSeo;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\Response;
 use Illuminate\Http\JsonResponse;
@@ -245,10 +246,12 @@ class PartsController extends Controller
         $modelLanding = $categoryName === '' && $categorySlug === '' && $categoryPathSlug === ''
             ? ModelCatalogSeo::forModel($modelSlug, $locale)
             : null;
-        if ($modelLanding !== null) {
-            $catalogTitle = $modelLanding['heading'];
-            $seoTitle = implode(' — ', array_filter([$modelLanding['title'], $pageLabel, 'NikolaCars']));
-            $seoDescription = $modelLanding['description'].($pageLabel !== '' ? ' '.$pageLabel.'.' : '');
+        $catalogLanding = $modelLanding ?? CategoryCatalogSeo::forSection($modelSlug, $categoryPathSlug, $locale);
+        $catalogLinks = CategoryCatalogSeo::links($modelSlug, $categorySlug, $categoryPathSlug, $locale);
+        if ($catalogLanding !== null) {
+            $catalogTitle = $catalogLanding['heading'];
+            $seoTitle = implode(' — ', array_filter([$catalogLanding['title'], $pageLabel, 'NikolaCars']));
+            $seoDescription = $catalogLanding['description'].($pageLabel !== '' ? ' '.$pageLabel.'.' : '');
         }
         $seoNoindex = $query !== ''
             || $request->has('sort')
@@ -282,6 +285,8 @@ class PartsController extends Controller
             'seoPage',
             'localeUrls',
             'modelLanding',
+            'catalogLanding',
+            'catalogLinks',
         ));
     }
 
