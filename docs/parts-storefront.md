@@ -306,3 +306,56 @@ the check. The real local entry point was also exercised through PHP CLI:
 Laravel bootstrapped and handled the `/up` health request with status 200.
 This is not an HTTP-server or live-hosting test. This compatibility change is
 committed locally only, not published to HOSTiQ.
+
+## SEO package 2 prepared (2026-10-29, Europe/Kyiv UTC+02:00)
+
+The owner authorized the second narrow SEO release. Four existing localized
+landings were selected from GSC query-to-page observations: Highland wheels and
+hubcaps, number plate brackets, rear brake components, and Model S 2016–2021.
+CategoryCatalogSeo supplies specific metadata and short selection guidance;
+ModelCatalogSeo adds only the existing 2016–2021 Model S generation. Clean hub
+links expose the three category destinations. Text respects the actual mixed
+assortment: currently available Highland items are hubcaps, not wheel rims.
+
+CatalogPath adds four reviewed parent-to-leaf aliases (two groups × UA/RU).
+Each group was proven by complete nonempty product ID sets on 29 October,
+including both locale variants (5 Highland IDs; 7 plate bracket IDs). Only
+these aliases redirect; official repeated levels elsewhere remain unchanged.
+Query strings survive direct 301s. Page-2 canonical and query noindex behavior
+is preserved. The landing heading survives initial JS and AJAX rendering;
+category/model links still perform full document navigation.
+
+Independent production allowlist: app/Services/CatalogPath.php,
+app/Services/ModelCatalogSeo.php, new app/Services/CategoryCatalogSeo.php,
+app/Http/Controllers/PartsController.php, resources/views/parts/index.blade.php,
+new resources/views/parts/_category_intro.blade.php, public/assets/js/parts.js.
+The separately owned 12V service view is the eighth release file. Current
+callback/launcher and 29 October cart changes are preserved.
+
+The battery localization fix is a separate dependency, not part of this
+independent payload. Backend presentation/query normalization is ready in
+StorefrontCatalogTaxonomy, StorefrontCatalogQuery and StorefrontCatalogService;
+it leaves DB and raw available/sold snapshots unchanged. A five-file frontend
+overlay aligns old Russian root aliases, canonical/hreflang, breadcrumbs,
+model links and scoped cache generations only after backend deployment.
+The backend clean-tree release gate is currently blocked by unrelated work;
+no stash, worktree exception, deployment or bypass was performed by this agent.
+
+Verification: tests/seo-package2-regression.php passed 314 assertions over
+32 landing route/Blade variants; with the saved battery overlay, 341 assertions
+passed, including redirect queries, pagination, no loops and sitemap deduping.
+tests/e2e/seo-package2.cjs passed 16 mobile/desktop cases, including AJAX and
+local cart interaction with all network intercepted. Existing nine PHP
+regression scripts passed with the updated 12V subtitle expectation; final
+test-only coordination is owned by release_verifier. Backend related suite:
+60 tests / 688 assertions PASS; PHPStan of the three runtime files PASS.
+
+Evidence and exact before/after SHA manifests live in the project mirror:
+C:/Projects/nikolacars/docs/reports/seo-package2-2026-10-29.md and
+.local-backup-20261029-seo-package2-tech/. The full battery patch is preserved
+under deferred-battery/. Rollback must use the scoped fresh live before files;
+do not roll back the entire site, cart, callback, database or unrelated work.
+Battery frontend must not remain active if backend normalization is rolled back.
+Status here is local preparation; release_verifier/root records deployment and
+live verification separately. GSC observations through 27 October are baseline
+selection evidence, not a measured ranking effect of this package.
