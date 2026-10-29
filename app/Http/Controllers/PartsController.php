@@ -27,7 +27,7 @@ class PartsController extends Controller
         ['uk' => 'ne-viznaceno', 'ru' => 'ne-opredeleno'],
         ['uk' => 'informaciino-rozvazalna-sistema', 'ru' => 'informacionno-razvlekatelnaia-sistema'],
         ['uk' => 'bezpeka-i-zaxist', 'ru' => 'bezopasnost-i-zashhita'],
-        ['uk' => 'visokovoltna-batareia', 'ru' => 'visokovoltna-batareia'],
+        ['uk' => 'visokovoltna-batareia', 'ru' => 'vysokovoltnaia-batareia'],
         ['uk' => 'visokovoltna-sistema', 'ru' => 'vysokovoltnaia-sistema'],
         ['uk' => 'vnutrisnje-ozdoblennia', 'ru' => 'vnutrenniaia-otdelka'],
         ['uk' => 'galma', 'ru' => 'tormoza'],
@@ -130,10 +130,12 @@ class PartsController extends Controller
 
         // Redirect reviewed duplicates directly, including legacy /subcategory/
         // URLs. Do not collapse repeated official taxonomy levels globally.
-        $preferredCategoryPath = CatalogPath::preferred($categoryPathSlug, $modelSlug);
-        if ($categoryPathSlug !== '' && $preferredCategoryPath !== CatalogPath::normalize($categoryPathSlug)) {
+        $preferredCategoryPath = CatalogPath::preferred(CatalogPath::localized($categoryPathSlug, $locale), $modelSlug);
+        $preferredCategorySlug = CatalogPath::localized($categorySlug, $locale);
+        if (($categoryPathSlug !== '' && $preferredCategoryPath !== CatalogPath::normalize($categoryPathSlug))
+            || $preferredCategorySlug !== $categorySlug) {
             $target = ($locale === 'ru' ? '/ru/parts/' : '/parts/')
-                .($modelSlug !== '' ? $modelSlug.'/' : '').$preferredCategoryPath.'/';
+                .($modelSlug !== '' ? $modelSlug.'/' : '').($preferredCategoryPath ?: $preferredCategorySlug).'/';
             $queryString = http_build_query($request->query());
 
             return redirect()->away(rtrim(url($target), '/').'/'.($queryString !== '' ? '?'.$queryString : ''), 301);
@@ -159,7 +161,7 @@ class PartsController extends Controller
 
         try {
             $initialCatalog = $this->cachedStorefrontPayload(
-                'storefront:catalog:v6:'.sha1(json_encode($catalogQuery, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)),
+                'storefront:catalog:v7:'.sha1(json_encode($catalogQuery, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)),
                 fn (): Response => $client->catalog($catalogQuery),
                 [404, 410, 422],
             );
@@ -305,7 +307,7 @@ class PartsController extends Controller
         foreach (['uk', 'ru'] as $locale) {
             $base = $locale === 'ru' ? '/ru/parts' : '/parts';
             $categoryPathSlug = trim((string) ($categoryPathLocaleSlugs[$locale] ?? ''));
-            $categoryPath = CatalogPath::preferred($categoryPathSlug, $modelSlug);
+            $categoryPath = CatalogPath::preferred(CatalogPath::localized($categoryPathSlug, $locale), $modelSlug);
             if ($modelSlug !== '' && $categoryPathSlug !== '') {
                 $urls[$locale] = $base.'/'.$modelSlug.'/'.$categoryPath.'/';
             } elseif ($categoryPathSlug !== '') {
@@ -328,7 +330,7 @@ class PartsController extends Controller
     {
         $query = $request->query() + ['locale' => $locale];
         ksort($query);
-        $cacheKey = 'storefront:ajax-catalog:v1:'.sha1(json_encode($query, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+        $cacheKey = 'storefront:ajax-catalog:v2:'.sha1(json_encode($query, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
         try {
             $payload = Cache::flexible($cacheKey, [60, 300], function () use ($client, $query): array {
                 $response = $client->catalog($query);
@@ -364,7 +366,7 @@ class PartsController extends Controller
 
         try {
             $productData = $this->cachedStorefrontPayload(
-                'storefront:product:v7:'.$locale.':'.$product,
+                'storefront:product:v8:'.$locale.':'.$product,
                 fn (): Response => $client->product($product, $locale),
                 [404, 410, 422],
             );
@@ -584,6 +586,7 @@ class PartsController extends Controller
         }
         foreach ($categoryBreadcrumbs as $index => $breadcrumb) {
             $slug = trim((string) $breadcrumb['slug']);
+            $slug = CatalogPath::localized($slug, $locale);
             $path = CatalogPath::preferred($slug, $modelSlug);
             $categoryPath = $index === 0
                 ? ($modelSlug !== '' ? $modelSlug.'/'.$slug.'/' : $slug.'/')

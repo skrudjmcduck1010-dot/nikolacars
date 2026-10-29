@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Page;
 use App\Models\Post;
 use App\Services\SkladStorefrontClient;
+use App\Services\CatalogPath;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -113,7 +114,7 @@ class SiteController extends Controller
         abort_unless(in_array($locale, ['uk', 'ru'], true), 404);
 
         $xml = Cache::flexible(
-            'sitemap:parts:'.$locale.':xml:v9',
+            'sitemap:parts:'.$locale.':xml:v10',
             [3600, 604800],
             function () use ($locale, $storefront): string {
                 $partsIndex = $this->partsIndex($storefront);
@@ -130,7 +131,7 @@ class SiteController extends Controller
                 foreach (($sections['categories'] ?? []) as $category) {
                     if (! empty($category['slug'])
                         && ! in_array($category['slug'], self::NON_INDEXABLE_CATEGORY_SLUGS, true)) {
-                        $paths[] = [$prefix.'/'.$category['slug'], $partsIndex['updated_at'] ?? null];
+                        $paths[] = [$prefix.'/'.CatalogPath::localized($category['slug'], $locale), $partsIndex['updated_at'] ?? null];
                     }
                 }
 
@@ -142,7 +143,7 @@ class SiteController extends Controller
                         && ! empty($section['category_slug'])
                         && ! in_array($section['category_slug'], self::NON_INDEXABLE_CATEGORY_SLUGS, true)) {
                         $paths[] = [
-                            $prefix.'/'.$section['model_slug'].'/'.$section['category_slug'],
+                            $prefix.'/'.$section['model_slug'].'/'.CatalogPath::localized($section['category_slug'], $locale),
                             $partsIndex['updated_at'] ?? null,
                         ];
                     }
@@ -168,21 +169,21 @@ class SiteController extends Controller
     protected function partsIndex(SkladStorefrontClient $storefront): array
     {
         try {
-            return Cache::remember('sitemap:parts-index:v6', now()->addHour(), function () use ($storefront): array {
+            return Cache::remember('sitemap:parts-index:v7', now()->addHour(), function () use ($storefront): array {
                 $response = $storefront->seoIndex();
                 if (! $response->successful() || ! is_array($response->json())) {
                     throw new RuntimeException('Warehouse SEO index returned HTTP '.$response->status().'.');
                 }
 
                 $payload = $response->json();
-                Cache::put('sitemap:parts-index:stale:v6', $payload, now()->addDays(7));
+                Cache::put('sitemap:parts-index:stale:v7', $payload, now()->addDays(7));
 
                 return $payload;
             });
         } catch (ConnectionException|RuntimeException $exception) {
             report($exception);
 
-            return Cache::get('sitemap:parts-index:stale:v6', Cache::get('sitemap:parts-index:stale:v5', []));
+            return Cache::get('sitemap:parts-index:stale:v7', Cache::get('sitemap:parts-index:stale:v6', Cache::get('sitemap:parts-index:stale:v5', [])));
         }
     }
 

@@ -50,9 +50,9 @@
       'slug' => $product['category_slug'],
     ]]);
   }
-  $categoryBreadcrumbUrl = static function (array $breadcrumb, int $index) use ($catalogUrl, $product): string {
+  $categoryBreadcrumbUrl = static function (array $breadcrumb, int $index) use ($catalogUrl, $product, $locale): string {
     $modelSlug = trim((string) ($product['model_slug'] ?? ''));
-    $slug = trim((string) ($breadcrumb['slug'] ?? ''));
+    $slug = \App\Services\CatalogPath::localized(trim((string) ($breadcrumb['slug'] ?? '')), $locale);
     $path = \App\Services\CatalogPath::preferred($slug, $modelSlug);
     if ($index === 0) {
       return $modelSlug !== '' ? $catalogUrl.$modelSlug.'/'.$slug.'/' : $catalogUrl.$slug.'/';

@@ -43,6 +43,16 @@ final class CatalogPath
         return self::PREFERRED_PATHS;
     }
 
+    public static function localized(string $path, string $locale): string
+    {
+        $path = self::normalize($path);
+        if ($locale === 'ru' && ($path === 'visokovoltna-batareia' || str_starts_with($path, 'visokovoltna-batareia/'))) {
+            return 'vysokovoltnaia-batareia'.substr($path, strlen('visokovoltna-batareia'));
+        }
+
+        return $path;
+    }
+
     public static function normalize(string $path): string
     {
         $segments = preg_split('~(?:/|--)+~', trim($path, '/'), -1, PREG_SPLIT_NO_EMPTY) ?: [];

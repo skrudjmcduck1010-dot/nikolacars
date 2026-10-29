@@ -1,6 +1,6 @@
 @php
   $usefulSlugs = $isRu
-    ? ['kuzov', 'elektrika', 'komponenty-zakrytiia', 'podveska', 'visokovoltna-batareia']
+    ? ['kuzov', 'elektrika', 'komponenty-zakrytiia', 'podveska', 'vysokovoltnaia-batareia']
     : ['kuzov', 'elektrika', 'komponenti-zakrittia', 'pidviska', 'visokovoltna-batareia'];
   $modelLinks = collect($categories)->filter(fn ($category) =>
     in_array($category['slug'] ?? '', $usefulSlugs, true) && (int) ($category['count'] ?? 0) > 0
