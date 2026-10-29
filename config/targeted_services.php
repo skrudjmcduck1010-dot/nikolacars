@@ -1,7 +1,7 @@
 <?php
 
 return [
-    ['slug' => 'tesla-navigation-firmware', 'icon' => '🗺️', 'name_ru' => 'Прошивка навигации и FSD Tesla', 'name_uk' => 'Прошивка навігації та FSD Tesla'],
+    ['slug' => 'tesla-navigation-firmware', 'icon' => '🗺️', 'name_ru' => 'Прошивка навигации Tesla', 'name_uk' => 'Прошивка навігації Tesla'],
     ['slug' => 'tesla-drive-unit-oil-repair', 'icon' => '🛢️', 'name_ru' => 'Замена масла в редукторе Tesla', 'name_uk' => 'Заміна та ремонт мастила в редукторі Tesla'],
     ['slug' => 'tesla-computer-diagnostics', 'icon' => '🧪', 'name_ru' => 'Компьютерная диагностика Tesla', 'name_uk' => 'Комп’ютерна діагностика Tesla'],
     ['slug' => 'tesla-pre-purchase-inspection', 'icon' => '🔍', 'name_ru' => 'Проверка Tesla перед покупкой', 'name_uk' => 'Перевірка Tesla перед купівлею'],
@@ -43,6 +43,6 @@ return [
     ['slug' => 'tesla-modem-repair', 'icon' => '📡', 'name_ru' => 'Замена и ремонт модема Tesla', 'name_uk' => 'Заміна та ремонт модема Tesla'],
     ['slug' => 'tesla-radar-calibration', 'icon' => '📍', 'name_ru' => 'Калибровка радара Tesla', 'name_uk' => 'Калібрування радара Tesla'],
     ['slug' => 'tesla-camera-calibration', 'icon' => '🎯', 'name_ru' => 'Калибровка камеры Tesla', 'name_uk' => 'Калібрування камери Tesla'],
-    ['slug' => 'tesla-key-flash', 'icon' => '🔑', 'name_ru' => 'Прошить ключ Tesla', 'name_uk' => 'Прошити ключ Tesla'],
+    ['slug' => 'tesla-key-flash', 'icon' => '🔑', 'name_ru' => 'Программирование ключей Tesla', 'name_uk' => 'Програмування ключів Tesla'],
     ['slug' => 'tesla-ccs-charge-port-repair', 'icon' => '🔌', 'name_ru' => 'Замена и ремонт порта зарядки Tesla на CCS', 'name_uk' => 'Заміна та ремонт порту заряджання Tesla на CCS'],
 ];

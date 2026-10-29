@@ -69,7 +69,35 @@ foreach (['uk', 'ru'] as $locale) {
     policyAssert($product['category']['codeValue'] === '5613', "$locale: corrected taxonomy retained");
     policyAssert(str_contains($html, $locale === 'ru' ? 'от 1 до 16 часов' : 'від 1 до 16 годин'), "$locale: exact visible preparation time retained");
     policyAssert(str_contains($html, $locale === 'ru' ? 'отправить Новой почтой или передать лично' : 'надіслати Новою поштою або передати особисто'), "$locale: return methods visible, not just schema");
-    policyAssert(substr_count($html, 'application/ld+json') === 3, "$locale: product, merchant and breadcrumbs render as JSON-LD");
+    $dom = new DOMDocument();
+    $previous = libxml_use_internal_errors(true);
+    $dom->loadHTML('<?xml encoding="UTF-8">'.$html);
+    libxml_clear_errors();
+    libxml_use_internal_errors($previous);
+    $renderedSchemas = [];
+    $appendSchemas = function (array $document) use (&$appendSchemas, &$renderedSchemas): void {
+        if (array_is_list($document)) {
+            foreach ($document as $entry) {
+                $appendSchemas($entry);
+            }
+        } elseif (isset($document['@graph'])) {
+            $appendSchemas($document['@graph']);
+        } elseif (isset($document['@type'])) {
+            $renderedSchemas[] = $document;
+        }
+    };
+    foreach ((new DOMXPath($dom))->query('//script[@type="application/ld+json"]') as $script) {
+        $appendSchemas(json_decode($script->textContent, true, 512, JSON_THROW_ON_ERROR));
+    }
+    foreach (['Product', 'Organization', 'BreadcrumbList'] as $type) {
+        $matches = array_values(array_filter($renderedSchemas, fn (array $schema): bool => in_array($type, (array) $schema['@type'], true)));
+        policyAssert(count($matches) === 1, "$locale: exactly one rendered $type JSON-LD entity");
+        if ($type === 'Product') {
+            policyAssert($matches[0]['offers']['hasMerchantReturnPolicy'] === $return, "$locale: rendered product preserves verified return policy");
+        } elseif ($type === 'Organization') {
+            policyAssert($matches[0]['hasShippingService'] === $shipping, "$locale: rendered merchant preserves verified delivery policy");
+        }
+    }
     Http::assertSentCount(1);
 }
 

@@ -244,7 +244,7 @@
         const json = await res.json().catch(() => null);
 
         if (res.ok && json && (json.ok === true || json.success === true)) {
-          if (status) status.textContent = t('✅ Отправлено! Мы свяжемся с вами.', '✅ Надіслано! Ми зв’яжемося з вами.');
+          if (status) status.textContent = window.ncLeadSuccessMessage(json, t('✅ Отправлено! Мы свяжемся с вами.', '✅ Надіслано! Ми зв’яжемося з вами.'));
           window.ncAnalytics?.lead('contacts_callback');
           form.reset();
           if (phoneInput) phoneInput.value = '+380';

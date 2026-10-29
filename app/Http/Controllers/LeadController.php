@@ -53,12 +53,19 @@ class LeadController extends Controller
         $externalId = (string) Str::uuid();
         $serviceTitle = $data['service_title'] ?? ($data['slide_service'] ?? null);
         $kyivTime = now('Europe/Kyiv');
-        $afterHours = $kyivTime->hour < 10 || $kyivTime->hour >= 18;
-        $nextWorkingAt = $afterHours
-            ? ($kyivTime->hour < 10
-                ? $kyivTime->copy()->setTime(10, 0)
-                : $kyivTime->copy()->addDay()->setTime(10, 0))
-            : null;
+        // Website contact hours: Monday-Friday, 10:00-18:00 Kyiv time.
+        // These fields only describe the success notice; delivery remains immediate.
+        $afterHours = $kyivTime->isWeekend() || $kyivTime->hour < 10 || $kyivTime->hour >= 18;
+        $nextWorkingAt = null;
+        if ($afterHours) {
+            $nextWorkingAt = $kyivTime->copy()->setTime(10, 0);
+            if ($kyivTime->hour >= 18) {
+                $nextWorkingAt->addDay();
+            }
+            while ($nextWorkingAt->isWeekend()) {
+                $nextWorkingAt->addDay();
+            }
+        }
 
         try {
             $response = $sklad->createStoWebsiteRequest([

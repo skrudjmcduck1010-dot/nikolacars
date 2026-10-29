@@ -13,6 +13,9 @@
   @endphp
   <title>{{ $seoTitle ?? ($locale === 'ru' ? 'Запчасти Tesla — NikolaCars' : 'Запчастини Tesla — NikolaCars') }}</title>
   <meta name="description" content="{{ $seoDescription ?? ($locale === 'ru' ? 'Оригинальные запчасти Tesla в наличии в Киеве.' : 'Оригінальні запчастини Tesla в наявності у Києві.') }}">
+  @if(!empty($seoImage))
+    <meta property="og:image" content="{{ $seoImage }}">
+  @endif
   @if($seoNoindex ?? false)<meta name="robots" content="noindex, follow">@endif
   <link rel="canonical" href="https://nikolacars.kiev.ua{{ $locale === 'ru' ? $seoRuPath : $seoUaPath }}{{ $seoPageQuery }}">
   <link rel="alternate" hreflang="uk-UA" href="https://nikolacars.kiev.ua{{ $seoUaPath }}{{ $seoPageQuery }}">
@@ -26,7 +29,8 @@
   <link rel="dns-prefetch" href="//sklad.nikolacars.kiev.ua">
   <link rel="stylesheet" href="{{ asset('assets/css/app.min.css') }}?v=20260822">
   <link rel="stylesheet" href="{{ asset('assets/css/language-switch.css') }}?v=20261008-1">
-  <link rel="stylesheet" href="{{ asset('assets/css/parts.css') }}?v=46">
+  <link rel="stylesheet" href="{{ asset('assets/css/parts.css') }}?v=72">
+  <link rel="stylesheet" href="{{ asset('assets/css/parts-contact.css') }}?v=20261027-launcher-1">
 </head>
 <body class="parts-page">
 @php
@@ -77,16 +81,13 @@
       </div>
       @include('partials.parts-dropdown', ['locale' => $loc, 'active' => true])
       <a href="{{ $isRu ? '/ru/testimonial/' : '/testimonial/' }}">{{ $isRu ? 'Отзывы' : 'Відгуки' }}</a>
-      <a href="{{ $isRu ? '/ru/news/' : '/news/' }}">{{ $isRu ? 'Новости' : 'Новини' }}</a>
       <a href="{{ $isRu ? '/ru/contacts/' : '/contacts/' }}">{{ $isRu ? 'Контакты' : 'Контакти' }}</a>
+      @include('partials.mobile-menu-phones')
     </nav>
     <div class="lang">@include('partials.header-cart')<a class="pill {{ !$isRu ? 'active' : '' }}" href="{{ $uaUrl }}" @if(!$isRu) aria-current="page" @endif>UA</a><a class="pill {{ $isRu ? 'active' : '' }}" href="{{ $ruUrl }}" @if($isRu) aria-current="page" @endif>RU</a></div>
   </div>
 </header>
 
-<button type="button" class="parts-floating-cart" data-open-cart aria-label="{{ $isRu ? 'Открыть корзину' : 'Відкрити кошик' }}">
-  {{ $isRu ? 'Корзина' : 'Кошик' }} <span data-cart-count>0</span>
-</button>
   @include('partials.cart-modal')
   @yield('content')
   @stack('scripts')
@@ -138,6 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
   closeMenu();
 });
 </script>
+@include('partials.parts-contact')
 @include('partials.call-tracking')
 </body>
 </html>

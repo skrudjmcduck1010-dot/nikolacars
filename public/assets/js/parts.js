@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const hasPrice = product => Number(product?.price_uah) > 0;
   const priceLabel = product => hasPrice(product)
     ? money(product.price_uah)
-    : `<strong>${escapeHtml(t.priceOnRequest)}</strong><span>${escapeHtml(t.byPhone)}</span><span><a href="tel:+380990698380" class="binct-phone-number-1">${escapeHtml(t.pricePhone)}</a></span><span><a href="tel:+380634730819" class="binct-phone-number-2">${escapeHtml(t.pricePhoneSecondary)}</a></span>`;
+    : `<strong>${escapeHtml(t.priceOnRequest)} ${escapeHtml(t.byPhone)}</strong><span><a href="tel:+380501753084">${escapeHtml(t.pricePhone)}</a></span>`;
   const escapeHtml = value => String(value ?? '').replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char]));
   const saveCart = () => { localStorage.setItem(cartKey, JSON.stringify(cart)); renderCart(); renderProducts(); };
   const sectionUrl = (modelSlug = '', categorySlug = '') => {
@@ -47,7 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const subcategoryUrl = (modelSlug = '', categoryPathSlug = '') => {
     const base = root.dataset.catalogBase;
     if (!categoryPathSlug) return modelSlug ? `${base}/${modelSlug}/` : `${base}/`;
-    const categoryPath = categoryPathSlug.split(/(?:\/|--)+/).filter(Boolean).join('/');
+    const normalizedPath = categoryPathSlug.split(/(?:\/|--)+/).filter(Boolean).join('/');
+    const categoryPath = window.partsPreferredCategoryPaths?.[modelSlug]?.[normalizedPath] || normalizedPath;
     return modelSlug
       ? `${base}/${modelSlug}/${categoryPath}/`
       : `${base}/${categoryPath}/`;
@@ -224,6 +225,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (selectedCategory && selectedModel) catalogTitle = `${selectedCategory} — ${selectedModel}`;
     else if (selectedCategory) catalogTitle = `${selectedCategory} — ${t.seoBase}`;
     else if (selectedModel) catalogTitle = `${t.seoBase} — ${selectedModel}`;
+    const modelLanding = !selectedCategory ? window.partsModelLanding : null;
+    if (modelLanding) catalogTitle = modelLanding.heading;
+    const modelIntro = $('[data-model-intro]');
+    if (modelIntro) modelIntro.hidden = state.page !== 1 || state.q !== '' || state.sort !== 'newest'
+      || initialParams.has('sort') || initialParams.has('model') || initialParams.has('category');
 
     $('[data-page-title]').textContent = catalogTitle;
     $('[data-results-title]').textContent = selectedCategory || state.model || t.allProducts;
@@ -231,7 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
     $('[data-empty]').hidden = state.products.length > 0;
     if (!state.products.length) $('[data-empty]').textContent = t.empty;
     const pageLabel = state.page > 1 ? `${t.pagePrefix} ${state.page}` : '';
-    document.title = [catalogTitle, pageLabel, t.seoSuffix].filter(Boolean).join(' — ');
+    document.title = [modelLanding?.title || catalogTitle, pageLabel, t.seoSuffix].filter(Boolean).join(' — ');
   }
 
   function paginationUrl(page) {
@@ -306,20 +312,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const imageHeight = Number(product.thumbnail_height || 300);
       const image = imageUrl ? `<img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(product.name)}" width="${imageWidth}" height="${imageHeight}" loading="${index === 0 ? 'eager' : 'lazy'}" decoding="async"${index === 0 ? ' fetchpriority="high"' : ''} onerror="this.closest('.part-image').classList.add('no-image');this.remove()">` : '';
       const productUrl = `${root.dataset.productBase}/${product.url_slug || product.id}/`;
-      const categoryPath = (product.category_breadcrumbs || []).length
-        ? product.category_breadcrumbs.map((breadcrumb, index) => {
-            const href = index === 0
-              ? sectionUrl(state.modelSlug, breadcrumb.slug)
-              : subcategoryUrl(state.modelSlug, breadcrumb.slug);
-            return `${index ? '<span aria-hidden="true">/</span> ' : ''}<a href="${href}">${escapeHtml(breadcrumb.label)}</a>`;
-          }).join(' ')
-        : escapeHtml(product.category_path);
       return `<article class="part-card ${isSold ? 'is-sold' : ''}">
         <a href="${productUrl}" class="part-image ${image ? '' : 'no-image'}">${image}<span>NIKOLACARS</span>${isSold ? `<b class="part-sold-badge">${escapeHtml(t.sold)}</b>` : ''}</a>
         <div class="part-card-body">
           <h3><a href="${productUrl}">${escapeHtml(product.name)}</a></h3>
-          <div class="part-codes">${escapeHtml([product.part_number, product.sku, product.vin].filter(Boolean).join(' · '))}</div>
-          <div class="part-category-path">${categoryPath}</div>
+          <div class="part-codes">${escapeHtml(product.part_number)}</div>
           <div class="part-purchase-row">
             <div class="part-purchase-info">
               ${isSold ? '' : `<div class="part-price ${hasPrice(product) ? '' : 'part-price-on-request'}">${priceLabel(product)}</div>`}
@@ -338,7 +335,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function renderCart() {
-    $('[data-cart-count]').textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+    $$('[data-cart-count]').forEach(element => {
+      element.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+    });
     window.dispatchEvent(new Event('nc:cart-updated'));
     $('[data-cart-empty]').hidden = cart.length > 0;
     $('[data-checkout]').hidden = cart.length === 0;
@@ -464,6 +463,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (form.delivery_method.value === 'nova_poshta' && (!form.nova_poshta_city_ref.value || !form.nova_poshta_warehouse_ref.value)) {
       errorBox.textContent = t.required; errorBox.hidden = false; return;
     }
+    $('[data-success]').hidden = true;
+    const afterHoursNotice = $('[data-success-after-hours]');
+    if (afterHoursNotice) afterHoursNotice.hidden = true;
     const submit = $('.checkout-submit', form); submit.disabled = true;
     const data = Object.fromEntries(new FormData(form).entries());
     data.request_id = crypto.randomUUID();
@@ -474,6 +476,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!response.ok) throw new Error(result.message || Object.values(result.errors || {}).flat()[0] || t.orderError);
       window.ncAnalytics?.lead('parts_order');
       cart = []; saveCart(); form.reset(); closeCart();
+      if (afterHoursNotice) afterHoursNotice.hidden = result.after_hours !== true;
       $('[data-success-text]').textContent = t.success.replace(':number', result.number); $('[data-success]').hidden = false;
     } catch (error) { errorBox.textContent = error.message || t.orderError; errorBox.hidden = false; }
     finally { submit.disabled = false; }

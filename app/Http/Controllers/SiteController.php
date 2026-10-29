@@ -64,7 +64,7 @@ class SiteController extends Controller
 
     public function sitemapPages(Request $request)
     {
-        $xml = Cache::remember('sitemap:pages:xml:v1', now()->addDay(), function (): string {
+        $xml = Cache::remember('sitemap:pages:xml:v2', now()->addDay(), function (): string {
             $paths = [
                 '/',
                 '/ru/',
@@ -72,8 +72,6 @@ class SiteController extends Controller
                 '/ru/services/',
                 '/testimonial/',
                 '/ru/testimonial/',
-                '/news/',
-                '/ru/news/',
                 '/contacts/',
                 '/ru/contacts/',
                 '/privacy-policy/',

@@ -33,12 +33,12 @@
       </section>
       <aside class="checkout-page-summary"><h2>{{ $isRu ? 'Ваш заказ' : 'Ваше замовлення' }}</h2><div data-checkout-items></div><div class="cart-total"><span>{{ $isRu ? 'Итого' : 'Разом' }}</span><b data-checkout-total></b></div><button type="button" class="checkout-edit" data-edit-basket>{{ $isRu ? 'Редактировать товары' : 'Редагувати товари' }}</button></aside>
     </div>
-    <section class="checkout-page-success" data-success hidden role="status"><h2>{{ $isRu ? 'Спасибо! Заказ оформлен' : 'Дякуємо! Замовлення оформлено' }}</h2><p data-success-text></p><a href="{{ $isRu ? '/ru/parts/' : '/parts/' }}">{{ $isRu ? 'Вернуться в каталог' : 'Повернутися до каталогу' }}</a></section>
+    <section class="checkout-page-success" data-success hidden role="status"><h2>{{ $isRu ? 'Спасибо! Заказ оформлен' : 'Дякуємо! Замовлення оформлено' }}</h2><p data-success-text></p><p data-success-after-hours hidden>{{ $isRu ? 'Заказ создан в нерабочее время. Мы обработаем его в ближайшее рабочее время. График работы: пн–пт, 10:00–18:00.' : 'Замовлення створено в неробочий час. Ми опрацюємо його в найближчий робочий час. Графік роботи: пн–пт, 10:00–18:00.' }}</p><a href="{{ $isRu ? '/ru/parts/' : '/parts/' }}">{{ $isRu ? 'Вернуться в каталог' : 'Повернутися до каталогу' }}</a></section>
   </div>
 </main>
 <link rel="stylesheet" href="{{ asset('assets/css/checkout.css') }}?v=2">
 @endsection
 @push('scripts')
 <script>window.checkoutI18n = @json(['orderError' => $isRu ? 'Не удалось оформить заказ.' : 'Не вдалося оформити замовлення.', 'required' => $isRu ? 'Заполните обязательные поля.' : 'Заповніть обов’язкові поля.', 'success' => $isRu ? 'Номер вашего заказа: :number. Мы свяжемся с вами для подтверждения.' : 'Номер вашого замовлення: :number. Ми зв’яжемося з вами для підтвердження.']);</script>
-<script src="{{ asset('assets/js/checkout.js') }}?v=1" defer></script>
+<script src="{{ asset('assets/js/checkout.js') }}?v=20261018-after-hours-order" defer></script>
 @endpush

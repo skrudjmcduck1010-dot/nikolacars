@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\SkladStorefrontClient;
 use App\Services\CatalogPath;
+use App\Services\ModelCatalogSeo;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\Response;
 use Illuminate\Http\JsonResponse;
@@ -126,6 +127,17 @@ class PartsController extends Controller
             return redirect()->away($targetUrl.($queryString !== '' ? '?'.$queryString : ''), 301);
         }
 
+        // Redirect reviewed duplicates directly, including legacy /subcategory/
+        // URLs. Do not collapse repeated official taxonomy levels globally.
+        $preferredCategoryPath = CatalogPath::preferred($categoryPathSlug, $modelSlug);
+        if ($categoryPathSlug !== '' && $preferredCategoryPath !== CatalogPath::normalize($categoryPathSlug)) {
+            $target = ($locale === 'ru' ? '/ru/parts/' : '/parts/')
+                .($modelSlug !== '' ? $modelSlug.'/' : '').$preferredCategoryPath.'/';
+            $queryString = http_build_query($request->query());
+
+            return redirect()->away(rtrim(url($target), '/').'/'.($queryString !== '' ? '?'.$queryString : ''), 301);
+        }
+
         $page = max(1, $request->integer('page', 1));
         $query = trim((string) $request->query('q', ''));
         $sort = (string) $request->query('sort', 'newest');
@@ -230,6 +242,14 @@ class PartsController extends Controller
         $seoDescription = $locale === 'ru'
             ? 'Оригинальные запчасти Tesla в наличии в Киеве'.($sectionName !== '' ? ': '.$sectionName : '').($page > 1 ? '. Страница '.$page : '').'.'
             : 'Оригінальні запчастини Tesla в наявності у Києві'.($sectionName !== '' ? ': '.$sectionName : '').($page > 1 ? '. Сторінка '.$page : '').'.';
+        $modelLanding = $categoryName === '' && $categorySlug === '' && $categoryPathSlug === ''
+            ? ModelCatalogSeo::forModel($modelSlug, $locale)
+            : null;
+        if ($modelLanding !== null) {
+            $catalogTitle = $modelLanding['heading'];
+            $seoTitle = implode(' — ', array_filter([$modelLanding['title'], $pageLabel, 'NikolaCars']));
+            $seoDescription = $modelLanding['description'].($pageLabel !== '' ? ' '.$pageLabel.'.' : '');
+        }
         $seoNoindex = $query !== ''
             || $request->has('sort')
             || $request->has('model')
@@ -261,6 +281,7 @@ class PartsController extends Controller
             'seoNoindex',
             'seoPage',
             'localeUrls',
+            'modelLanding',
         ));
     }
 
@@ -279,7 +300,7 @@ class PartsController extends Controller
         foreach (['uk', 'ru'] as $locale) {
             $base = $locale === 'ru' ? '/ru/parts' : '/parts';
             $categoryPathSlug = trim((string) ($categoryPathLocaleSlugs[$locale] ?? ''));
-            $categoryPath = CatalogPath::normalize($categoryPathSlug);
+            $categoryPath = CatalogPath::preferred($categoryPathSlug, $modelSlug);
             if ($modelSlug !== '' && $categoryPathSlug !== '') {
                 $urls[$locale] = $base.'/'.$modelSlug.'/'.$categoryPath.'/';
             } elseif ($categoryPathSlug !== '') {
@@ -353,6 +374,22 @@ class PartsController extends Controller
 
         $canonicalSegment = $this->productUrlSlug($productData, $product);
         $productData['url_slug'] = $canonicalSegment;
+        // Recommendations must point to available stock, including on sold pages.
+        $recommendedIds = [$product];
+        foreach (['similar_products', 'subcategory_products'] as $key) {
+            $productData[$key] = collect($productData[$key] ?? [])
+                ->filter(function ($item) use (&$recommendedIds): bool {
+                    if (! is_array($item) || (int) ($item['quantity'] ?? 0) <= 0
+                        || ($item['availability_status'] ?? '') === 'sold'
+                        || (int) ($item['id'] ?? 0) <= 0
+                        || in_array((int) $item['id'], $recommendedIds, true)) {
+                        return false;
+                    }
+                    $recommendedIds[] = (int) $item['id'];
+
+                    return true;
+                })->values()->all();
+        }
         $productData = $this->withProductUrlSlugs($productData);
         $catalogPath = $locale === 'ru' ? '/ru/parts/' : '/parts/';
         if ($productSlug !== $canonicalSegment) {
@@ -495,6 +532,8 @@ class PartsController extends Controller
         $productSchema = $images !== [] && $offer !== null ? array_filter([
             '@context' => 'https://schema.org',
             '@type' => 'Product',
+            '@id' => $productUrl.'#product',
+            'mainEntityOfPage' => ['@id' => $productUrl.'#webpage'],
             'name' => $productTitle,
             'image' => $images,
             'description' => $productData['description'],
@@ -540,7 +579,7 @@ class PartsController extends Controller
         }
         foreach ($categoryBreadcrumbs as $index => $breadcrumb) {
             $slug = trim((string) $breadcrumb['slug']);
-            $path = CatalogPath::normalize($slug);
+            $path = CatalogPath::preferred($slug, $modelSlug);
             $categoryPath = $index === 0
                 ? ($modelSlug !== '' ? $modelSlug.'/'.$slug.'/' : $slug.'/')
                 : ($modelSlug !== '' ? $modelSlug.'/'.$path.'/' : $path.'/');
@@ -570,8 +609,17 @@ class PartsController extends Controller
             ],
             'seoTitle' => $seoTitle,
             'seoDescription' => $seoDescription,
+            'seoImage' => $images[0] ?? null,
             'seoStructuredData' => array_values(array_filter([
                 $productSchema,
+                $images !== [] ? array_filter([
+                    '@context' => 'https://schema.org',
+                    '@type' => 'WebPage',
+                    '@id' => $productUrl.'#webpage',
+                    'url' => $productUrl,
+                    'primaryImageOfPage' => $images[0],
+                    'mainEntity' => $productSchema !== null ? ['@id' => $productUrl.'#product'] : null,
+                ]) : null,
                 $merchantSchema,
                 [
                     '@context' => 'https://schema.org',
@@ -691,7 +739,7 @@ class PartsController extends Controller
             }
 
             $availability = $isSold
-                ? 'Эта запчасть продана. Посмотрите доступные аналоги на странице.'
+                ? 'Эта запчасть продана. Посмотрите похожие запчасти в каталоге.'
                 : ($quantity > 0
                     ? 'Запчасть в наличии на складе NikolaCars: '.$quantity.' шт.'
                     : 'Наличие запчасти уточняйте у менеджера NikolaCars.');
@@ -723,7 +771,7 @@ class PartsController extends Controller
         }
 
         $availability = $isSold
-            ? 'Цю запчастину продано. Перегляньте доступні аналоги на сторінці.'
+            ? 'Цю запчастину продано. Перегляньте схожі запчастини в каталозі.'
             : ($quantity > 0
                 ? 'Запчастина є в наявності на складі NikolaCars: '.$quantity.' шт.'
                 : 'Наявність запчастини уточнюйте у менеджера NikolaCars.');
@@ -794,7 +842,17 @@ class PartsController extends Controller
 
     public function storeOrder(Request $request, SkladStorefrontClient $client, string $locale = 'uk'): JsonResponse
     {
-        return $this->proxy(fn () => $client->createOrder($request->all() + ['locale' => $locale]));
+        $response = $this->proxy(fn () => $client->createOrder($request->all() + ['locale' => $locale]));
+
+        if ($response->isSuccessful()) {
+            // Parts orders are processed Mon–Fri, 10:00–18:00 Kyiv time.
+            $kyivTime = now('Europe/Kyiv');
+            $payload = $response->getData(true);
+            $payload['after_hours'] = $kyivTime->isWeekend() || $kyivTime->hour < 10 || $kyivTime->hour >= 18;
+            $response->setData($payload);
+        }
+
+        return $response;
     }
 
     protected function proxy(callable $callback, ?callable $transform = null): JsonResponse

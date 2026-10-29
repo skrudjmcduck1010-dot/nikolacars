@@ -191,9 +191,7 @@
 
                   <div class="call-success"
                        data-call-success
-                       data-default-message="{{ $isRu ? 'Спасибо! Мы перезвоним вам в течение нескольких минут' : 'Дякуємо, ми Вам передзвонимо через декілька хвилин' }}"
-                       data-after-hours-message="{{ $isRu ? 'Спасибо! Сейчас мы не работаем. Перезвоним вам в ближайшее рабочее время.' : 'Дякуємо! Зараз ми не працюємо. Передзвонимо вам у найближчий робочий час.' }}"
-                       data-next-working-label="{{ $isRu ? 'Ближайшее время для звонка' : 'Найближчий час для дзвінка' }}">
+                       data-default-message="{{ $isRu ? 'Спасибо! Мы перезвоним вам в течение нескольких минут' : 'Дякуємо, ми Вам передзвонимо через декілька хвилин' }}">
                     {{ $isRu ? 'Спасибо! Мы перезвоним вам в течение нескольких минут' : 'Дякуємо, ми Вам передзвонимо через декілька хвилин' }}
                   </div>
                 </form>
@@ -568,13 +566,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ====== PHONE validation (UA mobile) ======
   const uaPhoneRegex = /^\+380(39|50|63|66|67|68|73|77|91|92|93|94|95|96|97|98|99)\d{7}$/;
-  const formatNextWorkingTime = value => {
-    const date = new Date(value);
-    if (Number.isNaN(date.getTime())) return '';
-    return new Intl.DateTimeFormat(@json($isRu ? 'ru-UA' : 'uk-UA'), {
-      day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Kyiv'
-    }).format(date);
-  };
 
   // ====== Bind each call form (one per slide) ======
   document.querySelectorAll('form.call-form[data-call-form="1"]').forEach(form => {
@@ -647,13 +638,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         window.ncAnalytics?.lead('home_callback');
         if (successMessage) {
-          if (json.after_hours) {
-            const nextWorkingTime = formatNextWorkingTime(json.next_working_at);
-            successMessage.textContent = successMessage.dataset.afterHoursMessage
-              + (nextWorkingTime ? ` ${successMessage.dataset.nextWorkingLabel}: ${nextWorkingTime}.` : '');
-          } else {
-            successMessage.textContent = successMessage.dataset.defaultMessage;
-          }
+          successMessage.textContent = window.ncLeadSuccessMessage(json, successMessage.dataset.defaultMessage);
         }
         form.reset();
         form.classList.add('is-success');

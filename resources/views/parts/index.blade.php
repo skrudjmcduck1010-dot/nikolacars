@@ -26,7 +26,7 @@
   };
   $subcategoryUrl = static function (string $model = '', string $categoryPath = '') use ($catalogBase): string {
     if ($categoryPath === '') return $model !== '' ? $catalogBase.'/'.$model.'/' : $catalogBase.'/';
-    $categoryPath = \App\Services\CatalogPath::normalize($categoryPath);
+    $categoryPath = \App\Services\CatalogPath::preferred($categoryPath, $model);
     return $model !== ''
       ? $catalogBase.'/'.$model.'/'.$categoryPath.'/'
       : $catalogBase.'/'.$categoryPath.'/';
@@ -89,6 +89,10 @@
       </form>
     </div>
 
+    @if(!empty($modelLanding))
+      @include('parts._model_intro')
+    @endif
+
     <div class="parts-model-tabs" data-models>
       <a href="{{ $selectedCategoryPathSlug !== '' ? $subcategoryUrl('', $selectedCategoryPathSlug) : $sectionUrl('', $selectedCategorySlug) }}" class="parts-model-tab {{ $selectedModel === '' ? 'active' : '' }}"><span class="parts-model-copy"><span class="parts-model-name">{{ $isRu ? 'Все модели' : 'Усі моделі' }}</span></span></a>
       @foreach($models as $model)
@@ -148,15 +152,7 @@
               </a>
               <div class="part-card-body">
                 <h3><a href="{{ $productUrl }}">{{ $product['name'] }}</a></h3>
-                <div class="part-codes">{{ collect([$product['part_number'] ?? null, $product['sku'] ?? null, $product['vin'] ?? null])->filter()->implode(' · ') }}</div>
-                <div class="part-category-path">
-                  @forelse(($product['category_breadcrumbs'] ?? []) as $breadcrumb)
-                    @if(!$loop->first) <span aria-hidden="true">/</span> @endif
-                    <a href="{{ $loop->first ? $sectionUrl($selectedModelSlug, $breadcrumb['slug']) : $subcategoryUrl($selectedModelSlug, $breadcrumb['slug']) }}">{{ $breadcrumb['label'] }}</a>
-                  @empty
-                    {{ $product['category_path'] }}
-                  @endforelse
-                </div>
+                <div class="part-codes">{{ $product['part_number'] ?? '' }}</div>
                 <div class="part-purchase-row">
                   <div class="part-purchase-info">
                     @if(!$isSold)
@@ -164,10 +160,8 @@
                         @if($hasPrice)
                           {{ number_format((float) $product['price_uah'], 0, '.', ' ') }} грн
                         @else
-                          <strong>{{ $isRu ? 'Цену уточняйте' : 'Ціну уточнюйте' }}</strong>
-                          <span>{{ $isRu ? 'по телефонам' : 'за телефонами' }}</span>
-                          <span><a href="tel:+380990698380" class="binct-phone-number-1">+38 (099) 069 83 80</a></span>
-                          <span><a href="tel:+380634730819" class="binct-phone-number-2">+38 (063) 473 08 19</a></span>
+                          <strong>{{ $isRu ? 'Цену уточняйте по телефону' : 'Ціну уточнюйте за телефоном' }}</strong>
+                          <span><a href="tel:+380501753084">(050) 175 30 84</a></span>
                         @endif
                       </div>
                     @endif
@@ -243,6 +237,7 @@
     <div class="order-success-icon">✓</div>
     <h2>{{ $isRu ? 'Заказ оформлен' : 'Замовлення оформлено' }}</h2>
     <p data-success-text></p>
+    <p data-success-after-hours hidden>{{ $isRu ? 'Заказ создан в нерабочее время. Мы обработаем его в ближайшее рабочее время. График работы: пн–пт, 10:00–18:00.' : 'Замовлення створено в неробочий час. Ми опрацюємо його в найближчий робочий час. Графік роботи: пн–пт, 10:00–18:00.' }}</p>
     <button type="button" data-success-close>{{ $isRu ? 'Вернуться в каталог' : 'Повернутися до каталогу' }}</button>
   </div>
 </div>
@@ -259,9 +254,8 @@
     'sold' => 'Продано',
     'toCart' => $isRu ? 'В корзину' : 'У кошик',
     'priceOnRequest' => $isRu ? 'Цену уточняйте' : 'Ціну уточнюйте',
-    'byPhone' => $isRu ? 'по телефонам' : 'за телефонами',
-    'pricePhone' => '+38 (099) 069 83 80',
-    'pricePhoneSecondary' => '+38 (063) 473 08 19',
+    'byPhone' => $isRu ? 'по телефону' : 'за телефоном',
+    'pricePhone' => '(050) 175 30 84',
     'inCart' => $isRu ? 'В корзине' : 'У кошику',
     'empty' => $isRu ? 'По выбранным фильтрам запчастей не найдено.' : 'За вибраними фільтрами запчастин не знайдено.',
     'loadError' => $isRu ? 'Не удалось загрузить каталог. Попробуйте ещё раз.' : 'Не вдалося завантажити каталог. Спробуйте ще раз.',
@@ -278,6 +272,8 @@
 <script>
 window.partsI18n = @json($partsI18n);
 window.initialPartsCatalog = @json($initialCatalog);
+window.partsPreferredCategoryPaths = @json(\App\Services\CatalogPath::preferredPaths());
+window.partsModelLanding = @json($modelLanding ?? null);
 </script>
-<script src="{{ asset('assets/js/parts.js') }}?v=20261008-category-levels" defer></script>
+<script src="{{ asset('assets/js/parts.js') }}?v=20261028-cart-fix1" defer></script>
 @endpush

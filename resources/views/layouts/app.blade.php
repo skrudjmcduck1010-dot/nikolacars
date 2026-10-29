@@ -30,6 +30,22 @@
   <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('favicon-96x96.png') }}">
   <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
 
+  <script>
+  // Shared success copy for every callback form. The server determines opening hours.
+  window.ncLeadSuccessMessage = function (result, workingMessage) {
+    if (result?.after_hours !== true) return workingMessage;
+    let message = @json((($locale ?? 'uk') === 'ru') ? 'Заявка отправлена в нерабочее время. Мы обработаем её в ближайшее рабочее время. График работы: пн–пт, 10:00–18:00.' : 'Заявку надіслано в неробочий час. Ми опрацюємо її в найближчий робочий час. Графік роботи: пн–пт, 10:00–18:00.');
+    const date = result.next_working_at ? new Date(result.next_working_at) : null;
+    if (date && !Number.isNaN(date.getTime())) {
+      const nextWorkingTime = new Intl.DateTimeFormat(@json((($locale ?? 'uk') === 'ru') ? 'ru-UA' : 'uk-UA'), {
+        day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Kyiv'
+      }).format(date);
+      message += ' ' + @json((($locale ?? 'uk') === 'ru') ? 'Ближайшее рабочее время' : 'Найближчий робочий час') + ': ' + nextWorkingTime + '.';
+    }
+    return message;
+  };
+  </script>
+
   @stack('head')
   <link rel="stylesheet" href="{{ asset('assets/css/app.min.css') }}?v=20260822">
   <link rel="stylesheet" href="{{ asset('assets/css/language-switch.css') }}?v=20261008-1">
@@ -188,8 +204,8 @@
 
       @include('partials.parts-dropdown', ['locale' => $loc])
       <a href="{{ $loc === 'ru' ? '/ru/testimonial/' : '/testimonial/' }}">{{ $L['reviews'] }}</a>
-      <a href="{{ $loc === 'ru' ? '/ru/news/' : '/news/' }}">{{ $L['news'] }}</a>
       <a href="{{ $loc === 'ru' ? '/ru/contacts/' : '/contacts/' }}">{{ $L['contacts'] }}</a>
+      @include('partials.mobile-menu-phones')
     </nav>
 
     <div class="lang">@include('partials.header-cart')
@@ -241,7 +257,7 @@
       <div class="contact-icon phone">📞</div>
       <div>
         <div class="contact-title">{{ $isRu ? 'Перезвоните мне' : 'Передзвоніть мені' }}</div>
-        <div class="contact-sub">{{ $isRu ? 'В течение 30 секунд' : 'Протягом 30 секунд' }}</div>
+        <div class="contact-sub">{{ $isRu ? 'В рабочее время' : 'У робочий час' }}</div>
       </div>
     </button>
   </div>
@@ -251,7 +267,7 @@
     <button type="button" class="callback-close" id="closeCallbackWidget" aria-label="{{ $isRu ? 'Закрыть' : 'Закрити' }}">×</button>
 
     <div class="callback-title">
-      {!! $isRu ? 'Введите ваш номер телефона<br>и мы перезвоним в течение 30 секунд' : 'Введіть ваш номер телефону<br>і ми передзвонимо протягом 30 секунд' !!}
+      {!! $isRu ? 'Введите ваш номер телефона<br>и мы перезвоним в рабочее время' : 'Введіть ваш номер телефону<br>і ми передзвонимо у робочий час' !!}
     </div>
 
     <div class="callback-phone">
@@ -300,20 +316,10 @@ document.addEventListener('DOMContentLoaded', function(){
     invalidPhone: @json($isRu ? 'Введите корректный украинский номер (9 цифр после +380)' : 'Введіть коректний український номер (9 цифр після +380)'),
     sendFail: @json($isRu ? 'Не удалось отправить заявку. Попробуйте ещё раз.' : 'Не вдалося відправити заявку. Спробуйте ще раз.'),
     thanks: @json($isRu ? 'Спасибо! Мы скоро вам перезвоним.' : 'Дякуємо! Ми скоро вам передзвонимо.'),
-    afterHours: @json($isRu ? 'Спасибо! Сейчас мы не работаем. Перезвоним вам в ближайшее рабочее время.' : 'Дякуємо! Зараз ми не працюємо. Передзвонимо вам у найближчий робочий час.'),
-    nextWorkingLabel: @json($isRu ? 'Ближайшее время для звонка' : 'Найближчий час для дзвінка'),
     netErr: @json($isRu ? 'Ошибка сети. Попробуйте ещё раз.' : 'Помилка мережі. Спробуйте ще раз.'),
     leadName: @json($isRu ? 'Виджет: Перезвоните мне' : 'Віджет: Передзвоніть мені'),
     leadDetails: @json($isRu ? 'Заявка из плавающего виджета (callback)' : 'Заявка з плаваючого віджета (callback)'),
   };
-
-  function formatNextWorkingTime(value){
-    const date = new Date(value);
-    if (Number.isNaN(date.getTime())) return '';
-    return new Intl.DateTimeFormat(@json($isRu ? 'ru-UA' : 'uk-UA'), {
-      day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Kyiv'
-    }).format(date);
-  }
 
   function closeAll(){
     panel.classList.remove('active');
@@ -393,10 +399,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
       window.ncAnalytics?.lead('callback_widget');
       phoneInput.value = '';
-      const nextWorkingTime = formatNextWorkingTime(json.next_working_at);
-      alert(json.after_hours
-        ? i18n.afterHours + (nextWorkingTime ? ` ${i18n.nextWorkingLabel}: ${nextWorkingTime}.` : '')
-        : i18n.thanks);
+      alert(window.ncLeadSuccessMessage(json, i18n.thanks));
       closeAll();
     } catch (err) {
       console.error(err);

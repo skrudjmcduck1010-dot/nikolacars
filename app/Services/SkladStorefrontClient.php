@@ -87,6 +87,11 @@ class SkladStorefrontClient
             ->post($this->url('sto-website-requests'), $payload);
     }
 
+    public function createPartsCallback(array $payload): Response
+    {
+        return $this->request()->post($this->url('parts-callbacks'), $payload);
+    }
+
     protected function request(): PendingRequest
     {
         $token = trim((string) config('services.sklad_storefront.token'));

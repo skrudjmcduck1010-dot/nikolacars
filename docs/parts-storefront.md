@@ -1,5 +1,131 @@
 # NikolaCars parts storefront
 
+## 2026-10-29 — authorized dependency security upgrade and cart release preparation
+
+The owner approved resolving the dependency gate and releasing the cart fix.
+The bounded Composer update changes17 packages (16 production,1 development),
+retains Laravel12 and PHP^8.2, and adds an explicit CommonMark^2.10.2 floor.
+Laravel12.51.0 becomes12.70.2; CommonMark2.8.0 becomes2.10.2. The full locked
+Composer security audit now has0 advisories and0 abandoned packages; strict
+manifest validation and local platform checks pass. Composer scripts were not
+executed during the update.
+
+For compatibility checks,131 current live source files were captured using
+certificate-verified FTPS;44 stale/missing local source files were reconciled with
+those exact live bytes, preserving the three cart fixes, updated Composer files
+and the local/HOSTiQ-compatible public front controller. These44 files are
+baseline adoption only and must not become an upload of the whole application.
+The deployment delta remains composer.json/lock and the vendor built from that
+lock, plus parts.js, the header-cart partial and the catalog asset version.
+
+A short-lived token-authenticated POST-only operational inspection confirmed
+PHP8.3.36/LiteSpeed, SQLite:memory: (no persistent frontend database/tables),
+file cache and sessions, and timestamp-validated OPcache. Its runner was removed
+after byte verification. A frontend database dump is not applicable; warehouse
+database access, imports, migrations, real forms and historical event replay are
+outside this release. Preserve file cache/sessions, environment, media and private
+data. Before promotion, preserve and independently verify the actual code/vendor
+rollback archive; build and audit a separate production vendor in private storage.
+Use a temporary atomic public-index503 gate for the short vendor switch, then
+restore the exact original hosting index and refresh compiled views/OPcache.
+
+Evidence and preparation are under
+`C:/Projects/sklad-zapchastey/.codex-tmp/public-cart-security-20261029/`.
+Local compatibility gates pass: `composer test` runs9 scripts in separate fresh
+processes/cache/storage with an outer Throwable catch and completion sentinel.
+An intentional assertion after Laravel installs its handler must fail with exit1;
+this prevents the old scripts' misleading exit0 on uncaught assertions. The two
+stale expectations were updated to the actual live service subtitles and named
+JSON-LD entities, preserving semantic guards. A new HTTP-kernel cache contract
+checks deferred refresh failure, last-good retention, recovery and hard expiry.
+Playwright50/50 passes (34 cart+16 real routed homepage/service/product/404 cases),
+UA/RU and desktop/mobile, without retries/skips/flaky cases. The upstream is
+synthetic; no real order, callback, payment or authorization is tested.
+Source UTF-8/BOM/NUL checks149/0 and32 PHP source lints pass; the warehouse
+heuristic's259 existing findings are identical to captured production, with0
+introduced findings. No scanner suppression or unrelated text repair was added.
+Git publication, private server build and live promotion are still pending.
+
+## 2026-10-29 — authorized cart release blocked by dependency audit
+
+The owner authorized the cart release. Fresh certificate-verified FTPS reads of
+all11 related sources match the reviewed28October baseline exactly; no newer
+remote edits would be overwritten. The three-file cart payload remains prepared
+locally. Fresh isolated Playwright passes34/34 (48.0s); npm audit reports0.
+
+Release stopped before commit, push, upload, cache operations or maintenance:
+`composer audit --locked --no-dev --format=json` returns1 with43 advisories
+affecting11 production packages. Fresh live `composer.json`, `composer.lock` and
+`vendor/composer/installed.json` are byte-identical to the local versions, so
+these are actual deployed dependencies, not merely a stale local lockfile.
+`league/commonmark` is2.8.0; the warehouse AGENTS release policy requires>=2.10.2
+and retaining security audits. These findings predate the cart fix.
+
+Updating the framework/vendor set requires a separately scoped dependency
+upgrade and compatibility review of the current public site; it must not be
+hidden inside the prepared three-file cart upload or use the older whole local
+frontend as a replacement. After resolving the audit, repeat the required gates,
+fresh source guards and task-only Git publication, then perform the guarded cart
+release and browser verification without submitting an order. No production
+business data, environment, media or caches were changed. Evidence:
+`C:/Projects/sklad-zapchastey/.codex-tmp/public-cart-release-20261029/`.
+
+## 2026-10-28 — cart repair and permanent browser checks, local only
+
+The existing source checkout is `C:/Users/Skrudj/OneDrive/Documents/ChatGPT/nikolacars`;
+`C:/Projects/nikolacars` is its existing junction. No second checkout was created.
+The local source predated the current live SEO/phone changes. Before editing,
+certificate-verified read-only FTPS snapshots were compared with the local files.
+Only the four required source files were reconciled: `parts.js`, the header-cart
+partial, the catalog view and its `CatalogPath` dependency. Existing live SEO,
+preferred paths, phone content and after-hours handling were preserved.
+`CatalogPath.php` is byte-identical to the live snapshot; it is baseline adoption,
+not a new SEO change. Other layouts/controllers remain older local versions.
+
+The actual repair relative to that live baseline is three small changes:
+
+- `renderCart` updates zero or more legacy `[data-cart-count]` nodes, then emits
+  the existing `nc:cart-updated` event. A missing retired floating counter no
+  longer stops catalog initialization or cart updates.
+- The shared header opens `ncCartModal` directly when available, including on
+  checkout. Pages without the modal keep their native catalog link and existing
+  server redirect to `#cart`. The retired floating button is no longer required.
+- The catalog loads `parts.js?v=20261028-cart-fix1` for future cache invalidation.
+
+Playwright is a pinned development dependency. Run `npm ci`, optionally
+`npm run test:e2e:install`, then `npm run test:e2e` in this checkout. Windows uses
+the absolute Laragon PHP path; `LOCAL_PHP` may select another PHP executable.
+The runner starts only an isolated PHP server on `127.0.0.1:4327`, with fresh
+cache/views/storage under ignored `.codex-tmp/cart-e2e/`. It never starts the
+ordinary MySQL or warehouse API from `start-parts-local.ps1`. Real Blade/JS are
+rendered with synthetic warehouse responses; PHP stray requests and browser
+off-origin requests are blocked. The router rejects every non-GET, other hosts
+and private/unlisted paths; browser tests never submit an order.
+
+Because the remaining local layout still contains the retired floating button,
+the test-only header profile removes exactly that control from rendered Blade
+to replay the verified current live DOM; the legacy profile retains it. This is
+contract coverage, not a claim that the whole local frontend matches production.
+Both locales and desktop/mobile cover empty opening/closing and focus, add-once/
+remove, quantity1..stock, totals/badges/localStorage after reload, native link
+fallback, checkout navigation and basket edits without submission.
+
+Both defects were reproduced separately before their fixes. Final **34/34 browser
+checks** pass, retries/flaky/skipped0; all **8 existing PHP regression scripts**
+also pass. Desktop/mobile basket screenshots were inspected. Syntax, strict UTF-8/
+BOM and source preservation checks pass; npm audit reports0 vulnerabilities.
+The warehouse encoding heuristic flags2 unchanged readable RU/UA translation
+lines in the verified live catalog view; baseline and final findings are identical.
+No scanner suppression or unrelated translation edit was introduced. Private environment files
+are unchanged. Evidence/backups and the three-hunk live-relative patch are under
+`C:/Projects/sklad-zapchastey/.codex-tmp/public-cart-fix-20261028/`.
+
+No commit/push/deploy, production form, notification, DB change or media cleanup
+was performed. A future separately authorized release must freshly verify the
+three changed runtime files against current live bytes, publish the JS before its
+new view version, and preserve unrelated newer frontend work. Do not deploy the
+entire older local frontend or upload tests, Node dependencies or private files.
+
 The public catalog is available at `/parts/` (Ukrainian) and `/ru/parts/` (Russian). NikolaCars does not connect to the warehouse database directly: browser requests go through `PartsController`, which calls the protected storefront API in `sklad-zapchastey`.
 
 ## Local start

@@ -3,6 +3,24 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!dataElement) return;
 
   const product = JSON.parse(dataElement.textContent);
+  const productDetail = document.querySelector('.product-detail');
+  const productInfo = productDetail?.querySelector('.product-info');
+  const productHeading = productDetail?.querySelector('.product-heading');
+  if (productDetail && productInfo && productHeading) {
+    const headingLayout = window.matchMedia('(max-width: 800px)');
+    const updateHeading = () => {
+      (headingLayout.matches ? productDetail : productInfo).prepend(productHeading);
+    };
+    updateHeading();
+    headingLayout.addEventListener('change', updateHeading);
+  }
+  const soldSpecifications = document.querySelector('[data-sold-specifications]');
+  if (soldSpecifications) {
+    const mobileLayout = window.matchMedia('(max-width: 800px)');
+    const updateSpecifications = () => { soldSpecifications.open = !mobileLayout.matches; };
+    updateSpecifications();
+    mobileLayout.addEventListener('change', updateSpecifications);
+  }
   const cartKey = 'nikolacars-parts-cart-v1';
   const addButton = document.querySelector('[data-product-add]');
   const addButtonLabel = addButton?.textContent.trim() || '';

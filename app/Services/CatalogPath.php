@@ -4,6 +4,39 @@ namespace App\Services;
 
 final class CatalogPath
 {
+    // Only reviewed equivalent landing pages. Taxonomy levels and IDs stay intact.
+    // Full non-empty product sets were checked in both locales on 2026-10-27.
+    // Prefer the existing leaf (Google already selected it for Model 3 pedals).
+    // Battery paths are excluded: their UA/RU inventories do not match.
+    private const PREFERRED_PATHS = [
+        'model-3-06-2017-12-2023' => [
+            'galma/pedal-galma' => 'galma/pedal-galma/pedal-galma',
+            'tormoza/pedal-tormoza' => 'tormoza/pedal-tormoza/pedal-tormoza',
+        ],
+        'model-s-02-2012-03-2016' => [
+            'visokovoltna-sistema/bortovii-zariadnii-modul-cardzer' => 'visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer',
+            'vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer' => 'vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer',
+        ],
+        '' => [
+            'galma/pedal-galma' => 'galma/pedal-galma/pedal-galma',
+            'tormoza/pedal-tormoza' => 'tormoza/pedal-tormoza/pedal-tormoza',
+            'zadnii-motor/zadni-pivosi' => 'zadnii-motor/zadni-pivosi/zadni-pivosi',
+            'zadnii-motor/zadnie-poluosi' => 'zadnii-motor/zadnie-poluosi/zadnie-poluosi',
+        ],
+    ];
+
+    public static function preferred(string $path, string $modelSlug = ''): string
+    {
+        $path = self::normalize($path);
+
+        return self::PREFERRED_PATHS[$modelSlug][$path] ?? $path;
+    }
+
+    public static function preferredPaths(): array
+    {
+        return self::PREFERRED_PATHS;
+    }
+
     public static function normalize(string $path): string
     {
         $segments = preg_split('~(?:/|--)+~', trim($path, '/'), -1, PREG_SPLIT_NO_EMPTY) ?: [];

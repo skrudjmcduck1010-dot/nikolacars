@@ -14,6 +14,26 @@ class StorefrontPhotoFilter
 
     public static function clean(array $data): array
     {
+        if (isset($data['image_items']) && is_array($data['image_items'])) {
+            $data['image_items'] = array_values(array_filter(
+                $data['image_items'],
+                static fn ($item) => is_array($item) && ! self::blocked($item['url'] ?? null),
+            ));
+            foreach ($data['image_items'] as &$item) {
+                // Opaque thumbnails and resized variants belong to their original image.
+                // A blocked original must remove the entire item before rendering the gallery.
+                if (self::blocked($item['thumbnail_url'] ?? null)) {
+                    $item['thumbnail_url'] = $item['url'] ?? null;
+                }
+                if (isset($item['variants']) && is_array($item['variants'])) {
+                    $item['variants'] = array_values(array_filter(
+                        $item['variants'],
+                        static fn ($variant) => is_array($variant) && ! self::blocked($variant['url'] ?? null),
+                    ));
+                }
+            }
+            unset($item);
+        }
         foreach ($data as $key => $value) {
             if (is_array($value)) $data[$key] = self::clean($value);
         }

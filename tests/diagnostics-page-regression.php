@@ -58,7 +58,31 @@ foreach (['uk', 'ru'] as $locale) {
             continue;
         }
         $other = view($view, ['locale' => $locale])->render();
-        diagnosticsAssert(str_contains($other, $isRu ? 'Узкоспециализированный сервис Tesla по кейсу' : 'Вузькоспеціалізований сервіс Tesla за кейсом'), "$locale: other service subtitle retained: ".$service['slug']);
+        $otherDom = new DOMDocument();
+        $previous = libxml_use_internal_errors(true);
+        $otherDom->loadHTML('<?xml encoding="UTF-8">'.$other);
+        libxml_clear_errors();
+        libxml_use_internal_errors($previous);
+        $otherXPath = new DOMXPath($otherDom);
+        diagnosticsAssert($otherXPath->query('//h1')->length === 1, "$locale: other service has one H1: ".$service['slug']);
+        $subtitles = $otherXPath->query('//*[contains(concat(" ", normalize-space(@class), " "), " service-hero-subtitle ")]');
+        diagnosticsAssert($subtitles->length === 1, "$locale: other service has one subtitle: ".$service['slug']);
+        $subtitle = trim(preg_replace('/\s+/u', ' ', $subtitles->item(0)->textContent));
+        $custom = [
+            'tesla-navigation-firmware' => [
+                'ru' => 'Карты, GPS и маршруты: диагностика, настройка и проверка доступных функций для вашей Tesla.',
+                'uk' => 'Карти, GPS і маршрути: діагностика, налаштування та перевірка доступних функцій для вашої Tesla.',
+            ],
+            'tesla-key-flash' => [
+                'ru' => 'Добавление совместимой карты или брелока, проверка активных ключей и доступа владельца.',
+                'uk' => 'Додавання сумісної картки або брелока, перевірка активних ключів і доступу власника.',
+            ],
+        ];
+        if (isset($custom[$service['slug']])) {
+            diagnosticsAssert($subtitle === $custom[$service['slug']][$locale], "$locale: own current live subtitle retained: ".$service['slug']);
+        } else {
+            diagnosticsAssert(str_contains($subtitle, $isRu ? 'Узкоспециализированный сервис Tesla по кейсу' : 'Вузькоспеціалізований сервіс Tesla за кейсом'), "$locale: other service subtitle retained: ".$service['slug']);
+        }
         diagnosticsAssert(!str_contains($other, $isRu ? 'Стоимость и время диагностики' : 'Вартість і час діагностики'), "$locale: diagnostics content isolated: ".$service['slug']);
     }
     echo "PASS $locale: metadata, single H1, content, links, callback and other service isolation\n";

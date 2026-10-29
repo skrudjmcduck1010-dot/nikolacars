@@ -57,6 +57,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (form.delivery_method.value === 'nova_poshta' && (!form.nova_poshta_city_ref.value || !form.nova_poshta_warehouse_ref.value)) {
       errorBox.textContent = t.required; errorBox.hidden = false; return;
     }
+    $('[data-success]').hidden = true;
+    const afterHoursNotice = $('[data-success-after-hours]');
+    if (afterHoursNotice) afterHoursNotice.hidden = true;
     const submit = $('.checkout-submit', form); submit.disabled = true;
     const data = Object.fromEntries(new FormData(form).entries());
     data.request_id = crypto.randomUUID();
@@ -67,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!response.ok) throw new Error(result.message || Object.values(result.errors || {}).flat()[0] || t.orderError);
       window.ncAnalytics?.lead('parts_order');
       cart = []; saveCart(); form.reset();
+      if (afterHoursNotice) afterHoursNotice.hidden = result.after_hours !== true;
       $('[data-success-text]').textContent = t.success.replace(':number', result.number); $('[data-success]').hidden = false; $('[data-page-empty]').hidden = true;
     } catch (error) { errorBox.textContent = error.message || t.orderError; errorBox.hidden = false; }
     finally { submit.disabled = false; }
