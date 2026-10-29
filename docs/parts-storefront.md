@@ -1,8 +1,10 @@
 # NikolaCars parts storefront
 
-## 2026-10-29 — authorized dependency security upgrade and cart release preparation
+## 2026-10-29 — dependency security upgrade and cart fix released
 
 The owner approved resolving the dependency gate and releasing the cart fix.
+Released and verified from pushed commit
+`9ce135eb317b7eefb4fde9fdfcb0a9f19137006b` on `codex/parts-storefront`.
 The bounded Composer update changes17 packages (16 production,1 development),
 retains Laravel12 and PHP^8.2, and adds an explicit CommonMark^2.10.2 floor.
 Laravel12.51.0 becomes12.70.2; CommonMark2.8.0 becomes2.10.2. The full locked
@@ -44,7 +46,37 @@ synthetic; no real order, callback, payment or authorization is tested.
 Source UTF-8/BOM/NUL checks149/0 and32 PHP source lints pass; the warehouse
 heuristic's259 existing findings are identical to captured production, with0
 introduced findings. No scanner suppression or unrelated text repair was added.
-Git publication, private server build and live promotion are still pending.
+The private Linux production build passed Composer platform checks and audit0,
+with scripts/plugins disabled and the exact76 locked production packages.
+Promotion and finish completed: full current vendor6022 files matches the staged
+ledger; all8357 old vendor files remain privately preserved with their original
+tree hash. Independent FTPS verified all131 source files: five candidates match
+Git/local bytes (allowing Git CRLF normalization), and the other126 match the
+captured live baseline. The hosting index was restored byte-for-byte.
+
+Before maintenance, the scoped application-source/whole-vendor rollback archive
+was independently downloaded and checked:24,435,749 bytes,8528 regular files,
+SHA256 `11ac233759f69a35e4de535379f520e341916d5cb3f7e9edb0ccaee1e085ea73`,
+gzip CRC, safe tar paths/no links and every file hash. It excludes environment,
+storage/media and unrelated public assets. No persistent frontend DB exists.
+The maintenance action began08:47:04UTC (10:47Kyiv); finish began08:51:01UTC,
+then restored the index after its short cache/OPcache work. Exact gate timestamps
+were not measured separately; the required drain was180s. Package manifests and
+compiled views were rebuilt; application data cache/sessions were not cleared.
+
+Environment and protected runtime configuration hashes are unchanged, cached
+config remains absent, maintenance is off. The bounded store metadata sample
+retained all1147 observed entries and added9; active cache/session contents can
+change normally, so no complete-store content identity is claimed. All three
+temporary operational runners were removed and independently returned FTP550.
+Live browser checks pass for UA desktop and RU mobile: empty/open/add/quantity/
+sum/remove, checkout navigation and header editing without form submission;
+homepage, service and real product render. The test cart was emptied and viewport
+restored. Screenshots and detailed proofs are in the evidence directory above.
+Only the pre-release old-version renderCart error remained in the captured browser
+log; no new post-release uncaught error was observed. No order, callback, payment,
+warehouse DB import, historical replay or media cleanup was performed. This result
+documentation is a later docs-only checkpoint; released/tested runtime SHA stays9ce135e.
 
 ## 2026-10-29 — authorized cart release blocked by dependency audit
 
