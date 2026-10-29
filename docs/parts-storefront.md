@@ -393,3 +393,49 @@ Release report and recovery evidence are in the mirror's
 its five-file frontend overlay remain deferred pending the clean-tree
 procedure decision; this independent publication does not claim that fix
 or resolution of the earlier5xx observations.
+
+### Battery normalization released and verified — 29 October 2026, 19:32 Kyiv
+
+The owner explicitly authorized a temporary clean warehouse worktree. Backend
+commit `5d9deca6d9555137e5f717cbff75c829fedd436a` was published by the normal
+release wrapper and returned live at17:22:01UTC. The three catalog services
+normalize the Russian battery root in memory while preserving IDs, quantities,
+raw snapshots and lower taxonomy levels. The fresh audit required the single
+security prerequisite symfony/mime7.4.13→7.4.22; no other packages or manifest
+constraints changed. The backup rotation operator separately gained verified
+FTPS/PROT P in a local-only task commit; it was not deployed as runtime.
+
+All required gates passed:3669PHPtests/38954assertions,74browser E2E, PHPStan,
+encoding1688, build and Composer/npm audits0. Fresh DB/code backups and normal
+retention passed; no pending migrations existed and live reported Nothing to
+migrate. An additional complete vendor/manifests archive was independently
+verified before maintenance. Post-install checks matched27source/build paths,
+the lock/marker,78production packages and all74Mime files. Protected settings
+and443durable private entries remained unchanged except the expected lock marker.
+
+After three live UA/RU/oldalias API responses proved identical complete11ID and
+quantity sets, the five dependent frontend files were published at17:26:06UTC,
+commit `d36de9718f61f2d10c14dd32f260e0b97d071bae`. All5payload/143guard paths
+matched. Fresh341PHPassertions,9regressions+failure sentinel and6operator tests
+passed. IAB HTML showed11cards (7available/4sold), reciprocal hreflang,
+selfcanonical and correct final oldalias destination. HTTP301 is covered by
+route tests, not inferred from DOM. ModelS retained its separate3cards;
+product108527 HTML/schema breadcrumbs use the new root. RU sitemap contained
+3666loc, including5canonical battery URLs with no oldroot or repeats among those5.
+
+The bounded frontend log contained0ERROR/503/no-response and3slow successful
+catalog200 reads. Backend44ERROR records were43external Nova Poshta tracking404s
+and1scheduled history-sync failure; the same class/frame/status occurred before
+release (188such404s and5history-sync failures in the compared window). This
+existing integration issue was not changed, and whole-host uptime is not claimed.
+
+Recovery archives, receipts and full local reports remain outside the temporary
+worktree. Root removed it with ordinary Git (no force); the pushed task branch
+remains. All33dirty canonical file hashes/statuses, branch and35535c7HEAD stayed
+unchanged. For ordinary SEO rollback restore the five frontend files first,
+then the three backend services with own-after guards; retain the Mime security
+patch and never restore business DB/environment/unrelated work. No rollback,
+real form/order submission, indexing request or automation was performed.
+Evidence: mirror `docs/reports/seo-package2-release-2026-10-29.md`, its technical
+report/IAB sources, and this checkout's ignored SEO release directory.
+The earlier deferred-battery status is superseded; ranking changes are not yet measured.
