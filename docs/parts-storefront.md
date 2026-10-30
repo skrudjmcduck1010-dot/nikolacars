@@ -481,3 +481,28 @@ local work is preserved by an exact path/SHA ledger while tracked Git must be cl
 Status at this checkpoint: prepared, not yet published. Live result follows in a
 later entry. Private manifests, backups, operator recovery and receipts remain in
 `.codex-tmp/services-release-20261030/`, outside Git.
+
+## 2026-10-30 19:12 Europe/Kyiv — service SEO package published and verified
+
+Runtime922095ee890ded8c58d3cda2bf668eebc57c2b73 was pushed and published:
+27 payload files,147 source/protected guards PASS. The full guarded operation
+completed17:12:31UTC (19:12:31Kyiv); it began17:10:50UTC. Verified private stage,
+per-file atomic rename and readback succeeded without maintenance or cache/session
+flush. The139-file source rollback archive passed member/path/hash verification;
+all133 pre-existing untracked file hashes were preserved through publication.
+
+Root IAB verified16 detail pages acrossUA/RU, localized service cards,390px real
+language switching, healthy frontend /up, and preserved catalog models/cards/photos/
+category navigation. No real form/order was submitted. Bounded post-release logs:
+0ERROR/0CRITICAL,1slow warehouse read withHTTP200.
+
+A pre-existing live TypeError in updateMenuPhone remains: it was observed before
+this release, and the unchanged header-cart partial has identical before/after
+SHA. The missing nested phone label is not guarded against null. This package
+neither introduced nor fixes it; local tests block external scripts and did not
+reproduce it. No claim of zero live JavaScript errors or whole-host uptime is made.
+
+Status: published and verified. Detailed local report/rollback:
+`docs/reports/services-seo-release-2026-10-30.md`; private receipt and evidence:
+`.codex-tmp/services-release-20261030/`. The earlier prepared/not-published entry
+is superseded. Further phone-widget work and SEO measurement are separate tasks.
