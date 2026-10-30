@@ -71,7 +71,7 @@ Route::get('/', function (SkladStorefrontClient $client) use ($loadFeaturedParts
         [
             'slug' => 'services/vidnovlennya-sertyfikativ-tesla',
             'title' => 'Відновлення сертифікатів',
-            'desc' => 'Офіційні рішення для функцій Tesla',
+            'desc' => 'Перевірка статусу та варіантів відновлення',
         ],
         [
             'slug' => 'services/prigon-tesla-usa',
@@ -102,7 +102,7 @@ Route::get('/ru/', function (SkladStorefrontClient $client) use ($loadFeaturedPa
         [
             'slug' => 'services/vidnovlennya-sertyfikativ-tesla',
             'title' => 'Восстановление сертификатов',
-            'desc' => 'Официальные решения для функций Tesla',
+            'desc' => 'Проверка статуса и вариантов восстановления',
         ],
         [
             'slug' => 'services/prigon-tesla-usa',
@@ -283,7 +283,7 @@ Route::get('/ru/services/tesla-subframe-repair/', function () {
 Route::get('/services/vidnovlennya-sertyfikativ-tesla/', function () {
     return view('services.vidnovlennya-sertyfikativ-tesla', [
         'pageTitle' => 'Відновлення сертифікатів Tesla – NikolaCars',
-        'metaDescription' => 'Офіційне відновлення сертифікатів Tesla. Повернення Tesla App, оновлень та повного функціоналу автомобіля.',
+        'metaDescription' => 'Відновлення сертифікатів Tesla: перевірка статусу та доступних варіантів відновлення.',
     ]);
 });
 
@@ -291,7 +291,7 @@ Route::get('/ru/services/vidnovlennya-sertyfikativ-tesla/', function () {
     return view('services.vidnovlennya-sertyfikativ-tesla', [
         'locale' => 'ru',
         'pageTitle' => 'Восстановление сертификатов Tesla – NikolaCars',
-        'metaDescription' => 'Официальное восстановление сертификатов Tesla. Возврат Tesla App, обновлений и полного функционала автомобиля.',
+        'metaDescription' => 'Восстановление сертификатов Tesla: проверка статуса и доступных вариантов восстановления.',
     ]);
 });
 // UA

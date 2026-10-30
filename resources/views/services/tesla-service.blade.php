@@ -3,6 +3,11 @@
 @php
   $isRu = (($locale ?? 'uk') === 'ru');
   $serviceData = $serviceData ?? null;
+  $serviceDefinitions = collect(config('targeted_services', []))->keyBy('slug');
+  $serviceEditorial = is_array($serviceData) ? ($serviceDefinitions->get($serviceData['slug']) ?? []) : [];
+  if (is_array($serviceData)) {
+    $serviceData = array_replace($serviceData, $serviceEditorial['overrides'] ?? []);
+  }
   $isTargetedPage = is_array($serviceData);
   $hasLongHeroTitle = $isTargetedPage && in_array($serviceData['slug'] ?? '', [
     'tesla-air-strut-repair',
@@ -17,13 +22,13 @@
   $articleHtml = preg_replace('#<h1(\s[^>]*)?>(.*?)</h1>#is', '<h2$1>$2</h2>', $articleHtml);
   $relatedServices = collect();
   if ($isTargetedPage) {
-    $allTargetedServices = collect(config('targeted_services', []))
-      ->filter(fn ($item) => !empty($item['slug']) && view()->exists('services.targeted.' . $item['slug']))
-      ->values();
-    $currentServiceIndex = $allTargetedServices->search(fn ($item) => ($item['slug'] ?? null) === ($serviceData['slug'] ?? null));
-    if ($currentServiceIndex !== false && $allTargetedServices->count() > 1) {
-      for ($offset = 1; $offset <= min(8, $allTargetedServices->count() - 1); $offset++) {
-        $relatedServices->push($allTargetedServices[($currentServiceIndex + $offset) % $allTargetedServices->count()]);
+    $serviceContent = config('service_content', []);
+    foreach ($serviceDefinitions as $slug => $definition) {
+      $serviceContent[$slug] = array_merge($serviceContent[$slug] ?? [], $definition);
+    }
+    foreach (($serviceContent[$serviceData['slug']]['related'] ?? []) as $relatedSlug) {
+      if (isset($serviceContent[$relatedSlug])) {
+        $relatedServices->push(array_merge($serviceContent[$relatedSlug], ['slug' => $relatedSlug]));
       }
     }
   }
@@ -51,10 +56,10 @@
               <div class="service-hero-subtitle">
                 {{ $isRu
                   ? ($isTargetedPage
-                      ? ($serviceData['hero_subtitle_ru'] ?? ('Узкоспециализированный сервис Tesla по кейсу «' . $serviceData['name_ru'] . '» в Киеве.'))
+                      ? ($serviceData['hero_subtitle_ru'] ?? ($serviceEditorial['summary_ru'] ?? ''))
                       : 'Диагностика, ремонт, техническое обслуживание и прошивки Tesla в Киеве.')
                   : ($isTargetedPage
-                      ? ($serviceData['hero_subtitle_uk'] ?? ('Вузькоспеціалізований сервіс Tesla за кейсом «' . $serviceData['name_uk'] . '» у Києві.'))
+                      ? ($serviceData['hero_subtitle_uk'] ?? ($serviceEditorial['summary_uk'] ?? ''))
                       : 'Діагностика, ремонт, технічне обслуговування та прошивки Tesla у Києві.')
                 }}
               </div>
@@ -376,6 +381,7 @@
     </div>
   </section>
 
+  @if(!$isTargetedPage || trim($isRu ? ($serviceData['final_html_ru'] ?? '') : ($serviceData['final_html_uk'] ?? '')) !== '')
   <section class="service-final">
     <div class="container">
       <div class="service-final-content">
@@ -558,7 +564,12 @@
     </div>
   </section>
 
+  @endif
 </section>
+
+@if(!$isTargetedPage)
+  @include('partials.service-related', ['serviceSlug' => 'tesla-service'])
+@endif
 
 @push('scripts')
 <script>

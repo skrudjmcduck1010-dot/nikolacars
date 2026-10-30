@@ -452,3 +452,32 @@ Fresh backend gates passed encoding1689/0, configured PHPStan,62PHPtests/717asse
 Live IAB verified all6models/2886available cards at the root, preserved first24titles/first8photo URLs and loaded state, category/leaf/locale/model/sort transitions, and actual320/390px without label overflow. ModelY/Highland retain metadata and have no generic intros. No real form/order was submitted. Bounded frontend logs show0ERROR/5xx and3slow successful200; backend retains45 pre-existing Nova Poshta tracking404s plus1known scheduler failure, also present before release. Whole-host uptime or resolution of earlier503s is not claimed.
 
 The clean checkout was removed with native Git without force after independent recovery verification. The pushed task branch remains; all35canonical dirty-file hashes/statuses, original branch and35535c7HEAD are unchanged. Recovery receipts/13DBarchives/codebackup remain outside the removed checkout. Rollback uses the nine frontend before files with own-after guards, then the previous Query through the normal backend wrapper; leave unrelated WIP, battery/Mime, DB, environment, media and durable receipts intact. Local report: mirror `docs/reports/catalog-tree-2026-10-29.md`; private receipts are not committed. Published and verified; no further agreed changes or monitoring scheduled.
+
+## 2026-10-30 — full service SEO package, release prepared
+
+The owner explicitly authorized committing and publishing the reviewed package.
+The frozen scope is27 frontend runtime files plus one regression expectation
+update.44 targeted cards now use individual UA/RU summaries; all52 services have
+3–5 explicit topical links. Metadata and generic/editorial passages are corrected
+without changing stable URLs. The owner confirmed board/processor repairs and
+crash-lock removal after restoration, including necessary damaged-unit replacement;
+the five corresponding service pairs now describe that scope explicitly.
+
+Local review passed:106 isolated routes,10 PHP regressions plus the intentional
+failure probe,16 focused service browser cases and16 existing compatibility cases.
+Later card and confirmed-service deltas received8+8 focused checks. Fresh release
+preflight repeated106 routes and10 regressions/probe; Composer production and npm
+security audits report0. No real callback/order was submitted.
+
+Only the frontend is involved: no backend, dependency, database, environment,
+media, scheduler or business-data change. Verified FTPS captured141 source paths
+and6 protected fingerprints;139 existing sources were archived and every archive
+member rehashed. The27-file order places new config/partial dependencies first and
+routes last; rollback reverses that order with own-after guards. The recovered
+scoped operator preserves all transport/concurrency/unknown-outcome protections;
+its6 original and4 additional offline tests pass. Visible unrelated untracked
+local work is preserved by an exact path/SHA ledger while tracked Git must be clean.
+
+Status at this checkpoint: prepared, not yet published. Live result follows in a
+later entry. Private manifests, backups, operator recovery and receipts remain in
+`.codex-tmp/services-release-20261030/`, outside Git.

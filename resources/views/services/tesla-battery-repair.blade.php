@@ -467,6 +467,8 @@
 
 </section>
 
+@include('partials.service-related', ['serviceSlug' => 'tesla-battery-repair'])
+
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', () => {

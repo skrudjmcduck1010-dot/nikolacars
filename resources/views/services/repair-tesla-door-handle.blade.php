@@ -380,6 +380,8 @@
 
 </section>
 
+@include('partials.service-related', ['serviceSlug' => 'repair-tesla-door-handle'])
+
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', () => {

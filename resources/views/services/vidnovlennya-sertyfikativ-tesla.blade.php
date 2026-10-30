@@ -495,6 +495,8 @@
   </section>
 </section>
 
+@include('partials.service-related', ['serviceSlug' => 'vidnovlennya-sertyfikativ-tesla'])
+
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', () => {

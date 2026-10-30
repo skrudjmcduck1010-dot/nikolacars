@@ -323,8 +323,8 @@
         <div class="service-title">{{ $isRu ? 'ВОССТАНОВЛЕНИЕ СЕРТИФИКАТОВ' : 'ВІДНОВЛЕННЯ СЕРТИФІКАТІВ' }}</div>
         <div class="service-text">
           {{ $isRu
-            ? 'Официальное восстановление сертификатов Tesla через сервис Tesla с гарантией стабильной работы.'
-            : 'Офіційне відновлення сертифікатів Tesla через сервіс Tesla з гарантією стабільної роботи.'
+            ? 'Восстановление сертификатов Tesla: проверка статуса и доступных вариантов восстановления.'
+            : 'Відновлення сертифікатів Tesla: перевірка статусу та доступних варіантів відновлення.'
           }}
         </div>
         <div class="service-more">{{ $isRu ? 'Читать далее' : 'Читати далі' }}</div>
@@ -384,8 +384,8 @@
           <div class="service-title">{{ mb_strtoupper($isRu ? $service['name_ru'] : $service['name_uk']) }}</div>
           <div class="service-text">
             {{ $isRu
-              ? 'Целевая услуга Tesla: «' . $service['name_ru'] . '» для Tesla Model 3, Model Y, Model X и Model S.'
-              : 'Цільова послуга Tesla: «' . $service['name_uk'] . '» для Tesla Model 3, Model Y, Model X та Model S.'
+              ? $service['summary_ru']
+              : $service['summary_uk']
             }}
           </div>
           <div class="service-more">{{ $isRu ? 'Читать далее' : 'Читати далі' }}</div>

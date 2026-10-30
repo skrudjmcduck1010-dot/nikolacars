@@ -69,6 +69,10 @@ foreach (['uk', 'ru'] as $locale) {
         diagnosticsAssert($subtitles->length === 1, "$locale: other service has one subtitle: ".$service['slug']);
         $subtitle = trim(preg_replace('/\s+/u', ' ', $subtitles->item(0)->textContent));
         $custom = [
+            'tesla-drive-unit-oil-repair' => [
+                'ru' => 'Подбор жидкости по приводному узлу, замена и проверка герметичности.',
+                'uk' => 'Підбір рідини за приводним вузлом, заміна та перевірка герметичності.',
+            ],
             'tesla-12v-battery-replacement' => [
                 'ru' => 'Проверка и замена низковольтной батареи: 12V или lithium-ion по комплектации вашей Tesla.',
                 'uk' => 'Перевірка та заміна низьковольтної батареї: 12V або lithium-ion за комплектацією вашої Tesla.',
@@ -85,7 +89,7 @@ foreach (['uk', 'ru'] as $locale) {
         if (isset($custom[$service['slug']])) {
             diagnosticsAssert($subtitle === $custom[$service['slug']][$locale], "$locale: own current live subtitle retained: ".$service['slug']);
         } else {
-            diagnosticsAssert(str_contains($subtitle, $isRu ? 'Узкоспециализированный сервис Tesla по кейсу' : 'Вузькоспеціалізований сервіс Tesla за кейсом'), "$locale: other service subtitle retained: ".$service['slug']);
+            diagnosticsAssert($subtitle !== '' && !str_contains($subtitle, 'по кейсу') && !str_contains($subtitle, 'за кейсом'), "$locale: other service has useful non-template subtitle: ".$service['slug']);
         }
         diagnosticsAssert(!str_contains($other, $isRu ? 'Стоимость и время диагностики' : 'Вартість і час діагностики'), "$locale: diagnostics content isolated: ".$service['slug']);
     }
