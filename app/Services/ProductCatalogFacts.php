@@ -15,6 +15,7 @@ final class ProductCatalogFacts
         ],
         91256 => [
             'article' => '1004419-00-M',
+            'check_missing_connector' => true,
             'ru' => 'Проводка передней левой двери Model S с левым рулём и комплектацией Tech. Для этой ревизии Tesla указывает два периода выпуска: 05.05–11.07.2014 с кодами X031 и DRLH или 14.07.2014–15.09.2015 с кодом DRLH. Для замены другой ревизии сверьте VIN и исходный номер проводки',
             'uk' => 'Проводка передніх лівих дверей Model S із лівим кермом і комплектацією Tech. Для цієї ревізії Tesla вказує два періоди випуску: 05.05–11.07.2014 з кодами X031 і DRLH або 14.07.2014–15.09.2015 з кодом DRLH. Для заміни іншої ревізії звірте VIN і початковий номер проводки',
         ],
@@ -103,6 +104,16 @@ final class ProductCatalogFacts
             $product['model'] = 'Model S';
             $product['compatibility'] = $fact[$locale] ?? '';
             $product['reviewed_fitment'] = isset($fact[$locale]);
+        }
+        if (! empty($fact['check_missing_connector']) && in_array(mb_strtolower(trim((string) ($product['damage_status'] ?? ''))), ['', 'без повреждений', 'без пошкоджень'], true)) {
+            $note = trim((string) ($product['damage_description'] ?? ''));
+            $evidence = $note !== '' ? $note : (string) ($product['name'] ?? '');
+            if (preg_match('~без (?:одной фишки|одного разъ[её]ма|однієї фішки|одного роз[’\x{0027}ʼ]єму)~iu', $evidence)) {
+                $product['damage_status'] = $locale === 'ru' ? 'С повреждением' : 'З пошкодженням';
+                if ($note === '') {
+                    $product['damage_description'] = $locale === 'ru' ? 'Отсутствует один разъём двери.' : 'Відсутній один роз’єм дверей.';
+                }
+            }
         }
         if (isset($fact['assembly'])) {
             $product['article_label'] = 'Номер модуля';

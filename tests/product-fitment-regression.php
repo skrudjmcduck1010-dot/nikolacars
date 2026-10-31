@@ -50,6 +50,11 @@ Http::fake(function ($r) use ($fakeRows) {
     }
     if (preg_match('~/products/(\d+)$~D', $path, $m) && isset($fakeRows[(int) $m[1]])) {
         $row = array_replace($fakeRows[(int) $m[1]], $category);
+        if ($row['id'] === 91256) {
+            $ru = $r['locale'] === 'ru';
+            $row['name'] = $ru ? 'Проводка двери (без одной фишки на дверь)' : 'Проводка дверей (без однієї фішки на двері)';
+            $row['damage_status'] = $ru ? 'Без повреждений' : 'Без пошкоджень';
+        }
         $row['similar_products'] = $row['id'] !== 113113 ? [$fakeRows[113113]] : [];
         return Http::response($row);
     }
@@ -122,6 +127,22 @@ foreach (['uk','ru'] as $locale) {
         $detail = $read($base.$fakeRows[$harnessId]['url_slug'].'/');
         $check(str_contains($detail, $option) && str_contains($detail, 'X031'), 'Both locales show reviewed option combinations for each harness');
     }
+    $ru = $locale === 'ru';
+    $stockTitle = $ru ? 'Проводка двери (без одной фишки на дверь)' : 'Проводка дверей (без однієї фішки на двері)';
+    $noDamage = $ru ? 'Без повреждений' : 'Без пошкоджень';
+    $note = $ru ? 'Отсутствует один разъём двери.' : 'Відсутній один роз’єм дверей.';
+    $fixture = array_replace($damaged, ['name'=>$stockTitle, 'damage_status'=>$noDamage, 'damage_description'=>'']);
+    foreach ([$noDamage, ''] as $oldStatus) {
+        $fixed = ProductCatalogFacts::apply(array_replace($fixture,['damage_status'=>$oldStatus]), $locale);
+        $check($fixed['damage_description'] === $note && $fixed['damage_status'] !== $noDamage, 'Reconcile missing/negative status with current explicit connector defect');
+    }
+    foreach ([['name'=>'New stock name'], ['damage_description'=>'Manually reverified'], ['damage_status'=>'Сильные повреждения'], ['part_number'=>'1004419-00-N'], ['id'=>98765]] as $update) {
+        $new = array_replace($fixture, $update);
+        $presented = ProductCatalogFacts::apply($new, $locale);
+        $check($presented['damage_status'] === $new['damage_status'] && $presented['damage_description'] === $new['damage_description'], 'Manual correction, sibling or new revision must retain upstream damage status');
+    }
+    $detail = $read($base.$fakeRows[91256]['url_slug'].'/');
+    $check(str_contains($detail, $note) && !str_contains($detail, $noDamage) && str_contains($detail, $stockTitle), 'Live route must agree with the stock title about the missing door connector');
     $stockName = $locale === 'ru' ? 'Передняя накладка центральной консоли' : 'Передня накладка центральної консолі';
     $check($rows[103646]['name'] === $stockName, 'Localized corrected name for only this console trim');
     $newRevision = array_replace($fakeRows[102415], ['part_number'=>'1004424-00-H','compatibility'=>'Known row']);
