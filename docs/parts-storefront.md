@@ -510,7 +510,7 @@ is superseded. Further phone-widget work and SEO measurement are separate tasks.
 
 ## 31.10.2026, Europe/Kyiv — online-подпись: опубликовано и проверено live
 
-Причина: постоянная «Ми/Мы онлайн» вводила в заблуждение вне графика. Теперь shared parts contact показывает подпись/green dot только пн–пт 10:00–18:00 Europe/Kyiv; hidden по умолчанию, Intl timezone, timer/focus/visibility/pageshow и aria-describedby синхронизированы. Контакты/callback доступны. Root подтвердил scoped выпуск в рамках прямого поручения владельца.
+Причина: постоянная «Ми/Мы онлайн» вводила в заблуждение вне графика. Теперь shared parts contact показывает подпись/green dot только пн–пт 10:00–18:00 Europe/Kyiv; hidden по умолчанию, Intl timezone, timer/visibilitychange/pageshow и aria-describedby синхронизированы. Контакты/callback доступны. Root подтвердил scoped выпуск в рамках прямого поручения владельца.
 
 Runtime commit `3f6cf9eabf60599cfffac1a9feaf35ac471f668c` pushed, 4 runtime + browser test в Git; только CSS/JS/contact partial/layout на live. Fresh gates: 4 browser scenarios, 10 PHP regressions + failure sentinel, syntax/encoding/lint/diff, Composer/npm audits 0, 10 offline operator checks PASS. Fresh verified-FTPS baseline 141 + 6 protected, архив 141 members с memberSHA PASS. Guarded stage/atomic promotion/readback: 4 payload / 147 guards PASS, 11:18:25–11:19:22 UTC / 13:18:25–13:19:22 Kyiv. 134 untracked path/SHA сохранены. Независимый FTPS readback 4/4 PASS.
 
