@@ -7,6 +7,7 @@
 .parts-page .parts-contact-widget .contact-toggle:hover{background:#74131c}
 .parts-page .parts-contact-widget .contact-toggle svg{display:block;pointer-events:none}
 .parts-page .parts-contact-widget .parts-contact-online{position:absolute;top:calc(100% + 8px);right:0;display:flex;align-items:center;gap:5px;white-space:nowrap;font-size:12px;font-weight:600;line-height:16px;color:#353a40}
+.parts-page .parts-contact-widget .parts-contact-online[hidden]{display:none}
 .parts-page .parts-contact-widget .parts-contact-online-dot{width:8px;height:8px;flex:none;border-radius:50%;background:#a5e536;box-shadow:0 0 0 2px #fff}
 .parts-page .parts-contact-widget .contact-toggle:focus-visible,.parts-page .parts-contact-widget .contact-item:focus-visible{outline:3px solid #d62828;outline-offset:3px}
 .parts-page .parts-contact-widget .callback-panel{width:min(360px,calc(100vw - 32px));bottom:86px;max-height:calc(100dvh - 210px);overflow:auto;background:#f2f2f2}

@@ -5,6 +5,31 @@
   const form = widget?.querySelector('[data-parts-callback-form]');
   const openCallback = widget?.querySelector('[data-parts-callback-open]');
   if (!toggle || !panel) return;
+  const online = widget.querySelector('#partsContactOnline');
+  const updateOnline = () => {
+    let isOpen = false;
+    try {
+      // Match callback handling: Monday-Friday, 10:00-18:00 in Kyiv, including DST.
+      const parts = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Europe/Kyiv', weekday: 'short', hour: '2-digit', hourCycle: 'h23',
+      }).formatToParts(new Date());
+      const weekday = parts.find(part => part.type === 'weekday')?.value;
+      const hour = Number(parts.find(part => part.type === 'hour')?.value);
+      isOpen = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].includes(weekday) && hour >= 10 && hour < 18;
+    } catch (_) {}
+    if (online) {
+      online.hidden = !isOpen;
+      if (isOpen) toggle.setAttribute('aria-describedby', online.id);
+      else toggle.removeAttribute('aria-describedby');
+    }
+  };
+  const refreshOnline = () => {
+    updateOnline();
+    window.setTimeout(refreshOnline, 60000 - Date.now() % 60000 + 50);
+  };
+  refreshOnline();
+  document.addEventListener('visibilitychange', updateOnline);
+  window.addEventListener('pageshow', updateOnline);
   const phone = form?.querySelector('input');
   const submit = form?.querySelector('[type="submit"]');
   const status = form?.querySelector('[role="status"]');
