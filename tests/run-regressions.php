@@ -6,7 +6,7 @@ $scripts = [
     'category-levels-regression.php', 'diagnostics-page-regression.php',
     'front-controller-regression.php', 'home-service-regression.php',
     'language-switch-regression.php', 'merchant-policy-regression.php',
-    'product-delivery-layout-regression.php', 'service-page-regression.php',
+    'product-delivery-layout-regression.php', 'product-fitment-regression.php', 'service-page-regression.php',
     'storefront-cache-regression.php',
     'catalog-tree-regression.php',
     'ua-battery-alias-regression.php',

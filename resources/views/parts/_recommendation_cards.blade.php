@@ -21,7 +21,7 @@
       </a>
       <div class="part-card-body">
         <h3><a href="{{ $productUrl }}">{{ $item['name'] }}</a></h3>
-        <div class="part-codes">{{ collect([$item['part_number'] ?? null, $item['sku'] ?? null])->filter()->implode(' · ') }}</div>
+        <div class="part-codes">{{ collect([$item['display_part_number'] ?? $item['part_number'] ?? null, $item['sku'] ?? null])->filter()->implode(' · ') }}</div>
         <div class="part-purchase-row">
           <div class="part-purchase-info">
             @if(($item['availability_status'] ?? '') !== 'sold')

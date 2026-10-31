@@ -143,7 +143,7 @@
               </a>
               <div class="part-card-body">
                 <h3><a href="{{ $productUrl }}">{{ $product['name'] }}</a></h3>
-                <div class="part-codes">{{ $product['part_number'] ?? '' }}</div>
+                <div class="part-codes">{{ $product['display_part_number'] ?? $product['part_number'] ?? '' }}</div>
                 <div class="part-purchase-row">
                   <div class="part-purchase-info">
                     @if(!$isSold)
@@ -266,5 +266,5 @@ window.initialPartsCatalog = @json($initialCatalog);
 window.partsPreferredCategoryPaths = @json(\App\Services\CatalogPath::preferredPaths());
 window.partsModelLanding = @json($catalogLanding ?? $modelLanding ?? null);
 </script>
-<script src="{{ asset('assets/js/parts.js') }}?v=20261029-category-tree2" defer></script>
+<script src="{{ asset('assets/js/parts.js') }}?v=20261031-product-facts" defer></script>
 @endpush

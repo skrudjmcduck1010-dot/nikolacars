@@ -39,7 +39,7 @@
   $productHeading = collect([
     $product['name'] ?? '',
     $productModel,
-    $product['part_number'] ?? '',
+    $product['display_part_number'] ?? $product['part_number'] ?? '',
   ])->map(fn ($value) => trim((string) $value))->filter()->unique()->implode(' — ');
   $categoryBreadcrumbs = collect($product['category_breadcrumbs'] ?? [])->filter(fn ($breadcrumb) =>
     is_array($breadcrumb) && !empty($breadcrumb['label']) && !empty($breadcrumb['slug'])
@@ -68,7 +68,7 @@
     <nav class="product-breadcrumbs">
       <a class="breadcrumb-desktop-only" href="{{ $catalogUrl }}">{{ $isRu ? 'Запчасти' : 'Запчастини' }}</a>
       <span class="breadcrumb-desktop-only">›</span>
-      <a href="{{ $catalogUrl.($product['model_slug'] ?? '').'/' }}">{{ $product['model'] ?? '' }}</a>
+      <a href="{{ $catalogUrl.($product['model_slug'] ?? '').'/' }}">{{ $product['catalog_model'] ?? $product['model'] ?? '' }}</a>
       @foreach($categoryBreadcrumbs as $categoryBreadcrumb)
         <span @if(!$loop->first && !$loop->last) class="breadcrumb-desktop-only" @endif>›</span>
         <a @if(!$loop->first && !$loop->last) class="breadcrumb-desktop-only" @endif href="{{ $categoryBreadcrumbUrl($categoryBreadcrumb, $loop->index) }}">{{ $categoryBreadcrumb['label'] }}</a>

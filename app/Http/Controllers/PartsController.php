@@ -7,6 +7,7 @@ use App\Services\CatalogPath;
 use App\Services\ModelCatalogSeo;
 use App\Services\CategoryCatalogSeo;
 use App\Services\CatalogNavigation;
+use App\Services\ProductCatalogFacts;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\Response;
 use Illuminate\Http\JsonResponse;
@@ -166,7 +167,7 @@ class PartsController extends Controller
                 fn (): Response => $client->catalog($catalogQuery),
                 [404, 410, 422],
             );
-            $initialCatalog = $this->withProductUrlSlugs($initialCatalog);
+            $initialCatalog = $this->withPublicProducts($initialCatalog, $locale);
             $initialCatalog['navigation'] = CatalogNavigation::items($initialCatalog, $locale);
         } catch (ConnectionException|RuntimeException $exception) {
             if ($exception instanceof HttpExceptionInterface) {
@@ -346,9 +347,10 @@ class PartsController extends Controller
                 return $response->json();
             }, ['seconds' => 30]);
 
+            $payload = $this->withPublicProducts(\App\Services\StorefrontPhotoFilter::clean($payload), $locale);
             $payload['navigation'] = CatalogNavigation::items($payload, $locale);
 
-            return response()->json($this->withProductUrlSlugs(\App\Services\StorefrontPhotoFilter::clean($payload)));
+            return response()->json($payload);
         } catch (\Illuminate\Http\Exceptions\HttpResponseException $exception) {
             return $exception->getResponse();
         } catch (ConnectionException|RuntimeException $exception) {
@@ -399,7 +401,7 @@ class PartsController extends Controller
                     return true;
                 })->values()->all();
         }
-        $productData = $this->withProductUrlSlugs($productData);
+        $productData = $this->withPublicProducts(ProductCatalogFacts::apply($productData, $locale), $locale);
         $catalogPath = $locale === 'ru' ? '/ru/parts/' : '/parts/';
         if ($productSlug !== $canonicalSegment) {
             return redirect()->away(rtrim(url($catalogPath.$canonicalSegment), '/').'/', 301);
@@ -418,7 +420,9 @@ class PartsController extends Controller
         if ($vehicle !== '' && mb_stripos($productTitle, $vehicle) === false) {
             $productTitle = trim($productTitle.' '.$vehicle);
         }
-        $seoTitle = $productTitle.' — '.$article.' | NikolaCars';
+        $articleDisplay = $productData['display_part_number'] ?? $article;
+        $articleLabel = $productData['article_label'] ?? 'Артикул';
+        $seoTitle = $productTitle.' — '.$articleDisplay.' | NikolaCars';
         $partOrigin = mb_strtolower(trim((string) ($productData['part_origin'] ?? '')));
         if (in_array($partOrigin, ['оригінал', 'оригинал'], true)) {
             $seoTitle .= $locale === 'ru' ? ' — Оригинал' : ' — Оригінал';
@@ -436,7 +440,10 @@ class PartsController extends Controller
             : ($hasStock
                 ? ($locale === 'ru' ? 'В наличии в NikolaCars, Киев.' : 'В наявності у NikolaCars, Київ.')
                 : ($locale === 'ru' ? 'Временно нет в наличии.' : 'Тимчасово немає в наявності.'));
-        $seoDescription = $productTitle.', артикул '.$article.' — '.$priceDescription.'. '.$availabilityDescription;
+        $seoDescription = $productTitle.', '.mb_strtolower($articleLabel).' '.$article.' — '.$priceDescription.'. '.$availabilityDescription;
+        if (! empty($productData['reviewed_fitment'])) {
+            $seoDescription = $productTitle.' — '.$articleDisplay.'. '.$productData['compatibility'].'.';
+        }
         $productData['description'] = $this->generateProductDescription(
             $productData,
             $locale,
@@ -546,8 +553,8 @@ class PartsController extends Controller
             'name' => $productTitle,
             'image' => $images,
             'description' => $productData['description'],
-            'sku' => trim((string) ($productData['sku'] ?? '')) ?: $article,
-            'mpn' => trim((string) ($productData['part_number'] ?? '')) ?: null,
+            'sku' => trim((string) ($productData['sku'] ?? '')) ?: (isset($productData['article_label']) ? (string) $product : $article),
+            'mpn' => isset($productData['article_label']) ? null : (trim((string) ($productData['part_number'] ?? '')) ?: null),
             'brand' => ['@type' => 'Brand', 'name' => 'Tesla'],
             // Store category names remain visible on the page; Google receives
             // an explicit code from its taxonomy rather than a custom path.
@@ -570,7 +577,7 @@ class PartsController extends Controller
             $breadcrumbItems[] = [
                 '@type' => 'ListItem',
                 'position' => count($breadcrumbItems) + 1,
-                'name' => (string) ($productData['model'] ?? ''),
+                'name' => (string) ($productData['catalog_model'] ?? $productData['model'] ?? ''),
                 'item' => $baseUrl.$catalogPath.$modelSlug.'/',
             ];
         }
@@ -653,21 +660,30 @@ class PartsController extends Controller
         return ($slug !== '' ? $slug : 'part').'-'.$id;
     }
 
-    protected function withProductUrlSlugs(array $payload): array
+    protected function withPublicProducts(array $payload, string $locale): array
     {
+        if (is_array($payload['selection'] ?? null)) {
+            $payload['selection'] = ProductCatalogFacts::localizeCategory($payload['selection'], $locale);
+        }
+        if (is_array($payload['category_navigation'] ?? null)) {
+            $payload['category_navigation'] = array_map(
+                fn (array $node): array => ProductCatalogFacts::localizeCategory($node, $locale),
+                $payload['category_navigation']
+            );
+        }
         foreach (['products', 'similar_products', 'subcategory_products'] as $key) {
             if (! is_array($payload[$key] ?? null)) {
                 continue;
             }
 
-            $payload[$key] = array_map(function (mixed $product): mixed {
+            $payload[$key] = array_map(function (mixed $product) use ($locale): mixed {
                 if (! is_array($product) || empty($product['id'])) {
                     return $product;
                 }
 
                 $product['url_slug'] = $this->productUrlSlug($product, (int) $product['id']);
 
-                return $product;
+                return ProductCatalogFacts::apply($product, $locale);
             }, $payload[$key]);
         }
 
@@ -729,11 +745,12 @@ class PartsController extends Controller
         $quantity = max(0, (int) ($product['quantity'] ?? 0));
         $isSold = ($product['availability_status'] ?? '') === 'sold';
         $compactArticle = preg_replace('/[^\p{L}\p{N}]+/u', '', $article) ?: $article;
+        $articleLabel = $product['article_label'] ?? 'Артикул';
 
         if ($locale === 'ru') {
             $details = [
                 $name.' — запчасть для '.$vehicle.'.',
-                'Артикул: '.$article.($compactArticle !== $article ? ' ('.$compactArticle.')' : '').'.',
+                $articleLabel.': '.$article.($compactArticle !== $article ? ' ('.$compactArticle.')' : '').'.',
             ];
             if ($category !== '') {
                 $details[] = 'Категория: '.$category.'.';
@@ -765,7 +782,7 @@ class PartsController extends Controller
 
         $details = [
             $name.' — запчастина для '.$vehicle.'.',
-            'Артикул: '.$article.($compactArticle !== $article ? ' ('.$compactArticle.')' : '').'.',
+            $articleLabel.': '.$article.($compactArticle !== $article ? ' ('.$compactArticle.')' : '').'.',
         ];
         if ($category !== '') {
             $details[] = 'Категорія: '.$category.'.';

@@ -1,6 +1,6 @@
 <section class="product-info">
   <h1 class="product-heading">{{ $productHeading }}</h1>
-  <div class="product-code-line">{{ collect([$product['part_number'] ?? null, $product['sku'] ?? null, $product['vin'] ?? null])->filter()->implode(' · ') }}</div>
+  <div class="product-code-line">{{ collect([$product['display_part_number'] ?? $product['part_number'] ?? null, $product['sku'] ?? null, $product['vin'] ?? null])->filter()->implode(' · ') }}</div>
   <div class="product-category-label">{{ $product['category_path'] ?? '' }}</div>
 
   @if(!$isSold)
@@ -43,7 +43,7 @@
         <div><dt>{{ $labels[$isRu ? 0 : 1] }}</dt><dd>{{ (int) $product[$dimension] }} см</dd></div>
       @endif
     @endforeach
-    @if(!empty($product['part_number']))<div><dt>{{ $isRu ? 'Артикул' : 'Артикул' }}</dt><dd>{{ $product['part_number'] }}</dd></div>@endif
+    @if(!empty($product['part_number']))<div><dt>{{ $product['article_label'] ?? 'Артикул' }}</dt><dd>{{ $product['part_number'] }}</dd></div>@endif
     @if(!empty($product['sku']))<div><dt>{{ $isRu ? 'Код склада' : 'Код складу' }}</dt><dd>{{ $product['sku'] }}</dd></div>@endif
     @if(!empty($product['condition']))<div><dt>{{ $isRu ? 'Состояние' : 'Стан' }}</dt><dd>{{ $product['condition'] }}</dd></div>@endif
     @if(!empty($product['part_origin']))<div><dt>{{ $isRu ? 'Тип запчасти' : 'Тип запчастини' }}</dt><dd>{{ $product['part_origin'] }}</dd></div>@endif
@@ -55,7 +55,7 @@
     @if(!empty($product['color']))<div><dt>{{ $isRu ? 'Цвет' : 'Колір' }}</dt><dd>{{ $product['color'] }}</dd></div>@endif
     @if(!empty($product['compatibility']))
       <div><dt>{{ $isRu ? 'Совместимость' : 'Сумісність' }}</dt><dd class="product-compatibility">
-        @foreach(preg_split('/\s*[,;\r\n]+\s*/u', (string) $product['compatibility'], -1, PREG_SPLIT_NO_EMPTY) as $compatibleModel)
+        @foreach(!empty($product['reviewed_fitment']) ? [$product['compatibility']] : preg_split('/\s*[,;\r\n]+\s*/u', (string) $product['compatibility'], -1, PREG_SPLIT_NO_EMPTY) as $compatibleModel)
           <span>{{ trim($compatibleModel) }}</span>
         @endforeach
       </dd></div>

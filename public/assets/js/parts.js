@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const imageWidth = Number(product.thumbnail_width || 360);
         const imageHeight = Number(product.thumbnail_height || 300);
         const productUrl = `${root.dataset.productBase}/${product.url_slug || product.id}/`;
-        const codes = [product.part_number, product.sku].filter(Boolean).join(' · ');
+        const codes = [product.display_part_number || product.part_number, product.sku].filter(Boolean).join(' · ');
         return `<a href="${productUrl}" class="parts-search-suggestion" role="option">
           <span class="parts-search-suggestion-image ${imageUrl ? '' : 'no-image'}">
             ${imageUrl ? `<img src="${escapeHtml(imageUrl)}" alt="" width="${imageWidth}" height="${imageHeight}" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('no-image');this.remove()">` : ''}
@@ -321,7 +321,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <a href="${productUrl}" class="part-image ${image ? '' : 'no-image'}">${image}<span>NIKOLACARS</span>${isSold ? `<b class="part-sold-badge">${escapeHtml(t.sold)}</b>` : ''}</a>
         <div class="part-card-body">
           <h3><a href="${productUrl}">${escapeHtml(product.name)}</a></h3>
-          <div class="part-codes">${escapeHtml(product.part_number)}</div>
+          <div class="part-codes">${escapeHtml(product.display_part_number || product.part_number)}</div>
           <div class="part-purchase-row">
             <div class="part-purchase-info">
               ${isSold ? '' : `<div class="part-price ${hasPrice(product) ? '' : 'part-price-on-request'}">${priceLabel(product)}</div>`}
