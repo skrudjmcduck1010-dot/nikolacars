@@ -9,6 +9,7 @@ $scripts = [
     'product-delivery-layout-regression.php', 'service-page-regression.php',
     'storefront-cache-regression.php',
     'catalog-tree-regression.php',
+    'ua-battery-alias-regression.php',
 ];
 $sentinel = '__NC_REGRESSION_COMPLETED__';
 if (($argv[1] ?? '') === '--child') {
