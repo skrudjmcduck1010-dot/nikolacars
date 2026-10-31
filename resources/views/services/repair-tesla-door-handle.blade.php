@@ -380,6 +380,8 @@
 
 </section>
 
+@include('partials.service-related', ['serviceSlug' => 'repair-tesla-door-handle'])
+
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', () => {
@@ -387,6 +389,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!form) return;
 
   const submitBtn = form.querySelector('.call-submit');
+  const successMessage = form.querySelector('.call-success');
+  const defaultSuccessMessage = successMessage?.textContent.trim() || '';
   const csrf = form.querySelector('input[name="_token"]')?.value || '';
 
   const phoneInput = document.getElementById('phoneInput');
@@ -455,7 +459,11 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      form.reset();
+      window.ncAnalytics?.lead('service_callback');
+      if (successMessage) {
+        successMessage.textContent = window.ncLeadSuccessMessage(json, defaultSuccessMessage);
+      }
+          form.reset();
       form.classList.add('is-success');
     } catch (err) {
       console.error(err);

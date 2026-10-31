@@ -1,0 +1,228 @@
+document.addEventListener('DOMContentLoaded', () => {
+  const dataElement = document.getElementById('productData');
+  if (!dataElement) return;
+
+  const product = JSON.parse(dataElement.textContent);
+  const productDetail = document.querySelector('.product-detail');
+  const productInfo = productDetail?.querySelector('.product-info');
+  const productHeading = productDetail?.querySelector('.product-heading');
+  if (productDetail && productInfo && productHeading) {
+    const headingLayout = window.matchMedia('(max-width: 800px)');
+    const updateHeading = () => {
+      (headingLayout.matches ? productDetail : productInfo).prepend(productHeading);
+    };
+    updateHeading();
+    headingLayout.addEventListener('change', updateHeading);
+  }
+  const soldSpecifications = document.querySelector('[data-sold-specifications]');
+  if (soldSpecifications) {
+    const mobileLayout = window.matchMedia('(max-width: 800px)');
+    const updateSpecifications = () => { soldSpecifications.open = !mobileLayout.matches; };
+    updateSpecifications();
+    mobileLayout.addEventListener('change', updateSpecifications);
+  }
+  const cartKey = 'nikolacars-parts-cart-v1';
+  const addButton = document.querySelector('[data-product-add]');
+  const addButtonLabel = addButton?.textContent.trim() || '';
+  const recommendationProducts = [
+    ...(product.similar_products || []),
+    ...(product.subcategory_products || [])
+  ];
+  const cartProduct = { ...product };
+  delete cartProduct.similar_products;
+  delete cartProduct.subcategory_products;
+  const hasPrice = item => Number(item?.price_uah) > 0;
+  const readCart = () => JSON.parse(localStorage.getItem(cartKey) || '[]').filter(item => item && Number.isInteger(item.id) && hasPrice(item));
+  const renderCount = cart => {
+    const count = cart.reduce((sum, item) => sum + Number(item.quantity || 0), 0);
+    document.querySelectorAll('[data-cart-count]').forEach(element => { element.textContent = count; });
+    window.dispatchEvent(new Event('nc:cart-updated'));
+  };
+  const renderAddButton = cart => {
+    if (!addButton) return;
+
+    const isAdded = cart.some(item => item.id === product.id);
+    addButton.textContent = isAdded ? addButton.dataset.addedLabel : addButtonLabel;
+    addButton.classList.toggle('added', isAdded);
+    addButton.setAttribute('aria-pressed', String(isAdded));
+  };
+  const renderRecommendationButtons = cart => {
+    document.querySelectorAll('[data-recommendation-add]').forEach(button => {
+      const isAdded = cart.some(item => item.id === Number(button.dataset.recommendationAdd));
+      const label = isAdded ? button.dataset.addedLabel : button.dataset.defaultLabel;
+      button.setAttribute('aria-label', label);
+      button.title = label;
+      button.classList.toggle('added', isAdded);
+      button.setAttribute('aria-pressed', String(isAdded));
+    });
+  };
+
+  let cart = readCart();
+  renderCount(cart);
+  renderAddButton(cart);
+  renderRecommendationButtons(cart);
+
+  window.addEventListener('nc:cart-edited', () => { cart = readCart(); renderCount(cart); renderAddButton(cart); renderRecommendationButtons(cart); });
+  addButton?.addEventListener('click', () => {
+    if (hasPrice(product) && !cart.some(item => item.id === product.id)) {
+      cart.push({ ...cartProduct, available: product.quantity, quantity: 1 });
+      window.ncAnalytics?.addToCart(product);
+      localStorage.setItem(cartKey, JSON.stringify(cart));
+    }
+    renderCount(cart);
+    renderAddButton(cart);
+    window.ncCartModal.open();
+  });
+
+  document.querySelectorAll('[data-recommendation-add]').forEach(button => button.addEventListener('click', () => {
+    const recommendation = recommendationProducts.find(item => item.id === Number(button.dataset.recommendationAdd));
+    if (recommendation && hasPrice(recommendation) && !cart.some(item => item.id === recommendation.id)) {
+      cart.push({ ...recommendation, available: recommendation.quantity, quantity: 1 });
+      window.ncAnalytics?.addToCart(recommendation);
+      localStorage.setItem(cartKey, JSON.stringify(cart));
+    }
+    renderCount(cart);
+    renderAddButton(cart);
+    renderRecommendationButtons(cart);
+    window.ncCartModal.open();
+  }));
+
+  document.querySelector('[data-open-cart]')?.addEventListener('click', () => {
+    window.ncCartModal.open();
+  });
+  document.querySelector('[data-scroll-catalog]')?.addEventListener('click', () => {
+    location.href = window.productPageConfig.catalogUrl;
+  });
+
+  const galleryItems = (product.image_items || [])
+    .filter(item => item && item.url)
+    .map(item => ({ ...item, variants: (item.variants || []).filter(variant => variant?.url && variant?.width) }));
+  if (!galleryItems.length) {
+    const fallbackImages = (product.images || []).filter(Boolean);
+    if (!fallbackImages.length && product.image_url) fallbackImages.push(product.image_url);
+    fallbackImages.forEach(url => galleryItems.push({ url, thumbnail_url: url, variants: [] }));
+  }
+  const galleryImages = galleryItems.map(item => item.url);
+  const mainImage = document.querySelector('[data-product-main-image]');
+  const galleryOpen = document.querySelector('[data-gallery-open]');
+  const lightbox = document.querySelector('[data-product-lightbox]');
+  const lightboxImage = lightbox?.querySelector('[data-lightbox-image]');
+  const lightboxCounter = lightbox?.querySelector('[data-lightbox-counter]');
+  let currentImageIndex = 0;
+  let previousFocus = null;
+  let pointerStartX = null;
+
+  const selectGalleryImage = index => {
+    if (!galleryImages.length) return;
+    currentImageIndex = (index + galleryImages.length) % galleryImages.length;
+    if (mainImage) {
+      const item = galleryItems[currentImageIndex];
+      const variants = item.variants || [];
+      const displayVariant = variants.reduce((largest, variant) => Number(variant.width) > Number(largest?.width || 0) ? variant : largest, null);
+      mainImage.src = displayVariant?.url || item.url;
+      if (variants.length) {
+        mainImage.srcset = variants.map(variant => `${variant.url} ${variant.width}w`).join(', ');
+        mainImage.sizes = '(max-width: 800px) calc(100vw - 32px), 660px';
+      } else {
+        mainImage.removeAttribute('srcset');
+        mainImage.removeAttribute('sizes');
+      }
+      if (displayVariant?.width && displayVariant?.height) {
+        mainImage.width = Number(displayVariant.width);
+        mainImage.height = Number(displayVariant.height);
+      }
+    }
+    document.querySelectorAll('[data-product-image]').forEach(button => {
+      button.classList.toggle('active', Number(button.dataset.productImageIndex) === currentImageIndex);
+    });
+  };
+  const renderLightboxImage = () => {
+    if (!lightboxImage || !galleryImages.length) return;
+    lightboxImage.src = galleryImages[currentImageIndex];
+    if (lightboxCounter) lightboxCounter.textContent = `${currentImageIndex + 1} / ${galleryImages.length}`;
+  };
+  const openLightbox = () => {
+    if (!lightbox || !galleryImages.length) return;
+    previousFocus = document.activeElement;
+    renderLightboxImage();
+    lightbox.hidden = false;
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('product-lightbox-open');
+    lightbox.querySelector('[data-lightbox-close]:not(.product-lightbox-backdrop)')?.focus();
+  };
+  const closeLightbox = () => {
+    if (!lightbox || lightbox.hidden) return;
+    lightbox.hidden = true;
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('product-lightbox-open');
+    previousFocus?.focus?.();
+  };
+  const moveLightbox = direction => {
+    selectGalleryImage(currentImageIndex + direction);
+    renderLightboxImage();
+  };
+
+  document.querySelectorAll('[data-product-image]').forEach(button => button.addEventListener('click', () => {
+    selectGalleryImage(Number(button.dataset.productImageIndex));
+  }));
+  galleryOpen?.addEventListener('click', openLightbox);
+  lightbox?.querySelectorAll('[data-lightbox-close]').forEach(button => button.addEventListener('click', closeLightbox));
+  lightbox?.querySelector('[data-lightbox-prev]')?.addEventListener('click', () => moveLightbox(-1));
+  lightbox?.querySelector('[data-lightbox-next]')?.addEventListener('click', () => moveLightbox(1));
+  lightbox?.querySelector('[data-lightbox-stage]')?.addEventListener('pointerdown', event => {
+    pointerStartX = event.clientX;
+  });
+  lightbox?.querySelector('[data-lightbox-stage]')?.addEventListener('pointerup', event => {
+    if (pointerStartX === null) return;
+    const distance = event.clientX - pointerStartX;
+    pointerStartX = null;
+    if (Math.abs(distance) >= 50 && galleryImages.length > 1) moveLightbox(distance < 0 ? 1 : -1);
+  });
+  document.addEventListener('keydown', event => {
+    if (!lightbox || lightbox.hidden) return;
+    if (event.key === 'Escape') closeLightbox();
+    if (event.key === 'ArrowLeft' && galleryImages.length > 1) moveLightbox(-1);
+    if (event.key === 'ArrowRight' && galleryImages.length > 1) moveLightbox(1);
+  });
+
+  document.querySelectorAll('[data-recommendations-carousel]').forEach(carousel => {
+    const track = carousel.querySelector('[data-recommendations-track]');
+    if (!track) return;
+    const arrows = Array.from(carousel.querySelectorAll('.product-carousel-arrow'));
+
+    const updateCarouselState = () => {
+      const isScrollable = track.scrollWidth > track.clientWidth + 2;
+      carousel.classList.toggle('is-scrollable', isScrollable);
+      arrows.forEach(arrow => { arrow.hidden = !isScrollable; });
+      if (!isScrollable && track.scrollLeft !== 0) track.scrollTo({ left: 0 });
+    };
+
+    const scroll = direction => {
+      const maxScrollLeft = Math.max(0, track.scrollWidth - track.clientWidth);
+      const edgeTolerance = 2;
+
+      if (direction > 0 && track.scrollLeft >= maxScrollLeft - edgeTolerance) {
+        track.scrollTo({ left: 0, behavior: 'smooth' });
+        return;
+      }
+
+      if (direction < 0 && track.scrollLeft <= edgeTolerance) {
+        track.scrollTo({ left: maxScrollLeft, behavior: 'smooth' });
+        return;
+      }
+
+      track.scrollBy({
+        left: direction * Math.max(280, track.clientWidth * 0.85),
+        behavior: 'smooth'
+      });
+    };
+    carousel.querySelector('[data-carousel-prev]')?.addEventListener('click', () => scroll(-1));
+    carousel.querySelector('[data-carousel-next]')?.addEventListener('click', () => scroll(1));
+    requestAnimationFrame(updateCarouselState);
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(updateCarouselState).observe(track);
+    } else {
+      window.addEventListener('resize', updateCarouselState);
+    }
+  });
+});

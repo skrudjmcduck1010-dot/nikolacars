@@ -3,7 +3,18 @@
 @php
   $isRu = (($locale ?? 'uk') === 'ru');
   $serviceData = $serviceData ?? null;
+  $serviceDefinitions = collect(config('targeted_services', []))->keyBy('slug');
+  $serviceEditorial = is_array($serviceData) ? ($serviceDefinitions->get($serviceData['slug']) ?? []) : [];
+  if (is_array($serviceData)) {
+    $serviceData = array_replace($serviceData, $serviceEditorial['overrides'] ?? []);
+  }
   $isTargetedPage = is_array($serviceData);
+  $hasLongHeroTitle = $isTargetedPage && in_array($serviceData['slug'] ?? '', [
+    'tesla-air-strut-repair',
+    'tesla-ccs-charge-port-repair',
+    'tesla-model-s-battery-fuse',
+    'tesla-headlight-drl-repair',
+  ], true);
   $serviceName = $isTargetedPage ? ($isRu ? $serviceData['name_ru'] : $serviceData['name_uk']) : null;
   $metaTitle = $isTargetedPage ? ($isRu ? ($serviceData['meta_title_ru'] ?? ($serviceData['name_ru'] . ' — NikolaCars')) : ($serviceData['meta_title_uk'] ?? ($serviceData['name_uk'] . ' — NikolaCars'))) : null;
   $metaDescription = $isTargetedPage ? ($isRu ? ($serviceData['meta_description_ru'] ?? ($serviceData['name_ru'] . ' в Киеве. Профильный сервис Tesla для Tesla Model 3, Tesla Model Y, Tesla Model X и Tesla Model S.')) : ($serviceData['meta_description_uk'] ?? ($serviceData['name_uk'] . ' у Києві. Профільний сервіс Tesla для Tesla Model 3, Tesla Model Y, Tesla Model X та Tesla Model S.'))) : null;
@@ -11,23 +22,23 @@
   $articleHtml = preg_replace('#<h1(\s[^>]*)?>(.*?)</h1>#is', '<h2$1>$2</h2>', $articleHtml);
   $relatedServices = collect();
   if ($isTargetedPage) {
-    $allTargetedServices = collect(config('targeted_services', []))
-      ->filter(fn ($item) => !empty($item['slug']) && view()->exists('services.targeted.' . $item['slug']))
-      ->values();
-    $currentServiceIndex = $allTargetedServices->search(fn ($item) => ($item['slug'] ?? null) === ($serviceData['slug'] ?? null));
-    if ($currentServiceIndex !== false && $allTargetedServices->count() > 1) {
-      for ($offset = 1; $offset <= min(8, $allTargetedServices->count() - 1); $offset++) {
-        $relatedServices->push($allTargetedServices[($currentServiceIndex + $offset) % $allTargetedServices->count()]);
+    $serviceContent = config('service_content', []);
+    foreach ($serviceDefinitions as $slug => $definition) {
+      $serviceContent[$slug] = array_merge($serviceContent[$slug] ?? [], $definition);
+    }
+    foreach (($serviceContent[$serviceData['slug']]['related'] ?? []) as $relatedSlug) {
+      if (isset($serviceContent[$relatedSlug])) {
+        $relatedServices->push(array_merge($serviceContent[$relatedSlug], ['slug' => $relatedSlug]));
       }
     }
   }
 @endphp
 
-@section('title', $isTargetedPage ? $metaTitle : ($isRu ? 'Услуги 🛠️ NikolaCars — всё для авто Tesla' : 'Послуги 🛠️ NikolaCars — все для авто Tesla'))
+@section('title', $isTargetedPage ? $metaTitle : ($pageTitle ?? ($isRu ? 'Сервис Tesla в Киеве — диагностика и ремонт | NikolaCars' : 'Сервіс Tesla у Києві — діагностика та ремонт | NikolaCars')))
 
-@section('description', $isTargetedPage ? $metaDescription : ($isRu ? 'Услуги 🚗 Подбор и доставка автомобилей Tesla в Украину под ключ. Обслуживание на нашем СТО, прошивка авто. Ваши желания — наши решения.' : 'Послуги 🚗 Підбір та доставка автомобілів Tesla в Україну під ключ. Обслуговування на нашому СТО, Прошивка авто. Ваші бажання — Наші рішення.'))
+@section('description', $isTargetedPage ? $metaDescription : ($metaDescription ?? ($isRu ? 'СТО Tesla в Киеве: компьютерная диагностика, ремонт батарей, электромоторов, подвески и электроники. Запись на сервис NikolaCars.' : 'СТО Tesla у Києві: комп’ютерна діагностика, ремонт батарей, електромоторів, підвіски та електроніки. Запис на сервіс NikolaCars.')))
 @section('content')
-<section class="service-hero">
+<section class="service-hero{{ $isTargetedPage ? ($hasLongHeroTitle ? ' service-hero--long-title' : '') : ' service-hero--tesla-main' }}">
   <div class="hero-wrap">
     <div class="service-hero-slider" aria-label="Hero">
       <div class="service-hero-slide" style="background: url('/assets/img/slider/tesla-service.webp') center/cover no-repeat, #000;">
@@ -39,16 +50,16 @@
               <h1 class="service-hero-title">
                 {{ $isTargetedPage
                   ? $serviceName
-                  : ($isRu ? 'Обслуживание автомобилей Tesla на нашем СТО' : 'Обслуговування автомобілів Tesla на нашому СТО')
+                  : ($isRu ? 'Диагностика, ремонт и обслуживание Tesla в Киеве' : 'Діагностика, ремонт та обслуговування Tesla у Києві')
                 }}
               </h1>
               <div class="service-hero-subtitle">
                 {{ $isRu
                   ? ($isTargetedPage
-                      ? 'Узкоспециализированный сервис Tesla по кейсу «' . $serviceData['name_ru'] . '» в Киеве.'
+                      ? ($serviceData['hero_subtitle_ru'] ?? ($serviceEditorial['summary_ru'] ?? ''))
                       : 'Диагностика, ремонт, техническое обслуживание и прошивки Tesla в Киеве.')
                   : ($isTargetedPage
-                      ? 'Вузькоспеціалізований сервіс Tesla за кейсом «' . $serviceData['name_uk'] . '» у Києві.'
+                      ? ($serviceData['hero_subtitle_uk'] ?? ($serviceEditorial['summary_uk'] ?? ''))
                       : 'Діагностика, ремонт, технічне обслуговування та прошивки Tesla у Києві.')
                 }}
               </div>
@@ -153,6 +164,37 @@
           </p>
         @endif
       </div>
+
+      @if(!$isTargetedPage)
+        <div class="service-article-text">
+          <h3>{{ $isRu ? 'Компьютерная диагностика Tesla: с чего начинается ремонт' : 'Комп’ютерна діагностика Tesla: з чого починається ремонт' }}</h3>
+          <p>{{ $isRu
+            ? 'Опишите симптомы, сообщения на экране и условия, в которых возникает неисправность. Диагностика помогает определить причину и необходимый объём работ: ошибки электронных систем, состояние батареи и зарядки, подвески или тормозов проверяются в зависимости от обращения. Считывание ошибок само по себе не заменяет проверку неисправного узла.'
+            : 'Опишіть симптоми, повідомлення на екрані та умови, за яких виникає несправність. Діагностика допомагає визначити причину й необхідний обсяг робіт: помилки електронних систем, стан батареї та заряджання, підвіски або гальм перевіряються залежно від звернення. Зчитування помилок саме по собі не замінює перевірку несправного вузла.' }}</p>
+          <p>{{ $isRu
+            ? 'Для записи укажите модель Tesla, год выпуска и VIN, если он доступен. Стоимость диагностики и ремонта зависит от задачи, необходимых работ и запчастей; смету согласовываем до ремонта. Универсальную цену без проверки автомобиля не указываем.'
+            : 'Для запису вкажіть модель Tesla, рік випуску та VIN, якщо він доступний. Вартість діагностики й ремонту залежить від завдання, необхідних робіт і запчастин; кошторис погоджуємо до ремонту. Універсальну ціну без перевірки автомобіля не вказуємо.' }}</p>
+        </div>
+        <div class="service-related">
+          <h2 class="service-related-title">{{ $isRu ? 'Выберите услугу для вашей Tesla' : 'Оберіть послугу для вашої Tesla' }}</h2>
+          <div class="service-related-grid">
+            @foreach([
+              ['tesla-computer-diagnostics', 'Комп’ютерна діагностика Tesla', 'Компьютерная диагностика Tesla'],
+              ['tesla-battery-repair', 'Діагностика та ремонт батареї', 'Диагностика и ремонт батареи'],
+              ['tesla-electricmotor-repair', 'Ремонт електромотора Tesla', 'Ремонт электромотора Tesla'],
+              ['tesla-suspension-repair', 'Ремонт підвіски Tesla', 'Ремонт подвески Tesla'],
+              ['tesla-charge-port-repair', 'Ремонт порту заряджання', 'Ремонт порта зарядки'],
+              ['tesla-pre-purchase-inspection', 'Перевірка Tesla перед купівлею', 'Проверка Tesla перед покупкой'],
+            ] as $serviceLink)
+              <a class="service-related-link" href="{{ ($isRu ? '/ru/services/' : '/services/').$serviceLink[0].'/' }}"><span>{{ $serviceLink[$isRu ? 2 : 1] }}</span></a>
+            @endforeach
+          </div>
+        </div>
+        <div class="service-article-text">
+          <h3>{{ $isRu ? 'Где находится СТО Tesla NikolaCars и как записаться' : 'Де знаходиться СТО Tesla NikolaCars і як записатися' }}</h3>
+          <p>{{ $isRu ? 'Наш адрес: Киев, ул. Коллекторная, 30. Оставьте заявку в форме на этой странице или воспользуйтесь контактами СТО. Перед приездом согласуйте время и перечень работ.' : 'Наша адреса: Київ, вул. Колекторна, 30. Залиште заявку у формі на цій сторінці або скористайтеся контактами СТО. Перед приїздом погодьте час і перелік робіт.' }} <a href="{{ $isRu ? '/ru/contacts/' : '/contacts/' }}">{{ $isRu ? 'Контакты и расположение сервиса' : 'Контакти та розташування сервісу' }}</a>.</p>
+        </div>
+      @endif
 
       @if($isTargetedPage && $relatedServices->isNotEmpty())
         <div class="service-related">
@@ -339,6 +381,7 @@
     </div>
   </section>
 
+  @if(!$isTargetedPage || trim($isRu ? ($serviceData['final_html_ru'] ?? '') : ($serviceData['final_html_uk'] ?? '')) !== '')
   <section class="service-final">
     <div class="container">
       <div class="service-final-content">
@@ -446,8 +489,8 @@
 
         <p>
           {{ $isRu
-            ? 'Производитель считает, что посещать сервис Tesla нужно каждые 20 000 км — примерно раз в 1–2 года. Но в Украине чаще встречаются автомобили с солидным пробегом, поэтому реальный график ТО для вашей машины может отличаться.'
-            : 'Виробник вважає, що відвідувати автосервіс Тесла треба після кожних 20 тисяч кілометрів пробігу, це орієнтовно раз на 1-2 роки. Утім, на ринок України частіше потрапляють машини із солідним кілометражем. Відтак реальний графік ТО, тобто, планових перевірок саме для вашої машини може бути й іншим.'
+            ? 'Tesla не устанавливает единое обязательное ежегодное ТО для всех автомобилей. Рекомендуемые проверки и интервалы зависят от модели, года выпуска и условий эксплуатации. План обслуживания сверяем с руководством именно вашего автомобиля и его фактическим состоянием.'
+            : 'Tesla не встановлює єдине обов’язкове щорічне ТО для всіх автомобілів. Рекомендовані перевірки та інтервали залежать від моделі, року випуску й умов експлуатації. План обслуговування звіряємо з керівництвом саме вашого автомобіля та його фактичним станом.'
           }}
         </p>
 
@@ -476,14 +519,16 @@
         </p>
 
         <ul class="service-final-list">
-          <li>{{ $isRu ? 'Тормозную жидкость нужно проверять на загрязнение каждые 4 года и с такой же периодичностью менять. При интенсивном использовании (буксировка, горные спуски и т.п.) может требоваться более частая проверка и замена.' : 'Гальмівна рідина має перевірятися на забруднення кожні 4 роки. Власне, саме з такою періодичністю вона має і замінюватися. Інтенсивне використання гальм під час буксирування, на гірських спусках тощо може вимагати більш частої перевірки та заміни гальмівної рідини.' }}</li>
-          <li>{{ $isRu ? 'Обслуживание АКБ. При необходимости на экране появится сообщение вроде «12V Battery Needs Service, Replace 12V Battery Soon». Производитель подчеркивает: самостоятельно работать с кабелями и разъёмами нельзя — это высокое напряжение.' : 'Обслуговування АКБ. Якщо високовольтна батарея потребуватиме обслуговування, на сенсорному екрані з’явиться приблизно таке повідомлення: «12V Battery Needs Service, Replace 12V Battery Soon». Виробник наголошує, що самостійно працювати з компонентами, кабелями та роз’ємами не варто: мова про високовольтну напругу.' }}</li>
-          <li>{{ $isRu ? 'Охлаждающую жидкость АКБ рекомендуется менять каждые 80 тыс. км.' : 'Охолоджувальна рідина АКБ має замінюватися після кожних 80 тисяч км.' }}</li>
-          <li>{{ $isRu ? 'Тормозные колодки — каждые 100 тыс. км.' : 'Гальмівні колодки — кожні 100 тисяч км.' }}</li>
+          <li>{{ $isRu ? 'Тормозную жидкость Tesla рекомендует проверять на загрязнение каждые 4 года и заменять при необходимости. Условия эксплуатации могут требовать более частых проверок.' : 'Гальмівну рідину Tesla рекомендує перевіряти на забруднення кожні 4 роки та замінювати за потреби. Умови експлуатації можуть вимагати частіших перевірок.' }}</li>
+          <li>{{ $isRu ? 'Сообщение «12V Battery Needs Service» относится к низковольтной батарее, а не к тяговой. Неисправности этих систем требуют разной диагностики. Работы с высоковольтными компонентами выполняют квалифицированные специалисты.' : 'Повідомлення «12V Battery Needs Service» стосується низьковольтної батареї, а не тягової. Несправності цих систем потребують різної діагностики. Роботи з високовольтними компонентами виконують кваліфіковані фахівці.' }}</li>
+          <li>{{ $isRu ? 'Обслуживание системы охлаждения выполняют по руководству конкретной модели и результатам проверки, а не по универсальному пробегу для всех Tesla.' : 'Обслуговування системи охолодження виконують за керівництвом конкретної моделі та результатами перевірки, а не за універсальним пробігом для всіх Tesla.' }}</li>
+          <li>{{ $isRu ? 'Тормозные колодки и диски проверяют на износ; необходимость замены определяют по состоянию, а не только по пробегу.' : 'Гальмівні колодки та диски перевіряють на зношення; потребу в заміні визначають за станом, а не лише за пробігом.' }}</li>
           <li>{{ $isRu ? 'Салонный фильтр рекомендуется менять раз в 2–3 года (в зависимости от модели).' : 'Повітряний фільтр салону. Він запобігає потраплянню пилку, промислових опадів, дорожнього пилу та інших частинок через вентиляційні отвори. Замінювати його рекомендується раз на 2 або на 3 роки (в залежності від моделі машини);' }}</li>
           <li>{{ $isRu ? 'Обслуживание кондиционера включает замену мешка с влагопоглотителем. Делать это нужно каждые 3–4 года (в зависимости от модели).' : 'Обслуговування кондиціонера передбачає заміну мішка з вологопоглиначем для кондиціонера. Це подовжує термін служби та підвищує ефективність системи кондиціонування. Проводити необхідні маніпуляції треба кожні 3 або 4 роки, в залежності від конкретної моделі Тесла.' }}</li>
-          <li>{{ $isRu ? 'Шины рекомендуется менять/переставлять каждые 10 тыс. км. Агрессивная езда ускоряет износ и требует более частого обслуживания.' : 'Заміна шин має проводитися кожні 10 тисяч км. Агресивна їзда може призвести до прискореного зносу шин і, відповідно, вимагати частішого обслуговування на тесла сервіс в Києві.' }}</li>
+          <li>{{ $isRu ? 'Перестановка колёс и замена шин — разные работы. Схему и интервал перестановки выбирают по руководству модели, а шины меняют по износу и состоянию.' : 'Перестановка коліс і заміна шин — різні роботи. Схему та інтервал перестановки обирають за керівництвом моделі, а шини замінюють за зношенням і станом.' }}</li>
         </ul>
+
+        <p><a href="https://www.tesla.com/support/vehicle-maintenance">{{ $isRu ? 'Официальные рекомендации Tesla по обслуживанию' : 'Офіційні рекомендації Tesla щодо обслуговування' }}</a>. {{ $isRu ? 'Для точных интервалов используйте руководство вашей модели и года выпуска.' : 'Для точних інтервалів використовуйте керівництво вашої моделі та року випуску.' }}</p>
 
         <h3>{{ $isRu ? 'Выводы:' : 'Висновки:' }}</h3>
 
@@ -519,7 +564,12 @@
     </div>
   </section>
 
+  @endif
 </section>
+
+@if(!$isTargetedPage)
+  @include('partials.service-related', ['serviceSlug' => 'tesla-service'])
+@endif
 
 @push('scripts')
 <script>
@@ -528,6 +578,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!form) return;
 
   const submitBtn = form.querySelector('.call-submit');
+  const successMessage = form.querySelector('.call-success');
+  const defaultSuccessMessage = successMessage?.textContent.trim() || '';
   const csrf = form.querySelector('input[name="_token"]')?.value || '';
 
   const phoneInput = document.getElementById('phoneInput');
@@ -600,7 +652,11 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      form.reset();
+      window.ncAnalytics?.lead('service_callback');
+      if (successMessage) {
+        successMessage.textContent = window.ncLeadSuccessMessage(json, defaultSuccessMessage);
+      }
+          form.reset();
       form.classList.add('is-success');
     } catch (err) {
       console.error(err);

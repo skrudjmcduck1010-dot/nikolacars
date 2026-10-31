@@ -18,6 +18,18 @@ class ForceTrailingSlash
         $path = parse_url($uri, PHP_URL_PATH) ?: '/';     // например: "/ru/services"
         $query = parse_url($uri, PHP_URL_QUERY);          // например: "x=1"
 
+        // Reviewed UA aliases only; resolve before slash normalization to avoid two hops.
+        $batteryAliases = [
+            '/parts/vysokovoltnaia-batareia' => '/parts/visokovoltna-batareia/',
+            '/parts/model-3-06-2017-12-2023/vysokovoltnaia-batareia' => '/parts/model-3-06-2017-12-2023/visokovoltna-batareia/',
+        ];
+        $aliasPath = str_ends_with($path, '/') ? substr($path, 0, -1) : $path;
+        if (isset($batteryAliases[$aliasPath])) {
+            $to = $batteryAliases[$aliasPath];
+            if ($query !== null && $query !== '') $to .= '?' . $query;
+            return redirect()->away($request->getSchemeAndHttpHost() . $to, 301);
+        }
+
         // Главную не трогаем
         if ($path === '/') {
             return $next($request);
