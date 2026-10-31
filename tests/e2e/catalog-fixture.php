@@ -24,13 +24,32 @@ function cartCatalogFixture(string $locale): array
     ];
 }
 
-function compatibilityProductFixture(string $locale): array
+function compatibilityProductFixture(string $locale, string $recommendationProfile = ''): array
 {
-    return array_replace(cartCatalogFixture($locale)['products'][0], [
+    $product = array_replace(cartCatalogFixture($locale)['products'][0], [
         'id' => 100001, 'url_slug' => 'test-001-100001',
         'name' => $locale === 'ru' ? 'Совместимая тестовая запчасть' : 'Сумісна тестова запчастина',
         'description' => $locale === 'ru' ? 'Синтетическое описание товара.' : 'Синтетичний опис товару.',
         'condition' => 'used', 'length_cm' => 20, 'width_cm' => 15, 'height_cm' => 5,
         'similar_products' => [], 'subcategory_products' => [],
     ]);
+    if ($recommendationProfile !== '') {
+        $recommendation = array_replace(cartCatalogFixture($locale)['products'][0], [
+            'id' => 100002, 'url_slug' => 'recommendation-100002',
+            'name' => $locale === 'ru' ? 'Рекомендуемая деталь' : 'Рекомендована деталь',
+            'thumbnail_url' => '/__cart_e2e/part.svg?recommendation=1',
+        ]);
+        $product['images'][] = '/__cart_e2e/part.svg?gallery=2';
+        $product['similar_products'] = [
+            $recommendation,
+            array_replace($recommendation, ['id' => 100003, 'name' => 'No photo', 'thumbnail_url' => null, 'image_url' => null]),
+            array_replace($recommendation, ['id' => 100004, 'name' => 'Escaped image URL', 'thumbnail_url' => "/__cart_e2e/part.svg?test=\");color:red;/*\\\n\r\f"]),
+        ];
+        $product['subcategory_products'] = array_fill(0, 5, $recommendation);
+        if ($recommendationProfile === 'sold') {
+            $product['availability_status'] = 'sold';
+            $product['quantity'] = 0;
+        }
+    }
+    return $product;
 }

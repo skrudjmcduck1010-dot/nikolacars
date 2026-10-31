@@ -49,7 +49,9 @@ config([
     'services.sklad_storefront.token' => 'synthetic-cart-fixture',
 ]);
 Illuminate\Support\Facades\Http::preventStrayRequests();
-Illuminate\Support\Facades\Http::fake(function ($request) {
+$recommendationProfile = (string) $request->header('X-Recommendation-E2E', '');
+if (!in_array($recommendationProfile, ['', 'available', 'sold'], true)) throw new RuntimeException('Unknown recommendation fixture.');
+Illuminate\Support\Facades\Http::fake(function ($request) use ($recommendationProfile) {
     if ($request->method() !== 'GET' || !str_starts_with($request->url(), 'http://127.0.0.1:9/api/storefront/v1/')) {
         throw new RuntimeException('Unexpected outbound request in isolated browser fixture.');
     }
@@ -58,7 +60,12 @@ Illuminate\Support\Facades\Http::fake(function ($request) {
         return Illuminate\Support\Facades\Http::response(cartCatalogFixture($query['locale'] ?? 'uk'));
     }
     if (parse_url($request->url(), PHP_URL_PATH) === '/api/storefront/v1/products/100001') {
-        return Illuminate\Support\Facades\Http::response(compatibilityProductFixture($query['locale'] ?? 'uk'));
+        return Illuminate\Support\Facades\Http::response(compatibilityProductFixture($query['locale'] ?? 'uk', $recommendationProfile));
+    }
+    if (parse_url($request->url(), PHP_URL_PATH) === '/api/storefront/v1/products/100002') {
+        return Illuminate\Support\Facades\Http::response(array_replace(compatibilityProductFixture($query['locale'] ?? 'uk'), [
+            'id' => 100002, 'url_slug' => 'recommendation-100002',
+        ]));
     }
     return Illuminate\Support\Facades\Http::response(['message' => 'Unknown synthetic endpoint'], 404);
 });

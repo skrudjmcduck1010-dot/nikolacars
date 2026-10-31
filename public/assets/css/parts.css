@@ -148,3 +148,4 @@
 .parts-category-node .parts-category-label{white-space:normal;overflow:visible;text-overflow:clip;word-break:normal}.parts-category-node .parts-category-chevron{white-space:normal;overflow:visible}.parts-category-node{min-width:0;max-width:100%}
 
 .parts-layout>.parts-sidebar{min-width:0;width:100%;max-width:100%}.parts-category-tree,.parts-category-tree li{min-width:0;max-width:100%}.parts-category-node .parts-category-label small{white-space:normal}@media(max-width:800px){.parts-layout{grid-template-columns:minmax(0,1fr)}}
+.product-page .product-recommendations .part-image{background-size:cover;background-position:center;background-repeat:no-repeat}

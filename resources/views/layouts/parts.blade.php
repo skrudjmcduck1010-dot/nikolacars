@@ -29,7 +29,7 @@
   <link rel="dns-prefetch" href="//sklad.nikolacars.kiev.ua">
   <link rel="stylesheet" href="{{ asset('assets/css/app.min.css') }}?v=20260822">
   <link rel="stylesheet" href="{{ asset('assets/css/language-switch.css') }}?v=20261008-1">
-  <link rel="stylesheet" href="{{ asset('assets/css/parts.css') }}?v=20261029-category-tree1">
+  <link rel="stylesheet" href="{{ asset('assets/css/parts.css') }}?v=20261031-recommendation-images1">
   <link rel="stylesheet" href="{{ asset('assets/css/parts-contact.css') }}?v=20261031-online-hours-1">
 </head>
 <body class="parts-page">

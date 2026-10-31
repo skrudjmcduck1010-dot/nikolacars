@@ -2,6 +2,10 @@
   @foreach($products as $item)
     @php
       $cardImage = $item['thumbnail_url'] ?? $item['image_url'] ?? null;
+      // CSS string escaping happens before Blade's HTML attribute escaping.
+      $cssImageUrl = strtr((string) $cardImage, [
+          "\\" => "\\\\", '"' => '\\"', "\n" => '\\a ', "\r" => '\\d ', "\f" => '\\c ',
+      ]);
       $productSegment = trim((string) ($item['url_slug'] ?? ''));
       if ($productSegment === '') {
         $productSource = trim((string) ($item['part_number'] ?? '')) ?: trim((string) ($item['sku'] ?? ''));
@@ -12,11 +16,8 @@
       $hasPrice = (float) ($item['price_uah'] ?? 0) > 0;
     @endphp
     <article class="part-card">
-      <a href="{{ $productUrl }}" class="part-image {{ empty($cardImage) ? 'no-image' : '' }}">
-        @if(!empty($cardImage))
-          <img src="{{ $cardImage }}" alt="{{ $item['name'] }}" width="{{ $item['thumbnail_width'] ?? 360 }}" height="{{ $item['thumbnail_height'] ?? 300 }}" loading="lazy" decoding="async">
-        @endif
-        <span>NIKOLACARS</span>
+      <a href="{{ $productUrl }}" class="part-image {{ empty($cardImage) ? 'no-image' : '' }}" aria-label="{{ $item['name'] }}" @if(!empty($cardImage)) style='background-image:url("{{ $cssImageUrl }}")' @endif>
+        <span aria-hidden="true">NIKOLACARS</span>
       </a>
       <div class="part-card-body">
         <h3><a href="{{ $productUrl }}">{{ $item['name'] }}</a></h3>
