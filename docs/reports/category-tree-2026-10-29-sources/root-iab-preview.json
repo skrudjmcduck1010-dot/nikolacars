@@ -1,0 +1,50 @@
+{
+  "checkedAt": "2026-10-29T18:05:38.952Z",
+  "kind": "isolated local preview; labels from saved catalog sample; prices, images and quantities are synthetic fixtures",
+  "desktop": {
+    "invalidLabels": [],
+    "sidebarRight": 589,
+    "url": "http://127.0.0.1:4336/parts/elektrika/elektroprovodka/",
+    "viewport": 1743
+  },
+  "leaf": {
+    "ancestors": [
+      "⌄\n        Електрика11",
+      "⌄\n        Електропроводка6"
+    ],
+    "current": [
+      {
+        "arrow": "",
+        "text": "Електропроводка дверей і кришки багажника5"
+      }
+    ],
+    "sidebarRight": 365,
+    "url": "http://127.0.0.1:4336/parts/elektrika/elektroprovodka/elektroprovodka-dverei-i-kriski-bagaznika/",
+    "viewport": 390
+  },
+  "narrow320": {
+    "activeCount": 1,
+    "invalidLabels": [],
+    "sidebarRight": 295,
+    "viewport": 320
+  },
+  "root": {
+    "currentAll": "page",
+    "indentedNodes": 0,
+    "topSeoStrip": false,
+    "url": "http://127.0.0.1:4336/parts/"
+  },
+  "sort": {
+    "url": "http://127.0.0.1:4336/ru/parts/model-s-04-2016-01-2021/elektrika/elektroprovodka/elektroprovodka-dverei-i-kryski-bagaznika/?sort=price_desc",
+    "modelContext": true,
+    "treePreserved": true
+  },
+  "screenshots": [
+    "desktop-preview.jpg"
+  ],
+  "notes": [
+    "Initial long-label overflow reproduced and fixed before final captures.",
+    "Actual link flow: root → Electrical → Wiring → Door/tailgate wiring → RU → Model S; sort preserves branch.",
+    "Viewport override reset. No production requests, orders or forms."
+  ]
+}

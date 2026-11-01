@@ -1,0 +1,1070 @@
+[
+    {
+        "group": "pedal-model3",
+        "locale": "uk",
+        "level": "parent",
+        "query": {
+            "locale": "uk",
+            "model_slug": "model-3-06-2017-12-2023",
+            "category_path_slug": "galma--pedal-galma",
+            "page": 1,
+            "per_page": 100,
+            "sort": "newest"
+        },
+        "status": 200,
+        "pagination": {
+            "page": 1,
+            "per_page": 100,
+            "total": 2,
+            "last_page": 1
+        },
+        "selection": {
+            "model": "Model 3 06.2017 - 12.2023",
+            "model_slug": "model-3-06-2017-12-2023",
+            "category": "Гальма",
+            "category_slug": "galma",
+            "category_path": "Гальма / Педаль гальма",
+            "category_path_slug": "galma--pedal-galma",
+            "category_breadcrumbs": [
+                {
+                    "label": "Гальма",
+                    "slug": "galma"
+                },
+                {
+                    "label": "Педаль гальма",
+                    "slug": "galma--pedal-galma"
+                }
+            ],
+            "category_path_locale_slugs": {
+                "uk": "galma--pedal-galma",
+                "ru": "tormoza--pedal-tormoza"
+            }
+        },
+        "ids": [
+            99115,
+            100551
+        ]
+    },
+    {
+        "group": "pedal-model3",
+        "locale": "uk",
+        "level": "leaf",
+        "query": {
+            "locale": "uk",
+            "model_slug": "model-3-06-2017-12-2023",
+            "category_path_slug": "galma--pedal-galma--pedal-galma",
+            "page": 1,
+            "per_page": 100,
+            "sort": "newest"
+        },
+        "status": 200,
+        "pagination": {
+            "page": 1,
+            "per_page": 100,
+            "total": 2,
+            "last_page": 1
+        },
+        "selection": {
+            "model": "Model 3 06.2017 - 12.2023",
+            "model_slug": "model-3-06-2017-12-2023",
+            "category": "Гальма",
+            "category_slug": "galma",
+            "category_path": "Гальма / Педаль гальма / Педаль гальма",
+            "category_path_slug": "galma--pedal-galma--pedal-galma",
+            "category_breadcrumbs": [
+                {
+                    "label": "Гальма",
+                    "slug": "galma"
+                },
+                {
+                    "label": "Педаль гальма",
+                    "slug": "galma--pedal-galma"
+                },
+                {
+                    "label": "Педаль гальма",
+                    "slug": "galma--pedal-galma--pedal-galma"
+                }
+            ],
+            "category_path_locale_slugs": {
+                "uk": "galma--pedal-galma--pedal-galma",
+                "ru": "tormoza--pedal-tormoza--pedal-tormoza"
+            }
+        },
+        "ids": [
+            99115,
+            100551
+        ]
+    },
+    {
+        "group": "pedal-model3",
+        "locale": "ru",
+        "level": "parent",
+        "query": {
+            "locale": "ru",
+            "model_slug": "model-3-06-2017-12-2023",
+            "category_path_slug": "tormoza--pedal-tormoza",
+            "page": 1,
+            "per_page": 100,
+            "sort": "newest"
+        },
+        "status": 200,
+        "pagination": {
+            "page": 1,
+            "per_page": 100,
+            "total": 2,
+            "last_page": 1
+        },
+        "selection": {
+            "model": "Model 3 06.2017 - 12.2023",
+            "model_slug": "model-3-06-2017-12-2023",
+            "category": "Тормоза",
+            "category_slug": "tormoza",
+            "category_path": "Тормоза / Педаль тормоза",
+            "category_path_slug": "tormoza--pedal-tormoza",
+            "category_breadcrumbs": [
+                {
+                    "label": "Тормоза",
+                    "slug": "tormoza"
+                },
+                {
+                    "label": "Педаль тормоза",
+                    "slug": "tormoza--pedal-tormoza"
+                }
+            ],
+            "category_path_locale_slugs": {
+                "uk": "galma--pedal-galma",
+                "ru": "tormoza--pedal-tormoza"
+            }
+        },
+        "ids": [
+            99115,
+            100551
+        ]
+    },
+    {
+        "group": "pedal-model3",
+        "locale": "ru",
+        "level": "leaf",
+        "query": {
+            "locale": "ru",
+            "model_slug": "model-3-06-2017-12-2023",
+            "category_path_slug": "tormoza--pedal-tormoza--pedal-tormoza",
+            "page": 1,
+            "per_page": 100,
+            "sort": "newest"
+        },
+        "status": 200,
+        "pagination": {
+            "page": 1,
+            "per_page": 100,
+            "total": 2,
+            "last_page": 1
+        },
+        "selection": {
+            "model": "Model 3 06.2017 - 12.2023",
+            "model_slug": "model-3-06-2017-12-2023",
+            "category": "Тормоза",
+            "category_slug": "tormoza",
+            "category_path": "Тормоза / Педаль тормоза / Педаль тормоза",
+            "category_path_slug": "tormoza--pedal-tormoza--pedal-tormoza",
+            "category_breadcrumbs": [
+                {
+                    "label": "Тормоза",
+                    "slug": "tormoza"
+                },
+                {
+                    "label": "Педаль тормоза",
+                    "slug": "tormoza--pedal-tormoza"
+                },
+                {
+                    "label": "Педаль тормоза",
+                    "slug": "tormoza--pedal-tormoza--pedal-tormoza"
+                }
+            ],
+            "category_path_locale_slugs": {
+                "uk": "galma--pedal-galma--pedal-galma",
+                "ru": "tormoza--pedal-tormoza--pedal-tormoza"
+            }
+        },
+        "ids": [
+            99115,
+            100551
+        ]
+    },
+    {
+        "group": "pedal-all",
+        "locale": "uk",
+        "level": "parent",
+        "query": {
+            "locale": "uk",
+            "category_path_slug": "galma--pedal-galma",
+            "page": 1,
+            "per_page": 100,
+            "sort": "newest"
+        },
+        "status": 200,
+        "pagination": {
+            "page": 1,
+            "per_page": 100,
+            "total": 8,
+            "last_page": 1
+        },
+        "selection": {
+            "model": "",
+            "model_slug": "",
+            "category": "Гальма",
+            "category_slug": "galma",
+            "category_path": "Гальма / Педаль гальма",
+            "category_path_slug": "galma--pedal-galma",
+            "category_breadcrumbs": [
+                {
+                    "label": "Гальма",
+                    "slug": "galma"
+                },
+                {
+                    "label": "Педаль гальма",
+                    "slug": "galma--pedal-galma"
+                }
+            ],
+            "category_path_locale_slugs": {
+                "uk": "galma--pedal-galma",
+                "ru": "tormoza--pedal-tormoza"
+            }
+        },
+        "ids": [
+            108105,
+            113334,
+            106344,
+            106892,
+            88660,
+            101899,
+            99115,
+            100551
+        ]
+    },
+    {
+        "group": "pedal-all",
+        "locale": "uk",
+        "level": "leaf",
+        "query": {
+            "locale": "uk",
+            "category_path_slug": "galma--pedal-galma--pedal-galma",
+            "page": 1,
+            "per_page": 100,
+            "sort": "newest"
+        },
+        "status": 200,
+        "pagination": {
+            "page": 1,
+            "per_page": 100,
+            "total": 8,
+            "last_page": 1
+        },
+        "selection": {
+            "model": "",
+            "model_slug": "",
+            "category": "Гальма",
+            "category_slug": "galma",
+            "category_path": "Гальма / Педаль гальма / Педаль гальма",
+            "category_path_slug": "galma--pedal-galma--pedal-galma",
+            "category_breadcrumbs": [
+                {
+                    "label": "Гальма",
+                    "slug": "galma"
+                },
+                {
+                    "label": "Педаль гальма",
+                    "slug": "galma--pedal-galma"
+                },
+                {
+                    "label": "Педаль гальма",
+                    "slug": "galma--pedal-galma--pedal-galma"
+                }
+            ],
+            "category_path_locale_slugs": {
+                "uk": "galma--pedal-galma--pedal-galma",
+                "ru": "tormoza--pedal-tormoza--pedal-tormoza"
+            }
+        },
+        "ids": [
+            108105,
+            113334,
+            106344,
+            106892,
+            88660,
+            101899,
+            99115,
+            100551
+        ]
+    },
+    {
+        "group": "pedal-all",
+        "locale": "ru",
+        "level": "parent",
+        "query": {
+            "locale": "ru",
+            "category_path_slug": "tormoza--pedal-tormoza",
+            "page": 1,
+            "per_page": 100,
+            "sort": "newest"
+        },
+        "status": 200,
+        "pagination": {
+            "page": 1,
+            "per_page": 100,
+            "total": 8,
+            "last_page": 1
+        },
+        "selection": {
+            "model": "",
+            "model_slug": "",
+            "category": "Тормоза",
+            "category_slug": "tormoza",
+            "category_path": "Тормоза / Педаль тормоза",
+            "category_path_slug": "tormoza--pedal-tormoza",
+            "category_breadcrumbs": [
+                {
+                    "label": "Тормоза",
+                    "slug": "tormoza"
+                },
+                {
+                    "label": "Педаль тормоза",
+                    "slug": "tormoza--pedal-tormoza"
+                }
+            ],
+            "category_path_locale_slugs": {
+                "uk": "galma--pedal-galma",
+                "ru": "tormoza--pedal-tormoza"
+            }
+        },
+        "ids": [
+            108105,
+            113334,
+            106344,
+            106892,
+            88660,
+            101899,
+            99115,
+            100551
+        ]
+    },
+    {
+        "group": "pedal-all",
+        "locale": "ru",
+        "level": "leaf",
+        "query": {
+            "locale": "ru",
+            "category_path_slug": "tormoza--pedal-tormoza--pedal-tormoza",
+            "page": 1,
+            "per_page": 100,
+            "sort": "newest"
+        },
+        "status": 200,
+        "pagination": {
+            "page": 1,
+            "per_page": 100,
+            "total": 8,
+            "last_page": 1
+        },
+        "selection": {
+            "model": "",
+            "model_slug": "",
+            "category": "Тормоза",
+            "category_slug": "tormoza",
+            "category_path": "Тормоза / Педаль тормоза / Педаль тормоза",
+            "category_path_slug": "tormoza--pedal-tormoza--pedal-tormoza",
+            "category_breadcrumbs": [
+                {
+                    "label": "Тормоза",
+                    "slug": "tormoza"
+                },
+                {
+                    "label": "Педаль тормоза",
+                    "slug": "tormoza--pedal-tormoza"
+                },
+                {
+                    "label": "Педаль тормоза",
+                    "slug": "tormoza--pedal-tormoza--pedal-tormoza"
+                }
+            ],
+            "category_path_locale_slugs": {
+                "uk": "galma--pedal-galma--pedal-galma",
+                "ru": "tormoza--pedal-tormoza--pedal-tormoza"
+            }
+        },
+        "ids": [
+            108105,
+            113334,
+            106344,
+            106892,
+            88660,
+            101899,
+            99115,
+            100551
+        ]
+    },
+    {
+        "group": "charger-models",
+        "locale": "uk",
+        "level": "parent",
+        "query": {
+            "locale": "uk",
+            "model_slug": "model-s-02-2012-03-2016",
+            "category_path_slug": "visokovoltna-sistema--bortovii-zariadnii-modul-cardzer",
+            "page": 1,
+            "per_page": 100,
+            "sort": "newest"
+        },
+        "status": 200,
+        "pagination": {
+            "page": 1,
+            "per_page": 100,
+            "total": 2,
+            "last_page": 1
+        },
+        "selection": {
+            "model": "Model S 02.2012-03.2016",
+            "model_slug": "model-s-02-2012-03-2016",
+            "category": "Високовольтна система",
+            "category_slug": "visokovoltna-sistema",
+            "category_path": "Високовольтна система / Бортовий зарядний модуль (чарджер)",
+            "category_path_slug": "visokovoltna-sistema--bortovii-zariadnii-modul-cardzer",
+            "category_breadcrumbs": [
+                {
+                    "label": "Високовольтна система",
+                    "slug": "visokovoltna-sistema"
+                },
+                {
+                    "label": "Бортовий зарядний модуль (чарджер)",
+                    "slug": "visokovoltna-sistema--bortovii-zariadnii-modul-cardzer"
+                }
+            ],
+            "category_path_locale_slugs": {
+                "uk": "visokovoltna-sistema--bortovii-zariadnii-modul-cardzer",
+                "ru": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer"
+            }
+        },
+        "ids": [
+            113433,
+            108597
+        ]
+    },
+    {
+        "group": "charger-models",
+        "locale": "uk",
+        "level": "leaf",
+        "query": {
+            "locale": "uk",
+            "model_slug": "model-s-02-2012-03-2016",
+            "category_path_slug": "visokovoltna-sistema--bortovii-zariadnii-modul-cardzer--bortovii-zariadnii-modul-cardzer",
+            "page": 1,
+            "per_page": 100,
+            "sort": "newest"
+        },
+        "status": 200,
+        "pagination": {
+            "page": 1,
+            "per_page": 100,
+            "total": 2,
+            "last_page": 1
+        },
+        "selection": {
+            "model": "Model S 02.2012-03.2016",
+            "model_slug": "model-s-02-2012-03-2016",
+            "category": "Високовольтна система",
+            "category_slug": "visokovoltna-sistema",
+            "category_path": "Високовольтна система / Бортовий зарядний модуль (чарджер) / Бортовий зарядний модуль (чарджер)",
+            "category_path_slug": "visokovoltna-sistema--bortovii-zariadnii-modul-cardzer--bortovii-zariadnii-modul-cardzer",
+            "category_breadcrumbs": [
+                {
+                    "label": "Високовольтна система",
+                    "slug": "visokovoltna-sistema"
+                },
+                {
+                    "label": "Бортовий зарядний модуль (чарджер)",
+                    "slug": "visokovoltna-sistema--bortovii-zariadnii-modul-cardzer"
+                },
+                {
+                    "label": "Бортовий зарядний модуль (чарджер)",
+                    "slug": "visokovoltna-sistema--bortovii-zariadnii-modul-cardzer--bortovii-zariadnii-modul-cardzer"
+                }
+            ],
+            "category_path_locale_slugs": {
+                "uk": "visokovoltna-sistema--bortovii-zariadnii-modul-cardzer--bortovii-zariadnii-modul-cardzer",
+                "ru": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer--bortovoi-zariadnyi-modul-cardzer"
+            }
+        },
+        "ids": [
+            113433,
+            108597
+        ]
+    },
+    {
+        "group": "charger-models",
+        "locale": "ru",
+        "level": "parent",
+        "query": {
+            "locale": "ru",
+            "model_slug": "model-s-02-2012-03-2016",
+            "category_path_slug": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer",
+            "page": 1,
+            "per_page": 100,
+            "sort": "newest"
+        },
+        "status": 200,
+        "pagination": {
+            "page": 1,
+            "per_page": 100,
+            "total": 2,
+            "last_page": 1
+        },
+        "selection": {
+            "model": "Model S 02.2012-03.2016",
+            "model_slug": "model-s-02-2012-03-2016",
+            "category": "Высоковольтная система",
+            "category_slug": "vysokovoltnaia-sistema",
+            "category_path": "Высоковольтная система / Бортовой зарядный модуль (чарджер)",
+            "category_path_slug": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer",
+            "category_breadcrumbs": [
+                {
+                    "label": "Высоковольтная система",
+                    "slug": "vysokovoltnaia-sistema"
+                },
+                {
+                    "label": "Бортовой зарядный модуль (чарджер)",
+                    "slug": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer"
+                }
+            ],
+            "category_path_locale_slugs": {
+                "uk": "visokovoltna-sistema--bortovii-zariadnii-modul-cardzer",
+                "ru": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer"
+            }
+        },
+        "ids": [
+            113433,
+            108597
+        ]
+    },
+    {
+        "group": "charger-models",
+        "locale": "ru",
+        "level": "leaf",
+        "query": {
+            "locale": "ru",
+            "model_slug": "model-s-02-2012-03-2016",
+            "category_path_slug": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer--bortovoi-zariadnyi-modul-cardzer",
+            "page": 1,
+            "per_page": 100,
+            "sort": "newest"
+        },
+        "status": 200,
+        "pagination": {
+            "page": 1,
+            "per_page": 100,
+            "total": 2,
+            "last_page": 1
+        },
+        "selection": {
+            "model": "Model S 02.2012-03.2016",
+            "model_slug": "model-s-02-2012-03-2016",
+            "category": "Высоковольтная система",
+            "category_slug": "vysokovoltnaia-sistema",
+            "category_path": "Высоковольтная система / Бортовой зарядный модуль (чарджер) / Бортовой зарядный модуль (чарджер)",
+            "category_path_slug": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer--bortovoi-zariadnyi-modul-cardzer",
+            "category_breadcrumbs": [
+                {
+                    "label": "Высоковольтная система",
+                    "slug": "vysokovoltnaia-sistema"
+                },
+                {
+                    "label": "Бортовой зарядный модуль (чарджер)",
+                    "slug": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer"
+                },
+                {
+                    "label": "Бортовой зарядный модуль (чарджер)",
+                    "slug": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer--bortovoi-zariadnyi-modul-cardzer"
+                }
+            ],
+            "category_path_locale_slugs": {
+                "uk": "visokovoltna-sistema--bortovii-zariadnii-modul-cardzer--bortovii-zariadnii-modul-cardzer",
+                "ru": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer--bortovoi-zariadnyi-modul-cardzer"
+            }
+        },
+        "ids": [
+            113433,
+            108597
+        ]
+    },
+    {
+        "group": "battery-all",
+        "locale": "uk",
+        "level": "parent",
+        "query": {
+            "locale": "uk",
+            "category_path_slug": "visokovoltna-batareia--visokovoltna-batareia",
+            "page": 1,
+            "per_page": 100,
+            "sort": "newest"
+        },
+        "status": 200,
+        "pagination": {
+            "page": 1,
+            "per_page": 100,
+            "total": 10,
+            "last_page": 1
+        },
+        "selection": {
+            "model": "",
+            "model_slug": "",
+            "category": "Високовольтна батарея",
+            "category_slug": "visokovoltna-batareia",
+            "category_path": "Високовольтна батарея / Високовольтна батарея",
+            "category_path_slug": "visokovoltna-batareia--visokovoltna-batareia",
+            "category_breadcrumbs": [
+                {
+                    "label": "Високовольтна батарея",
+                    "slug": "visokovoltna-batareia"
+                },
+                {
+                    "label": "Високовольтна батарея",
+                    "slug": "visokovoltna-batareia--visokovoltna-batareia"
+                }
+            ],
+            "category_path_locale_slugs": {
+                "uk": "visokovoltna-batareia--visokovoltna-batareia",
+                "ru": "visokovoltna-batareia--vysokovoltnaia-batareia"
+            }
+        },
+        "ids": [
+            108527,
+            112402,
+            110960,
+            113256,
+            75221,
+            80841,
+            106657,
+            112426,
+            65734,
+            39792
+        ]
+    },
+    {
+        "group": "battery-all",
+        "locale": "uk",
+        "level": "leaf",
+        "query": {
+            "locale": "uk",
+            "category_path_slug": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia",
+            "page": 1,
+            "per_page": 100,
+            "sort": "newest"
+        },
+        "status": 200,
+        "pagination": {
+            "page": 1,
+            "per_page": 100,
+            "total": 10,
+            "last_page": 1
+        },
+        "selection": {
+            "model": "",
+            "model_slug": "",
+            "category": "Високовольтна батарея",
+            "category_slug": "visokovoltna-batareia",
+            "category_path": "Високовольтна батарея / Високовольтна батарея / Високовольтна батарея",
+            "category_path_slug": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia",
+            "category_breadcrumbs": [
+                {
+                    "label": "Високовольтна батарея",
+                    "slug": "visokovoltna-batareia"
+                },
+                {
+                    "label": "Високовольтна батарея",
+                    "slug": "visokovoltna-batareia--visokovoltna-batareia"
+                },
+                {
+                    "label": "Високовольтна батарея",
+                    "slug": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia"
+                }
+            ],
+            "category_path_locale_slugs": {
+                "uk": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia",
+                "ru": "visokovoltna-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+            }
+        },
+        "ids": [
+            108527,
+            112402,
+            110960,
+            113256,
+            75221,
+            80841,
+            106657,
+            112426,
+            65734,
+            39792
+        ]
+    },
+    {
+        "group": "battery-all",
+        "locale": "ru",
+        "level": "parent",
+        "query": {
+            "locale": "ru",
+            "category_path_slug": "visokovoltna-batareia--vysokovoltnaia-batareia",
+            "page": 1,
+            "per_page": 100,
+            "sort": "newest"
+        },
+        "status": 200,
+        "pagination": {
+            "page": 1,
+            "per_page": 100,
+            "total": 2,
+            "last_page": 1
+        },
+        "selection": {
+            "model": "",
+            "model_slug": "",
+            "category": "Високовольтна батарея",
+            "category_slug": "visokovoltna-batareia",
+            "category_path": "Високовольтна батарея / Высоковольтная батарея",
+            "category_path_slug": "visokovoltna-batareia--vysokovoltnaia-batareia",
+            "category_breadcrumbs": [
+                {
+                    "label": "Високовольтна батарея",
+                    "slug": "visokovoltna-batareia"
+                },
+                {
+                    "label": "Высоковольтная батарея",
+                    "slug": "visokovoltna-batareia--vysokovoltnaia-batareia"
+                }
+            ],
+            "category_path_locale_slugs": {
+                "uk": "visokovoltna-batareia--visokovoltna-batareia",
+                "ru": "visokovoltna-batareia--vysokovoltnaia-batareia"
+            }
+        },
+        "ids": [
+            108527,
+            106657
+        ]
+    },
+    {
+        "group": "battery-all",
+        "locale": "ru",
+        "level": "leaf",
+        "query": {
+            "locale": "ru",
+            "category_path_slug": "visokovoltna-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia",
+            "page": 1,
+            "per_page": 100,
+            "sort": "newest"
+        },
+        "status": 200,
+        "pagination": {
+            "page": 1,
+            "per_page": 100,
+            "total": 2,
+            "last_page": 1
+        },
+        "selection": {
+            "model": "",
+            "model_slug": "",
+            "category": "Високовольтна батарея",
+            "category_slug": "visokovoltna-batareia",
+            "category_path": "Високовольтна батарея / Высоковольтная батарея / Высоковольтная батарея",
+            "category_path_slug": "visokovoltna-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia",
+            "category_breadcrumbs": [
+                {
+                    "label": "Високовольтна батарея",
+                    "slug": "visokovoltna-batareia"
+                },
+                {
+                    "label": "Высоковольтная батарея",
+                    "slug": "visokovoltna-batareia--vysokovoltnaia-batareia"
+                },
+                {
+                    "label": "Высоковольтная батарея",
+                    "slug": "visokovoltna-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+                }
+            ],
+            "category_path_locale_slugs": {
+                "uk": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia",
+                "ru": "visokovoltna-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+            }
+        },
+        "ids": [
+            108527,
+            106657
+        ]
+    },
+    {
+        "group": "rear-axles",
+        "locale": "uk",
+        "level": "parent",
+        "query": {
+            "locale": "uk",
+            "category_path_slug": "zadnii-motor--zadni-pivosi",
+            "page": 1,
+            "per_page": 100,
+            "sort": "newest"
+        },
+        "status": 200,
+        "pagination": {
+            "page": 1,
+            "per_page": 100,
+            "total": 22,
+            "last_page": 1
+        },
+        "selection": {
+            "model": "",
+            "model_slug": "",
+            "category": "Задній мотор",
+            "category_slug": "zadnii-motor",
+            "category_path": "Задній мотор / Задні півосі",
+            "category_path_slug": "zadnii-motor--zadni-pivosi",
+            "category_breadcrumbs": [
+                {
+                    "label": "Задній мотор",
+                    "slug": "zadnii-motor"
+                },
+                {
+                    "label": "Задні півосі",
+                    "slug": "zadnii-motor--zadni-pivosi"
+                }
+            ],
+            "category_path_locale_slugs": {
+                "uk": "zadnii-motor--zadni-pivosi",
+                "ru": "zadnii-motor--zadnie-poluosi"
+            }
+        },
+        "ids": [
+            113365,
+            113216,
+            107311,
+            94483,
+            113162,
+            113161,
+            113160,
+            79108,
+            113159,
+            87303,
+            40464,
+            83586,
+            82239,
+            99091,
+            84764,
+            88635,
+            97695,
+            100524,
+            76562,
+            80889,
+            96279,
+            86097
+        ]
+    },
+    {
+        "group": "rear-axles",
+        "locale": "uk",
+        "level": "leaf",
+        "query": {
+            "locale": "uk",
+            "category_path_slug": "zadnii-motor--zadni-pivosi--zadni-pivosi",
+            "page": 1,
+            "per_page": 100,
+            "sort": "newest"
+        },
+        "status": 200,
+        "pagination": {
+            "page": 1,
+            "per_page": 100,
+            "total": 22,
+            "last_page": 1
+        },
+        "selection": {
+            "model": "",
+            "model_slug": "",
+            "category": "Задній мотор",
+            "category_slug": "zadnii-motor",
+            "category_path": "Задній мотор / Задні півосі / Задні півосі",
+            "category_path_slug": "zadnii-motor--zadni-pivosi--zadni-pivosi",
+            "category_breadcrumbs": [
+                {
+                    "label": "Задній мотор",
+                    "slug": "zadnii-motor"
+                },
+                {
+                    "label": "Задні півосі",
+                    "slug": "zadnii-motor--zadni-pivosi"
+                },
+                {
+                    "label": "Задні півосі",
+                    "slug": "zadnii-motor--zadni-pivosi--zadni-pivosi"
+                }
+            ],
+            "category_path_locale_slugs": {
+                "uk": "zadnii-motor--zadni-pivosi--zadni-pivosi",
+                "ru": "zadnii-motor--zadnie-poluosi--zadnie-poluosi"
+            }
+        },
+        "ids": [
+            113365,
+            113216,
+            107311,
+            94483,
+            113162,
+            113161,
+            113160,
+            79108,
+            113159,
+            87303,
+            40464,
+            83586,
+            82239,
+            99091,
+            84764,
+            88635,
+            97695,
+            100524,
+            76562,
+            80889,
+            96279,
+            86097
+        ]
+    },
+    {
+        "group": "rear-axles",
+        "locale": "ru",
+        "level": "parent",
+        "query": {
+            "locale": "ru",
+            "category_path_slug": "zadnii-motor--zadnie-poluosi",
+            "page": 1,
+            "per_page": 100,
+            "sort": "newest"
+        },
+        "status": 200,
+        "pagination": {
+            "page": 1,
+            "per_page": 100,
+            "total": 22,
+            "last_page": 1
+        },
+        "selection": {
+            "model": "",
+            "model_slug": "",
+            "category": "Задний мотор",
+            "category_slug": "zadnii-motor",
+            "category_path": "Задний мотор / Задние полуоси",
+            "category_path_slug": "zadnii-motor--zadnie-poluosi",
+            "category_breadcrumbs": [
+                {
+                    "label": "Задний мотор",
+                    "slug": "zadnii-motor"
+                },
+                {
+                    "label": "Задние полуоси",
+                    "slug": "zadnii-motor--zadnie-poluosi"
+                }
+            ],
+            "category_path_locale_slugs": {
+                "uk": "zadnii-motor--zadni-pivosi",
+                "ru": "zadnii-motor--zadnie-poluosi"
+            }
+        },
+        "ids": [
+            113365,
+            113216,
+            107311,
+            94483,
+            113162,
+            113161,
+            113160,
+            79108,
+            113159,
+            87303,
+            40464,
+            83586,
+            82239,
+            99091,
+            84764,
+            88635,
+            97695,
+            100524,
+            76562,
+            80889,
+            96279,
+            86097
+        ]
+    },
+    {
+        "group": "rear-axles",
+        "locale": "ru",
+        "level": "leaf",
+        "query": {
+            "locale": "ru",
+            "category_path_slug": "zadnii-motor--zadnie-poluosi--zadnie-poluosi",
+            "page": 1,
+            "per_page": 100,
+            "sort": "newest"
+        },
+        "status": 200,
+        "pagination": {
+            "page": 1,
+            "per_page": 100,
+            "total": 22,
+            "last_page": 1
+        },
+        "selection": {
+            "model": "",
+            "model_slug": "",
+            "category": "Задний мотор",
+            "category_slug": "zadnii-motor",
+            "category_path": "Задний мотор / Задние полуоси / Задние полуоси",
+            "category_path_slug": "zadnii-motor--zadnie-poluosi--zadnie-poluosi",
+            "category_breadcrumbs": [
+                {
+                    "label": "Задний мотор",
+                    "slug": "zadnii-motor"
+                },
+                {
+                    "label": "Задние полуоси",
+                    "slug": "zadnii-motor--zadnie-poluosi"
+                },
+                {
+                    "label": "Задние полуоси",
+                    "slug": "zadnii-motor--zadnie-poluosi--zadnie-poluosi"
+                }
+            ],
+            "category_path_locale_slugs": {
+                "uk": "zadnii-motor--zadni-pivosi--zadni-pivosi",
+                "ru": "zadnii-motor--zadnie-poluosi--zadnie-poluosi"
+            }
+        },
+        "ids": [
+            113365,
+            113216,
+            107311,
+            94483,
+            113162,
+            113161,
+            113160,
+            79108,
+            113159,
+            87303,
+            40464,
+            83586,
+            82239,
+            99091,
+            84764,
+            88635,
+            97695,
+            100524,
+            76562,
+            80889,
+            96279,
+            86097
+        ]
+    }
+]

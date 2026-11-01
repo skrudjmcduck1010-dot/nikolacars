@@ -1,0 +1,55 @@
+{
+  "status": "runtime frozen; no battery-dependent redirects/cache/root changes",
+  "date": "2026-10-29 Europe/Kyiv",
+  "source": "C:\\Users\\user\\OneDrive\\Documents\\ChatGPT\\nikolacars",
+  "production_files": [
+    {
+      "path": "app/Services/CatalogPath.php",
+      "sha256": "62ec932377d4809fcb3b80e10d114070ade7f55ead70d5aab7bea66722e62bc6",
+      "before_sha256": "edc34d492bb2d3653e64bbe9e4a09510aacaa27c7318172515a17941b6954313",
+      "mirror_path": "C:\\Projects\\nikolacars\\laravel_app\\app\\Services\\CatalogPath.php"
+    },
+    {
+      "path": "app/Services/ModelCatalogSeo.php",
+      "sha256": "23bfd27451bce719f914c04f8e8fddc08a7b8e082dafd25648189af6350e8ebf",
+      "before_sha256": "8fe4cc0a9f77e9924f1ff0d18f7efd0918ec71bb1652b90440e440524b246963",
+      "mirror_path": "C:\\Projects\\nikolacars\\laravel_app\\app\\Services\\ModelCatalogSeo.php"
+    },
+    {
+      "path": "app/Services/CategoryCatalogSeo.php",
+      "sha256": "62033bc4c4157fb305b0f3ef919e4604217f40009ff8adecd8a8190137df5ad1",
+      "before_sha256": null,
+      "mirror_path": "C:\\Projects\\nikolacars\\laravel_app\\app\\Services\\CategoryCatalogSeo.php"
+    },
+    {
+      "path": "app/Http/Controllers/PartsController.php",
+      "sha256": "6cfa489fed921f8ba897198ec411fc92a702f739ce225a002230e85944fdf51e",
+      "before_sha256": "1dd0fece25205f944b4c2ec2536e424f10024db1d3074944fe082473b141435b",
+      "mirror_path": "C:\\Projects\\nikolacars\\laravel_app\\app\\Http\\Controllers\\PartsController.php"
+    },
+    {
+      "path": "resources/views/parts/index.blade.php",
+      "sha256": "1937be9b5ef8d6135b2963f7c159ba00b7427cd2117f1895ac638c1223be617b",
+      "before_sha256": "f3fc7eacd1cc96535c8c12da617f5724a76e6432981a1dabba3aff371242010c",
+      "mirror_path": "C:\\Projects\\nikolacars\\laravel_app\\resources\\views\\parts\\index.blade.php"
+    },
+    {
+      "path": "resources/views/parts/_category_intro.blade.php",
+      "sha256": "5cf818cbe92b4c9701fa17e25c09b2cf1bb68607d20ba3a16049ef1cdc440ce9",
+      "before_sha256": null,
+      "mirror_path": "C:\\Projects\\nikolacars\\laravel_app\\resources\\views\\parts\\_category_intro.blade.php"
+    },
+    {
+      "path": "public/assets/js/parts.js",
+      "sha256": "f50a365dcdc00e6d410e659af53348a5bb69ce8e59925818d1af6ccd47bd5056",
+      "before_sha256": "12321b2771f67a298703298aaa38711b24feca4027cdc4a69793f0ef12a75d26",
+      "mirror_path": "C:\\Projects\\nikolacars\\assets\\js\\parts.js"
+    }
+  ],
+  "external_service_file": "resources/views/services/targeted/tesla-12v-battery-replacement.blade.php",
+  "tests": [
+    "tests/seo-package2-regression.php",
+    "tests/e2e/seo-package2.cjs",
+    "tests/diagnostics-page-regression.php"
+  ]
+}

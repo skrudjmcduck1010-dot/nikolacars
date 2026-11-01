@@ -1,0 +1,5 @@
+# Local relocation — 2026-10-30
+
+The owner requested a single website checkout at C:/Projects/nikolacars, outside OneDrive, without a mirror. All original files were compared with SHA256; a missing Codex turn-diff reference was copied and verified separately. The Git repository, ignored local configuration, dependencies and working files were preserved. 101 unique local reports plus ANALYTICS.md from the old mirror were consolidated under docs/. No runtime code change or deployment was performed. Warehouse remains a separate repository at C:/Projects/sklad-zapchastey.
+
+Completion: old mirror and source contents were moved to Windows Recycle Bin. The original OneDrive directory is empty but Windows keeps its directory handle open, preventing removal of the empty folder during this session. There is only one active website checkout. The permanent recursive deletion command was rejected by policy, so reversible recycling was used. SHA256 comparison covered every original file; Git connectivity check passed.

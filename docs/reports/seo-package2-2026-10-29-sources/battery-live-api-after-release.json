@@ -1,0 +1,232 @@
+{
+  "checkedAt": "2026-10-29T17:23:22.924Z",
+  "ua": {
+    "pagination": {
+      "last_page": 1,
+      "page": 1,
+      "per_page": 100,
+      "total": 11
+    },
+    "products": [
+      {
+        "id": 108527,
+        "quantity": 1
+      },
+      {
+        "id": 112402,
+        "quantity": 1
+      },
+      {
+        "id": 110960,
+        "quantity": 1
+      },
+      {
+        "id": 113256,
+        "quantity": 1
+      },
+      {
+        "id": 75221,
+        "quantity": 1
+      },
+      {
+        "id": 80841,
+        "quantity": 1
+      },
+      {
+        "id": 106657,
+        "quantity": 1
+      },
+      {
+        "id": 107692,
+        "quantity": 0
+      },
+      {
+        "id": 112426,
+        "quantity": 0
+      },
+      {
+        "id": 65734,
+        "quantity": 0
+      },
+      {
+        "id": 39792,
+        "quantity": 0
+      }
+    ],
+    "selection": {
+      "category": "Високовольтна батарея",
+      "category_breadcrumbs": [
+        {
+          "label": "Високовольтна батарея",
+          "slug": "visokovoltna-batareia"
+        },
+        {
+          "label": "Високовольтна батарея",
+          "slug": "visokovoltna-batareia--visokovoltna-batareia"
+        }
+      ],
+      "category_path": "Високовольтна батарея / Високовольтна батарея",
+      "category_path_locale_slugs": {
+        "ru": "vysokovoltnaia-batareia--vysokovoltnaia-batareia",
+        "uk": "visokovoltna-batareia--visokovoltna-batareia"
+      },
+      "category_path_slug": "visokovoltna-batareia--visokovoltna-batareia",
+      "category_slug": "visokovoltna-batareia",
+      "model": "",
+      "model_slug": ""
+    }
+  },
+  "ru": {
+    "pagination": {
+      "last_page": 1,
+      "page": 1,
+      "per_page": 100,
+      "total": 11
+    },
+    "products": [
+      {
+        "id": 108527,
+        "quantity": 1
+      },
+      {
+        "id": 112402,
+        "quantity": 1
+      },
+      {
+        "id": 110960,
+        "quantity": 1
+      },
+      {
+        "id": 113256,
+        "quantity": 1
+      },
+      {
+        "id": 75221,
+        "quantity": 1
+      },
+      {
+        "id": 80841,
+        "quantity": 1
+      },
+      {
+        "id": 106657,
+        "quantity": 1
+      },
+      {
+        "id": 107692,
+        "quantity": 0
+      },
+      {
+        "id": 112426,
+        "quantity": 0
+      },
+      {
+        "id": 65734,
+        "quantity": 0
+      },
+      {
+        "id": 39792,
+        "quantity": 0
+      }
+    ],
+    "selection": {
+      "category": "Высоковольтная батарея",
+      "category_breadcrumbs": [
+        {
+          "label": "Высоковольтная батарея",
+          "slug": "vysokovoltnaia-batareia"
+        },
+        {
+          "label": "Высоковольтная батарея",
+          "slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+        }
+      ],
+      "category_path": "Высоковольтная батарея / Высоковольтная батарея",
+      "category_path_locale_slugs": {
+        "ru": "vysokovoltnaia-batareia--vysokovoltnaia-batareia",
+        "uk": "visokovoltna-batareia--visokovoltna-batareia"
+      },
+      "category_path_slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia",
+      "category_slug": "vysokovoltnaia-batareia",
+      "model": "",
+      "model_slug": ""
+    }
+  },
+  "oldRuAlias": {
+    "pagination": {
+      "last_page": 1,
+      "page": 1,
+      "per_page": 100,
+      "total": 11
+    },
+    "products": [
+      {
+        "id": 108527,
+        "quantity": 1
+      },
+      {
+        "id": 112402,
+        "quantity": 1
+      },
+      {
+        "id": 110960,
+        "quantity": 1
+      },
+      {
+        "id": 113256,
+        "quantity": 1
+      },
+      {
+        "id": 75221,
+        "quantity": 1
+      },
+      {
+        "id": 80841,
+        "quantity": 1
+      },
+      {
+        "id": 106657,
+        "quantity": 1
+      },
+      {
+        "id": 107692,
+        "quantity": 0
+      },
+      {
+        "id": 112426,
+        "quantity": 0
+      },
+      {
+        "id": 65734,
+        "quantity": 0
+      },
+      {
+        "id": 39792,
+        "quantity": 0
+      }
+    ],
+    "selection": {
+      "category": "Высоковольтная батарея",
+      "category_breadcrumbs": [
+        {
+          "label": "Высоковольтная батарея",
+          "slug": "vysokovoltnaia-batareia"
+        },
+        {
+          "label": "Высоковольтная батарея",
+          "slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+        }
+      ],
+      "category_path": "Высоковольтная батарея / Высоковольтная батарея",
+      "category_path_locale_slugs": {
+        "ru": "vysokovoltnaia-batareia--vysokovoltnaia-batareia",
+        "uk": "visokovoltna-batareia--visokovoltna-batareia"
+      },
+      "category_path_slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia",
+      "category_slug": "vysokovoltnaia-batareia",
+      "model": "",
+      "model_slug": ""
+    }
+  },
+  "equal": true
+}

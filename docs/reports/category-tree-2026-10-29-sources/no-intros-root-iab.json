@@ -1,0 +1,27 @@
+{
+  "status": "PASS_LOCAL_PREVIEW_NOT_DEPLOYED",
+  "desktop": {
+    "url": "http://127.0.0.1:4336/parts/model-3-highland-01-2024/diski-i-sini/diski/diski/",
+    "ukRuChecked": true,
+    "genericIntroAbsent": true,
+    "treeAndProductVisible": true,
+    "screenshot": "no-intros-highland-desktop.jpg"
+  },
+  "mobile": {
+    "contextCount": 0,
+    "h1": "Запчасти Tesla Model Y 2020–2025",
+    "introCount": 0,
+    "modelLinks": 7,
+    "productHeadings": [
+      "ТЕСТОВАЯ ДЕТАЛЬ: Model Y 01.2020 - 01.2025",
+      "ТЕСТОВАЯ ДЕТАЛЬ: Model Y 01.2020 - 01.2025",
+      "ТЕСТОВАЯ ДЕТАЛЬ: Model Y 01.2020 - 01.2025"
+    ],
+    "selectedSort": "price_asc",
+    "sidebarRight": 365,
+    "title": "Запчасти Tesla Model Y 2020–2025 в Киеве — NikolaCars",
+    "url": "http://127.0.0.1:4336/ru/parts/model-y-01-2020-01-2025/?sort=price_asc",
+    "viewport": 390
+  },
+  "viewportReset": true
+}

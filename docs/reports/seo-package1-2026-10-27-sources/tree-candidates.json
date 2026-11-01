@@ -1,0 +1,1186 @@
+{
+  "uk": [
+    {
+      "model": "",
+      "parent": "diski-i-sini--diski",
+      "leaf": "diski-i-sini--diski--diski"
+    },
+    {
+      "model": "",
+      "parent": "diski-i-sini--sistema-kontroliu-tisku-v-sinax-tpms",
+      "leaf": "diski-i-sini--sistema-kontroliu-tisku-v-sinax-tpms--sistema-kontroliu-tisku-v-sinax-tpms"
+    },
+    {
+      "model": "",
+      "parent": "elektrika--datciki-radaru",
+      "leaf": "elektrika--datciki-radaru--datciki-radaru"
+    },
+    {
+      "model": "",
+      "parent": "elektrika--frontalna-kamera",
+      "leaf": "elektrika--frontalna-kamera--frontalna-kamera"
+    },
+    {
+      "model": "",
+      "parent": "elektrika--pedal-akseleratora",
+      "leaf": "elektrika--pedal-akseleratora--pedal-akseleratora"
+    },
+    {
+      "model": "",
+      "parent": "galma--elektromexanicnii-pidsiliuvac-galm",
+      "leaf": "galma--elektromexanicnii-pidsiliuvac-galm--elektromexanicnii-pidsiliuvac-galm"
+    },
+    {
+      "model": "",
+      "parent": "galma--pedal-galma",
+      "leaf": "galma--pedal-galma--pedal-galma"
+    },
+    {
+      "model": "",
+      "parent": "informaciino-rozvazalna-sistema--antena-gps",
+      "leaf": "informaciino-rozvazalna-sistema--antena-gps--antena-gps"
+    },
+    {
+      "model": "",
+      "parent": "informaciino-rozvazalna-sistema--kompiuter-avtomobilia",
+      "leaf": "informaciino-rozvazalna-sistema--kompiuter-avtomobilia--kompiuter-avtomobilia"
+    },
+    {
+      "model": "",
+      "parent": "perednii-motor--peredni-pivosi",
+      "leaf": "perednii-motor--peredni-pivosi--peredni-pivosi"
+    },
+    {
+      "model": "",
+      "parent": "rulyovii-mexanizm--rulyova-reika-i-niznia-castina-rulyovoyi-kolonki",
+      "leaf": "rulyovii-mexanizm--rulyova-reika-i-niznia-castina-rulyovoyi-kolonki--rulyova-reika-i-niznia-castina-rulyovoyi-kolonki"
+    },
+    {
+      "model": "",
+      "parent": "rulyovii-mexanizm--verxnia-castina-rulyovoyi-kolonki-i-kermo",
+      "leaf": "rulyovii-mexanizm--verxnia-castina-rulyovoyi-kolonki-i-kermo--verxnia-castina-rulyovoyi-kolonki-i-kermo"
+    },
+    {
+      "model": "",
+      "parent": "visokovoltna-batareia--visokovoltna-batareia",
+      "leaf": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia"
+    },
+    {
+      "model": "",
+      "parent": "visokovoltna-sistema--bortovii-zariadnii-modul-cardzer",
+      "leaf": "visokovoltna-sistema--bortovii-zariadnii-modul-cardzer--bortovii-zariadnii-modul-cardzer"
+    },
+    {
+      "model": "",
+      "parent": "visokovoltna-sistema--visokovoltni-provoda",
+      "leaf": "visokovoltna-sistema--visokovoltni-provoda--visokovoltni-provoda"
+    },
+    {
+      "model": "",
+      "parent": "vnutrisnje-ozdoblennia--ozdoblennia-steli-salonu",
+      "leaf": "vnutrisnje-ozdoblennia--ozdoblennia-steli-salonu--ozdoblennia-steli-salonu"
+    },
+    {
+      "model": "",
+      "parent": "zadnii-motor--zadni-pivosi",
+      "leaf": "zadnii-motor--zadni-pivosi--zadni-pivosi"
+    },
+    {
+      "model": "",
+      "parent": "zovnisnia-furnitura--nakladki-pidkapotnogo-vidsiku",
+      "leaf": "zovnisnia-furnitura--nakladki-pidkapotnogo-vidsiku--nakladki-pidkapotnogo-vidsiku"
+    },
+    {
+      "model": "",
+      "parent": "zovnisnia-furnitura--ozdoblennia-otvoru-kriski-bagaznika",
+      "leaf": "zovnisnia-furnitura--ozdoblennia-otvoru-kriski-bagaznika--ozdoblennia-otvoru-kriski-bagaznika"
+    },
+    {
+      "model": "",
+      "parent": "zovnisnia-furnitura--pidkrilki",
+      "leaf": "zovnisnia-furnitura--pidkrilki--pidkrilki"
+    },
+    {
+      "model": "",
+      "parent": "zovnisnia-furnitura--podium-nomernogo-znaka",
+      "leaf": "zovnisnia-furnitura--podium-nomernogo-znaka--podium-nomernogo-znaka"
+    },
+    {
+      "model": "",
+      "parent": "zovnisnia-furnitura--tiagovo-zcipnii-pristrii-farkop",
+      "leaf": "zovnisnia-furnitura--tiagovo-zcipnii-pristrii-farkop--tiagovo-zcipnii-pristrii-farkop"
+    },
+    {
+      "model": "",
+      "parent": "zovnisnia-furnitura--zovnisni-dzerkala",
+      "leaf": "zovnisnia-furnitura--zovnisni-dzerkala--zovnisni-dzerkala"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "diski-i-sini--diski",
+      "leaf": "diski-i-sini--diski--diski"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "diski-i-sini--sistema-kontroliu-tisku-v-sinax-tpms",
+      "leaf": "diski-i-sini--sistema-kontroliu-tisku-v-sinax-tpms--sistema-kontroliu-tisku-v-sinax-tpms"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "elektrika--datciki-parkuvannia",
+      "leaf": "elektrika--datciki-parkuvannia--datciki-parkuvannia"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "elektrika--datciki-radaru",
+      "leaf": "elektrika--datciki-radaru--datciki-radaru"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "elektrika--frontalna-kamera",
+      "leaf": "elektrika--frontalna-kamera--frontalna-kamera"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "elektrika--pedal-akseleratora",
+      "leaf": "elektrika--pedal-akseleratora--pedal-akseleratora"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "galma--pedal-galma",
+      "leaf": "galma--pedal-galma--pedal-galma"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "informaciino-rozvazalna-sistema--antena-gps",
+      "leaf": "informaciino-rozvazalna-sistema--antena-gps--antena-gps"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "informaciino-rozvazalna-sistema--antena-wi-fi",
+      "leaf": "informaciino-rozvazalna-sistema--antena-wi-fi--antena-wi-fi"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "perednii-motor--peredni-pivosi",
+      "leaf": "perednii-motor--peredni-pivosi--peredni-pivosi"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "perednii-motor--perednii-motor-v-zbori",
+      "leaf": "perednii-motor--perednii-motor-v-zbori--perednii-motor-v-zbori"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "rulyovii-mexanizm--rulyova-reika-i-niznia-castina-rulyovoyi-kolonki",
+      "leaf": "rulyovii-mexanizm--rulyova-reika-i-niznia-castina-rulyovoyi-kolonki--rulyova-reika-i-niznia-castina-rulyovoyi-kolonki"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "rulyovii-mexanizm--verxnia-castina-rulyovoyi-kolonki-i-kermo",
+      "leaf": "rulyovii-mexanizm--verxnia-castina-rulyovoyi-kolonki-i-kermo--verxnia-castina-rulyovoyi-kolonki-i-kermo"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "visokovoltna-batareia--visokovoltna-batareia",
+      "leaf": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "visokovoltna-sistema--visokovoltni-provoda",
+      "leaf": "visokovoltna-sistema--visokovoltni-provoda--visokovoltni-provoda"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "vnutrisnje-ozdoblennia--ozdoblennia-steli-salonu",
+      "leaf": "vnutrisnje-ozdoblennia--ozdoblennia-steli-salonu--ozdoblennia-steli-salonu"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "vnutrisnje-ozdoblennia--ozdoblennia-stiiok-a-b-c-i-porogiv",
+      "leaf": "vnutrisnje-ozdoblennia--ozdoblennia-stiiok-a-b-c-i-porogiv--ozdoblennia-stiiok-a-b-c-i-porogiv"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "zadnii-motor--zadni-pivosi",
+      "leaf": "zadnii-motor--zadni-pivosi--zadni-pivosi"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "zovnisnia-furnitura--nakladki-pidkapotnogo-vidsiku",
+      "leaf": "zovnisnia-furnitura--nakladki-pidkapotnogo-vidsiku--nakladki-pidkapotnogo-vidsiku"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "zovnisnia-furnitura--pidkrilki",
+      "leaf": "zovnisnia-furnitura--pidkrilki--pidkrilki"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "zovnisnia-furnitura--podium-nomernogo-znaka",
+      "leaf": "zovnisnia-furnitura--podium-nomernogo-znaka--podium-nomernogo-znaka"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "zovnisnia-furnitura--zovnisni-dzerkala",
+      "leaf": "zovnisnia-furnitura--zovnisni-dzerkala--zovnisni-dzerkala"
+    },
+    {
+      "model": "model-3-highland-01-2024",
+      "parent": "diski-i-sini--diski",
+      "leaf": "diski-i-sini--diski--diski"
+    },
+    {
+      "model": "model-3-highland-01-2024",
+      "parent": "elektrika--datciki-radaru",
+      "leaf": "elektrika--datciki-radaru--datciki-radaru"
+    },
+    {
+      "model": "model-3-highland-01-2024",
+      "parent": "elektrika--pedal-akseleratora",
+      "leaf": "elektrika--pedal-akseleratora--pedal-akseleratora"
+    },
+    {
+      "model": "model-3-highland-01-2024",
+      "parent": "galma--elektromexanicnii-pidsiliuvac-galm",
+      "leaf": "galma--elektromexanicnii-pidsiliuvac-galm--elektromexanicnii-pidsiliuvac-galm"
+    },
+    {
+      "model": "model-3-highland-01-2024",
+      "parent": "galma--pedal-galma",
+      "leaf": "galma--pedal-galma--pedal-galma"
+    },
+    {
+      "model": "model-3-highland-01-2024",
+      "parent": "rulyovii-mexanizm--verxnia-castina-rulyovoyi-kolonki-i-kermo",
+      "leaf": "rulyovii-mexanizm--verxnia-castina-rulyovoyi-kolonki-i-kermo--verxnia-castina-rulyovoyi-kolonki-i-kermo"
+    },
+    {
+      "model": "model-3-highland-01-2024",
+      "parent": "visokovoltna-batareia--visokovoltna-batareia",
+      "leaf": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia"
+    },
+    {
+      "model": "model-3-highland-01-2024",
+      "parent": "vnutrisnje-ozdoblennia--centralna-konsol",
+      "leaf": "vnutrisnje-ozdoblennia--centralna-konsol--centralna-konsol"
+    },
+    {
+      "model": "model-3-highland-01-2024",
+      "parent": "vnutrisnje-ozdoblennia--ozdoblennia-steli-salonu",
+      "leaf": "vnutrisnje-ozdoblennia--ozdoblennia-steli-salonu--ozdoblennia-steli-salonu"
+    },
+    {
+      "model": "model-3-highland-01-2024",
+      "parent": "vnutrisnje-ozdoblennia--ozdoblennia-stiiok-a-b-c-i-porogiv",
+      "leaf": "vnutrisnje-ozdoblennia--ozdoblennia-stiiok-a-b-c-i-porogiv--ozdoblennia-stiiok-a-b-c-i-porogiv"
+    },
+    {
+      "model": "model-3-highland-01-2024",
+      "parent": "zadnii-motor--zadni-pivosi",
+      "leaf": "zadnii-motor--zadni-pivosi--zadni-pivosi"
+    },
+    {
+      "model": "model-3-highland-01-2024",
+      "parent": "zadnii-motor--zadnii-motor-v-zbori",
+      "leaf": "zadnii-motor--zadnii-motor-v-zbori--zadnii-motor-v-zbori"
+    },
+    {
+      "model": "model-3-highland-01-2024",
+      "parent": "zovnisnia-furnitura--nakladki-pidkapotnogo-vidsiku",
+      "leaf": "zovnisnia-furnitura--nakladki-pidkapotnogo-vidsiku--nakladki-pidkapotnogo-vidsiku"
+    },
+    {
+      "model": "model-3-highland-01-2024",
+      "parent": "zovnisnia-furnitura--ozdoblennia-otvoru-kriski-bagaznika",
+      "leaf": "zovnisnia-furnitura--ozdoblennia-otvoru-kriski-bagaznika--ozdoblennia-otvoru-kriski-bagaznika"
+    },
+    {
+      "model": "model-3-highland-01-2024",
+      "parent": "zovnisnia-furnitura--pidkrilki",
+      "leaf": "zovnisnia-furnitura--pidkrilki--pidkrilki"
+    },
+    {
+      "model": "model-3-highland-01-2024",
+      "parent": "zovnisnia-furnitura--podium-nomernogo-znaka",
+      "leaf": "zovnisnia-furnitura--podium-nomernogo-znaka--podium-nomernogo-znaka"
+    },
+    {
+      "model": "model-3-highland-01-2024",
+      "parent": "zovnisnia-furnitura--zovnisni-dzerkala",
+      "leaf": "zovnisnia-furnitura--zovnisni-dzerkala--zovnisni-dzerkala"
+    },
+    {
+      "model": "model-s-02-2012-03-2016",
+      "parent": "diski-i-sini--sistema-kontroliu-tisku-v-sinax-tpms",
+      "leaf": "diski-i-sini--sistema-kontroliu-tisku-v-sinax-tpms--sistema-kontroliu-tisku-v-sinax-tpms"
+    },
+    {
+      "model": "model-s-02-2012-03-2016",
+      "parent": "elektrika--datciki-radaru",
+      "leaf": "elektrika--datciki-radaru--datciki-radaru"
+    },
+    {
+      "model": "model-s-02-2012-03-2016",
+      "parent": "elektrika--frontalna-kamera",
+      "leaf": "elektrika--frontalna-kamera--frontalna-kamera"
+    },
+    {
+      "model": "model-s-02-2012-03-2016",
+      "parent": "elektrika--pedal-akseleratora",
+      "leaf": "elektrika--pedal-akseleratora--pedal-akseleratora"
+    },
+    {
+      "model": "model-s-02-2012-03-2016",
+      "parent": "galma--elektromexanicnii-pidsiliuvac-galm",
+      "leaf": "galma--elektromexanicnii-pidsiliuvac-galm--elektromexanicnii-pidsiliuvac-galm"
+    },
+    {
+      "model": "model-s-02-2012-03-2016",
+      "parent": "galma--pedal-galma",
+      "leaf": "galma--pedal-galma--pedal-galma"
+    },
+    {
+      "model": "model-s-02-2012-03-2016",
+      "parent": "perednii-motor--peredni-pivosi",
+      "leaf": "perednii-motor--peredni-pivosi--peredni-pivosi"
+    },
+    {
+      "model": "model-s-02-2012-03-2016",
+      "parent": "rulyovii-mexanizm--verxnia-castina-rulyovoyi-kolonki-i-kermo",
+      "leaf": "rulyovii-mexanizm--verxnia-castina-rulyovoyi-kolonki-i-kermo--verxnia-castina-rulyovoyi-kolonki-i-kermo"
+    },
+    {
+      "model": "model-s-02-2012-03-2016",
+      "parent": "visokovoltna-batareia--visokovoltna-batareia",
+      "leaf": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia"
+    },
+    {
+      "model": "model-s-02-2012-03-2016",
+      "parent": "visokovoltna-sistema--bortovii-zariadnii-modul-cardzer",
+      "leaf": "visokovoltna-sistema--bortovii-zariadnii-modul-cardzer--bortovii-zariadnii-modul-cardzer"
+    },
+    {
+      "model": "model-s-02-2012-03-2016",
+      "parent": "vnutrisnje-ozdoblennia--ozdoblennia-steli-salonu",
+      "leaf": "vnutrisnje-ozdoblennia--ozdoblennia-steli-salonu--ozdoblennia-steli-salonu"
+    },
+    {
+      "model": "model-s-02-2012-03-2016",
+      "parent": "vnutrisnje-ozdoblennia--ozdoblennia-stiiok-a-b-c-i-porogiv",
+      "leaf": "vnutrisnje-ozdoblennia--ozdoblennia-stiiok-a-b-c-i-porogiv--ozdoblennia-stiiok-a-b-c-i-porogiv"
+    },
+    {
+      "model": "model-s-02-2012-03-2016",
+      "parent": "zadnii-motor--zadni-pivosi",
+      "leaf": "zadnii-motor--zadni-pivosi--zadni-pivosi"
+    },
+    {
+      "model": "model-s-02-2012-03-2016",
+      "parent": "zovnisnia-furnitura--nakladki-pidkapotnogo-vidsiku",
+      "leaf": "zovnisnia-furnitura--nakladki-pidkapotnogo-vidsiku--nakladki-pidkapotnogo-vidsiku"
+    },
+    {
+      "model": "model-s-02-2012-03-2016",
+      "parent": "zovnisnia-furnitura--pidkrilki",
+      "leaf": "zovnisnia-furnitura--pidkrilki--pidkrilki"
+    },
+    {
+      "model": "model-s-02-2012-03-2016",
+      "parent": "zovnisnia-furnitura--podium-nomernogo-znaka",
+      "leaf": "zovnisnia-furnitura--podium-nomernogo-znaka--podium-nomernogo-znaka"
+    },
+    {
+      "model": "model-s-02-2012-03-2016",
+      "parent": "zovnisnia-furnitura--zovnisni-dzerkala",
+      "leaf": "zovnisnia-furnitura--zovnisni-dzerkala--zovnisni-dzerkala"
+    },
+    {
+      "model": "model-s-04-2016-01-2021",
+      "parent": "diski-i-sini--diski",
+      "leaf": "diski-i-sini--diski--diski"
+    },
+    {
+      "model": "model-s-04-2016-01-2021",
+      "parent": "diski-i-sini--sistema-kontroliu-tisku-v-sinax-tpms",
+      "leaf": "diski-i-sini--sistema-kontroliu-tisku-v-sinax-tpms--sistema-kontroliu-tisku-v-sinax-tpms"
+    },
+    {
+      "model": "model-s-04-2016-01-2021",
+      "parent": "elektrika--frontalna-kamera",
+      "leaf": "elektrika--frontalna-kamera--frontalna-kamera"
+    },
+    {
+      "model": "model-s-04-2016-01-2021",
+      "parent": "elektrika--pedal-akseleratora",
+      "leaf": "elektrika--pedal-akseleratora--pedal-akseleratora"
+    },
+    {
+      "model": "model-s-04-2016-01-2021",
+      "parent": "galma--pedal-galma",
+      "leaf": "galma--pedal-galma--pedal-galma"
+    },
+    {
+      "model": "model-s-04-2016-01-2021",
+      "parent": "perednii-motor--peredni-pivosi",
+      "leaf": "perednii-motor--peredni-pivosi--peredni-pivosi"
+    },
+    {
+      "model": "model-s-04-2016-01-2021",
+      "parent": "rulyovii-mexanizm--rulyova-reika-i-niznia-castina-rulyovoyi-kolonki",
+      "leaf": "rulyovii-mexanizm--rulyova-reika-i-niznia-castina-rulyovoyi-kolonki--rulyova-reika-i-niznia-castina-rulyovoyi-kolonki"
+    },
+    {
+      "model": "model-s-04-2016-01-2021",
+      "parent": "rulyovii-mexanizm--verxnia-castina-rulyovoyi-kolonki-i-kermo",
+      "leaf": "rulyovii-mexanizm--verxnia-castina-rulyovoyi-kolonki-i-kermo--verxnia-castina-rulyovoyi-kolonki-i-kermo"
+    },
+    {
+      "model": "model-s-04-2016-01-2021",
+      "parent": "vnutrisnje-ozdoblennia--ozdoblennia-steli-salonu",
+      "leaf": "vnutrisnje-ozdoblennia--ozdoblennia-steli-salonu--ozdoblennia-steli-salonu"
+    },
+    {
+      "model": "model-s-04-2016-01-2021",
+      "parent": "vnutrisnje-ozdoblennia--ozdoblennia-stiiok-a-b-c-i-porogiv",
+      "leaf": "vnutrisnje-ozdoblennia--ozdoblennia-stiiok-a-b-c-i-porogiv--ozdoblennia-stiiok-a-b-c-i-porogiv"
+    },
+    {
+      "model": "model-s-04-2016-01-2021",
+      "parent": "zovnisnia-furnitura--nakladki-pidkapotnogo-vidsiku",
+      "leaf": "zovnisnia-furnitura--nakladki-pidkapotnogo-vidsiku--nakladki-pidkapotnogo-vidsiku"
+    },
+    {
+      "model": "model-s-04-2016-01-2021",
+      "parent": "zovnisnia-furnitura--pidkrilki",
+      "leaf": "zovnisnia-furnitura--pidkrilki--pidkrilki"
+    },
+    {
+      "model": "model-s-04-2016-01-2021",
+      "parent": "zovnisnia-furnitura--zovnisni-dzerkala",
+      "leaf": "zovnisnia-furnitura--zovnisni-dzerkala--zovnisni-dzerkala"
+    },
+    {
+      "model": "model-x-09-2015-02-2021",
+      "parent": "elektrika--frontalna-kamera",
+      "leaf": "elektrika--frontalna-kamera--frontalna-kamera"
+    },
+    {
+      "model": "model-x-09-2015-02-2021",
+      "parent": "panel-priladiv--panel-priladiv",
+      "leaf": "panel-priladiv--panel-priladiv--panel-priladiv"
+    },
+    {
+      "model": "model-x-09-2015-02-2021",
+      "parent": "vnutrisnje-ozdoblennia--centralna-konsol",
+      "leaf": "vnutrisnje-ozdoblennia--centralna-konsol--centralna-konsol"
+    },
+    {
+      "model": "model-x-09-2015-02-2021",
+      "parent": "zovnisnia-furnitura--nakladki-pidkapotnogo-vidsiku",
+      "leaf": "zovnisnia-furnitura--nakladki-pidkapotnogo-vidsiku--nakladki-pidkapotnogo-vidsiku"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "diski-i-sini--diski",
+      "leaf": "diski-i-sini--diski--diski"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "elektrika--datciki-parkuvannia",
+      "leaf": "elektrika--datciki-parkuvannia--datciki-parkuvannia"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "elektrika--datciki-radaru",
+      "leaf": "elektrika--datciki-radaru--datciki-radaru"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "elektrika--frontalna-kamera",
+      "leaf": "elektrika--frontalna-kamera--frontalna-kamera"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "elektrika--pedal-akseleratora",
+      "leaf": "elektrika--pedal-akseleratora--pedal-akseleratora"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "galma--pedal-galma",
+      "leaf": "galma--pedal-galma--pedal-galma"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "informaciino-rozvazalna-sistema--antena-gps",
+      "leaf": "informaciino-rozvazalna-sistema--antena-gps--antena-gps"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "informaciino-rozvazalna-sistema--kompiuter-avtomobilia",
+      "leaf": "informaciino-rozvazalna-sistema--kompiuter-avtomobilia--kompiuter-avtomobilia"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "perednii-motor--peredni-pivosi",
+      "leaf": "perednii-motor--peredni-pivosi--peredni-pivosi"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "perednii-motor--perednii-motor-v-zbori",
+      "leaf": "perednii-motor--perednii-motor-v-zbori--perednii-motor-v-zbori"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "rulyovii-mexanizm--rulyova-reika-i-niznia-castina-rulyovoyi-kolonki",
+      "leaf": "rulyovii-mexanizm--rulyova-reika-i-niznia-castina-rulyovoyi-kolonki--rulyova-reika-i-niznia-castina-rulyovoyi-kolonki"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "rulyovii-mexanizm--verxnia-castina-rulyovoyi-kolonki-i-kermo",
+      "leaf": "rulyovii-mexanizm--verxnia-castina-rulyovoyi-kolonki-i-kermo--verxnia-castina-rulyovoyi-kolonki-i-kermo"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "visokovoltna-batareia--visokovoltna-batareia",
+      "leaf": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "visokovoltna-sistema--visokovoltni-provoda",
+      "leaf": "visokovoltna-sistema--visokovoltni-provoda--visokovoltni-provoda"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "vnutrisnje-ozdoblennia--centralna-konsol",
+      "leaf": "vnutrisnje-ozdoblennia--centralna-konsol--centralna-konsol"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "vnutrisnje-ozdoblennia--ozdoblennia-steli-salonu",
+      "leaf": "vnutrisnje-ozdoblennia--ozdoblennia-steli-salonu--ozdoblennia-steli-salonu"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "vnutrisnje-ozdoblennia--ozdoblennia-stiiok-a-b-c-i-porogiv",
+      "leaf": "vnutrisnje-ozdoblennia--ozdoblennia-stiiok-a-b-c-i-porogiv--ozdoblennia-stiiok-a-b-c-i-porogiv"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "zadnii-motor--zadni-pivosi",
+      "leaf": "zadnii-motor--zadni-pivosi--zadni-pivosi"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "zadnii-motor--zadnii-motor-v-zbori",
+      "leaf": "zadnii-motor--zadnii-motor-v-zbori--zadnii-motor-v-zbori"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "zovnisnia-furnitura--nakladki-pidkapotnogo-vidsiku",
+      "leaf": "zovnisnia-furnitura--nakladki-pidkapotnogo-vidsiku--nakladki-pidkapotnogo-vidsiku"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "zovnisnia-furnitura--pidkrilki",
+      "leaf": "zovnisnia-furnitura--pidkrilki--pidkrilki"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "zovnisnia-furnitura--podium-nomernogo-znaka",
+      "leaf": "zovnisnia-furnitura--podium-nomernogo-znaka--podium-nomernogo-znaka"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "zovnisnia-furnitura--tiagovo-zcipnii-pristrii-farkop",
+      "leaf": "zovnisnia-furnitura--tiagovo-zcipnii-pristrii-farkop--tiagovo-zcipnii-pristrii-farkop"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "zovnisnia-furnitura--zovnisni-dzerkala",
+      "leaf": "zovnisnia-furnitura--zovnisni-dzerkala--zovnisni-dzerkala"
+    }
+  ],
+  "ru": [
+    {
+      "model": "",
+      "parent": "diski-i-siny--diski",
+      "leaf": "diski-i-siny--diski--diski"
+    },
+    {
+      "model": "",
+      "parent": "diski-i-siny--sistema-kontrolia-davleniia-v-sinax-tpms",
+      "leaf": "diski-i-siny--sistema-kontrolia-davleniia-v-sinax-tpms--sistema-kontrolia-davleniia-v-sinax-tpms"
+    },
+    {
+      "model": "",
+      "parent": "elektrika--datciki-radara",
+      "leaf": "elektrika--datciki-radara--datciki-radara"
+    },
+    {
+      "model": "",
+      "parent": "elektrika--frontalnaia-kamera",
+      "leaf": "elektrika--frontalnaia-kamera--frontalnaia-kamera"
+    },
+    {
+      "model": "",
+      "parent": "elektrika--pedal-akseleratora",
+      "leaf": "elektrika--pedal-akseleratora--pedal-akseleratora"
+    },
+    {
+      "model": "",
+      "parent": "informacionno-razvlekatelnaia-sistema--antenna-gps",
+      "leaf": "informacionno-razvlekatelnaia-sistema--antenna-gps--antenna-gps"
+    },
+    {
+      "model": "",
+      "parent": "informacionno-razvlekatelnaia-sistema--antenna-wi-fi",
+      "leaf": "informacionno-razvlekatelnaia-sistema--antenna-wi-fi--antenna-wi-fi"
+    },
+    {
+      "model": "",
+      "parent": "informacionno-razvlekatelnaia-sistema--kompiuter-avtomobilia",
+      "leaf": "informacionno-razvlekatelnaia-sistema--kompiuter-avtomobilia--kompiuter-avtomobilia"
+    },
+    {
+      "model": "",
+      "parent": "naruznaia-furnitura--nakladki-podkapotnogo-otseka",
+      "leaf": "naruznaia-furnitura--nakladki-podkapotnogo-otseka--nakladki-podkapotnogo-otseka"
+    },
+    {
+      "model": "",
+      "parent": "naruznaia-furnitura--obsivka-proema-kryski-bagaznika",
+      "leaf": "naruznaia-furnitura--obsivka-proema-kryski-bagaznika--obsivka-proema-kryski-bagaznika"
+    },
+    {
+      "model": "",
+      "parent": "naruznaia-furnitura--podium-nomernogo-znaka",
+      "leaf": "naruznaia-furnitura--podium-nomernogo-znaka--podium-nomernogo-znaka"
+    },
+    {
+      "model": "",
+      "parent": "naruznaia-furnitura--podkrylki",
+      "leaf": "naruznaia-furnitura--podkrylki--podkrylki"
+    },
+    {
+      "model": "",
+      "parent": "naruznaia-furnitura--tiagovo-scepnoe-ustroistvo-farkop",
+      "leaf": "naruznaia-furnitura--tiagovo-scepnoe-ustroistvo-farkop--tiagovo-scepnoe-ustroistvo-farkop"
+    },
+    {
+      "model": "",
+      "parent": "perednii-motor--perednie-poluosi",
+      "leaf": "perednii-motor--perednie-poluosi--perednie-poluosi"
+    },
+    {
+      "model": "",
+      "parent": "rulevoi-mexanizm--rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki",
+      "leaf": "rulevoi-mexanizm--rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki--rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki"
+    },
+    {
+      "model": "",
+      "parent": "rulevoi-mexanizm--verxniaia-cast-rulevoi-kolonki-i-rul",
+      "leaf": "rulevoi-mexanizm--verxniaia-cast-rulevoi-kolonki-i-rul--verxniaia-cast-rulevoi-kolonki-i-rul"
+    },
+    {
+      "model": "",
+      "parent": "tormoza--elektromexaniceskii-usilitel-tormozov",
+      "leaf": "tormoza--elektromexaniceskii-usilitel-tormozov--elektromexaniceskii-usilitel-tormozov"
+    },
+    {
+      "model": "",
+      "parent": "tormoza--pedal-tormoza",
+      "leaf": "tormoza--pedal-tormoza--pedal-tormoza"
+    },
+    {
+      "model": "",
+      "parent": "visokovoltna-batareia--vysokovoltnaia-batareia",
+      "leaf": "visokovoltna-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+    },
+    {
+      "model": "",
+      "parent": "vnutrenniaia-otdelka--obsivka-potolka-salona",
+      "leaf": "vnutrenniaia-otdelka--obsivka-potolka-salona--obsivka-potolka-salona"
+    },
+    {
+      "model": "",
+      "parent": "vysokovoltnaia-batareia--vysokovoltnaia-batareia",
+      "leaf": "vysokovoltnaia-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+    },
+    {
+      "model": "",
+      "parent": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer",
+      "leaf": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer--bortovoi-zariadnyi-modul-cardzer"
+    },
+    {
+      "model": "",
+      "parent": "vysokovoltnaia-sistema--vysokovoltnye-provoda",
+      "leaf": "vysokovoltnaia-sistema--vysokovoltnye-provoda--vysokovoltnye-provoda"
+    },
+    {
+      "model": "",
+      "parent": "zadnii-motor--zadnie-poluosi",
+      "leaf": "zadnii-motor--zadnie-poluosi--zadnie-poluosi"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "diski-i-siny--diski",
+      "leaf": "diski-i-siny--diski--diski"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "diski-i-siny--sistema-kontrolia-davleniia-v-sinax-tpms",
+      "leaf": "diski-i-siny--sistema-kontrolia-davleniia-v-sinax-tpms--sistema-kontrolia-davleniia-v-sinax-tpms"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "elektrika--datciki-parkovki",
+      "leaf": "elektrika--datciki-parkovki--datciki-parkovki"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "elektrika--datciki-radara",
+      "leaf": "elektrika--datciki-radara--datciki-radara"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "elektrika--frontalnaia-kamera",
+      "leaf": "elektrika--frontalnaia-kamera--frontalnaia-kamera"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "elektrika--pedal-akseleratora",
+      "leaf": "elektrika--pedal-akseleratora--pedal-akseleratora"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "informacionno-razvlekatelnaia-sistema--antenna-gps",
+      "leaf": "informacionno-razvlekatelnaia-sistema--antenna-gps--antenna-gps"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "informacionno-razvlekatelnaia-sistema--antenna-wi-fi",
+      "leaf": "informacionno-razvlekatelnaia-sistema--antenna-wi-fi--antenna-wi-fi"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "naruznaia-furnitura--nakladki-podkapotnogo-otseka",
+      "leaf": "naruznaia-furnitura--nakladki-podkapotnogo-otseka--nakladki-podkapotnogo-otseka"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "naruznaia-furnitura--podium-nomernogo-znaka",
+      "leaf": "naruznaia-furnitura--podium-nomernogo-znaka--podium-nomernogo-znaka"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "naruznaia-furnitura--podkrylki",
+      "leaf": "naruznaia-furnitura--podkrylki--podkrylki"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "perednii-motor--perednie-poluosi",
+      "leaf": "perednii-motor--perednie-poluosi--perednie-poluosi"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "perednii-motor--perednii-motor-v-sbore",
+      "leaf": "perednii-motor--perednii-motor-v-sbore--perednii-motor-v-sbore"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "rulevoi-mexanizm--rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki",
+      "leaf": "rulevoi-mexanizm--rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki--rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "rulevoi-mexanizm--verxniaia-cast-rulevoi-kolonki-i-rul",
+      "leaf": "rulevoi-mexanizm--verxniaia-cast-rulevoi-kolonki-i-rul--verxniaia-cast-rulevoi-kolonki-i-rul"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "tormoza--pedal-tormoza",
+      "leaf": "tormoza--pedal-tormoza--pedal-tormoza"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "vnutrenniaia-otdelka--obsivka-potolka-salona",
+      "leaf": "vnutrenniaia-otdelka--obsivka-potolka-salona--obsivka-potolka-salona"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "vnutrenniaia-otdelka--obsivka-stoek-a-b-c-i-porogov",
+      "leaf": "vnutrenniaia-otdelka--obsivka-stoek-a-b-c-i-porogov--obsivka-stoek-a-b-c-i-porogov"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "vysokovoltnaia-batareia--vysokovoltnaia-batareia",
+      "leaf": "vysokovoltnaia-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "vysokovoltnaia-sistema--vysokovoltnye-provoda",
+      "leaf": "vysokovoltnaia-sistema--vysokovoltnye-provoda--vysokovoltnye-provoda"
+    },
+    {
+      "model": "model-3-06-2017-12-2023",
+      "parent": "zadnii-motor--zadnie-poluosi",
+      "leaf": "zadnii-motor--zadnie-poluosi--zadnie-poluosi"
+    },
+    {
+      "model": "model-3-highland-01-2024",
+      "parent": "diski-i-siny--diski",
+      "leaf": "diski-i-siny--diski--diski"
+    },
+    {
+      "model": "model-3-highland-01-2024",
+      "parent": "elektrika--datciki-radara",
+      "leaf": "elektrika--datciki-radara--datciki-radara"
+    },
+    {
+      "model": "model-3-highland-01-2024",
+      "parent": "elektrika--pedal-akseleratora",
+      "leaf": "elektrika--pedal-akseleratora--pedal-akseleratora"
+    },
+    {
+      "model": "model-3-highland-01-2024",
+      "parent": "naruznaia-furnitura--nakladki-podkapotnogo-otseka",
+      "leaf": "naruznaia-furnitura--nakladki-podkapotnogo-otseka--nakladki-podkapotnogo-otseka"
+    },
+    {
+      "model": "model-3-highland-01-2024",
+      "parent": "naruznaia-furnitura--obsivka-proema-kryski-bagaznika",
+      "leaf": "naruznaia-furnitura--obsivka-proema-kryski-bagaznika--obsivka-proema-kryski-bagaznika"
+    },
+    {
+      "model": "model-3-highland-01-2024",
+      "parent": "naruznaia-furnitura--podium-nomernogo-znaka",
+      "leaf": "naruznaia-furnitura--podium-nomernogo-znaka--podium-nomernogo-znaka"
+    },
+    {
+      "model": "model-3-highland-01-2024",
+      "parent": "naruznaia-furnitura--podkrylki",
+      "leaf": "naruznaia-furnitura--podkrylki--podkrylki"
+    },
+    {
+      "model": "model-3-highland-01-2024",
+      "parent": "rulevoi-mexanizm--verxniaia-cast-rulevoi-kolonki-i-rul",
+      "leaf": "rulevoi-mexanizm--verxniaia-cast-rulevoi-kolonki-i-rul--verxniaia-cast-rulevoi-kolonki-i-rul"
+    },
+    {
+      "model": "model-3-highland-01-2024",
+      "parent": "tormoza--elektromexaniceskii-usilitel-tormozov",
+      "leaf": "tormoza--elektromexaniceskii-usilitel-tormozov--elektromexaniceskii-usilitel-tormozov"
+    },
+    {
+      "model": "model-3-highland-01-2024",
+      "parent": "tormoza--pedal-tormoza",
+      "leaf": "tormoza--pedal-tormoza--pedal-tormoza"
+    },
+    {
+      "model": "model-3-highland-01-2024",
+      "parent": "vnutrenniaia-otdelka--centralnaia-konsol",
+      "leaf": "vnutrenniaia-otdelka--centralnaia-konsol--centralnaia-konsol"
+    },
+    {
+      "model": "model-3-highland-01-2024",
+      "parent": "vnutrenniaia-otdelka--obsivka-potolka-salona",
+      "leaf": "vnutrenniaia-otdelka--obsivka-potolka-salona--obsivka-potolka-salona"
+    },
+    {
+      "model": "model-3-highland-01-2024",
+      "parent": "vnutrenniaia-otdelka--obsivka-stoek-a-b-c-i-porogov",
+      "leaf": "vnutrenniaia-otdelka--obsivka-stoek-a-b-c-i-porogov--obsivka-stoek-a-b-c-i-porogov"
+    },
+    {
+      "model": "model-3-highland-01-2024",
+      "parent": "vysokovoltnaia-batareia--vysokovoltnaia-batareia",
+      "leaf": "vysokovoltnaia-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+    },
+    {
+      "model": "model-3-highland-01-2024",
+      "parent": "zadnii-motor--zadnie-poluosi",
+      "leaf": "zadnii-motor--zadnie-poluosi--zadnie-poluosi"
+    },
+    {
+      "model": "model-3-highland-01-2024",
+      "parent": "zadnii-motor--zadnii-motor-v-sbore",
+      "leaf": "zadnii-motor--zadnii-motor-v-sbore--zadnii-motor-v-sbore"
+    },
+    {
+      "model": "model-s-02-2012-03-2016",
+      "parent": "diski-i-siny--sistema-kontrolia-davleniia-v-sinax-tpms",
+      "leaf": "diski-i-siny--sistema-kontrolia-davleniia-v-sinax-tpms--sistema-kontrolia-davleniia-v-sinax-tpms"
+    },
+    {
+      "model": "model-s-02-2012-03-2016",
+      "parent": "elektrika--datciki-radara",
+      "leaf": "elektrika--datciki-radara--datciki-radara"
+    },
+    {
+      "model": "model-s-02-2012-03-2016",
+      "parent": "elektrika--frontalnaia-kamera",
+      "leaf": "elektrika--frontalnaia-kamera--frontalnaia-kamera"
+    },
+    {
+      "model": "model-s-02-2012-03-2016",
+      "parent": "elektrika--pedal-akseleratora",
+      "leaf": "elektrika--pedal-akseleratora--pedal-akseleratora"
+    },
+    {
+      "model": "model-s-02-2012-03-2016",
+      "parent": "naruznaia-furnitura--nakladki-podkapotnogo-otseka",
+      "leaf": "naruznaia-furnitura--nakladki-podkapotnogo-otseka--nakladki-podkapotnogo-otseka"
+    },
+    {
+      "model": "model-s-02-2012-03-2016",
+      "parent": "naruznaia-furnitura--podium-nomernogo-znaka",
+      "leaf": "naruznaia-furnitura--podium-nomernogo-znaka--podium-nomernogo-znaka"
+    },
+    {
+      "model": "model-s-02-2012-03-2016",
+      "parent": "naruznaia-furnitura--podkrylki",
+      "leaf": "naruznaia-furnitura--podkrylki--podkrylki"
+    },
+    {
+      "model": "model-s-02-2012-03-2016",
+      "parent": "perednii-motor--perednie-poluosi",
+      "leaf": "perednii-motor--perednie-poluosi--perednie-poluosi"
+    },
+    {
+      "model": "model-s-02-2012-03-2016",
+      "parent": "rulevoi-mexanizm--verxniaia-cast-rulevoi-kolonki-i-rul",
+      "leaf": "rulevoi-mexanizm--verxniaia-cast-rulevoi-kolonki-i-rul--verxniaia-cast-rulevoi-kolonki-i-rul"
+    },
+    {
+      "model": "model-s-02-2012-03-2016",
+      "parent": "tormoza--elektromexaniceskii-usilitel-tormozov",
+      "leaf": "tormoza--elektromexaniceskii-usilitel-tormozov--elektromexaniceskii-usilitel-tormozov"
+    },
+    {
+      "model": "model-s-02-2012-03-2016",
+      "parent": "tormoza--pedal-tormoza",
+      "leaf": "tormoza--pedal-tormoza--pedal-tormoza"
+    },
+    {
+      "model": "model-s-02-2012-03-2016",
+      "parent": "visokovoltna-batareia--vysokovoltnaia-batareia",
+      "leaf": "visokovoltna-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+    },
+    {
+      "model": "model-s-02-2012-03-2016",
+      "parent": "vnutrenniaia-otdelka--obsivka-potolka-salona",
+      "leaf": "vnutrenniaia-otdelka--obsivka-potolka-salona--obsivka-potolka-salona"
+    },
+    {
+      "model": "model-s-02-2012-03-2016",
+      "parent": "vnutrenniaia-otdelka--obsivka-stoek-a-b-c-i-porogov",
+      "leaf": "vnutrenniaia-otdelka--obsivka-stoek-a-b-c-i-porogov--obsivka-stoek-a-b-c-i-porogov"
+    },
+    {
+      "model": "model-s-02-2012-03-2016",
+      "parent": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer",
+      "leaf": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer--bortovoi-zariadnyi-modul-cardzer"
+    },
+    {
+      "model": "model-s-02-2012-03-2016",
+      "parent": "zadnii-motor--zadnie-poluosi",
+      "leaf": "zadnii-motor--zadnie-poluosi--zadnie-poluosi"
+    },
+    {
+      "model": "model-s-04-2016-01-2021",
+      "parent": "diski-i-siny--diski",
+      "leaf": "diski-i-siny--diski--diski"
+    },
+    {
+      "model": "model-s-04-2016-01-2021",
+      "parent": "diski-i-siny--sistema-kontrolia-davleniia-v-sinax-tpms",
+      "leaf": "diski-i-siny--sistema-kontrolia-davleniia-v-sinax-tpms--sistema-kontrolia-davleniia-v-sinax-tpms"
+    },
+    {
+      "model": "model-s-04-2016-01-2021",
+      "parent": "elektrika--frontalnaia-kamera",
+      "leaf": "elektrika--frontalnaia-kamera--frontalnaia-kamera"
+    },
+    {
+      "model": "model-s-04-2016-01-2021",
+      "parent": "elektrika--pedal-akseleratora",
+      "leaf": "elektrika--pedal-akseleratora--pedal-akseleratora"
+    },
+    {
+      "model": "model-s-04-2016-01-2021",
+      "parent": "naruznaia-furnitura--nakladki-podkapotnogo-otseka",
+      "leaf": "naruznaia-furnitura--nakladki-podkapotnogo-otseka--nakladki-podkapotnogo-otseka"
+    },
+    {
+      "model": "model-s-04-2016-01-2021",
+      "parent": "naruznaia-furnitura--podkrylki",
+      "leaf": "naruznaia-furnitura--podkrylki--podkrylki"
+    },
+    {
+      "model": "model-s-04-2016-01-2021",
+      "parent": "perednii-motor--perednie-poluosi",
+      "leaf": "perednii-motor--perednie-poluosi--perednie-poluosi"
+    },
+    {
+      "model": "model-s-04-2016-01-2021",
+      "parent": "rulevoi-mexanizm--rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki",
+      "leaf": "rulevoi-mexanizm--rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki--rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki"
+    },
+    {
+      "model": "model-s-04-2016-01-2021",
+      "parent": "rulevoi-mexanizm--verxniaia-cast-rulevoi-kolonki-i-rul",
+      "leaf": "rulevoi-mexanizm--verxniaia-cast-rulevoi-kolonki-i-rul--verxniaia-cast-rulevoi-kolonki-i-rul"
+    },
+    {
+      "model": "model-s-04-2016-01-2021",
+      "parent": "tormoza--pedal-tormoza",
+      "leaf": "tormoza--pedal-tormoza--pedal-tormoza"
+    },
+    {
+      "model": "model-s-04-2016-01-2021",
+      "parent": "vnutrenniaia-otdelka--obsivka-potolka-salona",
+      "leaf": "vnutrenniaia-otdelka--obsivka-potolka-salona--obsivka-potolka-salona"
+    },
+    {
+      "model": "model-s-04-2016-01-2021",
+      "parent": "vnutrenniaia-otdelka--obsivka-stoek-a-b-c-i-porogov",
+      "leaf": "vnutrenniaia-otdelka--obsivka-stoek-a-b-c-i-porogov--obsivka-stoek-a-b-c-i-porogov"
+    },
+    {
+      "model": "model-x-09-2015-02-2021",
+      "parent": "elektrika--frontalnaia-kamera",
+      "leaf": "elektrika--frontalnaia-kamera--frontalnaia-kamera"
+    },
+    {
+      "model": "model-x-09-2015-02-2021",
+      "parent": "naruznaia-furnitura--nakladki-podkapotnogo-otseka",
+      "leaf": "naruznaia-furnitura--nakladki-podkapotnogo-otseka--nakladki-podkapotnogo-otseka"
+    },
+    {
+      "model": "model-x-09-2015-02-2021",
+      "parent": "vnutrenniaia-otdelka--centralnaia-konsol",
+      "leaf": "vnutrenniaia-otdelka--centralnaia-konsol--centralnaia-konsol"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "diski-i-siny--diski",
+      "leaf": "diski-i-siny--diski--diski"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "elektrika--datciki-parkovki",
+      "leaf": "elektrika--datciki-parkovki--datciki-parkovki"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "elektrika--datciki-radara",
+      "leaf": "elektrika--datciki-radara--datciki-radara"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "elektrika--frontalnaia-kamera",
+      "leaf": "elektrika--frontalnaia-kamera--frontalnaia-kamera"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "elektrika--pedal-akseleratora",
+      "leaf": "elektrika--pedal-akseleratora--pedal-akseleratora"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "informacionno-razvlekatelnaia-sistema--antenna-gps",
+      "leaf": "informacionno-razvlekatelnaia-sistema--antenna-gps--antenna-gps"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "informacionno-razvlekatelnaia-sistema--antenna-wi-fi",
+      "leaf": "informacionno-razvlekatelnaia-sistema--antenna-wi-fi--antenna-wi-fi"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "informacionno-razvlekatelnaia-sistema--kompiuter-avtomobilia",
+      "leaf": "informacionno-razvlekatelnaia-sistema--kompiuter-avtomobilia--kompiuter-avtomobilia"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "naruznaia-furnitura--nakladki-podkapotnogo-otseka",
+      "leaf": "naruznaia-furnitura--nakladki-podkapotnogo-otseka--nakladki-podkapotnogo-otseka"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "naruznaia-furnitura--podium-nomernogo-znaka",
+      "leaf": "naruznaia-furnitura--podium-nomernogo-znaka--podium-nomernogo-znaka"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "naruznaia-furnitura--podkrylki",
+      "leaf": "naruznaia-furnitura--podkrylki--podkrylki"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "naruznaia-furnitura--tiagovo-scepnoe-ustroistvo-farkop",
+      "leaf": "naruznaia-furnitura--tiagovo-scepnoe-ustroistvo-farkop--tiagovo-scepnoe-ustroistvo-farkop"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "perednii-motor--perednie-poluosi",
+      "leaf": "perednii-motor--perednie-poluosi--perednie-poluosi"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "perednii-motor--perednii-motor-v-sbore",
+      "leaf": "perednii-motor--perednii-motor-v-sbore--perednii-motor-v-sbore"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "rulevoi-mexanizm--rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki",
+      "leaf": "rulevoi-mexanizm--rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki--rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "rulevoi-mexanizm--verxniaia-cast-rulevoi-kolonki-i-rul",
+      "leaf": "rulevoi-mexanizm--verxniaia-cast-rulevoi-kolonki-i-rul--verxniaia-cast-rulevoi-kolonki-i-rul"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "tormoza--pedal-tormoza",
+      "leaf": "tormoza--pedal-tormoza--pedal-tormoza"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "vnutrenniaia-otdelka--centralnaia-konsol",
+      "leaf": "vnutrenniaia-otdelka--centralnaia-konsol--centralnaia-konsol"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "vnutrenniaia-otdelka--obsivka-potolka-salona",
+      "leaf": "vnutrenniaia-otdelka--obsivka-potolka-salona--obsivka-potolka-salona"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "vnutrenniaia-otdelka--obsivka-stoek-a-b-c-i-porogov",
+      "leaf": "vnutrenniaia-otdelka--obsivka-stoek-a-b-c-i-porogov--obsivka-stoek-a-b-c-i-porogov"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "vysokovoltnaia-batareia--vysokovoltnaia-batareia",
+      "leaf": "vysokovoltnaia-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "vysokovoltnaia-sistema--vysokovoltnye-provoda",
+      "leaf": "vysokovoltnaia-sistema--vysokovoltnye-provoda--vysokovoltnye-provoda"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "zadnii-motor--zadnie-poluosi",
+      "leaf": "zadnii-motor--zadnie-poluosi--zadnie-poluosi"
+    },
+    {
+      "model": "model-y-01-2020-01-2025",
+      "parent": "zadnii-motor--zadnii-motor-v-sbore",
+      "leaf": "zadnii-motor--zadnii-motor-v-sbore--zadnii-motor-v-sbore"
+    }
+  ]
+}

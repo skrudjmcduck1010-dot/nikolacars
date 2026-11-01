@@ -1,0 +1,103 @@
+{
+  "read_at": "2026-10-29 18:29–18:33 Europe/Kyiv",
+  "method": "ChatGPT in-app browser, actual page navigation and read-only DOM; no HTTP status inference",
+  "landing_checks": [
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/diski-i-sini/diski/diski/",
+      "h1": "Диски та ковпаки Tesla Model 3 Highland",
+      "title_contains_h1": true,
+      "self_canonical": true,
+      "intro": true
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-3-highland-01-2024/diski-i-siny/diski/diski/",
+      "h1": "Диски и колпаки Tesla Model 3 Highland",
+      "title_contains_h1": true,
+      "self_canonical": true,
+      "intro": true
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/zovnisnia-furnitura/podium-nomernogo-znaka/podium-nomernogo-znaka/",
+      "h1": "Подіуми та кронштейни номерного знака Tesla",
+      "title_contains_h1": true,
+      "self_canonical": true,
+      "intro": true
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/naruznaia-furnitura/podium-nomernogo-znaka/podium-nomernogo-znaka/",
+      "h1": "Подиумы и кронштейны номерного знака Tesla",
+      "title_contains_h1": true,
+      "self_canonical": true,
+      "intro": true
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/galma/galmivni-diski-i-suporta/zadni-tormozni-diski-suporta-i-kolodki/",
+      "h1": "Задні гальмівні диски, супорти та колодки Tesla",
+      "title_contains_h1": true,
+      "self_canonical": true,
+      "intro": true
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/tormoza/tormoznye-diski-i-supporta/zadnie-tormoznye-diski-supporta-i-kolodki/",
+      "h1": "Задние тормозные диски, суппорты и колодки Tesla",
+      "title_contains_h1": true,
+      "self_canonical": true,
+      "intro": true
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/",
+      "h1": "Запчастини Tesla Model S 2016–2021",
+      "title_contains_h1": true,
+      "self_canonical": true,
+      "intro": true
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/",
+      "h1": "Запчасти Tesla Model S 2016–2021",
+      "title_contains_h1": true,
+      "self_canonical": true,
+      "intro": true
+    }
+  ],
+  "service": {
+    "locales": [
+      "uk",
+      "ru"
+    ],
+    "path": "/services/tesla-12v-battery-replacement/",
+    "new_description": true,
+    "single_h1": true,
+    "model3_h2": true,
+    "self_canonical": true,
+    "ru_form_count": 1,
+    "submission": false
+  },
+  "aliases": [
+    {
+      "from": "/ru/parts/model-3-highland-01-2024/diski-i-siny/diski/",
+      "to": "/ru/parts/model-3-highland-01-2024/diski-i-siny/diski/diski/"
+    },
+    {
+      "from": "/ru/parts/naruznaia-furnitura/podium-nomernogo-znaka/",
+      "to": "/ru/parts/naruznaia-furnitura/podium-nomernogo-znaka/podium-nomernogo-znaka/"
+    }
+  ],
+  "visual": {
+    "highland": "live-highland-20261029.jpg",
+    "service_ru": "live-service-ru-20261029.jpg",
+    "highland_visible_products": "4 available + 1 sold; photos loaded",
+    "header_cart": true,
+    "contact_launcher": true
+  },
+  "health": {
+    "url": "https://sklad.nikolacars.kiev.ua/up",
+    "heading": "Application up",
+    "render_ms": 97
+  },
+  "limits": [
+    "No full-site crawl",
+    "No browser HTTP status assertion; redirects verified by final URL",
+    "No claim absence of future 5xx",
+    "Backend battery patch not released; user exception pending"
+  ]
+}

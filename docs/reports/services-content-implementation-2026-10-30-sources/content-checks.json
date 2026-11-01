@@ -1,0 +1,2039 @@
+{
+  "passed": true,
+  "count": 508,
+  "failed": [],
+  "checks": [
+    {
+      "label": "44 targeted cards",
+      "passed": true
+    },
+    {
+      "label": "52 explicit related lists",
+      "passed": true
+    },
+    {
+      "label": "uk44 individual summaries",
+      "passed": true
+    },
+    {
+      "label": "ru44 individual summaries",
+      "passed": true
+    },
+    {
+      "label": "tesla-service3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-servicevalid related tesla-computer-diagnostics",
+      "passed": true
+    },
+    {
+      "label": "tesla-servicevalid related tesla-pre-purchase-inspection",
+      "passed": true
+    },
+    {
+      "label": "tesla-servicevalid related tesla-battery-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-servicevalid related tesla-suspension-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-servicevalid related tesla-charge-port-repair",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-service actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-service actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-electricmotor-repair3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-electricmotor-repairvalid related tesla-drive-unit-oil-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-electricmotor-repairvalid related tesla-inverter-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-electricmotor-repairvalid related tesla-computer-diagnostics",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-electricmotor-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-electricmotor-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-battery-repair3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-battery-repairvalid related tesla-pyrofuse-replacement",
+      "passed": true
+    },
+    {
+      "label": "tesla-battery-repairvalid related tesla-model-s-battery-fuse",
+      "passed": true
+    },
+    {
+      "label": "tesla-battery-repairvalid related tesla-model-s-contactor-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-battery-repairvalid related tesla-battery-crash",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-battery-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-battery-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "repair-tesla-door-handle3–5 links",
+      "passed": true
+    },
+    {
+      "label": "repair-tesla-door-handlevalid related tesla-window-regulator-repair",
+      "passed": true
+    },
+    {
+      "label": "repair-tesla-door-handlevalid related tesla-body-crash",
+      "passed": true
+    },
+    {
+      "label": "repair-tesla-door-handlevalid related tesla-computer-diagnostics",
+      "passed": true
+    },
+    {
+      "label": "/services/repair-tesla-door-handle actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/repair-tesla-door-handle actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-subframe-repair3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-subframe-repairvalid related tesla-suspension-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-subframe-repairvalid related tesla-control-arm-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-subframe-repairvalid related tesla-steering-rack-repair",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-subframe-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-subframe-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "vidnovlennya-sertyfikativ-tesla3–5 links",
+      "passed": true
+    },
+    {
+      "label": "vidnovlennya-sertyfikativ-teslavalid related firmware-auto",
+      "passed": true
+    },
+    {
+      "label": "vidnovlennya-sertyfikativ-teslavalid related tesla-control-unit-flash",
+      "passed": true
+    },
+    {
+      "label": "vidnovlennya-sertyfikativ-teslavalid related tesla-navigation-firmware",
+      "passed": true
+    },
+    {
+      "label": "vidnovlennya-sertyfikativ-teslavalid related tesla-computer-diagnostics",
+      "passed": true
+    },
+    {
+      "label": "/services/vidnovlennya-sertyfikativ-tesla actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/vidnovlennya-sertyfikativ-tesla actual links",
+      "passed": true
+    },
+    {
+      "label": "firmware-auto3–5 links",
+      "passed": true
+    },
+    {
+      "label": "firmware-autovalid related tesla-control-unit-flash",
+      "passed": true
+    },
+    {
+      "label": "firmware-autovalid related tesla-navigation-firmware",
+      "passed": true
+    },
+    {
+      "label": "firmware-autovalid related vidnovlennya-sertyfikativ-tesla",
+      "passed": true
+    },
+    {
+      "label": "firmware-autovalid related tesla-computer-diagnostics",
+      "passed": true
+    },
+    {
+      "label": "/services/firmware-auto actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/firmware-auto actual links",
+      "passed": true
+    },
+    {
+      "label": "prigon-tesla-usa3–5 links",
+      "passed": true
+    },
+    {
+      "label": "prigon-tesla-usavalid related tesla-pre-purchase-inspection",
+      "passed": true
+    },
+    {
+      "label": "prigon-tesla-usavalid related tesla-service",
+      "passed": true
+    },
+    {
+      "label": "prigon-tesla-usavalid related tesla-navigation-firmware",
+      "passed": true
+    },
+    {
+      "label": "/services/prigon-tesla-usa actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/prigon-tesla-usa actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-navigation-firmware3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-navigation-firmwarevalid related firmware-auto",
+      "passed": true
+    },
+    {
+      "label": "tesla-navigation-firmwarevalid related tesla-control-unit-flash",
+      "passed": true
+    },
+    {
+      "label": "tesla-navigation-firmwarevalid related vidnovlennya-sertyfikativ-tesla",
+      "passed": true
+    },
+    {
+      "label": "tesla-navigation-firmwarevalid related tesla-computer-diagnostics",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-navigation-firmware actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-navigation-firmware actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-drive-unit-oil-repair3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-drive-unit-oil-repairvalid related tesla-electricmotor-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-drive-unit-oil-repairvalid related tesla-inverter-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-drive-unit-oil-repairvalid related tesla-computer-diagnostics",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-drive-unit-oil-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-drive-unit-oil-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-computer-diagnostics3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-computer-diagnosticsvalid related tesla-service",
+      "passed": true
+    },
+    {
+      "label": "tesla-computer-diagnosticsvalid related tesla-pre-purchase-inspection",
+      "passed": true
+    },
+    {
+      "label": "tesla-computer-diagnosticsvalid related tesla-battery-repair",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-computer-diagnostics actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-computer-diagnostics actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-pre-purchase-inspection3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-pre-purchase-inspectionvalid related tesla-service",
+      "passed": true
+    },
+    {
+      "label": "tesla-pre-purchase-inspectionvalid related tesla-computer-diagnostics",
+      "passed": true
+    },
+    {
+      "label": "tesla-pre-purchase-inspectionvalid related tesla-battery-repair",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-pre-purchase-inspection actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-pre-purchase-inspection actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-tegra-intel-upgrade3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-tegra-intel-upgradevalid related tesla-mcu-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-tegra-intel-upgradevalid related tesla-console-display-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-tegra-intel-upgradevalid related tesla-processor-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-tegra-intel-upgradevalid related tesla-computer-diagnostics",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-tegra-intel-upgrade actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-tegra-intel-upgrade actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-charge-port-repair3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-charge-port-repairvalid related tesla-ccs-charge-port-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-charge-port-repairvalid related tesla-battery-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-charge-port-repairvalid related tesla-computer-diagnostics",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-charge-port-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-charge-port-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-brake-pads-repair3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-brake-pads-repairvalid related tesla-service",
+      "passed": true
+    },
+    {
+      "label": "tesla-brake-pads-repairvalid related tesla-suspension-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-brake-pads-repairvalid related tesla-hub-repair",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-brake-pads-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-brake-pads-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-mcu-repair3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-mcu-repairvalid related tesla-console-display-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-mcu-repairvalid related tesla-tegra-intel-upgrade",
+      "passed": true
+    },
+    {
+      "label": "tesla-mcu-repairvalid related tesla-processor-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-mcu-repairvalid related tesla-computer-diagnostics",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-mcu-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-mcu-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-antifreeze-replacement3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-antifreeze-replacementvalid related tesla-radiator-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-antifreeze-replacementvalid related tesla-heater-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-antifreeze-replacementvalid related tesla-cabin-filter-replacement",
+      "passed": true
+    },
+    {
+      "label": "tesla-antifreeze-replacementvalid related tesla-service",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-antifreeze-replacement actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-antifreeze-replacement actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-cabin-filter-replacement3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-cabin-filter-replacementvalid related tesla-antifreeze-replacement",
+      "passed": true
+    },
+    {
+      "label": "tesla-cabin-filter-replacementvalid related tesla-radiator-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-cabin-filter-replacementvalid related tesla-heater-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-cabin-filter-replacementvalid related tesla-service",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-cabin-filter-replacement actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-cabin-filter-replacement actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-horn-repair3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-horn-repairvalid related tesla-computer-diagnostics",
+      "passed": true
+    },
+    {
+      "label": "tesla-horn-repairvalid related tesla-control-unit-flash",
+      "passed": true
+    },
+    {
+      "label": "tesla-horn-repairvalid related tesla-service",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-horn-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-horn-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-camera-repair3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-camera-repairvalid related tesla-windshield-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-camera-repairvalid related tesla-camera-calibration",
+      "passed": true
+    },
+    {
+      "label": "tesla-camera-repairvalid related tesla-panoramic-roof-replacement",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-camera-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-camera-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-console-display-repair3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-console-display-repairvalid related tesla-mcu-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-console-display-repairvalid related tesla-tegra-intel-upgrade",
+      "passed": true
+    },
+    {
+      "label": "tesla-console-display-repairvalid related tesla-processor-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-console-display-repairvalid related tesla-computer-diagnostics",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-console-display-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-console-display-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-model-s-contactor-repair3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-model-s-contactor-repairvalid related tesla-battery-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-model-s-contactor-repairvalid related tesla-pyrofuse-replacement",
+      "passed": true
+    },
+    {
+      "label": "tesla-model-s-contactor-repairvalid related tesla-model-s-battery-fuse",
+      "passed": true
+    },
+    {
+      "label": "tesla-model-s-contactor-repairvalid related tesla-battery-crash",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-model-s-contactor-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-model-s-contactor-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-wiper-replacement3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-wiper-replacementvalid related tesla-windshield-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-wiper-replacementvalid related tesla-service",
+      "passed": true
+    },
+    {
+      "label": "tesla-wiper-replacementvalid related tesla-camera-calibration",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-wiper-replacement actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-wiper-replacement actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-heater-repair3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-heater-repairvalid related tesla-antifreeze-replacement",
+      "passed": true
+    },
+    {
+      "label": "tesla-heater-repairvalid related tesla-radiator-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-heater-repairvalid related tesla-cabin-filter-replacement",
+      "passed": true
+    },
+    {
+      "label": "tesla-heater-repairvalid related tesla-service",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-heater-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-heater-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-12v-battery-replacement3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-12v-battery-replacementvalid related tesla-computer-diagnostics",
+      "passed": true
+    },
+    {
+      "label": "tesla-12v-battery-replacementvalid related tesla-service",
+      "passed": true
+    },
+    {
+      "label": "tesla-12v-battery-replacementvalid related tesla-battery-repair",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-12v-battery-replacement actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-12v-battery-replacement actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-headlight-drl-repair3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-headlight-drl-repairvalid related tesla-body-crash",
+      "passed": true
+    },
+    {
+      "label": "tesla-headlight-drl-repairvalid related tesla-computer-diagnostics",
+      "passed": true
+    },
+    {
+      "label": "tesla-headlight-drl-repairvalid related tesla-service",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-headlight-drl-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-headlight-drl-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-pyrofuse-replacement3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-pyrofuse-replacementvalid related tesla-battery-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-pyrofuse-replacementvalid related tesla-model-s-battery-fuse",
+      "passed": true
+    },
+    {
+      "label": "tesla-pyrofuse-replacementvalid related tesla-model-s-contactor-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-pyrofuse-replacementvalid related tesla-battery-crash",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-pyrofuse-replacement actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-pyrofuse-replacement actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-panoramic-roof-replacement3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-panoramic-roof-replacementvalid related tesla-windshield-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-panoramic-roof-replacementvalid related tesla-camera-calibration",
+      "passed": true
+    },
+    {
+      "label": "tesla-panoramic-roof-replacementvalid related tesla-camera-repair",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-panoramic-roof-replacement actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-panoramic-roof-replacement actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-processor-repair3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-processor-repairvalid related tesla-mcu-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-processor-repairvalid related tesla-console-display-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-processor-repairvalid related tesla-tegra-intel-upgrade",
+      "passed": true
+    },
+    {
+      "label": "tesla-processor-repairvalid related tesla-computer-diagnostics",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-processor-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-processor-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-parking-sensor-repair3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-parking-sensor-repairvalid related tesla-camera-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-parking-sensor-repairvalid related tesla-computer-diagnostics",
+      "passed": true
+    },
+    {
+      "label": "tesla-parking-sensor-repairvalid related tesla-body-crash",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-parking-sensor-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-parking-sensor-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-model-s-battery-fuse3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-model-s-battery-fusevalid related tesla-battery-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-model-s-battery-fusevalid related tesla-pyrofuse-replacement",
+      "passed": true
+    },
+    {
+      "label": "tesla-model-s-battery-fusevalid related tesla-model-s-contactor-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-model-s-battery-fusevalid related tesla-battery-crash",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-model-s-battery-fuse actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-model-s-battery-fuse actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-radiator-repair3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-radiator-repairvalid related tesla-antifreeze-replacement",
+      "passed": true
+    },
+    {
+      "label": "tesla-radiator-repairvalid related tesla-heater-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-radiator-repairvalid related tesla-cabin-filter-replacement",
+      "passed": true
+    },
+    {
+      "label": "tesla-radiator-repairvalid related tesla-service",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-radiator-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-radiator-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-steering-rack-repair3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-steering-rack-repairvalid related tesla-suspension-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-steering-rack-repairvalid related tesla-control-arm-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-steering-rack-repairvalid related tesla-silentblock-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-steering-rack-repairvalid related tesla-hub-repair",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-steering-rack-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-steering-rack-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-control-arm-repair3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-control-arm-repairvalid related tesla-suspension-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-control-arm-repairvalid related tesla-silentblock-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-control-arm-repairvalid related tesla-hub-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-control-arm-repairvalid related tesla-steering-rack-repair",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-control-arm-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-control-arm-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-windshield-repair3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-windshield-repairvalid related tesla-camera-calibration",
+      "passed": true
+    },
+    {
+      "label": "tesla-windshield-repairvalid related tesla-camera-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-windshield-repairvalid related tesla-panoramic-roof-replacement",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-windshield-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-windshield-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-sim-card-repair3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-sim-card-repairvalid related tesla-modem-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-sim-card-repairvalid related tesla-mcu-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-sim-card-repairvalid related vidnovlennya-sertyfikativ-tesla",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-sim-card-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-sim-card-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-silentblock-repair3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-silentblock-repairvalid related tesla-suspension-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-silentblock-repairvalid related tesla-control-arm-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-silentblock-repairvalid related tesla-hub-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-silentblock-repairvalid related tesla-steering-rack-repair",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-silentblock-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-silentblock-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-hub-repair3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-hub-repairvalid related tesla-suspension-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-hub-repairvalid related tesla-control-arm-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-hub-repairvalid related tesla-silentblock-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-hub-repairvalid related tesla-steering-rack-repair",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-hub-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-hub-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-inverter-repair3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-inverter-repairvalid related tesla-electricmotor-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-inverter-repairvalid related tesla-drive-unit-oil-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-inverter-repairvalid related tesla-computer-diagnostics",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-inverter-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-inverter-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-air-strut-repair3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-air-strut-repairvalid related tesla-suspension-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-air-strut-repairvalid related tesla-air-suspension-crash",
+      "passed": true
+    },
+    {
+      "label": "tesla-air-strut-repairvalid related tesla-computer-diagnostics",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-air-strut-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-air-strut-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-suspension-repair3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-suspension-repairvalid related tesla-control-arm-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-suspension-repairvalid related tesla-silentblock-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-suspension-repairvalid related tesla-hub-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-suspension-repairvalid related tesla-steering-rack-repair",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-suspension-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-suspension-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-window-regulator-repair3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-window-regulator-repairvalid related repair-tesla-door-handle",
+      "passed": true
+    },
+    {
+      "label": "tesla-window-regulator-repairvalid related tesla-body-crash",
+      "passed": true
+    },
+    {
+      "label": "tesla-window-regulator-repairvalid related tesla-computer-diagnostics",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-window-regulator-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-window-regulator-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-control-unit-flash3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-control-unit-flashvalid related firmware-auto",
+      "passed": true
+    },
+    {
+      "label": "tesla-control-unit-flashvalid related tesla-navigation-firmware",
+      "passed": true
+    },
+    {
+      "label": "tesla-control-unit-flashvalid related vidnovlennya-sertyfikativ-tesla",
+      "passed": true
+    },
+    {
+      "label": "tesla-control-unit-flashvalid related tesla-computer-diagnostics",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-control-unit-flash actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-control-unit-flash actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-srs-crash3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-srs-crashvalid related tesla-computer-diagnostics",
+      "passed": true
+    },
+    {
+      "label": "tesla-srs-crashvalid related tesla-body-crash",
+      "passed": true
+    },
+    {
+      "label": "tesla-srs-crashvalid related tesla-service",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-srs-crash actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-srs-crash actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-body-crash3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-body-crashvalid related tesla-control-unit-flash",
+      "passed": true
+    },
+    {
+      "label": "tesla-body-crashvalid related repair-tesla-door-handle",
+      "passed": true
+    },
+    {
+      "label": "tesla-body-crashvalid related tesla-headlight-drl-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-body-crashvalid related tesla-computer-diagnostics",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-body-crash actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-body-crash actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-battery-crash3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-battery-crashvalid related tesla-battery-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-battery-crashvalid related tesla-pyrofuse-replacement",
+      "passed": true
+    },
+    {
+      "label": "tesla-battery-crashvalid related tesla-model-s-battery-fuse",
+      "passed": true
+    },
+    {
+      "label": "tesla-battery-crashvalid related tesla-model-s-contactor-repair",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-battery-crash actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-battery-crash actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-air-suspension-crash3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-air-suspension-crashvalid related tesla-air-strut-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-air-suspension-crashvalid related tesla-suspension-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-air-suspension-crashvalid related tesla-computer-diagnostics",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-air-suspension-crash actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-air-suspension-crash actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-modem-repair3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-modem-repairvalid related tesla-sim-card-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-modem-repairvalid related tesla-mcu-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-modem-repairvalid related vidnovlennya-sertyfikativ-tesla",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-modem-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-modem-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-radar-calibration3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-radar-calibrationvalid related tesla-camera-calibration",
+      "passed": true
+    },
+    {
+      "label": "tesla-radar-calibrationvalid related tesla-computer-diagnostics",
+      "passed": true
+    },
+    {
+      "label": "tesla-radar-calibrationvalid related tesla-service",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-radar-calibration actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-radar-calibration actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-camera-calibration3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-camera-calibrationvalid related tesla-windshield-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-camera-calibrationvalid related tesla-camera-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-camera-calibrationvalid related tesla-panoramic-roof-replacement",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-camera-calibration actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-camera-calibration actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-key-flash3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-key-flashvalid related tesla-computer-diagnostics",
+      "passed": true
+    },
+    {
+      "label": "tesla-key-flashvalid related tesla-control-unit-flash",
+      "passed": true
+    },
+    {
+      "label": "tesla-key-flashvalid related tesla-service",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-key-flash actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-key-flash actual links",
+      "passed": true
+    },
+    {
+      "label": "tesla-ccs-charge-port-repair3–5 links",
+      "passed": true
+    },
+    {
+      "label": "tesla-ccs-charge-port-repairvalid related tesla-charge-port-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-ccs-charge-port-repairvalid related tesla-battery-repair",
+      "passed": true
+    },
+    {
+      "label": "tesla-ccs-charge-port-repairvalid related tesla-computer-diagnostics",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-ccs-charge-port-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-ccs-charge-port-repair actual links",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-battery-repair/ recently released metadata retained",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-battery-repair/ recently released metadata retained",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-12v-battery-replacement/ recently released metadata retained",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-12v-battery-replacement/ recently released metadata retained",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-navigation-firmware/ recently released metadata retained",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-navigation-firmware/ recently released metadata retained",
+      "passed": true
+    },
+    {
+      "label": "/services/vidnovlennya-sertyfikativ-tesla/ recently released metadata retained",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/vidnovlennya-sertyfikativ-tesla/ recently released metadata retained",
+      "passed": true
+    },
+    {
+      "label": "/services/prigon-tesla-usa/ recently released metadata retained",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/prigon-tesla-usa/ recently released metadata retained",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-key-flash/ recently released metadata retained",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-key-flash/ recently released metadata retained",
+      "passed": true
+    },
+    {
+      "label": "No 10 generic fallback descriptions",
+      "passed": true
+    },
+    {
+      "label": "tesla-camera-calibrationno generic UA tail",
+      "passed": true
+    },
+    {
+      "label": "tesla-ccs-charge-port-repairno generic UA tail",
+      "passed": true
+    },
+    {
+      "label": "oil no duplicate final heading /services/",
+      "passed": true
+    },
+    {
+      "label": "oil no duplicate final heading /ru/services/",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-service/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-service/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-electricmotor-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-electricmotor-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-battery-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-battery-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/repair-tesla-door-handle/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/repair-tesla-door-handle/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-subframe-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-subframe-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/vidnovlennya-sertyfikativ-tesla/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/vidnovlennya-sertyfikativ-tesla/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/firmware-auto/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/firmware-auto/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/prigon-tesla-usa/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/prigon-tesla-usa/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-navigation-firmware/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-navigation-firmware/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-drive-unit-oil-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-drive-unit-oil-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-computer-diagnostics/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-computer-diagnostics/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-pre-purchase-inspection/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-pre-purchase-inspection/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-tegra-intel-upgrade/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-tegra-intel-upgrade/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-charge-port-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-charge-port-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-brake-pads-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-brake-pads-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-mcu-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-mcu-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-antifreeze-replacement/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-antifreeze-replacement/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-cabin-filter-replacement/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-cabin-filter-replacement/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-horn-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-horn-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-camera-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-camera-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-console-display-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-console-display-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-model-s-contactor-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-model-s-contactor-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-wiper-replacement/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-wiper-replacement/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-heater-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-heater-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-12v-battery-replacement/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-12v-battery-replacement/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-headlight-drl-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-headlight-drl-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-pyrofuse-replacement/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-pyrofuse-replacement/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-panoramic-roof-replacement/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-panoramic-roof-replacement/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-processor-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-processor-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-parking-sensor-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-parking-sensor-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-model-s-battery-fuse/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-model-s-battery-fuse/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-radiator-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-radiator-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-steering-rack-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-steering-rack-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-control-arm-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-control-arm-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-windshield-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-windshield-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-sim-card-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-sim-card-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-silentblock-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-silentblock-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-hub-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-hub-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-inverter-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-inverter-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-air-strut-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-air-strut-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-suspension-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-suspension-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-window-regulator-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-window-regulator-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-control-unit-flash/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-control-unit-flash/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-srs-crash/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-srs-crash/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-body-crash/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-body-crash/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-battery-crash/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-battery-crash/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-air-suspension-crash/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-air-suspension-crash/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-modem-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-modem-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-radar-calibration/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-radar-calibration/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-camera-calibration/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-camera-calibration/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-key-flash/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-key-flash/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/tesla-ccs-charge-port-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/tesla-ccs-charge-port-repair/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/services/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "/ru/services/ one metadata/H1",
+      "passed": true
+    },
+    {
+      "label": "config/service_content.phpfreeze SHA",
+      "passed": true
+    },
+    {
+      "label": "config/service_content.phpno BOM/NUL",
+      "passed": true
+    },
+    {
+      "label": "config/targeted_services.phpfreeze SHA",
+      "passed": true
+    },
+    {
+      "label": "config/targeted_services.phpno BOM/NUL",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services_index.blade.phpfreeze SHA",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services_index.blade.phpno BOM/NUL",
+      "passed": true
+    },
+    {
+      "label": "resources/views/home.blade.phpfreeze SHA",
+      "passed": true
+    },
+    {
+      "label": "resources/views/home.blade.phpno BOM/NUL",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services/tesla-service.blade.phpfreeze SHA",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services/tesla-service.blade.phpno BOM/NUL",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services/targeted/tesla-camera-calibration.blade.phpfreeze SHA",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services/targeted/tesla-camera-calibration.blade.phpno BOM/NUL",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services/targeted/tesla-ccs-charge-port-repair.blade.phpfreeze SHA",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services/targeted/tesla-ccs-charge-port-repair.blade.phpno BOM/NUL",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services/targeted/tesla-charge-port-repair.blade.phpfreeze SHA",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services/targeted/tesla-charge-port-repair.blade.phpno BOM/NUL",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services/targeted/tesla-hub-repair.blade.phpfreeze SHA",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services/targeted/tesla-hub-repair.blade.phpno BOM/NUL",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services/targeted/tesla-tegra-intel-upgrade.blade.phpfreeze SHA",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services/targeted/tesla-tegra-intel-upgrade.blade.phpno BOM/NUL",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services/targeted/tesla-drive-unit-oil-repair.blade.phpfreeze SHA",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services/targeted/tesla-drive-unit-oil-repair.blade.phpno BOM/NUL",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services/firmware-auto.blade.phpfreeze SHA",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services/firmware-auto.blade.phpno BOM/NUL",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services/prigon-usa.blade.phpfreeze SHA",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services/prigon-usa.blade.phpno BOM/NUL",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services/targeted/tesla-12v-battery-replacement.blade.phpfreeze SHA",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services/targeted/tesla-12v-battery-replacement.blade.phpno BOM/NUL",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services/targeted/tesla-model-s-battery-fuse.blade.phpfreeze SHA",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services/targeted/tesla-model-s-battery-fuse.blade.phpno BOM/NUL",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services/tesla-electricmotor-repair.blade.phpfreeze SHA",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services/tesla-electricmotor-repair.blade.phpno BOM/NUL",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services/tesla-battery-repair.blade.phpfreeze SHA",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services/tesla-battery-repair.blade.phpno BOM/NUL",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services/repair-tesla-door-handle.blade.phpfreeze SHA",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services/repair-tesla-door-handle.blade.phpno BOM/NUL",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services/tesla-subframe-repair.blade.phpfreeze SHA",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services/tesla-subframe-repair.blade.phpno BOM/NUL",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services/vidnovlennya-sertyfikativ-tesla.blade.phpfreeze SHA",
+      "passed": true
+    },
+    {
+      "label": "resources/views/services/vidnovlennya-sertyfikativ-tesla.blade.phpno BOM/NUL",
+      "passed": true
+    },
+    {
+      "label": "resources/views/partials/service-related.blade.phpfreeze SHA",
+      "passed": true
+    },
+    {
+      "label": "resources/views/partials/service-related.blade.phpno BOM/NUL",
+      "passed": true
+    },
+    {
+      "label": "routes/web.phpfreeze SHA",
+      "passed": true
+    },
+    {
+      "label": "routes/web.phpno BOM/NUL",
+      "passed": true
+    }
+  ]
+}

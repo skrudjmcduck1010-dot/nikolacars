@@ -1,0 +1,11 @@
+{
+  "checkedAt": "2026-10-29T17:29:03.2020784Z",
+  "baselineCount": 33,
+  "currentCount": 33,
+  "hashAndStatusMismatches": [],
+  "head": "35535c711916a1e08b74f942aa9d0f2fbbe8e1cd",
+  "branch": "codex/parts-storefront",
+  "temporaryWorktreeRemoved": true,
+  "releaseBranchRetained": "5d9deca6d9555137e5f717cbff75c829fedd436a",
+  "passed": true
+}

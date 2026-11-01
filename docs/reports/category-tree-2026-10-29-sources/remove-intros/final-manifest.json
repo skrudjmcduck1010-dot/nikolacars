@@ -1,0 +1,200 @@
+{
+  "status": "LOCAL_FROZEN_NOT_DEPLOYED",
+  "created_at": "2026-10-29T18:37:21.445087+00:00",
+  "supersedes_runtime_candidate": "C:\\Projects\\nikolacars\\.local-backup-20261029-catalog-tree\\final-manifest.json",
+  "frontend_base_head": "70219416957bd0f13519d7eb7d9d427bce296236",
+  "backend_release_base": "5d9deca6d9555137e5f717cbff75c829fedd436a",
+  "change_reason": "Owner removed generic visible catalog guidance; metadata and navigation preserved.",
+  "delta_runtime_files": [
+    "resources/views/parts/index.blade.php",
+    "public/assets/js/parts.js",
+    "app/Services/CategoryCatalogSeo.php",
+    "app/Services/ModelCatalogSeo.php"
+  ],
+  "files": [
+    {
+      "root": "frontend",
+      "path": "app/Http/Controllers/PartsController.php",
+      "kind": "runtime",
+      "before_sha256": "1a8ff8bdee58aa815415659aa9f3f1a2e484da14c92619b40486cb8fd52ab26c",
+      "sha256": "fd8f2998281a3fb521a888b9aa6c64d83e750890f0cfd32c4343fed5de97ce1f"
+    },
+    {
+      "root": "frontend",
+      "path": "app/Services/CategoryCatalogSeo.php",
+      "kind": "runtime",
+      "before_sha256": "62033bc4c4157fb305b0f3ef919e4604217f40009ff8adecd8a8190137df5ad1",
+      "sha256": "57be39943c632a40b14675efca4da9f83b0719150d11bdf96167cc6c959b7565"
+    },
+    {
+      "root": "frontend",
+      "path": "app/Services/CatalogNavigation.php",
+      "kind": "runtime",
+      "before_sha256": null,
+      "sha256": "69f0a0cc88d1375ed664fa603bd03b6c5492f001e443f62f808c1f5500b6de64"
+    },
+    {
+      "root": "frontend",
+      "path": "resources/views/parts/index.blade.php",
+      "kind": "runtime",
+      "before_sha256": "1937be9b5ef8d6135b2963f7c159ba00b7427cd2117f1895ac638c1223be617b",
+      "sha256": "b6ef6468ae9e82da764ea3f6d07ad3547a7c907a0111a758b10a3b9f368fb55d"
+    },
+    {
+      "root": "frontend",
+      "path": "resources/views/parts/_catalog_navigation.blade.php",
+      "kind": "runtime",
+      "before_sha256": null,
+      "sha256": "a818c3e726a216a5382b675ded75139a025a142fdd872a9a74160d55710726d8"
+    },
+    {
+      "root": "frontend",
+      "path": "resources/views/layouts/parts.blade.php",
+      "kind": "runtime",
+      "before_sha256": "93df3cb0c1b2a5633b1d30496aed631b2d448e47c6a745debdb081a18a4d528e",
+      "sha256": "9883ecd8178d03462b76b998449b7111357255d7f7c835c8d9f6cfcf9f941b63"
+    },
+    {
+      "root": "frontend",
+      "path": "public/assets/js/parts.js",
+      "kind": "runtime",
+      "before_sha256": "f50a365dcdc00e6d410e659af53348a5bb69ce8e59925818d1af6ccd47bd5056",
+      "sha256": "6074cf95ca6074b83abb03221f36515d0b2d04588a034a5bf59ff333691f0ea4"
+    },
+    {
+      "root": "frontend",
+      "path": "public/assets/css/parts.css",
+      "kind": "runtime",
+      "before_sha256": "ef462d1eae820f4b18fbe798e4449dab15dd052ed7dc67d64f970ed8cfe252be",
+      "sha256": "db7a55f766dea5589ade69985753cc27e8e600da62ed33eb39df1cbcacd21e68"
+    },
+    {
+      "root": "backend",
+      "path": "app/Services/StorefrontCatalogQuery.php",
+      "kind": "runtime",
+      "before_sha256": "1beb88a719f32682fd2f5e3749323746af77d3960de4179c328a73fcd4f66e5b",
+      "sha256": "3f07ef1947c312c1877c00fe6feda5ca202d6ec82e4e2928b44197d70425d94b"
+    },
+    {
+      "root": "backend",
+      "path": "app/Services/StorefrontCategoryNavigation.php",
+      "kind": "runtime",
+      "before_sha256": null,
+      "sha256": "aaf6dedb66f9ca402cfe8e8082a3fd4f9355b51c39849d971f1f80d3e238cc6f"
+    },
+    {
+      "root": "frontend",
+      "path": "app/Services/ModelCatalogSeo.php",
+      "kind": "runtime",
+      "before_sha256": "23bfd27451bce719f914c04f8e8fddc08a7b8e082dafd25648189af6350e8ebf",
+      "sha256": "a27f0b6925f45509b5dc3455d94ff6b1b36d6445312a683de08e8a96df943f91"
+    },
+    {
+      "root": "frontend",
+      "path": "tests/run-regressions.php",
+      "kind": "test",
+      "before_sha256": "9538029b86cbcceb0ef0ebd75a8ec88599465f7f1cbc8c20347d1e0a700f6a00",
+      "sha256": "9de7f47386e6697a0c99d4207480efaf0011cd5dc50b8c5b1c06fb074f664858"
+    },
+    {
+      "root": "frontend",
+      "path": "tests/seo-package2-regression.php",
+      "kind": "test",
+      "before_sha256": "3885b60d06799be20dcc8647943008d60cbccd9a06af99dfdb1a3d45e8831116",
+      "sha256": "33460887e3453e38c0112ab9b406e9f40a852872a99d739ecd62f3fef4cfc284"
+    },
+    {
+      "root": "frontend",
+      "path": "tests/catalog-tree-regression.php",
+      "kind": "test",
+      "before_sha256": null,
+      "sha256": "11529962128c716b13cbf25f912c17be373c8c3aeda432a079d42567d17a38bd"
+    },
+    {
+      "root": "frontend",
+      "path": "tests/e2e/catalog-tree-fixture.php",
+      "kind": "test",
+      "before_sha256": null,
+      "sha256": "0a0e62cb521e416d9bc79827bd8c3c8c62555317912c1df19afb5e79954d0425"
+    },
+    {
+      "root": "frontend",
+      "path": "tests/e2e/catalog-tree.cjs",
+      "kind": "test",
+      "before_sha256": null,
+      "sha256": "af4cb18bb7fce73c0e42f9cb24a8ccdaf13d02ff59bbe1a69078aae8e3712bba"
+    },
+    {
+      "root": "frontend",
+      "path": "tests/e2e/tree-router.php",
+      "kind": "test",
+      "before_sha256": null,
+      "sha256": "5480002298cc82c092583de6df06e5beac05ec471b5a490c2bbd5ee6086600c0"
+    },
+    {
+      "root": "frontend",
+      "path": "tests/e2e/start-tree-preview.ps1",
+      "kind": "test",
+      "before_sha256": null,
+      "sha256": "6cf6c7c3d7d436d2054b074b9c007653d5535a49985c6470c589175bc32748f0"
+    },
+    {
+      "root": "frontend",
+      "path": "tests/fixtures/catalog-tree-rows.json",
+      "kind": "test",
+      "before_sha256": null,
+      "sha256": "3eef329bff9898ed40ab56befa8facc8a87810682527951818e5cc485fb7aefb"
+    },
+    {
+      "root": "backend",
+      "path": "tests/Unit/StorefrontCategoryNavigationTest.php",
+      "kind": "test",
+      "before_sha256": null,
+      "sha256": "8dc38270dcd79d7d5041109e4b937be349cd0c4af2c9dfcaa405d18b6e43eba1"
+    },
+    {
+      "root": "frontend",
+      "path": "tests/e2e/seo-package2.cjs",
+      "kind": "test",
+      "before_sha256": "d6b7cb20724cc07b3bcd863de8a440dfcf6b14cc045ad3bebbafdd04d890dc70",
+      "sha256": "c6796c4772ad8b4ab9af8257a697bab22251d18fad99ee99933f1790d874a7dd"
+    },
+    {
+      "root": "frontend",
+      "path": "tests/fixtures/catalog-seo-metadata.json",
+      "kind": "test",
+      "before_sha256": null,
+      "sha256": "134039f50c54bf4acdf6e5950d051bcfa68ff294efddeef013bd33802d1f9dc4"
+    }
+  ],
+  "mirror_delta": [
+    {
+      "path": "C:\\Projects\\nikolacars\\laravel_app\\resources\\views\\parts\\index.blade.php",
+      "sha256": "b6ef6468ae9e82da764ea3f6d07ad3547a7c907a0111a758b10a3b9f368fb55d"
+    },
+    {
+      "path": "C:\\Projects\\nikolacars\\assets\\js\\parts.js",
+      "sha256": "6074cf95ca6074b83abb03221f36515d0b2d04588a034a5bf59ff333691f0ea4"
+    },
+    {
+      "path": "C:\\Projects\\nikolacars\\laravel_app\\app\\Services\\CategoryCatalogSeo.php",
+      "sha256": "57be39943c632a40b14675efca4da9f83b0719150d11bdf96167cc6c959b7565"
+    },
+    {
+      "path": "C:\\Projects\\nikolacars\\laravel_app\\app\\Services\\ModelCatalogSeo.php",
+      "sha256": "a27f0b6925f45509b5dc3455d94ff6b1b36d6445312a683de08e8a96df943f91"
+    }
+  ],
+  "metadata_profiles_byte_equal": 12,
+  "backend_runtime_unchanged": true,
+  "historical_cart50_not_rerun": "No cart/contact code changed; focused browser check includes AJAX/cart behavior.",
+  "checks": {
+    "ssr_assertions": 554,
+    "ssr_routes": 48,
+    "frontend_regression_scripts": 10,
+    "failure_probe": "PASS",
+    "landing_browser_cases": 24,
+    "tree_browser_journeys": 6,
+    "model_transitions": 36
+  }
+}
