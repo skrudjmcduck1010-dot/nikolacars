@@ -23,6 +23,11 @@ foreach ($config as $id => $sku) {
 }
 $control = array_replace($fakeRows[102415], ['id'=>98765, 'url_slug'=>'1004424-00-g-98765', 'name'=>'Control', 'vin'=>'5YJSA1E28HF000001', 'compatibility'=>'Model S 2016']);
 $fakeRows[$control['id']] = $control;
+$batchLabel = 'TESLA MY 2020 - 2023 залишки';
+$fakeRows[106900] = array_replace($control, [
+    'id' => 106900, 'url_slug' => '1494154-00-a-106900', 'part_number' => '1494154-00-A',
+    'model' => 'Model Y', 'compatibility' => $batchLabel,
+]);
 
 Http::preventStrayRequests();
 Http::fake(function ($r) use ($fakeRows) {
@@ -79,6 +84,9 @@ foreach (['uk','ru'] as $locale) {
     $json = json_decode($read($base.'api/catalog/'), true, flags: JSON_THROW_ON_ERROR);
     $rows = array_column($json['products'], null, 'id');
     $check($rows[98765]['compatibility'] === 'Model S 2016' && $rows[98765]['vin'] === $control['vin'], 'Independent product with same full OEM must retain its compatibility and real VIN');
+    $batchRow = $rows[106900];
+    $check($batchRow['compatibility'] === '' && $batchRow['model'] === 'Model Y' && $batchRow['vin'] === $control['vin'], 'Inventory lot label must not imply fitment or discard independent model or VIN fields');
+    $check(!str_contains($read($base.$batchRow['url_slug'].'/'), $batchLabel), 'Product detail, description and JSON must omit an inventory lot used as fitment');
     $check($rows[113113]['vin'] === '' && str_contains($rows[113113]['display_part_number'], 'модуля'), 'Catalog must not show a pseudo-VIN or imply module number identifies lever');
     $check($rows[103646]['compatibility'] === '' && $rows[103646]['model'] === 'Model S', 'No invented fitment for console trim without exact EPC match');
     $check(str_contains($rows[103745]['compatibility'], '1007325-00-C') && str_contains($rows[103745]['compatibility'], '2013'), 'Carpet must refer to exact supported revision');
