@@ -53,4 +53,45 @@ $battery=['selection'=>['category_slug'=>'visokovoltna-batareia','category_path_
 $batteryItems=App\Services\CatalogNavigation::items($battery,'ru');
 $check($batteryItems[0]['url']==='/ru/parts/vysokovoltnaia-batareia/'&&$batteryItems[1]['url']==='/ru/parts/vysokovoltnaia-batareia/vysokovoltnaia-batareia/','old battery root alias keeps normalized RU URLs');
 $check($batteryItems[0]['ancestor']&&$batteryItems[1]['active']&&count(array_filter($batteryItems,fn($item)=>$item['active']))===1,'old battery alias has one current item and its ancestor');
-echo "PASS category tree: $checks assertions; 8 real route renders; no extra upstream calls\n";
+// Reviewed Model Y aliases must retain locale, model and pagination in real routes.
+$modelY='model-y-01-2020-01-2025';
+foreach([
+    ['uk','visokovoltna-sistema/visokovoltni-provoda'],
+    ['ru','vysokovoltnaia-sistema/vysokovoltnye-provoda'],
+    ['uk','perednii-motor/peredni-pivosi'], ['ru','perednii-motor/perednie-poluosi'],
+    ['uk','zadnii-motor/zadni-pivosi'], ['ru','zadnii-motor/zadnie-poluosi'],
+] as [$locale,$parent]){
+    $base=$locale==='ru'?'/ru/parts/':'/parts/';
+    $tail=substr($parent,strrpos($parent,'/')+1);$leaf=$parent.'/'.$tail;
+    $root=explode('/',$parent)[0];$parentSlug=str_replace('/','--',$parent);$leafSlug=str_replace('/','--',$leaf);
+    $check(App\Services\CatalogPath::preferred($parent,$modelY)===$leaf,'reviewed Model Y path uses leaf');
+    $check(App\Services\CatalogPath::preferred($parent,'model-s-04-2016-01-2021')===$parent,'other model is unchanged');
+    Illuminate\Support\Facades\Cache::flush();$before=$apiCalls;
+    $request=Illuminate\Http\Request::create('http://127.0.0.1:4327'.$base.$modelY.'/'.$parent.'/?page=2');
+    $response=$kernel->handle($request);
+    $check($response->getStatusCode()===301,'parent permanent redirect');
+    $check($response->headers->get('Location')==='http://127.0.0.1:4327'.$base.$modelY.'/'.$leaf.'/?page=2','redirect preserves locale model page two');
+    $check($apiCalls===$before,'redirect needs no upstream');$kernel->terminate($request,$response);
+    $catalog=['models'=>[],'categories'=>[],'products'=>[],'pagination'=>['page'=>2,'last_page'=>2,'total'=>25],
+        'selection'=>['model_slug'=>$modelY,'model'=>'Model Y 01.2020 - 01.2025','category_slug'=>$root,'category_path_slug'=>$leafSlug,'category'=>'Test category','category_path_locale_slugs'=>[$locale=>$leafSlug]],
+        'category_navigation'=>[
+            ['label'=>'Root','category_path_slug'=>$root,'parent_path_slug'=>'','count'=>2,'has_children'=>true],
+            ['label'=>'Leaf','category_path_slug'=>$parentSlug,'parent_path_slug'=>$root,'count'=>2,'has_children'=>true],
+            ['label'=>'Leaf','category_path_slug'=>$leafSlug,'parent_path_slug'=>$parentSlug,'count'=>2,'has_children'=>false],
+        ]];
+    Illuminate\Support\Facades\Http::swap(new Illuminate\Http\Client\Factory());
+    Illuminate\Support\Facades\Http::preventStrayRequests();
+    Illuminate\Support\Facades\Http::fake(fn()=>Illuminate\Support\Facades\Http::response($catalog));
+    $request=Illuminate\Http\Request::create('http://127.0.0.1:4327'.$base.$modelY.'/'.$leaf.'/?page=2');
+    $response=$kernel->handle($request);
+    $check($response->getStatusCode()===200,'leaf page two without loop');
+    $dom=new DOMDocument();@$dom->loadHTML('<?xml encoding="UTF-8">'.$response->getContent());$xp=new DOMXPath($dom);
+    $canonical=$xp->evaluate('string(//link[@rel="canonical"]/@href)');
+    $check(parse_url($canonical,PHP_URL_PATH)===$base.$modelY.'/'.$leaf.'/'&&parse_url($canonical,PHP_URL_QUERY)==='page=2','canonical retains page two: '.$canonical);
+    $items=App\Services\CatalogNavigation::items($catalog,$locale);
+    $check(count($items)===2&&$items[1]['url']===$base.$modelY.'/'.$leaf.'/','navigation preferred URL unique');
+    $check($xp->query('//aside//a[@href="'.$base.$modelY.'/'.$parent.'/"]')->length===0,'SSR no duplicate link');
+    $check($xp->query('//aside//a[@href="'.$base.$modelY.'/'.$leaf.'/"]')->length===1,'SSR direct canonical link');
+    $kernel->terminate($request,$response);
+}
+echo "PASS category tree: $checks assertions; reviewed Model Y redirects and SSR renders\n";
