@@ -5,10 +5,19 @@ namespace App\Services;
 final class CatalogPath
 {
     // Only reviewed equivalent landing pages. Taxonomy levels and IDs stay intact.
-    // Full non-empty product sets were checked in both locales on 2026-10-27.
+    // Full non-empty product sets were checked in both locales on 2026-10-27;
+    // Model Y wires and front/rear axles were independently rechecked on 2026-11-02.
     // Prefer the existing leaf (Google already selected it for Model 3 pedals).
     // Battery paths are excluded: their UA/RU inventories do not match.
     private const PREFERRED_PATHS = [
+        'model-y-01-2020-01-2025' => [
+            'visokovoltna-sistema/visokovoltni-provoda' => 'visokovoltna-sistema/visokovoltni-provoda/visokovoltni-provoda',
+            'vysokovoltnaia-sistema/vysokovoltnye-provoda' => 'vysokovoltnaia-sistema/vysokovoltnye-provoda/vysokovoltnye-provoda',
+            'perednii-motor/peredni-pivosi' => 'perednii-motor/peredni-pivosi/peredni-pivosi',
+            'perednii-motor/perednie-poluosi' => 'perednii-motor/perednie-poluosi/perednie-poluosi',
+            'zadnii-motor/zadni-pivosi' => 'zadnii-motor/zadni-pivosi/zadni-pivosi',
+            'zadnii-motor/zadnie-poluosi' => 'zadnii-motor/zadnie-poluosi/zadnie-poluosi',
+        ],
         'model-3-06-2017-12-2023' => [
             'galma/pedal-galma' => 'galma/pedal-galma/pedal-galma',
             'tormoza/pedal-tormoza' => 'tormoza/pedal-tormoza/pedal-tormoza',

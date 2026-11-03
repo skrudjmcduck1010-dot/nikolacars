@@ -8,6 +8,7 @@ $scripts = [
     'language-switch-regression.php', 'merchant-policy-regression.php',
     'product-delivery-layout-regression.php', 'product-fitment-regression.php', 'service-page-regression.php',
     'storefront-cache-regression.php',
+    'expired-storefront-cache-regression.php',
     'catalog-tree-regression.php',
     'ua-battery-alias-regression.php',
 ];

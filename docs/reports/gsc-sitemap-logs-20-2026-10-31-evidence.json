@@ -2262,10 +2262,166 @@
         "later_coverage": "No timestamp in empty current file; upper boundary undetermined."
       }
     },
-    "automation_status": "ACTIVE; continue only to resolve remaining coverage or deadline 2026-11-02 evening Europe/Kyiv",
+    "automation_status": "STOPPED; automation googlebot-20-nikolacars deleted by coordinator 2026-11-03",
     "independent_verification": {
       "path": ".codex-tmp/gsc-sitemap-logs-20-20261031/archive-rechecks/20261031T182838589835Z/independent-verification.json",
       "sha256": "8317933f78c38df8f80e5f5f42ce47b79f92cf869abd3aaf8eeda4fb0101aefc"
     }
+  },
+  "finalResult": {
+    "checked_utc": "2026-11-03T11:29:20.127484+00:00",
+    "timezone": "Europe/Kyiv",
+    "status": "COMPLETE_WITH_EXPLICIT_COVERAGE_LIMITATIONS",
+    "scope_end": "2026-10-31T14:17:04+02:00",
+    "metadata_receipt": ".codex-tmp/gsc-sitemap-logs-20-20261031/archive-rechecks/20261103T112918891842Z/bounded-check.json",
+    "target_verification_receipt": ".codex-tmp/gsc-sitemap-logs-20-20261031/archive-rechecks/20261103T112918891842Z/target-interval-verification.json",
+    "downloaded_bytes": 309659,
+    "sources": {
+      "logs/nikolacars.kiev.ua-Oct-2026.gz": {
+        "bytes": 30598,
+        "mdtm_utc": "20261031165005",
+        "unchanged_metadata": true,
+        "previous_sha256": "93a6e2b7e2d408a9a0ec777654a575b710d20d6d88e9ed73a37e87f4a890df02",
+        "start": "2026-09-30T15:59:14+03:00",
+        "end": "2026-10-31T13:35:06+02:00",
+        "downloaded": false,
+        "comparison_basis": "size_and_mdtm",
+        "byte_identity_reverified": false
+      },
+      "logs/nikolacars.kiev.ua-ssl_log-Oct-2026.gz": {
+        "bytes": 3832098,
+        "mdtm_utc": "20261031165005",
+        "unchanged_metadata": true,
+        "previous_sha256": "ec7fe2e80c4117f8bb35df923b959df3de1ad7314a7ccd6e0cfdd493af526db0",
+        "start": "2026-09-30T15:19:56+03:00",
+        "end": "2026-10-31T14:01:31+02:00",
+        "downloaded": false,
+        "comparison_basis": "size_and_mdtm",
+        "byte_identity_reverified": false
+      },
+      "logs/nikolacars.kiev.ua.bkup": {
+        "response": "550"
+      },
+      "logs/nikolacars.kiev.ua-ssl_log.bkup": {
+        "response": "550"
+      },
+      "access-logs/nikolacars.kiev.ua": {
+        "response": "550"
+      },
+      "access-logs/nikolacars.kiev.ua-ssl_log": {
+        "response": "550"
+      },
+      "logs/nikolacars.kiev.ua-Nov-2026.gz": {
+        "bytes": 2035,
+        "mdtm_utc": "20261102161029",
+        "downloaded": true,
+        "snapshot": "extra-nikolacars.kiev.ua-Nov-2026.gz",
+        "sha256": "be41a95e01414467801a42f6e89506163e6ef21c06b52c3c22fffbc76f92774a",
+        "rows": 43,
+        "start": "2026-10-31T14:46:07+02:00",
+        "end": "2026-11-02T12:57:30+02:00",
+        "rows_before_current_https_start": 0,
+        "gzip_crc_eof": true
+      },
+      "logs/nikolacars.kiev.ua-ssl_log-Nov-2026.gz": {
+        "bytes": 307624,
+        "mdtm_utc": "20261102161029",
+        "downloaded": true,
+        "snapshot": "extra-nikolacars.kiev.ua-ssl_log-Nov-2026.gz",
+        "sha256": "812fda520dd49b4ed107ead5454a94cd43d1d207deae7615cd664021cbfa3a92",
+        "rows": 13254,
+        "start": "2026-10-31T14:02:40+02:00",
+        "end": "2026-11-02T14:20:46+02:00",
+        "rows_before_current_https_start": 0,
+        "gzip_crc_eof": true
+      }
+    },
+    "target_interval_verification": {
+      "scope_end": "2026-10-31T14:17:04+02:00",
+      "sources": {
+        "http": {
+          "rows_within_original_saved_context": 0,
+          "target_request_rows_within_context": 0,
+          "rows_strictly_in_residual_gap": 0,
+          "saved_current_rows": 0,
+          "saved_current_rows_preserved_with_multiplicity": true,
+          "missing_current_rows": 0,
+          "current_snapshot_sha256": "25e3395320bdf4c9d522139e8f50ad799d044f9d5a5485d598ce91119183551f",
+          "current_empty_proves_no_traffic": false
+        },
+        "https": {
+          "rows_within_original_saved_context": 64,
+          "target_request_rows_within_context": 3,
+          "rows_strictly_in_residual_gap": 0,
+          "saved_current_rows": 64,
+          "saved_current_rows_preserved_with_multiplicity": true,
+          "missing_current_rows": 0,
+          "current_snapshot_sha256": "2f20fb504c81b080c600a34789025c7b91d32189424f7b1708240715e90aaf20",
+          "current_empty_proves_no_traffic": false
+        }
+      },
+      "verified_ordinary_target_events": [],
+      "non_search_target_events": [
+        {
+          "id": "107145",
+          "language": "RU",
+          "timestamp": "2026-10-31T14:09:48+02:00",
+          "http_status": "200",
+          "agent": "Google-InspectionTool",
+          "role": "inspection_tool",
+          "url_variant": "canonical_path",
+          "query_present": false,
+          "scheme": "https"
+        },
+        {
+          "id": "107145",
+          "language": "RU",
+          "timestamp": "2026-10-31T14:09:48+02:00",
+          "http_status": "200",
+          "agent": "Google-InspectionTool",
+          "role": "inspection_tool",
+          "url_variant": "canonical_path",
+          "query_present": false,
+          "scheme": "https"
+        }
+      ],
+      "original_gap_target_events": [],
+      "conclusion": "New November snapshots preserve all saved current rows and add no earlier records. No verified ordinary Googlebot target events in original context; manual inspection remains separate. Expanded dates after context excluded."
+    },
+    "ordinary_googlebot_cumulative": {
+      "UA": {
+        "requests": 1,
+        "products": 1
+      },
+      "RU": {
+        "requests": 17,
+        "products": 12
+      }
+    },
+    "ru107145_natural_googlebot_return_after_503_found_in_examined_historical_scope": false,
+    "remaining": {
+      "https": {
+        "from": "2026-10-31T14:01:31+02:00",
+        "to": "2026-10-31T14:02:40+02:00",
+        "seconds": 69,
+        "meaning": "No overlapping log source; not proof requests were lost."
+      },
+      "http": {
+        "last_record": "2026-10-31T13:35:06+02:00",
+        "later_coverage": "No timestamp in empty current file; upper boundary undetermined."
+      }
+    },
+    "scope_limit": "No later November monitoring; missing records are not proof of no crawling. Archived October SHA/date bounds are prior evidence, not freshly rehashed on final metadata-only comparison.",
+    "last_full_october_content_check_utc": "2026-11-02T10:58:08.992853+00:00",
+    "hosting_request_needed": {
+      "send_status": "NOT_SENT",
+      "vhost": "nikolacars.kiev.ua including www alias",
+      "timezone": "Europe/Kyiv / UTC+02:00",
+      "https_interval": "2026-10-31 14:01:31–14:02:40",
+      "http_interval": "2026-10-31 13:35:06–14:46:07",
+      "additional": "Full access records from active, rotated and backup sources, exact rotation/archive assembly boundaries, and confirmation of continuous logging versus missing records."
+    },
+    "production_mutations": false,
+    "automation_status": "STOPPED_DELETED_BY_COORDINATOR_2026-11-03"
   }
 }

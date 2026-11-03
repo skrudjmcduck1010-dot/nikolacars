@@ -86,6 +86,11 @@ final class ProductCatalogFacts
     public static function apply(array $product, string $locale): array
     {
         $product = self::localizeCategory($product, $locale);
+        // Imported lot labels identify warehouse stock, not verified vehicle fitment.
+        $compatibility = trim((string) ($product['compatibility'] ?? ''));
+        if (preg_match('/^TESLA\h+[MМ][3SXY]\h+20\d{2}\h*[-–]\h*20\d{2}\h+залишки$/iuD', $compatibility)) {
+            $product['compatibility'] = '';
+        }
         $rawVin = trim((string) ($product['vin'] ?? ''));
         if (array_key_exists('vin', $product)) {
             $vin = strtoupper($rawVin);

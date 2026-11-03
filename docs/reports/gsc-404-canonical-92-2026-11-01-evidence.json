@@ -1,0 +1,3042 @@
+{
+  "project": "https://nikolacars.kiev.ua",
+  "builtAtUtc": "2026-11-01T23:29:57.781586+02:00",
+  "sourceSummaryDate": "2026-10-23",
+  "sources": {
+    "404": "gsc-errors-2026-10-31-sources.json, all404 (60 rows)",
+    "canonical": "32 rows read from authenticated GSC by main agent this run",
+    "currentlyUnchecked": "Host TCP connection timeout from HTTPS/curl/Python/IAB, also FTPS before login. No per-URL HTTP status inferred.",
+    "stockAndLinkSamples": "Public API and HTML audit on Nov 1. The links are a sample, not a complete site crawl. Map values concern product sitemaps only; for non-catalog pages use prior all-sitemap comparison.",
+    "sold": "Warehouse snapshot dated 31 Oct shows zero stock and no separate part_sales/sold status. On Nov 2 the owner explicitly confirmed IDs 74856, 101669, 103760, 108286 were sold through STO; sold archival pages without ordering are required, implementation/live verification pending."
+  },
+  "counts": {
+    "404": 60,
+    "canonical": 32
+  },
+  "rows": [
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/parts/104743/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "23 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "observed_2026_11_02_before_cache_gc",
+        "httpStatus": 404,
+        "observedAt": "2026-11-02T13:01:04.029886+02:00",
+        "source": "recovered-92-http.json"
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/ru/parts/104743/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 104743,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "donor",
+      "decision": "withhold_donor_unknown_condition"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/6008191-00-d-113659/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "23 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "observed_2026_11_02_before_cache_gc",
+        "httpStatus": 404,
+        "observedAt": "2026-11-02T13:01:05.1037+02:00",
+        "source": "recovered-92-http.json"
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/parts/6008191-00-d-113659/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 113659,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "check",
+      "decision": "withhold_unknown_condition_until_inspected"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/1108647-00-d-77296/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "19 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "observed_2026_11_02_before_cache_gc",
+        "httpStatus": 404,
+        "observedAt": "2026-11-02T13:01:06.123609+02:00",
+        "source": "recovered-92-http.json"
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/parts/1108647-00-d-77296/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 77296,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "donor",
+      "decision": "withhold_donor_unknown_condition"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/parts/104761/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "19 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "observed_2026_11_02_before_cache_gc",
+        "httpStatus": 404,
+        "observedAt": "2026-11-02T13:01:07.315842+02:00",
+        "source": "recovered-92-http.json"
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/ru/parts/104761/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 104761,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "donor",
+      "decision": "withhold_donor_unknown_condition"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/parts/104127/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "18 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "observed_2026_11_02_before_cache_gc",
+        "httpStatus": 404,
+        "observedAt": "2026-11-02T13:01:08.329525+02:00",
+        "source": "recovered-92-http.json"
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/ru/parts/104127/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 104127,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "donor",
+      "decision": "withhold_donor_unknown_condition"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/77669/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "18 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "observed_2026_11_02_before_cache_gc",
+        "httpStatus": 404,
+        "observedAt": "2026-11-02T13:01:09.427626+02:00",
+        "source": "recovered-92-http.json"
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/parts/77669/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 77669,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "donor",
+      "decision": "withhold_donor_unknown_condition"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/104258/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "18 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "observed_2026_11_02_before_cache_gc",
+        "httpStatus": 404,
+        "observedAt": "2026-11-02T13:01:10.621181+02:00",
+        "source": "recovered-92-http.json"
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/parts/104258/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 104258,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "donor",
+      "decision": "withhold_donor_unknown_condition"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/1007374-00-l-95486/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "18 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "observed_2026_11_02_before_cache_gc",
+        "httpStatus": 404,
+        "observedAt": "2026-11-02T13:01:11.618384+02:00",
+        "source": "recovered-92-http.json"
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/parts/1007374-00-l-95486/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 95486,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "donor",
+      "decision": "withhold_donor_unknown_condition"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/1096623-00-h-74856/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "18 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "observed_2026_11_02_before_cache_gc",
+        "httpStatus": 404,
+        "observedAt": "2026-11-02T13:01:12.703688+02:00",
+        "source": "recovered-92-http.json"
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/parts/1096623-00-h-74856/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 74856,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "sto",
+      "decision": "owner_confirmed_sto_sold_archive_required_2026_11_02"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/insi-modeli/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "18 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "observed_2026_11_02_before_cache_gc",
+        "httpStatus": 404,
+        "observedAt": "2026-11-02T13:01:13.818508+02:00",
+        "source": "recovered-92-http.json"
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/parts/insi-modeli/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "decision": "retired_or_unknown_no_matching_successor_found"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/parts/1188711-00-a-89487/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "18 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "observed_2026_11_02_before_cache_gc",
+        "httpStatus": 404,
+        "observedAt": "2026-11-02T13:01:14.80851+02:00",
+        "source": "recovered-92-http.json"
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/ru/parts/1188711-00-a-89487/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 89487,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "donor",
+      "decision": "withhold_donor_unknown_condition"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/parts/1108647-00-d-77296/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "18 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "observed_2026_11_02_before_cache_gc",
+        "httpStatus": 404,
+        "observedAt": "2026-11-02T13:01:15.924218+02:00",
+        "source": "recovered-92-http.json"
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/ru/parts/1108647-00-d-77296/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 77296,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "donor",
+      "decision": "withhold_donor_unknown_condition"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/1188711-00-a-89487/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "17 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "observed_2026_11_02_before_cache_gc",
+        "httpStatus": 404,
+        "observedAt": "2026-11-02T13:01:17.107342+02:00",
+        "source": "recovered-92-http.json"
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/parts/1188711-00-a-89487/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 89487,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "donor",
+      "decision": "withhold_donor_unknown_condition"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/1095858-00-d-101669/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "17 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "observed_2026_11_02_before_cache_gc",
+        "httpStatus": 404,
+        "observedAt": "2026-11-02T13:01:18.109352+02:00",
+        "source": "recovered-92-http.json"
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/parts/1095858-00-d-101669/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 101669,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "sto",
+      "decision": "owner_confirmed_sto_sold_archive_required_2026_11_02"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/77296/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "17 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "observed_2026_11_02_before_cache_gc",
+        "httpStatus": 404,
+        "observedAt": "2026-11-02T13:01:19.025299+02:00",
+        "source": "recovered-92-http.json"
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/parts/77296/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 77296,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "donor",
+      "decision": "withhold_donor_unknown_condition"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/parts/1105324-79-e-92927/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "17 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/ru/parts/1105324-79-e-92927/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 92927,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "donor",
+      "decision": "withhold_donor_unknown_condition"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/parts/88146/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "16 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/ru/parts/88146/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 88146,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "donor",
+      "decision": "withhold_donor_unknown_condition"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/parts/1584721-e0-a-113134/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "16 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/ru/parts/1584721-e0-a-113134/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 113134,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "deleted",
+      "decision": "retired_deleted"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/vysokovoltnaia-batareia/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "16 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/parts/vysokovoltnaia-batareia/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "decision": "battery_alias_released_2026_10_31_one_hop"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/vysokovoltnaia-batareia/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "16 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/vysokovoltnaia-batareia/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "decision": "battery_alias_released_2026_10_31_one_hop"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/1584721-e0-a-113134/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "16 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/parts/1584721-e0-a-113134/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 113134,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "deleted",
+      "decision": "retired_deleted"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/1077397-00-g-106946/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "15 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/parts/1077397-00-g-106946/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 106946,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "donor",
+      "decision": "withhold_donor_unknown_condition"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/parts/1077397-00-g-106946/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "15 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/ru/parts/1077397-00-g-106946/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 106946,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "donor",
+      "decision": "withhold_donor_unknown_condition"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/1044121-00-e-82639/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "13 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/parts/1044121-00-e-82639/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 82639,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "donor",
+      "decision": "withhold_donor_unknown_condition"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/lead/callback",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "30 сент. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "decision": "form_post_only"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/parts/1095858-00-d-101669/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "27 сент. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/ru/parts/1095858-00-d-101669/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 101669,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "sto",
+      "decision": "owner_confirmed_sto_sold_archive_required_2026_11_02"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "27 сент. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+        "canonical": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+        "h1": "Высоковольтная батарея — Запчасти Tesla",
+        "notFound": false,
+        "cards": 11
+      },
+      "decision": "historically_resolved_existing_page_or_redirect"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/parts/1007374-00-l-108286/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "26 сент. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/ru/parts/1007374-00-l-108286/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 108286,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "sto",
+      "decision": "owner_confirmed_sto_sold_archive_required_2026_11_02"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/69395/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "25 сент. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/parts/69395/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 69395,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "donor",
+      "decision": "withhold_donor_unknown_condition"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/sitemap.rss",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "25 сент. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/sitemap.rss",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "decision": "retired_or_unknown_no_matching_successor_found"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/79034/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "21 сент. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/parts/79034/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 79034,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "donor",
+      "decision": "withhold_donor_unknown_condition"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/104616/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "21 сент. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/parts/104616/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 104616,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "donor",
+      "decision": "withhold_donor_unknown_condition"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/103760/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "21 сент. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/parts/103760/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 103760,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "sto",
+      "decision": "owner_confirmed_sto_sold_archive_required_2026_11_02"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/77751/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "21 сент. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/parts/77751/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 77751,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "writeoff",
+      "decision": "retired_written_off"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/parts/104246/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "21 сент. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/ru/parts/104246/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 104246,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "donor",
+      "decision": "withhold_donor_unknown_condition"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/104127/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "21 сент. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/parts/104127/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 104127,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "donor",
+      "decision": "withhold_donor_unknown_condition"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/103133/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "21 сент. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/parts/103133/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 103133,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "donor",
+      "decision": "withhold_donor_unknown_condition"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/77878/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "21 сент. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/parts/77878/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 77878,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "donor",
+      "decision": "withhold_donor_unknown_condition"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/106887/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "20 сент. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/parts/106887/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 106887,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "writeoff",
+      "decision": "retired_written_off"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/parts/77782/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "20 сент. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/ru/parts/77782/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 77782,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "donor",
+      "decision": "withhold_donor_unknown_condition"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/77176/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "20 сент. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/parts/77176/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 77176,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "donor",
+      "decision": "withhold_donor_unknown_condition"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/77631/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "20 сент. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/parts/77631/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 77631,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "donor",
+      "decision": "withhold_donor_unknown_condition"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/77120/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "20 сент. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/parts/1098751-00-c-77120/",
+        "canonical": "https://nikolacars.kiev.ua/parts/1098751-00-c-77120/",
+        "h1": "Повітропровід вентиляції салону в задньому багажному відсіку — Tesla Model 3 06.2017 - 12.2023 — 1098751-00-C",
+        "notFound": false,
+        "cards": 7
+      },
+      "id": 77120,
+      "nov1AvailableInventory": true,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": null,
+      "decision": "numeric_alias_of_available_product",
+      "expectedProductUrl": "https://nikolacars.kiev.ua/parts/1098751-00-c-77120/"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/77105/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "20 сент. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/parts/77105/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 77105,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "donor",
+      "decision": "withhold_donor_unknown_condition"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/104761/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "20 сент. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/parts/104761/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 104761,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "donor",
+      "decision": "withhold_donor_unknown_condition"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/parts/104741/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "18 сент. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/ru/parts/104741/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "id": 104741,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": "donor",
+      "decision": "withhold_donor_unknown_condition"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/parts/108973/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "16 сент. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/ru/parts/1006427-01-a-108973/",
+        "canonical": "https://nikolacars.kiev.ua/ru/parts/1006427-01-a-108973/",
+        "h1": "салон (комплект сидений) — Tesla Model S 02.2012-03.2016 — 1006427-01-A",
+        "notFound": false,
+        "cards": 0
+      },
+      "id": 108973,
+      "nov1AvailableInventory": false,
+      "nov1StockReadAt": "2026-11-01T14:17:56.068533+02:00",
+      "warehouseOct31": null,
+      "decision": "historically_resolved_numeric_alias_check_availability_or_archive"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/contacts",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "14 авг. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/contacts/",
+        "canonical": "https://nikolacars.kiev.ua/contacts/",
+        "h1": "КОНТАКТИ",
+        "notFound": false,
+        "cards": 0
+      },
+      "decision": "historically_resolved_existing_page_or_redirect"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/all-news/tesla-vypustila-novuyu-model-s-i-model-x-vmesto-rulya-shturval/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "24 июн. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/ru/all-news/tesla-vypustila-novuyu-model-s-i-model-x-vmesto-rulya-shturval/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "decision": "retired_or_unknown_no_matching_successor_found"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/tag/models/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "5 июн. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/ru/tag/models/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "decision": "retired_or_unknown_no_matching_successor_found"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/news/cheap-model/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "31 мая 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/news/cheap-model/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "decision": "retired_or_unknown_no_matching_successor_found"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/ru/privacy-policy/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "30 мая 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/ru/privacy-policy/",
+        "canonical": "https://nikolacars.kiev.ua/ru/privacy-policy/",
+        "h1": "ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ",
+        "notFound": false,
+        "cards": 0
+      },
+      "decision": "historically_resolved_existing_page_or_redirect"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/author/val-overchuk/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "29 мая 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/ru/author/val-overchuk/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "decision": "retired_or_unknown_no_matching_successor_found"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/services/car-service",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "29 мая 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/services/tesla-service/",
+        "canonical": "https://nikolacars.kiev.ua/services/tesla-service/",
+        "h1": "Діагностика, ремонт та обслуговування Tesla у Києві",
+        "notFound": false,
+        "cards": 7
+      },
+      "decision": "historically_resolved_existing_page_or_redirect"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/cars/tesla-model-s-p85d-2015-1/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "21 мая 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/cars/tesla-model-s-p85d-2015-1/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "decision": "retired_or_unknown_no_matching_successor_found"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/cars/tesla-model-s-100d-2018/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "8 мая 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/cars/tesla-model-s-100d-2018/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "decision": "retired_or_unknown_no_matching_successor_found"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/how-it-works/pro-tesla-plaid/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "5 мая 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/ru/how-it-works/pro-tesla-plaid/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "decision": "retired_or_unknown_no_matching_successor_found"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/category/all-news/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "29 апр. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/ru/category/all-news/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "decision": "retired_or_unknown_no_matching_successor_found"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/privacy_policy/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "28 апр. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/privacy-policy/",
+        "canonical": "https://nikolacars.kiev.ua/privacy-policy/",
+        "h1": "ПОЛІТИКА КОНФІДЕНЦІЙНОСТІ",
+        "notFound": false,
+        "cards": 0
+      },
+      "decision": "historically_resolved_existing_page_or_redirect"
+    },
+    {
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/mileage/109-129-km/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "28 апр. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/ru/mileage/109-129-km/",
+        "canonical": null,
+        "h1": "404",
+        "notFound": true,
+        "cards": 0
+      },
+      "decision": "retired_or_unknown_no_matching_successor_found"
+    },
+    {
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "23 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "observed_2026_11_02_limited_sequential",
+        "httpStatus": 301,
+        "location": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/pedal-galma/",
+        "canonical": "",
+        "observedAt": "2026-11-02T14:14:55.023528+02:00",
+        "source": "limited read JSON"
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/pedal-galma/",
+        "canonical": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/pedal-galma/",
+        "h1": "Педаль гальма — Tesla Model 3 06.2017 - 12.2023",
+        "notFound": false,
+        "cards": 2
+      },
+      "candidatePair": {
+        "model": "model-3-06-2017-12-2023",
+        "parentPathSlug": "galma--pedal-galma",
+        "childPathSlug": "galma--pedal-galma--pedal-galma",
+        "taxonomySource": "tree-candidates, 2026-10-27",
+        "check": "candidate only",
+        "stockSnapshotUtc": "2026-11-01T14:17:56.068533+02:00",
+        "parentIds": [
+          99115,
+          100551
+        ],
+        "childIds": [
+          99115,
+          100551
+        ],
+        "sameNonemptyIds": true
+      },
+      "decision": "existing_redirect_check_destination"
+    },
+    {
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "17 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+        "canonical": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+        "h1": "Бортовой зарядный модуль (чарджер) — Tesla Model S 02.2012-03.2016",
+        "notFound": false,
+        "cards": 2
+      },
+      "candidatePair": {
+        "model": "model-s-02-2012-03-2016",
+        "parentPathSlug": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer",
+        "childPathSlug": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer--bortovoi-zariadnyi-modul-cardzer",
+        "taxonomySource": "tree-candidates, 2026-10-27",
+        "check": "candidate only"
+      },
+      "decision": "previous_release_chose_this_leaf_as_canonical_and_redirects_parent"
+    },
+    {
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/ru/parts/visokovoltna-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "17 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+        "canonical": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+        "h1": "Высоковольтная батарея — Запчасти Tesla",
+        "notFound": false,
+        "cards": 11
+      },
+      "candidatePair": {
+        "model": "",
+        "parentPathSlug": "visokovoltna-batareia--vysokovoltnaia-batareia",
+        "childPathSlug": "visokovoltna-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia",
+        "taxonomySource": "tree-candidates, 2026-10-27",
+        "check": "candidate only"
+      },
+      "decision": "mixed_language_battery_path_already_normalized_in_ru"
+    },
+    {
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/zadnie-poluosi/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "17 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/",
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/zadnie-poluosi/",
+        "canonical": "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/zadnie-poluosi/",
+        "h1": "Задние полуоси — Запчасти Tesla",
+        "notFound": false,
+        "cards": 22
+      },
+      "candidatePair": {
+        "model": "",
+        "parentPathSlug": "zadnii-motor--zadnie-poluosi",
+        "childPathSlug": "zadnii-motor--zadnie-poluosi--zadnie-poluosi",
+        "taxonomySource": "tree-candidates, 2026-10-27",
+        "check": "candidate only"
+      },
+      "decision": "previous_release_chose_this_leaf_as_canonical_and_redirects_parent"
+    },
+    {
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "17 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+        "canonical": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+        "h1": "Бортовой зарядный модуль (чарджер) — Запчасти Tesla",
+        "notFound": false,
+        "cards": 2
+      },
+      "candidatePair": {
+        "model": "",
+        "parentPathSlug": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer",
+        "childPathSlug": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer--bortovoi-zariadnyi-modul-cardzer",
+        "taxonomySource": "tree-candidates, 2026-10-27",
+        "check": "candidate only"
+      },
+      "decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages"
+    },
+    {
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "17 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [
+          "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-sistema/"
+        ],
+        "sampledHtmlInboundCount": 1,
+        "httpSnapshot": null
+      },
+      "candidatePair": {
+        "model": "model-s-02-2012-03-2016",
+        "parentPathSlug": "visokovoltna-sistema--bortovii-zariadnii-modul-cardzer",
+        "childPathSlug": "visokovoltna-sistema--bortovii-zariadnii-modul-cardzer--bortovii-zariadnii-modul-cardzer",
+        "taxonomySource": "tree-candidates, 2026-10-27",
+        "check": "candidate only",
+        "stockSnapshotUtc": "2026-11-01T14:17:56.068533+02:00",
+        "parentIds": [
+          108597,
+          113433
+        ],
+        "childIds": [
+          108597,
+          113433
+        ],
+        "sameNonemptyIds": true
+      },
+      "decision": "previous_release_chose_this_leaf_as_canonical_and_redirects_parent"
+    },
+    {
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/galma/pedal-galma/pedal-galma/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "16 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "candidatePair": {
+        "model": "model-s-04-2016-01-2021",
+        "parentPathSlug": "galma--pedal-galma",
+        "childPathSlug": "galma--pedal-galma--pedal-galma",
+        "taxonomySource": "tree-candidates, 2026-10-27",
+        "check": "candidate only",
+        "stockSnapshotUtc": "2026-11-01T14:17:56.068533+02:00",
+        "parentIds": [
+          101899
+        ],
+        "childIds": [
+          101899
+        ],
+        "sameNonemptyIds": true
+      },
+      "decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages"
+    },
+    {
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "16 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "candidatePair": {
+        "model": "model-s-04-2016-01-2021",
+        "parentPathSlug": "diski-i-sini--diski",
+        "childPathSlug": "diski-i-sini--diski--diski",
+        "taxonomySource": "tree-candidates, 2026-10-27",
+        "check": "candidate only",
+        "stockSnapshotUtc": "2026-11-01T14:17:56.068533+02:00",
+        "parentIds": [],
+        "childIds": [],
+        "sameNonemptyIds": false
+      },
+      "decision": "different_or_empty_inventory_in_UA_snapshot_no_merge"
+    },
+    {
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/galma/pedal-galma/pedal-galma/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "16 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "candidatePair": {
+        "model": "",
+        "parentPathSlug": "galma--pedal-galma",
+        "childPathSlug": "galma--pedal-galma--pedal-galma",
+        "taxonomySource": "tree-candidates, 2026-10-27",
+        "check": "candidate only",
+        "stockSnapshotUtc": "2026-11-01T14:17:56.068533+02:00",
+        "parentIds": [
+          74350,
+          88660,
+          99115,
+          100551,
+          101899,
+          106344,
+          106892,
+          108105,
+          113334
+        ],
+        "childIds": [
+          74350,
+          88660,
+          99115,
+          100551,
+          101899,
+          106344,
+          106892,
+          108105,
+          113334
+        ],
+        "sameNonemptyIds": true
+      },
+      "decision": "previous_release_chose_this_leaf_as_canonical_and_redirects_parent"
+    },
+    {
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-batareia/visokovoltna-batareia/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": "16 окт. 2026 г.",
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "candidatePair": {
+        "model": "model-y-01-2020-01-2025",
+        "parentPathSlug": "visokovoltna-batareia--visokovoltna-batareia",
+        "childPathSlug": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia",
+        "taxonomySource": "tree-candidates, 2026-10-27",
+        "check": "candidate only",
+        "stockSnapshotUtc": "2026-11-01T14:17:56.068533+02:00",
+        "parentIds": [],
+        "childIds": [],
+        "sameNonemptyIds": false
+      },
+      "decision": "preserve_battery_taxonomy_check_real_sets_both_languages"
+    },
+    {
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-sistema/visokovoltni-provoda/visokovoltni-provoda/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": null,
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "observed_2026_11_02_limited_sequential",
+        "httpStatus": 200,
+        "location": "",
+        "canonical": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-sistema/visokovoltni-provoda/visokovoltni-provoda/",
+        "observedAt": "2026-11-02T14:15:15.6382027+02:00",
+        "source": "limited read JSON"
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "candidatePair": {
+        "model": "model-y-01-2020-01-2025",
+        "parentPathSlug": "visokovoltna-sistema--visokovoltni-provoda",
+        "childPathSlug": "visokovoltna-sistema--visokovoltni-provoda--visokovoltni-provoda",
+        "taxonomySource": "tree-candidates, 2026-10-27",
+        "check": "candidate only",
+        "stockSnapshotUtc": "2026-11-01T14:17:56.068533+02:00",
+        "parentIds": [
+          84592,
+          89810
+        ],
+        "childIds": [
+          84592,
+          89810
+        ],
+        "sameNonemptyIds": true
+      },
+      "decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages"
+    },
+    {
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/perednii-motor/peredni-pivosi/peredni-pivosi/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": null,
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "observed_2026_11_02_limited_sequential",
+        "httpStatus": 200,
+        "location": "",
+        "canonical": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/perednii-motor/peredni-pivosi/peredni-pivosi/",
+        "observedAt": "2026-11-02T14:16:33.836713+02:00",
+        "source": "limited read JSON"
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "candidatePair": {
+        "model": "model-y-01-2020-01-2025",
+        "parentPathSlug": "perednii-motor--peredni-pivosi",
+        "childPathSlug": "perednii-motor--peredni-pivosi--peredni-pivosi",
+        "taxonomySource": "tree-candidates, 2026-10-27",
+        "check": "candidate only",
+        "stockSnapshotUtc": "2026-11-01T14:17:56.068533+02:00",
+        "parentIds": [
+          83585,
+          84763,
+          113158
+        ],
+        "childIds": [
+          83585,
+          84763,
+          113158
+        ],
+        "sameNonemptyIds": true
+      },
+      "decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages"
+    },
+    {
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/zadnii-motor/zadni-pivosi/zadni-pivosi/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": null,
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "observed_2026_11_02_limited_sequential",
+        "httpStatus": 200,
+        "location": "",
+        "canonical": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/zadnii-motor/zadni-pivosi/zadni-pivosi/",
+        "observedAt": "2026-11-02T14:16:58.8033466+02:00",
+        "source": "limited read JSON"
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "candidatePair": {
+        "model": "model-y-01-2020-01-2025",
+        "parentPathSlug": "zadnii-motor--zadni-pivosi",
+        "childPathSlug": "zadnii-motor--zadni-pivosi--zadni-pivosi",
+        "taxonomySource": "tree-candidates, 2026-10-27",
+        "check": "candidate only",
+        "stockSnapshotUtc": "2026-11-01T14:17:56.068533+02:00",
+        "parentIds": [
+          40464,
+          79108,
+          82239,
+          83586,
+          84764,
+          86097,
+          87303,
+          88635,
+          113159,
+          113160,
+          113161,
+          113162
+        ],
+        "childIds": [
+          40464,
+          79108,
+          82239,
+          83586,
+          84764,
+          86097,
+          87303,
+          88635,
+          113159,
+          113160,
+          113161,
+          113162
+        ],
+        "sameNonemptyIds": true
+      },
+      "decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages"
+    },
+    {
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": null,
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "candidatePair": {
+        "model": "model-s-02-2012-03-2016",
+        "parentPathSlug": "zovnisnia-furnitura--nakladki-pidkapotnogo-vidsiku",
+        "childPathSlug": "zovnisnia-furnitura--nakladki-pidkapotnogo-vidsiku--nakladki-pidkapotnogo-vidsiku",
+        "taxonomySource": "tree-candidates, 2026-10-27",
+        "check": "candidate only",
+        "stockSnapshotUtc": "2026-11-01T14:17:56.068533+02:00",
+        "parentIds": [
+          92596,
+          92865,
+          95847,
+          96125,
+          103706,
+          105828,
+          105860,
+          105861,
+          108705,
+          108706,
+          108752
+        ],
+        "childIds": [
+          92596,
+          92865,
+          95847,
+          96125,
+          103706,
+          105828,
+          105860,
+          105861,
+          108705,
+          108706,
+          108752
+        ],
+        "sameNonemptyIds": true
+      },
+      "decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages"
+    },
+    {
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/panel-priladiv/panel-priladiv/?page=2",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": null,
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "decision": "inspect_current_canonical_and_product_sets"
+    },
+    {
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/diski/?page=2",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": null,
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "candidatePair": {
+        "model": "",
+        "parentPathSlug": "diski-i-sini--diski",
+        "childPathSlug": "diski-i-sini--diski--diski",
+        "taxonomySource": "tree-candidates, 2026-10-27",
+        "check": "candidate only",
+        "stockSnapshotUtc": "2026-11-01T14:17:56.068533+02:00",
+        "parentIds": [
+          41441,
+          76566,
+          79775,
+          81825,
+          82913,
+          106954,
+          110102,
+          113027,
+          113143,
+          113144,
+          113147,
+          113152,
+          113153,
+          113254,
+          113364
+        ],
+        "childIds": [
+          41441,
+          76566,
+          79775,
+          81825,
+          82913,
+          106954,
+          110102,
+          113027,
+          113143,
+          113144,
+          113147,
+          113152,
+          113153,
+          113254,
+          113364
+        ],
+        "sameNonemptyIds": true
+      },
+      "decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages"
+    },
+    {
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/visokovoltna-batareia/visokovoltna-batareia/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": null,
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "candidatePair": {
+        "model": "model-3-06-2017-12-2023",
+        "parentPathSlug": "visokovoltna-batareia--visokovoltna-batareia",
+        "childPathSlug": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia",
+        "taxonomySource": "tree-candidates, 2026-10-27",
+        "check": "candidate only",
+        "stockSnapshotUtc": "2026-11-01T14:17:56.068533+02:00",
+        "parentIds": [
+          75221,
+          80841
+        ],
+        "childIds": [
+          75221,
+          80841
+        ],
+        "sameNonemptyIds": true
+      },
+      "decision": "preserve_battery_taxonomy_check_real_sets_both_languages"
+    },
+    {
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/perednii-motor/peredni-pivosi/peredni-pivosi/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": null,
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "candidatePair": {
+        "model": "",
+        "parentPathSlug": "perednii-motor--peredni-pivosi",
+        "childPathSlug": "perednii-motor--peredni-pivosi--peredni-pivosi",
+        "taxonomySource": "tree-candidates, 2026-10-27",
+        "check": "candidate only",
+        "stockSnapshotUtc": "2026-11-01T14:17:56.068533+02:00",
+        "parentIds": [
+          83585,
+          84763,
+          94395,
+          113158
+        ],
+        "childIds": [
+          83585,
+          84763,
+          94395,
+          113158
+        ],
+        "sameNonemptyIds": true
+      },
+      "decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages"
+    },
+    {
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": null,
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "candidatePair": {
+        "model": "",
+        "parentPathSlug": "zovnisnia-furnitura--ozdoblennia-otvoru-kriski-bagaznika",
+        "childPathSlug": "zovnisnia-furnitura--ozdoblennia-otvoru-kriski-bagaznika--ozdoblennia-otvoru-kriski-bagaznika",
+        "taxonomySource": "tree-candidates, 2026-10-27",
+        "check": "candidate only",
+        "stockSnapshotUtc": "2026-11-01T14:17:56.068533+02:00",
+        "parentIds": [
+          112134,
+          112135
+        ],
+        "childIds": [
+          112134,
+          112135
+        ],
+        "sameNonemptyIds": true
+      },
+      "decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages"
+    },
+    {
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-3-highland-01-2024/sidenia/sideniia-2-go-riada-i-osnastka/sideniia-2-go-riada-i-osnastka/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": null,
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "decision": "inspect_current_canonical_and_product_sets"
+    },
+    {
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": null,
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "candidatePair": {
+        "model": "model-3-highland-01-2024",
+        "parentPathSlug": "zovnisnia-furnitura--ozdoblennia-otvoru-kriski-bagaznika",
+        "childPathSlug": "zovnisnia-furnitura--ozdoblennia-otvoru-kriski-bagaznika--ozdoblennia-otvoru-kriski-bagaznika",
+        "taxonomySource": "tree-candidates, 2026-10-27",
+        "check": "candidate only",
+        "stockSnapshotUtc": "2026-11-01T14:17:56.068533+02:00",
+        "parentIds": [
+          112134,
+          112135
+        ],
+        "childIds": [
+          112134,
+          112135
+        ],
+        "sameNonemptyIds": true
+      },
+      "decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages"
+    },
+    {
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/sidinnia/sidinnia-2-go-riadu-i-osnashhennia/sidinnia-2-go-riadu-i-osnashhennia/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": null,
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "decision": "inspect_current_canonical_and_product_sets"
+    },
+    {
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": null,
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "candidatePair": {
+        "model": "model-s-02-2012-03-2016",
+        "parentPathSlug": "vnutrisnje-ozdoblennia--ozdoblennia-steli-salonu",
+        "childPathSlug": "vnutrisnje-ozdoblennia--ozdoblennia-steli-salonu--ozdoblennia-steli-salonu",
+        "taxonomySource": "tree-candidates, 2026-10-27",
+        "check": "candidate only",
+        "stockSnapshotUtc": "2026-11-01T14:17:56.068533+02:00",
+        "parentIds": [
+          92041,
+          103676,
+          105454,
+          113458,
+          113469
+        ],
+        "childIds": [
+          92041,
+          103676,
+          105454,
+          113458,
+          113469
+        ],
+        "sameNonemptyIds": true
+      },
+      "decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages"
+    },
+    {
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": null,
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "candidatePair": {
+        "model": "",
+        "parentPathSlug": "vnutrisnje-ozdoblennia--ozdoblennia-steli-salonu",
+        "childPathSlug": "vnutrisnje-ozdoblennia--ozdoblennia-steli-salonu--ozdoblennia-steli-salonu",
+        "taxonomySource": "tree-candidates, 2026-10-27",
+        "check": "candidate only",
+        "stockSnapshotUtc": "2026-11-01T14:17:56.068533+02:00",
+        "parentIds": [
+          40422,
+          77786,
+          79841,
+          81724,
+          82225,
+          82693,
+          86778,
+          88041,
+          89396,
+          90697,
+          92041,
+          97162,
+          98570,
+          99983,
+          101401,
+          103676,
+          103677,
+          105454,
+          112389,
+          113458,
+          113469,
+          113479,
+          113625,
+          113627
+        ],
+        "childIds": [
+          40422,
+          77786,
+          79841,
+          81724,
+          82225,
+          82693,
+          86778,
+          88041,
+          89396,
+          90697,
+          92041,
+          97162,
+          98570,
+          99983,
+          101401,
+          103676,
+          103677,
+          105454,
+          112389,
+          113458,
+          113469,
+          113479,
+          113625,
+          113627
+        ],
+        "sameNonemptyIds": true
+      },
+      "decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages"
+    },
+    {
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/elektrika/datciki-radaru/datciki-radaru/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": null,
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "candidatePair": {
+        "model": "",
+        "parentPathSlug": "elektrika--datciki-radaru",
+        "childPathSlug": "elektrika--datciki-radaru--datciki-radaru",
+        "taxonomySource": "tree-candidates, 2026-10-27",
+        "check": "candidate only",
+        "stockSnapshotUtc": "2026-11-01T14:17:56.068533+02:00",
+        "parentIds": [
+          79057,
+          89234,
+          91781,
+          96309,
+          99485,
+          113288
+        ],
+        "childIds": [
+          79057,
+          89234,
+          91781,
+          96309,
+          99485,
+          113288
+        ],
+        "sameNonemptyIds": true
+      },
+      "decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages"
+    },
+    {
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/elektrika/frontalnaia-kamera/frontalnaia-kamera/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": null,
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "candidatePair": {
+        "model": "model-s-02-2012-03-2016",
+        "parentPathSlug": "elektrika--frontalnaia-kamera",
+        "childPathSlug": "elektrika--frontalnaia-kamera--frontalnaia-kamera",
+        "taxonomySource": "tree-candidates, 2026-10-27",
+        "check": "candidate only"
+      },
+      "decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages"
+    },
+    {
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/diski-i-siny/diski/diski/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": null,
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "candidatePair": {
+        "model": "model-s-04-2016-01-2021",
+        "parentPathSlug": "diski-i-siny--diski",
+        "childPathSlug": "diski-i-siny--diski--diski",
+        "taxonomySource": "tree-candidates, 2026-10-27",
+        "check": "candidate only"
+      },
+      "decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages"
+    },
+    {
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": null,
+      "gscGoogleSelectedCanonicalAtPriorInspection": "https://nikolacars.kiev.ua/parts/category/vnutrisnje-ozdoblennia/",
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": "parts-uk",
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [
+          "https://nikolacars.kiev.ua/parts/",
+          "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/vnutrisnje-ozdoblennia/",
+          "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/"
+        ],
+        "sampledHtmlInboundCount": 77,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/",
+        "canonical": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/",
+        "h1": "Внутрішнє оздоблення — Запчастини Tesla",
+        "notFound": false,
+        "cards": 24
+      },
+      "decision": "old_google_category_alias_already_redirects_to_preferred_url"
+    },
+    {
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-batareia/visokovoltna-batareia/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": null,
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "candidatePair": {
+        "model": "model-s-02-2012-03-2016",
+        "parentPathSlug": "visokovoltna-batareia--visokovoltna-batareia",
+        "childPathSlug": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia",
+        "taxonomySource": "tree-candidates, 2026-10-27",
+        "check": "candidate only",
+        "stockSnapshotUtc": "2026-11-01T14:17:56.068533+02:00",
+        "parentIds": [
+          106657,
+          108527
+        ],
+        "childIds": [
+          106657,
+          108527
+        ],
+        "sameNonemptyIds": true
+      },
+      "decision": "preserve_battery_taxonomy_check_real_sets_both_languages"
+    },
+    {
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": null,
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "candidatePair": {
+        "model": "",
+        "parentPathSlug": "diski-i-sini--sistema-kontroliu-tisku-v-sinax-tpms",
+        "childPathSlug": "diski-i-sini--sistema-kontroliu-tisku-v-sinax-tpms--sistema-kontroliu-tisku-v-sinax-tpms",
+        "taxonomySource": "tree-candidates, 2026-10-27",
+        "check": "candidate only",
+        "stockSnapshotUtc": "2026-11-01T14:17:56.068533+02:00",
+        "parentIds": [
+          80949,
+          95298,
+          100592,
+          102749,
+          106995,
+          108107
+        ],
+        "childIds": [
+          80949,
+          95298,
+          100592,
+          102749,
+          106995,
+          108107
+        ],
+        "sameNonemptyIds": true
+      },
+      "decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages"
+    },
+    {
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/diski/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": null,
+      "gscGoogleSelectedCanonicalAtPriorInspection": null,
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": null,
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [],
+        "sampledHtmlInboundCount": 0,
+        "httpSnapshot": null
+      },
+      "candidatePair": {
+        "model": "",
+        "parentPathSlug": "diski-i-sini--diski",
+        "childPathSlug": "diski-i-sini--diski--diski",
+        "taxonomySource": "tree-candidates, 2026-10-27",
+        "check": "candidate only",
+        "stockSnapshotUtc": "2026-11-01T14:17:56.068533+02:00",
+        "parentIds": [
+          41441,
+          76566,
+          79775,
+          81825,
+          82913,
+          106954,
+          110102,
+          113027,
+          113143,
+          113144,
+          113147,
+          113152,
+          113153,
+          113254,
+          113364
+        ],
+        "childIds": [
+          41441,
+          76566,
+          79775,
+          81825,
+          82913,
+          106954,
+          110102,
+          113027,
+          113143,
+          113144,
+          113147,
+          113152,
+          113153,
+          113254,
+          113364
+        ],
+        "sameNonemptyIds": true
+      },
+      "decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages"
+    },
+    {
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/komponenti-zakrittia/",
+      "gscSummaryDate": "2026-10-23",
+      "gscExampleLastCrawlDisplay": null,
+      "gscGoogleSelectedCanonicalAtPriorInspection": "https://nikolacars.kiev.ua/parts/category/komponenti-zakrittia/",
+      "liveInThisRun": {
+        "state": "pending_host_unreachable",
+        "httpStatus": null
+      },
+      "nov1CatalogSnapshot": {
+        "productSitemap": "parts-uk",
+        "sitemapDateUtc": "2026-11-01T14:17:57.127591+02:00",
+        "sampledHtmlInbound": [
+          "https://nikolacars.kiev.ua/parts/",
+          "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/komponenti-zakrittia/",
+          "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/komponenti-zakrittia/"
+        ],
+        "sampledHtmlInboundCount": 78,
+        "httpSnapshot": null
+      },
+      "oct31BrowserObservation": {
+        "final": "https://nikolacars.kiev.ua/parts/komponenti-zakrittia/",
+        "canonical": "https://nikolacars.kiev.ua/parts/komponenti-zakrittia/",
+        "h1": "Компоненти закриття — Запчастини Tesla",
+        "notFound": false,
+        "cards": 24
+      },
+      "decision": "old_google_category_alias_already_redirects_to_preferred_url"
+    }
+  ],
+  "availabilityAtEnd": {
+    "dateKyiv": "2026-11-01",
+    "retryTimeKyivApprox": "23:28",
+    "url": "https://nikolacars.kiev.ua/up",
+    "dns": "A record resolves",
+    "httpStatus": null,
+    "connectionResult": "curl exit 28 after 10 seconds before TCP connection. Main agent observed timeouts on /up and HOSTiQ client area in the in-app browser. Owner also reported site unavailable on mobile internet.",
+    "warehouseRecheck": {
+      "reviewedAtKyiv": "2026-11-01 23:30",
+      "sourceSqlSnapshotKyiv": "2026-10-31 13:26:02",
+      "report": ".codex-tmp/gsc-404-canonical-20261101/warehouse-five-evidence.json",
+      "stoIdsWithZeroAvailableAndNoSeparateSaleOrSoldState": [
+        74856,
+        101669,
+        103760,
+        108286
+      ],
+      "holdUnknownCondition": [
+        113659
+      ]
+    },
+    "newRuntimeChanges": false,
+    "deployed": false
+  },
+  "nov2Review": {
+    "checkedOriginalUrls": 19,
+    "knownRemaining": 73,
+    "newRequests": 14,
+    "localCandidate": "CatalogPath.php six localized aliases for three Model Y groups, not deployed",
+    "collector": "server-remaining-read.py",
+    "status": "awaiting_remaining_server_review"
+  }
+}
