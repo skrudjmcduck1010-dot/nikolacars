@@ -1,6 +1,6 @@
 <section class="product-info">
   <h1 class="product-heading">{{ $productHeading }}</h1>
-  <div class="product-code-line">{{ collect([$product['display_part_number'] ?? $product['part_number'] ?? null, $product['sku'] ?? null, $product['vin'] ?? null])->filter()->implode(' · ') }}</div>
+  <div class="product-code-line">{{ collect([$product['display_part_number'] ?? $product['part_number'] ?? null, !empty($product['sku']) ? ($isRu ? 'Код склада: ' : 'Код складу: ').$product['sku'] : null, $product['vin'] ?? null])->filter()->implode(' · ') }}</div>
   <div class="product-category-label">{{ $product['category_path'] ?? '' }}</div>
 
   @if(!$isSold)
