@@ -716,6 +716,9 @@ class PartsController extends Controller
                     'data' => $data,
                 ];
             },
+            // A cached upstream 404/410/422 becomes an HTTP 404 below. Refresh
+            // it after that response too, so restored products can recover.
+            alwaysDefer: true,
         );
 
         $status = (int) ($result['status'] ?? 500);

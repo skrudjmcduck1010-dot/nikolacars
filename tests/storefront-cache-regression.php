@@ -82,6 +82,80 @@ try {
     cacheContract($expired->getStatusCode() === 503 && !str_contains($expired->getContent(), 'Cache new snapshot'), 'expired cache fails closed when upstream fails');
     $kernel->terminate($request, $expired);
     Illuminate\Support\Facades\Http::assertSentCount(4);
+
+    // Exercise real 404 HTTP termination: a restored product must not remain
+    // hidden until the old negative cache entry reaches its hard expiry.
+    foreach (['uk', 'ru'] as $locale) {
+        foreach ([422, 404, 410] as $missingStatus) {
+            Illuminate\Support\Facades\Cache::flush();
+            Illuminate\Support\Facades\Http::swap(new Illuminate\Http\Client\Factory());
+            Illuminate\Support\Facades\Http::preventStrayRequests();
+            $productPhase = 'missing';
+            $productCalls = 0;
+            $isSold = $missingStatus === 422;
+            Illuminate\Support\Facades\Http::fake(function ($request) use (&$productPhase, &$productCalls, $locale, $missingStatus, $isSold) {
+                if ($request->method() !== 'GET'
+                    || parse_url($request->url(), PHP_URL_PATH) !== '/api/storefront/v1/products/100001'
+                    || !str_starts_with($request->url(), 'http://127.0.0.1:9/')
+                    || $request['locale'] !== $locale) {
+                    throw new RuntimeException('Unexpected outbound product request in cache characterization.');
+                }
+                $productCalls++;
+                if ($productPhase === 'missing') {
+                    return Illuminate\Support\Facades\Http::response(['message' => 'Synthetic unavailable product'], $missingStatus);
+                }
+                if ($productPhase === 'failure') {
+                    return Illuminate\Support\Facades\Http::response(['message' => 'Synthetic upstream failure'], 503);
+                }
+
+                return Illuminate\Support\Facades\Http::response(compatibilityProductFixture($locale, $isSold ? 'sold' : ''));
+            });
+            $case = $locale.' upstream '.$missingStatus;
+            $route = ($locale === 'ru' ? '/ru/parts/' : '/parts/').'test-001-100001/';
+            $readProduct = function () use ($kernel, $route): array {
+                $request = Illuminate\Http\Request::create('http://127.0.0.1:4327'.$route);
+
+                return [$request, $kernel->handle($request)];
+            };
+            Illuminate\Support\Carbon::setTestNow($anchor);
+            [$request, $missing] = $readProduct();
+            cacheContract($missing->getStatusCode() === 404, $case.': unavailable product returns a real 404');
+            $kernel->terminate($request, $missing);
+            [$request, $freshMissing] = $readProduct();
+            $kernel->terminate($request, $freshMissing);
+            cacheContract($freshMissing->getStatusCode() === 404 && $productCalls === 1, $case.': fresh negative cache prevents repeated upstream reads');
+
+            Illuminate\Support\Carbon::setTestNow($anchor->copy()->addSeconds(301));
+            $productPhase = 'failure';
+            [$request, $staleMissing] = $readProduct();
+            cacheContract($staleMissing->getStatusCode() === 404 && $productCalls === 1, $case.': stale negative response keeps refresh deferred');
+            $kernel->terminate($request, $staleMissing);
+            cacheContract($productCalls === 2, $case.': negative response still executes its deferred refresh');
+
+            $productPhase = 'restored';
+            [$request, $recovering] = $readProduct();
+            cacheContract($recovering->getStatusCode() === 404, $case.': failed refresh did not overwrite the previous negative cache');
+            $kernel->terminate($request, $recovering);
+            cacheContract($productCalls === 3, $case.': subsequent negative response retries the recovered upstream');
+
+            [$request, $restored] = $readProduct();
+            cacheContract($restored->getStatusCode() === 200
+                && str_contains($restored->getContent(), 'test-001-100001')
+                && str_contains($restored->getContent(), $isSold ? 'https://schema.org/SoldOut' : 'https://schema.org/InStock'),
+                $case.': restored '.($isSold ? 'sold' : 'available').' product renders before hard expiry');
+            $kernel->terminate($request, $restored);
+            cacheContract($productCalls === 3, $case.': recovered positive cache is reused');
+
+            Illuminate\Support\Carbon::setTestNow($anchor->copy()->addSeconds(602));
+            $productPhase = 'missing';
+            [$request, $lastGood] = $readProduct();
+            cacheContract($lastGood->getStatusCode() === 200, $case.': positive stale response keeps existing SWR behavior');
+            $kernel->terminate($request, $lastGood);
+            [$request, $withdrawn] = $readProduct();
+            cacheContract($withdrawn->getStatusCode() === 404 && $productCalls === 4, $case.': newly unavailable product remains a real 404');
+            $kernel->terminate($request, $withdrawn);
+        }
+    }
 } finally {
     Illuminate\Support\Carbon::setTestNow();
 }

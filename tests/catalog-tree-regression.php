@@ -53,45 +53,66 @@ $battery=['selection'=>['category_slug'=>'visokovoltna-batareia','category_path_
 $batteryItems=App\Services\CatalogNavigation::items($battery,'ru');
 $check($batteryItems[0]['url']==='/ru/parts/vysokovoltnaia-batareia/'&&$batteryItems[1]['url']==='/ru/parts/vysokovoltnaia-batareia/vysokovoltnaia-batareia/','old battery root alias keeps normalized RU URLs');
 $check($batteryItems[0]['ancestor']&&$batteryItems[1]['active']&&count(array_filter($batteryItems,fn($item)=>$item['active']))===1,'old battery alias has one current item and its ancestor');
-// Reviewed Model Y aliases must retain locale, model and pagination in real routes.
+// Reviewed aliases must retain locale, model and pagination in real routes.
 $modelY='model-y-01-2020-01-2025';
+$modelS='model-s-04-2016-01-2021';
 foreach([
-    ['uk','visokovoltna-sistema/visokovoltni-provoda'],
-    ['ru','vysokovoltnaia-sistema/vysokovoltnye-provoda'],
-    ['uk','perednii-motor/peredni-pivosi'], ['ru','perednii-motor/perednie-poluosi'],
-    ['uk','zadnii-motor/zadni-pivosi'], ['ru','zadnii-motor/zadnie-poluosi'],
-] as [$locale,$parent]){
+    [$modelY,'uk','visokovoltna-sistema/visokovoltni-provoda'],
+    [$modelY,'ru','vysokovoltnaia-sistema/vysokovoltnye-provoda'],
+    [$modelY,'uk','perednii-motor/peredni-pivosi'], [$modelY,'ru','perednii-motor/perednie-poluosi'],
+    [$modelY,'uk','zadnii-motor/zadni-pivosi'], [$modelY,'ru','zadnii-motor/zadnie-poluosi'],
+    [$modelS,'uk','diski-i-sini/diski'], [$modelS,'ru','diski-i-siny/diski'],
+    ['','uk','diski-i-sini/diski'], ['','ru','diski-i-siny/diski'],
+] as [$model,$locale,$parent]){
     $base=$locale==='ru'?'/ru/parts/':'/parts/';
+    $scopeBase=$base.($model!==''?$model.'/':'');
+    $wheelAlias=str_ends_with($parent,'/diski');
+    $wheelCount=$model===$modelS?0:11;
+    $siblingCount=$model===$modelS?2:6;
     $tail=substr($parent,strrpos($parent,'/')+1);$leaf=$parent.'/'.$tail;
     $root=explode('/',$parent)[0];$parentSlug=str_replace('/','--',$parent);$leafSlug=str_replace('/','--',$leaf);
-    $check(App\Services\CatalogPath::preferred($parent,$modelY)===$leaf,'reviewed Model Y path uses leaf');
-    $check(App\Services\CatalogPath::preferred($parent,'model-s-04-2016-01-2021')===$parent,'other model is unchanged');
+    $check(App\Services\CatalogPath::preferred($parent,$model)===$leaf,'reviewed path uses leaf: '.$model.' '.$parent);
+    $check(App\Services\CatalogPath::preferred($parent,'unreviewed-model-fixture')===$parent,'unreviewed model is unchanged');
     Illuminate\Support\Facades\Cache::flush();$before=$apiCalls;
-    $request=Illuminate\Http\Request::create('http://127.0.0.1:4327'.$base.$modelY.'/'.$parent.'/?page=2');
+    $request=Illuminate\Http\Request::create('http://127.0.0.1:4327'.$scopeBase.$parent.'/?page=2');
     $response=$kernel->handle($request);
     $check($response->getStatusCode()===301,'parent permanent redirect');
-    $check($response->headers->get('Location')==='http://127.0.0.1:4327'.$base.$modelY.'/'.$leaf.'/?page=2','redirect preserves locale model page two');
+    $check($response->headers->get('Location')==='http://127.0.0.1:4327'.$scopeBase.$leaf.'/?page=2','redirect preserves locale model page two');
     $check($apiCalls===$before,'redirect needs no upstream');$kernel->terminate($request,$response);
     $catalog=['models'=>[],'categories'=>[],'products'=>[],'pagination'=>['page'=>2,'last_page'=>2,'total'=>25],
-        'selection'=>['model_slug'=>$modelY,'model'=>'Model Y 01.2020 - 01.2025','category_slug'=>$root,'category_path_slug'=>$leafSlug,'category'=>'Test category','category_path_locale_slugs'=>[$locale=>$leafSlug]],
+        'selection'=>['model_slug'=>$model,'model'=>$model!==''?'Reviewed model fixture':'','category_slug'=>$root,'category_path_slug'=>$leafSlug,'category'=>'Test category','category_path_locale_slugs'=>[$locale=>$leafSlug]],
         'category_navigation'=>[
             ['label'=>'Root','category_path_slug'=>$root,'parent_path_slug'=>'','count'=>2,'has_children'=>true],
             ['label'=>'Leaf','category_path_slug'=>$parentSlug,'parent_path_slug'=>$root,'count'=>2,'has_children'=>true],
             ['label'=>'Leaf','category_path_slug'=>$leafSlug,'parent_path_slug'=>$parentSlug,'count'=>2,'has_children'=>false],
         ]];
+    if($wheelAlias){
+        // Live navigation counts available items, not the full listing total.
+        // The reviewed wheel branch had count zero; its sibling must stay visible.
+        $catalog['category_navigation'][0]['count']=$wheelCount+$siblingCount;
+        $catalog['category_navigation'][1]['count']=$wheelCount;
+        $catalog['category_navigation'][2]['count']=$wheelCount;
+        $catalog['category_navigation'][]=['label'=>'Sibling fixture','category_path_slug'=>$root.'--other-category','parent_path_slug'=>$root,'count'=>$siblingCount,'has_children'=>true];
+    }
     Illuminate\Support\Facades\Http::swap(new Illuminate\Http\Client\Factory());
     Illuminate\Support\Facades\Http::preventStrayRequests();
     Illuminate\Support\Facades\Http::fake(fn()=>Illuminate\Support\Facades\Http::response($catalog));
-    $request=Illuminate\Http\Request::create('http://127.0.0.1:4327'.$base.$modelY.'/'.$leaf.'/?page=2');
+    $request=Illuminate\Http\Request::create('http://127.0.0.1:4327'.$scopeBase.$leaf.'/?page=2');
     $response=$kernel->handle($request);
     $check($response->getStatusCode()===200,'leaf page two without loop');
     $dom=new DOMDocument();@$dom->loadHTML('<?xml encoding="UTF-8">'.$response->getContent());$xp=new DOMXPath($dom);
     $canonical=$xp->evaluate('string(//link[@rel="canonical"]/@href)');
-    $check(parse_url($canonical,PHP_URL_PATH)===$base.$modelY.'/'.$leaf.'/'&&parse_url($canonical,PHP_URL_QUERY)==='page=2','canonical retains page two: '.$canonical);
+    $check(parse_url($canonical,PHP_URL_PATH)===$scopeBase.$leaf.'/'&&parse_url($canonical,PHP_URL_QUERY)==='page=2','canonical retains page two: '.$canonical);
     $items=App\Services\CatalogNavigation::items($catalog,$locale);
-    $check(count($items)===2&&$items[1]['url']===$base.$modelY.'/'.$leaf.'/','navigation preferred URL unique');
-    $check($xp->query('//aside//a[@href="'.$base.$modelY.'/'.$parent.'/"]')->length===0,'SSR no duplicate link');
-    $check($xp->query('//aside//a[@href="'.$base.$modelY.'/'.$leaf.'/"]')->length===1,'SSR direct canonical link');
+    $check(count($items)===($wheelAlias?3:2)&&$items[1]['url']===$scopeBase.$leaf.'/','navigation preferred URL unique');
+    $check($xp->query('//aside//a[@href="'.$scopeBase.$parent.'/"]')->length===0,'SSR no duplicate link');
+    $check($xp->query('//aside//a[@href="'.$scopeBase.$leaf.'/"]')->length===1,'SSR direct canonical link');
+    if($wheelAlias){
+        $check($items[0]['ancestor']&&!$items[0]['active'],'wheel root remains ancestor');
+        $check($items[1]['active']&&!$items[1]['has_children']&&$items[1]['depth']===1&&$items[1]['count']===$wheelCount,'wheel leaf retains active state depth and nav count including zero');
+        $check($items[2]['url']===$scopeBase.$root.'/other-category/'&&$items[2]['count']===$siblingCount&&$items[2]['depth']===1,'sibling branch remains unchanged');
+        $check(App\Services\CatalogPath::preferred($parent,$modelY)===$parent,'Model Y wheels stay distinct');
+    }
     $kernel->terminate($request,$response);
 }
-echo "PASS category tree: $checks assertions; reviewed Model Y redirects and SSR renders\n";
+echo "PASS category tree: $checks assertions; reviewed scoped/global redirects and SSR renders\n";

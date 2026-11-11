@@ -36,6 +36,18 @@
   let pending = false;
   let attempt = null;
   const storageKey = 'nc-parts-callback-attempt';
+  const readCart = () => {
+    try {
+      const cart = JSON.parse(localStorage.getItem('nikolacars-parts-cart-v1'));
+      if (!Array.isArray(cart)) return [];
+      return cart.filter(item =>
+        Number.isSafeInteger(item?.id) && item.id > 0
+        && Number.isInteger(item.quantity) && item.quantity > 0 && item.quantity <= 99
+      ).slice(0, 50).map(item => ({product_id: item.id, quantity: item.quantity}));
+    } catch (_) {
+      return [];
+    }
+  };
   try {
     const saved = JSON.parse(sessionStorage.getItem(storageKey));
     if (saved && /^[0-9a-f-]{36}$/i.test(saved.id) && /^\+380\d{9}$/.test(saved.phone)) {
@@ -79,14 +91,18 @@
     if (!/^\+380(39|50|63|66|67|68|73|77|91|92|93|94|95|96|97|98|99)\d{7}$/.test(fullPhone)) {
       show(form.dataset.invalid, true); phone.focus(); return;
     }
-    attempt ||= {id: crypto.randomUUID(), phone: fullPhone};
+    const page = location.origin + location.pathname;
+    attempt ||= {id: crypto.randomUUID(), phone: fullPhone, page, cart: readCart()};
     try { sessionStorage.setItem(storageKey, JSON.stringify(attempt)); } catch (_) {}
     pending = true; submit.disabled = true; phone.readOnly = true; status.hidden = true;
     try {
       const response = await fetch(form.action, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '' },
-        body: JSON.stringify({request_id: attempt.id, phone: attempt.phone, page: location.origin + location.pathname}),
+        body: JSON.stringify({
+          request_id: attempt.id, phone: attempt.phone,
+          page: attempt.page ?? page, cart: attempt.cart,
+        }),
       });
       const result = await response.json().catch(() => ({}));
       if (!response.ok || result.ok !== true) { show(form.dataset.error, true); return; }
