@@ -49,6 +49,7 @@
   @stack('head')
   <link rel="stylesheet" href="{{ asset('assets/css/app.min.css') }}?v=20260822">
   <link rel="stylesheet" href="{{ asset('assets/css/language-switch.css') }}?v=20261008-1">
+  <script src="{{ asset('assets/js/parts-attribution.js') }}" defer></script>
 </head>
 
 <body>

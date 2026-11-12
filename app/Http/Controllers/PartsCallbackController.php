@@ -19,6 +19,10 @@ class PartsCallbackController extends Controller
             'cart.*' => ['required', 'array:product_id,quantity'],
             'cart.*.product_id' => ['required', 'integer', 'between:1,9007199254740991'],
             'cart.*.quantity' => ['required', 'integer', 'between:1,99'],
+            'attribution' => ['sometimes', 'array:gclid,gbraid,wbraid', 'min:1'],
+            'attribution.gclid' => ['sometimes', 'string', 'regex:/\A[A-Za-z0-9_-]{1,512}\z/D'],
+            'attribution.gbraid' => ['sometimes', 'string', 'regex:/\A[A-Za-z0-9_-]{1,512}\z/D'],
+            'attribution.wbraid' => ['sometimes', 'string', 'regex:/\A[A-Za-z0-9_-]{1,512}\z/D'],
         ]);
         $page = parse_url($data['page']);
         $host = strtolower($page['host'] ?? '');
@@ -31,7 +35,7 @@ class PartsCallbackController extends Controller
             $response = $sklad->createPartsCallback([
                 'external_id' => $data['request_id'], 'phone' => $data['phone'], 'page' => $sourcePage,
                 'cart' => $data['cart'] ?? [],
-            ]);
+            ] + array_intersect_key($data, ['attribution' => true]));
             if (! $response->successful() || $response->json('ok') !== true) {
                 Log::warning('Parts callback intake not confirmed.', ['request_id' => $data['request_id'], 'status' => $response->status()]);
 

@@ -92,7 +92,7 @@
       show(form.dataset.invalid, true); phone.focus(); return;
     }
     const page = location.origin + location.pathname;
-    attempt ||= {id: crypto.randomUUID(), phone: fullPhone, page, cart: readCart()};
+    attempt ||= {id: crypto.randomUUID(), phone: fullPhone, page, cart: readCart(), attribution: window.ncPartsAttribution?.()};
     try { sessionStorage.setItem(storageKey, JSON.stringify(attempt)); } catch (_) {}
     pending = true; submit.disabled = true; phone.readOnly = true; status.hidden = true;
     try {
@@ -101,7 +101,7 @@
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '' },
         body: JSON.stringify({
           request_id: attempt.id, phone: attempt.phone,
-          page: attempt.page ?? page, cart: attempt.cart,
+          page: attempt.page ?? page, cart: attempt.cart, attribution: attempt.attribution,
         }),
       });
       const result = await response.json().catch(() => ({}));

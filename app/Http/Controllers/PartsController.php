@@ -63,7 +63,9 @@ class PartsController extends Controller
     public function index(Request $request, SkladStorefrontClient $client): View|RedirectResponse
     {
         if ($request->query('cart') === 'open') {
-            return redirect()->away(rtrim($request->url(), '/').'/#cart', 301);
+            $queryString = http_build_query($request->except('cart'));
+
+            return redirect()->away(rtrim($request->url(), '/').'/'.($queryString !== '' ? '?'.$queryString : '').'#cart', 301);
         }
 
         $locale = $request->route('locale') === 'ru' ? 'ru' : 'uk';
@@ -404,7 +406,9 @@ class PartsController extends Controller
         $productData = $this->withPublicProducts(ProductCatalogFacts::apply($productData, $locale), $locale);
         $catalogPath = $locale === 'ru' ? '/ru/parts/' : '/parts/';
         if ($productSlug !== $canonicalSegment) {
-            return redirect()->away(rtrim(url($catalogPath.$canonicalSegment), '/').'/', 301);
+            $queryString = http_build_query(request()->query());
+
+            return redirect()->away(rtrim(url($catalogPath.$canonicalSegment), '/').'/'.($queryString !== '' ? '?'.$queryString : ''), 301);
         }
 
         $name = trim((string) ($productData['name'] ?? ''));

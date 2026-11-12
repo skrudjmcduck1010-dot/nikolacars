@@ -64,6 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const data = Object.fromEntries(new FormData(form).entries());
     data.request_id = crypto.randomUUID();
     data.items = cart.map(item => ({ product_id: item.id, quantity: item.quantity }));
+    const attribution = window.ncPartsAttribution?.();
+    if (attribution) data.attribution = attribution;
     try {
       const response = await fetch(root.dataset.orderUrl, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json', 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').content }, body: JSON.stringify(data) });
       const result = await response.json();
