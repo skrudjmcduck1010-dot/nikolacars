@@ -1,6 +1,32 @@
 # NikolaCars parts storefront
 
-## 2026-10-29 — dependency security upgrade and cart fix released
+## 2026-11-13, Europe/Kyiv вЂ” retain written-off product detail (local)
+
+The warehouse prepares a detail-only exception for eligible active written_off
+products with exactly zero physical stock. The existing URL returns out_of_stock
+and quantity0, without entering available catalog rows or sold history. Public
+visibility, purchase opt-in, damage and deletion restrictions remain enforced.
+The frontend now labels unavailable detail stock вЂњРќРµС‚ РІ РЅР°Р»РёС‡РёРёвЂќ / вЂњРќРµРјР°С” РІ РЅР°СЏРІРЅРѕСЃС‚С–вЂќ
+in `_product_info.blade.php` and the PartsController SEO description. The existing
+quantity check hides Add to cart; JSON-LD remains OutOfStock. Sold labels remain
+unchanged. The backend rejects direct/stale-cart purchases under its existing guards.
+
+Local checks: all13 PHP regression scripts plus failure probe PASS; routed Chromium
+compatibility20/20 PASS on desktop/mobile in UK/RU. New fixture100003 checks stable
+URL, HTTP200, exact text, absent purchase button and OutOfStock JSON-LD. Existing
+normal-product purchases and missing404 checks pass. No real writes or release.
+Evidence: `.codex-tmp/compat-regressions/run-62dce570a284` and
+`.codex-tmp/cart-e2e/run-hVw96X`. Existing source hunks were preserved.
+
+Status: verified locally. A separately authorized release must publish compatible
+warehouse API first, verify its contract, then these two frontend runtime files.
+Product cache remains fresh300s then deferred refresh on access, hard expiry86400s;
+existing negative-cache recovery404/410/422 tests pass. Code deployment does not
+transfer locally changed stock. Rollback only this task's text changes and the
+warehouse detail exception; never roll back stock/business data.
+
+
+## 2026-10-29 вЂ” dependency security upgrade and cart fix released
 
 The owner approved resolving the dependency gate and releasing the cart fix.
 Released and verified from pushed commit
@@ -78,7 +104,7 @@ log; no new post-release uncaught error was observed. No order, callback, paymen
 warehouse DB import, historical replay or media cleanup was performed. This result
 documentation is a later docs-only checkpoint; released/tested runtime SHA stays9ce135e.
 
-## 2026-10-29 — authorized cart release blocked by dependency audit
+## 2026-10-29 вЂ” authorized cart release blocked by dependency audit
 
 The owner authorized the cart release. Fresh certificate-verified FTPS reads of
 all11 related sources match the reviewed28October baseline exactly; no newer
@@ -102,7 +128,7 @@ release and browser verification without submitting an order. No production
 business data, environment, media or caches were changed. Evidence:
 `C:/Projects/sklad-zapchastey/.codex-tmp/public-cart-release-20261029/`.
 
-## 2026-10-28 — cart repair and permanent browser checks, local only
+## 2026-10-28 вЂ” cart repair and permanent browser checks, local only
 
 The existing source checkout is `C:/Users/Skrudj/OneDrive/Documents/ChatGPT/nikolacars`;
 `C:/Projects/nikolacars` is its existing junction. No second checkout was created.
@@ -209,11 +235,11 @@ costs. Product pages show these conditions and link to that source; return
 markup specifies `ReturnFeesCustomerResponsibility`. Initially, no return method
 was assumed and `shippingDetails` was omitted rather than inventing a carrier
 rate. No fabricated reviews or ratings are added.
-The owner confirmed preparation of 1–16 hours and processing out-of-hours
+The owner confirmed preparation of 1вЂ“16 hours and processing out-of-hours
 orders from 10:00 on the next working day. Localized pages state this separately
-from the carrier's indicative 1–3-day transit after dispatch. Shipping markup
+from the carrier's indicative 1вЂ“3-day transit after dispatch. Shipping markup
 at offer level requires a truthful rate or maximum rate; no zero-cost shipping is assumed.
-Processing and dispatch are Monday–Friday only. Preparation excludes weekends;
+Processing and dispatch are MondayвЂ“Friday only. Preparation excludes weekends;
 orders received after 18:00 on Friday or over the weekend are processed from
 10:00 Monday. Positive saved `length_cm`, `width_cm`, `height_cm` values from
 the warehouse product-detail API are shown as labelled centimetre measurements.
@@ -238,14 +264,14 @@ The existing 14-day window, exclusions and buyer-paid return shipping remain.
 Each product offer's `shippingDetails` references an inline `ShippingService`
 under the seller `Organization`. The Google-supported organization-level
 `ShippingConditions` format permits transit information without a shipping
-rate. It specifies Ukraine and indicative 1–3-day transit; the description
+rate. It specifies Ukraine and indicative 1вЂ“3-day transit; the description
 preserves variable, buyer-paid Nova Poshta tariffs. No fixed price, maximum
 price or free shipping is invented, and part dimensions are not used as packed
 shipping dimensions. This does not promise a numeric delivery price in Search.
 
-Handling is represented as 0–1 working days because Google requires whole-day
-values: the visible 1–16-hour preparation statement is unchanged. Handling
-days are Monday–Friday, with 18:00 cutoff using the current Europe/Kyiv UTC
+Handling is represented as 0вЂ“1 working days because Google requires whole-day
+values: the visible 1вЂ“16-hour preparation statement is unchanged. Handling
+days are MondayвЂ“Friday, with 18:00 cutoff using the current Europe/Kyiv UTC
 offset. This schedule is separate from the carrier's transit time.
 
 References:
@@ -311,13 +337,13 @@ committed locally only, not published to HOSTiQ.
 
 The owner authorized the second narrow SEO release. Four existing localized
 landings were selected from GSC query-to-page observations: Highland wheels and
-hubcaps, number plate brackets, rear brake components, and Model S 2016–2021.
+hubcaps, number plate brackets, rear brake components, and Model S 2016вЂ“2021.
 CategoryCatalogSeo supplies specific metadata and short selection guidance;
-ModelCatalogSeo adds only the existing 2016–2021 Model S generation. Clean hub
+ModelCatalogSeo adds only the existing 2016вЂ“2021 Model S generation. Clean hub
 links expose the three category destinations. Text respects the actual mixed
 assortment: currently available Highland items are hubcaps, not wheel rims.
 
-CatalogPath adds four reviewed parent-to-leaf aliases (two groups × UA/RU).
+CatalogPath adds four reviewed parent-to-leaf aliases (two groups Г— UA/RU).
 Each group was proven by complete nonempty product ID sets on 29 October,
 including both locale variants (5 Highland IDs; 7 plate bracket IDs). Only
 these aliases redirect; official repeated levels elsewhere remain unchanged.
@@ -360,7 +386,7 @@ Status here is local preparation; release_verifier/root records deployment and
 live verification separately. GSC observations through 27 October are baseline
 selection evidence, not a measured ranking effect of this package.
 
-### Independent frontend released and verified — 29 October 2026, 18:33 Kyiv
+### Independent frontend released and verified вЂ” 29 October 2026, 18:33 Kyiv
 
 The eight runtime files were published at16:29:18 UTC from runtime commit
 `857a4aed59f07441f787c6448dddfe118a979868`; documentation successor
@@ -394,14 +420,14 @@ its five-file frontend overlay remain deferred pending the clean-tree
 procedure decision; this independent publication does not claim that fix
 or resolution of the earlier5xx observations.
 
-### Battery normalization released and verified — 29 October 2026, 19:32 Kyiv
+### Battery normalization released and verified вЂ” 29 October 2026, 19:32 Kyiv
 
 The owner explicitly authorized a temporary clean warehouse worktree. Backend
 commit `5d9deca6d9555137e5f717cbff75c829fedd436a` was published by the normal
 release wrapper and returned live at17:22:01UTC. The three catalog services
 normalize the Russian battery root in memory while preserving IDs, quantities,
 raw snapshots and lower taxonomy levels. The fresh audit required the single
-security prerequisite symfony/mime7.4.13→7.4.22; no other packages or manifest
+security prerequisite symfony/mime7.4.13в†’7.4.22; no other packages or manifest
 constraints changed. The backup rotation operator separately gained verified
 FTPS/PROT P in a local-only task commit; it was not deployed as runtime.
 
@@ -441,7 +467,7 @@ report/IAB sources, and this checkout's ignored SEO release directory.
 The earlier deferred-battery status is superseded; ranking changes are not yet measured.
 
 
-## 2026-10-29 — selected category tree and catalog intro cleanup released
+## 2026-10-29 вЂ” selected category tree and catalog intro cleanup released
 
 The owner's explicit approval covered one temporary clean backend checkout and this scoped release. Backend `980fda919993c9d07742b8b5dce25f76ef2f0a46` adds `category_navigation` from complete already-loaded available/sold rows, with pure missing-breadcrumb fallback before filtering. It preserves battery localization and raw snapshots. Counts represent available cards and follow the selected model; roots and the expanded selected branch are returned. The two runtime files were released through the normal wrapper from live5d9deca6, with no dependency/schema change or foreign WIP included.
 
@@ -453,12 +479,12 @@ Live IAB verified all6models/2886available cards at the root, preserved first24t
 
 The clean checkout was removed with native Git without force after independent recovery verification. The pushed task branch remains; all35canonical dirty-file hashes/statuses, original branch and35535c7HEAD are unchanged. Recovery receipts/13DBarchives/codebackup remain outside the removed checkout. Rollback uses the nine frontend before files with own-after guards, then the previous Query through the normal backend wrapper; leave unrelated WIP, battery/Mime, DB, environment, media and durable receipts intact. Local report: mirror `docs/reports/catalog-tree-2026-10-29.md`; private receipts are not committed. Published and verified; no further agreed changes or monitoring scheduled.
 
-## 2026-10-30 — full service SEO package, release prepared
+## 2026-10-30 вЂ” full service SEO package, release prepared
 
 The owner explicitly authorized committing and publishing the reviewed package.
 The frozen scope is27 frontend runtime files plus one regression expectation
 update.44 targeted cards now use individual UA/RU summaries; all52 services have
-3–5 explicit topical links. Metadata and generic/editorial passages are corrected
+3вЂ“5 explicit topical links. Metadata and generic/editorial passages are corrected
 without changing stable URLs. The owner confirmed board/processor repairs and
 crash-lock removal after restoration, including necessary damaged-unit replacement;
 the five corresponding service pairs now describe that scope explicitly.
@@ -482,7 +508,7 @@ Status at this checkpoint: prepared, not yet published. Live result follows in a
 later entry. Private manifests, backups, operator recovery and receipts remain in
 `.codex-tmp/services-release-20261030/`, outside Git.
 
-## 2026-10-30 19:12 Europe/Kyiv — service SEO package published and verified
+## 2026-10-30 19:12 Europe/Kyiv вЂ” service SEO package published and verified
 
 Runtime922095ee890ded8c58d3cda2bf668eebc57c2b73 was pushed and published:
 27 payload files,147 source/protected guards PASS. The full guarded operation
@@ -508,23 +534,23 @@ Status: published and verified. Detailed local report/rollback:
 is superseded. Further phone-widget work and SEO measurement are separate tasks.
 
 
-## 31.10.2026, Europe/Kyiv — online-подпись: опубликовано и проверено live
+## 31.10.2026, Europe/Kyiv вЂ” online-РїРѕРґРїРёСЃСЊ: РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ Рё РїСЂРѕРІРµСЂРµРЅРѕ live
 
-Причина: постоянная «Ми/Мы онлайн» вводила в заблуждение вне графика. Теперь shared parts contact показывает подпись/green dot только пн–пт 10:00–18:00 Europe/Kyiv; hidden по умолчанию, Intl timezone, timer/visibilitychange/pageshow и aria-describedby синхронизированы. Контакты/callback доступны. Root подтвердил scoped выпуск в рамках прямого поручения владельца.
+РџСЂРёС‡РёРЅР°: РїРѕСЃС‚РѕСЏРЅРЅР°СЏ В«РњРё/РњС‹ РѕРЅР»Р°Р№РЅВ» РІРІРѕРґРёР»Р° РІ Р·Р°Р±Р»СѓР¶РґРµРЅРёРµ РІРЅРµ РіСЂР°С„РёРєР°. РўРµРїРµСЂСЊ shared parts contact РїРѕРєР°Р·С‹РІР°РµС‚ РїРѕРґРїРёСЃСЊ/green dot С‚РѕР»СЊРєРѕ РїРЅвЂ“РїС‚ 10:00вЂ“18:00 Europe/Kyiv; hidden РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ, Intl timezone, timer/visibilitychange/pageshow Рё aria-describedby СЃРёРЅС…СЂРѕРЅРёР·РёСЂРѕРІР°РЅС‹. РљРѕРЅС‚Р°РєС‚С‹/callback РґРѕСЃС‚СѓРїРЅС‹. Root РїРѕРґС‚РІРµСЂРґРёР» scoped РІС‹РїСѓСЃРє РІ СЂР°РјРєР°С… РїСЂСЏРјРѕРіРѕ РїРѕСЂСѓС‡РµРЅРёСЏ РІР»Р°РґРµР»СЊС†Р°.
 
-Runtime commit `3f6cf9eabf60599cfffac1a9feaf35ac471f668c` pushed, 4 runtime + browser test в Git; только CSS/JS/contact partial/layout на live. Fresh gates: 4 browser scenarios, 10 PHP regressions + failure sentinel, syntax/encoding/lint/diff, Composer/npm audits 0, 10 offline operator checks PASS. Fresh verified-FTPS baseline 141 + 6 protected, архив 141 members с memberSHA PASS. Guarded stage/atomic promotion/readback: 4 payload / 147 guards PASS, 11:18:25–11:19:22 UTC / 13:18:25–13:19:22 Kyiv. 134 untracked path/SHA сохранены. Независимый FTPS readback 4/4 PASS.
+Runtime commit `3f6cf9eabf60599cfffac1a9feaf35ac471f668c` pushed, 4 runtime + browser test РІ Git; С‚РѕР»СЊРєРѕ CSS/JS/contact partial/layout РЅР° live. Fresh gates: 4 browser scenarios, 10 PHP regressions + failure sentinel, syntax/encoding/lint/diff, Composer/npm audits 0, 10 offline operator checks PASS. Fresh verified-FTPS baseline 141 + 6 protected, Р°СЂС…РёРІ 141 members СЃ memberSHA PASS. Guarded stage/atomic promotion/readback: 4 payload / 147 guards PASS, 11:18:25вЂ“11:19:22 UTC / 13:18:25вЂ“13:19:22 Kyiv. 134 untracked path/SHA СЃРѕС…СЂР°РЅРµРЅС‹. РќРµР·Р°РІРёСЃРёРјС‹Р№ FTPS readback 4/4 PASS.
 
-Root IAB UA/RU в субботу: online скрыт, contact visible/open/close и callback panel, реальный language switch, каталог/фото PASS; формы не отправлялись. Bounded post-smoke log ERROR/CRITICAL/WARNING 0/0/0. DB/env/media/backend/maintenance/data cache/session flush не затронуты. Прежний updateMenuPhone bug вне scope.
+Root IAB UA/RU РІ СЃСѓР±Р±РѕС‚Сѓ: online СЃРєСЂС‹С‚, contact visible/open/close Рё callback panel, СЂРµР°Р»СЊРЅС‹Р№ language switch, РєР°С‚Р°Р»РѕРі/С„РѕС‚Рѕ PASS; С„РѕСЂРјС‹ РЅРµ РѕС‚РїСЂР°РІР»СЏР»РёСЃСЊ. Bounded post-smoke log ERROR/CRITICAL/WARNING 0/0/0. DB/env/media/backend/maintenance/data cache/session flush РЅРµ Р·Р°С‚СЂРѕРЅСѓС‚С‹. РџСЂРµР¶РЅРёР№ updateMenuPhone bug РІРЅРµ scope.
 
-Статус: опубликовано и проверено; прежний LOCAL catalog status superseded. Полный отчёт и rollback: `docs/reports/online-hours-release-2026-10-31.md`. Private receipts/operator/backups: `.codex-tmp/online-hours-release-20261031/`; manifest `697e9a21fc4a404541615ffaff7a2eb1d048ac3103d3dfbcc64bb545f22ff131`. Откат только 4 own runtime в обратном порядке с own-after guards, без DB/env/чужого; rollback не выполнялся. Согласованная работа завершена, следующих согласованных шагов нет.
+РЎС‚Р°С‚СѓСЃ: РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ Рё РїСЂРѕРІРµСЂРµРЅРѕ; РїСЂРµР¶РЅРёР№ LOCAL catalog status superseded. РџРѕР»РЅС‹Р№ РѕС‚С‡С‘С‚ Рё rollback: `docs/reports/online-hours-release-2026-10-31.md`. Private receipts/operator/backups: `.codex-tmp/online-hours-release-20261031/`; manifest `697e9a21fc4a404541615ffaff7a2eb1d048ac3103d3dfbcc64bb545f22ff131`. РћС‚РєР°С‚ С‚РѕР»СЊРєРѕ 4 own runtime РІ РѕР±СЂР°С‚РЅРѕРј РїРѕСЂСЏРґРєРµ СЃ own-after guards, Р±РµР· DB/env/С‡СѓР¶РѕРіРѕ; rollback РЅРµ РІС‹РїРѕР»РЅСЏР»СЃСЏ. РЎРѕРіР»Р°СЃРѕРІР°РЅРЅР°СЏ СЂР°Р±РѕС‚Р° Р·Р°РІРµСЂС€РµРЅР°, СЃР»РµРґСѓСЋС‰РёС… СЃРѕРіР»Р°СЃРѕРІР°РЅРЅС‹С… С€Р°РіРѕРІ РЅРµС‚.
 
 
-## 31.10.2026, Europe/Kyiv — фото рекомендаций: опубликовано и проверено live
+## 31.10.2026, Europe/Kyiv вЂ” С„РѕС‚Рѕ СЂРµРєРѕРјРµРЅРґР°С†РёР№: РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ Рё РїСЂРѕРІРµСЂРµРЅРѕ live
 
-Причина: Google мог выбирать фото рекомендации вместо самой детали. Согласованные три runtime меняют только product-detail рекомендации на CSS backgrounds вместо HTML img: `public/assets/css/parts.css`, `resources/views/parts/_recommendation_cards.blade.php`, `resources/views/layouts/parts.blade.php` (CSS version). Сохранены главная галерея/img/srcset/lightbox, metadata/schema, обычные img каталога, ссылки/доступные названия/цены/корзина. Native loading=lazy для рекомендаций больше нет; фоны могут грузиться раньше, live bytes не измерялись. Новый JS/observer не вводился.
+РџСЂРёС‡РёРЅР°: Google РјРѕРі РІС‹Р±РёСЂР°С‚СЊ С„РѕС‚Рѕ СЂРµРєРѕРјРµРЅРґР°С†РёРё РІРјРµСЃС‚Рѕ СЃР°РјРѕР№ РґРµС‚Р°Р»Рё. РЎРѕРіР»Р°СЃРѕРІР°РЅРЅС‹Рµ С‚СЂРё runtime РјРµРЅСЏСЋС‚ С‚РѕР»СЊРєРѕ product-detail СЂРµРєРѕРјРµРЅРґР°С†РёРё РЅР° CSS backgrounds РІРјРµСЃС‚Рѕ HTML img: `public/assets/css/parts.css`, `resources/views/parts/_recommendation_cards.blade.php`, `resources/views/layouts/parts.blade.php` (CSS version). РЎРѕС…СЂР°РЅРµРЅС‹ РіР»Р°РІРЅР°СЏ РіР°Р»РµСЂРµСЏ/img/srcset/lightbox, metadata/schema, РѕР±С‹С‡РЅС‹Рµ img РєР°С‚Р°Р»РѕРіР°, СЃСЃС‹Р»РєРё/РґРѕСЃС‚СѓРїРЅС‹Рµ РЅР°Р·РІР°РЅРёСЏ/С†РµРЅС‹/РєРѕСЂР·РёРЅР°. Native loading=lazy РґР»СЏ СЂРµРєРѕРјРµРЅРґР°С†РёР№ Р±РѕР»СЊС€Рµ РЅРµС‚; С„РѕРЅС‹ РјРѕРіСѓС‚ РіСЂСѓР·РёС‚СЊСЃСЏ СЂР°РЅСЊС€Рµ, live bytes РЅРµ РёР·РјРµСЂСЏР»РёСЃСЊ. РќРѕРІС‹Р№ JS/observer РЅРµ РІРІРѕРґРёР»СЃСЏ.
 
-Runtime `02dae379938b210d61f5643dc2c476fe2dde48ad` pushed, в Git 3 runtime + 3 isolated tests, в payload только runtime. Fresh local baseline8/8 и after8/8, 10 PHP regressions + failure sentinel, audits0, encoding/lint/diff и 10 operator checks PASS. Root review diff/desktop/mobile screenshots PASS. Verified FTPS baseline141+6protected и rollback archive141members/memberSHA PASS; guarded stage/atomic rename/readback 3payload/147guards PASS, 11:27:15–11:28:14 UTC / 13:27:15–13:28:14 Kyiv. Дополнительный independent readback3/3 PASS; 137 untracked path/SHA сохранены до/после. Maintenance/config/cache/session flush/DB/env/media/warehouse не затронуты.
+Runtime `02dae379938b210d61f5643dc2c476fe2dde48ad` pushed, РІ Git 3 runtime + 3 isolated tests, РІ payload С‚РѕР»СЊРєРѕ runtime. Fresh local baseline8/8 Рё after8/8, 10 PHP regressions + failure sentinel, audits0, encoding/lint/diff Рё 10 operator checks PASS. Root review diff/desktop/mobile screenshots PASS. Verified FTPS baseline141+6protected Рё rollback archive141members/memberSHA PASS; guarded stage/atomic rename/readback 3payload/147guards PASS, 11:27:15вЂ“11:28:14 UTC / 13:27:15вЂ“13:28:14 Kyiv. Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Р№ independent readback3/3 PASS; 137 untracked path/SHA СЃРѕС…СЂР°РЅРµРЅС‹ РґРѕ/РїРѕСЃР»Рµ. Maintenance/config/cache/session flush/DB/env/media/warehouse РЅРµ Р·Р°С‚СЂРѕРЅСѓС‚С‹.
 
-Root IAB UA/RU detail1758309: recommendations0HTMLimages/7backgrounds, главное фото/og сохранены; первые4 фото визуально PASS, carousel next и реальные language/recommendation links PASS. Собственная галерея другой детали остаётся4обычныхimg660/360 с собственным og:image. Live bytes/status не измерены, формы/корзина не менялись. Bounded post-smoke log ERROR0/CRITICAL0/WARNING3:3slow warehouse HTTP200; прежний updateMenuPhone TypeError вне scope.
+Root IAB UA/RU detail1758309: recommendations0HTMLimages/7backgrounds, РіР»Р°РІРЅРѕРµ С„РѕС‚Рѕ/og СЃРѕС…СЂР°РЅРµРЅС‹; РїРµСЂРІС‹Рµ4 С„РѕС‚Рѕ РІРёР·СѓР°Р»СЊРЅРѕ PASS, carousel next Рё СЂРµР°Р»СЊРЅС‹Рµ language/recommendation links PASS. РЎРѕР±СЃС‚РІРµРЅРЅР°СЏ РіР°Р»РµСЂРµСЏ РґСЂСѓРіРѕР№ РґРµС‚Р°Р»Рё РѕСЃС‚Р°С‘С‚СЃСЏ4РѕР±С‹С‡РЅС‹С…img660/360 СЃ СЃРѕР±СЃС‚РІРµРЅРЅС‹Рј og:image. Live bytes/status РЅРµ РёР·РјРµСЂРµРЅС‹, С„РѕСЂРјС‹/РєРѕСЂР·РёРЅР° РЅРµ РјРµРЅСЏР»РёСЃСЊ. Bounded post-smoke log ERROR0/CRITICAL0/WARNING3:3slow warehouse HTTP200; РїСЂРµР¶РЅРёР№ updateMenuPhone TypeError РІРЅРµ scope.
 
-Статус: опубликовано и проверено; прежний LOCAL catalog status superseded. Google/SERP результат не проверен и не гарантирован: новый HTML должен быть повторно обработан Google, requests indexing/GSC/automations не запускались. Полный отчёт/ограничения/откат: `docs/reports/recommendation-preview-release-2026-10-31.md`; private evidence/operator/backups `.codex-tmp/recommendation-preview-release-20261031/`, manifest `261d1bec876523c15f05fff6ef04173a2d2c13d2ac960614c4f01890f3ab0598`. Откат только 3 own runtime в обратном порядке с own-after guards, без DB/env/media/чужого. Работа завершена, дальнейших согласованных действий нет.
+РЎС‚Р°С‚СѓСЃ: РѕРїСѓР±Р»РёРєРѕРІР°РЅРѕ Рё РїСЂРѕРІРµСЂРµРЅРѕ; РїСЂРµР¶РЅРёР№ LOCAL catalog status superseded. Google/SERP СЂРµР·СѓР»СЊС‚Р°С‚ РЅРµ РїСЂРѕРІРµСЂРµРЅ Рё РЅРµ РіР°СЂР°РЅС‚РёСЂРѕРІР°РЅ: РЅРѕРІС‹Р№ HTML РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ РїРѕРІС‚РѕСЂРЅРѕ РѕР±СЂР°Р±РѕС‚Р°РЅ Google, requests indexing/GSC/automations РЅРµ Р·Р°РїСѓСЃРєР°Р»РёСЃСЊ. РџРѕР»РЅС‹Р№ РѕС‚С‡С‘С‚/РѕРіСЂР°РЅРёС‡РµРЅРёСЏ/РѕС‚РєР°С‚: `docs/reports/recommendation-preview-release-2026-10-31.md`; private evidence/operator/backups `.codex-tmp/recommendation-preview-release-20261031/`, manifest `261d1bec876523c15f05fff6ef04173a2d2c13d2ac960614c4f01890f3ab0598`. РћС‚РєР°С‚ С‚РѕР»СЊРєРѕ 3 own runtime РІ РѕР±СЂР°С‚РЅРѕРј РїРѕСЂСЏРґРєРµ СЃ own-after guards, Р±РµР· DB/env/media/С‡СѓР¶РѕРіРѕ. Р Р°Р±РѕС‚Р° Р·Р°РІРµСЂС€РµРЅР°, РґР°Р»СЊРЅРµР№С€РёС… СЃРѕРіР»Р°СЃРѕРІР°РЅРЅС‹С… РґРµР№СЃС‚РІРёР№ РЅРµС‚.

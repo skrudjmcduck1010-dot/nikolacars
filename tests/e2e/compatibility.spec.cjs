@@ -54,6 +54,19 @@ for (const locale of ['uk', 'ru']) {
       await expect(modal).toBeVisible();
     });
 
+    test('written-off product keeps its URL and cannot be added to the basket', async ({ page }) => {
+      const response = await page.goto(prefix + '/parts/written-off-100003/');
+      expect(response.status()).toBe(200);
+      await expect(page).toHaveURL(new RegExp(prefix + '/parts/written-off-100003/$'));
+      await expect(page.locator('.product-detail-stock')).toHaveText(locale === 'ru' ? 'Нет в наличии' : 'Немає в наявності');
+      await expect(page.locator('[data-product-add]')).toHaveCount(0);
+      await expect(page.locator('.product-sold-badge')).toHaveCount(0);
+      const schemas = await page.locator('script[type="application/ld+json"]').evaluateAll(nodes => nodes.map(node => JSON.parse(node.textContent)));
+      const product = schemas.flatMap(schema => schema['@graph'] || [schema]).find(schema => schema['@type'] === 'Product');
+      expect(product.offers.availability).toBe('https://schema.org/OutOfStock');
+      await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', new RegExp(locale === 'ru' ? 'Нет в наличии' : 'Немає в наявності'));
+    });
+
     test('missing product goes through Laravel and remains HTTP404', async ({ page }) => {
       const response = await page.goto(prefix + '/parts/missing-fixture-999999/');
       expect(response.status()).toBe(404);

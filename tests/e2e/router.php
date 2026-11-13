@@ -67,6 +67,12 @@ Illuminate\Support\Facades\Http::fake(function ($request) use ($recommendationPr
             'id' => 100002, 'url_slug' => 'recommendation-100002',
         ]));
     }
+    if (parse_url($request->url(), PHP_URL_PATH) === '/api/storefront/v1/products/100003') {
+        return Illuminate\Support\Facades\Http::response(array_replace(compatibilityProductFixture($query['locale'] ?? 'uk'), [
+            'id' => 100003, 'url_slug' => 'written-off-100003', 'part_number' => 'WRITTEN-OFF',
+            'quantity' => 0, 'availability_status' => 'out_of_stock',
+        ]));
+    }
     return Illuminate\Support\Facades\Http::response(['message' => 'Unknown synthetic endpoint'], 404);
 });
 Illuminate\Support\Facades\Route::get('/__cart_e2e/no-modal/', function () {

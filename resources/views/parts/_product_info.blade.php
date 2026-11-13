@@ -19,7 +19,7 @@
         @endif
       </div>
     @endif
-    <div class="product-detail-stock{{ $isSold ? ' is-sold' : '' }}">{{ $isSold ? 'Продано' : ($hasStock ? (($isRu ? 'В наличии' : 'В наявності').': '.$product['quantity']) : ($isRu ? 'Временно нет в наличии' : 'Тимчасово немає в наявності')) }}</div>
+    <div class="product-detail-stock{{ $isSold ? ' is-sold' : '' }}">{{ $isSold ? 'Продано' : ($hasStock ? (($isRu ? 'В наличии' : 'В наявності').': '.$product['quantity']) : ($isRu ? 'Нет в наличии' : 'Немає в наявності')) }}</div>
     @if(!$isSold && $hasPrice && $hasStock)<button
       type="button"
       data-product-add

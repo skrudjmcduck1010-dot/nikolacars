@@ -443,7 +443,7 @@ class PartsController extends Controller
             ? ($locale === 'ru' ? 'Запчасть продана.' : 'Запчастину продано.')
             : ($hasStock
                 ? ($locale === 'ru' ? 'В наличии в NikolaCars, Киев.' : 'В наявності у NikolaCars, Київ.')
-                : ($locale === 'ru' ? 'Временно нет в наличии.' : 'Тимчасово немає в наявності.'));
+                : ($locale === 'ru' ? 'Нет в наличии.' : 'Немає в наявності.'));
         $seoDescription = $productTitle.', '.mb_strtolower($articleLabel).' '.$article.' — '.$priceDescription.'. '.$availabilityDescription;
         if (! empty($productData['reviewed_fitment'])) {
             $seoDescription = $productTitle.' — '.$articleDisplay.'. '.$productData['compatibility'].'.';
