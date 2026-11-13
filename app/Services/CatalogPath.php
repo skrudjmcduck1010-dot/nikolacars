@@ -7,6 +7,7 @@ final class CatalogPath
     // Only reviewed equivalent landing pages. Taxonomy levels and IDs stay intact.
     // Full non-empty product sets were checked in both locales on 2026-10-27;
     // Model Y wires and front/rear axles were independently rechecked on 2026-11-02.
+    // Global and Model S 2016-2021 wheel parent/leaf sets were rechecked on 2026-11-08.
     // Prefer the existing leaf (Google already selected it for Model 3 pedals).
     // Battery paths are excluded: their UA/RU inventories do not match.
     private const PREFERRED_PATHS = [
@@ -26,11 +27,17 @@ final class CatalogPath
             'visokovoltna-sistema/bortovii-zariadnii-modul-cardzer' => 'visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer',
             'vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer' => 'vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer',
         ],
+        'model-s-04-2016-01-2021' => [
+            'diski-i-sini/diski' => 'diski-i-sini/diski/diski',
+            'diski-i-siny/diski' => 'diski-i-siny/diski/diski',
+        ],
         'model-3-highland-01-2024' => [
             'diski-i-sini/diski' => 'diski-i-sini/diski/diski',
             'diski-i-siny/diski' => 'diski-i-siny/diski/diski',
         ],
         '' => [
+            'diski-i-sini/diski' => 'diski-i-sini/diski/diski',
+            'diski-i-siny/diski' => 'diski-i-siny/diski/diski',
             'galma/pedal-galma' => 'galma/pedal-galma/pedal-galma',
             'tormoza/pedal-tormoza' => 'tormoza/pedal-tormoza/pedal-tormoza',
             'zadnii-motor/zadni-pivosi' => 'zadnii-motor/zadni-pivosi/zadni-pivosi',

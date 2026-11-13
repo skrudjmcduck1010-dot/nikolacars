@@ -1,5 +1,53 @@
 # Проверка и выпуск NikolaCars
 
+## 13.11.2026 20:06 Europe/Kyiv — проверка общего Git checkpoint
+
+По прямому поручению владельца проверены все накопленные tracked/untracked
+изменения сайта перед commit/push текущей codex/parts-storefront. Scope:
+callback cart/attribution, сохранение click query при redirects, canonical wheel
+aliases, восстановление отрицательного product cache, stock/SKU labels и отчёты.
+Свежие локальные проверки: 13 PHP regression scripts + intentional failure
+sentinel PASS; полный Playwright desktop/mobile 70/70 PASS; git diff --check PASS.
+Evidence: .codex-tmp/compat-regressions/run-a95bbe01abb9/ и последний
+.codex-tmp/cart-e2e/last-run.json. Проверены новые текстовые источники на секреты;
+обнаруженные телефоны — публичные контакты либо синтетическая тестовая фикстура.
+Два исходных GSC ZIP (crawl-5xx.zip, performance.zip) сохранены локально и
+исключены .gitignore; распакованные CSV и аналитические JSON сохраняются в Git.
+Секреты, backup/private receipts и временные runtime остаются вне коммита.
+Fetch origin подтвердил отсутствие входящих изменений текущей ветки; два ранее
+локальных коммита также входят в запрошенный push. Live/БД/бизнес-данные в этой
+задаче не менялись. Статус: проверено, подготовлено к commit/push; итоговый SHA
+и remote equality проверяются после отправки. Откат кода — отдельный revert
+checkpoint; production rollback этим поручением не выполняется.
+
+## 2026-11-13 18:49 Europe/Kyiv — unavailable detail label released
+
+Explicit owner authorization; compatible warehouse7d9b7a1c was released first.
+Site runtime from pushed commit `09ba749e02056a43f3dd50af3dd0902567dd102c`
+(implementation a9a3f29; final docs encoding correction09ba749) was published with
+reviewed scoped FTPS operator. Only PartsController and `_product_info.blade.php`
+changed: RU “Нет в наличии”, UA “Немає в наявності”. Existing stock purchase guard,
+OutOfStock schema, sold semantics and attribution remain intact. No dependencies,
+cache clearing, config, environment, database or business actions were changed.
+
+Clean existing release checkout based13cadbf, canonical WIP preserved. Fresh13 PHP
+regressions +failure probe, Chromium20/20 desktop/mobile RU/UA, operator10/10 PASS;
+Composer/npm audits clean. Exact2 payload files,13 before/after guards and independent
+readback PASS. Frozen manifest `a96bbb42d7f4325316cab44a6be2a1f7692c5bf4a898ded203d3c1246fa06082`.
+Verified9-file rollback archive and private staged before bytes are in
+`.codex-tmp/written-off-release-20261113/`; publish-receipt records exact hashes.
+Bounded fresh log ERROR0/CRITICAL0/WARNING0. Synthetic zero-stock fixture100003
+checks stable200 URL, text, absent purchase controls and OutOfStock JSON-LD.
+
+Real81293 is in_stock1, confirmed live admin, and correctly remains available.
+Fresh warehouse backup has no written_off product row; no real zero-stock example
+was created. Code deployment never changes stock. Canonical source/test WIP remains
+byte-identical; only these task release documentation sections were added.
+Rollback: same scoped operator `rollback` with frozen manifest and own-after guards,
+restoring the two verified before files; no DB restoration. Status: published,
+byte-verified; live unavailable example limited by actual inventory data.
+
+
 ## 2026-10-27, Europe/Kiev (UTC+02:00) — виджет контактов разборки
 
 Причина: меню связи из общего раздела СТО отсутствовало в layout каталога
@@ -677,3 +725,140 @@ PASS без их исполнения; поиск литералов credentials
 Следующий шаг — проверить созданный коммит и чистое состояние рабочего дерева.
 Откат локального checkpoint при отдельном поручении — git revert с сохранением
 последующих изменений; ранее опубликованные версии на хостинге этим не меняются.
+
+## 05.11.2026, 13:10:00 Europe/Kyiv — редиректы категорий Tesla Model Y выпущены
+
+По поручению владельца опубликован app/Services/CatalogPath.php из 2d685efdabc5c0246bbe61ae05b299b43ad6c83f, ветка codex/model-y-seo-aliases-20261102. В UA и RU прежние адреса высоковольтных проводов, передних и задних полуосей переходят на конечные категории той же модели и локали. Свежий FTPS подтвердил, что очистка кеша и исправление карточек уже совпадают с Git. Их не включали в этот пакет.
+
+Свежий PHP lint, 13 локальных регрессий и контроль намеренного падения прошли. Проверенный FTPS-оператор сравнил 7 исходников перед переключением, сохранил исходные байты и опубликовал один файл с проверкой SHA. Независимая FTPS-сессия повторно сверила все 7 файлов. Во встроенном браузере все 6 прежних адресов дали ожидаемые конечные URL, заголовки Model Y и 2, 6, 12 карточек соответственно в каждой локали. Браузерная проверка фиксирует результат перехода. Код редиректа и сохранение query проверены локальной регрессией.
+
+Квитанции и оператор в .codex-tmp/all-live-site-20261105/. SHA-256 архива исходников 6d4f09b2a62913e15a8c848e6b04c84b92b220db0bc0dce7f10ea131e8668535. Для отката одного файла используется operate.py rollback с SHA-256 манифеста b1eb805b6aac0c5a612a970cf3540b03e9a35e561d9552c11b9bd48428524365. Оператор сверяет свой опубликованный SHA и исходные байты. Статус — опубликовано и проверено.
+
+Отдельная проверка состояния зависимостей после выпуска показала Symfony HTTP Foundation, HTTP Kernel и Routing 7.4.22 в live composer.lock и в установленном vendor. Эти пакеты входят в выпущенные 4 ноября advisory, исправленные в 7.4.23. Этот файловый релиз не менял зависимости. Состояние версий сохранено в .codex-tmp/all-live-site-20261105/symfony-live-versions.json.
+
+
+### 05.11.2026, Europe/Kyiv — проверка карточек после backend-выпуска
+
+После выпуска склада 0be0065c координатор подтвердил статус «Продано» и отсутствие кнопки заказа для 74856, 101669 и 103760 в обеих локалях. Для 108286 русская карточка сразу отобразилась, украинская сначала вернула 404. FTPS показал в отдельном украинском ключе прежний ответ upstream 422 от 04.11 в 23:11:58 по Киеву. Витрина отображает его как 404. Laravel flexible по умолчанию не выполняет отложенное обновление после ответа 4xx.
+
+Из активного кеша перемещены только value и timestamp украинского ключа 108286. Оба файла сверены SHA до операции и после переноса в приватное хранилище, исходные байты сохранены локально. Квитанция sku108286-cache-invalidation.json находится в .codex-tmp/all-live-site-20261105/. Повторная проверка браузером подтвердила 108286 в обеих локалях, canonical, «Продано» и отсутствие кнопки заказа. Общий результат 8/8. Контрольный 113659 ожидаемо остался 404 в обеих локалях.
+
+
+## 06.11.2026, 09:56:50 Europe/Kyiv — Symfony 7.4.23 на сайте
+
+Опубликован `e90149572bafb95ee51999255a9a018fadda1314` из `codex/site-symfony-7-4-23-20261106`. Git-delta состоит из composer.lock. В production обновлены HTTP Foundation, HTTP Kernel и Routing с 7.4.22 до 7.4.23. Полный аудит также обнаружил advisory у dev-only Symfony YAML, поэтому обновлена его запись в lock. Production vendor собран без dev-зависимостей. [HTTP Foundation](https://symfony.com/cve-2026-118514) · [HTTP Kernel](https://github.com/symfony/symfony/security/advisories/GHSA-wg5q-m2ww-f3c9) · [Routing](https://symfony.com/cve-2026-118516) · [YAML](https://github.com/symfony/symfony/security/advisories/GHSA-hwfg-qwvh-2wfx).
+
+Локально прошли строгая Composer-валидация, проверка платформы, полный аудит без находок, 13 PHP-регрессий с контрольным падением и 62/62 Playwright. На отдельной фикстуре оператор подтвердил отказ на чужих байтах, обязательное ожидание, переключение, проверку OPcache перед открытием и точный откат. На хостинге PHP 8.3.36/LiteSpeed приватная Composer-сборка подтвердила 76 точных пакетов, платформу и production audit без находок. При первой подготовке серверная сверка через process substitution остановилась до режима обслуживания. После замены на сверку с промежуточным файлом проверены те же подготовленные байты и архив, затем получен PREPARED.
+
+До переключения архив отката независимо прочитан по FTPS. Проверены gzip, безопасные tar-пути и SHA всех 6 024 файлов. Архив 4 585 002 байта, SHA-256 `d35d961d08f9a4e048dc32725bec7572f50059bc3709ac0e6322ee4226ca0639`. Разница деревьев vendor составляет 18 файлов и ограничена тремя пакетами Symfony и метаданными Composer. Получены квитанции входа в режим обслуживания в 09:53:44.689 и открытия в 09:56:50.886. Выполнены Laravel package discovery, очистка только скомпилированных Blade-шаблонов и web OPcache reset. Сайт открылся с исходными байтами hosting index. Кеш данных, сессии и медиа исключены из операторского состава.
+
+Сервер проверил всё опубликованное дерево vendor по staged SHA. Независимое чтение после релиза подтвердило lock, исходные composer.json и hosting index, все 76 установленных версий и Git-референсов и семь контрольных файлов vendor. Временный HTTPS runner и его токен удалены, отсутствие подтверждено новой FTPS-сессией. В последних 256 КиБ Laravel журнала до 09:57:23 после открытия нет ERROR/CRITICAL, есть девять медленных ответов склада с HTTP 200.
+
+Во встроенном браузере прошли все 11 проверок, включая /up, UA/RU главные, каталоги, карточки 84592, списки услуг и два редиректа проводов Model Y. Товар 84592 добавился в украинскую корзину по 930 грн и удалился до пустого состояния. Заказ не отправлялся. Склад исключён из выпуска.
+
+Квитанции, старый vendor, архив и проверенный оператор сохранены в приватной серверной стадии и в локальной папке `.codex-tmp/site-symfony-20261106/` в соответствующем составе. При необходимости отката переиздать временный runner с новым токеном из сохранённых шаблонов, сверить точные live SHA, выполнить `regate` с 180-секундным ожиданием, `restore`, `reset` и `restore-open`. Откат возвращает предыдущие vendor и lock и требует повторной проверки сайта. Статус — опубликовано и проверено.
+
+## 09.11.2026, 18:20:46 Europe/Kyiv — подпись складского кода опубликована
+
+По прямому поручению владельца выпущен только `resources/views/parts/_product_info.blade.php`:
+в строке под H1 SKU теперь подписан «Код склада: » в RU и «Код складу: » в UA.
+Причина — вероятное распознавание Google кода `RON64-0109` как диапазона 64–109 RON.
+Цена, данные SKU/MPN, JSON-LD и прочие элементы сохранены. Изменение выдачи Google
+после повторного обхода не проверено и не гарантировано; действий в GSC не было.
+
+Task-only commit `7a400c47fa0dd248dfb278562250dc0e8fda9a0c` опубликован в Git
+ветке `codex/sku-label-20261109` из существующего чистого isolated checkout.
+Canonical HEAD и чужие WIP сохранены по status/SHA-ledger; в production попал
+один шаблон, фактический live-relative diff — одна строка. Склад не затронут.
+Свежие проверки: 13 PHP-регрессий и контроль намеренного падения; 8 изолированных
+отрисовок UA/RU (SKU есть/отсутствует/пустой/со спецсимволами); 10 offline тестов
+оператора; PHP lint/diff; Composer production и npm audits без находок.
+
+Verified FTPS подтвердил baseline; архив пяти исходников проверен по каждому
+SHA и составу, 24 685 байт, SHA-256
+`de6891a5ae1ee9cfaee9220d252ae5595182877fe32107184c2577bd465eb0c4`.
+Guard пяти исходников и четырёх защищённых файлов прошёл до staging, перед
+переключением, после и в отдельной FTPS-сессии. TLS verification, private
+candidate/before stage, immediate pre-rename SHA и readback сохранены.
+Публикация: 16:20:40–16:20:46 UTC / 18:20:40–18:20:46 Kyiv.
+Maintenance, кеш данных/сессии, зависимости, БД, настройки и медиа не менялись.
+В bounded 256 КиБ журнала после IAB на 16:23:25 UTC последняя запись 16:18:15 UTC;
+пострелизных записей в выборке нет, это не доказательство общего uptime.
+
+Квитанции/оператор/архив: `.codex-tmp/sku-label-release-20261109/`.
+Frozen manifest SHA-256 `d312ccb33773c8fe9b8f47ef723e00e53b2d914691ae7a36a080ba23bf4b9c43`.
+Before шаблона: `fdafe8ff5bb510b2649752b6ef5cf93cbbed1b79be496907ec82f9652f9bc9b9`;
+after: `8c399a2143d301f0eec3ebdef301d723a99a6a2288730c25ab835cf0952527bf`.
+Откат только шаблона: Python `operate.py rollback` с указанным manifest SHA,
+own-after guard и проверенным before; неизвестные байты блокируют замену.
+Откат не выполнялся. Основной агент независимо проверил IAB обеих локалей
+и реальный переход UA→RU: под H1 подписи локализованы, в финальном состоянии
+цена 100 грн, Product `sku=RON64-0109`, `mpn=1060012-00-D`, Offer `100.00 UAH`.
+На первом RU GET подпись уже была новой, но цена показывалась «Цену уточняйте»
+без Product schema; после одного обычного reload появились 100 грн и правильный
+Offer. Это совместимо с обновлением устаревшего кеша, но внутренняя причина
+не установлена; ручного сброса кеша не было. Снимки `live-ua.jpg` и `live-ru.jpg`
+сохранены в папке выпуска; формы и заказы не отправлялись.
+Статус — опубликовано и проверено live UA/RU. Согласованных дальнейших действий нет.
+
+## 11.11.2026, 16:10:49 Europe/Kyiv — корзина callback, восстановление 404 и диски опубликованы
+
+По прямому поручению владельца выпущены все пять оставшихся runtime-изменений
+сайта. `PartsCallbackController.php`, `parts-contact.js` и contact partial передают
+снимок корзины в заявку на звонок; повтор использует прежний снимок и ID.
+`PartsController.php` обновляет устаревший отрицательный кеш после ответа 404.
+`CatalogPath.php` направляет четыре проверенных UA/RU parent URL дисков
+(общая область и Model S 04.2016–01.2021) на существующие конечные категории.
+Прежние записи «локально, не опубликовано» от 8 ноября для этих изменений
+заменены данным результатом. Код склада выпущен отдельно; callback-контракт
+уже был на live и подтверждён до публикации сайта.
+
+Task-only commit `c0f64e44eb905fc298745ab4e4be7e70ebe7ed8b` pushed в
+`codex/site-pending-release-20261111` из существующего isolated checkout:
+пять runtime и три связанных теста. В production вошли только runtime.
+Основа `7a400c4` сохраняет опубликованную подпись SKU и Symfony 7.4.23.
+Основная ветка `eadfd48`, её текущие исходники и посторонние документы сохранены
+по status/SHA ledger. Новый worktree не создавался.
+
+Свежие проверки PASS: 13 PHP-регрессий и контроль намеренного падения;
+52/52 browser (callback, cart, routed compatibility; skipped/flaky 0);
+восемь proxy-проверок с подменённым транспортом (cart, старый запрос без cart,
+шесть невалидных вариантов без upstream-вызова); 10 offline tests оператора;
+PHP/JS syntax, diff, encoding 8/0 и сканирование известных секретов 0.
+Composer production и npm audits — 0 находок. Категории проверены 495
+утверждениями; восстановление кеша проверяется через настоящий HTTP kernel
+на синтетических ответах, без изменения реальных складских данных.
+
+Fresh certificate-verified FTPS подтвердил 13 исходников и четыре защищённых
+файла, включая сохранение live lock, hosting index и environment. Архив отката
+содержит 13 обычных файлов; состав и SHA каждого проверены. Размер 37 595 байт,
+SHA-256 `b99c2bb4907a1f2f6e4ec65392a0f3f3586397b12af0ec91dabe3a0c6ba3b66f`.
+Guarded private staging, повторные guards, immediate-before SHA, атомарные
+переименования и readback завершены 16:10:40–16:10:49 Kyiv. Все пять payload
+и 17 guards PASS; отдельная FTPS-сессия независимо повторила 17/17 PASS.
+Зависимости, БД, environment, media, maintenance, data cache и sessions
+этим frontend-выпуском не менялись и не очищались.
+
+Основной агент проверил IAB в 16:11–16:13 Kyiv: четыре alias открыли точные
+конечные URL с собственным canonical и верным H1. Это DOM-проверка назначения;
+HTTP 301 здесь не измерялся, код редиректа и query покрыты локальной регрессией.
+Каталог загружает `parts-contact.js?v=20261108-callback-cart-1`; первые пять
+изображений загружены. Карточка 84733 и реальный переход UA→RU сохранили
+заголовок, canonical, локализованный SKU и фото. Одна деталь по 3130 грн
+добавлена в браузерную корзину и удалена до пустого состояния. Панель callback
+открыта и закрыта в UA/RU, телефон не вводился, формы и заказы не отправлялись.
+`/up` показывает Application up. В bounded 256 КиБ журнала до 16:13:14 Kyiv
+после выпуска ERROR/CRITICAL 0/0, WARNING 10 — все медленные чтения склада
+с HTTP 200. Это не доказательство отсутствия ошибок за пределами выборки.
+
+Квитанции, manifest, исходники отката, тестовые результаты и оператор сохранены
+в `.codex-tmp/site-pending-release-20261111/`. Frozen manifest SHA-256:
+`9189e0f1f672d4af95da08af64042c3218cb6c6d16b9d841858108d8ceacfe74`.
+Откат только пяти файлов выполняется `operate.py rollback` с этим SHA,
+сверкой own-after и проверенными before bytes в обратном порядке. БД,
+зависимости, кеш и чужой код не восстанавливаются. Откат не выполнялся.
+Статус — опубликовано и проверено live; согласованных дальнейших шагов нет.
+Изменение индекса Google и реальная доставка callback в этом выпуске
+не проверялись; отправка заявок, GSC validation и requests indexing не выполнялись.
+
+Live root IAB after publish: UA/RU81293 open with exact SKU DON4-2353 and quantity1, matching admin. No purchase or stock action. Real written_off UI limitation remains as documented.

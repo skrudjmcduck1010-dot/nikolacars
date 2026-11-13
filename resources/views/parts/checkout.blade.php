@@ -40,5 +40,5 @@
 @endsection
 @push('scripts')
 <script>window.checkoutI18n = @json(['orderError' => $isRu ? 'Не удалось оформить заказ.' : 'Не вдалося оформити замовлення.', 'required' => $isRu ? 'Заполните обязательные поля.' : 'Заповніть обов’язкові поля.', 'success' => $isRu ? 'Номер вашего заказа: :number. Мы свяжемся с вами для подтверждения.' : 'Номер вашого замовлення: :number. Ми зв’яжемося з вами для підтвердження.']);</script>
-<script src="{{ asset('assets/js/checkout.js') }}?v=20261018-after-hours-order" defer></script>
+<script src="{{ asset('assets/js/checkout.js') }}?v=20261112-ad-click" defer></script>
 @endpush

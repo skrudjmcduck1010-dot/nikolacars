@@ -1,5 +1,81 @@
 # NikolaCars parts storefront
 
+## 2026-11-13 18:49 Europe/Kyiv — unavailable detail label released
+
+Explicit owner authorization; compatible warehouse7d9b7a1c was released first.
+Site runtime from pushed commit `09ba749e02056a43f3dd50af3dd0902567dd102c`
+(implementation a9a3f29; final docs encoding correction09ba749) was published with
+reviewed scoped FTPS operator. Only PartsController and `_product_info.blade.php`
+changed: RU “Нет в наличии”, UA “Немає в наявності”. Existing stock purchase guard,
+OutOfStock schema, sold semantics and attribution remain intact. No dependencies,
+cache clearing, config, environment, database or business actions were changed.
+
+Clean existing release checkout based13cadbf, canonical WIP preserved. Fresh13 PHP
+regressions +failure probe, Chromium20/20 desktop/mobile RU/UA, operator10/10 PASS;
+Composer/npm audits clean. Exact2 payload files,13 before/after guards and independent
+readback PASS. Frozen manifest `a96bbb42d7f4325316cab44a6be2a1f7692c5bf4a898ded203d3c1246fa06082`.
+Verified9-file rollback archive and private staged before bytes are in
+`.codex-tmp/written-off-release-20261113/`; publish-receipt records exact hashes.
+Bounded fresh log ERROR0/CRITICAL0/WARNING0. Synthetic zero-stock fixture100003
+checks stable200 URL, text, absent purchase controls and OutOfStock JSON-LD.
+
+Real81293 is in_stock1, confirmed live admin, and correctly remains available.
+Fresh warehouse backup has no written_off product row; no real zero-stock example
+was created. Code deployment never changes stock. Canonical source/test WIP remains
+byte-identical; only these task release documentation sections were added.
+Rollback: same scoped operator `rollback` with frozen manifest and own-after guards,
+restoring the two verified before files; no DB restoration. Status: published,
+byte-verified; live unavailable example limited by actual inventory data.
+
+
+## 2026-11-13, Europe/Kyiv — retain written-off product detail (local)
+
+The warehouse prepares a detail-only exception for eligible active written_off
+products with exactly zero physical stock. The existing URL returns out_of_stock
+and quantity0, without entering available catalog rows or sold history. Public
+visibility, purchase opt-in, damage and deletion restrictions remain enforced.
+The frontend now labels unavailable detail stock “Нет в наличии” / “Немає в наявності”
+in `_product_info.blade.php` and the PartsController SEO description. The existing
+quantity check hides Add to cart; JSON-LD remains OutOfStock. Sold labels remain
+unchanged. The backend rejects direct/stale-cart purchases under its existing guards.
+
+Local checks: all13 PHP regression scripts plus failure probe PASS; routed Chromium
+compatibility20/20 PASS on desktop/mobile in UK/RU. New fixture100003 checks stable
+URL, HTTP200, exact text, absent purchase button and OutOfStock JSON-LD. Existing
+normal-product purchases and missing404 checks pass. No real writes or release.
+Evidence: `.codex-tmp/compat-regressions/run-62dce570a284` and
+`.codex-tmp/cart-e2e/run-hVw96X`. Existing source hunks were preserved.
+
+Status: verified locally. A separately authorized release must publish compatible
+warehouse API first, verify its contract, then these two frontend runtime files.
+Product cache remains fresh300s then deferred refresh on access, hard expiry86400s;
+existing negative-cache recovery404/410/422 tests pass. Code deployment does not
+transfer locally changed stock. Rollback only this task's text changes and the
+warehouse detail exception; never roll back stock/business data.
+
+## 2026-11-12 — storefront click attribution released
+
+After the warehouse migration completed, scoped commit `13cadbfd10707f2b5722e00674a0b0dc1497b916`
+was published. All 11 payload files matched their frozen hashes after promotion.
+The browser confirmed the checkout and attribution scripts at
+`nikolacars.kiev.ua/parts/checkout/`. The `nikolacars.com.ua` domain serves
+the Prom storefront. A real paid and issued order with a click ID remains
+necessary to verify the conversion end to end.
+
+## 2026-11-12 — Google Ads click identifiers for storefront requests (local)
+
+The storefront captures `gclid`, `gbraid` and `wbraid` on landing and
+keeps the latest valid set within the same browser tab and origin. Product
+canonical redirects and the cart shortcut preserve query parameters.
+Checkout and the parts callback send an optional `attribution` object.
+The callback retry retains the original request ID and attribution. Its
+source page still contains only the origin and path.
+
+The browser tests cover the product redirect, checkout and callback payloads
+on desktop and mobile. The warehouse owns persistence and the link to the
+order or callback lead. Local changes only. A future release requires the
+compatible warehouse API before the storefront.
+
 ## 2026-10-29 — dependency security upgrade and cart fix released
 
 The owner approved resolving the dependency gate and releasing the cart fix.
@@ -528,3 +604,71 @@ Runtime `02dae379938b210d61f5643dc2c476fe2dde48ad` pushed, в Git 3 runtime + 3 
 Root IAB UA/RU detail1758309: recommendations0HTMLimages/7backgrounds, главное фото/og сохранены; первые4 фото визуально PASS, carousel next и реальные language/recommendation links PASS. Собственная галерея другой детали остаётся4обычныхimg660/360 с собственным og:image. Live bytes/status не измерены, формы/корзина не менялись. Bounded post-smoke log ERROR0/CRITICAL0/WARNING3:3slow warehouse HTTP200; прежний updateMenuPhone TypeError вне scope.
 
 Статус: опубликовано и проверено; прежний LOCAL catalog status superseded. Google/SERP результат не проверен и не гарантирован: новый HTML должен быть повторно обработан Google, requests indexing/GSC/automations не запускались. Полный отчёт/ограничения/откат: `docs/reports/recommendation-preview-release-2026-10-31.md`; private evidence/operator/backups `.codex-tmp/recommendation-preview-release-20261031/`, manifest `261d1bec876523c15f05fff6ef04173a2d2c13d2ac960614c4f01890f3ab0598`. Откат только 3 own runtime в обратном порядке с own-after guards, без DB/env/media/чужого. Работа завершена, дальнейших согласованных действий нет.
+
+## 08.11.2026, Europe/Kyiv — корзина в заявке на обратный звонок
+
+Виджет при первой отправке сохраняет снимок корзины из
+`nikolacars-parts-cart-v1` вместе с ID заявки в sessionStorage. Повтор
+передаёт тот же снимок. В API передаются только `product_id` и `quantity`
+(до 50 позиций, количество 1–99), названия и артикулы определяет склад.
+Снимок относится к лиду, создание заказа и резерв в этом сценарии отсутствуют.
+
+Локально прошли шесть Playwright-сценариев на desktop/mobile, включая
+пустую корзину, повтор после ошибки и работу виджета на UA/RU. Запросы
+callback перехватывались браузерной фикстурой. Прокси с подменённым
+HTTP-транспортом проверен для заявки с корзиной, старого запроса без неё
+и невалидного количества. Прошли 13 PHP-регрессий витрины и проверка
+контрольного падения. Проверены PHP и JS синтаксис.
+
+Состояние: локально. Для выпуска сначала применить совместимую миграцию и
+приём на складе через штатный оператор. Затем выпустить три файла витрины
+(контроллер, JS виджета и Blade с версией JS) с отдельной копией и проверкой
+хешей. Тест и эту запись в runtime не включать.
+
+## 09.11.2026, 18:20:46 Europe/Kyiv — подпись складского кода на карточках
+
+По разрешению владельца опубликован один шаблон
+`resources/views/parts/_product_info.blade.php`, commit
+`7a400c47fa0dd248dfb278562250dc0e8fda9a0c` в `codex/sku-label-20261109`.
+Под H1 складской SKU имеет подпись «Код складу: » в UA / «Код склада: » в RU.
+Это устраняет неподписанный `RON64-0109`, похожий на диапазон цен в RON;
+фактическая цена и Product Offer не менялись. Эффект в Google не гарантируется.
+Только однострочный diff шаблона вошёл в runtime; прочие текущие правки,
+склад, зависимости, бизнес-данные и настройки не публиковались.
+
+Свежие 13 PHP-регрессий/контроль падения, 8 scoped Blade renders, 10 operator
+tests, lint/diff и Composer/npm audits прошли. Verified-FTPS backup/stage/
+immediate-before/after guards и независимый readback — 1 payload / 9 guards PASS.
+Релиз без maintenance и очистки кешей. Частная папка
+`.codex-tmp/sku-label-release-20261109/` содержит архив, квитанции и guarded
+`operate.py rollback`; SHA манифеста и детали отката записаны в
+[журнале выпуска](agents/release_verifier.md).
+Статус: опубликовано и проверено IAB обеих локалей и переходом UA→RU.
+На товаре `1060012-00-d-113597` в UA/RU видны соответствующие подписи SKU,
+100 грн и Offer `100.00 UAH`. Первый RU GET содержал новую подпись, но прежнее
+состояние «Цену уточняйте» без Product schema; один reload показал актуальные
+цену и Offer. Причина обновления не установлена, ручного cache flush не было.
+Скриншоты `live-ua.jpg`/`live-ru.jpg` находятся в папке выпуска. Формы не отправлялись.
+
+## 11.11.2026, 16:10:49 Europe/Kyiv — накопленные исправления сайта выпущены
+
+Commit `c0f64e44eb905fc298745ab4e4be7e70ebe7ed8b` опубликован в
+`codex/site-pending-release-20261111` и на live: три файла callback передают
+снимок корзины, `PartsController.php` обновляет устаревший отрицательный кеш
+после 404, `CatalogPath.php` добавляет четыре подтверждённых UA/RU редиректа
+дисков. Состояние «локально» от 8 ноября для этих изменений устарело.
+Совместимый callback backend и его миграции подтверждены перед выпуском.
+
+Свежие 13 PHP-регрессий/контроль падения, 52 browser, восемь изолированных
+proxy-проверок, 10 operator tests, audits/encoding/syntax прошли. Проверенный
+архив 13 исходников, пять payload и 17 SHA guards, независимый FTPS readback
+подтверждены. В IAB проверены четыре конечных редиректа, UA/RU товар и callback
+панель, добавление/удаление из корзины, фото и `/up`. Заявки не отправлялись.
+В bounded post-release журнале ERROR/CRITICAL 0/0; 10 slow warehouse HTTP 200.
+
+Детали состава, ограничения и guarded rollback:
+[журнал выпуска](agents/release_verifier.md). Квитанции и архив находятся в
+`.codex-tmp/site-pending-release-20261111/`. Статус — опубликовано и проверено.
+Данные, настройки и зависимости сайта не менялись; общий кеш не очищался.
+
+Live root IAB after publish: UA/RU81293 open with exact SKU DON4-2353 and quantity1, matching admin. No purchase or stock action. Real written_off UI limitation remains as documented.

@@ -1,0 +1,4281 @@
+{
+  "started_utc": "2026-11-08T18:17:22.727Z",
+  "pace_seconds": 10,
+  "redirects_followed": false,
+  "scope_count": 75,
+  "status": "STOPPED_METHOD_CHANGE",
+  "rows": [
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/1584721-e0-a-113134/",
+      "observed_utc": "2026-11-08T18:17:22.727Z",
+      "status": 404,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 6659,
+      "elapsed_ms": 1144,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Not Found",
+      "h1": "404",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/vysokovoltnaia-batareia/",
+      "observed_utc": "2026-11-08T18:17:33.88Z",
+      "status": 301,
+      "location": "https://nikolacars.kiev.ua/parts/visokovoltna-batareia/",
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 466,
+      "elapsed_ms": 200,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Redirecting to https://nikolacars.kiev.ua/parts/visokovoltna-batareia/",
+      "h1": "",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/vysokovoltnaia-batareia/",
+      "observed_utc": "2026-11-08T18:17:44.096Z",
+      "status": 301,
+      "location": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/visokovoltna-batareia/",
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 562,
+      "elapsed_ms": 202,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Redirecting to https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/visokovoltna-batareia/",
+      "h1": "",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/1584721-e0-a-113134/",
+      "observed_utc": "2026-11-08T18:17:54.306Z",
+      "status": 404,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 6659,
+      "elapsed_ms": 283,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Not Found",
+      "h1": "404",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/1077397-00-g-106946/",
+      "observed_utc": "2026-11-08T18:18:04.605Z",
+      "status": 404,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 6659,
+      "elapsed_ms": 427,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Not Found",
+      "h1": "404",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/1077397-00-g-106946/",
+      "observed_utc": "2026-11-08T18:18:15.048Z",
+      "status": 404,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 6659,
+      "elapsed_ms": 492,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Not Found",
+      "h1": "404",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/1044121-00-e-82639/",
+      "observed_utc": "2026-11-08T18:18:25.538Z",
+      "status": 404,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 6659,
+      "elapsed_ms": 304,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Not Found",
+      "h1": "404",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/lead/callback",
+      "observed_utc": "2026-11-08T18:18:35.857Z",
+      "status": 301,
+      "location": "https://nikolacars.kiev.ua/lead/callback/",
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 410,
+      "elapsed_ms": 254,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Redirecting to https://nikolacars.kiev.ua/lead/callback/",
+      "h1": "",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/1095858-00-d-101669/",
+      "observed_utc": "2026-11-08T18:18:46.118Z",
+      "status": 200,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 64638,
+      "elapsed_ms": 1130,
+      "canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/1095858-00-d-101669/"
+      ],
+      "alternates": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/1095858-00-d-101669/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/1095858-00-d-101669/",
+        "x-default": "https://nikolacars.kiev.ua/parts/1095858-00-d-101669/"
+      },
+      "robots": [],
+      "title": "Накладка замка капота Tesla Model 3 06.2017 - 12.2023 — 1095858-00-D | NikolaCars — Оригинал",
+      "h1": "Накладка замка капота — Tesla Model 3 06.2017 - 12.2023 — 1095858-00-D",
+      "sold_label_present": true
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+      "observed_utc": "2026-11-08T18:18:57.264Z",
+      "status": 200,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 106447,
+      "elapsed_ms": 1479,
+      "canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-batareia/vysokovoltnaia-batareia/"
+      ],
+      "alternates": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/visokovoltna-batareia/visokovoltna-batareia/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+        "x-default": "https://nikolacars.kiev.ua/parts/visokovoltna-batareia/visokovoltna-batareia/"
+      },
+      "robots": [],
+      "title": "Высоковольтная батарея — Запчасти Tesla — NikolaCars",
+      "h1": "Высоковольтная батарея — Запчасти Tesla",
+      "ids": [
+        108527,
+        112402,
+        110960,
+        113256,
+        75221,
+        80841,
+        106657,
+        107692,
+        112426,
+        65734,
+        39792
+      ],
+      "pagination": {
+        "page": 1,
+        "per_page": 24,
+        "total": 11,
+        "last_page": 1
+      },
+      "selection": {
+        "model": "",
+        "model_slug": "",
+        "category": "Высоковольтная батарея",
+        "category_slug": "vysokovoltnaia-batareia",
+        "category_path": "Высоковольтная батарея / Высоковольтная батарея",
+        "category_path_slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia",
+        "category_breadcrumbs": [
+          {
+            "label": "Высоковольтная батарея",
+            "slug": "vysokovoltnaia-batareia"
+          },
+          {
+            "label": "Высоковольтная батарея",
+            "slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+          }
+        ],
+        "category_path_locale_slugs": {
+          "uk": "visokovoltna-batareia--visokovoltna-batareia",
+          "ru": "vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+        }
+      },
+      "category_navigation": [
+        {
+          "label": "Безопасность и защита",
+          "category_path_slug": "bezopasnost-i-zashhita",
+          "parent_path_slug": "",
+          "count": 117,
+          "has_children": true
+        },
+        {
+          "label": "Внутренняя отделка",
+          "category_path_slug": "vnutrenniaia-otdelka",
+          "parent_path_slug": "",
+          "count": 766,
+          "has_children": true
+        },
+        {
+          "label": "Высоковольтная батарея",
+          "category_path_slug": "vysokovoltnaia-batareia",
+          "parent_path_slug": "",
+          "count": 7,
+          "has_children": true
+        },
+        {
+          "label": "Высоковольтная батарея",
+          "category_path_slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia",
+          "parent_path_slug": "vysokovoltnaia-batareia",
+          "count": 7,
+          "has_children": true
+        },
+        {
+          "label": "Высоковольтная батарея",
+          "category_path_slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia",
+          "parent_path_slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia",
+          "count": 7,
+          "has_children": false
+        },
+        {
+          "label": "Высоковольтная система",
+          "category_path_slug": "vysokovoltnaia-sistema",
+          "parent_path_slug": "",
+          "count": 26,
+          "has_children": true
+        },
+        {
+          "label": "Диски и шины",
+          "category_path_slug": "diski-i-siny",
+          "parent_path_slug": "",
+          "count": 17,
+          "has_children": true
+        },
+        {
+          "label": "Задний мотор",
+          "category_path_slug": "zadnii-motor",
+          "parent_path_slug": "",
+          "count": 33,
+          "has_children": true
+        },
+        {
+          "label": "Информационно-развлекательная система",
+          "category_path_slug": "informacionno-razvlekatelnaia-sistema",
+          "parent_path_slug": "",
+          "count": 84,
+          "has_children": true
+        },
+        {
+          "label": "Компоненты закрытия",
+          "category_path_slug": "komponenty-zakrytiia",
+          "parent_path_slug": "",
+          "count": 472,
+          "has_children": true
+        },
+        {
+          "label": "Крыша",
+          "category_path_slug": "krysa",
+          "parent_path_slug": "",
+          "count": 10,
+          "has_children": true
+        },
+        {
+          "label": "Кузов",
+          "category_path_slug": "kuzov",
+          "parent_path_slug": "",
+          "count": 185,
+          "has_children": true
+        },
+        {
+          "label": "Наружная фурнитура",
+          "category_path_slug": "naruznaia-furnitura",
+          "parent_path_slug": "",
+          "count": 225,
+          "has_children": true
+        },
+        {
+          "label": "Не определено",
+          "category_path_slug": "ne-opredeleno",
+          "parent_path_slug": "",
+          "count": 6,
+          "has_children": false
+        },
+        {
+          "label": "Передний мотор",
+          "category_path_slug": "perednii-motor",
+          "parent_path_slug": "",
+          "count": 13,
+          "has_children": true
+        },
+        {
+          "label": "Подвеска",
+          "category_path_slug": "podveska",
+          "parent_path_slug": "",
+          "count": 140,
+          "has_children": true
+        },
+        {
+          "label": "Приборная панель",
+          "category_path_slug": "pribornaia-panel",
+          "parent_path_slug": "",
+          "count": 204,
+          "has_children": true
+        },
+        {
+          "label": "Рулевой механизм",
+          "category_path_slug": "rulevoi-mexanizm",
+          "parent_path_slug": "",
+          "count": 39,
+          "has_children": true
+        },
+        {
+          "label": "Сиденья",
+          "category_path_slug": "sidenia",
+          "parent_path_slug": "",
+          "count": 73,
+          "has_children": true
+        },
+        {
+          "label": "Тормоза",
+          "category_path_slug": "tormoza",
+          "parent_path_slug": "",
+          "count": 140,
+          "has_children": true
+        },
+        {
+          "label": "Управление температурным режимом",
+          "category_path_slug": "upravlenie-temperaturnym-rezimom",
+          "parent_path_slug": "",
+          "count": 233,
+          "has_children": true
+        },
+        {
+          "label": "Ходовая - шасси",
+          "category_path_slug": "xodovaia-sassi",
+          "parent_path_slug": "",
+          "count": 9,
+          "has_children": true
+        },
+        {
+          "label": "Электрика",
+          "category_path_slug": "elektrika",
+          "parent_path_slug": "",
+          "count": 330,
+          "has_children": true
+        }
+      ],
+      "catalog_links": [
+        "/ru/parts/",
+        "/ru/parts/?cart=open",
+        "/parts/visokovoltna-batareia/visokovoltna-batareia/",
+        "/ru/parts/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+        "/ru/parts/model-3-06-2017-12-2023/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+        "/ru/parts/model-3-highland-01-2024/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+        "/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+        "/ru/parts/bezopasnost-i-zashhita/",
+        "/ru/parts/vnutrenniaia-otdelka/",
+        "/ru/parts/vysokovoltnaia-batareia/",
+        "/ru/parts/vysokovoltnaia-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+        "/ru/parts/vysokovoltnaia-sistema/",
+        "/ru/parts/diski-i-siny/",
+        "/ru/parts/zadnii-motor/",
+        "/ru/parts/informacionno-razvlekatelnaia-sistema/",
+        "/ru/parts/komponenty-zakrytiia/",
+        "/ru/parts/krysa/",
+        "/ru/parts/kuzov/",
+        "/ru/parts/naruznaia-furnitura/",
+        "/ru/parts/ne-opredeleno/",
+        "/ru/parts/perednii-motor/",
+        "/ru/parts/podveska/",
+        "/ru/parts/pribornaia-panel/",
+        "/ru/parts/rulevoi-mexanizm/",
+        "/ru/parts/sidenia/",
+        "/ru/parts/tormoza/",
+        "/ru/parts/upravlenie-temperaturnym-rezimom/",
+        "/ru/parts/xodovaia-sassi/",
+        "/ru/parts/elektrika/"
+      ],
+      "sold_label_present": true
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/1007374-00-l-108286/",
+      "observed_utc": "2026-11-08T18:19:08.747Z",
+      "status": 200,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 35098,
+      "elapsed_ms": 1840,
+      "canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/1007374-00-l-108286/"
+      ],
+      "alternates": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/1007374-00-l-108286/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/1007374-00-l-108286/",
+        "x-default": "https://nikolacars.kiev.ua/parts/1007374-00-l-108286/"
+      },
+      "robots": [],
+      "title": "Ручка двери наружная в сборе GEN 2.0 задняя правая Tesla Model S 02.2012-03.2016 — 1007374-00-L | NikolaCars — Оригинал",
+      "h1": "Ручка двери наружная в сборе GEN 2.0 задняя правая — Tesla Model S 02.2012-03.2016 — 1007374-00-L",
+      "sold_label_present": true
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/69395/",
+      "observed_utc": "2026-11-08T18:19:20.602Z",
+      "status": 404,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 6659,
+      "elapsed_ms": 266,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Not Found",
+      "h1": "404",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/sitemap.rss",
+      "observed_utc": "2026-11-08T18:19:30.858Z",
+      "status": 404,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 6659,
+      "elapsed_ms": 242,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Not Found",
+      "h1": "404",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/79034/",
+      "observed_utc": "2026-11-08T18:19:41.113Z",
+      "status": 404,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 6659,
+      "elapsed_ms": 272,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Not Found",
+      "h1": "404",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/104616/",
+      "observed_utc": "2026-11-08T18:19:51.394Z",
+      "status": 404,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 6659,
+      "elapsed_ms": 279,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Not Found",
+      "h1": "404",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/103760/",
+      "observed_utc": "2026-11-08T18:20:01.682Z",
+      "status": 301,
+      "location": "https://nikolacars.kiev.ua/parts/1502086-00-b-103760/",
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 458,
+      "elapsed_ms": 733,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Redirecting to https://nikolacars.kiev.ua/parts/1502086-00-b-103760/",
+      "h1": "",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/77751/",
+      "observed_utc": "2026-11-08T18:20:12.431Z",
+      "status": 404,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 6659,
+      "elapsed_ms": 306,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Not Found",
+      "h1": "404",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/104246/",
+      "observed_utc": "2026-11-08T18:20:22.74Z",
+      "status": 404,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 6659,
+      "elapsed_ms": 357,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Not Found",
+      "h1": "404",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/104127/",
+      "observed_utc": "2026-11-08T18:20:33.087Z",
+      "status": 404,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 6659,
+      "elapsed_ms": 406,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Not Found",
+      "h1": "404",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/103133/",
+      "observed_utc": "2026-11-08T18:20:43.5Z",
+      "status": 404,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 6659,
+      "elapsed_ms": 275,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Not Found",
+      "h1": "404",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/77878/",
+      "observed_utc": "2026-11-08T18:20:53.778Z",
+      "status": 404,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 6659,
+      "elapsed_ms": 336,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Not Found",
+      "h1": "404",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/106887/",
+      "observed_utc": "2026-11-08T18:21:04.127Z",
+      "status": 404,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 6659,
+      "elapsed_ms": 276,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Not Found",
+      "h1": "404",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/77782/",
+      "observed_utc": "2026-11-08T18:21:14.408Z",
+      "status": 404,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 6659,
+      "elapsed_ms": 554,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Not Found",
+      "h1": "404",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/77176/",
+      "observed_utc": "2026-11-08T18:21:24.971Z",
+      "status": 404,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 6659,
+      "elapsed_ms": 431,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Not Found",
+      "h1": "404",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/77631/",
+      "observed_utc": "2026-11-08T18:21:35.395Z",
+      "status": 404,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 6659,
+      "elapsed_ms": 537,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Not Found",
+      "h1": "404",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/77120/",
+      "observed_utc": "2026-11-08T18:21:45.934Z",
+      "status": 301,
+      "location": "https://nikolacars.kiev.ua/parts/1098751-00-c-77120/",
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 454,
+      "elapsed_ms": 469,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Redirecting to https://nikolacars.kiev.ua/parts/1098751-00-c-77120/",
+      "h1": "",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/77105/",
+      "observed_utc": "2026-11-08T18:21:56.42Z",
+      "status": 404,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 6659,
+      "elapsed_ms": 544,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Not Found",
+      "h1": "404",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/104761/",
+      "observed_utc": "2026-11-08T18:22:06.968Z",
+      "status": 404,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 6659,
+      "elapsed_ms": 834,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Not Found",
+      "h1": "404",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/104741/",
+      "observed_utc": "2026-11-08T18:22:17.812Z",
+      "status": 404,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 6659,
+      "elapsed_ms": 573,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Not Found",
+      "h1": "404",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/108973/",
+      "observed_utc": "2026-11-08T18:22:28.389Z",
+      "status": 301,
+      "location": "https://nikolacars.kiev.ua/ru/parts/1006427-01-a-108973/",
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 470,
+      "elapsed_ms": 794,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Redirecting to https://nikolacars.kiev.ua/ru/parts/1006427-01-a-108973/",
+      "h1": "",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/contacts",
+      "observed_utc": "2026-11-08T18:22:39.19Z",
+      "status": 301,
+      "location": "https://nikolacars.kiev.ua/contacts/",
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 390,
+      "elapsed_ms": 443,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Redirecting to https://nikolacars.kiev.ua/contacts/",
+      "h1": "",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/all-news/tesla-vypustila-novuyu-model-s-i-model-x-vmesto-rulya-shturval/",
+      "observed_utc": "2026-11-08T18:22:49.643Z",
+      "status": 404,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 6659,
+      "elapsed_ms": 449,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Not Found",
+      "h1": "404",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/tag/models/",
+      "observed_utc": "2026-11-08T18:23:00.1Z",
+      "status": 404,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 6659,
+      "elapsed_ms": 666,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Not Found",
+      "h1": "404",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/news/cheap-model/",
+      "observed_utc": "2026-11-08T18:23:10.772Z",
+      "status": 404,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 6659,
+      "elapsed_ms": 711,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Not Found",
+      "h1": "404",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/ru/privacy-policy/",
+      "observed_utc": "2026-11-08T18:23:21.496Z",
+      "status": 301,
+      "location": "/ru/privacy-policy/",
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 322,
+      "elapsed_ms": 779,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Redirecting to /ru/privacy-policy/",
+      "h1": "",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/author/val-overchuk/",
+      "observed_utc": "2026-11-08T18:23:32.28Z",
+      "status": 404,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 6659,
+      "elapsed_ms": 440,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Not Found",
+      "h1": "404",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/services/car-service",
+      "observed_utc": "2026-11-08T18:23:42.715Z",
+      "status": 301,
+      "location": "https://nikolacars.kiev.ua/services/tesla-service/",
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html",
+      "response_bytes": 795,
+      "elapsed_ms": 427,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "301 Moved Permanently",
+      "h1": "301",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/cars/tesla-model-s-p85d-2015-1/",
+      "observed_utc": "2026-11-08T18:23:53.147Z",
+      "status": 404,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 6659,
+      "elapsed_ms": 448,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Not Found",
+      "h1": "404",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/cars/tesla-model-s-100d-2018/",
+      "observed_utc": "2026-11-08T18:24:03.605Z",
+      "status": 404,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 6659,
+      "elapsed_ms": 465,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Not Found",
+      "h1": "404",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/how-it-works/pro-tesla-plaid/",
+      "observed_utc": "2026-11-08T18:24:14.077Z",
+      "status": 404,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 6659,
+      "elapsed_ms": 472,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Not Found",
+      "h1": "404",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/category/all-news/",
+      "observed_utc": "2026-11-08T18:24:24.564Z",
+      "status": 404,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 6659,
+      "elapsed_ms": 455,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Not Found",
+      "h1": "404",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/privacy_policy/",
+      "observed_utc": "2026-11-08T18:24:35.024Z",
+      "status": 301,
+      "location": "/privacy-policy/",
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 310,
+      "elapsed_ms": 1661,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Redirecting to /privacy-policy/",
+      "h1": "",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/mileage/109-129-km/",
+      "observed_utc": "2026-11-08T18:24:46.682Z",
+      "status": 404,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 6659,
+      "elapsed_ms": 1599,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Not Found",
+      "h1": "404",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/",
+      "observed_utc": "2026-11-08T18:24:58.285Z",
+      "status": 301,
+      "location": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/pedal-galma/",
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 594,
+      "elapsed_ms": 1270,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Redirecting to https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/pedal-galma/",
+      "h1": "",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+      "observed_utc": "2026-11-08T18:25:09.563Z",
+      "status": 200,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 70783,
+      "elapsed_ms": 1877,
+      "canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/"
+      ],
+      "alternates": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/"
+      },
+      "robots": [],
+      "title": "Бортовой зарядный модуль (чарджер) — Tesla Model S 02.2012-03.2016 — NikolaCars",
+      "h1": "Бортовой зарядный модуль (чарджер) — Tesla Model S 02.2012-03.2016",
+      "ids": [
+        113433,
+        108597
+      ],
+      "pagination": {
+        "page": 1,
+        "per_page": 24,
+        "total": 2,
+        "last_page": 1
+      },
+      "selection": {
+        "model": "Model S 02.2012-03.2016",
+        "model_slug": "model-s-02-2012-03-2016",
+        "category": "Высоковольтная система",
+        "category_slug": "vysokovoltnaia-sistema",
+        "category_path": "Высоковольтная система / Бортовой зарядный модуль (чарджер) / Бортовой зарядный модуль (чарджер)",
+        "category_path_slug": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer--bortovoi-zariadnyi-modul-cardzer",
+        "category_breadcrumbs": [
+          {
+            "label": "Высоковольтная система",
+            "slug": "vysokovoltnaia-sistema"
+          },
+          {
+            "label": "Бортовой зарядный модуль (чарджер)",
+            "slug": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer"
+          },
+          {
+            "label": "Бортовой зарядный модуль (чарджер)",
+            "slug": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer--bortovoi-zariadnyi-modul-cardzer"
+          }
+        ],
+        "category_path_locale_slugs": {
+          "uk": "visokovoltna-sistema--bortovii-zariadnii-modul-cardzer--bortovii-zariadnii-modul-cardzer",
+          "ru": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer--bortovoi-zariadnyi-modul-cardzer"
+        }
+      },
+      "category_navigation": [
+        {
+          "label": "Безопасность и защита",
+          "category_path_slug": "bezopasnost-i-zashhita",
+          "parent_path_slug": "",
+          "count": 31,
+          "has_children": true
+        },
+        {
+          "label": "Внутренняя отделка",
+          "category_path_slug": "vnutrenniaia-otdelka",
+          "parent_path_slug": "",
+          "count": 165,
+          "has_children": true
+        },
+        {
+          "label": "Высоковольтная батарея",
+          "category_path_slug": "vysokovoltnaia-batareia",
+          "parent_path_slug": "",
+          "count": 2,
+          "has_children": true
+        },
+        {
+          "label": "Высоковольтная система",
+          "category_path_slug": "vysokovoltnaia-sistema",
+          "parent_path_slug": "",
+          "count": 8,
+          "has_children": true
+        },
+        {
+          "label": "Бортовой зарядный модуль (чарджер)",
+          "category_path_slug": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer",
+          "parent_path_slug": "vysokovoltnaia-sistema",
+          "count": 2,
+          "has_children": true
+        },
+        {
+          "label": "Бортовой зарядный модуль (чарджер)",
+          "category_path_slug": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer--bortovoi-zariadnyi-modul-cardzer",
+          "parent_path_slug": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer",
+          "count": 2,
+          "has_children": false
+        },
+        {
+          "label": "Вход зарядной системы",
+          "category_path_slug": "vysokovoltnaia-sistema--vxod-zariadnoi-sistemy",
+          "parent_path_slug": "vysokovoltnaia-sistema",
+          "count": 2,
+          "has_children": true
+        },
+        {
+          "label": "DCDC Конвертер",
+          "category_path_slug": "vysokovoltnaia-sistema--dcdc-konverter",
+          "parent_path_slug": "vysokovoltnaia-sistema",
+          "count": 4,
+          "has_children": true
+        },
+        {
+          "label": "Диски и шины",
+          "category_path_slug": "diski-i-siny",
+          "parent_path_slug": "",
+          "count": 2,
+          "has_children": true
+        },
+        {
+          "label": "Задний мотор",
+          "category_path_slug": "zadnii-motor",
+          "parent_path_slug": "",
+          "count": 4,
+          "has_children": true
+        },
+        {
+          "label": "Информационно-развлекательная система",
+          "category_path_slug": "informacionno-razvlekatelnaia-sistema",
+          "parent_path_slug": "",
+          "count": 14,
+          "has_children": true
+        },
+        {
+          "label": "Компоненты закрытия",
+          "category_path_slug": "komponenty-zakrytiia",
+          "parent_path_slug": "",
+          "count": 74,
+          "has_children": true
+        },
+        {
+          "label": "Крыша",
+          "category_path_slug": "krysa",
+          "parent_path_slug": "",
+          "count": 7,
+          "has_children": true
+        },
+        {
+          "label": "Кузов",
+          "category_path_slug": "kuzov",
+          "parent_path_slug": "",
+          "count": 46,
+          "has_children": true
+        },
+        {
+          "label": "Наружная фурнитура",
+          "category_path_slug": "naruznaia-furnitura",
+          "parent_path_slug": "",
+          "count": 46,
+          "has_children": true
+        },
+        {
+          "label": "Не определено",
+          "category_path_slug": "ne-opredeleno",
+          "parent_path_slug": "",
+          "count": 4,
+          "has_children": false
+        },
+        {
+          "label": "Передний мотор",
+          "category_path_slug": "perednii-motor",
+          "parent_path_slug": "",
+          "count": 1,
+          "has_children": true
+        },
+        {
+          "label": "Подвеска",
+          "category_path_slug": "podveska",
+          "parent_path_slug": "",
+          "count": 31,
+          "has_children": true
+        },
+        {
+          "label": "Приборная панель",
+          "category_path_slug": "pribornaia-panel",
+          "parent_path_slug": "",
+          "count": 59,
+          "has_children": true
+        },
+        {
+          "label": "Рулевой механизм",
+          "category_path_slug": "rulevoi-mexanizm",
+          "parent_path_slug": "",
+          "count": 3,
+          "has_children": true
+        },
+        {
+          "label": "Сиденья",
+          "category_path_slug": "sidenia",
+          "parent_path_slug": "",
+          "count": 11,
+          "has_children": true
+        },
+        {
+          "label": "Тормоза",
+          "category_path_slug": "tormoza",
+          "parent_path_slug": "",
+          "count": 22,
+          "has_children": true
+        },
+        {
+          "label": "Управление температурным режимом",
+          "category_path_slug": "upravlenie-temperaturnym-rezimom",
+          "parent_path_slug": "",
+          "count": 52,
+          "has_children": true
+        },
+        {
+          "label": "Ходовая - шасси",
+          "category_path_slug": "xodovaia-sassi",
+          "parent_path_slug": "",
+          "count": 2,
+          "has_children": true
+        },
+        {
+          "label": "Электрика",
+          "category_path_slug": "elektrika",
+          "parent_path_slug": "",
+          "count": 57,
+          "has_children": true
+        }
+      ],
+      "catalog_links": [
+        "/ru/parts/",
+        "/ru/parts/?cart=open",
+        "/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/",
+        "/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+        "/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+        "/ru/parts/model-s-02-2012-03-2016/bezopasnost-i-zashhita/",
+        "/ru/parts/model-s-02-2012-03-2016/vnutrenniaia-otdelka/",
+        "/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-batareia/",
+        "/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/",
+        "/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/vxod-zariadnoi-sistemy/",
+        "/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/dcdc-konverter/",
+        "/ru/parts/model-s-02-2012-03-2016/diski-i-siny/",
+        "/ru/parts/model-s-02-2012-03-2016/zadnii-motor/",
+        "/ru/parts/model-s-02-2012-03-2016/informacionno-razvlekatelnaia-sistema/",
+        "/ru/parts/model-s-02-2012-03-2016/komponenty-zakrytiia/",
+        "/ru/parts/model-s-02-2012-03-2016/krysa/",
+        "/ru/parts/model-s-02-2012-03-2016/kuzov/",
+        "/ru/parts/model-s-02-2012-03-2016/naruznaia-furnitura/",
+        "/ru/parts/model-s-02-2012-03-2016/ne-opredeleno/",
+        "/ru/parts/model-s-02-2012-03-2016/perednii-motor/",
+        "/ru/parts/model-s-02-2012-03-2016/podveska/",
+        "/ru/parts/model-s-02-2012-03-2016/pribornaia-panel/",
+        "/ru/parts/model-s-02-2012-03-2016/rulevoi-mexanizm/",
+        "/ru/parts/model-s-02-2012-03-2016/sidenia/",
+        "/ru/parts/model-s-02-2012-03-2016/tormoza/",
+        "/ru/parts/model-s-02-2012-03-2016/upravlenie-temperaturnym-rezimom/",
+        "/ru/parts/model-s-02-2012-03-2016/xodovaia-sassi/",
+        "/ru/parts/model-s-02-2012-03-2016/elektrika/"
+      ],
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/visokovoltna-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+      "observed_utc": "2026-11-08T18:25:21.458Z",
+      "status": 301,
+      "location": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 678,
+      "elapsed_ms": 710,
+      "canonical": [],
+      "alternates": {},
+      "robots": [],
+      "title": "Redirecting to https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+      "h1": "",
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/zadnie-poluosi/",
+      "observed_utc": "2026-11-08T18:25:32.179Z",
+      "status": 200,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 154699,
+      "elapsed_ms": 6014,
+      "canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/zadnie-poluosi/"
+      ],
+      "alternates": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/zadnii-motor/zadni-pivosi/zadni-pivosi/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/zadnie-poluosi/",
+        "x-default": "https://nikolacars.kiev.ua/parts/zadnii-motor/zadni-pivosi/zadni-pivosi/"
+      },
+      "robots": [],
+      "title": "Задние полуоси — Запчасти Tesla — NikolaCars",
+      "h1": "Задние полуоси — Запчасти Tesla",
+      "ids": [
+        93010,
+        113365,
+        113216,
+        107311,
+        94483,
+        113162,
+        113161,
+        113160,
+        79108,
+        113159,
+        87303,
+        40464,
+        83586,
+        82239,
+        99091,
+        84764,
+        88635,
+        97695,
+        100524,
+        76562,
+        80889,
+        96279,
+        86097
+      ],
+      "pagination": {
+        "page": 1,
+        "per_page": 24,
+        "total": 23,
+        "last_page": 1
+      },
+      "selection": {
+        "model": "",
+        "model_slug": "",
+        "category": "Задний мотор",
+        "category_slug": "zadnii-motor",
+        "category_path": "Задний мотор / Задние полуоси / Задние полуоси",
+        "category_path_slug": "zadnii-motor--zadnie-poluosi--zadnie-poluosi",
+        "category_breadcrumbs": [
+          {
+            "label": "Задний мотор",
+            "slug": "zadnii-motor"
+          },
+          {
+            "label": "Задние полуоси",
+            "slug": "zadnii-motor--zadnie-poluosi"
+          },
+          {
+            "label": "Задние полуоси",
+            "slug": "zadnii-motor--zadnie-poluosi--zadnie-poluosi"
+          }
+        ],
+        "category_path_locale_slugs": {
+          "uk": "zadnii-motor--zadni-pivosi--zadni-pivosi",
+          "ru": "zadnii-motor--zadnie-poluosi--zadnie-poluosi"
+        }
+      },
+      "category_navigation": [
+        {
+          "label": "Безопасность и защита",
+          "category_path_slug": "bezopasnost-i-zashhita",
+          "parent_path_slug": "",
+          "count": 117,
+          "has_children": true
+        },
+        {
+          "label": "Внутренняя отделка",
+          "category_path_slug": "vnutrenniaia-otdelka",
+          "parent_path_slug": "",
+          "count": 766,
+          "has_children": true
+        },
+        {
+          "label": "Высоковольтная батарея",
+          "category_path_slug": "vysokovoltnaia-batareia",
+          "parent_path_slug": "",
+          "count": 7,
+          "has_children": true
+        },
+        {
+          "label": "Высоковольтная система",
+          "category_path_slug": "vysokovoltnaia-sistema",
+          "parent_path_slug": "",
+          "count": 26,
+          "has_children": true
+        },
+        {
+          "label": "Диски и шины",
+          "category_path_slug": "diski-i-siny",
+          "parent_path_slug": "",
+          "count": 17,
+          "has_children": true
+        },
+        {
+          "label": "Задний мотор",
+          "category_path_slug": "zadnii-motor",
+          "parent_path_slug": "",
+          "count": 33,
+          "has_children": true
+        },
+        {
+          "label": "Задние полуоси",
+          "category_path_slug": "zadnii-motor--zadnie-poluosi",
+          "parent_path_slug": "zadnii-motor",
+          "count": 23,
+          "has_children": true
+        },
+        {
+          "label": "Задние полуоси",
+          "category_path_slug": "zadnii-motor--zadnie-poluosi--zadnie-poluosi",
+          "parent_path_slug": "zadnii-motor--zadnie-poluosi",
+          "count": 23,
+          "has_children": false
+        },
+        {
+          "label": "Задний мотор в сборе",
+          "category_path_slug": "zadnii-motor--zadnii-motor-v-sbore",
+          "parent_path_slug": "zadnii-motor",
+          "count": 10,
+          "has_children": true
+        },
+        {
+          "label": "Информационно-развлекательная система",
+          "category_path_slug": "informacionno-razvlekatelnaia-sistema",
+          "parent_path_slug": "",
+          "count": 84,
+          "has_children": true
+        },
+        {
+          "label": "Компоненты закрытия",
+          "category_path_slug": "komponenty-zakrytiia",
+          "parent_path_slug": "",
+          "count": 472,
+          "has_children": true
+        },
+        {
+          "label": "Крыша",
+          "category_path_slug": "krysa",
+          "parent_path_slug": "",
+          "count": 10,
+          "has_children": true
+        },
+        {
+          "label": "Кузов",
+          "category_path_slug": "kuzov",
+          "parent_path_slug": "",
+          "count": 185,
+          "has_children": true
+        },
+        {
+          "label": "Наружная фурнитура",
+          "category_path_slug": "naruznaia-furnitura",
+          "parent_path_slug": "",
+          "count": 225,
+          "has_children": true
+        },
+        {
+          "label": "Не определено",
+          "category_path_slug": "ne-opredeleno",
+          "parent_path_slug": "",
+          "count": 6,
+          "has_children": false
+        },
+        {
+          "label": "Передний мотор",
+          "category_path_slug": "perednii-motor",
+          "parent_path_slug": "",
+          "count": 13,
+          "has_children": true
+        },
+        {
+          "label": "Подвеска",
+          "category_path_slug": "podveska",
+          "parent_path_slug": "",
+          "count": 140,
+          "has_children": true
+        },
+        {
+          "label": "Приборная панель",
+          "category_path_slug": "pribornaia-panel",
+          "parent_path_slug": "",
+          "count": 204,
+          "has_children": true
+        },
+        {
+          "label": "Рулевой механизм",
+          "category_path_slug": "rulevoi-mexanizm",
+          "parent_path_slug": "",
+          "count": 39,
+          "has_children": true
+        },
+        {
+          "label": "Сиденья",
+          "category_path_slug": "sidenia",
+          "parent_path_slug": "",
+          "count": 73,
+          "has_children": true
+        },
+        {
+          "label": "Тормоза",
+          "category_path_slug": "tormoza",
+          "parent_path_slug": "",
+          "count": 140,
+          "has_children": true
+        },
+        {
+          "label": "Управление температурным режимом",
+          "category_path_slug": "upravlenie-temperaturnym-rezimom",
+          "parent_path_slug": "",
+          "count": 233,
+          "has_children": true
+        },
+        {
+          "label": "Ходовая - шасси",
+          "category_path_slug": "xodovaia-sassi",
+          "parent_path_slug": "",
+          "count": 9,
+          "has_children": true
+        },
+        {
+          "label": "Электрика",
+          "category_path_slug": "elektrika",
+          "parent_path_slug": "",
+          "count": 330,
+          "has_children": true
+        }
+      ],
+      "catalog_links": [
+        "/ru/parts/",
+        "/ru/parts/?cart=open",
+        "/parts/zadnii-motor/zadni-pivosi/zadni-pivosi/",
+        "/ru/parts/zadnii-motor/zadnie-poluosi/zadnie-poluosi/",
+        "/ru/parts/model-3-06-2017-12-2023/zadnii-motor/zadnie-poluosi/zadnie-poluosi/",
+        "/ru/parts/model-3-highland-01-2024/zadnii-motor/zadnie-poluosi/zadnie-poluosi/",
+        "/ru/parts/model-s-02-2012-03-2016/zadnii-motor/zadnie-poluosi/zadnie-poluosi/",
+        "/ru/parts/model-y-01-2020-01-2025/zadnii-motor/zadnie-poluosi/zadnie-poluosi/",
+        "/ru/parts/bezopasnost-i-zashhita/",
+        "/ru/parts/vnutrenniaia-otdelka/",
+        "/ru/parts/vysokovoltnaia-batareia/",
+        "/ru/parts/vysokovoltnaia-sistema/",
+        "/ru/parts/diski-i-siny/",
+        "/ru/parts/zadnii-motor/",
+        "/ru/parts/zadnii-motor/zadnii-motor-v-sbore/",
+        "/ru/parts/informacionno-razvlekatelnaia-sistema/",
+        "/ru/parts/komponenty-zakrytiia/",
+        "/ru/parts/krysa/",
+        "/ru/parts/kuzov/",
+        "/ru/parts/naruznaia-furnitura/",
+        "/ru/parts/ne-opredeleno/",
+        "/ru/parts/perednii-motor/",
+        "/ru/parts/podveska/",
+        "/ru/parts/pribornaia-panel/",
+        "/ru/parts/rulevoi-mexanizm/",
+        "/ru/parts/sidenia/",
+        "/ru/parts/tormoza/",
+        "/ru/parts/upravlenie-temperaturnym-rezimom/",
+        "/ru/parts/xodovaia-sassi/",
+        "/ru/parts/elektrika/"
+      ],
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+      "observed_utc": "2026-11-08T18:25:48.203Z",
+      "status": 200,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 71079,
+      "elapsed_ms": 5253,
+      "canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/"
+      ],
+      "alternates": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+        "x-default": "https://nikolacars.kiev.ua/parts/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/"
+      },
+      "robots": [],
+      "title": "Бортовой зарядный модуль (чарджер) — Запчасти Tesla — NikolaCars",
+      "h1": "Бортовой зарядный модуль (чарджер) — Запчасти Tesla",
+      "ids": [
+        113433,
+        108597
+      ],
+      "pagination": {
+        "page": 1,
+        "per_page": 24,
+        "total": 2,
+        "last_page": 1
+      },
+      "selection": {
+        "model": "",
+        "model_slug": "",
+        "category": "Высоковольтная система",
+        "category_slug": "vysokovoltnaia-sistema",
+        "category_path": "Высоковольтная система / Бортовой зарядный модуль (чарджер) / Бортовой зарядный модуль (чарджер)",
+        "category_path_slug": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer--bortovoi-zariadnyi-modul-cardzer",
+        "category_breadcrumbs": [
+          {
+            "label": "Высоковольтная система",
+            "slug": "vysokovoltnaia-sistema"
+          },
+          {
+            "label": "Бортовой зарядный модуль (чарджер)",
+            "slug": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer"
+          },
+          {
+            "label": "Бортовой зарядный модуль (чарджер)",
+            "slug": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer--bortovoi-zariadnyi-modul-cardzer"
+          }
+        ],
+        "category_path_locale_slugs": {
+          "uk": "visokovoltna-sistema--bortovii-zariadnii-modul-cardzer--bortovii-zariadnii-modul-cardzer",
+          "ru": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer--bortovoi-zariadnyi-modul-cardzer"
+        }
+      },
+      "category_navigation": [
+        {
+          "label": "Безопасность и защита",
+          "category_path_slug": "bezopasnost-i-zashhita",
+          "parent_path_slug": "",
+          "count": 117,
+          "has_children": true
+        },
+        {
+          "label": "Внутренняя отделка",
+          "category_path_slug": "vnutrenniaia-otdelka",
+          "parent_path_slug": "",
+          "count": 766,
+          "has_children": true
+        },
+        {
+          "label": "Высоковольтная батарея",
+          "category_path_slug": "vysokovoltnaia-batareia",
+          "parent_path_slug": "",
+          "count": 7,
+          "has_children": true
+        },
+        {
+          "label": "Высоковольтная система",
+          "category_path_slug": "vysokovoltnaia-sistema",
+          "parent_path_slug": "",
+          "count": 26,
+          "has_children": true
+        },
+        {
+          "label": "Бортовой зарядный модуль (чарджер)",
+          "category_path_slug": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer",
+          "parent_path_slug": "vysokovoltnaia-sistema",
+          "count": 2,
+          "has_children": true
+        },
+        {
+          "label": "Бортовой зарядный модуль (чарджер)",
+          "category_path_slug": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer--bortovoi-zariadnyi-modul-cardzer",
+          "parent_path_slug": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer",
+          "count": 2,
+          "has_children": false
+        },
+        {
+          "label": "Вход зарядной системы",
+          "category_path_slug": "vysokovoltnaia-sistema--vxod-zariadnoi-sistemy",
+          "parent_path_slug": "vysokovoltnaia-sistema",
+          "count": 17,
+          "has_children": true
+        },
+        {
+          "label": "Высоковольтные провода",
+          "category_path_slug": "vysokovoltnaia-sistema--vysokovoltnye-provoda",
+          "parent_path_slug": "vysokovoltnaia-sistema",
+          "count": 3,
+          "has_children": true
+        },
+        {
+          "label": "DCDC Конвертер",
+          "category_path_slug": "vysokovoltnaia-sistema--dcdc-konverter",
+          "parent_path_slug": "vysokovoltnaia-sistema",
+          "count": 4,
+          "has_children": true
+        },
+        {
+          "label": "Диски и шины",
+          "category_path_slug": "diski-i-siny",
+          "parent_path_slug": "",
+          "count": 17,
+          "has_children": true
+        },
+        {
+          "label": "Задний мотор",
+          "category_path_slug": "zadnii-motor",
+          "parent_path_slug": "",
+          "count": 33,
+          "has_children": true
+        },
+        {
+          "label": "Информационно-развлекательная система",
+          "category_path_slug": "informacionno-razvlekatelnaia-sistema",
+          "parent_path_slug": "",
+          "count": 84,
+          "has_children": true
+        },
+        {
+          "label": "Компоненты закрытия",
+          "category_path_slug": "komponenty-zakrytiia",
+          "parent_path_slug": "",
+          "count": 472,
+          "has_children": true
+        },
+        {
+          "label": "Крыша",
+          "category_path_slug": "krysa",
+          "parent_path_slug": "",
+          "count": 10,
+          "has_children": true
+        },
+        {
+          "label": "Кузов",
+          "category_path_slug": "kuzov",
+          "parent_path_slug": "",
+          "count": 185,
+          "has_children": true
+        },
+        {
+          "label": "Наружная фурнитура",
+          "category_path_slug": "naruznaia-furnitura",
+          "parent_path_slug": "",
+          "count": 225,
+          "has_children": true
+        },
+        {
+          "label": "Не определено",
+          "category_path_slug": "ne-opredeleno",
+          "parent_path_slug": "",
+          "count": 6,
+          "has_children": false
+        },
+        {
+          "label": "Передний мотор",
+          "category_path_slug": "perednii-motor",
+          "parent_path_slug": "",
+          "count": 13,
+          "has_children": true
+        },
+        {
+          "label": "Подвеска",
+          "category_path_slug": "podveska",
+          "parent_path_slug": "",
+          "count": 140,
+          "has_children": true
+        },
+        {
+          "label": "Приборная панель",
+          "category_path_slug": "pribornaia-panel",
+          "parent_path_slug": "",
+          "count": 204,
+          "has_children": true
+        },
+        {
+          "label": "Рулевой механизм",
+          "category_path_slug": "rulevoi-mexanizm",
+          "parent_path_slug": "",
+          "count": 39,
+          "has_children": true
+        },
+        {
+          "label": "Сиденья",
+          "category_path_slug": "sidenia",
+          "parent_path_slug": "",
+          "count": 73,
+          "has_children": true
+        },
+        {
+          "label": "Тормоза",
+          "category_path_slug": "tormoza",
+          "parent_path_slug": "",
+          "count": 140,
+          "has_children": true
+        },
+        {
+          "label": "Управление температурным режимом",
+          "category_path_slug": "upravlenie-temperaturnym-rezimom",
+          "parent_path_slug": "",
+          "count": 233,
+          "has_children": true
+        },
+        {
+          "label": "Ходовая - шасси",
+          "category_path_slug": "xodovaia-sassi",
+          "parent_path_slug": "",
+          "count": 9,
+          "has_children": true
+        },
+        {
+          "label": "Электрика",
+          "category_path_slug": "elektrika",
+          "parent_path_slug": "",
+          "count": 330,
+          "has_children": true
+        }
+      ],
+      "catalog_links": [
+        "/ru/parts/",
+        "/ru/parts/?cart=open",
+        "/parts/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/",
+        "/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+        "/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+        "/ru/parts/bezopasnost-i-zashhita/",
+        "/ru/parts/vnutrenniaia-otdelka/",
+        "/ru/parts/vysokovoltnaia-batareia/",
+        "/ru/parts/vysokovoltnaia-sistema/",
+        "/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/",
+        "/ru/parts/vysokovoltnaia-sistema/vxod-zariadnoi-sistemy/",
+        "/ru/parts/vysokovoltnaia-sistema/vysokovoltnye-provoda/",
+        "/ru/parts/vysokovoltnaia-sistema/dcdc-konverter/",
+        "/ru/parts/diski-i-siny/",
+        "/ru/parts/zadnii-motor/",
+        "/ru/parts/informacionno-razvlekatelnaia-sistema/",
+        "/ru/parts/komponenty-zakrytiia/",
+        "/ru/parts/krysa/",
+        "/ru/parts/kuzov/",
+        "/ru/parts/naruznaia-furnitura/",
+        "/ru/parts/ne-opredeleno/",
+        "/ru/parts/perednii-motor/",
+        "/ru/parts/podveska/",
+        "/ru/parts/pribornaia-panel/",
+        "/ru/parts/rulevoi-mexanizm/",
+        "/ru/parts/sidenia/",
+        "/ru/parts/tormoza/",
+        "/ru/parts/upravlenie-temperaturnym-rezimom/",
+        "/ru/parts/xodovaia-sassi/",
+        "/ru/parts/elektrika/"
+      ],
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/",
+      "observed_utc": "2026-11-08T18:26:03.463Z",
+      "status": 200,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 70238,
+      "elapsed_ms": 1422,
+      "canonical": [
+        "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/"
+      ],
+      "alternates": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/"
+      },
+      "robots": [],
+      "title": "Бортовий зарядний модуль (чарджер) — Tesla Model S 02.2012-03.2016 — NikolaCars",
+      "h1": "Бортовий зарядний модуль (чарджер) — Tesla Model S 02.2012-03.2016",
+      "ids": [
+        113433,
+        108597
+      ],
+      "pagination": {
+        "page": 1,
+        "per_page": 24,
+        "total": 2,
+        "last_page": 1
+      },
+      "selection": {
+        "model": "Model S 02.2012-03.2016",
+        "model_slug": "model-s-02-2012-03-2016",
+        "category": "Високовольтна система",
+        "category_slug": "visokovoltna-sistema",
+        "category_path": "Високовольтна система / Бортовий зарядний модуль (чарджер) / Бортовий зарядний модуль (чарджер)",
+        "category_path_slug": "visokovoltna-sistema--bortovii-zariadnii-modul-cardzer--bortovii-zariadnii-modul-cardzer",
+        "category_breadcrumbs": [
+          {
+            "label": "Високовольтна система",
+            "slug": "visokovoltna-sistema"
+          },
+          {
+            "label": "Бортовий зарядний модуль (чарджер)",
+            "slug": "visokovoltna-sistema--bortovii-zariadnii-modul-cardzer"
+          },
+          {
+            "label": "Бортовий зарядний модуль (чарджер)",
+            "slug": "visokovoltna-sistema--bortovii-zariadnii-modul-cardzer--bortovii-zariadnii-modul-cardzer"
+          }
+        ],
+        "category_path_locale_slugs": {
+          "uk": "visokovoltna-sistema--bortovii-zariadnii-modul-cardzer--bortovii-zariadnii-modul-cardzer",
+          "ru": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer--bortovoi-zariadnyi-modul-cardzer"
+        }
+      },
+      "category_navigation": [
+        {
+          "label": "Безпека і захист",
+          "category_path_slug": "bezpeka-i-zaxist",
+          "parent_path_slug": "",
+          "count": 31,
+          "has_children": true
+        },
+        {
+          "label": "Високовольтна батарея",
+          "category_path_slug": "visokovoltna-batareia",
+          "parent_path_slug": "",
+          "count": 2,
+          "has_children": true
+        },
+        {
+          "label": "Високовольтна система",
+          "category_path_slug": "visokovoltna-sistema",
+          "parent_path_slug": "",
+          "count": 8,
+          "has_children": true
+        },
+        {
+          "label": "Бортовий зарядний модуль (чарджер)",
+          "category_path_slug": "visokovoltna-sistema--bortovii-zariadnii-modul-cardzer",
+          "parent_path_slug": "visokovoltna-sistema",
+          "count": 2,
+          "has_children": true
+        },
+        {
+          "label": "Бортовий зарядний модуль (чарджер)",
+          "category_path_slug": "visokovoltna-sistema--bortovii-zariadnii-modul-cardzer--bortovii-zariadnii-modul-cardzer",
+          "parent_path_slug": "visokovoltna-sistema--bortovii-zariadnii-modul-cardzer",
+          "count": 2,
+          "has_children": false
+        },
+        {
+          "label": "Вхід зарядної системи",
+          "category_path_slug": "visokovoltna-sistema--vxid-zariadnoyi-sistemi",
+          "parent_path_slug": "visokovoltna-sistema",
+          "count": 2,
+          "has_children": true
+        },
+        {
+          "label": "DCDC Конвертор",
+          "category_path_slug": "visokovoltna-sistema--dcdc-konvertor",
+          "parent_path_slug": "visokovoltna-sistema",
+          "count": 4,
+          "has_children": true
+        },
+        {
+          "label": "Внутрішнє оздоблення",
+          "category_path_slug": "vnutrisnje-ozdoblennia",
+          "parent_path_slug": "",
+          "count": 165,
+          "has_children": true
+        },
+        {
+          "label": "Гальма",
+          "category_path_slug": "galma",
+          "parent_path_slug": "",
+          "count": 22,
+          "has_children": true
+        },
+        {
+          "label": "Диски і шини",
+          "category_path_slug": "diski-i-sini",
+          "parent_path_slug": "",
+          "count": 2,
+          "has_children": true
+        },
+        {
+          "label": "Електрика",
+          "category_path_slug": "elektrika",
+          "parent_path_slug": "",
+          "count": 57,
+          "has_children": true
+        },
+        {
+          "label": "Задній мотор",
+          "category_path_slug": "zadnii-motor",
+          "parent_path_slug": "",
+          "count": 4,
+          "has_children": true
+        },
+        {
+          "label": "Зовнішня фурнітура",
+          "category_path_slug": "zovnisnia-furnitura",
+          "parent_path_slug": "",
+          "count": 46,
+          "has_children": true
+        },
+        {
+          "label": "Інформаційно-розважальна система",
+          "category_path_slug": "informaciino-rozvazalna-sistema",
+          "parent_path_slug": "",
+          "count": 14,
+          "has_children": true
+        },
+        {
+          "label": "Компоненти закриття",
+          "category_path_slug": "komponenti-zakrittia",
+          "parent_path_slug": "",
+          "count": 74,
+          "has_children": true
+        },
+        {
+          "label": "Криша",
+          "category_path_slug": "krisa",
+          "parent_path_slug": "",
+          "count": 7,
+          "has_children": true
+        },
+        {
+          "label": "Кузов",
+          "category_path_slug": "kuzov",
+          "parent_path_slug": "",
+          "count": 46,
+          "has_children": true
+        },
+        {
+          "label": "Не визначено",
+          "category_path_slug": "ne-viznaceno",
+          "parent_path_slug": "",
+          "count": 4,
+          "has_children": false
+        },
+        {
+          "label": "Панель приладів",
+          "category_path_slug": "panel-priladiv",
+          "parent_path_slug": "",
+          "count": 59,
+          "has_children": true
+        },
+        {
+          "label": "Передній мотор",
+          "category_path_slug": "perednii-motor",
+          "parent_path_slug": "",
+          "count": 1,
+          "has_children": true
+        },
+        {
+          "label": "Підвіска",
+          "category_path_slug": "pidviska",
+          "parent_path_slug": "",
+          "count": 31,
+          "has_children": true
+        },
+        {
+          "label": "Рульовий механізм",
+          "category_path_slug": "rulyovii-mexanizm",
+          "parent_path_slug": "",
+          "count": 3,
+          "has_children": true
+        },
+        {
+          "label": "Сидіння",
+          "category_path_slug": "sidinnia",
+          "parent_path_slug": "",
+          "count": 11,
+          "has_children": true
+        },
+        {
+          "label": "Управління температурним режимом",
+          "category_path_slug": "upravlinnia-temperaturnim-rezimom",
+          "parent_path_slug": "",
+          "count": 52,
+          "has_children": true
+        },
+        {
+          "label": "Ходова - шассі",
+          "category_path_slug": "xodova-sassi",
+          "parent_path_slug": "",
+          "count": 2,
+          "has_children": true
+        }
+      ],
+      "catalog_links": [
+        "/parts/",
+        "/parts/?cart=open",
+        "/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/",
+        "/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+        "/parts/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/",
+        "/parts/model-s-02-2012-03-2016/bezpeka-i-zaxist/",
+        "/parts/model-s-02-2012-03-2016/visokovoltna-batareia/",
+        "/parts/model-s-02-2012-03-2016/visokovoltna-sistema/",
+        "/parts/model-s-02-2012-03-2016/visokovoltna-sistema/vxid-zariadnoyi-sistemi/",
+        "/parts/model-s-02-2012-03-2016/visokovoltna-sistema/dcdc-konvertor/",
+        "/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/",
+        "/parts/model-s-02-2012-03-2016/galma/",
+        "/parts/model-s-02-2012-03-2016/diski-i-sini/",
+        "/parts/model-s-02-2012-03-2016/elektrika/",
+        "/parts/model-s-02-2012-03-2016/zadnii-motor/",
+        "/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/",
+        "/parts/model-s-02-2012-03-2016/informaciino-rozvazalna-sistema/",
+        "/parts/model-s-02-2012-03-2016/komponenti-zakrittia/",
+        "/parts/model-s-02-2012-03-2016/krisa/",
+        "/parts/model-s-02-2012-03-2016/kuzov/",
+        "/parts/model-s-02-2012-03-2016/ne-viznaceno/",
+        "/parts/model-s-02-2012-03-2016/panel-priladiv/",
+        "/parts/model-s-02-2012-03-2016/perednii-motor/",
+        "/parts/model-s-02-2012-03-2016/pidviska/",
+        "/parts/model-s-02-2012-03-2016/rulyovii-mexanizm/",
+        "/parts/model-s-02-2012-03-2016/sidinnia/",
+        "/parts/model-s-02-2012-03-2016/upravlinnia-temperaturnim-rezimom/",
+        "/parts/model-s-02-2012-03-2016/xodova-sassi/"
+      ],
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/galma/pedal-galma/pedal-galma/",
+      "observed_utc": "2026-11-08T18:26:14.896Z",
+      "status": 200,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 66410,
+      "elapsed_ms": 8976,
+      "canonical": [
+        "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/galma/pedal-galma/pedal-galma/"
+      ],
+      "alternates": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/galma/pedal-galma/pedal-galma/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/tormoza/pedal-tormoza/pedal-tormoza/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/galma/pedal-galma/pedal-galma/"
+      },
+      "robots": [],
+      "title": "Педаль гальма — Tesla Model S 04.2016-01.2021 — NikolaCars",
+      "h1": "Педаль гальма — Tesla Model S 04.2016-01.2021",
+      "ids": [
+        101899
+      ],
+      "pagination": {
+        "page": 1,
+        "per_page": 24,
+        "total": 1,
+        "last_page": 1
+      },
+      "selection": {
+        "model": "Model S 04.2016-01.2021",
+        "model_slug": "model-s-04-2016-01-2021",
+        "category": "Гальма",
+        "category_slug": "galma",
+        "category_path": "Гальма / Педаль гальма / Педаль гальма",
+        "category_path_slug": "galma--pedal-galma--pedal-galma",
+        "category_breadcrumbs": [
+          {
+            "label": "Гальма",
+            "slug": "galma"
+          },
+          {
+            "label": "Педаль гальма",
+            "slug": "galma--pedal-galma"
+          },
+          {
+            "label": "Педаль гальма",
+            "slug": "galma--pedal-galma--pedal-galma"
+          }
+        ],
+        "category_path_locale_slugs": {
+          "uk": "galma--pedal-galma--pedal-galma",
+          "ru": "tormoza--pedal-tormoza--pedal-tormoza"
+        }
+      },
+      "category_navigation": [
+        {
+          "label": "Безпека і захист",
+          "category_path_slug": "bezpeka-i-zaxist",
+          "parent_path_slug": "",
+          "count": 11,
+          "has_children": true
+        },
+        {
+          "label": "Високовольтна система",
+          "category_path_slug": "visokovoltna-sistema",
+          "parent_path_slug": "",
+          "count": 3,
+          "has_children": true
+        },
+        {
+          "label": "Внутрішнє оздоблення",
+          "category_path_slug": "vnutrisnje-ozdoblennia",
+          "parent_path_slug": "",
+          "count": 84,
+          "has_children": true
+        },
+        {
+          "label": "Гальма",
+          "category_path_slug": "galma",
+          "parent_path_slug": "",
+          "count": 19,
+          "has_children": true
+        },
+        {
+          "label": "Абс, контроль зчеплення і курсової стійкості",
+          "category_path_slug": "galma--abs-kontrol-zceplennia-i-kursovoyi-stiikosti",
+          "parent_path_slug": "galma",
+          "count": 5,
+          "has_children": true
+        },
+        {
+          "label": "Вакуумний підсилювач гальм",
+          "category_path_slug": "galma--vakuumnii-pidsiliuvac-galm",
+          "parent_path_slug": "galma",
+          "count": 1,
+          "has_children": true
+        },
+        {
+          "label": "Гальмівні диски і супорта",
+          "category_path_slug": "galma--galmivni-diski-i-suporta",
+          "parent_path_slug": "galma",
+          "count": 6,
+          "has_children": true
+        },
+        {
+          "label": "Електромеханічний підсилювач гальм",
+          "category_path_slug": "galma--elektromexanicnii-pidsiliuvac-galm",
+          "parent_path_slug": "galma",
+          "count": 5,
+          "has_children": true
+        },
+        {
+          "label": "Педаль гальма",
+          "category_path_slug": "galma--pedal-galma",
+          "parent_path_slug": "galma",
+          "count": 1,
+          "has_children": true
+        },
+        {
+          "label": "Педаль гальма",
+          "category_path_slug": "galma--pedal-galma--pedal-galma",
+          "parent_path_slug": "galma--pedal-galma",
+          "count": 1,
+          "has_children": false
+        },
+        {
+          "label": "Стоянкове гальмо",
+          "category_path_slug": "galma--stoiankove-galmo",
+          "parent_path_slug": "galma",
+          "count": 1,
+          "has_children": true
+        },
+        {
+          "label": "Диски і шини",
+          "category_path_slug": "diski-i-sini",
+          "parent_path_slug": "",
+          "count": 2,
+          "has_children": true
+        },
+        {
+          "label": "Електрика",
+          "category_path_slug": "elektrika",
+          "parent_path_slug": "",
+          "count": 33,
+          "has_children": true
+        },
+        {
+          "label": "Задній мотор",
+          "category_path_slug": "zadnii-motor",
+          "parent_path_slug": "",
+          "count": 2,
+          "has_children": true
+        },
+        {
+          "label": "Зовнішня фурнітура",
+          "category_path_slug": "zovnisnia-furnitura",
+          "parent_path_slug": "",
+          "count": 16,
+          "has_children": true
+        },
+        {
+          "label": "Інформаційно-розважальна система",
+          "category_path_slug": "informaciino-rozvazalna-sistema",
+          "parent_path_slug": "",
+          "count": 4,
+          "has_children": true
+        },
+        {
+          "label": "Компоненти закриття",
+          "category_path_slug": "komponenti-zakrittia",
+          "parent_path_slug": "",
+          "count": 42,
+          "has_children": true
+        },
+        {
+          "label": "Криша",
+          "category_path_slug": "krisa",
+          "parent_path_slug": "",
+          "count": 3,
+          "has_children": true
+        },
+        {
+          "label": "Кузов",
+          "category_path_slug": "kuzov",
+          "parent_path_slug": "",
+          "count": 31,
+          "has_children": true
+        },
+        {
+          "label": "Не визначено",
+          "category_path_slug": "ne-viznaceno",
+          "parent_path_slug": "",
+          "count": 0,
+          "has_children": false
+        },
+        {
+          "label": "Панель приладів",
+          "category_path_slug": "panel-priladiv",
+          "parent_path_slug": "",
+          "count": 21,
+          "has_children": true
+        },
+        {
+          "label": "Передній мотор",
+          "category_path_slug": "perednii-motor",
+          "parent_path_slug": "",
+          "count": 3,
+          "has_children": true
+        },
+        {
+          "label": "Підвіска",
+          "category_path_slug": "pidviska",
+          "parent_path_slug": "",
+          "count": 35,
+          "has_children": true
+        },
+        {
+          "label": "Рульовий механізм",
+          "category_path_slug": "rulyovii-mexanizm",
+          "parent_path_slug": "",
+          "count": 9,
+          "has_children": true
+        },
+        {
+          "label": "Сидіння",
+          "category_path_slug": "sidinnia",
+          "parent_path_slug": "",
+          "count": 9,
+          "has_children": true
+        },
+        {
+          "label": "Управління температурним режимом",
+          "category_path_slug": "upravlinnia-temperaturnim-rezimom",
+          "parent_path_slug": "",
+          "count": 30,
+          "has_children": true
+        },
+        {
+          "label": "Ходова - шассі",
+          "category_path_slug": "xodova-sassi",
+          "parent_path_slug": "",
+          "count": 4,
+          "has_children": true
+        }
+      ],
+      "catalog_links": [
+        "/parts/",
+        "/parts/?cart=open",
+        "/parts/model-s-04-2016-01-2021/galma/pedal-galma/pedal-galma/",
+        "/ru/parts/model-s-04-2016-01-2021/tormoza/pedal-tormoza/pedal-tormoza/",
+        "/parts/galma/pedal-galma/pedal-galma/",
+        "/parts/model-3-06-2017-12-2023/galma/pedal-galma/pedal-galma/",
+        "/parts/model-3-highland-01-2024/galma/pedal-galma/pedal-galma/",
+        "/parts/model-s-02-2012-03-2016/galma/pedal-galma/pedal-galma/",
+        "/parts/model-y-01-2020-01-2025/galma/pedal-galma/pedal-galma/",
+        "/parts/model-s-04-2016-01-2021/bezpeka-i-zaxist/",
+        "/parts/model-s-04-2016-01-2021/visokovoltna-sistema/",
+        "/parts/model-s-04-2016-01-2021/vnutrisnje-ozdoblennia/",
+        "/parts/model-s-04-2016-01-2021/galma/",
+        "/parts/model-s-04-2016-01-2021/galma/abs-kontrol-zceplennia-i-kursovoyi-stiikosti/",
+        "/parts/model-s-04-2016-01-2021/galma/vakuumnii-pidsiliuvac-galm/",
+        "/parts/model-s-04-2016-01-2021/galma/galmivni-diski-i-suporta/",
+        "/parts/model-s-04-2016-01-2021/galma/elektromexanicnii-pidsiliuvac-galm/",
+        "/parts/model-s-04-2016-01-2021/galma/pedal-galma/",
+        "/parts/model-s-04-2016-01-2021/galma/stoiankove-galmo/",
+        "/parts/model-s-04-2016-01-2021/diski-i-sini/",
+        "/parts/model-s-04-2016-01-2021/elektrika/",
+        "/parts/model-s-04-2016-01-2021/zadnii-motor/",
+        "/parts/model-s-04-2016-01-2021/zovnisnia-furnitura/",
+        "/parts/model-s-04-2016-01-2021/informaciino-rozvazalna-sistema/",
+        "/parts/model-s-04-2016-01-2021/komponenti-zakrittia/",
+        "/parts/model-s-04-2016-01-2021/krisa/",
+        "/parts/model-s-04-2016-01-2021/kuzov/",
+        "/parts/model-s-04-2016-01-2021/ne-viznaceno/",
+        "/parts/model-s-04-2016-01-2021/panel-priladiv/",
+        "/parts/model-s-04-2016-01-2021/perednii-motor/",
+        "/parts/model-s-04-2016-01-2021/pidviska/",
+        "/parts/model-s-04-2016-01-2021/rulyovii-mexanizm/",
+        "/parts/model-s-04-2016-01-2021/sidinnia/",
+        "/parts/model-s-04-2016-01-2021/upravlinnia-temperaturnim-rezimom/",
+        "/parts/model-s-04-2016-01-2021/xodova-sassi/"
+      ],
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/",
+      "observed_utc": "2026-11-08T18:26:33.877Z",
+      "status": 200,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 59875,
+      "elapsed_ms": 1983,
+      "canonical": [
+        "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/"
+      ],
+      "alternates": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/diski-i-siny/diski/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/"
+      },
+      "robots": [],
+      "title": "Диски — Tesla Model S 04.2016-01.2021 — NikolaCars",
+      "h1": "Диски — Tesla Model S 04.2016-01.2021",
+      "ids": [
+        102105
+      ],
+      "pagination": {
+        "page": 1,
+        "per_page": 24,
+        "total": 1,
+        "last_page": 1
+      },
+      "selection": {
+        "model": "Model S 04.2016-01.2021",
+        "model_slug": "model-s-04-2016-01-2021",
+        "category": "Диски і шини",
+        "category_slug": "diski-i-sini",
+        "category_path": "Диски і шини / Диски",
+        "category_path_slug": "diski-i-sini--diski",
+        "category_breadcrumbs": [
+          {
+            "label": "Диски і шини",
+            "slug": "diski-i-sini"
+          },
+          {
+            "label": "Диски",
+            "slug": "diski-i-sini--diski"
+          }
+        ],
+        "category_path_locale_slugs": {
+          "uk": "diski-i-sini--diski",
+          "ru": "diski-i-siny--diski"
+        }
+      },
+      "category_navigation": [
+        {
+          "label": "Безпека і захист",
+          "category_path_slug": "bezpeka-i-zaxist",
+          "parent_path_slug": "",
+          "count": 11,
+          "has_children": true
+        },
+        {
+          "label": "Високовольтна система",
+          "category_path_slug": "visokovoltna-sistema",
+          "parent_path_slug": "",
+          "count": 3,
+          "has_children": true
+        },
+        {
+          "label": "Внутрішнє оздоблення",
+          "category_path_slug": "vnutrisnje-ozdoblennia",
+          "parent_path_slug": "",
+          "count": 84,
+          "has_children": true
+        },
+        {
+          "label": "Гальма",
+          "category_path_slug": "galma",
+          "parent_path_slug": "",
+          "count": 19,
+          "has_children": true
+        },
+        {
+          "label": "Диски і шини",
+          "category_path_slug": "diski-i-sini",
+          "parent_path_slug": "",
+          "count": 2,
+          "has_children": true
+        },
+        {
+          "label": "Диски",
+          "category_path_slug": "diski-i-sini--diski",
+          "parent_path_slug": "diski-i-sini",
+          "count": 0,
+          "has_children": true
+        },
+        {
+          "label": "Диски",
+          "category_path_slug": "diski-i-sini--diski--diski",
+          "parent_path_slug": "diski-i-sini--diski",
+          "count": 0,
+          "has_children": false
+        },
+        {
+          "label": "Система контролю тиску в шинах (TPMS)",
+          "category_path_slug": "diski-i-sini--sistema-kontroliu-tisku-v-sinax-tpms",
+          "parent_path_slug": "diski-i-sini",
+          "count": 2,
+          "has_children": true
+        },
+        {
+          "label": "Електрика",
+          "category_path_slug": "elektrika",
+          "parent_path_slug": "",
+          "count": 33,
+          "has_children": true
+        },
+        {
+          "label": "Задній мотор",
+          "category_path_slug": "zadnii-motor",
+          "parent_path_slug": "",
+          "count": 2,
+          "has_children": true
+        },
+        {
+          "label": "Зовнішня фурнітура",
+          "category_path_slug": "zovnisnia-furnitura",
+          "parent_path_slug": "",
+          "count": 16,
+          "has_children": true
+        },
+        {
+          "label": "Інформаційно-розважальна система",
+          "category_path_slug": "informaciino-rozvazalna-sistema",
+          "parent_path_slug": "",
+          "count": 4,
+          "has_children": true
+        },
+        {
+          "label": "Компоненти закриття",
+          "category_path_slug": "komponenti-zakrittia",
+          "parent_path_slug": "",
+          "count": 42,
+          "has_children": true
+        },
+        {
+          "label": "Криша",
+          "category_path_slug": "krisa",
+          "parent_path_slug": "",
+          "count": 3,
+          "has_children": true
+        },
+        {
+          "label": "Кузов",
+          "category_path_slug": "kuzov",
+          "parent_path_slug": "",
+          "count": 31,
+          "has_children": true
+        },
+        {
+          "label": "Не визначено",
+          "category_path_slug": "ne-viznaceno",
+          "parent_path_slug": "",
+          "count": 0,
+          "has_children": false
+        },
+        {
+          "label": "Панель приладів",
+          "category_path_slug": "panel-priladiv",
+          "parent_path_slug": "",
+          "count": 21,
+          "has_children": true
+        },
+        {
+          "label": "Передній мотор",
+          "category_path_slug": "perednii-motor",
+          "parent_path_slug": "",
+          "count": 3,
+          "has_children": true
+        },
+        {
+          "label": "Підвіска",
+          "category_path_slug": "pidviska",
+          "parent_path_slug": "",
+          "count": 35,
+          "has_children": true
+        },
+        {
+          "label": "Рульовий механізм",
+          "category_path_slug": "rulyovii-mexanizm",
+          "parent_path_slug": "",
+          "count": 9,
+          "has_children": true
+        },
+        {
+          "label": "Сидіння",
+          "category_path_slug": "sidinnia",
+          "parent_path_slug": "",
+          "count": 9,
+          "has_children": true
+        },
+        {
+          "label": "Управління температурним режимом",
+          "category_path_slug": "upravlinnia-temperaturnim-rezimom",
+          "parent_path_slug": "",
+          "count": 30,
+          "has_children": true
+        },
+        {
+          "label": "Ходова - шассі",
+          "category_path_slug": "xodova-sassi",
+          "parent_path_slug": "",
+          "count": 4,
+          "has_children": true
+        }
+      ],
+      "catalog_links": [
+        "/parts/",
+        "/parts/?cart=open",
+        "/parts/model-s-04-2016-01-2021/diski-i-sini/diski/",
+        "/ru/parts/model-s-04-2016-01-2021/diski-i-siny/diski/",
+        "/parts/diski-i-sini/diski/",
+        "/parts/model-3-06-2017-12-2023/diski-i-sini/diski/",
+        "/parts/model-3-highland-01-2024/diski-i-sini/diski/diski/",
+        "/parts/model-y-01-2020-01-2025/diski-i-sini/diski/",
+        "/parts/model-s-04-2016-01-2021/bezpeka-i-zaxist/",
+        "/parts/model-s-04-2016-01-2021/visokovoltna-sistema/",
+        "/parts/model-s-04-2016-01-2021/vnutrisnje-ozdoblennia/",
+        "/parts/model-s-04-2016-01-2021/galma/",
+        "/parts/model-s-04-2016-01-2021/diski-i-sini/",
+        "/parts/model-s-04-2016-01-2021/diski-i-sini/diski/diski/",
+        "/parts/model-s-04-2016-01-2021/diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/",
+        "/parts/model-s-04-2016-01-2021/elektrika/",
+        "/parts/model-s-04-2016-01-2021/zadnii-motor/",
+        "/parts/model-s-04-2016-01-2021/zovnisnia-furnitura/",
+        "/parts/model-s-04-2016-01-2021/informaciino-rozvazalna-sistema/",
+        "/parts/model-s-04-2016-01-2021/komponenti-zakrittia/",
+        "/parts/model-s-04-2016-01-2021/krisa/",
+        "/parts/model-s-04-2016-01-2021/kuzov/",
+        "/parts/model-s-04-2016-01-2021/ne-viznaceno/",
+        "/parts/model-s-04-2016-01-2021/panel-priladiv/",
+        "/parts/model-s-04-2016-01-2021/perednii-motor/",
+        "/parts/model-s-04-2016-01-2021/pidviska/",
+        "/parts/model-s-04-2016-01-2021/rulyovii-mexanizm/",
+        "/parts/model-s-04-2016-01-2021/sidinnia/",
+        "/parts/model-s-04-2016-01-2021/upravlinnia-temperaturnim-rezimom/",
+        "/parts/model-s-04-2016-01-2021/xodova-sassi/"
+      ],
+      "sold_label_present": true
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/galma/pedal-galma/pedal-galma/",
+      "observed_utc": "2026-11-08T18:26:45.874Z",
+      "status": 200,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 97693,
+      "elapsed_ms": 1069,
+      "canonical": [
+        "https://nikolacars.kiev.ua/parts/galma/pedal-galma/pedal-galma/"
+      ],
+      "alternates": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/galma/pedal-galma/pedal-galma/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/tormoza/pedal-tormoza/pedal-tormoza/",
+        "x-default": "https://nikolacars.kiev.ua/parts/galma/pedal-galma/pedal-galma/"
+      },
+      "robots": [],
+      "title": "Педаль гальма — Запчастини Tesla — NikolaCars",
+      "h1": "Педаль гальма — Запчастини Tesla",
+      "ids": [
+        74350,
+        108105,
+        113334,
+        106344,
+        106892,
+        88660,
+        101899,
+        99115,
+        100551
+      ],
+      "pagination": {
+        "page": 1,
+        "per_page": 24,
+        "total": 9,
+        "last_page": 1
+      },
+      "selection": {
+        "model": "",
+        "model_slug": "",
+        "category": "Гальма",
+        "category_slug": "galma",
+        "category_path": "Гальма / Педаль гальма / Педаль гальма",
+        "category_path_slug": "galma--pedal-galma--pedal-galma",
+        "category_breadcrumbs": [
+          {
+            "label": "Гальма",
+            "slug": "galma"
+          },
+          {
+            "label": "Педаль гальма",
+            "slug": "galma--pedal-galma"
+          },
+          {
+            "label": "Педаль гальма",
+            "slug": "galma--pedal-galma--pedal-galma"
+          }
+        ],
+        "category_path_locale_slugs": {
+          "uk": "galma--pedal-galma--pedal-galma",
+          "ru": "tormoza--pedal-tormoza--pedal-tormoza"
+        }
+      },
+      "category_navigation": [
+        {
+          "label": "Безпека і захист",
+          "category_path_slug": "bezpeka-i-zaxist",
+          "parent_path_slug": "",
+          "count": 117,
+          "has_children": true
+        },
+        {
+          "label": "Високовольтна батарея",
+          "category_path_slug": "visokovoltna-batareia",
+          "parent_path_slug": "",
+          "count": 7,
+          "has_children": true
+        },
+        {
+          "label": "Високовольтна система",
+          "category_path_slug": "visokovoltna-sistema",
+          "parent_path_slug": "",
+          "count": 26,
+          "has_children": true
+        },
+        {
+          "label": "Внутрішнє оздоблення",
+          "category_path_slug": "vnutrisnje-ozdoblennia",
+          "parent_path_slug": "",
+          "count": 766,
+          "has_children": true
+        },
+        {
+          "label": "Гальма",
+          "category_path_slug": "galma",
+          "parent_path_slug": "",
+          "count": 140,
+          "has_children": true
+        },
+        {
+          "label": "Абс, контроль зчеплення і курсової стійкості",
+          "category_path_slug": "galma--abs-kontrol-zceplennia-i-kursovoyi-stiikosti",
+          "parent_path_slug": "galma",
+          "count": 31,
+          "has_children": true
+        },
+        {
+          "label": "Вакуумний підсилювач гальм",
+          "category_path_slug": "galma--vakuumnii-pidsiliuvac-galm",
+          "parent_path_slug": "galma",
+          "count": 1,
+          "has_children": true
+        },
+        {
+          "label": "Гальмівні диски і супорта",
+          "category_path_slug": "galma--galmivni-diski-i-suporta",
+          "parent_path_slug": "galma",
+          "count": 64,
+          "has_children": true
+        },
+        {
+          "label": "Гальмівні трубки і шланги",
+          "category_path_slug": "galma--galmivni-trubki-i-slangi",
+          "parent_path_slug": "galma",
+          "count": 3,
+          "has_children": true
+        },
+        {
+          "label": "Електромеханічний підсилювач гальм",
+          "category_path_slug": "galma--elektromexanicnii-pidsiliuvac-galm",
+          "parent_path_slug": "galma",
+          "count": 26,
+          "has_children": true
+        },
+        {
+          "label": "Педаль гальма",
+          "category_path_slug": "galma--pedal-galma",
+          "parent_path_slug": "galma",
+          "count": 9,
+          "has_children": true
+        },
+        {
+          "label": "Педаль гальма",
+          "category_path_slug": "galma--pedal-galma--pedal-galma",
+          "parent_path_slug": "galma--pedal-galma",
+          "count": 9,
+          "has_children": false
+        },
+        {
+          "label": "Стоянкове гальмо",
+          "category_path_slug": "galma--stoiankove-galmo",
+          "parent_path_slug": "galma",
+          "count": 6,
+          "has_children": true
+        },
+        {
+          "label": "Диски і шини",
+          "category_path_slug": "diski-i-sini",
+          "parent_path_slug": "",
+          "count": 19,
+          "has_children": true
+        },
+        {
+          "label": "Електрика",
+          "category_path_slug": "elektrika",
+          "parent_path_slug": "",
+          "count": 331,
+          "has_children": true
+        },
+        {
+          "label": "Задній мотор",
+          "category_path_slug": "zadnii-motor",
+          "parent_path_slug": "",
+          "count": 33,
+          "has_children": true
+        },
+        {
+          "label": "Зовнішня фурнітура",
+          "category_path_slug": "zovnisnia-furnitura",
+          "parent_path_slug": "",
+          "count": 225,
+          "has_children": true
+        },
+        {
+          "label": "Інформаційно-розважальна система",
+          "category_path_slug": "informaciino-rozvazalna-sistema",
+          "parent_path_slug": "",
+          "count": 84,
+          "has_children": true
+        },
+        {
+          "label": "Компоненти закриття",
+          "category_path_slug": "komponenti-zakrittia",
+          "parent_path_slug": "",
+          "count": 473,
+          "has_children": true
+        },
+        {
+          "label": "Криша",
+          "category_path_slug": "krisa",
+          "parent_path_slug": "",
+          "count": 10,
+          "has_children": true
+        },
+        {
+          "label": "Кузов",
+          "category_path_slug": "kuzov",
+          "parent_path_slug": "",
+          "count": 185,
+          "has_children": true
+        },
+        {
+          "label": "Не визначено",
+          "category_path_slug": "ne-viznaceno",
+          "parent_path_slug": "",
+          "count": 6,
+          "has_children": false
+        },
+        {
+          "label": "Панель приладів",
+          "category_path_slug": "panel-priladiv",
+          "parent_path_slug": "",
+          "count": 204,
+          "has_children": true
+        },
+        {
+          "label": "Передній мотор",
+          "category_path_slug": "perednii-motor",
+          "parent_path_slug": "",
+          "count": 14,
+          "has_children": true
+        },
+        {
+          "label": "Підвіска",
+          "category_path_slug": "pidviska",
+          "parent_path_slug": "",
+          "count": 140,
+          "has_children": true
+        },
+        {
+          "label": "Рульовий механізм",
+          "category_path_slug": "rulyovii-mexanizm",
+          "parent_path_slug": "",
+          "count": 39,
+          "has_children": true
+        },
+        {
+          "label": "Сидіння",
+          "category_path_slug": "sidinnia",
+          "parent_path_slug": "",
+          "count": 73,
+          "has_children": true
+        },
+        {
+          "label": "Управління температурним режимом",
+          "category_path_slug": "upravlinnia-temperaturnim-rezimom",
+          "parent_path_slug": "",
+          "count": 233,
+          "has_children": true
+        },
+        {
+          "label": "Ходова - шассі",
+          "category_path_slug": "xodova-sassi",
+          "parent_path_slug": "",
+          "count": 9,
+          "has_children": true
+        }
+      ],
+      "catalog_links": [
+        "/parts/",
+        "/parts/?cart=open",
+        "/parts/galma/pedal-galma/pedal-galma/",
+        "/ru/parts/tormoza/pedal-tormoza/pedal-tormoza/",
+        "/parts/model-3-06-2017-12-2023/galma/pedal-galma/pedal-galma/",
+        "/parts/model-3-highland-01-2024/galma/pedal-galma/pedal-galma/",
+        "/parts/model-s-02-2012-03-2016/galma/pedal-galma/pedal-galma/",
+        "/parts/model-s-04-2016-01-2021/galma/pedal-galma/pedal-galma/",
+        "/parts/model-y-01-2020-01-2025/galma/pedal-galma/pedal-galma/",
+        "/parts/bezpeka-i-zaxist/",
+        "/parts/visokovoltna-batareia/",
+        "/parts/visokovoltna-sistema/",
+        "/parts/vnutrisnje-ozdoblennia/",
+        "/parts/galma/",
+        "/parts/galma/abs-kontrol-zceplennia-i-kursovoyi-stiikosti/",
+        "/parts/galma/vakuumnii-pidsiliuvac-galm/",
+        "/parts/galma/galmivni-diski-i-suporta/",
+        "/parts/galma/galmivni-trubki-i-slangi/",
+        "/parts/galma/elektromexanicnii-pidsiliuvac-galm/",
+        "/parts/galma/stoiankove-galmo/",
+        "/parts/diski-i-sini/",
+        "/parts/elektrika/",
+        "/parts/zadnii-motor/",
+        "/parts/zovnisnia-furnitura/",
+        "/parts/informaciino-rozvazalna-sistema/",
+        "/parts/komponenti-zakrittia/",
+        "/parts/krisa/",
+        "/parts/kuzov/",
+        "/parts/ne-viznaceno/",
+        "/parts/panel-priladiv/",
+        "/parts/perednii-motor/",
+        "/parts/pidviska/",
+        "/parts/rulyovii-mexanizm/",
+        "/parts/sidinnia/",
+        "/parts/upravlinnia-temperaturnim-rezimom/",
+        "/parts/xodova-sassi/"
+      ],
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-batareia/visokovoltna-batareia/",
+      "observed_utc": "2026-11-08T18:26:56.942Z",
+      "status": 200,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 64649,
+      "elapsed_ms": 652,
+      "canonical": [
+        "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-batareia/visokovoltna-batareia/"
+      ],
+      "alternates": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-batareia/visokovoltna-batareia/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-batareia/visokovoltna-batareia/"
+      },
+      "robots": [],
+      "title": "Високовольтна батарея — Tesla Model Y 01.2020 - 01.2025 — NikolaCars",
+      "h1": "Високовольтна батарея — Tesla Model Y 01.2020 - 01.2025",
+      "ids": [
+        65734,
+        39792
+      ],
+      "pagination": {
+        "page": 1,
+        "per_page": 24,
+        "total": 2,
+        "last_page": 1
+      },
+      "selection": {
+        "model": "Model Y 01.2020 - 01.2025",
+        "model_slug": "model-y-01-2020-01-2025",
+        "category": "Високовольтна батарея",
+        "category_slug": "visokovoltna-batareia",
+        "category_path": "Високовольтна батарея / Високовольтна батарея",
+        "category_path_slug": "visokovoltna-batareia--visokovoltna-batareia",
+        "category_breadcrumbs": [
+          {
+            "label": "Високовольтна батарея",
+            "slug": "visokovoltna-batareia"
+          },
+          {
+            "label": "Високовольтна батарея",
+            "slug": "visokovoltna-batareia--visokovoltna-batareia"
+          }
+        ],
+        "category_path_locale_slugs": {
+          "uk": "visokovoltna-batareia--visokovoltna-batareia",
+          "ru": "vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+        }
+      },
+      "category_navigation": [
+        {
+          "label": "Безпека і захист",
+          "category_path_slug": "bezpeka-i-zaxist",
+          "parent_path_slug": "",
+          "count": 24,
+          "has_children": true
+        },
+        {
+          "label": "Високовольтна батарея",
+          "category_path_slug": "visokovoltna-batareia",
+          "parent_path_slug": "",
+          "count": 0,
+          "has_children": true
+        },
+        {
+          "label": "Високовольтна батарея",
+          "category_path_slug": "visokovoltna-batareia--visokovoltna-batareia",
+          "parent_path_slug": "visokovoltna-batareia",
+          "count": 0,
+          "has_children": true
+        },
+        {
+          "label": "Високовольтна батарея",
+          "category_path_slug": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia",
+          "parent_path_slug": "visokovoltna-batareia--visokovoltna-batareia",
+          "count": 0,
+          "has_children": false
+        },
+        {
+          "label": "Високовольтна система",
+          "category_path_slug": "visokovoltna-sistema",
+          "parent_path_slug": "",
+          "count": 8,
+          "has_children": true
+        },
+        {
+          "label": "Внутрішнє оздоблення",
+          "category_path_slug": "vnutrisnje-ozdoblennia",
+          "parent_path_slug": "",
+          "count": 171,
+          "has_children": true
+        },
+        {
+          "label": "Гальма",
+          "category_path_slug": "galma",
+          "parent_path_slug": "",
+          "count": 42,
+          "has_children": true
+        },
+        {
+          "label": "Диски і шини",
+          "category_path_slug": "diski-i-sini",
+          "parent_path_slug": "",
+          "count": 5,
+          "has_children": true
+        },
+        {
+          "label": "Електрика",
+          "category_path_slug": "elektrika",
+          "parent_path_slug": "",
+          "count": 103,
+          "has_children": true
+        },
+        {
+          "label": "Задній мотор",
+          "category_path_slug": "zadnii-motor",
+          "parent_path_slug": "",
+          "count": 17,
+          "has_children": true
+        },
+        {
+          "label": "Зовнішня фурнітура",
+          "category_path_slug": "zovnisnia-furnitura",
+          "parent_path_slug": "",
+          "count": 79,
+          "has_children": true
+        },
+        {
+          "label": "Інформаційно-розважальна система",
+          "category_path_slug": "informaciino-rozvazalna-sistema",
+          "parent_path_slug": "",
+          "count": 33,
+          "has_children": true
+        },
+        {
+          "label": "Компоненти закриття",
+          "category_path_slug": "komponenti-zakrittia",
+          "parent_path_slug": "",
+          "count": 116,
+          "has_children": true
+        },
+        {
+          "label": "Кузов",
+          "category_path_slug": "kuzov",
+          "parent_path_slug": "",
+          "count": 42,
+          "has_children": true
+        },
+        {
+          "label": "Не визначено",
+          "category_path_slug": "ne-viznaceno",
+          "parent_path_slug": "",
+          "count": 1,
+          "has_children": false
+        },
+        {
+          "label": "Панель приладів",
+          "category_path_slug": "panel-priladiv",
+          "parent_path_slug": "",
+          "count": 25,
+          "has_children": true
+        },
+        {
+          "label": "Передній мотор",
+          "category_path_slug": "perednii-motor",
+          "parent_path_slug": "",
+          "count": 9,
+          "has_children": true
+        },
+        {
+          "label": "Підвіска",
+          "category_path_slug": "pidviska",
+          "parent_path_slug": "",
+          "count": 44,
+          "has_children": true
+        },
+        {
+          "label": "Рульовий механізм",
+          "category_path_slug": "rulyovii-mexanizm",
+          "parent_path_slug": "",
+          "count": 8,
+          "has_children": true
+        },
+        {
+          "label": "Сидіння",
+          "category_path_slug": "sidinnia",
+          "parent_path_slug": "",
+          "count": 13,
+          "has_children": true
+        },
+        {
+          "label": "Управління температурним режимом",
+          "category_path_slug": "upravlinnia-temperaturnim-rezimom",
+          "parent_path_slug": "",
+          "count": 61,
+          "has_children": true
+        },
+        {
+          "label": "Ходова - шассі",
+          "category_path_slug": "xodova-sassi",
+          "parent_path_slug": "",
+          "count": 1,
+          "has_children": true
+        }
+      ],
+      "catalog_links": [
+        "/parts/",
+        "/parts/?cart=open",
+        "/parts/model-y-01-2020-01-2025/visokovoltna-batareia/visokovoltna-batareia/",
+        "/ru/parts/model-y-01-2020-01-2025/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+        "/parts/visokovoltna-batareia/visokovoltna-batareia/",
+        "/parts/model-3-06-2017-12-2023/visokovoltna-batareia/visokovoltna-batareia/",
+        "/parts/model-3-highland-01-2024/visokovoltna-batareia/visokovoltna-batareia/",
+        "/parts/model-s-02-2012-03-2016/visokovoltna-batareia/visokovoltna-batareia/",
+        "/parts/model-y-01-2020-01-2025/bezpeka-i-zaxist/",
+        "/parts/model-y-01-2020-01-2025/visokovoltna-batareia/",
+        "/parts/model-y-01-2020-01-2025/visokovoltna-batareia/visokovoltna-batareia/visokovoltna-batareia/",
+        "/parts/model-y-01-2020-01-2025/visokovoltna-sistema/",
+        "/parts/model-y-01-2020-01-2025/vnutrisnje-ozdoblennia/",
+        "/parts/model-y-01-2020-01-2025/galma/",
+        "/parts/model-y-01-2020-01-2025/diski-i-sini/",
+        "/parts/model-y-01-2020-01-2025/elektrika/",
+        "/parts/model-y-01-2020-01-2025/zadnii-motor/",
+        "/parts/model-y-01-2020-01-2025/zovnisnia-furnitura/",
+        "/parts/model-y-01-2020-01-2025/informaciino-rozvazalna-sistema/",
+        "/parts/model-y-01-2020-01-2025/komponenti-zakrittia/",
+        "/parts/model-y-01-2020-01-2025/kuzov/",
+        "/parts/model-y-01-2020-01-2025/ne-viznaceno/",
+        "/parts/model-y-01-2020-01-2025/panel-priladiv/",
+        "/parts/model-y-01-2020-01-2025/perednii-motor/",
+        "/parts/model-y-01-2020-01-2025/pidviska/",
+        "/parts/model-y-01-2020-01-2025/rulyovii-mexanizm/",
+        "/parts/model-y-01-2020-01-2025/sidinnia/",
+        "/parts/model-y-01-2020-01-2025/upravlinnia-temperaturnim-rezimom/",
+        "/parts/model-y-01-2020-01-2025/xodova-sassi/"
+      ],
+      "sold_label_present": true
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-sistema/visokovoltni-provoda/visokovoltni-provoda/",
+      "observed_utc": "2026-11-08T18:27:07.616Z",
+      "status": 200,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 67986,
+      "elapsed_ms": 860,
+      "canonical": [
+        "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-sistema/visokovoltni-provoda/visokovoltni-provoda/"
+      ],
+      "alternates": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-sistema/visokovoltni-provoda/visokovoltni-provoda/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/vysokovoltnaia-sistema/vysokovoltnye-provoda/vysokovoltnye-provoda/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-sistema/visokovoltni-provoda/visokovoltni-provoda/"
+      },
+      "robots": [],
+      "title": "Високовольтні провода — Tesla Model Y 01.2020 - 01.2025 — NikolaCars",
+      "h1": "Високовольтні провода — Tesla Model Y 01.2020 - 01.2025",
+      "ids": [
+        84592,
+        89810
+      ],
+      "pagination": {
+        "page": 1,
+        "per_page": 24,
+        "total": 2,
+        "last_page": 1
+      },
+      "selection": {
+        "model": "Model Y 01.2020 - 01.2025",
+        "model_slug": "model-y-01-2020-01-2025",
+        "category": "Високовольтна система",
+        "category_slug": "visokovoltna-sistema",
+        "category_path": "Високовольтна система / Високовольтні провода / Високовольтні провода",
+        "category_path_slug": "visokovoltna-sistema--visokovoltni-provoda--visokovoltni-provoda",
+        "category_breadcrumbs": [
+          {
+            "label": "Високовольтна система",
+            "slug": "visokovoltna-sistema"
+          },
+          {
+            "label": "Високовольтні провода",
+            "slug": "visokovoltna-sistema--visokovoltni-provoda"
+          },
+          {
+            "label": "Високовольтні провода",
+            "slug": "visokovoltna-sistema--visokovoltni-provoda--visokovoltni-provoda"
+          }
+        ],
+        "category_path_locale_slugs": {
+          "uk": "visokovoltna-sistema--visokovoltni-provoda--visokovoltni-provoda",
+          "ru": "vysokovoltnaia-sistema--vysokovoltnye-provoda--vysokovoltnye-provoda"
+        }
+      },
+      "category_navigation": [
+        {
+          "label": "Безпека і захист",
+          "category_path_slug": "bezpeka-i-zaxist",
+          "parent_path_slug": "",
+          "count": 24,
+          "has_children": true
+        },
+        {
+          "label": "Високовольтна батарея",
+          "category_path_slug": "visokovoltna-batareia",
+          "parent_path_slug": "",
+          "count": 0,
+          "has_children": true
+        },
+        {
+          "label": "Високовольтна система",
+          "category_path_slug": "visokovoltna-sistema",
+          "parent_path_slug": "",
+          "count": 8,
+          "has_children": true
+        },
+        {
+          "label": "Високовольтні провода",
+          "category_path_slug": "visokovoltna-sistema--visokovoltni-provoda",
+          "parent_path_slug": "visokovoltna-sistema",
+          "count": 2,
+          "has_children": true
+        },
+        {
+          "label": "Високовольтні провода",
+          "category_path_slug": "visokovoltna-sistema--visokovoltni-provoda--visokovoltni-provoda",
+          "parent_path_slug": "visokovoltna-sistema--visokovoltni-provoda",
+          "count": 2,
+          "has_children": false
+        },
+        {
+          "label": "Вхід зарядної системи",
+          "category_path_slug": "visokovoltna-sistema--vxid-zariadnoyi-sistemi",
+          "parent_path_slug": "visokovoltna-sistema",
+          "count": 6,
+          "has_children": true
+        },
+        {
+          "label": "Внутрішнє оздоблення",
+          "category_path_slug": "vnutrisnje-ozdoblennia",
+          "parent_path_slug": "",
+          "count": 171,
+          "has_children": true
+        },
+        {
+          "label": "Гальма",
+          "category_path_slug": "galma",
+          "parent_path_slug": "",
+          "count": 42,
+          "has_children": true
+        },
+        {
+          "label": "Диски і шини",
+          "category_path_slug": "diski-i-sini",
+          "parent_path_slug": "",
+          "count": 5,
+          "has_children": true
+        },
+        {
+          "label": "Електрика",
+          "category_path_slug": "elektrika",
+          "parent_path_slug": "",
+          "count": 103,
+          "has_children": true
+        },
+        {
+          "label": "Задній мотор",
+          "category_path_slug": "zadnii-motor",
+          "parent_path_slug": "",
+          "count": 17,
+          "has_children": true
+        },
+        {
+          "label": "Зовнішня фурнітура",
+          "category_path_slug": "zovnisnia-furnitura",
+          "parent_path_slug": "",
+          "count": 79,
+          "has_children": true
+        },
+        {
+          "label": "Інформаційно-розважальна система",
+          "category_path_slug": "informaciino-rozvazalna-sistema",
+          "parent_path_slug": "",
+          "count": 33,
+          "has_children": true
+        },
+        {
+          "label": "Компоненти закриття",
+          "category_path_slug": "komponenti-zakrittia",
+          "parent_path_slug": "",
+          "count": 116,
+          "has_children": true
+        },
+        {
+          "label": "Кузов",
+          "category_path_slug": "kuzov",
+          "parent_path_slug": "",
+          "count": 42,
+          "has_children": true
+        },
+        {
+          "label": "Не визначено",
+          "category_path_slug": "ne-viznaceno",
+          "parent_path_slug": "",
+          "count": 1,
+          "has_children": false
+        },
+        {
+          "label": "Панель приладів",
+          "category_path_slug": "panel-priladiv",
+          "parent_path_slug": "",
+          "count": 25,
+          "has_children": true
+        },
+        {
+          "label": "Передній мотор",
+          "category_path_slug": "perednii-motor",
+          "parent_path_slug": "",
+          "count": 9,
+          "has_children": true
+        },
+        {
+          "label": "Підвіска",
+          "category_path_slug": "pidviska",
+          "parent_path_slug": "",
+          "count": 44,
+          "has_children": true
+        },
+        {
+          "label": "Рульовий механізм",
+          "category_path_slug": "rulyovii-mexanizm",
+          "parent_path_slug": "",
+          "count": 8,
+          "has_children": true
+        },
+        {
+          "label": "Сидіння",
+          "category_path_slug": "sidinnia",
+          "parent_path_slug": "",
+          "count": 13,
+          "has_children": true
+        },
+        {
+          "label": "Управління температурним режимом",
+          "category_path_slug": "upravlinnia-temperaturnim-rezimom",
+          "parent_path_slug": "",
+          "count": 61,
+          "has_children": true
+        },
+        {
+          "label": "Ходова - шассі",
+          "category_path_slug": "xodova-sassi",
+          "parent_path_slug": "",
+          "count": 1,
+          "has_children": true
+        }
+      ],
+      "catalog_links": [
+        "/parts/",
+        "/parts/?cart=open",
+        "/parts/model-y-01-2020-01-2025/visokovoltna-sistema/visokovoltni-provoda/visokovoltni-provoda/",
+        "/ru/parts/model-y-01-2020-01-2025/vysokovoltnaia-sistema/vysokovoltnye-provoda/vysokovoltnye-provoda/",
+        "/parts/visokovoltna-sistema/visokovoltni-provoda/visokovoltni-provoda/",
+        "/parts/model-3-06-2017-12-2023/visokovoltna-sistema/visokovoltni-provoda/visokovoltni-provoda/",
+        "/parts/model-y-01-2020-01-2025/bezpeka-i-zaxist/",
+        "/parts/model-y-01-2020-01-2025/visokovoltna-batareia/",
+        "/parts/model-y-01-2020-01-2025/visokovoltna-sistema/",
+        "/parts/model-y-01-2020-01-2025/visokovoltna-sistema/vxid-zariadnoyi-sistemi/",
+        "/parts/model-y-01-2020-01-2025/vnutrisnje-ozdoblennia/",
+        "/parts/model-y-01-2020-01-2025/galma/",
+        "/parts/model-y-01-2020-01-2025/diski-i-sini/",
+        "/parts/model-y-01-2020-01-2025/elektrika/",
+        "/parts/model-y-01-2020-01-2025/zadnii-motor/",
+        "/parts/model-y-01-2020-01-2025/zovnisnia-furnitura/",
+        "/parts/model-y-01-2020-01-2025/informaciino-rozvazalna-sistema/",
+        "/parts/model-y-01-2020-01-2025/komponenti-zakrittia/",
+        "/parts/model-y-01-2020-01-2025/kuzov/",
+        "/parts/model-y-01-2020-01-2025/ne-viznaceno/",
+        "/parts/model-y-01-2020-01-2025/panel-priladiv/",
+        "/parts/model-y-01-2020-01-2025/perednii-motor/",
+        "/parts/model-y-01-2020-01-2025/pidviska/",
+        "/parts/model-y-01-2020-01-2025/rulyovii-mexanizm/",
+        "/parts/model-y-01-2020-01-2025/sidinnia/",
+        "/parts/model-y-01-2020-01-2025/upravlinnia-temperaturnim-rezimom/",
+        "/parts/model-y-01-2020-01-2025/xodova-sassi/"
+      ],
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/perednii-motor/peredni-pivosi/peredni-pivosi/",
+      "observed_utc": "2026-11-08T18:27:18.482Z",
+      "status": 200,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 79313,
+      "elapsed_ms": 2048,
+      "canonical": [
+        "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/perednii-motor/peredni-pivosi/peredni-pivosi/"
+      ],
+      "alternates": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/perednii-motor/peredni-pivosi/peredni-pivosi/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/perednii-motor/perednie-poluosi/perednie-poluosi/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/perednii-motor/peredni-pivosi/peredni-pivosi/"
+      },
+      "robots": [],
+      "title": "Передні півосі — Tesla Model Y 01.2020 - 01.2025 — NikolaCars",
+      "h1": "Передні півосі — Tesla Model Y 01.2020 - 01.2025",
+      "ids": [
+        84763,
+        113158,
+        83585,
+        82238,
+        88634,
+        103741
+      ],
+      "pagination": {
+        "page": 1,
+        "per_page": 24,
+        "total": 6,
+        "last_page": 1
+      },
+      "selection": {
+        "model": "Model Y 01.2020 - 01.2025",
+        "model_slug": "model-y-01-2020-01-2025",
+        "category": "Передній мотор",
+        "category_slug": "perednii-motor",
+        "category_path": "Передній мотор / Передні півосі / Передні півосі",
+        "category_path_slug": "perednii-motor--peredni-pivosi--peredni-pivosi",
+        "category_breadcrumbs": [
+          {
+            "label": "Передній мотор",
+            "slug": "perednii-motor"
+          },
+          {
+            "label": "Передні півосі",
+            "slug": "perednii-motor--peredni-pivosi"
+          },
+          {
+            "label": "Передні півосі",
+            "slug": "perednii-motor--peredni-pivosi--peredni-pivosi"
+          }
+        ],
+        "category_path_locale_slugs": {
+          "uk": "perednii-motor--peredni-pivosi--peredni-pivosi",
+          "ru": "perednii-motor--perednie-poluosi--perednie-poluosi"
+        }
+      },
+      "category_navigation": [
+        {
+          "label": "Безпека і захист",
+          "category_path_slug": "bezpeka-i-zaxist",
+          "parent_path_slug": "",
+          "count": 24,
+          "has_children": true
+        },
+        {
+          "label": "Високовольтна батарея",
+          "category_path_slug": "visokovoltna-batareia",
+          "parent_path_slug": "",
+          "count": 0,
+          "has_children": true
+        },
+        {
+          "label": "Високовольтна система",
+          "category_path_slug": "visokovoltna-sistema",
+          "parent_path_slug": "",
+          "count": 8,
+          "has_children": true
+        },
+        {
+          "label": "Внутрішнє оздоблення",
+          "category_path_slug": "vnutrisnje-ozdoblennia",
+          "parent_path_slug": "",
+          "count": 171,
+          "has_children": true
+        },
+        {
+          "label": "Гальма",
+          "category_path_slug": "galma",
+          "parent_path_slug": "",
+          "count": 42,
+          "has_children": true
+        },
+        {
+          "label": "Диски і шини",
+          "category_path_slug": "diski-i-sini",
+          "parent_path_slug": "",
+          "count": 5,
+          "has_children": true
+        },
+        {
+          "label": "Електрика",
+          "category_path_slug": "elektrika",
+          "parent_path_slug": "",
+          "count": 103,
+          "has_children": true
+        },
+        {
+          "label": "Задній мотор",
+          "category_path_slug": "zadnii-motor",
+          "parent_path_slug": "",
+          "count": 17,
+          "has_children": true
+        },
+        {
+          "label": "Зовнішня фурнітура",
+          "category_path_slug": "zovnisnia-furnitura",
+          "parent_path_slug": "",
+          "count": 79,
+          "has_children": true
+        },
+        {
+          "label": "Інформаційно-розважальна система",
+          "category_path_slug": "informaciino-rozvazalna-sistema",
+          "parent_path_slug": "",
+          "count": 33,
+          "has_children": true
+        },
+        {
+          "label": "Компоненти закриття",
+          "category_path_slug": "komponenti-zakrittia",
+          "parent_path_slug": "",
+          "count": 116,
+          "has_children": true
+        },
+        {
+          "label": "Кузов",
+          "category_path_slug": "kuzov",
+          "parent_path_slug": "",
+          "count": 42,
+          "has_children": true
+        },
+        {
+          "label": "Не визначено",
+          "category_path_slug": "ne-viznaceno",
+          "parent_path_slug": "",
+          "count": 1,
+          "has_children": false
+        },
+        {
+          "label": "Панель приладів",
+          "category_path_slug": "panel-priladiv",
+          "parent_path_slug": "",
+          "count": 25,
+          "has_children": true
+        },
+        {
+          "label": "Передній мотор",
+          "category_path_slug": "perednii-motor",
+          "parent_path_slug": "",
+          "count": 9,
+          "has_children": true
+        },
+        {
+          "label": "Передній мотор в зборі",
+          "category_path_slug": "perednii-motor--perednii-motor-v-zbori",
+          "parent_path_slug": "perednii-motor",
+          "count": 6,
+          "has_children": true
+        },
+        {
+          "label": "Передні півосі",
+          "category_path_slug": "perednii-motor--peredni-pivosi",
+          "parent_path_slug": "perednii-motor",
+          "count": 3,
+          "has_children": true
+        },
+        {
+          "label": "Передні півосі",
+          "category_path_slug": "perednii-motor--peredni-pivosi--peredni-pivosi",
+          "parent_path_slug": "perednii-motor--peredni-pivosi",
+          "count": 3,
+          "has_children": false
+        },
+        {
+          "label": "Підвіска",
+          "category_path_slug": "pidviska",
+          "parent_path_slug": "",
+          "count": 44,
+          "has_children": true
+        },
+        {
+          "label": "Рульовий механізм",
+          "category_path_slug": "rulyovii-mexanizm",
+          "parent_path_slug": "",
+          "count": 8,
+          "has_children": true
+        },
+        {
+          "label": "Сидіння",
+          "category_path_slug": "sidinnia",
+          "parent_path_slug": "",
+          "count": 13,
+          "has_children": true
+        },
+        {
+          "label": "Управління температурним режимом",
+          "category_path_slug": "upravlinnia-temperaturnim-rezimom",
+          "parent_path_slug": "",
+          "count": 61,
+          "has_children": true
+        },
+        {
+          "label": "Ходова - шассі",
+          "category_path_slug": "xodova-sassi",
+          "parent_path_slug": "",
+          "count": 1,
+          "has_children": true
+        }
+      ],
+      "catalog_links": [
+        "/parts/",
+        "/parts/?cart=open",
+        "/parts/model-y-01-2020-01-2025/perednii-motor/peredni-pivosi/peredni-pivosi/",
+        "/ru/parts/model-y-01-2020-01-2025/perednii-motor/perednie-poluosi/perednie-poluosi/",
+        "/parts/perednii-motor/peredni-pivosi/peredni-pivosi/",
+        "/parts/model-s-02-2012-03-2016/perednii-motor/peredni-pivosi/peredni-pivosi/",
+        "/parts/model-y-01-2020-01-2025/bezpeka-i-zaxist/",
+        "/parts/model-y-01-2020-01-2025/visokovoltna-batareia/",
+        "/parts/model-y-01-2020-01-2025/visokovoltna-sistema/",
+        "/parts/model-y-01-2020-01-2025/vnutrisnje-ozdoblennia/",
+        "/parts/model-y-01-2020-01-2025/galma/",
+        "/parts/model-y-01-2020-01-2025/diski-i-sini/",
+        "/parts/model-y-01-2020-01-2025/elektrika/",
+        "/parts/model-y-01-2020-01-2025/zadnii-motor/",
+        "/parts/model-y-01-2020-01-2025/zovnisnia-furnitura/",
+        "/parts/model-y-01-2020-01-2025/informaciino-rozvazalna-sistema/",
+        "/parts/model-y-01-2020-01-2025/komponenti-zakrittia/",
+        "/parts/model-y-01-2020-01-2025/kuzov/",
+        "/parts/model-y-01-2020-01-2025/ne-viznaceno/",
+        "/parts/model-y-01-2020-01-2025/panel-priladiv/",
+        "/parts/model-y-01-2020-01-2025/perednii-motor/",
+        "/parts/model-y-01-2020-01-2025/perednii-motor/perednii-motor-v-zbori/",
+        "/parts/model-y-01-2020-01-2025/pidviska/",
+        "/parts/model-y-01-2020-01-2025/rulyovii-mexanizm/",
+        "/parts/model-y-01-2020-01-2025/sidinnia/",
+        "/parts/model-y-01-2020-01-2025/upravlinnia-temperaturnim-rezimom/",
+        "/parts/model-y-01-2020-01-2025/xodova-sassi/"
+      ],
+      "sold_label_present": true
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/zadnii-motor/zadni-pivosi/zadni-pivosi/",
+      "observed_utc": "2026-11-08T18:27:30.544Z",
+      "status": 200,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 106928,
+      "elapsed_ms": 1376,
+      "canonical": [
+        "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/zadnii-motor/zadni-pivosi/zadni-pivosi/"
+      ],
+      "alternates": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/zadnii-motor/zadni-pivosi/zadni-pivosi/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/zadnii-motor/zadnie-poluosi/zadnie-poluosi/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/zadnii-motor/zadni-pivosi/zadni-pivosi/"
+      },
+      "robots": [],
+      "title": "Задні півосі — Tesla Model Y 01.2020 - 01.2025 — NikolaCars",
+      "h1": "Задні півосі — Tesla Model Y 01.2020 - 01.2025",
+      "ids": [
+        113162,
+        113161,
+        113160,
+        79108,
+        113159,
+        87303,
+        40464,
+        83586,
+        82239,
+        84764,
+        88635,
+        86097
+      ],
+      "pagination": {
+        "page": 1,
+        "per_page": 24,
+        "total": 12,
+        "last_page": 1
+      },
+      "selection": {
+        "model": "Model Y 01.2020 - 01.2025",
+        "model_slug": "model-y-01-2020-01-2025",
+        "category": "Задній мотор",
+        "category_slug": "zadnii-motor",
+        "category_path": "Задній мотор / Задні півосі / Задні півосі",
+        "category_path_slug": "zadnii-motor--zadni-pivosi--zadni-pivosi",
+        "category_breadcrumbs": [
+          {
+            "label": "Задній мотор",
+            "slug": "zadnii-motor"
+          },
+          {
+            "label": "Задні півосі",
+            "slug": "zadnii-motor--zadni-pivosi"
+          },
+          {
+            "label": "Задні півосі",
+            "slug": "zadnii-motor--zadni-pivosi--zadni-pivosi"
+          }
+        ],
+        "category_path_locale_slugs": {
+          "uk": "zadnii-motor--zadni-pivosi--zadni-pivosi",
+          "ru": "zadnii-motor--zadnie-poluosi--zadnie-poluosi"
+        }
+      },
+      "category_navigation": [
+        {
+          "label": "Безпека і захист",
+          "category_path_slug": "bezpeka-i-zaxist",
+          "parent_path_slug": "",
+          "count": 24,
+          "has_children": true
+        },
+        {
+          "label": "Високовольтна батарея",
+          "category_path_slug": "visokovoltna-batareia",
+          "parent_path_slug": "",
+          "count": 0,
+          "has_children": true
+        },
+        {
+          "label": "Високовольтна система",
+          "category_path_slug": "visokovoltna-sistema",
+          "parent_path_slug": "",
+          "count": 8,
+          "has_children": true
+        },
+        {
+          "label": "Внутрішнє оздоблення",
+          "category_path_slug": "vnutrisnje-ozdoblennia",
+          "parent_path_slug": "",
+          "count": 171,
+          "has_children": true
+        },
+        {
+          "label": "Гальма",
+          "category_path_slug": "galma",
+          "parent_path_slug": "",
+          "count": 42,
+          "has_children": true
+        },
+        {
+          "label": "Диски і шини",
+          "category_path_slug": "diski-i-sini",
+          "parent_path_slug": "",
+          "count": 5,
+          "has_children": true
+        },
+        {
+          "label": "Електрика",
+          "category_path_slug": "elektrika",
+          "parent_path_slug": "",
+          "count": 103,
+          "has_children": true
+        },
+        {
+          "label": "Задній мотор",
+          "category_path_slug": "zadnii-motor",
+          "parent_path_slug": "",
+          "count": 17,
+          "has_children": true
+        },
+        {
+          "label": "Задній мотор в зборі",
+          "category_path_slug": "zadnii-motor--zadnii-motor-v-zbori",
+          "parent_path_slug": "zadnii-motor",
+          "count": 5,
+          "has_children": true
+        },
+        {
+          "label": "Задні півосі",
+          "category_path_slug": "zadnii-motor--zadni-pivosi",
+          "parent_path_slug": "zadnii-motor",
+          "count": 12,
+          "has_children": true
+        },
+        {
+          "label": "Задні півосі",
+          "category_path_slug": "zadnii-motor--zadni-pivosi--zadni-pivosi",
+          "parent_path_slug": "zadnii-motor--zadni-pivosi",
+          "count": 12,
+          "has_children": false
+        },
+        {
+          "label": "Зовнішня фурнітура",
+          "category_path_slug": "zovnisnia-furnitura",
+          "parent_path_slug": "",
+          "count": 79,
+          "has_children": true
+        },
+        {
+          "label": "Інформаційно-розважальна система",
+          "category_path_slug": "informaciino-rozvazalna-sistema",
+          "parent_path_slug": "",
+          "count": 33,
+          "has_children": true
+        },
+        {
+          "label": "Компоненти закриття",
+          "category_path_slug": "komponenti-zakrittia",
+          "parent_path_slug": "",
+          "count": 116,
+          "has_children": true
+        },
+        {
+          "label": "Кузов",
+          "category_path_slug": "kuzov",
+          "parent_path_slug": "",
+          "count": 42,
+          "has_children": true
+        },
+        {
+          "label": "Не визначено",
+          "category_path_slug": "ne-viznaceno",
+          "parent_path_slug": "",
+          "count": 1,
+          "has_children": false
+        },
+        {
+          "label": "Панель приладів",
+          "category_path_slug": "panel-priladiv",
+          "parent_path_slug": "",
+          "count": 25,
+          "has_children": true
+        },
+        {
+          "label": "Передній мотор",
+          "category_path_slug": "perednii-motor",
+          "parent_path_slug": "",
+          "count": 9,
+          "has_children": true
+        },
+        {
+          "label": "Підвіска",
+          "category_path_slug": "pidviska",
+          "parent_path_slug": "",
+          "count": 44,
+          "has_children": true
+        },
+        {
+          "label": "Рульовий механізм",
+          "category_path_slug": "rulyovii-mexanizm",
+          "parent_path_slug": "",
+          "count": 8,
+          "has_children": true
+        },
+        {
+          "label": "Сидіння",
+          "category_path_slug": "sidinnia",
+          "parent_path_slug": "",
+          "count": 13,
+          "has_children": true
+        },
+        {
+          "label": "Управління температурним режимом",
+          "category_path_slug": "upravlinnia-temperaturnim-rezimom",
+          "parent_path_slug": "",
+          "count": 61,
+          "has_children": true
+        },
+        {
+          "label": "Ходова - шассі",
+          "category_path_slug": "xodova-sassi",
+          "parent_path_slug": "",
+          "count": 1,
+          "has_children": true
+        }
+      ],
+      "catalog_links": [
+        "/parts/",
+        "/parts/?cart=open",
+        "/parts/model-y-01-2020-01-2025/zadnii-motor/zadni-pivosi/zadni-pivosi/",
+        "/ru/parts/model-y-01-2020-01-2025/zadnii-motor/zadnie-poluosi/zadnie-poluosi/",
+        "/parts/zadnii-motor/zadni-pivosi/zadni-pivosi/",
+        "/parts/model-3-06-2017-12-2023/zadnii-motor/zadni-pivosi/zadni-pivosi/",
+        "/parts/model-3-highland-01-2024/zadnii-motor/zadni-pivosi/zadni-pivosi/",
+        "/parts/model-s-02-2012-03-2016/zadnii-motor/zadni-pivosi/zadni-pivosi/",
+        "/parts/model-y-01-2020-01-2025/bezpeka-i-zaxist/",
+        "/parts/model-y-01-2020-01-2025/visokovoltna-batareia/",
+        "/parts/model-y-01-2020-01-2025/visokovoltna-sistema/",
+        "/parts/model-y-01-2020-01-2025/vnutrisnje-ozdoblennia/",
+        "/parts/model-y-01-2020-01-2025/galma/",
+        "/parts/model-y-01-2020-01-2025/diski-i-sini/",
+        "/parts/model-y-01-2020-01-2025/elektrika/",
+        "/parts/model-y-01-2020-01-2025/zadnii-motor/",
+        "/parts/model-y-01-2020-01-2025/zadnii-motor/zadnii-motor-v-zbori/",
+        "/parts/model-y-01-2020-01-2025/zovnisnia-furnitura/",
+        "/parts/model-y-01-2020-01-2025/informaciino-rozvazalna-sistema/",
+        "/parts/model-y-01-2020-01-2025/komponenti-zakrittia/",
+        "/parts/model-y-01-2020-01-2025/kuzov/",
+        "/parts/model-y-01-2020-01-2025/ne-viznaceno/",
+        "/parts/model-y-01-2020-01-2025/panel-priladiv/",
+        "/parts/model-y-01-2020-01-2025/perednii-motor/",
+        "/parts/model-y-01-2020-01-2025/pidviska/",
+        "/parts/model-y-01-2020-01-2025/rulyovii-mexanizm/",
+        "/parts/model-y-01-2020-01-2025/sidinnia/",
+        "/parts/model-y-01-2020-01-2025/upravlinnia-temperaturnim-rezimom/",
+        "/parts/model-y-01-2020-01-2025/xodova-sassi/"
+      ],
+      "sold_label_present": false
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/",
+      "observed_utc": "2026-11-08T18:27:41.929Z",
+      "status": 200,
+      "location": null,
+      "x_robots": null,
+      "allow": null,
+      "content_type": "text/html; charset=utf-8",
+      "response_bytes": 133871,
+      "elapsed_ms": 1561,
+      "canonical": [
+        "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/"
+      ],
+      "alternates": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/naruznaia-furnitura/nakladki-podkapotnogo-otseka/nakladki-podkapotnogo-otseka/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/"
+      },
+      "robots": [],
+      "title": "Накладки підкапотного відсіку — Tesla Model S 02.2012-03.2016 — NikolaCars",
+      "h1": "Накладки підкапотного відсіку — Tesla Model S 02.2012-03.2016",
+      "ids": [
+        108705,
+        108706,
+        108752,
+        105828,
+        92865,
+        105860,
+        105861,
+        96125,
+        92596,
+        95847,
+        103706,
+        103690,
+        108977,
+        92736
+      ],
+      "pagination": {
+        "page": 1,
+        "per_page": 24,
+        "total": 14,
+        "last_page": 1
+      },
+      "selection": {
+        "model": "Model S 02.2012-03.2016",
+        "model_slug": "model-s-02-2012-03-2016",
+        "category": "Зовнішня фурнітура",
+        "category_slug": "zovnisnia-furnitura",
+        "category_path": "Зовнішня фурнітура / Накладки підкапотного відсіку / Накладки підкапотного відсіку",
+        "category_path_slug": "zovnisnia-furnitura--nakladki-pidkapotnogo-vidsiku--nakladki-pidkapotnogo-vidsiku",
+        "category_breadcrumbs": [
+          {
+            "label": "Зовнішня фурнітура",
+            "slug": "zovnisnia-furnitura"
+          },
+          {
+            "label": "Накладки підкапотного відсіку",
+            "slug": "zovnisnia-furnitura--nakladki-pidkapotnogo-vidsiku"
+          },
+          {
+            "label": "Накладки підкапотного відсіку",
+            "slug": "zovnisnia-furnitura--nakladki-pidkapotnogo-vidsiku--nakladki-pidkapotnogo-vidsiku"
+          }
+        ],
+        "category_path_locale_slugs": {
+          "uk": "zovnisnia-furnitura--nakladki-pidkapotnogo-vidsiku--nakladki-pidkapotnogo-vidsiku",
+          "ru": "naruznaia-furnitura--nakladki-podkapotnogo-otseka--nakladki-podkapotnogo-otseka"
+        }
+      },
+      "category_navigation": [
+        {
+          "label": "Безпека і захист",
+          "category_path_slug": "bezpeka-i-zaxist",
+          "parent_path_slug": "",
+          "count": 31,
+          "has_children": true
+        },
+        {
+          "label": "Високовольтна батарея",
+          "category_path_slug": "visokovoltna-batareia",
+          "parent_path_slug": "",
+          "count": 2,
+          "has_children": true
+        },
+        {
+          "label": "Високовольтна система",
+          "category_path_slug": "visokovoltna-sistema",
+          "parent_path_slug": "",
+          "count": 8,
+          "has_children": true
+        },
+        {
+          "label": "Внутрішнє оздоблення",
+          "category_path_slug": "vnutrisnje-ozdoblennia",
+          "parent_path_slug": "",
+          "count": 165,
+          "has_children": true
+        },
+        {
+          "label": "Гальма",
+          "category_path_slug": "galma",
+          "parent_path_slug": "",
+          "count": 22,
+          "has_children": true
+        },
+        {
+          "label": "Диски і шини",
+          "category_path_slug": "diski-i-sini",
+          "parent_path_slug": "",
+          "count": 2,
+          "has_children": true
+        },
+        {
+          "label": "Електрика",
+          "category_path_slug": "elektrika",
+          "parent_path_slug": "",
+          "count": 57,
+          "has_children": true
+        },
+        {
+          "label": "Задній мотор",
+          "category_path_slug": "zadnii-motor",
+          "parent_path_slug": "",
+          "count": 4,
+          "has_children": true
+        },
+        {
+          "label": "Зовнішня фурнітура",
+          "category_path_slug": "zovnisnia-furnitura",
+          "parent_path_slug": "",
+          "count": 46,
+          "has_children": true
+        },
+        {
+          "label": "Захист днища кузова",
+          "category_path_slug": "zovnisnia-furnitura--zaxist-dnishha-kuzova",
+          "parent_path_slug": "zovnisnia-furnitura",
+          "count": 0,
+          "has_children": true
+        },
+        {
+          "label": "Зовнішнє оздоблення",
+          "category_path_slug": "zovnisnia-furnitura--zovnisnje-ozdoblennia",
+          "parent_path_slug": "zovnisnia-furnitura",
+          "count": 22,
+          "has_children": true
+        },
+        {
+          "label": "Зовнішні дзеркала",
+          "category_path_slug": "zovnisnia-furnitura--zovnisni-dzerkala",
+          "parent_path_slug": "zovnisnia-furnitura",
+          "count": 7,
+          "has_children": true
+        },
+        {
+          "label": "Накладки підкапотного відсіку",
+          "category_path_slug": "zovnisnia-furnitura--nakladki-pidkapotnogo-vidsiku",
+          "parent_path_slug": "zovnisnia-furnitura",
+          "count": 11,
+          "has_children": true
+        },
+        {
+          "label": "Накладки підкапотного відсіку",
+          "category_path_slug": "zovnisnia-furnitura--nakladki-pidkapotnogo-vidsiku--nakladki-pidkapotnogo-vidsiku",
+          "parent_path_slug": "zovnisnia-furnitura--nakladki-pidkapotnogo-vidsiku",
+          "count": 11,
+          "has_children": false
+        },
+        {
+          "label": "Підкрилки",
+          "category_path_slug": "zovnisnia-furnitura--pidkrilki",
+          "parent_path_slug": "zovnisnia-furnitura",
+          "count": 5,
+          "has_children": true
+        },
+        {
+          "label": "Подіум номерного знака",
+          "category_path_slug": "zovnisnia-furnitura--podium-nomernogo-znaka",
+          "parent_path_slug": "zovnisnia-furnitura",
+          "count": 1,
+          "has_children": true
+        },
+        {
+          "label": "Інформаційно-розважальна система",
+          "category_path_slug": "informaciino-rozvazalna-sistema",
+          "parent_path_slug": "",
+          "count": 14,
+          "has_children": true
+        },
+        {
+          "label": "Компоненти закриття",
+          "category_path_slug": "komponenti-zakrittia",
+          "parent_path_slug": "",
+          "count": 74,
+          "has_children": true
+        },
+        {
+          "label": "Криша",
+          "category_path_slug": "krisa",
+          "parent_path_slug": "",
+          "count": 7,
+          "has_children": true
+        },
+        {
+          "label": "Кузов",
+          "category_path_slug": "kuzov",
+          "parent_path_slug": "",
+          "count": 46,
+          "has_children": true
+        },
+        {
+          "label": "Не визначено",
+          "category_path_slug": "ne-viznaceno",
+          "parent_path_slug": "",
+          "count": 4,
+          "has_children": false
+        },
+        {
+          "label": "Панель приладів",
+          "category_path_slug": "panel-priladiv",
+          "parent_path_slug": "",
+          "count": 59,
+          "has_children": true
+        },
+        {
+          "label": "Передній мотор",
+          "category_path_slug": "perednii-motor",
+          "parent_path_slug": "",
+          "count": 1,
+          "has_children": true
+        },
+        {
+          "label": "Підвіска",
+          "category_path_slug": "pidviska",
+          "parent_path_slug": "",
+          "count": 31,
+          "has_children": true
+        },
+        {
+          "label": "Рульовий механізм",
+          "category_path_slug": "rulyovii-mexanizm",
+          "parent_path_slug": "",
+          "count": 3,
+          "has_children": true
+        },
+        {
+          "label": "Сидіння",
+          "category_path_slug": "sidinnia",
+          "parent_path_slug": "",
+          "count": 11,
+          "has_children": true
+        },
+        {
+          "label": "Управління температурним режимом",
+          "category_path_slug": "upravlinnia-temperaturnim-rezimom",
+          "parent_path_slug": "",
+          "count": 52,
+          "has_children": true
+        },
+        {
+          "label": "Ходова - шассі",
+          "category_path_slug": "xodova-sassi",
+          "parent_path_slug": "",
+          "count": 2,
+          "has_children": true
+        }
+      ],
+      "catalog_links": [
+        "/parts/",
+        "/parts/?cart=open",
+        "/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/",
+        "/ru/parts/model-s-02-2012-03-2016/naruznaia-furnitura/nakladki-podkapotnogo-otseka/nakladki-podkapotnogo-otseka/",
+        "/parts/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/",
+        "/parts/model-3-06-2017-12-2023/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/",
+        "/parts/model-3-highland-01-2024/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/",
+        "/parts/model-s-04-2016-01-2021/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/",
+        "/parts/model-x-09-2015-02-2021/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/",
+        "/parts/model-y-01-2020-01-2025/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/",
+        "/parts/model-s-02-2012-03-2016/bezpeka-i-zaxist/",
+        "/parts/model-s-02-2012-03-2016/visokovoltna-batareia/",
+        "/parts/model-s-02-2012-03-2016/visokovoltna-sistema/",
+        "/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/",
+        "/parts/model-s-02-2012-03-2016/galma/",
+        "/parts/model-s-02-2012-03-2016/diski-i-sini/",
+        "/parts/model-s-02-2012-03-2016/elektrika/",
+        "/parts/model-s-02-2012-03-2016/zadnii-motor/",
+        "/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/",
+        "/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/zaxist-dnishha-kuzova/",
+        "/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/zovnisnje-ozdoblennia/",
+        "/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/zovnisni-dzerkala/",
+        "/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/",
+        "/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/pidkrilki/",
+        "/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/podium-nomernogo-znaka/",
+        "/parts/model-s-02-2012-03-2016/informaciino-rozvazalna-sistema/",
+        "/parts/model-s-02-2012-03-2016/komponenti-zakrittia/",
+        "/parts/model-s-02-2012-03-2016/krisa/",
+        "/parts/model-s-02-2012-03-2016/kuzov/",
+        "/parts/model-s-02-2012-03-2016/ne-viznaceno/",
+        "/parts/model-s-02-2012-03-2016/panel-priladiv/",
+        "/parts/model-s-02-2012-03-2016/perednii-motor/",
+        "/parts/model-s-02-2012-03-2016/pidviska/",
+        "/parts/model-s-02-2012-03-2016/rulyovii-mexanizm/",
+        "/parts/model-s-02-2012-03-2016/sidinnia/",
+        "/parts/model-s-02-2012-03-2016/upravlinnia-temperaturnim-rezimom/",
+        "/parts/model-s-02-2012-03-2016/xodova-sassi/"
+      ],
+      "sold_label_present": true
+    }
+  ],
+  "finished_utc": "2026-11-08T18:27:59.7003216+00:00",
+  "stop_reason": "Coordinator requested IAB-only continuation; collector stopped between completed requests."
+}

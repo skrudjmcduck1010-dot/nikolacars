@@ -1,0 +1,359 @@
+{
+  "built_utc": "2026-11-08T18:31:08.763Z",
+  "status": "HTTP_CHECKPOINT_IAB_CONTINUATION_PENDING",
+  "source_count": 92,
+  "http_observed_count": 74,
+  "source_unread_count": 18,
+  "counts": {
+    "404:404": 45,
+    "404:200": 5,
+    "404:301": 10,
+    "canonical:301": 2,
+    "canonical:200": 12,
+    "canonical:unread": 18
+  },
+  "canonical": [
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/",
+      "status": 301,
+      "location": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/pedal-galma/",
+      "canonical": [],
+      "self_canonical": false,
+      "pagination": null,
+      "ids": [],
+      "unique_ids": 0,
+      "full_single_page": false,
+      "opposite_locale": null
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/"
+      ],
+      "self_canonical": true,
+      "pagination": {
+        "page": 1,
+        "per_page": 24,
+        "total": 2,
+        "last_page": 1
+      },
+      "ids": [
+        108597,
+        113433
+      ],
+      "unique_ids": 2,
+      "full_single_page": true,
+      "opposite_locale": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/visokovoltna-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+      "status": 301,
+      "location": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+      "canonical": [],
+      "self_canonical": false,
+      "pagination": null,
+      "ids": [],
+      "unique_ids": 0,
+      "full_single_page": false,
+      "opposite_locale": null
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/zadnie-poluosi/",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/zadnie-poluosi/"
+      ],
+      "self_canonical": true,
+      "pagination": {
+        "page": 1,
+        "per_page": 24,
+        "total": 23,
+        "last_page": 1
+      },
+      "ids": [
+        40464,
+        76562,
+        79108,
+        80889,
+        82239,
+        83586,
+        84764,
+        86097,
+        87303,
+        88635,
+        93010,
+        94483,
+        96279,
+        97695,
+        99091,
+        100524,
+        107311,
+        113159,
+        113160,
+        113161,
+        113162,
+        113216,
+        113365
+      ],
+      "unique_ids": 23,
+      "full_single_page": true,
+      "opposite_locale": "https://nikolacars.kiev.ua/parts/zadnii-motor/zadni-pivosi/zadni-pivosi/"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/"
+      ],
+      "self_canonical": true,
+      "pagination": {
+        "page": 1,
+        "per_page": 24,
+        "total": 2,
+        "last_page": 1
+      },
+      "ids": [
+        108597,
+        113433
+      ],
+      "unique_ids": 2,
+      "full_single_page": true,
+      "opposite_locale": "https://nikolacars.kiev.ua/parts/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/"
+      ],
+      "self_canonical": true,
+      "pagination": {
+        "page": 1,
+        "per_page": 24,
+        "total": 2,
+        "last_page": 1
+      },
+      "ids": [
+        108597,
+        113433
+      ],
+      "unique_ids": 2,
+      "full_single_page": true,
+      "opposite_locale": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/galma/pedal-galma/pedal-galma/",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/galma/pedal-galma/pedal-galma/"
+      ],
+      "self_canonical": true,
+      "pagination": {
+        "page": 1,
+        "per_page": 24,
+        "total": 1,
+        "last_page": 1
+      },
+      "ids": [
+        101899
+      ],
+      "unique_ids": 1,
+      "full_single_page": true,
+      "opposite_locale": "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/tormoza/pedal-tormoza/pedal-tormoza/"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/"
+      ],
+      "self_canonical": true,
+      "pagination": {
+        "page": 1,
+        "per_page": 24,
+        "total": 1,
+        "last_page": 1
+      },
+      "ids": [
+        102105
+      ],
+      "unique_ids": 1,
+      "full_single_page": true,
+      "opposite_locale": "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/diski-i-siny/diski/"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/galma/pedal-galma/pedal-galma/",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://nikolacars.kiev.ua/parts/galma/pedal-galma/pedal-galma/"
+      ],
+      "self_canonical": true,
+      "pagination": {
+        "page": 1,
+        "per_page": 24,
+        "total": 9,
+        "last_page": 1
+      },
+      "ids": [
+        74350,
+        88660,
+        99115,
+        100551,
+        101899,
+        106344,
+        106892,
+        108105,
+        113334
+      ],
+      "unique_ids": 9,
+      "full_single_page": true,
+      "opposite_locale": "https://nikolacars.kiev.ua/ru/parts/tormoza/pedal-tormoza/pedal-tormoza/"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-batareia/visokovoltna-batareia/",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-batareia/visokovoltna-batareia/"
+      ],
+      "self_canonical": true,
+      "pagination": {
+        "page": 1,
+        "per_page": 24,
+        "total": 2,
+        "last_page": 1
+      },
+      "ids": [
+        39792,
+        65734
+      ],
+      "unique_ids": 2,
+      "full_single_page": true,
+      "opposite_locale": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/vysokovoltnaia-batareia/vysokovoltnaia-batareia/"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-sistema/visokovoltni-provoda/visokovoltni-provoda/",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-sistema/visokovoltni-provoda/visokovoltni-provoda/"
+      ],
+      "self_canonical": true,
+      "pagination": {
+        "page": 1,
+        "per_page": 24,
+        "total": 2,
+        "last_page": 1
+      },
+      "ids": [
+        84592,
+        89810
+      ],
+      "unique_ids": 2,
+      "full_single_page": true,
+      "opposite_locale": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/vysokovoltnaia-sistema/vysokovoltnye-provoda/vysokovoltnye-provoda/"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/perednii-motor/peredni-pivosi/peredni-pivosi/",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/perednii-motor/peredni-pivosi/peredni-pivosi/"
+      ],
+      "self_canonical": true,
+      "pagination": {
+        "page": 1,
+        "per_page": 24,
+        "total": 6,
+        "last_page": 1
+      },
+      "ids": [
+        82238,
+        83585,
+        84763,
+        88634,
+        103741,
+        113158
+      ],
+      "unique_ids": 6,
+      "full_single_page": true,
+      "opposite_locale": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/perednii-motor/perednie-poluosi/perednie-poluosi/"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/zadnii-motor/zadni-pivosi/zadni-pivosi/",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/zadnii-motor/zadni-pivosi/zadni-pivosi/"
+      ],
+      "self_canonical": true,
+      "pagination": {
+        "page": 1,
+        "per_page": 24,
+        "total": 12,
+        "last_page": 1
+      },
+      "ids": [
+        40464,
+        79108,
+        82239,
+        83586,
+        84764,
+        86097,
+        87303,
+        88635,
+        113159,
+        113160,
+        113161,
+        113162
+      ],
+      "unique_ids": 12,
+      "full_single_page": true,
+      "opposite_locale": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/zadnii-motor/zadnie-poluosi/zadnie-poluosi/"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/"
+      ],
+      "self_canonical": true,
+      "pagination": {
+        "page": 1,
+        "per_page": 24,
+        "total": 14,
+        "last_page": 1
+      },
+      "ids": [
+        92596,
+        92736,
+        92865,
+        95847,
+        96125,
+        103690,
+        103706,
+        105828,
+        105860,
+        105861,
+        108705,
+        108706,
+        108752,
+        108977
+      ],
+      "unique_ids": 14,
+      "full_single_page": true,
+      "opposite_locale": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/naruznaia-furnitura/nakladki-podkapotnogo-otseka/nakladki-podkapotnogo-otseka/"
+    }
+  ],
+  "new_aliases_proven": 0,
+  "reason": "No newly proposed pair has current parent+leaf full sets for both UA/RU yet."
+}

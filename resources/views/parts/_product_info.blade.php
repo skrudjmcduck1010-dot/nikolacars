@@ -1,6 +1,6 @@
 <section class="product-info">
   <h1 class="product-heading">{{ $productHeading }}</h1>
-  <div class="product-code-line">{{ collect([$product['display_part_number'] ?? $product['part_number'] ?? null, $product['sku'] ?? null, $product['vin'] ?? null])->filter()->implode(' · ') }}</div>
+  <div class="product-code-line">{{ collect([$product['display_part_number'] ?? $product['part_number'] ?? null, !empty($product['sku']) ? ($isRu ? 'Код склада: ' : 'Код складу: ').$product['sku'] : null, $product['vin'] ?? null])->filter()->implode(' · ') }}</div>
   <div class="product-category-label">{{ $product['category_path'] ?? '' }}</div>
 
   @if(!$isSold)
@@ -19,7 +19,7 @@
         @endif
       </div>
     @endif
-    <div class="product-detail-stock{{ $isSold ? ' is-sold' : '' }}">{{ $isSold ? 'Продано' : ($hasStock ? (($isRu ? 'В наличии' : 'В наявності').': '.$product['quantity']) : ($isRu ? 'Временно нет в наличии' : 'Тимчасово немає в наявності')) }}</div>
+    <div class="product-detail-stock{{ $isSold ? ' is-sold' : '' }}">{{ $isSold ? 'Продано' : ($hasStock ? (($isRu ? 'В наличии' : 'В наявності').': '.$product['quantity']) : ($isRu ? 'Нет в наличии' : 'Немає в наявності')) }}</div>
     @if(!$isSold && $hasPrice && $hasStock)<button
       type="button"
       data-product-add

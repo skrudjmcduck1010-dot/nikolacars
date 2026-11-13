@@ -1,0 +1,186 @@
+{
+  "started_utc": "2026-11-08T18:16:52.106180+00:00",
+  "transport": "verified FTPS, read-only",
+  "files": {
+    "storage/framework/storefront-cache-prune.json": {
+      "present": true,
+      "bytes": 162,
+      "sha256": "c80305851e00fd865a2cf68e44f3f7ed13cee16aaa7fa55815292381bed1cd48",
+      "modified_utc_ftp": "20261108174013",
+      "metrics": {
+        "next_bucket": 15882,
+        "inspected": 1297,
+        "eligible": 37,
+        "removed": 37,
+        "eligible_bytes": 523605,
+        "completed_utc": "2026-11-08T17:40:13+00:00",
+        "elapsed_ms": 1463
+      }
+    },
+    "storage/logs/storefront-cache-prune-last.log": {
+      "present": true,
+      "bytes": 163,
+      "sha256": "1918709f2d3fff787dc61231e9bf91c76f51686a198727402f8351866bf99772",
+      "modified_utc_ftp": "20261108174013",
+      "metrics": {
+        "next_bucket": 15882,
+        "inspected": 1297,
+        "eligible": 37,
+        "removed": 37,
+        "eligible_bytes": 523605,
+        "completed_utc": "2026-11-08T17:40:13+00:00",
+        "elapsed_ms": 1463
+      }
+    }
+  },
+  "site_quota": {
+    "available": false,
+    "reply_code": "500"
+  },
+  "laravel_log": {
+    "source_size_bytes": 95014267,
+    "read_offset_bytes": 61459835,
+    "read_bytes": 33554432,
+    "read_sha256": "cf320f0bc8dbceda4b477ca488278c67e7415ba435e91b9f09bfe86c4d6c6c89",
+    "first_record": "2026-09-30 13:46:15",
+    "last_record": "2026-11-08 18:13:17",
+    "log_timestamp_timezone": "UTC (application convention; no offset stored in log header)",
+    "all_read_record_count": 18422,
+    "records_since_nov2": 7412,
+    "daily_level_counts": {
+      "2026-11-02": {
+        "WARNING": 680,
+        "ERROR": 846
+      },
+      "2026-11-03": {
+        "WARNING": 1183,
+        "ERROR": 56
+      },
+      "2026-11-04": {
+        "WARNING": 1051,
+        "ERROR": 77
+      },
+      "2026-11-05": {
+        "WARNING": 345
+      },
+      "2026-11-06": {
+        "WARNING": 1313,
+        "ERROR": 14
+      },
+      "2026-11-07": {
+        "WARNING": 709,
+        "ERROR": 10
+      },
+      "2026-11-08": {
+        "WARNING": 1127,
+        "ERROR": 1
+      }
+    },
+    "error_group_summary": {
+      "ErrorException | file": {
+        "count": 821,
+        "first_utc": "2026-11-02 07:48:31",
+        "last_utc": "2026-11-02 10:48:54",
+        "daily": {
+          "2026-11-02": 821
+        },
+        "frames": [
+          "app/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/AddQueuedCookiesToResponse.php",
+          "app/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/EncryptCookies.php",
+          "app/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php",
+          "app/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:204",
+          "app/vendor/laravel/framework/src/Illuminate/Foundation/Application.php",
+          "app/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php",
+          "app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php",
+          "app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php",
+          "app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php",
+          "app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php"
+        ]
+      },
+      "ErrorException | fopen": {
+        "count": 11,
+        "first_utc": "2026-11-02 07:48:47",
+        "last_utc": "2026-11-02 10:36:48",
+        "daily": {
+          "2026-11-02": 11
+        },
+        "frames": [
+          "app/vendor/laravel/framework/src/Illuminate/Cache/FileLock.php",
+          "app/vendor/laravel/framework/src/Illuminate/Cache/FileStore.php",
+          "app/vendor/laravel/framework/src/Illuminate/Cache/Lock.php",
+          "app/vendor/laravel/framework/src/Illuminate/Cache/Repository.php",
+          "app/vendor/laravel/framework/src/Illuminate/Filesystem/LockableFile.php",
+          "app/vendor/laravel/framework/src/Illuminate/Filesystem/LockableFile.php:68",
+          "app/vendor/laravel/framework/src/Illuminate/Foundation/Application.php",
+          "app/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php",
+          "app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php",
+          "app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php"
+        ]
+      },
+      "RuntimeException | Warehouse storefront returned HTTP": {
+        "count": 122,
+        "first_utc": "2026-11-02 08:53:34",
+        "last_utc": "2026-11-08 07:59:51",
+        "daily": {
+          "2026-11-02": 9,
+          "2026-11-03": 34,
+          "2026-11-04": 55,
+          "2026-11-06": 14,
+          "2026-11-07": 9,
+          "2026-11-08": 1
+        },
+        "frames": [
+          "app/app/Http/Controllers/PartsController.php",
+          "app/app/Http/Controllers/PartsController.php:711",
+          "app/app/Http/Middleware/ForceTrailingSlash.php",
+          "app/vendor/laravel/framework/src/Illuminate/Cache/CacheManager.php",
+          "app/vendor/laravel/framework/src/Illuminate/Cache/Repository.php",
+          "app/vendor/laravel/framework/src/Illuminate/Collections/helpers.php",
+          "app/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/AddQueuedCookiesToResponse.php",
+          "app/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/EncryptCookies.php",
+          "app/vendor/laravel/framework/src/Illuminate/Foundation/Application.php",
+          "app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php"
+        ]
+      },
+      "Illuminate\\\\Http\\\\Client\\\\ConnectionException | cURL error": {
+        "count": 50,
+        "first_utc": "2026-11-02 08:53:40",
+        "last_utc": "2026-11-07 11:35:28",
+        "daily": {
+          "2026-11-02": 5,
+          "2026-11-03": 22,
+          "2026-11-04": 22,
+          "2026-11-07": 1
+        },
+        "frames": [
+          "app/app/Http/Controllers/PartsController.php",
+          "app/app/Http/Middleware/ForceTrailingSlash.php",
+          "app/app/Services/SkladStorefrontClient.php",
+          "app/vendor/guzzlehttp/guzzle/src/Client.php",
+          "app/vendor/guzzlehttp/guzzle/src/Handler/CurlFactory.php",
+          "app/vendor/guzzlehttp/guzzle/src/Handler/CurlFactory.php:1140",
+          "app/vendor/guzzlehttp/guzzle/src/Handler/CurlHandler.php",
+          "app/vendor/guzzlehttp/guzzle/src/Handler/Proxy.php",
+          "app/vendor/guzzlehttp/guzzle/src/HandlerStack.php",
+          "app/vendor/guzzlehttp/guzzle/src/Middleware.php"
+        ]
+      }
+    },
+    "warning_counts_since_nov2": {
+      "Warehouse read slow or failed status=200": 6229,
+      "Warehouse read slow or failed status=503": 123,
+      "Warehouse read slow or failed": 50,
+      "Warehouse read slow or failed status=422": 3,
+      "other warning status=503": 1,
+      "Warehouse read slow or failed status=500": 2
+    },
+    "quota_error_last_seen": "2026-11-02 10:48:54",
+    "post_incident_error_count": 161,
+    "post_1803_record_counts": {
+      "WARNING": 4
+    },
+    "post_1803_error_count": 0,
+    "raw_customer_log_saved": false
+  },
+  "completed_utc": "2026-11-08T18:17:03.957222+00:00"
+}

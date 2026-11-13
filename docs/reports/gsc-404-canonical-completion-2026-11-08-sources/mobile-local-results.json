@@ -1,0 +1,54 @@
+{
+  "passed": true,
+  "network": "All requests fulfilled from local fixture/static files; other origins and non-GET blocked.",
+  "results": [
+    {
+      "locale": "uk",
+      "width": 320,
+      "viewport": 320,
+      "right": 310,
+      "active_count": 1,
+      "active_href": "/parts/diski-i-sini/diski/diski/",
+      "rows": 3,
+      "failures": 0,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "locale": "uk",
+      "width": 390,
+      "viewport": 390,
+      "right": 380,
+      "active_count": 1,
+      "active_href": "/parts/diski-i-sini/diski/diski/",
+      "rows": 3,
+      "failures": 0,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "locale": "ru",
+      "width": 320,
+      "viewport": 320,
+      "right": 310,
+      "active_count": 1,
+      "active_href": "/ru/parts/diski-i-siny/diski/diski/",
+      "rows": 3,
+      "failures": 0,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "locale": "ru",
+      "width": 390,
+      "viewport": 390,
+      "right": 380,
+      "active_count": 1,
+      "active_href": "/ru/parts/diski-i-siny/diski/diski/",
+      "rows": 3,
+      "failures": 0,
+      "errors": [],
+      "passed": true
+    }
+  ]
+}

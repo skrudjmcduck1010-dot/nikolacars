@@ -1,0 +1,55 @@
+{
+  "method": "Authenticated IAB read of rendered admin health page",
+  "url": "https://sklad.nikolacars.kiev.ua/admin/system/health",
+  "checked_at_ui": "2026-11-09 12:12:56",
+  "project_time_zone": "Europe/Kyiv",
+  "overall": {
+    "status_ui": "Всё работает штатно",
+    "problem_count": 0
+  },
+  "scheduler": {
+    "status_ui": "Работает",
+    "heartbeat_age_seconds_ui": 43,
+    "allowed_age_seconds_ui": 180
+  },
+  "nova_poshta": {
+    "status_ui": "Работает",
+    "active_shipments_ui": 9,
+    "last_check_ui": "2026-11-09 12:08:18",
+    "scheduled_interval_minutes_ui": 10,
+    "allowed_delay_minutes_ui": 30,
+    "stale_warning_present": false,
+    "individual_shipment_details_not_requested": true
+  },
+  "cache": {
+    "status_ui": "Работает",
+    "result_ui": "Контрольное значение записано и прочитано.",
+    "background_checked_at_ui": "2026-11-09 12:12:39"
+  },
+  "file_storage": {
+    "status_ui": "Работает",
+    "result_ui": "Служебные каталоги доступны для записи."
+  },
+  "queue": {
+    "failed_jobs_ui": 0,
+    "ready_jobs_ui": 0,
+    "stuck_jobs_ui": 0,
+    "background_checked_at_ui": "2026-11-09 12:12:39"
+  },
+  "actions": {
+    "user_completed_login": true,
+    "admin_health_page_opened": true,
+    "manual_np_sync": false,
+    "cron_changed": false,
+    "cache_cleared": false,
+    "business_writes": false,
+    "runtime_changed": false,
+    "deploy": false
+  },
+  "limits": [
+    "This confirms current health, not uninterrupted historical operation.",
+    "The current UI no longer reports a stale shipment; the morning shipment ending 2932 is not assigned as the cause of the user's later warning.",
+    "The exact cause of the earlier scheduler delay was not established.",
+    "A transient browser snapshot timeout was resolved with the supported DOM snapshot API and is not evidence of a server outage."
+  ]
+}

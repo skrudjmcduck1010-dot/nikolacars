@@ -31,6 +31,7 @@
   <link rel="stylesheet" href="{{ asset('assets/css/language-switch.css') }}?v=20261008-1">
   <link rel="stylesheet" href="{{ asset('assets/css/parts.css') }}?v=20261031-recommendation-images1">
   <link rel="stylesheet" href="{{ asset('assets/css/parts-contact.css') }}?v=20261031-online-hours-1">
+  <script src="{{ asset('assets/js/parts-attribution.js') }}" defer></script>
 </head>
 <body class="parts-page">
 @php

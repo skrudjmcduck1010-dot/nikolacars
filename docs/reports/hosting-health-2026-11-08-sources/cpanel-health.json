@@ -1,0 +1,118 @@
+{
+  "source": "coordinator read-only observation of official cPanel through IAB after owner sign-in",
+  "observed_window_utc": {
+    "from_approx": "2026-11-08T18:22:00Z",
+    "to": "2026-11-08T18:24:51Z"
+  },
+  "report_timezone": "Europe/Kyiv",
+  "remote_mutations": 0,
+  "new_hosting_network_actions_by_report_editor": 0,
+  "quota": {
+    "inodes_used": 178747,
+    "inodes_limit": 200000,
+    "inodes_percent_display": 89.37,
+    "inodes_remaining": 21253,
+    "disk_used_gb_display": 19.81,
+    "disk_limit_gb_display": 25,
+    "disk_percent_display": 79.26,
+    "disk_rounding_note": "UI size is rounded; percent is preserved as displayed, not recomputed from rounded GB."
+  },
+  "resource_snapshots": [
+    {
+      "order": 1,
+      "nproc_current": 36,
+      "nproc_limit": 40,
+      "cpu_percent": 67,
+      "pmem_current_display": "495.86 MB",
+      "pmem_limit_display": "1.5 GB",
+      "ep_current": 1,
+      "ep_limit": 25
+    },
+    {
+      "order": 2,
+      "nproc_current": 20,
+      "nproc_limit": 40,
+      "cpu_percent": 21,
+      "pmem_current_display": "284.4 M",
+      "ep_current": 1,
+      "ep_limit": 25
+    }
+  ],
+  "dashboard_rolling_24h": {
+    "cpu_limit_reached": true,
+    "nproc_limit_reached_count": 436
+  },
+  "resource_usage_today": {
+    "date": "2026-11-08",
+    "period_label": "Сегодня",
+    "timezone_display": "Europe/Kiev",
+    "resolution_hours": 1,
+    "displayed_from": "00:00",
+    "displayed_to": "21:00",
+    "last_hour_partial": true,
+    "cpu_fault_total": 1455,
+    "nproc_fault_total": 257,
+    "pmem_fault_total": 0,
+    "ep_fault_total": 0,
+    "cpu_faults_by_hour_starting_00": [67, 67, 81, 84, 49, 94, 50, 63, 69, 46, 63, 65, 85, 68, 74, 82, 63, 85, 99, 74, 27],
+    "nproc_faults_by_hour_starting_00": [0, 0, 118, 1, 0, 138, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  },
+  "process_snapshot": {
+    "time_label": "03:40:54",
+    "timezone_independently_confirmed": false,
+    "simultaneous_schedule_run_processes": 2,
+    "selected_processes": [
+      {"label": "Nova Poshta statuses", "cpu_percent_display": 12},
+      {"command_name": "storefront:warm-cache", "cpu_percent_display": 53},
+      {"command_name": "prom:generate-nikolacars-feed", "cpu_percent_display": 44},
+      {"label": "OLX sync", "cpu_percent_display": 9},
+      {"label": "queue worker"}
+    ]
+  },
+  "cron": {
+    "total_entries": 6,
+    "warehouse_schedule_run_entries": 1,
+    "warehouse": {
+      "expression": "* * * * *",
+      "working_directory_label": "sklad_app",
+      "php_version": "8.3",
+      "artisan_command": "schedule:run",
+      "output_relative_to_application": "storage/logs/scheduler.log",
+      "output_mode": "append",
+      "stderr_redirected_to_stdout": true
+    },
+    "site_cache_prune_entries": 1,
+    "site": {
+      "expression": "40 * * * *",
+      "nice_priority": 10,
+      "working_application_label": "site laravel_app",
+      "php_version": "8.3",
+      "artisan_command": "storefront:prune-expired-cache",
+      "output_relative_to_application": "storage/logs/storefront-cache-prune-last.log",
+      "output_mode": "overwrite",
+      "stderr_redirected_to_stdout": true
+    },
+    "other_entries": 4,
+    "other_project_commands_and_personal_paths_stored": false
+  },
+  "authorization": {
+    "owner_signed_in_again": true,
+    "official_sso_restored_expired_short_transition_session": true,
+    "password_values_used_by_agent": false,
+    "privilege_or_security_changes": false
+  },
+  "limitations": [
+    "Account hosts multiple projects; not all faults can be attributed to the public site or warehouse.",
+    "Fault counters are resource-limit events, not counts of public HTTP 5xx.",
+    "Current utilization snapshots are dynamic and are not capacity guarantees.",
+    "Process snapshot timezone was not separately confirmed.",
+    "No causal link established between CPU/NPROC faults, specific public HTTP errors or the temporary workstation connection failure."
+  ],
+  "official_limit_reference": "https://docs.cloudlinux.com/cloudlinuxos/limits/",
+  "scheduler_log_method_review": {
+    "direct_ftps_log_read_performed": false,
+    "selected_method": "bounded read of existing scheduler.log via cPanel/IAB; sanitized artisan command names, duration and DONE/FAIL only",
+    "reason": "Warehouse AGENTS.md restricts project data access to IAB or permitted direct DB reads; deployment FTPS exceptions do not clearly authorize diagnostic log downloads."
+  },
+  "next_step": "High-priority local investigation of scheduler task duration, overlap and locks by integrations_orders; no runtime change performed in this observation."
+}

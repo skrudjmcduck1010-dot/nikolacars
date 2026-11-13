@@ -63,7 +63,9 @@ class PartsController extends Controller
     public function index(Request $request, SkladStorefrontClient $client): View|RedirectResponse
     {
         if ($request->query('cart') === 'open') {
-            return redirect()->away(rtrim($request->url(), '/').'/#cart', 301);
+            $queryString = http_build_query($request->except('cart'));
+
+            return redirect()->away(rtrim($request->url(), '/').'/'.($queryString !== '' ? '?'.$queryString : '').'#cart', 301);
         }
 
         $locale = $request->route('locale') === 'ru' ? 'ru' : 'uk';
@@ -404,7 +406,9 @@ class PartsController extends Controller
         $productData = $this->withPublicProducts(ProductCatalogFacts::apply($productData, $locale), $locale);
         $catalogPath = $locale === 'ru' ? '/ru/parts/' : '/parts/';
         if ($productSlug !== $canonicalSegment) {
-            return redirect()->away(rtrim(url($catalogPath.$canonicalSegment), '/').'/', 301);
+            $queryString = http_build_query(request()->query());
+
+            return redirect()->away(rtrim(url($catalogPath.$canonicalSegment), '/').'/'.($queryString !== '' ? '?'.$queryString : ''), 301);
         }
 
         $name = trim((string) ($productData['name'] ?? ''));
@@ -439,7 +443,7 @@ class PartsController extends Controller
             ? ($locale === 'ru' ? 'Запчасть продана.' : 'Запчастину продано.')
             : ($hasStock
                 ? ($locale === 'ru' ? 'В наличии в NikolaCars, Киев.' : 'В наявності у NikolaCars, Київ.')
-                : ($locale === 'ru' ? 'Временно нет в наличии.' : 'Тимчасово немає в наявності.'));
+                : ($locale === 'ru' ? 'Нет в наличии.' : 'Немає в наявності.'));
         $seoDescription = $productTitle.', '.mb_strtolower($articleLabel).' '.$article.' — '.$priceDescription.'. '.$availabilityDescription;
         if (! empty($productData['reviewed_fitment'])) {
             $seoDescription = $productTitle.' — '.$articleDisplay.'. '.$productData['compatibility'].'.';
@@ -716,6 +720,9 @@ class PartsController extends Controller
                     'data' => $data,
                 ];
             },
+            // A cached upstream 404/410/422 becomes an HTTP 404 below. Refresh
+            // it after that response too, so restored products can recover.
+            alwaysDefer: true,
         );
 
         $status = (int) ($result['status'] ?? 500);

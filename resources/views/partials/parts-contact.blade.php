@@ -35,4 +35,4 @@
   <button type="button" class="contact-toggle" aria-label="{{ $isRu ? 'Связаться с разборкой' : 'Зв’язатися з розбіркою' }}" aria-controls="partsContactPanel" aria-expanded="false" data-parts-contact-toggle><svg width="34" height="34" viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 3h16a5 5 0 0 1 5 5v22l-6-5H8a5 5 0 0 1-5-5V8a5 5 0 0 1 5-5Z"/><circle cx="10" cy="14" r="1.4" fill="#8b1822"/><circle cx="16" cy="14" r="1.4" fill="#8b1822"/><circle cx="22" cy="14" r="1.4" fill="#8b1822"/></svg></button>
   <span class="parts-contact-online" id="partsContactOnline" hidden><span class="parts-contact-online-dot" aria-hidden="true"></span>{{ $isRu ? 'Мы онлайн' : 'Ми онлайн' }}</span>
 </div>
-<script src="{{ asset('assets/js/parts-contact.js') }}?v=20261031-online-hours-1" defer></script>
+<script src="{{ asset('assets/js/parts-contact.js') }}?v=20261112-ad-click" defer></script>
