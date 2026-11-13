@@ -20,6 +20,10 @@ Fetch origin подтвердил отсутствие входящих изме
 и remote equality проверяются после отправки. Откат кода — отдельный revert
 checkpoint; production rollback этим поручением не выполняется.
 
+Commit `d5d7fadb42e44ad3808eec8402100fd7d3a2345f` успешно отправлен в origin/codex/parts-storefront.
+Независимый git ls-remote подтвердил точный SHA, status --porcelain пуст.
+Статус checkpoint: выполнено и проверено; следующий согласованный шаг отсутствует.
+
 ## 2026-11-13 18:49 Europe/Kyiv — unavailable detail label released
 
 Explicit owner authorization; compatible warehouse7d9b7a1c was released first.
