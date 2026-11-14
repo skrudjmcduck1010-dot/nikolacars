@@ -1,0 +1,866 @@
+{
+  "summary": {
+    "prepared_utc": "2026-11-08T18:15:51.830Z",
+    "status": "READY_NOT_RUN_NETWORK_BLOCKED",
+    "owner_mobile_observation": "Owner reports site opens over phone mobile connection; not an automated measurement",
+    "source_queue_count": 75,
+    "source_queue_groups": {
+      "not_found": 43,
+      "canonical": 32
+    },
+    "already_observed_skip": 17,
+    "canonical_rows": 32,
+    "historical_candidate_pair_rows": 27,
+    "unique_known_same_locale_pair_urls": 52,
+    "additional_known_urls_after_source": 29,
+    "unknown_additional_work": "Opposite locale and pagination URL count depends on fresh responses; not claimed complete",
+    "pacing_seconds": 10,
+    "timeout_seconds": 30,
+    "method": "GET",
+    "assets": false,
+    "redirects_followed": false,
+    "automatic_retries": false,
+    "parallel": false,
+    "stop_on": [
+      401,
+      403,
+      429,
+      "5xx",
+      "timeout/transport/parse error"
+    ],
+    "collector": ".codex-tmp/gsc-92-completion-20261108/resume-collect.cjs",
+    "collector_syntax_check": "node --check PASS; not executed",
+    "app_runtime_changed": false,
+    "test_evidence": {
+      "source": ".codex-tmp/compat-regressions/run-dd9418243d13/results.json",
+      "full_suite_passed": true,
+      "read_only_review": true,
+      "rerun": false,
+      "regressions": [
+        {
+          "file": "tests/category-levels-regression.php",
+          "passed": true,
+          "exit_code": 0,
+          "stdout_tail": [
+            "PASS both official levels retained in structured breadcrumbs",
+            "PASS product HTML links to full category",
+            "All category-level regression checks passed.",
+            "__NC_REGRESSION_COMPLETED__"
+          ]
+        },
+        {
+          "file": "tests/catalog-tree-regression.php",
+          "passed": true,
+          "exit_code": 0,
+          "stdout_tail": [
+            "PASS category tree: 439 assertions; reviewed Model Y redirects and SSR renders",
+            "__NC_REGRESSION_COMPLETED__"
+          ]
+        }
+      ]
+    }
+  },
+  "matrix": [
+    {
+      "row": 1,
+      "source_url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/",
+      "locale": "uk",
+      "source_query": "",
+      "first_page_url": null,
+      "candidate_pair": {
+        "model": "model-3-06-2017-12-2023",
+        "locale": "uk",
+        "parent_url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/",
+        "leaf_url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/pedal-galma/",
+        "source": "historical candidate metadata, not current validation"
+      },
+      "prior_google_target": null,
+      "inspect_current": [
+        "HTTP status and any Location",
+        "self canonical for the exact page number",
+        "hreflang and selection.category_path_locale_slugs",
+        "pagination.total, last_page and product IDs",
+        "category_navigation and internal links"
+      ],
+      "next_after_first_response": "Read both known pair URLs if not already read; discover the other locale from actual links/selection; read all pages required for full ID-set equality",
+      "opposite_locale_status": "not fully collected; must use observed hreflang/selection/navigation, no guessed transliteration",
+      "current_full_sets_verified": false
+    },
+    {
+      "row": 2,
+      "source_url": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+      "locale": "ru",
+      "source_query": "",
+      "first_page_url": null,
+      "candidate_pair": {
+        "model": "model-s-02-2012-03-2016",
+        "locale": "ru",
+        "parent_url": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/",
+        "leaf_url": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+        "source": "historical candidate metadata, not current validation"
+      },
+      "prior_google_target": null,
+      "inspect_current": [
+        "HTTP status and any Location",
+        "self canonical for the exact page number",
+        "hreflang and selection.category_path_locale_slugs",
+        "pagination.total, last_page and product IDs",
+        "category_navigation and internal links"
+      ],
+      "next_after_first_response": "Read both known pair URLs if not already read; discover the other locale from actual links/selection; read all pages required for full ID-set equality",
+      "opposite_locale_status": "not fully collected; must use observed hreflang/selection/navigation, no guessed transliteration",
+      "current_full_sets_verified": false
+    },
+    {
+      "row": 3,
+      "source_url": "https://nikolacars.kiev.ua/ru/parts/visokovoltna-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+      "locale": "ru",
+      "source_query": "",
+      "first_page_url": null,
+      "candidate_pair": {
+        "model": "",
+        "locale": "ru",
+        "parent_url": "https://nikolacars.kiev.ua/ru/parts/visokovoltna-batareia/vysokovoltnaia-batareia/",
+        "leaf_url": "https://nikolacars.kiev.ua/ru/parts/visokovoltna-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+        "source": "historical candidate metadata, not current validation"
+      },
+      "prior_google_target": null,
+      "inspect_current": [
+        "HTTP status and any Location",
+        "self canonical for the exact page number",
+        "hreflang and selection.category_path_locale_slugs",
+        "pagination.total, last_page and product IDs",
+        "category_navigation and internal links"
+      ],
+      "next_after_first_response": "Read both known pair URLs if not already read; discover the other locale from actual links/selection; read all pages required for full ID-set equality",
+      "opposite_locale_status": "not fully collected; must use observed hreflang/selection/navigation, no guessed transliteration",
+      "current_full_sets_verified": false
+    },
+    {
+      "row": 4,
+      "source_url": "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/zadnie-poluosi/",
+      "locale": "ru",
+      "source_query": "",
+      "first_page_url": null,
+      "candidate_pair": {
+        "model": "",
+        "locale": "ru",
+        "parent_url": "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/",
+        "leaf_url": "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/zadnie-poluosi/",
+        "source": "historical candidate metadata, not current validation"
+      },
+      "prior_google_target": "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/",
+      "inspect_current": [
+        "HTTP status and any Location",
+        "self canonical for the exact page number",
+        "hreflang and selection.category_path_locale_slugs",
+        "pagination.total, last_page and product IDs",
+        "category_navigation and internal links"
+      ],
+      "next_after_first_response": "Read both known pair URLs if not already read; discover the other locale from actual links/selection; read all pages required for full ID-set equality",
+      "opposite_locale_status": "not fully collected; must use observed hreflang/selection/navigation, no guessed transliteration",
+      "current_full_sets_verified": false
+    },
+    {
+      "row": 5,
+      "source_url": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+      "locale": "ru",
+      "source_query": "",
+      "first_page_url": null,
+      "candidate_pair": {
+        "model": "",
+        "locale": "ru",
+        "parent_url": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/",
+        "leaf_url": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+        "source": "historical candidate metadata, not current validation"
+      },
+      "prior_google_target": null,
+      "inspect_current": [
+        "HTTP status and any Location",
+        "self canonical for the exact page number",
+        "hreflang and selection.category_path_locale_slugs",
+        "pagination.total, last_page and product IDs",
+        "category_navigation and internal links"
+      ],
+      "next_after_first_response": "Read both known pair URLs if not already read; discover the other locale from actual links/selection; read all pages required for full ID-set equality",
+      "opposite_locale_status": "not fully collected; must use observed hreflang/selection/navigation, no guessed transliteration",
+      "current_full_sets_verified": false
+    },
+    {
+      "row": 6,
+      "source_url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/",
+      "locale": "uk",
+      "source_query": "",
+      "first_page_url": null,
+      "candidate_pair": {
+        "model": "model-s-02-2012-03-2016",
+        "locale": "uk",
+        "parent_url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/",
+        "leaf_url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/",
+        "source": "historical candidate metadata, not current validation"
+      },
+      "prior_google_target": null,
+      "inspect_current": [
+        "HTTP status and any Location",
+        "self canonical for the exact page number",
+        "hreflang and selection.category_path_locale_slugs",
+        "pagination.total, last_page and product IDs",
+        "category_navigation and internal links"
+      ],
+      "next_after_first_response": "Read both known pair URLs if not already read; discover the other locale from actual links/selection; read all pages required for full ID-set equality",
+      "opposite_locale_status": "not fully collected; must use observed hreflang/selection/navigation, no guessed transliteration",
+      "current_full_sets_verified": false
+    },
+    {
+      "row": 7,
+      "source_url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/galma/pedal-galma/pedal-galma/",
+      "locale": "uk",
+      "source_query": "",
+      "first_page_url": null,
+      "candidate_pair": {
+        "model": "model-s-04-2016-01-2021",
+        "locale": "uk",
+        "parent_url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/galma/pedal-galma/",
+        "leaf_url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/galma/pedal-galma/pedal-galma/",
+        "source": "historical candidate metadata, not current validation"
+      },
+      "prior_google_target": null,
+      "inspect_current": [
+        "HTTP status and any Location",
+        "self canonical for the exact page number",
+        "hreflang and selection.category_path_locale_slugs",
+        "pagination.total, last_page and product IDs",
+        "category_navigation and internal links"
+      ],
+      "next_after_first_response": "Read both known pair URLs if not already read; discover the other locale from actual links/selection; read all pages required for full ID-set equality",
+      "opposite_locale_status": "not fully collected; must use observed hreflang/selection/navigation, no guessed transliteration",
+      "current_full_sets_verified": false
+    },
+    {
+      "row": 8,
+      "source_url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/",
+      "locale": "uk",
+      "source_query": "",
+      "first_page_url": null,
+      "candidate_pair": {
+        "model": "model-s-04-2016-01-2021",
+        "locale": "uk",
+        "parent_url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/",
+        "leaf_url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/diski/",
+        "source": "historical candidate metadata, not current validation"
+      },
+      "prior_google_target": null,
+      "inspect_current": [
+        "HTTP status and any Location",
+        "self canonical for the exact page number",
+        "hreflang and selection.category_path_locale_slugs",
+        "pagination.total, last_page and product IDs",
+        "category_navigation and internal links"
+      ],
+      "next_after_first_response": "Read both known pair URLs if not already read; discover the other locale from actual links/selection; read all pages required for full ID-set equality",
+      "opposite_locale_status": "not fully collected; must use observed hreflang/selection/navigation, no guessed transliteration",
+      "current_full_sets_verified": false
+    },
+    {
+      "row": 9,
+      "source_url": "https://nikolacars.kiev.ua/parts/galma/pedal-galma/pedal-galma/",
+      "locale": "uk",
+      "source_query": "",
+      "first_page_url": null,
+      "candidate_pair": {
+        "model": "",
+        "locale": "uk",
+        "parent_url": "https://nikolacars.kiev.ua/parts/galma/pedal-galma/",
+        "leaf_url": "https://nikolacars.kiev.ua/parts/galma/pedal-galma/pedal-galma/",
+        "source": "historical candidate metadata, not current validation"
+      },
+      "prior_google_target": null,
+      "inspect_current": [
+        "HTTP status and any Location",
+        "self canonical for the exact page number",
+        "hreflang and selection.category_path_locale_slugs",
+        "pagination.total, last_page and product IDs",
+        "category_navigation and internal links"
+      ],
+      "next_after_first_response": "Read both known pair URLs if not already read; discover the other locale from actual links/selection; read all pages required for full ID-set equality",
+      "opposite_locale_status": "not fully collected; must use observed hreflang/selection/navigation, no guessed transliteration",
+      "current_full_sets_verified": false
+    },
+    {
+      "row": 10,
+      "source_url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-batareia/visokovoltna-batareia/",
+      "locale": "uk",
+      "source_query": "",
+      "first_page_url": null,
+      "candidate_pair": {
+        "model": "model-y-01-2020-01-2025",
+        "locale": "uk",
+        "parent_url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-batareia/visokovoltna-batareia/",
+        "leaf_url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-batareia/visokovoltna-batareia/visokovoltna-batareia/",
+        "source": "historical candidate metadata, not current validation"
+      },
+      "prior_google_target": null,
+      "inspect_current": [
+        "HTTP status and any Location",
+        "self canonical for the exact page number",
+        "hreflang and selection.category_path_locale_slugs",
+        "pagination.total, last_page and product IDs",
+        "category_navigation and internal links"
+      ],
+      "next_after_first_response": "Read both known pair URLs if not already read; discover the other locale from actual links/selection; read all pages required for full ID-set equality",
+      "opposite_locale_status": "not fully collected; must use observed hreflang/selection/navigation, no guessed transliteration",
+      "current_full_sets_verified": false
+    },
+    {
+      "row": 11,
+      "source_url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-sistema/visokovoltni-provoda/visokovoltni-provoda/",
+      "locale": "uk",
+      "source_query": "",
+      "first_page_url": null,
+      "candidate_pair": {
+        "model": "model-y-01-2020-01-2025",
+        "locale": "uk",
+        "parent_url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-sistema/visokovoltni-provoda/",
+        "leaf_url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-sistema/visokovoltni-provoda/visokovoltni-provoda/",
+        "source": "historical candidate metadata, not current validation"
+      },
+      "prior_google_target": null,
+      "inspect_current": [
+        "HTTP status and any Location",
+        "self canonical for the exact page number",
+        "hreflang and selection.category_path_locale_slugs",
+        "pagination.total, last_page and product IDs",
+        "category_navigation and internal links"
+      ],
+      "next_after_first_response": "Read both known pair URLs if not already read; discover the other locale from actual links/selection; read all pages required for full ID-set equality",
+      "opposite_locale_status": "not fully collected; must use observed hreflang/selection/navigation, no guessed transliteration",
+      "current_full_sets_verified": false
+    },
+    {
+      "row": 12,
+      "source_url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/perednii-motor/peredni-pivosi/peredni-pivosi/",
+      "locale": "uk",
+      "source_query": "",
+      "first_page_url": null,
+      "candidate_pair": {
+        "model": "model-y-01-2020-01-2025",
+        "locale": "uk",
+        "parent_url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/perednii-motor/peredni-pivosi/",
+        "leaf_url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/perednii-motor/peredni-pivosi/peredni-pivosi/",
+        "source": "historical candidate metadata, not current validation"
+      },
+      "prior_google_target": null,
+      "inspect_current": [
+        "HTTP status and any Location",
+        "self canonical for the exact page number",
+        "hreflang and selection.category_path_locale_slugs",
+        "pagination.total, last_page and product IDs",
+        "category_navigation and internal links"
+      ],
+      "next_after_first_response": "Read both known pair URLs if not already read; discover the other locale from actual links/selection; read all pages required for full ID-set equality",
+      "opposite_locale_status": "not fully collected; must use observed hreflang/selection/navigation, no guessed transliteration",
+      "current_full_sets_verified": false
+    },
+    {
+      "row": 13,
+      "source_url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/zadnii-motor/zadni-pivosi/zadni-pivosi/",
+      "locale": "uk",
+      "source_query": "",
+      "first_page_url": null,
+      "candidate_pair": {
+        "model": "model-y-01-2020-01-2025",
+        "locale": "uk",
+        "parent_url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/zadnii-motor/zadni-pivosi/",
+        "leaf_url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/zadnii-motor/zadni-pivosi/zadni-pivosi/",
+        "source": "historical candidate metadata, not current validation"
+      },
+      "prior_google_target": null,
+      "inspect_current": [
+        "HTTP status and any Location",
+        "self canonical for the exact page number",
+        "hreflang and selection.category_path_locale_slugs",
+        "pagination.total, last_page and product IDs",
+        "category_navigation and internal links"
+      ],
+      "next_after_first_response": "Read both known pair URLs if not already read; discover the other locale from actual links/selection; read all pages required for full ID-set equality",
+      "opposite_locale_status": "not fully collected; must use observed hreflang/selection/navigation, no guessed transliteration",
+      "current_full_sets_verified": false
+    },
+    {
+      "row": 14,
+      "source_url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/",
+      "locale": "uk",
+      "source_query": "",
+      "first_page_url": null,
+      "candidate_pair": {
+        "model": "model-s-02-2012-03-2016",
+        "locale": "uk",
+        "parent_url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/",
+        "leaf_url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/",
+        "source": "historical candidate metadata, not current validation"
+      },
+      "prior_google_target": null,
+      "inspect_current": [
+        "HTTP status and any Location",
+        "self canonical for the exact page number",
+        "hreflang and selection.category_path_locale_slugs",
+        "pagination.total, last_page and product IDs",
+        "category_navigation and internal links"
+      ],
+      "next_after_first_response": "Read both known pair URLs if not already read; discover the other locale from actual links/selection; read all pages required for full ID-set equality",
+      "opposite_locale_status": "not fully collected; must use observed hreflang/selection/navigation, no guessed transliteration",
+      "current_full_sets_verified": false
+    },
+    {
+      "row": 15,
+      "source_url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/panel-priladiv/panel-priladiv/?page=2",
+      "locale": "uk",
+      "source_query": "?page=2",
+      "first_page_url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/panel-priladiv/panel-priladiv/",
+      "candidate_pair": null,
+      "prior_google_target": null,
+      "inspect_current": [
+        "HTTP status and any Location",
+        "self canonical for the exact page number",
+        "hreflang and selection.category_path_locale_slugs",
+        "pagination.total, last_page and product IDs",
+        "category_navigation and internal links"
+      ],
+      "next_after_first_response": "Inspect actual category navigation or prior Google legacy target before selecting a parent/leaf pair",
+      "opposite_locale_status": "not fully collected; must use observed hreflang/selection/navigation, no guessed transliteration",
+      "current_full_sets_verified": false
+    },
+    {
+      "row": 16,
+      "source_url": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/diski/?page=2",
+      "locale": "uk",
+      "source_query": "?page=2",
+      "first_page_url": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/diski/",
+      "candidate_pair": {
+        "model": "",
+        "locale": "uk",
+        "parent_url": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/",
+        "leaf_url": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/diski/",
+        "source": "historical candidate metadata, not current validation"
+      },
+      "prior_google_target": null,
+      "inspect_current": [
+        "HTTP status and any Location",
+        "self canonical for the exact page number",
+        "hreflang and selection.category_path_locale_slugs",
+        "pagination.total, last_page and product IDs",
+        "category_navigation and internal links"
+      ],
+      "next_after_first_response": "Read both known pair URLs if not already read; discover the other locale from actual links/selection; read all pages required for full ID-set equality",
+      "opposite_locale_status": "not fully collected; must use observed hreflang/selection/navigation, no guessed transliteration",
+      "current_full_sets_verified": false
+    },
+    {
+      "row": 17,
+      "source_url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/visokovoltna-batareia/visokovoltna-batareia/",
+      "locale": "uk",
+      "source_query": "",
+      "first_page_url": null,
+      "candidate_pair": {
+        "model": "model-3-06-2017-12-2023",
+        "locale": "uk",
+        "parent_url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/visokovoltna-batareia/visokovoltna-batareia/",
+        "leaf_url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/visokovoltna-batareia/visokovoltna-batareia/visokovoltna-batareia/",
+        "source": "historical candidate metadata, not current validation"
+      },
+      "prior_google_target": null,
+      "inspect_current": [
+        "HTTP status and any Location",
+        "self canonical for the exact page number",
+        "hreflang and selection.category_path_locale_slugs",
+        "pagination.total, last_page and product IDs",
+        "category_navigation and internal links"
+      ],
+      "next_after_first_response": "Read both known pair URLs if not already read; discover the other locale from actual links/selection; read all pages required for full ID-set equality",
+      "opposite_locale_status": "not fully collected; must use observed hreflang/selection/navigation, no guessed transliteration",
+      "current_full_sets_verified": false
+    },
+    {
+      "row": 18,
+      "source_url": "https://nikolacars.kiev.ua/parts/perednii-motor/peredni-pivosi/peredni-pivosi/",
+      "locale": "uk",
+      "source_query": "",
+      "first_page_url": null,
+      "candidate_pair": {
+        "model": "",
+        "locale": "uk",
+        "parent_url": "https://nikolacars.kiev.ua/parts/perednii-motor/peredni-pivosi/",
+        "leaf_url": "https://nikolacars.kiev.ua/parts/perednii-motor/peredni-pivosi/peredni-pivosi/",
+        "source": "historical candidate metadata, not current validation"
+      },
+      "prior_google_target": null,
+      "inspect_current": [
+        "HTTP status and any Location",
+        "self canonical for the exact page number",
+        "hreflang and selection.category_path_locale_slugs",
+        "pagination.total, last_page and product IDs",
+        "category_navigation and internal links"
+      ],
+      "next_after_first_response": "Read both known pair URLs if not already read; discover the other locale from actual links/selection; read all pages required for full ID-set equality",
+      "opposite_locale_status": "not fully collected; must use observed hreflang/selection/navigation, no guessed transliteration",
+      "current_full_sets_verified": false
+    },
+    {
+      "row": 19,
+      "source_url": "https://nikolacars.kiev.ua/parts/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/",
+      "locale": "uk",
+      "source_query": "",
+      "first_page_url": null,
+      "candidate_pair": {
+        "model": "",
+        "locale": "uk",
+        "parent_url": "https://nikolacars.kiev.ua/parts/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/",
+        "leaf_url": "https://nikolacars.kiev.ua/parts/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/",
+        "source": "historical candidate metadata, not current validation"
+      },
+      "prior_google_target": null,
+      "inspect_current": [
+        "HTTP status and any Location",
+        "self canonical for the exact page number",
+        "hreflang and selection.category_path_locale_slugs",
+        "pagination.total, last_page and product IDs",
+        "category_navigation and internal links"
+      ],
+      "next_after_first_response": "Read both known pair URLs if not already read; discover the other locale from actual links/selection; read all pages required for full ID-set equality",
+      "opposite_locale_status": "not fully collected; must use observed hreflang/selection/navigation, no guessed transliteration",
+      "current_full_sets_verified": false
+    },
+    {
+      "row": 20,
+      "source_url": "https://nikolacars.kiev.ua/ru/parts/model-3-highland-01-2024/sidenia/sideniia-2-go-riada-i-osnastka/sideniia-2-go-riada-i-osnastka/",
+      "locale": "ru",
+      "source_query": "",
+      "first_page_url": null,
+      "candidate_pair": null,
+      "prior_google_target": null,
+      "inspect_current": [
+        "HTTP status and any Location",
+        "self canonical for the exact page number",
+        "hreflang and selection.category_path_locale_slugs",
+        "pagination.total, last_page and product IDs",
+        "category_navigation and internal links"
+      ],
+      "next_after_first_response": "Inspect actual category navigation or prior Google legacy target before selecting a parent/leaf pair",
+      "opposite_locale_status": "not fully collected; must use observed hreflang/selection/navigation, no guessed transliteration",
+      "current_full_sets_verified": false
+    },
+    {
+      "row": 21,
+      "source_url": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/",
+      "locale": "uk",
+      "source_query": "",
+      "first_page_url": null,
+      "candidate_pair": {
+        "model": "model-3-highland-01-2024",
+        "locale": "uk",
+        "parent_url": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/",
+        "leaf_url": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/",
+        "source": "historical candidate metadata, not current validation"
+      },
+      "prior_google_target": null,
+      "inspect_current": [
+        "HTTP status and any Location",
+        "self canonical for the exact page number",
+        "hreflang and selection.category_path_locale_slugs",
+        "pagination.total, last_page and product IDs",
+        "category_navigation and internal links"
+      ],
+      "next_after_first_response": "Read both known pair URLs if not already read; discover the other locale from actual links/selection; read all pages required for full ID-set equality",
+      "opposite_locale_status": "not fully collected; must use observed hreflang/selection/navigation, no guessed transliteration",
+      "current_full_sets_verified": false
+    },
+    {
+      "row": 22,
+      "source_url": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/sidinnia/sidinnia-2-go-riadu-i-osnashhennia/sidinnia-2-go-riadu-i-osnashhennia/",
+      "locale": "uk",
+      "source_query": "",
+      "first_page_url": null,
+      "candidate_pair": null,
+      "prior_google_target": null,
+      "inspect_current": [
+        "HTTP status and any Location",
+        "self canonical for the exact page number",
+        "hreflang and selection.category_path_locale_slugs",
+        "pagination.total, last_page and product IDs",
+        "category_navigation and internal links"
+      ],
+      "next_after_first_response": "Inspect actual category navigation or prior Google legacy target before selecting a parent/leaf pair",
+      "opposite_locale_status": "not fully collected; must use observed hreflang/selection/navigation, no guessed transliteration",
+      "current_full_sets_verified": false
+    },
+    {
+      "row": 23,
+      "source_url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/",
+      "locale": "uk",
+      "source_query": "",
+      "first_page_url": null,
+      "candidate_pair": {
+        "model": "model-s-02-2012-03-2016",
+        "locale": "uk",
+        "parent_url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/",
+        "leaf_url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/",
+        "source": "historical candidate metadata, not current validation"
+      },
+      "prior_google_target": null,
+      "inspect_current": [
+        "HTTP status and any Location",
+        "self canonical for the exact page number",
+        "hreflang and selection.category_path_locale_slugs",
+        "pagination.total, last_page and product IDs",
+        "category_navigation and internal links"
+      ],
+      "next_after_first_response": "Read both known pair URLs if not already read; discover the other locale from actual links/selection; read all pages required for full ID-set equality",
+      "opposite_locale_status": "not fully collected; must use observed hreflang/selection/navigation, no guessed transliteration",
+      "current_full_sets_verified": false
+    },
+    {
+      "row": 24,
+      "source_url": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/",
+      "locale": "uk",
+      "source_query": "",
+      "first_page_url": null,
+      "candidate_pair": {
+        "model": "",
+        "locale": "uk",
+        "parent_url": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/",
+        "leaf_url": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/",
+        "source": "historical candidate metadata, not current validation"
+      },
+      "prior_google_target": null,
+      "inspect_current": [
+        "HTTP status and any Location",
+        "self canonical for the exact page number",
+        "hreflang and selection.category_path_locale_slugs",
+        "pagination.total, last_page and product IDs",
+        "category_navigation and internal links"
+      ],
+      "next_after_first_response": "Read both known pair URLs if not already read; discover the other locale from actual links/selection; read all pages required for full ID-set equality",
+      "opposite_locale_status": "not fully collected; must use observed hreflang/selection/navigation, no guessed transliteration",
+      "current_full_sets_verified": false
+    },
+    {
+      "row": 25,
+      "source_url": "https://nikolacars.kiev.ua/parts/elektrika/datciki-radaru/datciki-radaru/",
+      "locale": "uk",
+      "source_query": "",
+      "first_page_url": null,
+      "candidate_pair": {
+        "model": "",
+        "locale": "uk",
+        "parent_url": "https://nikolacars.kiev.ua/parts/elektrika/datciki-radaru/",
+        "leaf_url": "https://nikolacars.kiev.ua/parts/elektrika/datciki-radaru/datciki-radaru/",
+        "source": "historical candidate metadata, not current validation"
+      },
+      "prior_google_target": null,
+      "inspect_current": [
+        "HTTP status and any Location",
+        "self canonical for the exact page number",
+        "hreflang and selection.category_path_locale_slugs",
+        "pagination.total, last_page and product IDs",
+        "category_navigation and internal links"
+      ],
+      "next_after_first_response": "Read both known pair URLs if not already read; discover the other locale from actual links/selection; read all pages required for full ID-set equality",
+      "opposite_locale_status": "not fully collected; must use observed hreflang/selection/navigation, no guessed transliteration",
+      "current_full_sets_verified": false
+    },
+    {
+      "row": 26,
+      "source_url": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/elektrika/frontalnaia-kamera/frontalnaia-kamera/",
+      "locale": "ru",
+      "source_query": "",
+      "first_page_url": null,
+      "candidate_pair": {
+        "model": "model-s-02-2012-03-2016",
+        "locale": "ru",
+        "parent_url": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/elektrika/frontalnaia-kamera/",
+        "leaf_url": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/elektrika/frontalnaia-kamera/frontalnaia-kamera/",
+        "source": "historical candidate metadata, not current validation"
+      },
+      "prior_google_target": null,
+      "inspect_current": [
+        "HTTP status and any Location",
+        "self canonical for the exact page number",
+        "hreflang and selection.category_path_locale_slugs",
+        "pagination.total, last_page and product IDs",
+        "category_navigation and internal links"
+      ],
+      "next_after_first_response": "Read both known pair URLs if not already read; discover the other locale from actual links/selection; read all pages required for full ID-set equality",
+      "opposite_locale_status": "not fully collected; must use observed hreflang/selection/navigation, no guessed transliteration",
+      "current_full_sets_verified": false
+    },
+    {
+      "row": 27,
+      "source_url": "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/diski-i-siny/diski/diski/",
+      "locale": "ru",
+      "source_query": "",
+      "first_page_url": null,
+      "candidate_pair": {
+        "model": "model-s-04-2016-01-2021",
+        "locale": "ru",
+        "parent_url": "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/diski-i-siny/diski/",
+        "leaf_url": "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/diski-i-siny/diski/diski/",
+        "source": "historical candidate metadata, not current validation"
+      },
+      "prior_google_target": null,
+      "inspect_current": [
+        "HTTP status and any Location",
+        "self canonical for the exact page number",
+        "hreflang and selection.category_path_locale_slugs",
+        "pagination.total, last_page and product IDs",
+        "category_navigation and internal links"
+      ],
+      "next_after_first_response": "Read both known pair URLs if not already read; discover the other locale from actual links/selection; read all pages required for full ID-set equality",
+      "opposite_locale_status": "not fully collected; must use observed hreflang/selection/navigation, no guessed transliteration",
+      "current_full_sets_verified": false
+    },
+    {
+      "row": 28,
+      "source_url": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/",
+      "locale": "uk",
+      "source_query": "",
+      "first_page_url": null,
+      "candidate_pair": null,
+      "prior_google_target": "https://nikolacars.kiev.ua/parts/category/vnutrisnje-ozdoblennia/",
+      "inspect_current": [
+        "HTTP status and any Location",
+        "self canonical for the exact page number",
+        "hreflang and selection.category_path_locale_slugs",
+        "pagination.total, last_page and product IDs",
+        "category_navigation and internal links"
+      ],
+      "next_after_first_response": "Inspect actual category navigation or prior Google legacy target before selecting a parent/leaf pair",
+      "opposite_locale_status": "not fully collected; must use observed hreflang/selection/navigation, no guessed transliteration",
+      "current_full_sets_verified": false
+    },
+    {
+      "row": 29,
+      "source_url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-batareia/visokovoltna-batareia/",
+      "locale": "uk",
+      "source_query": "",
+      "first_page_url": null,
+      "candidate_pair": {
+        "model": "model-s-02-2012-03-2016",
+        "locale": "uk",
+        "parent_url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-batareia/visokovoltna-batareia/",
+        "leaf_url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-batareia/visokovoltna-batareia/visokovoltna-batareia/",
+        "source": "historical candidate metadata, not current validation"
+      },
+      "prior_google_target": null,
+      "inspect_current": [
+        "HTTP status and any Location",
+        "self canonical for the exact page number",
+        "hreflang and selection.category_path_locale_slugs",
+        "pagination.total, last_page and product IDs",
+        "category_navigation and internal links"
+      ],
+      "next_after_first_response": "Read both known pair URLs if not already read; discover the other locale from actual links/selection; read all pages required for full ID-set equality",
+      "opposite_locale_status": "not fully collected; must use observed hreflang/selection/navigation, no guessed transliteration",
+      "current_full_sets_verified": false
+    },
+    {
+      "row": 30,
+      "source_url": "https://nikolacars.kiev.ua/parts/diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms/",
+      "locale": "uk",
+      "source_query": "",
+      "first_page_url": null,
+      "candidate_pair": {
+        "model": "",
+        "locale": "uk",
+        "parent_url": "https://nikolacars.kiev.ua/parts/diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/",
+        "leaf_url": "https://nikolacars.kiev.ua/parts/diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms/",
+        "source": "historical candidate metadata, not current validation"
+      },
+      "prior_google_target": null,
+      "inspect_current": [
+        "HTTP status and any Location",
+        "self canonical for the exact page number",
+        "hreflang and selection.category_path_locale_slugs",
+        "pagination.total, last_page and product IDs",
+        "category_navigation and internal links"
+      ],
+      "next_after_first_response": "Read both known pair URLs if not already read; discover the other locale from actual links/selection; read all pages required for full ID-set equality",
+      "opposite_locale_status": "not fully collected; must use observed hreflang/selection/navigation, no guessed transliteration",
+      "current_full_sets_verified": false
+    },
+    {
+      "row": 31,
+      "source_url": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/diski/",
+      "locale": "uk",
+      "source_query": "",
+      "first_page_url": null,
+      "candidate_pair": {
+        "model": "",
+        "locale": "uk",
+        "parent_url": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/",
+        "leaf_url": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/diski/",
+        "source": "historical candidate metadata, not current validation"
+      },
+      "prior_google_target": null,
+      "inspect_current": [
+        "HTTP status and any Location",
+        "self canonical for the exact page number",
+        "hreflang and selection.category_path_locale_slugs",
+        "pagination.total, last_page and product IDs",
+        "category_navigation and internal links"
+      ],
+      "next_after_first_response": "Read both known pair URLs if not already read; discover the other locale from actual links/selection; read all pages required for full ID-set equality",
+      "opposite_locale_status": "not fully collected; must use observed hreflang/selection/navigation, no guessed transliteration",
+      "current_full_sets_verified": false
+    },
+    {
+      "row": 32,
+      "source_url": "https://nikolacars.kiev.ua/parts/komponenti-zakrittia/",
+      "locale": "uk",
+      "source_query": "",
+      "first_page_url": null,
+      "candidate_pair": null,
+      "prior_google_target": "https://nikolacars.kiev.ua/parts/category/komponenti-zakrittia/",
+      "inspect_current": [
+        "HTTP status and any Location",
+        "self canonical for the exact page number",
+        "hreflang and selection.category_path_locale_slugs",
+        "pagination.total, last_page and product IDs",
+        "category_navigation and internal links"
+      ],
+      "next_after_first_response": "Inspect actual category navigation or prior Google legacy target before selecting a parent/leaf pair",
+      "opposite_locale_status": "not fully collected; must use observed hreflang/selection/navigation, no guessed transliteration",
+      "current_full_sets_verified": false
+    }
+  ],
+  "known_followup_urls": [
+    "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/pedal-galma/",
+    "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/",
+    "https://nikolacars.kiev.ua/ru/parts/visokovoltna-batareia/vysokovoltnaia-batareia/",
+    "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/",
+    "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/",
+    "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/",
+    "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/galma/pedal-galma/",
+    "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/diski/",
+    "https://nikolacars.kiev.ua/parts/galma/pedal-galma/",
+    "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-batareia/visokovoltna-batareia/visokovoltna-batareia/",
+    "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-sistema/visokovoltni-provoda/",
+    "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/perednii-motor/peredni-pivosi/",
+    "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/zadnii-motor/zadni-pivosi/",
+    "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/",
+    "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/",
+    "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/visokovoltna-batareia/visokovoltna-batareia/visokovoltna-batareia/",
+    "https://nikolacars.kiev.ua/parts/perednii-motor/peredni-pivosi/",
+    "https://nikolacars.kiev.ua/parts/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/",
+    "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/",
+    "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/",
+    "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/",
+    "https://nikolacars.kiev.ua/parts/elektrika/datciki-radaru/",
+    "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/elektrika/frontalnaia-kamera/",
+    "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/diski-i-siny/diski/",
+    "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-batareia/visokovoltna-batareia/visokovoltna-batareia/",
+    "https://nikolacars.kiev.ua/parts/diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/",
+    "https://nikolacars.kiev.ua/parts/category/vnutrisnje-ozdoblennia/",
+    "https://nikolacars.kiev.ua/parts/category/komponenti-zakrittia/",
+    "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/panel-priladiv/panel-priladiv/"
+  ]
+}

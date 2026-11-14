@@ -12,3 +12,7 @@
 .env
 .env.*
 !.env.example
+/.codex-tmp/
+
+# Local GSC export archives; reviewed extracted evidence is tracked.
+/docs/reports/gsc-audit-2026-11-08-sources/*.zip

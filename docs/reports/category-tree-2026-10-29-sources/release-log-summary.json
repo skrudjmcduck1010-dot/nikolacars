@@ -1,0 +1,71 @@
+{
+  "backend": {
+    "captured_utc": "2026-10-29T19:41:26.457161+00:00",
+    "release_completed_utc": "2026-10-29T19:35:07.6517724Z",
+    "configured_timezone": "Europe/Kyiv",
+    "bytes_read": 262144,
+    "stable": true,
+    "tail_covers_start": true,
+    "last_record": "2026-10-29 21:37:45",
+    "raw_saved": false,
+    "error_records_after": {
+      "existing_nova_poshta_history_http404": 45,
+      "existing_tracking_history_scheduler_failure": 1
+    },
+    "error_records_before_in_tail": {
+      "existing_nova_poshta_history_http404": 10,
+      "other_error_requires_review": 2,
+      "existing_tracking_history_scheduler_failure": 1
+    },
+    "summary": {
+      "first_timestamp": "2026-10-29 21:36:08",
+      "last_timestamp": "2026-10-29 21:37:45",
+      "timestamp_timezone": "Europe/Kyiv",
+      "records": {
+        "2026-10-29:ERROR": 46
+      },
+      "matching_lines_by_error_class": {},
+      "warehouse_slow_or_failed": {},
+      "note": "Counts are matching lines; stack traces can repeat one exception. No raw records retained."
+    }
+  },
+  "frontend": {
+    "captured_utc": "2026-10-29T19:41:27.628955+00:00",
+    "release_completed_utc": "2026-10-29T19:37:48.116318+00:00",
+    "configured_timezone": "UTC",
+    "bytes_read": 262144,
+    "stable": true,
+    "tail_covers_start": true,
+    "last_record": "2026-10-29 19:40:49",
+    "raw_saved": false,
+    "error_records_after": {},
+    "error_records_before_in_tail": {
+      "other_error_requires_review": 14
+    },
+    "summary": {
+      "first_timestamp": "2026-10-29 19:39:15",
+      "last_timestamp": "2026-10-29 19:40:49",
+      "timestamp_timezone": "UTC",
+      "records": {
+        "2026-10-29:WARNING": 3
+      },
+      "matching_lines_by_error_class": {},
+      "warehouse_slow_or_failed": {
+        "2026-10-29": {
+          "status": {
+            "200": 3
+          },
+          "endpoint": {
+            "catalog": 3
+          },
+          "duration": {
+            "2-5s": 3
+          },
+          "failed_utc_minutes": {}
+        }
+      },
+      "note": "Counts are matching lines; stack traces can repeat one exception. No raw records retained."
+    }
+  },
+  "limitation": "Bounded Laravel log tails only; not an access/hosting uptime proof."
+}

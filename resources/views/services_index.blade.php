@@ -65,8 +65,8 @@
           <h3>{{ $isRu ? 'РЕМОНТ ЭЛЕКТРОМОТОРА TESLA' : 'РЕМОНТ ЕЛЕКТРОМОТОРА TESLA' }}</h3>
           <p>
             {{ $isRu
-              ? 'Диагностика, ремонт и восстановление электромотора Tesla для Model S, Model 3, Model X и Model Y.'
-              : 'Діагностика, ремонт і відновлення електромотора Tesla для Model S, Model 3, Model X та Model Y.'
+              ? 'Диагностика, ремонт и восстановление электромотора Tesla Model S.'
+              : 'Діагностика, ремонт і відновлення електромотора Tesla Model S.'
             }}
           </p>
           <span class="service-link">
@@ -95,8 +95,8 @@
           <h3>{{ $isRu ? 'ВОССТАНОВЛЕНИЕ СЕРТИФИКАТОВ' : 'ВІДНОВЛЕННЯ СЕРТИФІКАТІВ' }}</h3>
           <p>
             {{ $isRu
-              ? 'Официальное восстановление сертификатов Tesla через сервис Tesla с гарантией стабильной работы.'
-              : 'Офіційне відновлення сертифікатів Tesla через сервіс Tesla з гарантією стабільної роботи.'
+              ? 'Восстановление сертификатов Tesla: проверка статуса и доступных вариантов восстановления.'
+              : 'Відновлення сертифікатів Tesla: перевірка статусу та доступних варіантів відновлення.'
             }}
           </p>
           <span class="service-link">
@@ -150,7 +150,7 @@
         </a>
 
         <!-- Запчасти -->
-        <a href="https://nikolacars.com.ua/ua/" class="service-box" target="_blank" rel="noopener noreferrer">
+        <a href="{{ $isRu ? '/ru/parts/' : '/parts/' }}" class="service-box">
           <div class="service-icon">🧩</div>
           <h3>{{ $isRu ? 'ЗАПЧАСТИ TESLA' : 'ЗАПЧАСТИНИ TESLA' }}</h3>
           <p>
@@ -170,8 +170,8 @@
             <h3>{{ mb_strtoupper($isRu ? $service['name_ru'] : $service['name_uk']) }}</h3>
             <p>
               {{ $isRu
-                ? 'Целевая услуга Tesla: «' . $service['name_ru'] . '» для Tesla Model 3, Model Y, Model X и Model S.'
-                : 'Цільова послуга Tesla: «' . $service['name_uk'] . '» для Tesla Model 3, Model Y, Model X та Model S.'
+                ? $service['summary_ru']
+              : $service['summary_uk']
               }}
             </p>
             <span class="service-link">{{ $isRu ? 'Читать далее' : 'Читати далі' }}</span>

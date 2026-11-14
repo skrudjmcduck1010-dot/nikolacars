@@ -1,0 +1,812 @@
+{
+  "status": "PASS",
+  "ru": {
+    "selection": {
+      "model": "",
+      "model_slug": "",
+      "category": "Электрика",
+      "category_slug": "elektrika",
+      "category_path": "Электрика / Электропроводка",
+      "category_path_slug": "elektrika--elektroprovodka",
+      "category_breadcrumbs": [
+        {
+          "label": "Электрика",
+          "slug": "elektrika"
+        },
+        {
+          "label": "Электропроводка",
+          "slug": "elektrika--elektroprovodka"
+        }
+      ],
+      "category_path_locale_slugs": {
+        "uk": "elektrika--elektroprovodka",
+        "ru": "elektrika--elektroprovodka"
+      }
+    },
+    "models": [
+      {
+        "value": "Model 3 06.2017 - 12.2023",
+        "label": "Model 3 06.2017 - 12.2023",
+        "slug": "model-3-06-2017-12-2023",
+        "count": 51
+      },
+      {
+        "value": "Model 3 Highland 01.2024 -",
+        "label": "Model 3 Highland 01.2024 -",
+        "slug": "model-3-highland-01-2024",
+        "count": 11
+      },
+      {
+        "value": "Model S 02.2012-03.2016",
+        "label": "Model S 02.2012-03.2016",
+        "slug": "model-s-02-2012-03-2016",
+        "count": 19
+      },
+      {
+        "value": "Model S 04.2016-01.2021",
+        "label": "Model S 04.2016-01.2021",
+        "slug": "model-s-04-2016-01-2021",
+        "count": 8
+      },
+      {
+        "value": "Model Y 01.2020 - 01.2025",
+        "label": "Model Y 01.2020 - 01.2025",
+        "slug": "model-y-01-2020-01-2025",
+        "count": 43
+      }
+    ],
+    "productCount": 24,
+    "pagination": {
+      "page": 1,
+      "per_page": 24,
+      "total": 143,
+      "last_page": 6
+    },
+    "navigation": [
+      {
+        "label": "Безопасность и защита",
+        "category_path_slug": "bezopasnost-i-zashhita",
+        "parent_path_slug": "",
+        "count": 116,
+        "has_children": true
+      },
+      {
+        "label": "Внутренняя отделка",
+        "category_path_slug": "vnutrenniaia-otdelka",
+        "parent_path_slug": "",
+        "count": 759,
+        "has_children": true
+      },
+      {
+        "label": "Высоковольтная батарея",
+        "category_path_slug": "vysokovoltnaia-batareia",
+        "parent_path_slug": "",
+        "count": 7,
+        "has_children": true
+      },
+      {
+        "label": "Высоковольтная система",
+        "category_path_slug": "vysokovoltnaia-sistema",
+        "parent_path_slug": "",
+        "count": 26,
+        "has_children": true
+      },
+      {
+        "label": "Диски и шины",
+        "category_path_slug": "diski-i-siny",
+        "parent_path_slug": "",
+        "count": 21,
+        "has_children": true
+      },
+      {
+        "label": "Задний мотор",
+        "category_path_slug": "zadnii-motor",
+        "parent_path_slug": "",
+        "count": 31,
+        "has_children": true
+      },
+      {
+        "label": "Информационно-развлекательная система",
+        "category_path_slug": "informacionno-razvlekatelnaia-sistema",
+        "parent_path_slug": "",
+        "count": 83,
+        "has_children": true
+      },
+      {
+        "label": "Компоненты закрытия",
+        "category_path_slug": "komponenty-zakrytiia",
+        "parent_path_slug": "",
+        "count": 453,
+        "has_children": true
+      },
+      {
+        "label": "Крыша",
+        "category_path_slug": "krysa",
+        "parent_path_slug": "",
+        "count": 10,
+        "has_children": true
+      },
+      {
+        "label": "Кузов",
+        "category_path_slug": "kuzov",
+        "parent_path_slug": "",
+        "count": 170,
+        "has_children": true
+      },
+      {
+        "label": "Наружная фурнитура",
+        "category_path_slug": "naruznaia-furnitura",
+        "parent_path_slug": "",
+        "count": 198,
+        "has_children": true
+      },
+      {
+        "label": "Не определено",
+        "category_path_slug": "ne-opredeleno",
+        "parent_path_slug": "",
+        "count": 19,
+        "has_children": false
+      },
+      {
+        "label": "Передний мотор",
+        "category_path_slug": "perednii-motor",
+        "parent_path_slug": "",
+        "count": 13,
+        "has_children": true
+      },
+      {
+        "label": "Подвеска",
+        "category_path_slug": "podveska",
+        "parent_path_slug": "",
+        "count": 102,
+        "has_children": true
+      },
+      {
+        "label": "Приборная панель",
+        "category_path_slug": "pribornaia-panel",
+        "parent_path_slug": "",
+        "count": 204,
+        "has_children": true
+      },
+      {
+        "label": "Рулевой механизм",
+        "category_path_slug": "rulevoi-mexanizm",
+        "parent_path_slug": "",
+        "count": 38,
+        "has_children": true
+      },
+      {
+        "label": "Сиденья",
+        "category_path_slug": "sidenia",
+        "parent_path_slug": "",
+        "count": 70,
+        "has_children": true
+      },
+      {
+        "label": "Тормоза",
+        "category_path_slug": "tormoza",
+        "parent_path_slug": "",
+        "count": 60,
+        "has_children": true
+      },
+      {
+        "label": "Управление температурным режимом",
+        "category_path_slug": "upravlenie-temperaturnym-rezimom",
+        "parent_path_slug": "",
+        "count": 169,
+        "has_children": true
+      },
+      {
+        "label": "Ходовая - шасси",
+        "category_path_slug": "xodovaia-sassi",
+        "parent_path_slug": "",
+        "count": 8,
+        "has_children": true
+      },
+      {
+        "label": "Электрика",
+        "category_path_slug": "elektrika",
+        "parent_path_slug": "",
+        "count": 329,
+        "has_children": true
+      },
+      {
+        "label": "Бесключевой доступ и безопасность",
+        "category_path_slug": "elektrika--beskliucevoi-dostup-i-bezopasnost",
+        "parent_path_slug": "elektrika",
+        "count": 8,
+        "has_children": true
+      },
+      {
+        "label": "Внешний свет",
+        "category_path_slug": "elektrika--vnesnii-svet",
+        "parent_path_slug": "elektrika",
+        "count": 45,
+        "has_children": true
+      },
+      {
+        "label": "Внутренние переключатели и розетка питания",
+        "category_path_slug": "elektrika--vnutrennie-perekliucateli-i-rozetka-pitaniia",
+        "parent_path_slug": "elektrika",
+        "count": 2,
+        "has_children": true
+      },
+      {
+        "label": "Внутренняя камера",
+        "category_path_slug": "elektrika--vnutrenniaia-kamera",
+        "parent_path_slug": "elektrika",
+        "count": 1,
+        "has_children": true
+      },
+      {
+        "label": "Датчики парковки",
+        "category_path_slug": "elektrika--datciki-parkovki",
+        "parent_path_slug": "elektrika",
+        "count": 11,
+        "has_children": true
+      },
+      {
+        "label": "Датчики паркування",
+        "category_path_slug": "elektrika--datciki-parkuvannia",
+        "parent_path_slug": "elektrika",
+        "count": 5,
+        "has_children": true
+      },
+      {
+        "label": "Датчики радара",
+        "category_path_slug": "elektrika--datciki-radara",
+        "parent_path_slug": "elektrika",
+        "count": 6,
+        "has_children": true
+      },
+      {
+        "label": "Задняя камера",
+        "category_path_slug": "elektrika--zadniaia-kamera",
+        "parent_path_slug": "elektrika",
+        "count": 0,
+        "has_children": true
+      },
+      {
+        "label": "Камеры",
+        "category_path_slug": "elektrika--kamery",
+        "parent_path_slug": "elektrika",
+        "count": 1,
+        "has_children": true
+      },
+      {
+        "label": "Клаксон",
+        "category_path_slug": "elektrika--klakson",
+        "parent_path_slug": "elektrika",
+        "count": 4,
+        "has_children": true
+      },
+      {
+        "label": "Педаль акселератора",
+        "category_path_slug": "elektrika--pedal-akseleratora",
+        "parent_path_slug": "elektrika",
+        "count": 7,
+        "has_children": true
+      },
+      {
+        "label": "Стеклоочистители и стеклоомыватели",
+        "category_path_slug": "elektrika--stekloocistiteli-i-stekloomyvateli",
+        "parent_path_slug": "elektrika",
+        "count": 30,
+        "has_children": true
+      },
+      {
+        "label": "Фронтальная камера",
+        "category_path_slug": "elektrika--frontalnaia-kamera",
+        "parent_path_slug": "elektrika",
+        "count": 12,
+        "has_children": true
+      },
+      {
+        "label": "Электронные модули управления",
+        "category_path_slug": "elektrika--elektronnye-moduli-upravleniia",
+        "parent_path_slug": "elektrika",
+        "count": 59,
+        "has_children": true
+      },
+      {
+        "label": "Электропроводка",
+        "category_path_slug": "elektrika--elektroprovodka",
+        "parent_path_slug": "elektrika",
+        "count": 132,
+        "has_children": true
+      },
+      {
+        "label": "Основная электропроводка подкапотного и моторного отсека",
+        "category_path_slug": "elektrika--elektroprovodka--osnovnaia-elektroprovodka-podkapotnogo-i-motornogo-otseka",
+        "parent_path_slug": "elektrika--elektroprovodka",
+        "count": 16,
+        "has_children": false
+      },
+      {
+        "label": "Электропроводка дверей и крышки багажника",
+        "category_path_slug": "elektrika--elektroprovodka--elektroprovodka-dverei-i-kryski-bagaznika",
+        "parent_path_slug": "elektrika--elektroprovodka",
+        "count": 62,
+        "has_children": false
+      },
+      {
+        "label": "Электропроводка заднего бампера и подрамника",
+        "category_path_slug": "elektrika--elektroprovodka--elektroprovodka-zadnego-bampera-i-podramnika",
+        "parent_path_slug": "elektrika--elektroprovodka",
+        "count": 16,
+        "has_children": false
+      },
+      {
+        "label": "Электропроводка лобового стекла",
+        "category_path_slug": "elektrika--elektroprovodka--elektroprovodka-lobovogo-stekla",
+        "parent_path_slug": "elektrika--elektroprovodka",
+        "count": 5,
+        "has_children": false
+      },
+      {
+        "label": "Электропроводка панели приборов и центральной консоли",
+        "category_path_slug": "elektrika--elektroprovodka--elektroprovodka-paneli-priborov-i-centralnoi-konsoli",
+        "parent_path_slug": "elektrika--elektroprovodka",
+        "count": 11,
+        "has_children": false
+      },
+      {
+        "label": "Электропроводка панорамного люка и потолка салона",
+        "category_path_slug": "elektrika--elektroprovodka--elektroprovodka-panoramnogo-liuka-i-potolka-salona",
+        "parent_path_slug": "elektrika--elektroprovodka",
+        "count": 2,
+        "has_children": false
+      },
+      {
+        "label": "Электропроводка переднего бампера и передней панели",
+        "category_path_slug": "elektrika--elektroprovodka--elektroprovodka-perednego-bampera-i-perednei-paneli",
+        "parent_path_slug": "elektrika--elektroprovodka",
+        "count": 5,
+        "has_children": false
+      },
+      {
+        "label": "Электропроводка потолка салона",
+        "category_path_slug": "elektrika--elektroprovodka--elektroprovodka-potolka-salona",
+        "parent_path_slug": "elektrika--elektroprovodka",
+        "count": 1,
+        "has_children": false
+      },
+      {
+        "label": "Электропроводка потолка салона и полки заднего багажного отсека",
+        "category_path_slug": "elektrika--elektroprovodka--elektroprovodka-potolka-salona-i-polki-zadnego-bagaznogo-otseka",
+        "parent_path_slug": "elektrika--elektroprovodka",
+        "count": 2,
+        "has_children": false
+      },
+      {
+        "label": "Электропроводка сидений",
+        "category_path_slug": "elektrika--elektroprovodka--elektroprovodka-sidenii",
+        "parent_path_slug": "elektrika--elektroprovodka",
+        "count": 2,
+        "has_children": false
+      },
+      {
+        "label": "Электропроводка сидения",
+        "category_path_slug": "elektrika--elektroprovodka--elektroprovodka-sideniia",
+        "parent_path_slug": "elektrika--elektroprovodka",
+        "count": 3,
+        "has_children": false
+      },
+      {
+        "label": "Электропроводка 12в аккумулятора",
+        "category_path_slug": "elektrika--elektroprovodka--elektroprovodka-12v-akkumuliatora",
+        "parent_path_slug": "elektrika--elektroprovodka",
+        "count": 7,
+        "has_children": false
+      },
+      {
+        "label": "12В аккумулятор и предохранители",
+        "category_path_slug": "elektrika--12v-akkumuliator-i-predoxraniteli",
+        "parent_path_slug": "elektrika",
+        "count": 6,
+        "has_children": true
+      }
+    ]
+  },
+  "uk": {
+    "selection": {
+      "model": "",
+      "model_slug": "",
+      "category": "Електрика",
+      "category_slug": "elektrika",
+      "category_path": "Електрика / Електропроводка",
+      "category_path_slug": "elektrika--elektroprovodka",
+      "category_breadcrumbs": [
+        {
+          "label": "Електрика",
+          "slug": "elektrika"
+        },
+        {
+          "label": "Електропроводка",
+          "slug": "elektrika--elektroprovodka"
+        }
+      ],
+      "category_path_locale_slugs": {
+        "uk": "elektrika--elektroprovodka",
+        "ru": "elektrika--elektroprovodka"
+      }
+    },
+    "models": [
+      {
+        "value": "Model 3 06.2017 - 12.2023",
+        "label": "Model 3 06.2017 - 12.2023",
+        "slug": "model-3-06-2017-12-2023",
+        "count": 51
+      },
+      {
+        "value": "Model 3 Highland 01.2024 -",
+        "label": "Model 3 Highland 01.2024 -",
+        "slug": "model-3-highland-01-2024",
+        "count": 11
+      },
+      {
+        "value": "Model S 02.2012-03.2016",
+        "label": "Model S 02.2012-03.2016",
+        "slug": "model-s-02-2012-03-2016",
+        "count": 19
+      },
+      {
+        "value": "Model S 04.2016-01.2021",
+        "label": "Model S 04.2016-01.2021",
+        "slug": "model-s-04-2016-01-2021",
+        "count": 8
+      },
+      {
+        "value": "Model Y 01.2020 - 01.2025",
+        "label": "Model Y 01.2020 - 01.2025",
+        "slug": "model-y-01-2020-01-2025",
+        "count": 43
+      }
+    ],
+    "productCount": 24,
+    "pagination": {
+      "page": 1,
+      "per_page": 24,
+      "total": 143,
+      "last_page": 6
+    },
+    "navigation": [
+      {
+        "label": "Безпека і захист",
+        "category_path_slug": "bezpeka-i-zaxist",
+        "parent_path_slug": "",
+        "count": 116,
+        "has_children": true
+      },
+      {
+        "label": "Високовольтна батарея",
+        "category_path_slug": "visokovoltna-batareia",
+        "parent_path_slug": "",
+        "count": 7,
+        "has_children": true
+      },
+      {
+        "label": "Високовольтна система",
+        "category_path_slug": "visokovoltna-sistema",
+        "parent_path_slug": "",
+        "count": 26,
+        "has_children": true
+      },
+      {
+        "label": "Внутрішнє оздоблення",
+        "category_path_slug": "vnutrisnje-ozdoblennia",
+        "parent_path_slug": "",
+        "count": 759,
+        "has_children": true
+      },
+      {
+        "label": "Гальма",
+        "category_path_slug": "galma",
+        "parent_path_slug": "",
+        "count": 60,
+        "has_children": true
+      },
+      {
+        "label": "Диски і шини",
+        "category_path_slug": "diski-i-sini",
+        "parent_path_slug": "",
+        "count": 21,
+        "has_children": true
+      },
+      {
+        "label": "Електрика",
+        "category_path_slug": "elektrika",
+        "parent_path_slug": "",
+        "count": 329,
+        "has_children": true
+      },
+      {
+        "label": "Безключовий доступ і безпека",
+        "category_path_slug": "elektrika--bezkliucovii-dostup-i-bezpeka",
+        "parent_path_slug": "elektrika",
+        "count": 8,
+        "has_children": true
+      },
+      {
+        "label": "Внутрішні перемикачі і розетка живлення",
+        "category_path_slug": "elektrika--vnutrisni-peremikaci-i-rozetka-zivlennia",
+        "parent_path_slug": "elektrika",
+        "count": 2,
+        "has_children": true
+      },
+      {
+        "label": "Внутрішня камера",
+        "category_path_slug": "elektrika--vnutrisnia-kamera",
+        "parent_path_slug": "elektrika",
+        "count": 1,
+        "has_children": true
+      },
+      {
+        "label": "Датчики паркування",
+        "category_path_slug": "elektrika--datciki-parkuvannia",
+        "parent_path_slug": "elektrika",
+        "count": 16,
+        "has_children": true
+      },
+      {
+        "label": "Датчики радару",
+        "category_path_slug": "elektrika--datciki-radaru",
+        "parent_path_slug": "elektrika",
+        "count": 6,
+        "has_children": true
+      },
+      {
+        "label": "Електронні модулі управління",
+        "category_path_slug": "elektrika--elektronni-moduli-upravlinnia",
+        "parent_path_slug": "elektrika",
+        "count": 59,
+        "has_children": true
+      },
+      {
+        "label": "Електропроводка",
+        "category_path_slug": "elektrika--elektroprovodka",
+        "parent_path_slug": "elektrika",
+        "count": 132,
+        "has_children": true
+      },
+      {
+        "label": "Електропроводка дверей і кришки багажника",
+        "category_path_slug": "elektrika--elektroprovodka--elektroprovodka-dverei-i-kriski-bagaznika",
+        "parent_path_slug": "elektrika--elektroprovodka",
+        "count": 62,
+        "has_children": false
+      },
+      {
+        "label": "Електропроводка заднього бампера і підрамника",
+        "category_path_slug": "elektrika--elektroprovodka--elektroprovodka-zadnyogo-bampera-i-pidramnika",
+        "parent_path_slug": "elektrika--elektroprovodka",
+        "count": 16,
+        "has_children": false
+      },
+      {
+        "label": "Електропроводка лобового скла",
+        "category_path_slug": "elektrika--elektroprovodka--elektroprovodka-lobovogo-skla",
+        "parent_path_slug": "elektrika--elektroprovodka",
+        "count": 5,
+        "has_children": false
+      },
+      {
+        "label": "Електропроводка панелі приладів і центральної консолі",
+        "category_path_slug": "elektrika--elektroprovodka--elektroprovodka-paneli-priladiv-i-centralnoyi-konsoli",
+        "parent_path_slug": "elektrika--elektroprovodka",
+        "count": 11,
+        "has_children": false
+      },
+      {
+        "label": "Електропроводка панорамного люка і стелі салону",
+        "category_path_slug": "elektrika--elektroprovodka--elektroprovodka-panoramnogo-liuka-i-steli-salonu",
+        "parent_path_slug": "elektrika--elektroprovodka",
+        "count": 2,
+        "has_children": false
+      },
+      {
+        "label": "Електропроводка переднього бампера і передньої панелі",
+        "category_path_slug": "elektrika--elektroprovodka--elektroprovodka-perednyogo-bampera-i-perednyoyi-paneli",
+        "parent_path_slug": "elektrika--elektroprovodka",
+        "count": 5,
+        "has_children": false
+      },
+      {
+        "label": "Електропроводка сидіння",
+        "category_path_slug": "elektrika--elektroprovodka--elektroprovodka-sidinnia",
+        "parent_path_slug": "elektrika--elektroprovodka",
+        "count": 3,
+        "has_children": false
+      },
+      {
+        "label": "Електропроводка сидінь",
+        "category_path_slug": "elektrika--elektroprovodka--elektroprovodka-sidin",
+        "parent_path_slug": "elektrika--elektroprovodka",
+        "count": 2,
+        "has_children": false
+      },
+      {
+        "label": "Електропроводка стелі салону",
+        "category_path_slug": "elektrika--elektroprovodka--elektroprovodka-steli-salonu",
+        "parent_path_slug": "elektrika--elektroprovodka",
+        "count": 1,
+        "has_children": false
+      },
+      {
+        "label": "Електропроводка стелі салону і полиці заднього багажного відсіку",
+        "category_path_slug": "elektrika--elektroprovodka--elektroprovodka-steli-salonu-i-polici-zadnyogo-bagaznogo-vidsiku",
+        "parent_path_slug": "elektrika--elektroprovodka",
+        "count": 2,
+        "has_children": false
+      },
+      {
+        "label": "Електропроводка 12в акумулятора",
+        "category_path_slug": "elektrika--elektroprovodka--elektroprovodka-12v-akumuliatora",
+        "parent_path_slug": "elektrika--elektroprovodka",
+        "count": 7,
+        "has_children": false
+      },
+      {
+        "label": "Основна електропроводка підкапотного і моторного відсіку",
+        "category_path_slug": "elektrika--elektroprovodka--osnovna-elektroprovodka-pidkapotnogo-i-motornogo-vidsiku",
+        "parent_path_slug": "elektrika--elektroprovodka",
+        "count": 16,
+        "has_children": false
+      },
+      {
+        "label": "Задня камера",
+        "category_path_slug": "elektrika--zadnia-kamera",
+        "parent_path_slug": "elektrika",
+        "count": 0,
+        "has_children": true
+      },
+      {
+        "label": "Зовнішнє світло",
+        "category_path_slug": "elektrika--zovnisnje-svitlo",
+        "parent_path_slug": "elektrika",
+        "count": 45,
+        "has_children": true
+      },
+      {
+        "label": "Камери",
+        "category_path_slug": "elektrika--kameri",
+        "parent_path_slug": "elektrika",
+        "count": 1,
+        "has_children": true
+      },
+      {
+        "label": "Клаксон",
+        "category_path_slug": "elektrika--klakson",
+        "parent_path_slug": "elektrika",
+        "count": 4,
+        "has_children": true
+      },
+      {
+        "label": "Педаль акселератора",
+        "category_path_slug": "elektrika--pedal-akseleratora",
+        "parent_path_slug": "elektrika",
+        "count": 7,
+        "has_children": true
+      },
+      {
+        "label": "Склоочисники і склоомивачі",
+        "category_path_slug": "elektrika--skloocisniki-i-skloomivaci",
+        "parent_path_slug": "elektrika",
+        "count": 30,
+        "has_children": true
+      },
+      {
+        "label": "Фронтальна камера",
+        "category_path_slug": "elektrika--frontalna-kamera",
+        "parent_path_slug": "elektrika",
+        "count": 12,
+        "has_children": true
+      },
+      {
+        "label": "12В акумулятор і запобіжники",
+        "category_path_slug": "elektrika--12v-akumuliator-i-zapobizniki",
+        "parent_path_slug": "elektrika",
+        "count": 6,
+        "has_children": true
+      },
+      {
+        "label": "Задній мотор",
+        "category_path_slug": "zadnii-motor",
+        "parent_path_slug": "",
+        "count": 31,
+        "has_children": true
+      },
+      {
+        "label": "Зовнішня фурнітура",
+        "category_path_slug": "zovnisnia-furnitura",
+        "parent_path_slug": "",
+        "count": 198,
+        "has_children": true
+      },
+      {
+        "label": "Інформаційно-розважальна система",
+        "category_path_slug": "informaciino-rozvazalna-sistema",
+        "parent_path_slug": "",
+        "count": 83,
+        "has_children": true
+      },
+      {
+        "label": "Компоненти закриття",
+        "category_path_slug": "komponenti-zakrittia",
+        "parent_path_slug": "",
+        "count": 453,
+        "has_children": true
+      },
+      {
+        "label": "Криша",
+        "category_path_slug": "krisa",
+        "parent_path_slug": "",
+        "count": 10,
+        "has_children": true
+      },
+      {
+        "label": "Кузов",
+        "category_path_slug": "kuzov",
+        "parent_path_slug": "",
+        "count": 170,
+        "has_children": true
+      },
+      {
+        "label": "Не визначено",
+        "category_path_slug": "ne-viznaceno",
+        "parent_path_slug": "",
+        "count": 19,
+        "has_children": false
+      },
+      {
+        "label": "Панель приладів",
+        "category_path_slug": "panel-priladiv",
+        "parent_path_slug": "",
+        "count": 204,
+        "has_children": true
+      },
+      {
+        "label": "Передній мотор",
+        "category_path_slug": "perednii-motor",
+        "parent_path_slug": "",
+        "count": 13,
+        "has_children": true
+      },
+      {
+        "label": "Підвіска",
+        "category_path_slug": "pidviska",
+        "parent_path_slug": "",
+        "count": 102,
+        "has_children": true
+      },
+      {
+        "label": "Рульовий механізм",
+        "category_path_slug": "rulyovii-mexanizm",
+        "parent_path_slug": "",
+        "count": 38,
+        "has_children": true
+      },
+      {
+        "label": "Сидіння",
+        "category_path_slug": "sidinnia",
+        "parent_path_slug": "",
+        "count": 70,
+        "has_children": true
+      },
+      {
+        "label": "Управління температурним режимом",
+        "category_path_slug": "upravlinnia-temperaturnim-rezimom",
+        "parent_path_slug": "",
+        "count": 169,
+        "has_children": true
+      },
+      {
+        "label": "Ходова - шассі",
+        "category_path_slug": "xodova-sassi",
+        "parent_path_slug": "",
+        "count": 8,
+        "has_children": true
+      }
+    ]
+  }
+}

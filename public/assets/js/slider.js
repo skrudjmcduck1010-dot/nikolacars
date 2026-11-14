@@ -14,8 +14,19 @@
   let currentX = 0;
   let baseTranslate = 0;
 
+  const loadSlideImage = (slideIndex) => {
+    const normalizedIndex = (slideIndex + slides.length) % slides.length;
+    const image = slides[normalizedIndex]?.querySelector('.hero-media[data-src]');
+    if (!image) return;
+
+    image.loading = 'eager';
+    image.src = image.dataset.src;
+    image.removeAttribute('data-src');
+  };
+
   const setIndex = (i) => {
     index = (i + slides.length) % slides.length;
+    loadSlideImage(index);
     track.style.transition = 'transform .45s ease';
     track.style.transform = `translateX(${-index * 100}%)`;
     dots.forEach((d, di) => d.classList.toggle('active', di === index));
@@ -26,10 +37,14 @@
   dots.forEach(d => d.addEventListener('click', () => setIndex(parseInt(d.dataset.dot, 10))));
 
   // Drag / swipe (mouse + touch)
-  const onDown = (x) => {
+  const onDown = (x, target) => {
+    if (target?.closest?.('button, input, textarea, select, a')) return;
+
     dragging = true;
     startX = x;
     currentX = x;
+    loadSlideImage(index - 1);
+    loadSlideImage(index + 1);
     track.style.transition = 'none';
     baseTranslate = -index * root.clientWidth;
   };
@@ -52,12 +67,12 @@
   };
 
   // Mouse
-  root.addEventListener('mousedown', (e) => onDown(e.clientX));
+  root.addEventListener('mousedown', (e) => onDown(e.clientX, e.target));
   window.addEventListener('mousemove', (e) => onMove(e.clientX));
   window.addEventListener('mouseup', onUp);
 
   // Touch
-  root.addEventListener('touchstart', (e) => onDown(e.touches[0].clientX), { passive: true });
+  root.addEventListener('touchstart', (e) => onDown(e.touches[0].clientX, e.target), { passive: true });
   root.addEventListener('touchmove', (e) => onMove(e.touches[0].clientX), { passive: true });
   root.addEventListener('touchend', onUp);
 

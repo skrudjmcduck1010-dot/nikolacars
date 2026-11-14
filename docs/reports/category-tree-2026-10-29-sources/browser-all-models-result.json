@@ -1,0 +1,168 @@
+{
+  "status": "PASS",
+  "cases": 6,
+  "results": [
+    {
+      "locale": "uk",
+      "width": 320,
+      "status": "PASS",
+      "modelTransitions": [
+        "model-3-06-2017-12-2023",
+        "model-3-highland-01-2024",
+        "model-s-02-2012-03-2016",
+        "model-s-04-2016-01-2021",
+        "model-x-09-2015-02-2021",
+        "model-y-01-2020-01-2025"
+      ],
+      "checks": [
+        "label/anchor/sidebar bounds",
+        "single current",
+        "real child/leaf/all navigation",
+        "filter clearing",
+        "ancestors",
+        "leaf arrow",
+        "AJAX counts",
+        "all six model groups at root and Electrical",
+        "real model transitions in shared branch",
+        "preview disclosure",
+        "model context",
+        "no JS errors"
+      ]
+    },
+    {
+      "locale": "uk",
+      "width": 390,
+      "status": "PASS",
+      "modelTransitions": [
+        "model-3-06-2017-12-2023",
+        "model-3-highland-01-2024",
+        "model-s-02-2012-03-2016",
+        "model-s-04-2016-01-2021",
+        "model-x-09-2015-02-2021",
+        "model-y-01-2020-01-2025"
+      ],
+      "checks": [
+        "label/anchor/sidebar bounds",
+        "single current",
+        "real child/leaf/all navigation",
+        "filter clearing",
+        "ancestors",
+        "leaf arrow",
+        "AJAX counts",
+        "all six model groups at root and Electrical",
+        "real model transitions in shared branch",
+        "preview disclosure",
+        "model context",
+        "no JS errors"
+      ]
+    },
+    {
+      "locale": "uk",
+      "width": 1440,
+      "status": "PASS",
+      "modelTransitions": [
+        "model-3-06-2017-12-2023",
+        "model-3-highland-01-2024",
+        "model-s-02-2012-03-2016",
+        "model-s-04-2016-01-2021",
+        "model-x-09-2015-02-2021",
+        "model-y-01-2020-01-2025"
+      ],
+      "checks": [
+        "label/anchor/sidebar bounds",
+        "single current",
+        "real child/leaf/all navigation",
+        "filter clearing",
+        "ancestors",
+        "leaf arrow",
+        "AJAX counts",
+        "all six model groups at root and Electrical",
+        "real model transitions in shared branch",
+        "preview disclosure",
+        "model context",
+        "no JS errors"
+      ]
+    },
+    {
+      "locale": "ru",
+      "width": 320,
+      "status": "PASS",
+      "modelTransitions": [
+        "model-3-06-2017-12-2023",
+        "model-3-highland-01-2024",
+        "model-s-02-2012-03-2016",
+        "model-s-04-2016-01-2021",
+        "model-x-09-2015-02-2021",
+        "model-y-01-2020-01-2025"
+      ],
+      "checks": [
+        "label/anchor/sidebar bounds",
+        "single current",
+        "real child/leaf/all navigation",
+        "filter clearing",
+        "ancestors",
+        "leaf arrow",
+        "AJAX counts",
+        "all six model groups at root and Electrical",
+        "real model transitions in shared branch",
+        "preview disclosure",
+        "model context",
+        "no JS errors"
+      ]
+    },
+    {
+      "locale": "ru",
+      "width": 390,
+      "status": "PASS",
+      "modelTransitions": [
+        "model-3-06-2017-12-2023",
+        "model-3-highland-01-2024",
+        "model-s-02-2012-03-2016",
+        "model-s-04-2016-01-2021",
+        "model-x-09-2015-02-2021",
+        "model-y-01-2020-01-2025"
+      ],
+      "checks": [
+        "label/anchor/sidebar bounds",
+        "single current",
+        "real child/leaf/all navigation",
+        "filter clearing",
+        "ancestors",
+        "leaf arrow",
+        "AJAX counts",
+        "all six model groups at root and Electrical",
+        "real model transitions in shared branch",
+        "preview disclosure",
+        "model context",
+        "no JS errors"
+      ]
+    },
+    {
+      "locale": "ru",
+      "width": 1440,
+      "status": "PASS",
+      "modelTransitions": [
+        "model-3-06-2017-12-2023",
+        "model-3-highland-01-2024",
+        "model-s-02-2012-03-2016",
+        "model-s-04-2016-01-2021",
+        "model-x-09-2015-02-2021",
+        "model-y-01-2020-01-2025"
+      ],
+      "checks": [
+        "label/anchor/sidebar bounds",
+        "single current",
+        "real child/leaf/all navigation",
+        "filter clearing",
+        "ancestors",
+        "leaf arrow",
+        "AJAX counts",
+        "all six model groups at root and Electrical",
+        "real model transitions in shared branch",
+        "preview disclosure",
+        "model context",
+        "no JS errors"
+      ]
+    }
+  ]
+}

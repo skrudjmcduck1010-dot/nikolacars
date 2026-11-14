@@ -1,0 +1,92 @@
+<?php
+
+namespace App\Services;
+
+final class CatalogPath
+{
+    // Only reviewed equivalent landing pages. Taxonomy levels and IDs stay intact.
+    // Full non-empty product sets were checked in both locales on 2026-10-27;
+    // Model Y wires and front/rear axles were independently rechecked on 2026-11-02.
+    // Global and Model S 2016-2021 wheel parent/leaf sets were rechecked on 2026-11-08.
+    // Prefer the existing leaf (Google already selected it for Model 3 pedals).
+    // Battery paths are excluded: their UA/RU inventories do not match.
+    private const PREFERRED_PATHS = [
+        'model-y-01-2020-01-2025' => [
+            'visokovoltna-sistema/visokovoltni-provoda' => 'visokovoltna-sistema/visokovoltni-provoda/visokovoltni-provoda',
+            'vysokovoltnaia-sistema/vysokovoltnye-provoda' => 'vysokovoltnaia-sistema/vysokovoltnye-provoda/vysokovoltnye-provoda',
+            'perednii-motor/peredni-pivosi' => 'perednii-motor/peredni-pivosi/peredni-pivosi',
+            'perednii-motor/perednie-poluosi' => 'perednii-motor/perednie-poluosi/perednie-poluosi',
+            'zadnii-motor/zadni-pivosi' => 'zadnii-motor/zadni-pivosi/zadni-pivosi',
+            'zadnii-motor/zadnie-poluosi' => 'zadnii-motor/zadnie-poluosi/zadnie-poluosi',
+        ],
+        'model-3-06-2017-12-2023' => [
+            'galma/pedal-galma' => 'galma/pedal-galma/pedal-galma',
+            'tormoza/pedal-tormoza' => 'tormoza/pedal-tormoza/pedal-tormoza',
+        ],
+        'model-s-02-2012-03-2016' => [
+            'visokovoltna-sistema/bortovii-zariadnii-modul-cardzer' => 'visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer',
+            'vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer' => 'vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer',
+        ],
+        'model-s-04-2016-01-2021' => [
+            'diski-i-sini/diski' => 'diski-i-sini/diski/diski',
+            'diski-i-siny/diski' => 'diski-i-siny/diski/diski',
+        ],
+        'model-3-highland-01-2024' => [
+            'diski-i-sini/diski' => 'diski-i-sini/diski/diski',
+            'diski-i-siny/diski' => 'diski-i-siny/diski/diski',
+        ],
+        '' => [
+            'diski-i-sini/diski' => 'diski-i-sini/diski/diski',
+            'diski-i-siny/diski' => 'diski-i-siny/diski/diski',
+            'galma/pedal-galma' => 'galma/pedal-galma/pedal-galma',
+            'tormoza/pedal-tormoza' => 'tormoza/pedal-tormoza/pedal-tormoza',
+            'zadnii-motor/zadni-pivosi' => 'zadnii-motor/zadni-pivosi/zadni-pivosi',
+            'zadnii-motor/zadnie-poluosi' => 'zadnii-motor/zadnie-poluosi/zadnie-poluosi',
+            'zovnisnia-furnitura/podium-nomernogo-znaka' => 'zovnisnia-furnitura/podium-nomernogo-znaka/podium-nomernogo-znaka',
+            'naruznaia-furnitura/podium-nomernogo-znaka' => 'naruznaia-furnitura/podium-nomernogo-znaka/podium-nomernogo-znaka',
+        ],
+    ];
+
+    public static function preferred(string $path, string $modelSlug = ''): string
+    {
+        $path = self::normalize($path);
+
+        return self::PREFERRED_PATHS[$modelSlug][$path] ?? $path;
+    }
+
+    public static function preferredPaths(): array
+    {
+        return self::PREFERRED_PATHS;
+    }
+
+    public static function localized(string $path, string $locale): string
+    {
+        $path = self::normalize($path);
+        if ($locale === 'ru' && ($path === 'visokovoltna-batareia' || str_starts_with($path, 'visokovoltna-batareia/'))) {
+            return 'vysokovoltnaia-batareia'.substr($path, strlen('visokovoltna-batareia'));
+        }
+
+        return $path;
+    }
+
+    public static function normalize(string $path): string
+    {
+        $segments = preg_split('~(?:/|--)+~', trim($path, '/'), -1, PREG_SPLIT_NO_EMPTY) ?: [];
+
+        // Equal labels can represent distinct official levels (e.g. 14 and 1405).
+        return implode('/', $segments);
+    }
+
+    public static function legacyCollapsed(string $path): string
+    {
+        $segments = explode('/', self::normalize($path));
+        $normalized = [];
+        foreach ($segments as $segment) {
+            if ($normalized === [] || $segment !== $normalized[count($normalized) - 1]) {
+                $normalized[] = $segment;
+            }
+        }
+
+        return implode('/', $normalized);
+    }
+}

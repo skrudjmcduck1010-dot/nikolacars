@@ -1,0 +1,1525 @@
+{
+  "built_utc": "2026-11-08T18:49:06.485Z",
+  "source_coverage": {
+    "total": 92,
+    "http": 74,
+    "iab": 18,
+    "combined": 92
+  },
+  "source_remaining": [],
+  "catalog_sets": [
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+      "total": 11,
+      "last_page": 1,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        39792,
+        65734,
+        75221,
+        80841,
+        106657,
+        107692,
+        108527,
+        110960,
+        112402,
+        112426,
+        113256
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/visokovoltna-batareia/visokovoltna-batareia/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+        "x-default": "https://nikolacars.kiev.ua/parts/visokovoltna-batareia/visokovoltna-batareia/"
+      },
+      "methods": [
+        "http"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+      "total": 2,
+      "last_page": 1,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        108597,
+        113433
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/"
+      },
+      "methods": [
+        "http"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/zadnie-poluosi/",
+      "total": 23,
+      "last_page": 1,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        40464,
+        76562,
+        79108,
+        80889,
+        82239,
+        83586,
+        84764,
+        86097,
+        87303,
+        88635,
+        93010,
+        94483,
+        96279,
+        97695,
+        99091,
+        100524,
+        107311,
+        113159,
+        113160,
+        113161,
+        113162,
+        113216,
+        113365
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/zadnii-motor/zadni-pivosi/zadni-pivosi/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/zadnie-poluosi/",
+        "x-default": "https://nikolacars.kiev.ua/parts/zadnii-motor/zadni-pivosi/zadni-pivosi/"
+      },
+      "methods": [
+        "http"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+      "total": 2,
+      "last_page": 1,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        108597,
+        113433
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+        "x-default": "https://nikolacars.kiev.ua/parts/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/"
+      },
+      "methods": [
+        "http"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/",
+      "total": 2,
+      "last_page": 1,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        108597,
+        113433
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/"
+      },
+      "methods": [
+        "http"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/galma/pedal-galma/pedal-galma/",
+      "total": 1,
+      "last_page": 1,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        101899
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/galma/pedal-galma/pedal-galma/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/tormoza/pedal-tormoza/pedal-tormoza/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/galma/pedal-galma/pedal-galma/"
+      },
+      "methods": [
+        "http"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/",
+      "total": 1,
+      "last_page": 1,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        102105
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/diski-i-siny/diski/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/"
+      },
+      "methods": [
+        "http"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/galma/pedal-galma/pedal-galma/",
+      "total": 9,
+      "last_page": 1,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        74350,
+        88660,
+        99115,
+        100551,
+        101899,
+        106344,
+        106892,
+        108105,
+        113334
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/galma/pedal-galma/pedal-galma/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/tormoza/pedal-tormoza/pedal-tormoza/",
+        "x-default": "https://nikolacars.kiev.ua/parts/galma/pedal-galma/pedal-galma/"
+      },
+      "methods": [
+        "http"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-batareia/visokovoltna-batareia/",
+      "total": 2,
+      "last_page": 1,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        39792,
+        65734
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-batareia/visokovoltna-batareia/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-batareia/visokovoltna-batareia/"
+      },
+      "methods": [
+        "http"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-sistema/visokovoltni-provoda/visokovoltni-provoda/",
+      "total": 2,
+      "last_page": 1,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        84592,
+        89810
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-sistema/visokovoltni-provoda/visokovoltni-provoda/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/vysokovoltnaia-sistema/vysokovoltnye-provoda/vysokovoltnye-provoda/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-sistema/visokovoltni-provoda/visokovoltni-provoda/"
+      },
+      "methods": [
+        "http"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/perednii-motor/peredni-pivosi/peredni-pivosi/",
+      "total": 6,
+      "last_page": 1,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        82238,
+        83585,
+        84763,
+        88634,
+        103741,
+        113158
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/perednii-motor/peredni-pivosi/peredni-pivosi/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/perednii-motor/perednie-poluosi/perednie-poluosi/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/perednii-motor/peredni-pivosi/peredni-pivosi/"
+      },
+      "methods": [
+        "http"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/zadnii-motor/zadni-pivosi/zadni-pivosi/",
+      "total": 12,
+      "last_page": 1,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        40464,
+        79108,
+        82239,
+        83586,
+        84764,
+        86097,
+        87303,
+        88635,
+        113159,
+        113160,
+        113161,
+        113162
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/zadnii-motor/zadni-pivosi/zadni-pivosi/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/zadnii-motor/zadnie-poluosi/zadnie-poluosi/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/zadnii-motor/zadni-pivosi/zadni-pivosi/"
+      },
+      "methods": [
+        "http"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/",
+      "total": 14,
+      "last_page": 1,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        92596,
+        92736,
+        92865,
+        95847,
+        96125,
+        103690,
+        103706,
+        105828,
+        105860,
+        105861,
+        108705,
+        108706,
+        108752,
+        108977
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/naruznaia-furnitura/nakladki-podkapotnogo-otseka/nakladki-podkapotnogo-otseka/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/"
+      },
+      "methods": [
+        "http"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/panel-priladiv/panel-priladiv/",
+      "total": 86,
+      "last_page": 4,
+      "pages_observed": [
+        2
+      ],
+      "consistent": true,
+      "complete": false,
+      "ids": [
+        88384,
+        90134,
+        90568,
+        93159,
+        93213,
+        93614,
+        94070,
+        96431,
+        96898,
+        97372,
+        97848,
+        97901,
+        97932,
+        98192,
+        98313,
+        98774,
+        99333,
+        99605,
+        99721,
+        100675,
+        100728,
+        100759,
+        101019,
+        101140
+      ],
+      "alternate_urls": {
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-3-06-2017-12-2023/pribornaia-panel/panel-pribornaia/?page=2",
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/panel-priladiv/panel-priladiv/?page=2",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/panel-priladiv/panel-priladiv/?page=2"
+      },
+      "methods": [
+        "iab"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/diski/",
+      "total": 29,
+      "last_page": 2,
+      "pages_observed": [
+        1,
+        2
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        41434,
+        73500,
+        75772,
+        75775,
+        77531,
+        79169,
+        79775,
+        81825,
+        82913,
+        83649,
+        84177,
+        85432,
+        86708,
+        87970,
+        102105,
+        106954,
+        110102,
+        111638,
+        113027,
+        113143,
+        113147,
+        113148,
+        113149,
+        113151,
+        113152,
+        113153,
+        113254,
+        113255,
+        113364
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/diski/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/diski-i-siny/diski/diski/",
+        "x-default": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/diski/"
+      },
+      "methods": [
+        "iab"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/visokovoltna-batareia/visokovoltna-batareia/",
+      "total": 2,
+      "last_page": 1,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        75221,
+        80841
+      ],
+      "alternate_urls": {
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-3-06-2017-12-2023/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/visokovoltna-batareia/visokovoltna-batareia/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/visokovoltna-batareia/visokovoltna-batareia/"
+      },
+      "methods": [
+        "iab"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/perednii-motor/peredni-pivosi/peredni-pivosi/",
+      "total": 9,
+      "last_page": 1,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        82238,
+        83585,
+        88634,
+        94395,
+        97694,
+        100523,
+        103741,
+        113158,
+        113191
+      ],
+      "alternate_urls": {
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/perednii-motor/perednie-poluosi/perednie-poluosi/",
+        "uk-UA": "https://nikolacars.kiev.ua/parts/perednii-motor/peredni-pivosi/peredni-pivosi/",
+        "x-default": "https://nikolacars.kiev.ua/parts/perednii-motor/peredni-pivosi/peredni-pivosi/"
+      },
+      "methods": [
+        "iab"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/",
+      "total": 2,
+      "last_page": 1,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        112134,
+        112135
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/naruznaia-furnitura/obsivka-proema-kryski-bagaznika/obsivka-proema-kryski-bagaznika/",
+        "x-default": "https://nikolacars.kiev.ua/parts/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/"
+      },
+      "methods": [
+        "iab"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-3-highland-01-2024/sidenia/sideniia-2-go-riada-i-osnastka/sideniia-2-go-riada-i-osnastka/",
+      "total": 2,
+      "last_page": 1,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        113227,
+        113228
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/sidinnia/sidinnia-2-go-riadu-i-osnashhennia/sidinnia-2-go-riadu-i-osnashhennia/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-3-highland-01-2024/sidenia/sideniia-2-go-riada-i-osnastka/sideniia-2-go-riada-i-osnastka/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/sidinnia/sidinnia-2-go-riadu-i-osnashhennia/sidinnia-2-go-riadu-i-osnashhennia/"
+      },
+      "methods": [
+        "iab"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/",
+      "total": 2,
+      "last_page": 1,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        112134,
+        112135
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-3-highland-01-2024/naruznaia-furnitura/obsivka-proema-kryski-bagaznika/obsivka-proema-kryski-bagaznika/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/"
+      },
+      "methods": [
+        "iab"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/sidinnia/sidinnia-2-go-riadu-i-osnashhennia/sidinnia-2-go-riadu-i-osnashhennia/",
+      "total": 2,
+      "last_page": 1,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        113227,
+        113228
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/sidinnia/sidinnia-2-go-riadu-i-osnashhennia/sidinnia-2-go-riadu-i-osnashhennia/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-3-highland-01-2024/sidenia/sideniia-2-go-riada-i-osnastka/sideniia-2-go-riada-i-osnastka/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/sidinnia/sidinnia-2-go-riadu-i-osnashhennia/sidinnia-2-go-riadu-i-osnashhennia/"
+      },
+      "methods": [
+        "iab"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/",
+      "total": 6,
+      "last_page": 1,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        92041,
+        103676,
+        105454,
+        108972,
+        113458,
+        113469
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vnutrenniaia-otdelka/obsivka-potolka-salona/obsivka-potolka-salona/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/"
+      },
+      "methods": [
+        "iab"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/",
+      "total": 26,
+      "last_page": 2,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": false,
+      "ids": [
+        40422,
+        77786,
+        79841,
+        81724,
+        82225,
+        82693,
+        86778,
+        88041,
+        89396,
+        90697,
+        92041,
+        97162,
+        98570,
+        99983,
+        101401,
+        103676,
+        103677,
+        105454,
+        112389,
+        113458,
+        113469,
+        113479,
+        113625,
+        113627
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/vnutrenniaia-otdelka/obsivka-potolka-salona/obsivka-potolka-salona/",
+        "x-default": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/"
+      },
+      "methods": [
+        "iab"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/elektrika/datciki-radaru/datciki-radaru/",
+      "total": 9,
+      "last_page": 1,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        79057,
+        80916,
+        86625,
+        89234,
+        91781,
+        95294,
+        96309,
+        99485,
+        113288
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/elektrika/datciki-radaru/datciki-radaru/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/elektrika/datciki-radara/datciki-radara/",
+        "x-default": "https://nikolacars.kiev.ua/parts/elektrika/datciki-radaru/datciki-radaru/"
+      },
+      "methods": [
+        "iab"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/elektrika/frontalnaia-kamera/frontalnaia-kamera/",
+      "total": 3,
+      "last_page": 1,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        94448,
+        105918,
+        113457
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/elektrika/frontalna-kamera/frontalna-kamera/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/elektrika/frontalnaia-kamera/frontalnaia-kamera/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/elektrika/frontalna-kamera/frontalna-kamera/"
+      },
+      "methods": [
+        "iab"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/diski-i-siny/diski/diski/",
+      "total": 1,
+      "last_page": 1,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        102105
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/diski/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/diski-i-siny/diski/diski/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/diski/"
+      },
+      "methods": [
+        "iab"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/",
+      "total": 855,
+      "last_page": 36,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": false,
+      "ids": [
+        39567,
+        39809,
+        39815,
+        39816,
+        40422,
+        40908,
+        74387,
+        83244,
+        113739,
+        113741,
+        113751,
+        113757,
+        113758,
+        113765,
+        113767,
+        113768,
+        113772,
+        113773,
+        113781,
+        113813,
+        113814,
+        113815,
+        113839,
+        113840
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/vnutrenniaia-otdelka/",
+        "x-default": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/"
+      },
+      "methods": [
+        "iab"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-batareia/visokovoltna-batareia/",
+      "total": 3,
+      "last_page": 1,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        106657,
+        107692,
+        108527
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-batareia/visokovoltna-batareia/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-batareia/visokovoltna-batareia/"
+      },
+      "methods": [
+        "iab"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms/",
+      "total": 8,
+      "last_page": 1,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        75783,
+        80949,
+        86154,
+        95298,
+        100592,
+        102749,
+        106995,
+        108107
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/diski-i-siny/sistema-kontrolia-davleniia-v-sinax-tpms/sistema-kontrolia-davleniia-v-sinax-tpms/",
+        "x-default": "https://nikolacars.kiev.ua/parts/diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms/"
+      },
+      "methods": [
+        "iab"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/komponenti-zakrittia/",
+      "total": 558,
+      "last_page": 24,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": false,
+      "ids": [
+        40224,
+        40225,
+        40244,
+        40450,
+        40451,
+        40471,
+        40472,
+        40540,
+        40542,
+        40629,
+        40632,
+        40786,
+        40787,
+        79104,
+        82202,
+        82687,
+        82969,
+        83021,
+        87695,
+        89435,
+        90793,
+        113729,
+        113778,
+        113846
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/komponenti-zakrittia/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/komponenty-zakrytiia/",
+        "x-default": "https://nikolacars.kiev.ua/parts/komponenti-zakrittia/"
+      },
+      "methods": [
+        "iab"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/diski/",
+      "total": 1,
+      "last_page": 1,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        102105
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/diski/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/diski-i-siny/diski/diski/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/diski/"
+      },
+      "methods": [
+        "iab"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/diski-i-siny/diski/",
+      "total": 1,
+      "last_page": 1,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        102105
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/diski-i-siny/diski/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/"
+      },
+      "methods": [
+        "iab"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/pedal-galma/",
+      "total": 2,
+      "last_page": 1,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        99115,
+        100551
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/pedal-galma/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-3-06-2017-12-2023/tormoza/pedal-tormoza/pedal-tormoza/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/pedal-galma/"
+      },
+      "methods": [
+        "iab"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/visokovoltna-batareia/",
+      "total": 11,
+      "last_page": 1,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        39792,
+        65734,
+        75221,
+        80841,
+        106657,
+        107692,
+        108527,
+        110960,
+        112402,
+        112426,
+        113256
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/visokovoltna-batareia/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-batareia/",
+        "x-default": "https://nikolacars.kiev.ua/parts/visokovoltna-batareia/"
+      },
+      "methods": [
+        "iab"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/visokovoltna-batareia/",
+      "total": 2,
+      "last_page": 1,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        75221,
+        80841
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/visokovoltna-batareia/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-3-06-2017-12-2023/vysokovoltnaia-batareia/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/visokovoltna-batareia/"
+      },
+      "methods": [
+        "iab"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+      "total": 11,
+      "last_page": 1,
+      "pages_observed": [
+        1
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        39792,
+        65734,
+        75221,
+        80841,
+        106657,
+        107692,
+        108527,
+        110960,
+        112402,
+        112426,
+        113256
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/visokovoltna-batareia/visokovoltna-batareia/visokovoltna-batareia/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+        "x-default": "https://nikolacars.kiev.ua/parts/visokovoltna-batareia/visokovoltna-batareia/visokovoltna-batareia/"
+      },
+      "methods": [
+        "iab"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/",
+      "total": 29,
+      "last_page": 2,
+      "pages_observed": [
+        1,
+        2
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        41434,
+        73500,
+        75772,
+        75775,
+        77531,
+        79169,
+        79775,
+        81825,
+        82913,
+        83649,
+        84177,
+        85432,
+        86708,
+        87970,
+        102105,
+        106954,
+        110102,
+        111638,
+        113027,
+        113143,
+        113147,
+        113148,
+        113149,
+        113151,
+        113152,
+        113153,
+        113254,
+        113255,
+        113364
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/diski-i-siny/diski/",
+        "x-default": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/"
+      },
+      "methods": [
+        "iab"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/diski-i-siny/diski/",
+      "total": 29,
+      "last_page": 2,
+      "pages_observed": [
+        1,
+        2
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        41434,
+        73500,
+        75772,
+        75775,
+        77531,
+        79169,
+        79775,
+        81825,
+        82913,
+        83649,
+        84177,
+        85432,
+        86708,
+        87970,
+        102105,
+        106954,
+        110102,
+        111638,
+        113027,
+        113143,
+        113147,
+        113148,
+        113149,
+        113151,
+        113152,
+        113153,
+        113254,
+        113255,
+        113364
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/diski-i-siny/diski/",
+        "x-default": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/"
+      },
+      "methods": [
+        "iab"
+      ]
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/diski-i-siny/diski/diski/",
+      "total": 29,
+      "last_page": 2,
+      "pages_observed": [
+        1,
+        2
+      ],
+      "consistent": true,
+      "complete": true,
+      "ids": [
+        41434,
+        73500,
+        75772,
+        75775,
+        77531,
+        79169,
+        79775,
+        81825,
+        82913,
+        83649,
+        84177,
+        85432,
+        86708,
+        87970,
+        102105,
+        106954,
+        110102,
+        111638,
+        113027,
+        113143,
+        113147,
+        113148,
+        113149,
+        113151,
+        113152,
+        113153,
+        113254,
+        113255,
+        113364
+      ],
+      "alternate_urls": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/diski/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/diski-i-siny/diski/diski/",
+        "x-default": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/diski/"
+      },
+      "methods": [
+        "iab"
+      ]
+    }
+  ],
+  "pairs": [
+    {
+      "source_url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/",
+      "locale": "uk",
+      "model": "model-3-06-2017-12-2023",
+      "parent_url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/",
+      "leaf_url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/pedal-galma/",
+      "parent_total": null,
+      "leaf_total": 2,
+      "parent_complete": false,
+      "leaf_complete": true,
+      "verdict": "pending",
+      "other_locale_still_required": false
+    },
+    {
+      "source_url": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+      "locale": "ru",
+      "model": "model-s-02-2012-03-2016",
+      "parent_url": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/",
+      "leaf_url": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+      "parent_total": null,
+      "leaf_total": 2,
+      "parent_complete": false,
+      "leaf_complete": true,
+      "verdict": "pending",
+      "other_locale_still_required": false
+    },
+    {
+      "source_url": "https://nikolacars.kiev.ua/ru/parts/visokovoltna-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+      "locale": "ru",
+      "model": "",
+      "parent_url": "https://nikolacars.kiev.ua/ru/parts/visokovoltna-batareia/vysokovoltnaia-batareia/",
+      "leaf_url": "https://nikolacars.kiev.ua/ru/parts/visokovoltna-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+      "parent_total": null,
+      "leaf_total": null,
+      "parent_complete": false,
+      "leaf_complete": false,
+      "verdict": "pending",
+      "other_locale_still_required": false
+    },
+    {
+      "source_url": "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/zadnie-poluosi/",
+      "locale": "ru",
+      "model": "",
+      "parent_url": "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/",
+      "leaf_url": "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/zadnie-poluosi/",
+      "parent_total": null,
+      "leaf_total": 23,
+      "parent_complete": false,
+      "leaf_complete": true,
+      "verdict": "pending",
+      "other_locale_still_required": false
+    },
+    {
+      "source_url": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+      "locale": "ru",
+      "model": "",
+      "parent_url": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/",
+      "leaf_url": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+      "parent_total": null,
+      "leaf_total": 2,
+      "parent_complete": false,
+      "leaf_complete": true,
+      "verdict": "pending",
+      "other_locale_still_required": false
+    },
+    {
+      "source_url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/",
+      "locale": "uk",
+      "model": "model-s-02-2012-03-2016",
+      "parent_url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/",
+      "leaf_url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/",
+      "parent_total": null,
+      "leaf_total": 2,
+      "parent_complete": false,
+      "leaf_complete": true,
+      "verdict": "pending",
+      "other_locale_still_required": false
+    },
+    {
+      "source_url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/galma/pedal-galma/pedal-galma/",
+      "locale": "uk",
+      "model": "model-s-04-2016-01-2021",
+      "parent_url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/galma/pedal-galma/",
+      "leaf_url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/galma/pedal-galma/pedal-galma/",
+      "parent_total": null,
+      "leaf_total": 1,
+      "parent_complete": false,
+      "leaf_complete": true,
+      "verdict": "pending",
+      "other_locale_still_required": false
+    },
+    {
+      "source_url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/",
+      "locale": "uk",
+      "model": "model-s-04-2016-01-2021",
+      "parent_url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/",
+      "leaf_url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/diski/",
+      "parent_total": 1,
+      "leaf_total": 1,
+      "parent_complete": true,
+      "leaf_complete": true,
+      "verdict": "equal_full_sets_this_locale",
+      "other_locale_still_required": true
+    },
+    {
+      "source_url": "https://nikolacars.kiev.ua/parts/galma/pedal-galma/pedal-galma/",
+      "locale": "uk",
+      "model": "",
+      "parent_url": "https://nikolacars.kiev.ua/parts/galma/pedal-galma/",
+      "leaf_url": "https://nikolacars.kiev.ua/parts/galma/pedal-galma/pedal-galma/",
+      "parent_total": null,
+      "leaf_total": 9,
+      "parent_complete": false,
+      "leaf_complete": true,
+      "verdict": "pending",
+      "other_locale_still_required": false
+    },
+    {
+      "source_url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-batareia/visokovoltna-batareia/",
+      "locale": "uk",
+      "model": "model-y-01-2020-01-2025",
+      "parent_url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-batareia/visokovoltna-batareia/",
+      "leaf_url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-batareia/visokovoltna-batareia/visokovoltna-batareia/",
+      "parent_total": 2,
+      "leaf_total": null,
+      "parent_complete": true,
+      "leaf_complete": false,
+      "verdict": "pending",
+      "other_locale_still_required": false
+    },
+    {
+      "source_url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-sistema/visokovoltni-provoda/visokovoltni-provoda/",
+      "locale": "uk",
+      "model": "model-y-01-2020-01-2025",
+      "parent_url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-sistema/visokovoltni-provoda/",
+      "leaf_url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-sistema/visokovoltni-provoda/visokovoltni-provoda/",
+      "parent_total": null,
+      "leaf_total": 2,
+      "parent_complete": false,
+      "leaf_complete": true,
+      "verdict": "pending",
+      "other_locale_still_required": false
+    },
+    {
+      "source_url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/perednii-motor/peredni-pivosi/peredni-pivosi/",
+      "locale": "uk",
+      "model": "model-y-01-2020-01-2025",
+      "parent_url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/perednii-motor/peredni-pivosi/",
+      "leaf_url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/perednii-motor/peredni-pivosi/peredni-pivosi/",
+      "parent_total": null,
+      "leaf_total": 6,
+      "parent_complete": false,
+      "leaf_complete": true,
+      "verdict": "pending",
+      "other_locale_still_required": false
+    },
+    {
+      "source_url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/zadnii-motor/zadni-pivosi/zadni-pivosi/",
+      "locale": "uk",
+      "model": "model-y-01-2020-01-2025",
+      "parent_url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/zadnii-motor/zadni-pivosi/",
+      "leaf_url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/zadnii-motor/zadni-pivosi/zadni-pivosi/",
+      "parent_total": null,
+      "leaf_total": 12,
+      "parent_complete": false,
+      "leaf_complete": true,
+      "verdict": "pending",
+      "other_locale_still_required": false
+    },
+    {
+      "source_url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/",
+      "locale": "uk",
+      "model": "model-s-02-2012-03-2016",
+      "parent_url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/",
+      "leaf_url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/",
+      "parent_total": null,
+      "leaf_total": 14,
+      "parent_complete": false,
+      "leaf_complete": true,
+      "verdict": "pending",
+      "other_locale_still_required": false
+    },
+    {
+      "source_url": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/diski/?page=2",
+      "locale": "uk",
+      "model": "",
+      "parent_url": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/",
+      "leaf_url": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/diski/",
+      "parent_total": 29,
+      "leaf_total": 29,
+      "parent_complete": true,
+      "leaf_complete": true,
+      "verdict": "equal_full_sets_this_locale",
+      "other_locale_still_required": true
+    },
+    {
+      "source_url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/visokovoltna-batareia/visokovoltna-batareia/",
+      "locale": "uk",
+      "model": "model-3-06-2017-12-2023",
+      "parent_url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/visokovoltna-batareia/visokovoltna-batareia/",
+      "leaf_url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/visokovoltna-batareia/visokovoltna-batareia/visokovoltna-batareia/",
+      "parent_total": 2,
+      "leaf_total": null,
+      "parent_complete": true,
+      "leaf_complete": false,
+      "verdict": "pending",
+      "other_locale_still_required": false
+    },
+    {
+      "source_url": "https://nikolacars.kiev.ua/parts/perednii-motor/peredni-pivosi/peredni-pivosi/",
+      "locale": "uk",
+      "model": "",
+      "parent_url": "https://nikolacars.kiev.ua/parts/perednii-motor/peredni-pivosi/",
+      "leaf_url": "https://nikolacars.kiev.ua/parts/perednii-motor/peredni-pivosi/peredni-pivosi/",
+      "parent_total": null,
+      "leaf_total": 9,
+      "parent_complete": false,
+      "leaf_complete": true,
+      "verdict": "pending",
+      "other_locale_still_required": false
+    },
+    {
+      "source_url": "https://nikolacars.kiev.ua/parts/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/",
+      "locale": "uk",
+      "model": "",
+      "parent_url": "https://nikolacars.kiev.ua/parts/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/",
+      "leaf_url": "https://nikolacars.kiev.ua/parts/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/",
+      "parent_total": null,
+      "leaf_total": 2,
+      "parent_complete": false,
+      "leaf_complete": true,
+      "verdict": "pending",
+      "other_locale_still_required": false
+    },
+    {
+      "source_url": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/",
+      "locale": "uk",
+      "model": "model-3-highland-01-2024",
+      "parent_url": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/",
+      "leaf_url": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/",
+      "parent_total": null,
+      "leaf_total": 2,
+      "parent_complete": false,
+      "leaf_complete": true,
+      "verdict": "pending",
+      "other_locale_still_required": false
+    },
+    {
+      "source_url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/",
+      "locale": "uk",
+      "model": "model-s-02-2012-03-2016",
+      "parent_url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/",
+      "leaf_url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/",
+      "parent_total": null,
+      "leaf_total": 6,
+      "parent_complete": false,
+      "leaf_complete": true,
+      "verdict": "pending",
+      "other_locale_still_required": false
+    },
+    {
+      "source_url": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/",
+      "locale": "uk",
+      "model": "",
+      "parent_url": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/",
+      "leaf_url": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/",
+      "parent_total": null,
+      "leaf_total": 26,
+      "parent_complete": false,
+      "leaf_complete": false,
+      "verdict": "pending",
+      "other_locale_still_required": false
+    },
+    {
+      "source_url": "https://nikolacars.kiev.ua/parts/elektrika/datciki-radaru/datciki-radaru/",
+      "locale": "uk",
+      "model": "",
+      "parent_url": "https://nikolacars.kiev.ua/parts/elektrika/datciki-radaru/",
+      "leaf_url": "https://nikolacars.kiev.ua/parts/elektrika/datciki-radaru/datciki-radaru/",
+      "parent_total": null,
+      "leaf_total": 9,
+      "parent_complete": false,
+      "leaf_complete": true,
+      "verdict": "pending",
+      "other_locale_still_required": false
+    },
+    {
+      "source_url": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/elektrika/frontalnaia-kamera/frontalnaia-kamera/",
+      "locale": "ru",
+      "model": "model-s-02-2012-03-2016",
+      "parent_url": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/elektrika/frontalnaia-kamera/",
+      "leaf_url": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/elektrika/frontalnaia-kamera/frontalnaia-kamera/",
+      "parent_total": null,
+      "leaf_total": 3,
+      "parent_complete": false,
+      "leaf_complete": true,
+      "verdict": "pending",
+      "other_locale_still_required": false
+    },
+    {
+      "source_url": "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/diski-i-siny/diski/diski/",
+      "locale": "ru",
+      "model": "model-s-04-2016-01-2021",
+      "parent_url": "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/diski-i-siny/diski/",
+      "leaf_url": "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/diski-i-siny/diski/diski/",
+      "parent_total": 1,
+      "leaf_total": 1,
+      "parent_complete": true,
+      "leaf_complete": true,
+      "verdict": "equal_full_sets_this_locale",
+      "other_locale_still_required": true
+    },
+    {
+      "source_url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-batareia/visokovoltna-batareia/",
+      "locale": "uk",
+      "model": "model-s-02-2012-03-2016",
+      "parent_url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-batareia/visokovoltna-batareia/",
+      "leaf_url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-batareia/visokovoltna-batareia/visokovoltna-batareia/",
+      "parent_total": 3,
+      "leaf_total": null,
+      "parent_complete": true,
+      "leaf_complete": false,
+      "verdict": "pending",
+      "other_locale_still_required": false
+    },
+    {
+      "source_url": "https://nikolacars.kiev.ua/parts/diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms/",
+      "locale": "uk",
+      "model": "",
+      "parent_url": "https://nikolacars.kiev.ua/parts/diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/",
+      "leaf_url": "https://nikolacars.kiev.ua/parts/diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms/",
+      "parent_total": null,
+      "leaf_total": 8,
+      "parent_complete": false,
+      "leaf_complete": true,
+      "verdict": "pending",
+      "other_locale_still_required": false
+    },
+    {
+      "source_url": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/diski/",
+      "locale": "uk",
+      "model": "",
+      "parent_url": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/",
+      "leaf_url": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/diski/",
+      "parent_total": 29,
+      "leaf_total": 29,
+      "parent_complete": true,
+      "leaf_complete": true,
+      "verdict": "equal_full_sets_this_locale",
+      "other_locale_still_required": true
+    }
+  ]
+}

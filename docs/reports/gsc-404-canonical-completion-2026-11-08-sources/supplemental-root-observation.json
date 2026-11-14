@@ -1,0 +1,12 @@
+{
+  "source": "Coordinator /root via corrected collaboration message",
+  "observed_before_utc": "2026-11-08T18:11:06Z",
+  "time_precision": "upper bound from system clock; exact navigation time unavailable",
+  "surface": "in-app browser, main thread",
+  "url": "https://nikolacars.kiev.ua/up",
+  "result": "ERR_CONNECTION_TIMED_OUT",
+  "http_status": null,
+  "scope_92_coverage_added": 0,
+  "network_configuration_changed": false,
+  "correction": "Previous approximate time was corrected using the coordinator system clock."
+}

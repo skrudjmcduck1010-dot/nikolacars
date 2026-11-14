@@ -1,0 +1,12 @@
+{
+  "audit_date": "2026-11-08",
+  "method": "Read-only IAB navigation and DOM-backed XML URL extraction; counts computed within page scope to avoid array return truncation. Full product ID sets compared via serialized CSV strings.",
+  "uk_url": "https://nikolacars.kiev.ua/sitemaps/parts-uk.xml",
+  "ru_url": "https://nikolacars.kiev.ua/sitemaps/parts-ru.xml",
+  "uk": {"urls": 3965, "unique_urls": 3965, "products": 3834, "other_urls": 131},
+  "ru": {"urls": 3965, "unique_urls": 3965, "products": 3834, "other_urls": 131},
+  "product_ids_only_uk": [],
+  "product_ids_only_ru": [],
+  "interpretation": "Current live product sets match. GSC recorded 3900 UK versus 3965 RU URLs on separate crawls; a current omission of 65 UK URLs is not supported.",
+  "limits": "Both XML documents rendered successfully. Network status headers, all individual page responses, and semantic category translations were not checked in this bounded comparison."
+}

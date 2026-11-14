@@ -1,0 +1,25 @@
+{
+  "status": "COMPLETE_PUBLISHED_VERIFIED",
+  "completed_utc": "2026-10-29T19:43:46.842733+00:00",
+  "backend_runtime_commit": "980fda919993c9d07742b8b5dce25f76ef2f0a46",
+  "frontend_runtime_commit": "33e1ce1988e7f5ed741a05bd5f17f2076d299d58",
+  "frontend_docs_commit": "a24a312b7fb60477ce1108fe57652a53346474a5",
+  "git_clean_and_pushed": true,
+  "runtime_files": {
+    "backend": 2,
+    "frontend": 9
+  },
+  "backend_guard": "28 source/20 protected/443 private PASS",
+  "frontend_guard": "9 payload/145 paths PASS",
+  "IAB": "PASS_LIVE desktop and actual320/390",
+  "canonical35_preserved": true,
+  "worktree_removed_without_force": true,
+  "rollback_executed": false,
+  "known_limitations": [
+    "Existing Nova Poshta HTTP404/history-sync errors remain; no new post-release error family",
+    "No claim that historic503 or rankings are resolved"
+  ],
+  "report": "docs/reports/catalog-tree-2026-10-29.md",
+  "recovery_root": "C:\\Projects\\nikolacars\\.local-backup-20261029-catalog-tree-release-recovery",
+  "pending_agreed_work": []
+}

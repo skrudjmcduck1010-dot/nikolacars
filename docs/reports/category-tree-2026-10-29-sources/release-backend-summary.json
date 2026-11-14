@@ -1,0 +1,29 @@
+{
+  "status": "PUBLISHED_VERIFIED",
+  "authorized": "Owner explicitly approved one temporary clean copy and current category-tree/remove-intros release on 2026-10-29",
+  "base": "5d9deca6d9555137e5f717cbff75c829fedd436a",
+  "commit": "980fda919993c9d07742b8b5dce25f76ef2f0a46",
+  "wrapper": {
+    "completed_utc": "2026-10-29T19:35:07.6517724Z",
+    "status": "completed",
+    "started_utc": "2026-10-29T19:25:07.0590619Z"
+  },
+  "runtime_changed": 2,
+  "runtime_readback": 28,
+  "protected_unchanged": 20,
+  "private_unchanged": 443,
+  "tests": {
+    "phpunit": 62,
+    "assertions": 717,
+    "phpstan": "PASS",
+    "encoding_files": 1689,
+    "encoding_issues": 0,
+    "composer_advisories": 0,
+    "npm_advisories": 0,
+    "production_build": "PASS",
+    "e2e": 74
+  },
+  "pending_migrations": 0,
+  "schema_or_dependency_changes": false,
+  "rollback_executed": false
+}

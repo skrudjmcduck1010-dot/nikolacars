@@ -1,0 +1,105 @@
+{
+  "allParts": "Усі запчастини моделі2886",
+  "context": "Оригінальні запчастини зі складу NikolaCars",
+  "h1": "Запчастини Tesla",
+  "images": [
+    {
+      "alt": "Динамік високочастотний, пасивний (в торпеді) 25MM",
+      "loaded": true,
+      "src": "https://sklad.nikolacars.kiev.ua/storage/product-photos/4e13cc1d9ee4a51a13577a1794b6f7559d511119.jpg"
+    },
+    {
+      "alt": "Динамік торпедний та задніх дверей",
+      "loaded": true,
+      "src": "https://sklad.nikolacars.kiev.ua/storage/product-photos/85d13a10a4db897268f3feafa09e9605d51c2962.jpg"
+    },
+    {
+      "alt": "Кронштейн обшивки средней стойки/потолок левый",
+      "loaded": true,
+      "src": "https://sklad.nikolacars.kiev.ua/storage/product-photos/138220bfc7a1a39e08b030f3fada4a761d4e4f36.jpg"
+    },
+    {
+      "alt": "Кронштейн обшивки середньої стійки/стелі правий",
+      "loaded": true,
+      "src": "https://sklad.nikolacars.kiev.ua/storage/product-photos/ff0ed2ed97a0aa446adcb20d35c3e27a69ae9110.jpg"
+    },
+    {
+      "alt": "Боді контроллер",
+      "loaded": true,
+      "src": "https://sklad.nikolacars.kiev.ua/storage/product-photos/d44c57ef820ae0cc2f7b84950ecefbff92f9bb6a.jpg"
+    },
+    {
+      "alt": "Камера салона",
+      "loaded": true,
+      "src": "https://sklad.nikolacars.kiev.ua/storage/product-photos/8053f198b4525e6926e1970f3a2722bdbc8b4579.jpg"
+    },
+    {
+      "alt": "Накладка опорного кронштейна передньої камери автопілота",
+      "loaded": true,
+      "src": "https://sklad.nikolacars.kiev.ua/storage/product-photos/1f4ac9ff5061ff0c59061228536bbf15dd6738cf.jpg"
+    },
+    {
+      "alt": "Фронтальна потрійна камера під лобовим склом в салоні",
+      "loaded": true,
+      "src": "https://sklad.nikolacars.kiev.ua/storage/product-photos/cc0751fcbd3fa583ac8e082df83a63ac0573b5d5.jpg"
+    }
+  ],
+  "models": [
+    {
+      "href": "/parts/",
+      "text": "Усі моделі"
+    },
+    {
+      "href": "/parts/model-3-06-2017-12-2023/",
+      "text": "Model 306.2017-12.2023\n        877"
+    },
+    {
+      "href": "/parts/model-3-highland-01-2024/",
+      "text": "Model 3 Highland01.2024-\n        270"
+    },
+    {
+      "href": "/parts/model-s-02-2012-03-2016/",
+      "text": "Model S02.2012-03.2016\n        633"
+    },
+    {
+      "href": "/parts/model-s-04-2016-01-2021/",
+      "text": "Model S04.2016-01.2021\n        328"
+    },
+    {
+      "href": "/parts/model-x-09-2015-02-2021/",
+      "text": "Model X09.2015-02.2021\n        117"
+    },
+    {
+      "href": "/parts/model-y-01-2020-01-2025/",
+      "text": "Model Y01.2020-01.2025\n        661"
+    }
+  ],
+  "productHeadings": [
+    "Динамік високочастотний, пасивний (в торпеді) 25MM",
+    "Динамік дверей передньої лівої/правої 200 мм",
+    "Динамік торпедний та задніх дверей",
+    "Кронштейн обшивки средней стойки/потолок левый",
+    "Кронштейн обшивки середньої стійки/стелі правий",
+    "Боді контроллер",
+    "Камера салона",
+    "Накладка опорного кронштейна передньої камери автопілота",
+    "Фронтальна потрійна камера під лобовим склом в салоні",
+    "Антена GPS GNSS",
+    "Дзеркало заднього виду в салоні",
+    "Накладка (кожух) кронштейна дзеркала заднього виду в салоні",
+    "Боді контролер лівый",
+    "Кронштейн кріплення камери TRIPLE із датчиком температури лобового скла (у зборі)",
+    "Планка регулювання висоти переднього ременя безпеки",
+    "Боді контролер правий",
+    "Облицювання центральної стойки (з камерою) ліве",
+    "Накладка верхня дзеркала заднього виду в салоні на корпус фронтальної камери (з камерою)",
+    "Плафон освітлення салону передній",
+    "Накладка комп'ютера навігації",
+    "Педаль газу",
+    "Педальный узел",
+    "Накладка центральной стійкі з камерою права",
+    "Козирок сонце захисний правий"
+  ],
+  "title": "Запчастини Tesla — NikolaCars",
+  "url": "https://nikolacars.kiev.ua/parts/"
+}

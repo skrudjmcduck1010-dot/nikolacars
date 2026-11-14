@@ -1,0 +1,55 @@
+{
+  "observation_date": "2026-11-08",
+  "timezone": "Europe/Kyiv",
+  "remote_mutations": 0,
+  "owner_mobile_observation": {
+    "source": "owner confirmation relayed by coordinator",
+    "site_opens_on_mobile_internet": true,
+    "independently_measured_by_agent": false
+  },
+  "site_https_control": {
+    "start_kyiv": "2026-11-08T20:13:38.0309725+02:00",
+    "path": "/",
+    "curl_exit": 28,
+    "http_status": null,
+    "connect_seconds": 0,
+    "elapsed_seconds": 12.007154,
+    "phase": "TCP connection timeout before TLS or HTTP"
+  },
+  "dns_a_records": {
+    "nikolacars.kiev.ua": ["31.131.22.61"],
+    "uashared34.twinservers.net": ["31.131.22.45"],
+    "hostiq.ua": ["172.66.147.231", "104.20.27.189"]
+  },
+  "independent_https_control": {
+    "url": "https://hostiq.ua/",
+    "http_status": 200,
+    "curl_exit": 0,
+    "connect_seconds": 0.052992,
+    "elapsed_seconds": 0.224868
+  },
+  "scope_limits": [
+    "No alternate IP, network or proxy route used",
+    "No security or service configuration changed",
+    "No support message sent",
+    "No SEO URL queue resumed",
+    "Current inode, disk quota and post-18:03 application logs still not read"
+  ],
+  "restored_control": {
+    "start_kyiv": "2026-11-08T20:16:26.3260682+02:00",
+    "path": "/up",
+    "http_status": 200,
+    "curl_exit": 0,
+    "connect_seconds": 0.083518,
+    "elapsed_seconds": 0.232559,
+    "subsequent_verified_ftps_read_completed_utc": "2026-11-08T18:17:03.957222+00:00"
+  },
+  "current_cpanel_status": {
+    "source": "coordinator official IAB observation after connectivity restored",
+    "hostiq_client_area_requires_sign_in": true,
+    "current_quota_read": false,
+    "current_cron_read": false,
+    "known_ftps_credentials_reused_for_cpanel": false
+  },
+  "interpretation": "Target HTTPS and FTPS access resumed without manual network or security changes. Earlier source-IP restriction or route failure remain unconfirmed hypotheses. Initial scope_limits describe the 18:13 observation and are superseded by the later restored control; panel metrics now require owner sign-in."
+}

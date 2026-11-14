@@ -1,0 +1,1372 @@
+{
+  "date": "2026-10-31",
+  "property": "https://nikolacars.kiev.ua/",
+  "allPages": {
+    "indexed": 9060,
+    "excluded": 1865,
+    "reportDate": "2026-10-23",
+    "rows": [
+      "Страница является копией. Канонические версии страницы, выбранные Google и пользователем, не совпадают.\tСистемы Google\t\n\nОшибка\n\t\t32",
+      "Страница с переадресацией\tСайт\t\n\nНе начато\n\t\t1 221",
+      "Не найдено (404)\tСайт\t\n\nНе начато\n\t\t60",
+      "Индексирование страницы запрещено тегом noindex\tСайт\t\n\nНе начато\n\t\t15",
+      "Вариант страницы с тегом canonical\tСайт\t\n\nНе начато\n\t\t1",
+      "Страница просканирована, но пока не проиндексирована\tСистемы Google\t\n\nНе начато\n\t\t137",
+      "Ошибка сервера (5xx)\tСайт\t\n\nНачато\n\t\t13",
+      "Обнаружена, не проиндексирована\tСистемы Google\t\n\nПодтверждено\n\t\t386"
+    ]
+  },
+  "submittedReport": "Индексирование страниц\n\nЭКСПОРТИРОВАТЬ\nВсе обработанные страницы\nВсе отправленные страницы\nТолько страницы, которые не были отправлены\n/sitemap.xml\nПоследнее обновление: 23.10.2026\n\nНе проиндексировано\n421\n4 причины\n\n\nПроиндексированные\n6,38 тыс.\n\nПоказы\nСтраницы\n02.08.2026\n14.08.2026\n26.08.2026\n07.09.2026\n19.09.2026\n01.10.2026\n13.10.2026\n7,5 тыс.\n5 тыс.\n2,5 тыс.\n0\n2\n2\ncheck_circle\nПосмотреть данные об индексированных страницах\n\ninfo_filled\nПочему эти страницы не индексируются\nСтраницы, которые не удалось проиндексировать, не могут появляться в результатах поиска Google.\n\nПричина\n\tИсточник\n\n\tПроверка\n\tТенденция\t\nСтраницы\nОшибка сервера (5xx)\tСайт\t\n\nНе начато\n\t\t2\nОбнаружена, не проиндексирована\tСистемы Google\t\n\nНе начато\n\t\t386\nСтраница просканирована, но пока не проиндексирована\tСистемы Google\t\n\nНе начато\n\t\t31\nСтраница является копией. Канонические версии страницы, выбранные Google и пользователем, не совпадают.\tСистемы Google\t\n\nНе начато\n\t\t2\nНе найдено (404)\tСайт\t\nОтсутствует\n\t\t0\nСтраница с переадресацией\tСайт\t\nОтсутствует\n\t\t0\nСтрок на странице:\n5\n10\n25\n50\n100\n250\n500\n1–6 из 6\n\nИндексирование страниц",
+  "submittedCases": {
+    "0": [
+      "URL\n\t\nПоследнее сканирование",
+      "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/\n\t19 сент. 2026 г.",
+      "https://nikolacars.kiev.ua/parts/komponenti-zakrittia/\n\t18 сент. 2026 г."
+    ],
+    "6": [
+      "URL\n\t\nПоследнее сканирование",
+      "https://nikolacars.kiev.ua/parts/1081832-00-h-98083/\n\t26 сент. 2026 г.",
+      "https://nikolacars.kiev.ua/parts/1002274-00-d-107015/\n\t24 сент. 2026 г."
+    ]
+  },
+  "sitemaps": {
+    "index": "\nФайлы Sitemap\nДобавьте файл Sitemap\nhttps://nikolacars.kiev.ua/\nURL файла Sitemap\nОТПРАВИТЬ\nФайлы Sitemap на проверке\n\nSitemap\n\tТип\n\tОтправлено\n\tДата последней обработки\n\tСтатус\n\t\nКоличество выявленных страниц\t\nКоличество выявленных видео\t\n/sitemap.xml\tФайл индекса Sitemap\t17 сент. 2026 г.\t26 окт. 2026 г.\tУспешно\t7 558\t0\t\nСтрок на странице:\n5\n10\n25\n50\n100\n250\n500\n1–1 из 1\n",
+    "children": "\nФайлы Sitemap\n\n/sitemap.xml\nОТКРЫТЬ ФАЙЛ SITEMAP\n\n\nДата последней обработки\n26.10.2026\nВсего выявленных страниц\n7 558\nВсего выявленных видео\n0\n\nДАННЫЕ ОБ ИНДЕКСИРОВАНИИ СТРАНИЦ\n\nДАННЫЕ ОБ ИНДЕКСИРОВАНИИ СТРАНИЦ С ВИДЕО\n\nФайл индекса Sitemap успешно обработан\nОбработанные файлы Sitemap\n\nSitemap\n\tДата последней обработки\n\tСтатус\n\t\nКоличество выявленных URL\t\nКоличество выявленных видео\t\n/sitemaps/pages.xml\t26 окт. 2026 г.\tУспешно\t116\t0\t\n/sitemaps/parts-ru.xml\t31 окт. 2026 г.\tУспешно\t3 721\t0\t\n/sitemaps/parts-uk.xml\t30 окт. 2026 г.\tУспешно\t3 721\t0\t\nСтрок на странице:\n5\n10\n25\n50\n100\n250\n500\n1–3 из 3\n\nФайлы Sitemap",
+    "liveMain": {
+      "match": [],
+      "n": 114
+    },
+    "liveCatalog": {
+      "uk": {
+        "battery": [
+          "https://nikolacars.kiev.ua/parts/visokovoltna-batareia/",
+          "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/visokovoltna-batareia/"
+        ],
+        "exact": [],
+        "n": 3721,
+        "sameId": [
+          "https://nikolacars.kiev.ua/parts/1098751-00-c-77120/",
+          "https://nikolacars.kiev.ua/parts/1006427-01-a-108973/"
+        ],
+        "unique": 3721
+      },
+      "ru": {
+        "battery": [],
+        "exact": [],
+        "n": 3721,
+        "sameId": [
+          "https://nikolacars.kiev.ua/ru/parts/1098751-00-c-77120/",
+          "https://nikolacars.kiev.ua/ru/parts/1006427-01-a-108973/"
+        ],
+        "unique": 3721
+      }
+    }
+  },
+  "reasonDetails": {
+    "Ошибка сервера (5xx)": {
+      "url": "https://search.google.com/search-console/index/drilldown?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&item_key=CAMYEyAC",
+      "body": "\n\nОшибка сервера (5xx)\n\nЭКСПОРТИРОВАТЬ\n\nОТПРАВИТЬ\nВсе обработанные страницы\nВсе отправленные страницы\nТолько страницы, которые не были отправлены\n/sitemap.xml\nПоследнее обновление: 23.10.2026\ninfo\nОшибка сервера (5xx)\nУказанные ниже страницы не индексируются Google и не появляются в результатах поиска.\nПОДРОБНЕЕ\n\nРезультат проверки: начато\nДата начала: 26.10.2026\nПОДРОБНОСТИ\nЗатронутые страницы\n13\n02.08.2026\n13.08.2026\n24.08.2026\n04.09.2026\n15.09.2026\n26.09.2026\n07.10.2026\n18.10.2026\n30\n20\n10\n0\nПримеры\n\n\nURL\n\t\nПоследнее сканирование\n\nhttps://nikolacars.kiev.ua/parts/?page=110\n\t19 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/parts/model-3-highland-01-2024/?page=4\n\t3 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/ru/parts/model-3-highland-01-2024/podveska/peredniaia-podveska-vkliucaia-stupicy/\n\t1 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/ru/parts/elektrika/?page=6\n\t30 сент. 2026 г.\n\nhttps://nikolacars.kiev.ua/parts/galma/abs-kontrol-zceplennia-i-kursovoyi-stiikosti/?page=2\n\t30 сент. 2026 г.\n\nhttps://nikolacars.kiev.ua/ru/parts/elektrika/datciki-parkovki/\n\t30 сент. 2026 г.\n\nhttps://nikolacars.kiev.ua/parts/elektrika/vnutrisni-peremikaci-i-rozetka-zivlennia/peremikaci/\n\t30 сент. 2026 г.\n\nhttps://nikolacars.kiev.ua/ru/parts/vnutrenniaia-otdelka/?page=24\n\t30 сент. 2026 г.\n\nhttps://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/?page=5\n\t30 сент. 2026 г.\n\nhttps://nikolacars.kiev.ua/ru/parts/kuzov/?page=5\n\t30 сент. 2026 г.\nСтрок на странице:\n5\n10\n25\n50\n100\n250\n500\n1–10 из 13\n\nLoading...",
+      "rows": [
+        "URL\n\t\nПоследнее сканирование",
+        "https://nikolacars.kiev.ua/parts/?page=110\n\t19 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/?page=4\n\t3 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/ru/parts/model-3-highland-01-2024/podveska/peredniaia-podveska-vkliucaia-stupicy/\n\t1 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/ru/parts/elektrika/?page=6\n\t30 сент. 2026 г.",
+        "https://nikolacars.kiev.ua/parts/galma/abs-kontrol-zceplennia-i-kursovoyi-stiikosti/?page=2\n\t30 сент. 2026 г.",
+        "https://nikolacars.kiev.ua/ru/parts/elektrika/datciki-parkovki/\n\t30 сент. 2026 г.",
+        "https://nikolacars.kiev.ua/parts/elektrika/vnutrisni-peremikaci-i-rozetka-zivlennia/peremikaci/\n\t30 сент. 2026 г.",
+        "https://nikolacars.kiev.ua/ru/parts/vnutrenniaia-otdelka/?page=24\n\t30 сент. 2026 г.",
+        "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/?page=5\n\t30 сент. 2026 г.",
+        "https://nikolacars.kiev.ua/ru/parts/kuzov/?page=5\n\n\n\n\t30 сент. 2026 г.",
+        "https://nikolacars.kiev.ua/ru/parts/naruznaia-furnitura/zashhita-dnishha-kuzova/zashhita-perednego-bampera-i-sassi/\n\t27 сент. 2026 г.",
+        "https://nikolacars.kiev.ua/parts/1081832-00-h-98083/\n\t26 сент. 2026 г.",
+        "https://nikolacars.kiev.ua/parts/1002274-00-d-107015/\n\t24 сент. 2026 г."
+      ]
+    },
+    "Страница является копией. Канонические версии страницы, выбранные Google и пользователем, не совпадают.": {
+      "url": "https://search.google.com/search-console/index/drilldown?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&item_key=CAMYECAC",
+      "body": "\n\nСтраница является копией. Канонические версии страницы, выбранные Google и пользователем, не совпадают.\n\nЭКСПОРТИРОВАТЬ\n\nОТПРАВИТЬ\nВсе обработанные страницы\nВсе отправленные страницы\nТолько страницы, которые не были отправлены\n/sitemap.xml\nПоследнее обновление: 23.10.2026\ninfo\nСтраница является копией. Канонические версии страницы, выбранные Google и пользователем, не совпадают.\nУказанные ниже страницы не индексируются Google и не появляются в результатах поиска.\nПОДРОБНЕЕ\n\nРезультат проверки: ошибка\nДата начала: 07.10.2026\nДата прекращения проверки: 17.10.2026.\nПОДРОБНОСТИ\nЗатронутые страницы\n32\n02.08.2026\n13.08.2026\n24.08.2026\n04.09.2026\n15.09.2026\n26.09.2026\n07.10.2026\n18.10.2026\n45\n30\n15\n0\nПримеры\n\n\nURL\n\t\nПоследнее сканирование\n\nhttps://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/\n\t23 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/\n\t17 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/ru/parts/visokovoltna-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia/\n\t17 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/zadnie-poluosi/\n\t17 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/\n\t17 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/\n\t17 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/galma/pedal-galma/pedal-galma/\n\t16 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/\n\t16 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/parts/galma/pedal-galma/pedal-galma/\n\t16 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-batareia/visokovoltna-batareia/\n\t16 окт. 2026 г.\nСтрок на странице:\n5\n10\n25\n50\n100\n250\n500\n1–10 из 32\n\nLoading...",
+      "rows": [
+        "URL\n\t\nПоследнее сканирование",
+        "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/\n\t23 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/\n\t17 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/ru/parts/visokovoltna-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia/\n\t17 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/zadnie-poluosi/\n\t17 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/\n\t17 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/\n\t17 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/galma/pedal-galma/pedal-galma/\n\t16 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/\n\t16 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/parts/galma/pedal-galma/pedal-galma/\n\t16 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-batareia/visokovoltna-batareia/\n\t16 окт. 2026 г."
+      ]
+    },
+    "Страница с переадресацией": {
+      "url": "https://search.google.com/search-console/index/drilldown?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&item_key=CAMYCyAC",
+      "body": "\n\nСтраница с переадресацией\n\nЭКСПОРТИРОВАТЬ\n\nОТПРАВИТЬ\nВсе обработанные страницы\nВсе отправленные страницы\nТолько страницы, которые не были отправлены\n/sitemap.xml\nПоследнее обновление: 23.10.2026\ninfo\nСтраница с переадресацией\nУказанные ниже страницы не индексируются Google и не появляются в результатах поиска.\nПОДРОБНЕЕ\nДата выявления: 04.05.2024\nУстранена ли проблема?\nПРОВЕРИТЬ ИСПРАВЛЕНИЕ\nЗатронутые страницы\n1,22 тыс.\n02.08.2026\n14.08.2026\n26.08.2026\n07.09.2026\n19.09.2026\n01.10.2026\n13.10.2026\n1,5 тыс.\n1 тыс.\n500\n0\nПримеры\n\n\nURL\n\t\nПоследнее сканирование\n\nhttps://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/informacionno-razvlekatelnaia-sistema/kompiuter-avtomobilia/kompiuter-avtomobilia/\n\t25 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/ru/parts/category/pribornaia-panel/\n\t24 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/podveska/zadniaia-podveska-vkliucaia-stupicy/zadnii-stabilizator-i-stoiki-stabilizatora/\n\t23 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/rulevoi-mexanizm/rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki/\n\t23 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/rulyovii-mexanizm/rulyova-reika-i-niznia-castina-rulyovoyi-kolonki/rulyova-reika-i-niznia-castina-rulyovoyi-kolonki/\n\t23 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/informaciino-rozvazalna-sistema/kompiuter-avtomobilia/\n\t23 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/ru\n\t22 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/subcategory/galma--galmivni-diski-i-suporta/\n\t20 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/subcategory/vnutrisnje-ozdoblennia--centralna-konsol/\n\t20 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/zaxist-dnishha-kuzova/zaxist-zadnyogo-sassi/\n\t19 окт. 2026 г.\nСтрок на странице:\n5\n10\n25\n50\n100\n250\n500\n1–10 из 1000\n\nLoading...",
+      "rows": [
+        "URL\n\t\nПоследнее сканирование",
+        "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/informacionno-razvlekatelnaia-sistema/kompiuter-avtomobilia/kompiuter-avtomobilia/\n\t25 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/ru/parts/category/pribornaia-panel/\n\t24 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/podveska/zadniaia-podveska-vkliucaia-stupicy/zadnii-stabilizator-i-stoiki-stabilizatora/\n\t23 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/rulevoi-mexanizm/rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki/\n\t23 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/rulyovii-mexanizm/rulyova-reika-i-niznia-castina-rulyovoyi-kolonki/rulyova-reika-i-niznia-castina-rulyovoyi-kolonki/\n\t23 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/informaciino-rozvazalna-sistema/kompiuter-avtomobilia/\n\t23 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/ru\n\t22 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/subcategory/galma--galmivni-diski-i-suporta/\n\t20 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/subcategory/vnutrisnje-ozdoblennia--centralna-konsol/\n\t20 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/zaxist-dnishha-kuzova/zaxist-zadnyogo-sassi/\n\t19 окт. 2026 г."
+      ]
+    },
+    "Не найдено (404)": {
+      "url": "https://search.google.com/search-console/index/drilldown?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&item_key=CAMYDSAC",
+      "body": "\n\nНе найдено (404)\n\nЭКСПОРТИРОВАТЬ\n\nОТПРАВИТЬ\nВсе обработанные страницы\nВсе отправленные страницы\nТолько страницы, которые не были отправлены\n/sitemap.xml\nПоследнее обновление: 23.10.2026\ninfo\nНе найдено (404)\nУказанные ниже страницы не индексируются Google и не появляются в результатах поиска.\nПОДРОБНЕЕ\nДата выявления: 16.08.2022\nУстранена ли проблема?\nПРОВЕРИТЬ ИСПРАВЛЕНИЕ\nЗатронутые страницы\n60\n02.08.2026\n13.08.2026\n24.08.2026\n04.09.2026\n15.09.2026\n26.09.2026\n07.10.2026\n18.10.2026\n60\n40\n20\n0\nПримеры\n\n\nURL\n\t\nПоследнее сканирование\n\nhttps://nikolacars.kiev.ua/ru/parts/104743/\n\t23 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/parts/6008191-00-d-113659/\n\t23 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/parts/1108647-00-d-77296/\n\t19 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/ru/parts/104761/\n\t19 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/ru/parts/104127/\n\t18 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/parts/77669/\n\t18 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/parts/104258/\n\t18 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/parts/1007374-00-l-95486/\n\t18 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/parts/1096623-00-h-74856/\n\t18 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/parts/insi-modeli/\n\t18 окт. 2026 г.\nСтрок на странице:\n5\n10\n25\n50\n100\n250\n500\n1–10 из 60\n\nLoading...",
+      "rows": [
+        "URL\n\t\nПоследнее сканирование",
+        "https://nikolacars.kiev.ua/ru/parts/104743/\n\t23 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/parts/6008191-00-d-113659/\n\t23 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/parts/1108647-00-d-77296/\n\t19 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/ru/parts/104761/\n\t19 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/ru/parts/104127/\n\t18 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/parts/77669/\n\t18 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/parts/104258/\n\t18 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/parts/1007374-00-l-95486/\n\t18 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/parts/1096623-00-h-74856/\n\t18 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/parts/insi-modeli/\n\t18 окт. 2026 г."
+      ]
+    },
+    "Индексирование страницы запрещено тегом noindex": {
+      "url": "https://search.google.com/search-console/index/drilldown?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&item_key=CAMYCCAC",
+      "body": "ы запрещено тегом noindex\nУказанные ниже страницы не индексируются Google и не появляются в результатах поиска.\nПОДРОБНЕЕ\nДата выявления: 04.06.2024\nУстранена ли проблема?\nПРОВЕРИТЬ ИСПРАВЛЕНИЕ\nЗатронутые страницы\n15\n02.08.2026\n13.08.2026\n24.08.2026\n04.09.2026\n15.09.2026\n26.09.2026\n07.10.2026\n18.10.2026\n15\n10\n5\n0\nПримеры\n\n\nURL\n\t\nПоследнее сканирование\n\nhttps://nikolacars.kiev.ua/ru/parts/model-3-06-2017-12-2023/ne-opredeleno/\n\t22 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/parts/model-x-09-2015-02-2021/ne-viznaceno/\n\t15 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/ru/parts/model-x-09-2015-02-2021/ne-opredeleno/\n\t15 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/ne-opredeleno/\n\t15 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/ne-viznaceno/\n\t15 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/parts/category/ne-viznaceno/\n\t15 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/ne-viznaceno/\n\t15 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/ne-opredeleno/\n\t14 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/parts/ne-viznaceno/?page=2\n\t14 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/ru/parts/model-3-highland-01-2024/ne-opredeleno/\n\t5 окт. 2026 г.\nСтрок на странице:\n5\n10\n25\n50\n100\n250\n500\n1–10 из 15\n\nLoading...",
+      "rows": [
+        "URL\n\t\nПоследнее сканирование",
+        "https://nikolacars.kiev.ua/ru/parts/model-3-06-2017-12-2023/ne-opredeleno/\n\t22 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/parts/model-x-09-2015-02-2021/ne-viznaceno/\n\t15 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/ru/parts/model-x-09-2015-02-2021/ne-opredeleno/\n\t15 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/ne-opredeleno/\n\t15 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/ne-viznaceno/\n\t15 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/parts/category/ne-viznaceno/\n\t15 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/ne-viznaceno/\n\t15 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/ne-opredeleno/\n\t14 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/parts/ne-viznaceno/?page=2\n\t14 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/ru/parts/model-3-highland-01-2024/ne-opredeleno/\n\t5 окт. 2026 г."
+      ]
+    },
+    "Вариант страницы с тегом canonical": {
+      "url": "https://search.google.com/search-console/index/drilldown?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&item_key=CAMYGCAC",
+      "body": "\n\nВариант страницы с тегом canonical\n\nЭКСПОРТИРОВАТЬ\n\nОТПРАВИТЬ\nВсе обработанные страницы\nВсе отправленные страницы\nТолько страницы, которые не были отправлены\n/sitemap.xml\nПоследнее обновление: 23.10.2026\ninfo\nВариант страницы с тегом canonical\nУказанные ниже страницы не индексируются Google и не появляются в результатах поиска.\nПОДРОБНЕЕ\nДата выявления: 22.09.2026\nУстранена ли проблема?\nПРОВЕРИТЬ ИСПРАВЛЕНИЕ\nЗатронутые страницы\n1\n02.08.2026\n13.08.2026\n24.08.2026\n04.09.2026\n15.09.2026\n26.09.2026\n07.10.2026\n18.10.2026\n3\n2\n1\n0\nПримеры\n\n\nURL\n\t\nПоследнее сканирование\n\nhttps://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/rulevoi-mexanizm/rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki/rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki/\n\t24 сент. 2026 г.\nСтрок на странице:\n5\n10\n25\n50\n100\n250\n500\n1–1 из 1\n\nLoading...",
+      "rows": [
+        "URL\n\t\nПоследнее сканирование",
+        "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/rulevoi-mexanizm/rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki/rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki/\n\t24 сент. 2026 г."
+      ]
+    },
+    "Страница просканирована, но пока не проиндексирована": {
+      "url": "https://search.google.com/search-console/index/drilldown?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&item_key=CAMYFyAC",
+      "body": "\n\nСтраница просканирована, но пока не проиндексирована\n\nЭКСПОРТИРОВАТЬ\n\nОТПРАВИТЬ\nВсе обработанные страницы\nВсе отправленные страницы\nТолько страницы, которые не были отправлены\n/sitemap.xml\nПоследнее обновление: 23.10.2026\ninfo\nСтраница просканирована, но пока не проиндексирована\nУказанные ниже страницы не индексируются Google и не появляются в результатах поиска.\nПОДРОБНЕЕ\nДата выявления: 16.08.2022\nУстранена ли проблема?\nПРОВЕРИТЬ ИСПРАВЛЕНИЕ\nЗатронутые страницы\n137\n02.08.2026\n13.08.2026\n24.08.2026\n04.09.2026\n15.09.2026\n26.09.2026\n07.10.2026\n18.10.2026\n450\n300\n150\n0\nПримеры\n\n\nURL\n\t\nПоследнее сканирование\n\nhttps://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv/?page=4\n\t25 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/parts/1100671-00-d-113507/\n\t25 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/kuzov/steklo-lobovoe-kryski-bagaznika-i-dverei/steklo-perednix-i-zadnix-dverei/\n\t25 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vnutrenniaia-otdelka/obsivka-kryski-bagaznika/obsivka-kryski-bagaznika/\n\t25 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/parts/1497745-00-c-79871/\n\t25 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/parts/1497744-00-d-83993/\n\t25 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/ru/parts/model-3-06-2017-12-2023/komponenty-zakrytiia/osnashhenie-kryski-bagaznika/zamok-kryski-bagaznika/\n\t25 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/ru/parts/model-3-06-2017-12-2023/elektrika/elektroprovodka/\n\t25 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/parts/1501332-00-d-89755/\n\t25 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/parts/1122968-00-a-81779/\n\t25 окт. 2026 г.\nСтрок на странице:\n5\n10\n25\n50\n100\n250\n500\n1–10 из 137\n\nLoading...",
+      "rows": [
+        "URL\n\t\nПоследнее сканирование",
+        "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv/?page=4\n\t25 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/parts/1100671-00-d-113507/\n\t25 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/kuzov/steklo-lobovoe-kryski-bagaznika-i-dverei/steklo-perednix-i-zadnix-dverei/\n\t25 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vnutrenniaia-otdelka/obsivka-kryski-bagaznika/obsivka-kryski-bagaznika/\n\t25 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/parts/1497745-00-c-79871/\n\t25 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/parts/1497744-00-d-83993/\n\t25 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/ru/parts/model-3-06-2017-12-2023/komponenty-zakrytiia/osnashhenie-kryski-bagaznika/zamok-kryski-bagaznika/\n\t25 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/ru/parts/model-3-06-2017-12-2023/elektrika/elektroprovodka/\n\t25 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/parts/1501332-00-d-89755/\n\t25 окт. 2026 г.",
+        "https://nikolacars.kiev.ua/parts/1122968-00-a-81779/\n\t25 окт. 2026 г."
+      ]
+    },
+    "Обнаружена, не проиндексирована": {
+      "url": "https://search.google.com/search-console/index/drilldown?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&item_key=CAMYFiAC",
+      "body": "\n\nОбнаружена, не проиндексирована\n\nЭКСПОРТИРОВАТЬ\n\nОТПРАВИТЬ\nВсе обработанные страницы\nВсе отправленные страницы\nТолько страницы, которые не были отправлены\n/sitemap.xml\nПоследнее обновление: 23.10.2026\ninfo\nОбнаружена, не проиндексирована\nУказанные ниже страницы не индексируются Google и не появляются в результатах поиска.\nПОДРОБНЕЕ\n\nРезультат проверки: подтверждено\nДата начала: 20.11.2023\nДата завершения: 17.02.2024.\nЗатронутые страницы\n386\n02.08.2026\n14.08.2026\n26.08.2026\n07.09.2026\n19.09.2026\n01.10.2026\n13.10.2026\n6 тыс.\n4 тыс.\n2 тыс.\n0\nПримеры\n\n\nURL\n\t\nПоследнее сканирование\n\nhttps://nikolacars.kiev.ua/parts/1002322-00-c-113428/\n\tОтсутствует\n\nhttps://nikolacars.kiev.ua/parts/1002405-02-e-91967/\n\tОтсутствует\n\nhttps://nikolacars.kiev.ua/parts/1002485-00-h-107145/\n\tОтсутствует\n\nhttps://nikolacars.kiev.ua/parts/1004419-00-h-105004/\n\tОтсутствует\n\nhttps://nikolacars.kiev.ua/parts/1004419-00-m-91256/\n\tОтсутствует\n\nhttps://nikolacars.kiev.ua/parts/1004424-00-g-102415/\n\tОтсутствует\n\nhttps://nikolacars.kiev.ua/parts/1004787-01-c-107282/\n\tОтсутствует\n\nhttps://nikolacars.kiev.ua/parts/1005307-00-a-103566/\n\tОтсутствует\n\nhttps://nikolacars.kiev.ua/parts/1005418-00-c-108705/\n\tОтсутствует\n\nhttps://nikolacars.kiev.ua/parts/1005422-00-d-113484/\n\tОтсутствует\nСтрок на странице:\n5\n10\n25\n50\n100\n250\n500\n1–10 из 386\n\nLoading...",
+      "rows": [
+        "URL\n\t\nПоследнее сканирование",
+        "https://nikolacars.kiev.ua/parts/1002322-00-c-113428/\n\tОтсутствует",
+        "https://nikolacars.kiev.ua/parts/1002405-02-e-91967/\n\tОтсутствует",
+        "https://nikolacars.kiev.ua/parts/1002485-00-h-107145/\n\tОтсутствует",
+        "https://nikolacars.kiev.ua/parts/1004419-00-h-105004/\n\tОтсутствует",
+        "https://nikolacars.kiev.ua/parts/1004419-00-m-91256/\n\tОтсутствует",
+        "https://nikolacars.kiev.ua/parts/1004424-00-g-102415/\n\tОтсутствует",
+        "https://nikolacars.kiev.ua/parts/1004787-01-c-107282/\n\tОтсутствует",
+        "https://nikolacars.kiev.ua/parts/1005307-00-a-103566/\n\tОтсутствует",
+        "https://nikolacars.kiev.ua/parts/1005418-00-c-108705/\n\tОтсутствует",
+        "https://nikolacars.kiev.ua/parts/1005422-00-d-113484/\n\tОтсутствует"
+      ]
+    }
+  },
+  "all404": [
+    "https://nikolacars.kiev.ua/ru/parts/104743/\n\t23 окт. 2026 г.",
+    "https://nikolacars.kiev.ua/parts/6008191-00-d-113659/\n\t23 окт. 2026 г.",
+    "https://nikolacars.kiev.ua/parts/1108647-00-d-77296/\n\t19 окт. 2026 г.",
+    "https://nikolacars.kiev.ua/ru/parts/104761/\n\t19 окт. 2026 г.",
+    "https://nikolacars.kiev.ua/ru/parts/104127/\n\t18 окт. 2026 г.",
+    "https://nikolacars.kiev.ua/parts/77669/\n\t18 окт. 2026 г.",
+    "https://nikolacars.kiev.ua/parts/104258/\n\t18 окт. 2026 г.",
+    "https://nikolacars.kiev.ua/parts/1007374-00-l-95486/\n\t18 окт. 2026 г.",
+    "https://nikolacars.kiev.ua/parts/1096623-00-h-74856/\n\t18 окт. 2026 г.",
+    "https://nikolacars.kiev.ua/parts/insi-modeli/\n\t18 окт. 2026 г.",
+    "https://nikolacars.kiev.ua/ru/parts/1188711-00-a-89487/\n\n\n\n\t18 окт. 2026 г.",
+    "https://nikolacars.kiev.ua/ru/parts/1108647-00-d-77296/\n\t18 окт. 2026 г.",
+    "https://nikolacars.kiev.ua/parts/1188711-00-a-89487/\n\t17 окт. 2026 г.",
+    "https://nikolacars.kiev.ua/parts/1095858-00-d-101669/\n\t17 окт. 2026 г.",
+    "https://nikolacars.kiev.ua/parts/77296/\n\t17 окт. 2026 г.",
+    "https://nikolacars.kiev.ua/ru/parts/1105324-79-e-92927/\n\t17 окт. 2026 г.",
+    "https://nikolacars.kiev.ua/ru/parts/88146/\n\t16 окт. 2026 г.",
+    "https://nikolacars.kiev.ua/ru/parts/1584721-e0-a-113134/\n\t16 окт. 2026 г.",
+    "https://nikolacars.kiev.ua/parts/vysokovoltnaia-batareia/\n\t16 окт. 2026 г.",
+    "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/vysokovoltnaia-batareia/\n\t16 окт. 2026 г.",
+    "https://nikolacars.kiev.ua/parts/1584721-e0-a-113134/\n\t16 окт. 2026 г.",
+    "https://nikolacars.kiev.ua/parts/1077397-00-g-106946/\n\t15 окт. 2026 г.",
+    "https://nikolacars.kiev.ua/ru/parts/1077397-00-g-106946/\n\t15 окт. 2026 г.",
+    "https://nikolacars.kiev.ua/parts/1044121-00-e-82639/\n\t13 окт. 2026 г.",
+    "https://nikolacars.kiev.ua/lead/callback\n\t30 сент. 2026 г.",
+    "https://nikolacars.kiev.ua/ru/parts/1095858-00-d-101669/\n\t27 сент. 2026 г.",
+    "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-batareia/vysokovoltnaia-batareia/\n\t27 сент. 2026 г.",
+    "https://nikolacars.kiev.ua/ru/parts/1007374-00-l-108286/\n\t26 сент. 2026 г.",
+    "https://nikolacars.kiev.ua/parts/69395/\n\t25 сент. 2026 г.",
+    "https://nikolacars.kiev.ua/sitemap.rss\n\t25 сент. 2026 г.",
+    "https://nikolacars.kiev.ua/parts/79034/\n\t21 сент. 2026 г.",
+    "https://nikolacars.kiev.ua/parts/104616/\n\t21 сент. 2026 г.",
+    "https://nikolacars.kiev.ua/parts/103760/\n\t21 сент. 2026 г.",
+    "https://nikolacars.kiev.ua/parts/77751/\n\t21 сент. 2026 г.",
+    "https://nikolacars.kiev.ua/ru/parts/104246/\n\t21 сент. 2026 г.",
+    "https://nikolacars.kiev.ua/parts/104127/\n\t21 сент. 2026 г.",
+    "https://nikolacars.kiev.ua/parts/103133/\n\t21 сент. 2026 г.",
+    "https://nikolacars.kiev.ua/parts/77878/\n\t21 сент. 2026 г.",
+    "https://nikolacars.kiev.ua/parts/106887/\n\t20 сент. 2026 г.",
+    "https://nikolacars.kiev.ua/ru/parts/77782/\n\t20 сент. 2026 г.",
+    "https://nikolacars.kiev.ua/parts/77176/\n\t20 сент. 2026 г.",
+    "https://nikolacars.kiev.ua/parts/77631/\n\t20 сент. 2026 г.",
+    "https://nikolacars.kiev.ua/parts/77120/\n\t20 сент. 2026 г.",
+    "https://nikolacars.kiev.ua/parts/77105/\n\t20 сент. 2026 г.",
+    "https://nikolacars.kiev.ua/parts/104761/\n\t20 сент. 2026 г.",
+    "https://nikolacars.kiev.ua/ru/parts/104741/\n\t18 сент. 2026 г.",
+    "https://nikolacars.kiev.ua/ru/parts/108973/\n\t16 сент. 2026 г.",
+    "https://nikolacars.kiev.ua/contacts\n\t14 авг. 2026 г.",
+    "https://nikolacars.kiev.ua/ru/all-news/tesla-vypustila-novuyu-model-s-i-model-x-vmesto-rulya-shturval/\n\t24 июн. 2026 г.",
+    "https://nikolacars.kiev.ua/ru/tag/models/\n\t5 июн. 2026 г.",
+    "https://nikolacars.kiev.ua/news/cheap-model/\n\t31 мая 2026 г.",
+    "https://nikolacars.kiev.ua/ru/ru/privacy-policy/\n\t30 мая 2026 г.",
+    "https://nikolacars.kiev.ua/ru/author/val-overchuk/\n\t29 мая 2026 г.",
+    "https://nikolacars.kiev.ua/services/car-service\n\t29 мая 2026 г.",
+    "https://nikolacars.kiev.ua/cars/tesla-model-s-p85d-2015-1/\n\t21 мая 2026 г.",
+    "https://nikolacars.kiev.ua/cars/tesla-model-s-100d-2018/\n\t8 мая 2026 г.",
+    "https://nikolacars.kiev.ua/ru/how-it-works/pro-tesla-plaid/\n\t5 мая 2026 г.",
+    "https://nikolacars.kiev.ua/ru/category/all-news/\n\t29 апр. 2026 г.",
+    "https://nikolacars.kiev.ua/privacy_policy/\n\t28 апр. 2026 г.",
+    "https://nikolacars.kiev.ua/ru/mileage/109-129-km/\n\t28 апр. 2026 г."
+  ],
+  "liveExamples": [
+    {
+      "i": 6,
+      "u": "https://nikolacars.kiev.ua/parts/?page=110",
+      "canonical": "https://nikolacars.kiev.ua/parts/?page=110",
+      "cards": 24,
+      "final": "https://nikolacars.kiev.ua/parts/?page=110",
+      "h1": "Запчастини Tesla",
+      "notFound": false,
+      "refs": 85,
+      "title": "Запчастини Tesla — Сторінка 110 — NikolaCars"
+    },
+    {
+      "i": 6,
+      "u": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/?page=4",
+      "canonical": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/?page=4",
+      "cards": 24,
+      "final": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/?page=4",
+      "h1": "Запчастини Tesla — Tesla Model 3 Highland 01.2024 -",
+      "notFound": false,
+      "refs": 82,
+      "title": "Запчастини Tesla — Tesla Model 3 Highland 01.2024 - — Сторінка 4 — NikolaCars"
+    },
+    {
+      "i": 6,
+      "u": "https://nikolacars.kiev.ua/ru/parts/model-3-highland-01-2024/podveska/peredniaia-podveska-vkliucaia-stupicy/",
+      "canonical": "https://nikolacars.kiev.ua/ru/parts/model-3-highland-01-2024/podveska/peredniaia-podveska-vkliucaia-stupicy/",
+      "cards": 5,
+      "final": "https://nikolacars.kiev.ua/ru/parts/model-3-highland-01-2024/podveska/peredniaia-podveska-vkliucaia-stupicy/",
+      "h1": "Передняя подвеска (включая ступицы) — Tesla Model 3 Highland 01.2024 -",
+      "notFound": false,
+      "refs": 39,
+      "title": "Передняя подвеска (включая ступицы) — Tesla Model 3 Highland 01.2024 - — NikolaCars"
+    },
+    {
+      "i": 6,
+      "u": "https://nikolacars.kiev.ua/ru/parts/elektrika/?page=6",
+      "canonical": "https://nikolacars.kiev.ua/ru/parts/elektrika/?page=6",
+      "cards": 24,
+      "final": "https://nikolacars.kiev.ua/ru/parts/elektrika/?page=6",
+      "h1": "Электрика — Запчасти Tesla",
+      "notFound": false,
+      "refs": 101,
+      "title": "Электрика — Запчасти Tesla — Страница 6 — NikolaCars"
+    },
+    {
+      "i": 6,
+      "u": "https://nikolacars.kiev.ua/parts/galma/abs-kontrol-zceplennia-i-kursovoyi-stiikosti/?page=2",
+      "canonical": "https://nikolacars.kiev.ua/parts/galma/abs-kontrol-zceplennia-i-kursovoyi-stiikosti/?page=2",
+      "cards": 8,
+      "final": "https://nikolacars.kiev.ua/parts/galma/abs-kontrol-zceplennia-i-kursovoyi-stiikosti/?page=2",
+      "h1": "Абс, контроль зчеплення і курсової стійкості — Запчастини Tesla",
+      "notFound": false,
+      "refs": 54,
+      "title": "Абс, контроль зчеплення і курсової стійкості — Запчастини Tesla — Сторінка 2 — NikolaCars"
+    },
+    {
+      "i": 6,
+      "u": "https://nikolacars.kiev.ua/ru/parts/elektrika/datciki-parkovki/",
+      "canonical": "https://nikolacars.kiev.ua/ru/parts/elektrika/datciki-parkovki/",
+      "cards": 19,
+      "final": "https://nikolacars.kiev.ua/ru/parts/elektrika/datciki-parkovki/",
+      "h1": "Датчики парковки — Запчасти Tesla",
+      "notFound": false,
+      "refs": 82,
+      "title": "Датчики парковки — Запчасти Tesla — NikolaCars"
+    },
+    {
+      "i": 6,
+      "u": "https://nikolacars.kiev.ua/parts/elektrika/vnutrisni-peremikaci-i-rozetka-zivlennia/peremikaci/",
+      "canonical": "https://nikolacars.kiev.ua/parts/elektrika/vnutrisni-peremikaci-i-rozetka-zivlennia/peremikaci/",
+      "cards": 2,
+      "final": "https://nikolacars.kiev.ua/parts/elektrika/vnutrisni-peremikaci-i-rozetka-zivlennia/peremikaci/",
+      "h1": "Перемикачі — Запчастини Tesla",
+      "notFound": false,
+      "refs": 44,
+      "title": "Перемикачі — Запчастини Tesla — NikolaCars"
+    },
+    {
+      "i": 6,
+      "u": "https://nikolacars.kiev.ua/ru/parts/vnutrenniaia-otdelka/?page=24",
+      "canonical": "https://nikolacars.kiev.ua/ru/parts/vnutrenniaia-otdelka/?page=24",
+      "cards": 24,
+      "final": "https://nikolacars.kiev.ua/ru/parts/vnutrenniaia-otdelka/?page=24",
+      "h1": "Внутренняя отделка — Запчасти Tesla",
+      "notFound": false,
+      "refs": 93,
+      "title": "Внутренняя отделка — Запчасти Tesla — Страница 24 — NikolaCars"
+    },
+    {
+      "i": 6,
+      "u": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/?page=5",
+      "canonical": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/?page=5",
+      "cards": 24,
+      "final": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/?page=5",
+      "h1": "Запчасти Tesla Model Y 2020–2025",
+      "notFound": false,
+      "refs": 84,
+      "title": "Запчасти Tesla Model Y 2020–2025 в Киеве — Страница 5 — NikolaCars"
+    },
+    {
+      "i": 6,
+      "u": "https://nikolacars.kiev.ua/ru/parts/kuzov/?page=5",
+      "canonical": "https://nikolacars.kiev.ua/ru/parts/kuzov/?page=5",
+      "cards": 24,
+      "final": "https://nikolacars.kiev.ua/ru/parts/kuzov/?page=5",
+      "h1": "Кузов — Запчасти Tesla",
+      "notFound": false,
+      "refs": 89,
+      "title": "Кузов — Запчасти Tesla — Страница 5 — NikolaCars"
+    },
+    {
+      "i": 6,
+      "u": "https://nikolacars.kiev.ua/ru/parts/naruznaia-furnitura/zashhita-dnishha-kuzova/zashhita-perednego-bampera-i-sassi/",
+      "canonical": "https://nikolacars.kiev.ua/ru/parts/naruznaia-furnitura/zashhita-dnishha-kuzova/zashhita-perednego-bampera-i-sassi/",
+      "cards": 6,
+      "final": "https://nikolacars.kiev.ua/ru/parts/naruznaia-furnitura/zashhita-dnishha-kuzova/zashhita-perednego-bampera-i-sassi/",
+      "h1": "Защита переднего бампера и шасси — Запчасти Tesla",
+      "notFound": false,
+      "refs": 51,
+      "title": "Защита переднего бампера и шасси — Запчасти Tesla — NikolaCars"
+    },
+    {
+      "i": 6,
+      "u": "https://nikolacars.kiev.ua/parts/1081832-00-h-98083/",
+      "canonical": "https://nikolacars.kiev.ua/parts/1081832-00-h-98083/",
+      "cards": 21,
+      "final": "https://nikolacars.kiev.ua/parts/1081832-00-h-98083/",
+      "h1": "Ручка відкривання дверей зовнішня права — Tesla Model 3 06.2017 - 12.2023 — 1081832-00-H",
+      "notFound": false,
+      "refs": 47,
+      "title": "Ручка відкривання дверей зовнішня права Tesla Model 3 06.2017 - 12.2023 — 1081832-00-H | NikolaCars — Оригінал"
+    },
+    {
+      "i": 6,
+      "u": "https://nikolacars.kiev.ua/parts/1002274-00-d-107015/",
+      "canonical": "https://nikolacars.kiev.ua/parts/1002274-00-d-107015/",
+      "cards": 19,
+      "final": "https://nikolacars.kiev.ua/parts/1002274-00-d-107015/",
+      "h1": "Козирок малого монітора нижній — Tesla Model S 02.2012-03.2016 — 1002274-00-D",
+      "notFound": false,
+      "refs": 43,
+      "title": "Козирок малого монітора нижній Tesla Model S 02.2012-03.2016 — 1002274-00-D | NikolaCars — Оригінал"
+    },
+    {
+      "i": 0,
+      "u": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/",
+      "canonical": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/pedal-galma/",
+      "cards": 2,
+      "final": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/pedal-galma/",
+      "h1": "Педаль гальма — Tesla Model 3 06.2017 - 12.2023",
+      "notFound": false,
+      "refs": 34,
+      "title": "Педаль гальма — Tesla Model 3 06.2017 - 12.2023 — NikolaCars"
+    },
+    {
+      "i": 0,
+      "u": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+      "canonical": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+      "cards": 2,
+      "final": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+      "h1": "Бортовой зарядный модуль (чарджер) — Tesla Model S 02.2012-03.2016",
+      "notFound": false,
+      "refs": 31,
+      "title": "Бортовой зарядный модуль (чарджер) — Tesla Model S 02.2012-03.2016 — NikolaCars"
+    },
+    {
+      "i": 0,
+      "u": "https://nikolacars.kiev.ua/ru/parts/visokovoltna-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+      "canonical": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+      "cards": 11,
+      "final": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+      "h1": "Высоковольтная батарея — Запчасти Tesla",
+      "notFound": false,
+      "refs": 50,
+      "title": "Высоковольтная батарея — Запчасти Tesla — NikolaCars"
+    },
+    {
+      "i": 0,
+      "u": "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/zadnie-poluosi/",
+      "canonical": "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/zadnie-poluosi/",
+      "cards": 22,
+      "final": "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/zadnie-poluosi/",
+      "h1": "Задние полуоси — Запчасти Tesla",
+      "notFound": false,
+      "refs": 73,
+      "title": "Задние полуоси — Запчасти Tesla — NikolaCars"
+    },
+    {
+      "i": 0,
+      "u": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+      "canonical": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+      "cards": 2,
+      "final": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+      "h1": "Бортовой зарядный модуль (чарджер) — Запчасти Tesla",
+      "notFound": false,
+      "refs": 33,
+      "title": "Бортовой зарядный модуль (чарджер) — Запчасти Tesla — NikolaCars"
+    },
+    {
+      "i": 1,
+      "u": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/informacionno-razvlekatelnaia-sistema/kompiuter-avtomobilia/kompiuter-avtomobilia/",
+      "canonical": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/informacionno-razvlekatelnaia-sistema/kompiuter-avtomobilia/kompiuter-avtomobilia/",
+      "cards": 2,
+      "final": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/informacionno-razvlekatelnaia-sistema/kompiuter-avtomobilia/kompiuter-avtomobilia/",
+      "h1": "Компьютер автомобиля — Tesla Model Y 01.2020 - 01.2025",
+      "notFound": false,
+      "refs": 35,
+      "title": "Компьютер автомобиля — Tesla Model Y 01.2020 - 01.2025 — NikolaCars"
+    },
+    {
+      "i": 1,
+      "u": "https://nikolacars.kiev.ua/ru/parts/category/pribornaia-panel/",
+      "canonical": "https://nikolacars.kiev.ua/ru/parts/pribornaia-panel/",
+      "cards": 24,
+      "final": "https://nikolacars.kiev.ua/ru/parts/pribornaia-panel/",
+      "h1": "Приборная панель — Запчасти Tesla",
+      "notFound": false,
+      "refs": 82,
+      "title": "Приборная панель — Запчасти Tesla — NikolaCars"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/ru/parts/104743/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/ru/parts/104743/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/parts/6008191-00-d-113659/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/parts/6008191-00-d-113659/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/parts/1108647-00-d-77296/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/parts/1108647-00-d-77296/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/ru/parts/104761/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/ru/parts/104761/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/ru/parts/104127/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/ru/parts/104127/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/parts/77669/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/parts/77669/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 3,
+      "u": "https://nikolacars.kiev.ua/ru/parts/model-3-06-2017-12-2023/ne-opredeleno/",
+      "canonical": "https://nikolacars.kiev.ua/ru/parts/model-3-06-2017-12-2023/ne-opredeleno/",
+      "cards": 12,
+      "final": "https://nikolacars.kiev.ua/ru/parts/model-3-06-2017-12-2023/ne-opredeleno/",
+      "h1": "Не определено — Tesla Model 3 06.2017 - 12.2023",
+      "notFound": false,
+      "refs": 50,
+      "robots": "noindex, follow",
+      "title": "Не определено — Tesla Model 3 06.2017 - 12.2023 — NikolaCars"
+    },
+    {
+      "i": 4,
+      "u": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/rulevoi-mexanizm/rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki/rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki/",
+      "canonical": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/",
+      "cards": 24,
+      "final": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/",
+      "h1": "Запчасти Tesla Model Y 2020–2025",
+      "notFound": false,
+      "refs": 80,
+      "title": "Запчасти Tesla Model Y 2020–2025 в Киеве — NikolaCars"
+    },
+    {
+      "i": 5,
+      "u": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv/?page=4",
+      "canonical": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv/?page=4",
+      "cards": 24,
+      "final": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv/?page=4",
+      "h1": "Оздоблення стійок A-B-C і порогів — Tesla Model 3 06.2017 - 12.2023",
+      "notFound": false,
+      "refs": 92,
+      "title": "Оздоблення стійок A-B-C і порогів — Tesla Model 3 06.2017 - 12.2023 — Сторінка 4 — NikolaCars"
+    },
+    {
+      "i": 5,
+      "u": "https://nikolacars.kiev.ua/parts/1100671-00-d-113507/",
+      "canonical": "https://nikolacars.kiev.ua/parts/1100671-00-d-113507/",
+      "cards": 16,
+      "final": "https://nikolacars.kiev.ua/parts/1100671-00-d-113507/",
+      "h1": "Накладка декоративна підстави сидінь 1-го ряду внутрішня права права — Tesla Model X 09.2015-02.2021 — 1100671-00-D",
+      "notFound": false,
+      "refs": 37,
+      "title": "Накладка декоративна підстави сидінь 1-го ряду внутрішня права права Tesla Model X 09.2015-02.2021 — 1100671-00-D | NikolaCars — Оригінал"
+    },
+    {
+      "i": 7,
+      "u": "https://nikolacars.kiev.ua/parts/1002322-00-c-113428/",
+      "canonical": "https://nikolacars.kiev.ua/parts/1002322-00-c-113428/",
+      "cards": 2,
+      "final": "https://nikolacars.kiev.ua/parts/1002322-00-c-113428/",
+      "h1": "Кронштейн опорний основного монітора — Tesla Model S 02.2012-03.2016 — 1002322-00-C",
+      "notFound": false,
+      "refs": 9,
+      "title": "Кронштейн опорний основного монітора Tesla Model S 02.2012-03.2016 — 1002322-00-C | NikolaCars — Оригінал"
+    },
+    {
+      "i": 7,
+      "u": "https://nikolacars.kiev.ua/parts/1002405-02-e-91967/",
+      "canonical": "https://nikolacars.kiev.ua/parts/1002405-02-e-91967/",
+      "cards": 19,
+      "final": "https://nikolacars.kiev.ua/parts/1002405-02-e-91967/",
+      "h1": "Накладка декоративна панелі приладів під рульовою колонкою (LTHR BLACK) — Tesla Model S 02.2012-03.2016 — 1002405-02-E",
+      "notFound": false,
+      "refs": 43,
+      "title": "Накладка декоративна панелі приладів під рульовою колонкою (LTHR BLACK) Tesla Model S 02.2012-03.2016 — 1002405-02-E | NikolaCars — Оригінал"
+    },
+    {
+      "i": 0,
+      "u": "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/",
+      "canonical": "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/zadnie-poluosi/",
+      "cards": 22,
+      "final": "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/zadnie-poluosi/",
+      "h1": "Задние полуоси — Запчасти Tesla",
+      "notFound": false,
+      "refs": 73,
+      "title": "Задние полуоси — Запчасти Tesla — NikolaCars"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/parts/insi-modeli/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/parts/insi-modeli/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/parts/vysokovoltnaia-batareia/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/parts/vysokovoltnaia-batareia/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/vysokovoltnaia-batareia/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/vysokovoltnaia-batareia/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+      "canonical": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+      "cards": 11,
+      "final": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+      "h1": "Высоковольтная батарея — Запчасти Tesla",
+      "notFound": false,
+      "refs": 50,
+      "title": "Высоковольтная батарея — Запчасти Tesla — NikolaCars"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/contacts",
+      "canonical": "https://nikolacars.kiev.ua/contacts/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/contacts/",
+      "h1": "КОНТАКТИ",
+      "notFound": false,
+      "refs": 0,
+      "title": "Контакти NikolaCars 📞 Сервіс та продаж авто Tesla в Києві"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/ru/ru/privacy-policy/",
+      "canonical": "https://nikolacars.kiev.ua/ru/privacy-policy/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/ru/privacy-policy/",
+      "h1": "ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ",
+      "notFound": false,
+      "refs": 0,
+      "title": "Политика конфиденциальности - NikolaCars"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/services/car-service",
+      "canonical": "https://nikolacars.kiev.ua/services/tesla-service/",
+      "cards": 7,
+      "final": "https://nikolacars.kiev.ua/services/tesla-service/",
+      "h1": "Діагностика, ремонт та обслуговування Tesla у Києві",
+      "notFound": false,
+      "refs": 0,
+      "title": "Сервіс Tesla у Києві — діагностика та ремонт | NikolaCars"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/privacy_policy/",
+      "canonical": "https://nikolacars.kiev.ua/privacy-policy/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/privacy-policy/",
+      "h1": "ПОЛІТИКА КОНФІДЕНЦІЙНОСТІ",
+      "notFound": false,
+      "refs": 0,
+      "title": "Політика конфіденційності - NikolaCars"
+    },
+    {
+      "i": "batteryTarget",
+      "u": "https://nikolacars.kiev.ua/parts/visokovoltna-batareia/",
+      "canonical": "https://nikolacars.kiev.ua/parts/visokovoltna-batareia/",
+      "cards": 11,
+      "final": "https://nikolacars.kiev.ua/parts/visokovoltna-batareia/",
+      "h1": "Високовольтна батарея — Запчастини Tesla",
+      "notFound": false,
+      "refs": 49,
+      "title": "Високовольтна батарея — Запчастини Tesla — NikolaCars"
+    },
+    {
+      "i": "batteryTarget",
+      "u": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/visokovoltna-batareia/",
+      "canonical": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/visokovoltna-batareia/",
+      "cards": 2,
+      "final": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/visokovoltna-batareia/",
+      "h1": "Високовольтна батарея — Tesla Model 3 06.2017 - 12.2023",
+      "notFound": false,
+      "refs": 30,
+      "title": "Високовольтна батарея — Tesla Model 3 06.2017 - 12.2023 — NikolaCars"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/parts/77120/",
+      "canonical": "https://nikolacars.kiev.ua/parts/1098751-00-c-77120/",
+      "cards": 7,
+      "final": "https://nikolacars.kiev.ua/parts/1098751-00-c-77120/",
+      "h1": "Повітропровід вентиляції салону в задньому багажному відсіку — Tesla Model 3 06.2017 - 12.2023 — 1098751-00-C",
+      "notFound": false,
+      "refs": 19,
+      "title": "Повітропровід вентиляції салону в задньому багажному відсіку Tesla Model 3 06.2017 - 12.2023 — 1098751-00-C | NikolaCars — Оригінал"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/ru/parts/108973/",
+      "canonical": "https://nikolacars.kiev.ua/ru/parts/1006427-01-a-108973/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/ru/parts/1006427-01-a-108973/",
+      "h1": "салон (комплект сидений) — Tesla Model S 02.2012-03.2016 — 1006427-01-A",
+      "notFound": false,
+      "refs": 6,
+      "title": "салон (комплект сидений) Tesla Model S 02.2012-03.2016 — 1006427-01-A | NikolaCars — Оригинал"
+    },
+    {
+      "i": "submittedDup",
+      "u": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/",
+      "canonical": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/",
+      "cards": 24,
+      "final": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/",
+      "h1": "Внутрішнє оздоблення — Запчастини Tesla",
+      "notFound": false,
+      "refs": 89,
+      "title": "Внутрішнє оздоблення — Запчастини Tesla — NikolaCars"
+    },
+    {
+      "i": "submittedDup",
+      "u": "https://nikolacars.kiev.ua/parts/komponenti-zakrittia/",
+      "canonical": "https://nikolacars.kiev.ua/parts/komponenti-zakrittia/",
+      "cards": 24,
+      "final": "https://nikolacars.kiev.ua/parts/komponenti-zakrittia/",
+      "h1": "Компоненти закриття — Запчастини Tesla",
+      "notFound": false,
+      "refs": 88,
+      "title": "Компоненти закриття — Запчастини Tesla — NikolaCars"
+    },
+    {
+      "i": "submittedDup",
+      "u": "https://nikolacars.kiev.ua/parts/category/vnutrisnje-ozdoblennia/",
+      "canonical": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/",
+      "cards": 24,
+      "final": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/",
+      "h1": "Внутрішнє оздоблення — Запчастини Tesla",
+      "notFound": false,
+      "refs": 89,
+      "title": "Внутрішнє оздоблення — Запчастини Tesla — NikolaCars"
+    },
+    {
+      "i": "submittedDup",
+      "u": "https://nikolacars.kiev.ua/parts/category/komponenti-zakrittia/",
+      "canonical": "https://nikolacars.kiev.ua/parts/komponenti-zakrittia/",
+      "cards": 24,
+      "final": "https://nikolacars.kiev.ua/parts/komponenti-zakrittia/",
+      "h1": "Компоненти закриття — Запчастини Tesla",
+      "notFound": false,
+      "refs": 88,
+      "title": "Компоненти закриття — Запчастини Tesla — NikolaCars"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/parts/104258/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/parts/104258/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/parts/1007374-00-l-95486/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/parts/1007374-00-l-95486/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/parts/1096623-00-h-74856/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/parts/1096623-00-h-74856/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/ru/parts/1188711-00-a-89487/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/ru/parts/1188711-00-a-89487/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/ru/parts/1108647-00-d-77296/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/ru/parts/1108647-00-d-77296/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/parts/1188711-00-a-89487/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/parts/1188711-00-a-89487/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/parts/1095858-00-d-101669/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/parts/1095858-00-d-101669/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/parts/77296/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/parts/77296/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/ru/parts/1105324-79-e-92927/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/ru/parts/1105324-79-e-92927/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/ru/parts/88146/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/ru/parts/88146/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/ru/parts/1584721-e0-a-113134/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/ru/parts/1584721-e0-a-113134/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/parts/1584721-e0-a-113134/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/parts/1584721-e0-a-113134/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/parts/1077397-00-g-106946/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/parts/1077397-00-g-106946/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/ru/parts/1077397-00-g-106946/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/ru/parts/1077397-00-g-106946/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/parts/1044121-00-e-82639/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/parts/1044121-00-e-82639/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/ru/parts/1095858-00-d-101669/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/ru/parts/1095858-00-d-101669/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/ru/parts/1007374-00-l-108286/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/ru/parts/1007374-00-l-108286/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/parts/69395/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/parts/69395/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/sitemap.rss",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/sitemap.rss",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/parts/79034/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/parts/79034/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/parts/104616/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/parts/104616/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/parts/103760/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/parts/103760/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/parts/77751/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/parts/77751/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/ru/parts/104246/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/ru/parts/104246/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/parts/104127/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/parts/104127/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/parts/103133/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/parts/103133/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/parts/77878/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/parts/77878/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/parts/106887/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/parts/106887/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/ru/parts/77782/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/ru/parts/77782/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/parts/77176/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/parts/77176/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/parts/77631/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/parts/77631/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/parts/77105/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/parts/77105/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/parts/104761/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/parts/104761/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/ru/parts/104741/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/ru/parts/104741/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/ru/all-news/tesla-vypustila-novuyu-model-s-i-model-x-vmesto-rulya-shturval/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/ru/all-news/tesla-vypustila-novuyu-model-s-i-model-x-vmesto-rulya-shturval/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/ru/tag/models/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/ru/tag/models/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/news/cheap-model/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/news/cheap-model/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/ru/author/val-overchuk/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/ru/author/val-overchuk/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/cars/tesla-model-s-p85d-2015-1/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/cars/tesla-model-s-p85d-2015-1/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/cars/tesla-model-s-100d-2018/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/cars/tesla-model-s-100d-2018/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/ru/how-it-works/pro-tesla-plaid/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/ru/how-it-works/pro-tesla-plaid/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/ru/category/all-news/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/ru/category/all-news/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    },
+    {
+      "i": 2,
+      "u": "https://nikolacars.kiev.ua/ru/mileage/109-129-km/",
+      "cards": 0,
+      "final": "https://nikolacars.kiev.ua/ru/mileage/109-129-km/",
+      "h1": "404",
+      "notFound": true,
+      "refs": 0,
+      "title": "Not Found"
+    }
+  ],
+  "inspections": {
+    "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/zadnie-poluosi/": "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/zadnie-poluosi/\nПроверка URL\nПРОВЕРИТЬ СТРАНИЦУ НА САЙТЕ\ninfo\nURL нет в индексе Google\nЭта страница не проиндексирована, и поэтому она не может появляться в результатах поиска Google. Ниже указано, почему нам не удалось проиндексировать ее. Подробнее\nИЗУЧИТЬ ПРОСКАНИРОВАННУЮ СТРАНИЦУ\nСтраница изменена?\nЗАПРОСИТЬ ИНДЕКСИРОВАНИЕ\ninfo\nИндексирование страниц\nЭта страница не проиндексирована: Страница является копией. Канонические версии страницы, выбранные Google и пользователем, не совпадают.\n\nКак обнаружено\nФайлы Sitemap\nВременная ошибка при обработке\nСсылающаяся страница\nhttps://nikolacars.kiev.ua/parts/zadnii-motor/zadni-pivosi/zadni-pivosi/\nhttps://nikolacars.kiev.ua/parts/subcategory/zadnii-motor--zadni-pivosi--zadni-pivosi/\nСканирование\nПоследнее сканирование\n17 окт. 2026 г., 11:02:55\nРобот, выполнивший сканирование\nРобот Googlebot для смартфонов\nСканирование разрешено?\nДа\nПолучение страницы\nУспешно\nИндексирование разрешено?\nДа\nИндексирование\nКаноническая страница, выбранная пользователем\nhttps://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/zadnie-poluosi/\nКаноническая страница, выбранная Google\n\ninfo\nhttps://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/\nПРОВЕРИТЬ\nПОДРОБНЕЕ...\nОТКРЫТЬ ОТЧЕТ\nУлучшения и удобство для пользователей\nУлучшения можно внедрять только по индексированным URL.\nПроверка URL",
+    "https://nikolacars.kiev.ua/ru/parts/104743/": "https://nikolacars.kiev.ua/ru/parts/104743/\nПроверка URL\nПРОВЕРИТЬ СТРАНИЦУ НА САЙТЕ\ninfo\nURL нет в индексе Google\nЭта страница не проиндексирована, и поэтому она не может появляться в результатах поиска Google. Ниже указано, почему нам не удалось проиндексировать ее. Подробнее\nИЗУЧИТЬ ПРОСКАНИРОВАННУЮ СТРАНИЦУ\nСтраница изменена?\nЗАПРОСИТЬ ИНДЕКСИРОВАНИЕ\ninfo\nИндексирование страниц\nЭта страница не проиндексирована: Не найдено (404)\n\nКак обнаружено\nФайлы Sitemap\nВременная ошибка при обработке\nСсылающаяся страница\nhttps://nikolacars.kiev.ua/ru/parts/model-3-highland-01-2024/\nСканирование\nПоследнее сканирование\n23 окт. 2026 г., 21:58:42\nРобот, выполнивший сканирование\nРобот Googlebot для смартфонов\nСканирование разрешено?\nДа\nПолучение страницы\ninfo\nНе удалось выполнить. Не найдено (404)\nИндексирование разрешено?\nОтсутствует\nИндексирование\nКаноническая страница, выбранная пользователем\nОтсутствует\nКаноническая страница, выбранная Google\n\nОтсутствует\nПОДРОБНЕЕ...\nОТКРЫТЬ ОТЧЕТ\nУлучшения и удобство для пользователей\nУлучшения можно внедрять только по индексированным URL.\nLoading...",
+    "https://nikolacars.kiev.ua/parts/1002322-00-c-113428/": "https://nikolacars.kiev.ua/parts/1002322-00-c-113428/\nПроверка URL\nПРОВЕРИТЬ СТРАНИЦУ НА САЙТЕ\ninfo\nURL нет в индексе Google\nЭта страница не проиндексирована, и поэтому она не может появляться в результатах поиска Google. Ниже указано, почему нам не удалось проиндексировать ее. Подробнее\nИЗУЧИТЬ ПРОСКАНИРОВАННУЮ СТРАНИЦУ\nСтраница изменена?\nЗАПРОСИТЬ ИНДЕКСИРОВАНИЕ\ninfo\nИндексирование страниц\nЭта страница не проиндексирована: URL неизвестен Google\n\nКак обнаружено\nФайлы Sitemap\nНет ссылающихся файлов Sitemap\nСсылающаяся страница\nНе найдено\nURL может быть известен из других источников, которые в настоящее время не раскрываются.\nСканирование\nПоследнее сканирование\nОтсутствует\nРобот, выполнивший сканирование\nОтсутствует\nСканирование разрешено?\nОтсутствует\nПолучение страницы\nОтсутствует\nИндексирование разрешено?\ninfo\nОтсутствует\nИндексирование\nКаноническая страница, выбранная пользователем\nОтсутствует\nКаноническая страница, выбранная Google\n\nОтсутствует\nПОДРОБНЕЕ...\nУлучшения и удобство для пользователей\nУлучшения можно внедрять только по индексированным URL.\nПроверка URL",
+    "https://nikolacars.kiev.ua/parts/1100671-00-d-113507/": "https://nikolacars.kiev.ua/parts/1100671-00-d-113507/\nПроверка URL\nПРОВЕРИТЬ СТРАНИЦУ НА САЙТЕ\ncheck_circle\nURL есть в индексе Google\nПри отсутствии запросов на удаление и мер, принятых вручную, страница может появляться в результатах поиска Google с любыми подходящими улучшениями. Подробнее\nИЗУЧИТЬ ПРОСКАНИРОВАННУЮ СТРАНИЦУ\nСтраница изменена?\nЗАПРОСИТЬ ИНДЕКСИРОВАНИЕ\ncheck_circle\nИндексирование страниц\nЭта страница проиндексирована\n\nУлучшения и удобство для пользователей\ncheck_circle\nHTTPS\nСтраница передается через HTTPS\n\ncheck_circle\nОписания товара\nОбнаружен 1 элемент без ошибок\nЕсть мелкие проблемы\n\ncheck_circle\nДанные о товарах продавца\nОбнаружен 1 элемент без ошибок\n\ncheck_circle\nСтроки навигации\nОбнаружен 1 элемент без ошибок\n\nПроверка URL",
+    "https://nikolacars.kiev.ua/parts/?page=110": "https://nikolacars.kiev.ua/parts/?page=110\nПроверка URL\nПРОВЕРИТЬ СТРАНИЦУ НА САЙТЕ\ninfo\nURL нет в индексе Google\nЭта страница не проиндексирована, и поэтому она не может появляться в результатах поиска Google. Ниже указано, почему нам не удалось проиндексировать ее. Подробнее\nИЗУЧИТЬ ПРОСКАНИРОВАННУЮ СТРАНИЦУ\nСтраница изменена?\nЗАПРОСИТЬ ИНДЕКСИРОВАНИЕ\ninfo\nИндексирование страниц\nЭта страница не проиндексирована: Ошибка сервера (5xx)\n\nКак обнаружено\nФайлы Sitemap\nВременная ошибка при обработке\nСсылающаяся страница\nhttps://nikolacars.kiev.ua/parts/?page=30\nСканирование\nПоследнее сканирование\n19 окт. 2026 г., 17:49:20\nРобот, выполнивший сканирование\nРобот Googlebot для смартфонов\nСканирование разрешено?\nДа\nПолучение страницы\ninfo\nНе удалось выполнить. Ошибка сервера (5xx)\nИндексирование разрешено?\nОтсутствует\nИндексирование\nКаноническая страница, выбранная пользователем\nОтсутствует\nКаноническая страница, выбранная Google\n\nОтсутствует\nПОДРОБНЕЕ...\nОТКРЫТЬ ОТЧЕТ\nУлучшения и удобство для пользователей\nУлучшения можно внедрять только по индексированным URL.\nПроверка URL",
+    "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/\nПроверка URL\nПРОВЕРИТЬ СТРАНИЦУ НА САЙТЕ\ninfo\nURL нет в индексе Google\nЭта страница не проиндексирована, и поэтому она не может появляться в результатах поиска Google. Ниже указано, почему нам не удалось проиндексировать ее. Подробнее\nИЗУЧИТЬ ПРОСКАНИРОВАННУЮ СТРАНИЦУ\nСтраница изменена?\nЗАПРОСИТЬ ИНДЕКСИРОВАНИЕ\ninfo\nИндексирование страниц\nЭта страница не проиндексирована: Страница является копией. Канонические версии страницы, выбранные Google и пользователем, не совпадают.\n\nКак обнаружено\nФайлы Sitemap\nhttps://nikolacars.kiev.ua/sitemap.xml\nСсылающаяся страница\nhttps://nikolacars.kiev.ua/parts/visokovoltna-sistema/\nhttps://nikolacars.kiev.ua/parts/visokovoltna-batareia/\nСканирование\nПоследнее сканирование\n19 сент. 2026 г., 11:55:13\nРобот, выполнивший сканирование\nРобот Googlebot для смартфонов\nСканирование разрешено?\nДа\nПолучение страницы\nУспешно\nИндексирование разрешено?\nДа\nИндексирование\nКаноническая страница, выбранная пользователем\nhttps://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/\nКаноническая страница, выбранная Google\n\ninfo\nhttps://nikolacars.kiev.ua/parts/category/vnutrisnje-ozdoblennia/\nПРОВЕРИТЬ\nПОДРОБНЕЕ...\nОТКРЫТЬ ОТЧЕТ\nУлучшения и удобство для пользователей\nУлучшения можно внедрять только по индексированным URL.\nПроверка URL",
+    "https://nikolacars.kiev.ua/parts/komponenti-zakrittia/": "https://nikolacars.kiev.ua/parts/komponenti-zakrittia/\nПроверка URL\nПРОВЕРИТЬ СТРАНИЦУ НА САЙТЕ\ninfo\nURL нет в индексе Google\nЭта страница не проиндексирована, и поэтому она не может появляться в результатах поиска Google. Ниже указано, почему нам не удалось проиндексировать ее. Подробнее\nИЗУЧИТЬ ПРОСКАНИРОВАННУЮ СТРАНИЦУ\nСтраница изменена?\nЗАПРОСИТЬ ИНДЕКСИРОВАНИЕ\ninfo\nИндексирование страниц\nЭта страница не проиндексирована: Страница является копией. Канонические версии страницы, выбранные Google и пользователем, не совпадают.\n\nКак обнаружено\nФайлы Sitemap\nВременная ошибка при обработке\nСсылающаяся страница\nhttps://nikolacars.kiev.ua/parts/visokovoltna-batareia/\nСканирование\nПоследнее сканирование\n18 сент. 2026 г., 19:49:49\nРобот, выполнивший сканирование\nРобот Googlebot для смартфонов\nСканирование разрешено?\nДа\nПолучение страницы\nУспешно\nИндексирование разрешено?\nДа\nИндексирование\nКаноническая страница, выбранная пользователем\nhttps://nikolacars.kiev.ua/parts/komponenti-zakrittia/\nКаноническая страница, выбранная Google\n\ninfo\nhttps://nikolacars.kiev.ua/parts/category/komponenti-zakrittia/\nПРОВЕРИТЬ\nПОДРОБНЕЕ...\nОТКРЫТЬ ОТЧЕТ\nУлучшения и удобство для пользователей\nУлучшения можно внедрять только по индексированным URL.\nПроверка URL",
+    "https://nikolacars.kiev.ua/services/tesla-processor-repair/": "https://nikolacars.kiev.ua/services/tesla-processor-repair/\nПроверка URL\nПРОВЕРИТЬ СТРАНИЦУ НА САЙТЕ\ncheck_circle\nURL есть в индексе Google\nПри отсутствии запросов на удаление и мер, принятых вручную, страница может появляться в результатах поиска Google с любыми подходящими улучшениями. Подробнее\nИЗУЧИТЬ ПРОСКАНИРОВАННУЮ СТРАНИЦУ\nСтраница изменена?\nЗАПРОСИТЬ ИНДЕКСИРОВАНИЕ\ncheck_circle\nИндексирование страниц\nЭта страница проиндексирована\n\nКак обнаружено\nФайлы Sitemap\nВременная ошибка при обработке\nСсылающаяся страница\nhttps://nikolacars.kiev.ua/services/tesla-model-s-contactor-repair/\nhttps://nikolacars.kiev.ua/ru/services/tesla-processor-repair/\nСканирование\nПоследнее сканирование\n27 сент. 2026 г., 12:48:46\nРобот, выполнивший сканирование\nРобот Googlebot для смартфонов\nСканирование разрешено?\nДа\nПолучение страницы\nУспешно\nИндексирование разрешено?\nДа\nИндексирование\nКаноническая страница, выбранная пользователем\nhttps://nikolacars.kiev.ua/services/tesla-processor-repair/\nКаноническая страница, выбранная Google\n\nПроверенный URL\nПОДРОБНЕЕ...\nОТКРЫТЬ ОТЧЕТ\nУлучшения и удобство для пользователей\ncheck_circle\nHTTPS\nСтраница передается через HTTPS\n\nПроверка URL",
+    "https://nikolacars.kiev.ua/parts/vysokovoltnaia-batareia/": "https://nikolacars.kiev.ua/parts/vysokovoltnaia-batareia/\nПроверка URL\nПРОВЕРИТЬ СТРАНИЦУ НА САЙТЕ\ninfo\nURL нет в индексе Google\nЭта страница не проиндексирована, и поэтому она не может появляться в результатах поиска Google. Ниже указано, почему нам не удалось проиндексировать ее. Подробнее\nИЗУЧИТЬ ПРОСКАНИРОВАННУЮ СТРАНИЦУ\nСтраница изменена?\nЗАПРОСИТЬ ИНДЕКСИРОВАНИЕ\ninfo\nИндексирование страниц\nЭта страница не проиндексирована: Не найдено (404)\n\nКак обнаружено\nФайлы Sitemap\nВременная ошибка при обработке\nСсылающаяся страница\nhttps://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-batareia/\nСканирование\nПоследнее сканирование\n28 окт. 2026 г., 20:14:21\nРобот, выполнивший сканирование\nРобот Googlebot для смартфонов\nСканирование разрешено?\nДа\nПолучение страницы\ninfo\nНе удалось выполнить. Не найдено (404)\nИндексирование разрешено?\nОтсутствует\nИндексирование\nКаноническая страница, выбранная пользователем\nОтсутствует\nКаноническая страница, выбранная Google\n\nОтсутствует\nПОДРОБНЕЕ...\nОТКРЫТЬ ОТЧЕТ\nУлучшения и удобство для пользователей\nУлучшения можно внедрять только по индексированным URL.\nПроверка URL"
+  },
+  "inspectionToolLive5xx": "https://nikolacars.kiev.ua/parts/?page=110\nПроверка URL\nИСПОЛЬЗОВАТЬ ДАННЫЕ ИЗ ИНДЕКСА GOOGLE\nПРОВЕРИТЬ ОПУБЛИКОВАННУЮ ВЕРСИЮ\nПроверено: 31 окт. 2026 г. , 13:30\n\ncheck_circle\nURL доступен Google\nЕсли страница будет проиндексирована и выбрана в качестве канонической, она сможет появляться в результатах поиска Google с любыми улучшениями. Подробнее\nПОСМОТРЕТЬ ПРОВЕРЕННУЮ СТРАНИЦУ\nСтраница изменена?\nЗАПРОСИТЬ ИНДЕКСИРОВАНИЕ\ncheck_circle\nДоступность страницы\nЭту страницу можно проиндексировать\n\nURL будет проиндексирован при соблюдении определенных условий.\nКак обнаружено\nЭти данные недоступны при такой проверке\nСканирование\nВремя\n31 окт. 2026 г., 13:30:16\nРобот, выполнивший сканирование\nGoogle Inspection Tool на смартфоне\nСканирование разрешено?\nДа\nПолучение страницы\nУспешно\nИндексирование разрешено?\nДа\nИндексирование\nКаноническая страница, выбранная пользователем\nhttps://nikolacars.kiev.ua/parts/?page=110\nКаноническая страница, выбранная Google\n\nЭти данные станут доступны после индексирования\nПОДРОБНЕЕ...\nУлучшения и удобство для пользователей\nПо этому URL не обнаружены улучшения.\nПроверка URL",
+  "validation5xx": "Индексирование страниц\n\nОшибка сервера (5xx)\n\nПодробности проверки\n\nЭКСПОРТИРОВАТЬ\n\nОТПРАВИТЬ\n\nРезультат проверки: начато\nДата начала: 26.10.2026\nВсе обработанные страницы – группа страниц, к которым относится файл Sitemap.\nВ ОЖИДАНИИ\n\n13\nОШИБКА\n\n0\nПримеры\n\n\nURL\n\t\nПоследнее сканирование\nhttps://nikolacars.kiev.ua/parts/?page=110\t19 окт. 2026 г.\nhttps://nikolacars.kiev.ua/parts/model-3-highland-01-2024/?page=4\t3 окт. 2026 г.\nhttps://nikolacars.kiev.ua/ru/parts/model-3-highland-01-2024/podveska/peredniaia-podveska-vkliucaia-stupicy/\t1 окт. 2026 г.\nhttps://nikolacars.kiev.ua/ru/parts/elektrika/?page=6\t30 сент. 2026 г.\nhttps://nikolacars.kiev.ua/parts/galma/abs-kontrol-zceplennia-i-kursovoyi-stiikosti/?page=2\t30 сент. 2026 г.\nhttps://nikolacars.kiev.ua/ru/parts/elektrika/datciki-parkovki/\t30 сент. 2026 г.\nhttps://nikolacars.kiev.ua/parts/elektrika/vnutrisni-peremikaci-i-rozetka-zivlennia/peremikaci/\t30 сент. 2026 г.\nhttps://nikolacars.kiev.ua/ru/parts/vnutrenniaia-otdelka/?page=24\t30 сент. 2026 г.\nhttps://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/?page=5\t30 сент. 2026 г.\nhttps://nikolacars.kiev.ua/ru/parts/kuzov/?page=5\t30 сент. 2026 г.\nСтрок на странице:\n5\n10\n25\n50\n100\n250\n500\n1–10 из 13\n",
+  "merchantLive": "https://nikolacars.kiev.ua/ru/parts/1496769-00-j-110960/\nПроверка URL\nИСПОЛЬЗОВАТЬ ДАННЫЕ ИЗ ИНДЕКСА GOOGLE\nПРОВЕРИТЬ ОПУБЛИКОВАННУЮ ВЕРСИЮ\nПроверено: 31 окт. 2026 г. , 13:31\n\ncheck_circle\nURL доступен Google\nЕсли страница будет проиндексирована и выбрана в качестве канонической, она сможет появляться в результатах поиска Google с любыми улучшениями. Подробнее\nПОСМОТРЕТЬ ПРОВЕРЕННУЮ СТРАНИЦУ\nСтраница изменена?\nЗАПРОСИТЬ ИНДЕКСИРОВАНИЕ\ncheck_circle\nДоступность страницы\nЭту страницу можно проиндексировать\n\nУлучшения и удобство для пользователей\ncheck_circle\nОписания товара\nОбнаружен 1 элемент без ошибок\nЕсть мелкие проблемы\n\ncheck_circle\nДанные о товарах продавца\nОбнаружен 1 элемент без ошибок\n\ncheck_circle\nСтроки навигации\nОбнаружен 1 элемент без ошибок\n",
+  "enhancements": {
+    "merchant": "Данные о товарах продавца\n\nЭКСПОРТИРОВАТЬ\nПоследнее обновление: 30.10.2026\n\nНедопустимое значение\n0\nНет критичных проблем\n\n\nСтраница без ошибок\n15\n\nПоказы\nЭлементы\n02.08.2026\n15.08.2026\n28.08.2026\n10.09.2026\n23.09.2026\n06.10.2026\n19.10.2026\n1,5 тыс.\n1 тыс.\n500\n0\n1\n1\ncheck_circle\nПосмотреть данные о корректных элементах\n\nerror\nПочему эти элементы недействительны\nНедействительные элементы не могут использоваться для создания расширенных результатов поиска Google.\n\nПроблема\n\tПроверка\n\tТенденция\t\nЭлементы\nОтсутствует поле \"image\"\t\n\nПодтверждено\n\t\t0\nСтрок на странице:\n5\n10\n25\n50\n100\n250\n500\n1–1 из 1\n\nwarning\nПроблемы с представлением элементов в результатах поиска\nЭлементы с такими проблемами могут появляться в результатах поиска. Но если вы внесете исправления, то они смогут показываться по более подходящим запросам или с использованием дополнительных функций.\n\nПроблема\n\tПроверка\n\tТенденция\t\nЭлементы\nОтсутствует поле \"shippingDetails\" (в offers)\t\n\nНе начато\n\t\t3\nОтсутствует поле \"hasMerchantReturnPolicy\" (в offers)\t\n\nОшибки исправлены\n\t\t3\nНедопустимое значение в поле \"category\"\t\n\nОшибки исправлены\n\t\t3\nОтсутствует поле \"returnMethod\" (в offers.hasMerchantReturnPolicy)\t\nОтсутствует\n\t\t0\nСтрок на странице:\n5\n10\n25\n50\n100\n250\n500\n1–4 из 4\n",
+    "product": "Описания товара\n\nЭКСПОРТИРОВАТЬ\nПоследнее обновление: 30.10.2026\n\nНедопустимое значение\n0\nНет критичных проблем\n\n\nСтраница без ошибок\n15\n\nПоказы\nЭлементы\n02.08.2026\n15.08.2026\n28.08.2026\n10.09.2026\n23.09.2026\n06.10.2026\n19.10.2026\n1,5 тыс.\n1 тыс.\n500\n0\n1\n1\ncheck_circle\nПосмотреть данные о корректных элементах\n\nerror\nПочему эти элементы недействительны\nНедействительные элементы не могут использоваться для создания расширенных результатов поиска Google.\n\nПроблема\n\tПроверка\n\tТенденция\t\nЭлементы\nЗадайте значение для одного из следующих элементов данных: \"offers\", \"review\" или \"aggregateRating\".\t\nОтсутствует\n\t\t0\nСтрок на странице:\n5\n10\n25\n50\n100\n250\n500\n1–1 из 1\n\nwarning\nПроблемы с представлением элементов в результатах поиска\nЭлементы с такими проблемами могут появляться в результатах поиска. Но если вы внесете исправления, то они смогут показываться по более подходящим запросам или с использованием дополнительных функций.\n\nПроблема\n\tПроверка\n\tТенденция\t\nЭлементы\nОтсутствует поле \"aggregateRating\"\t\n\nНе начато\n\t\t15\nОтсутствует поле \"review\"\t\n\nНе начато\n\t\t15\nСтрок на странице:\n5\n10\n25\n50\n100\n250\n500\n1–2 из 2\n",
+    "shipping": "Данные о товарах продавца\n\nОтсутствует поле \"shippingDetails\" (в offers)\n\nЭКСПОРТИРОВАТЬ\n\nОТПРАВИТЬ\nПоследнее обновление: 30.10.2026\nwarning\nОтсутствует поле \"shippingDetails\" (в offers)\nЭта проблема не считается критичной. Элементы могут появляться в результатах поиска. Но если вы внесете исправления, то они смогут показываться по более подходящим запросам или с использованием дополнительных функций.\nПОДРОБНЕЕ\nДата выявления: 19.09.2026\nУстранена ли проблема?\nПРОВЕРИТЬ ИСПРАВЛЕНИЕ\nПроверенные элементы\n3\n02.08.2026\n15.08.2026\n28.08.2026\n10.09.2026\n23.09.2026\n06.10.2026\n19.10.2026\n1,5 тыс.\n1 тыс.\n500\n0\nПримеры\n\n\nURL\n\tНазвание\n\t\nПоследнее сканирование\n\nhttps://nikolacars.kiev.ua/ru/parts/1496769-00-j-110960/\n\tВысоковольтная батарея Tesla Model 3 Highland 01.2024 -\t7 окт. 2026 г.\n\nhttps://nikolacars.kiev.ua/ru/parts/1081400-e0-d-113126/\n\tКрыло переднее правое Tesla Model 3 06.2017 - 12.2023\t25 сент. 2026 г.\n\nhttps://nikolacars.kiev.ua/ru/parts/1638332-00-c-79943/\n\tБоковая защитная накладка первого ряда сидений Tesla Model Y 01.2020 - 01.2025\t24 сент. 2026 г.\nСтрок на странице:\n5\n10\n25\n50\n100\n250\n500\n1–3 из 3\n\nДанные о товарах продавца",
+    "flag\nМеры, принятые вручную": "Меры, принятые вручную\ncheck_circle\nПроблем нет",
+    "security\nПроблемы безопасности": "Проблемы безопасности\ncheck_circle\nПроблем нет"
+  },
+  "shippingExamples": [
+    {
+      "category": {
+        "@type": "CategoryCode",
+        "codeValue": "5613",
+        "inCodeSet": "https://www.google.com/basepages/producttype/taxonomy-with-ids.en-US.txt"
+      },
+      "h1": "Высоковольтная батарея — Tesla Model 3 Highland 01.2024 - — 1496769-00-J",
+      "hasReturn": true,
+      "offer": [
+        "@type",
+        "url",
+        "priceCurrency",
+        "price",
+        "availability",
+        "itemCondition",
+        "seller",
+        "shippingDetails",
+        "hasMerchantReturnPolicy"
+      ],
+      "shipping": {
+        "@type": "OfferShippingDetails",
+        "hasShippingService": {
+          "@id": "https://nikolacars.kiev.ua/ru/parts/1496769-00-j-110960/#delivery-and-returns"
+        }
+      },
+      "url": "https://nikolacars.kiev.ua/ru/parts/1496769-00-j-110960/"
+    },
+    {
+      "category": {
+        "@type": "CategoryCode",
+        "codeValue": "5613",
+        "inCodeSet": "https://www.google.com/basepages/producttype/taxonomy-with-ids.en-US.txt"
+      },
+      "h1": "Крыло переднее правое — Tesla Model 3 06.2017 - 12.2023 — 1081400-E0-D",
+      "hasReturn": true,
+      "offer": [
+        "@type",
+        "url",
+        "priceCurrency",
+        "price",
+        "availability",
+        "itemCondition",
+        "seller",
+        "shippingDetails",
+        "hasMerchantReturnPolicy"
+      ],
+      "shipping": {
+        "@type": "OfferShippingDetails",
+        "hasShippingService": {
+          "@id": "https://nikolacars.kiev.ua/ru/parts/1081400-e0-d-113126/#delivery-and-returns"
+        }
+      },
+      "url": "https://nikolacars.kiev.ua/ru/parts/1081400-e0-d-113126/"
+    },
+    {
+      "category": {
+        "@type": "CategoryCode",
+        "codeValue": "5613",
+        "inCodeSet": "https://www.google.com/basepages/producttype/taxonomy-with-ids.en-US.txt"
+      },
+      "h1": "Боковая защитная накладка первого ряда сидений — Tesla Model Y 01.2020 - 01.2025 — 1638332-00-C",
+      "hasReturn": true,
+      "offer": [
+        "@type",
+        "url",
+        "priceCurrency",
+        "price",
+        "availability",
+        "itemCondition",
+        "seller",
+        "shippingDetails",
+        "hasMerchantReturnPolicy"
+      ],
+      "shipping": {
+        "@type": "OfferShippingDetails",
+        "hasShippingService": {
+          "@id": "https://nikolacars.kiev.ua/ru/parts/1638332-00-c-79943/#delivery-and-returns"
+        }
+      },
+      "url": "https://nikolacars.kiev.ua/ru/parts/1638332-00-c-79943/"
+    }
+  ],
+  "referer": {
+    "links": [],
+    "u": "https://nikolacars.kiev.ua/ru/parts/model-3-highland-01-2024/"
+  },
+  "productChecks": {
+    "https://nikolacars.kiev.ua/parts/1002322-00-c-113428/": {
+      "crumbs": [],
+      "h1": "Кронштейн опорний основного монітора — Tesla Model S 02.2012-03.2016 — 1002322-00-C",
+      "inStock": "в наявності на складі NikolaCars: 1 шт."
+    },
+    "https://nikolacars.kiev.ua/parts/1100671-00-d-113507/": {
+      "crumbs": [],
+      "h1": "Накладка декоративна підстави сидінь 1-го ряду внутрішня права права — Tesla Model X 09.2015-02.2021 — 1100671-00-D",
+      "inStock": "в наявності на складі NikolaCars: 1 шт."
+    },
+    "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/?page=4": {
+      "crumbs": [],
+      "h1": "Запчастини Tesla — Tesla Model 3 Highland 01.2024 -",
+      "inStock": "Немає в наявності"
+    }
+  },
+  "oldBatteryReferrerToday": {
+    "final": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-batareia/",
+    "langs": [
+      [
+        "uk-UA",
+        "https://nikolacars.kiev.ua/parts/visokovoltna-batareia/"
+      ],
+      [
+        "ru-UA",
+        "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-batareia/"
+      ],
+      [
+        "x-default",
+        "https://nikolacars.kiev.ua/parts/visokovoltna-batareia/"
+      ]
+    ],
+    "ua": [
+      "https://nikolacars.kiev.ua/parts/visokovoltna-batareia/"
+    ],
+    "wrong": []
+  },
+  "notes": [
+    "Сводные численности из отчёта, обновлённого 23.10.2026. Состояние отдельных URL и live-проверки относятся к 31.10.2026.",
+    "Проверены все публичные страницы из 60 примеров 404, кроме POST-обработчика /lead/callback. Результаты браузера отражают отрендеренное содержимое и конечный URL, без проверки каждого промежуточного HTTP-статуса."
+  ]
+}

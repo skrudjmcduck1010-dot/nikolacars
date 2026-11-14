@@ -1,0 +1,602 @@
+{
+  "started_utc": "2026-10-29T19:36:42.089991+00:00",
+  "commit": "33e1ce1988e7f5ed741a05bd5f17f2076d299d58",
+  "manifest_sha256": "b9f2dedfdf4ecdd7ea6b8ab187b68e396f2d57a9529544d07c79825d9a4e4a60",
+  "status": "published_byte_verified",
+  "promoted": [
+    "app/Services/CatalogNavigation.php",
+    "resources/views/parts/_catalog_navigation.blade.php",
+    "public/assets/js/parts.js",
+    "public/assets/css/parts.css",
+    "app/Services/CategoryCatalogSeo.php",
+    "app/Services/ModelCatalogSeo.php",
+    "app/Http/Controllers/PartsController.php",
+    "resources/views/parts/index.blade.php",
+    "resources/views/layouts/parts.blade.php"
+  ],
+  "pending": null,
+  "private_stage": ".seo-package2-20261029T193703Z",
+  "guarded_after": [
+    {
+      "path": "public/assets/js/parts.js",
+      "sha256": "6074cf95ca6074b83abb03221f36515d0b2d04588a034a5bf59ff333691f0ea4"
+    },
+    {
+      "path": "public/assets/js/cart-modal.js",
+      "sha256": "fe48297a2b9df6f5a4b5997e01f50cd32edbe0b5972985a6c92964f4333d8c0c"
+    },
+    {
+      "path": "public/assets/js/parts-contact.js",
+      "sha256": "cb137ed77047b6a6e57e9d892523e3a3b13032c2111b9a0d34d7016393822b6a"
+    },
+    {
+      "path": "public/assets/js/reviews.js",
+      "sha256": "2713bee5f75244b973e186d8a430b691e6bcb18a50443dc798d846c159476ff2"
+    },
+    {
+      "path": "public/assets/js/slider.js",
+      "sha256": "0372b3f21fe20e265728ef0571b7039db8b7314d134b2282d6c51cb77e9d3dba"
+    },
+    {
+      "path": "public/assets/js/parts-product.js",
+      "sha256": "40c7fb200eaf91bf9aed8b0968b976c4737cac97ac7efc98bf2ac3089be35281"
+    },
+    {
+      "path": "public/assets/js/checkout.js",
+      "sha256": "235ca2104cfc02462dab39725b7abffa01371a037a2e32ce42d4fed24c92a527"
+    },
+    {
+      "path": "public/assets/js/analytics.js",
+      "sha256": "5d6f8e83ada092f7b8ff6f24d7d236fb77331dcfdd4fe775cb2fc3d741c695ab"
+    },
+    {
+      "path": "public/assets/css/app.css",
+      "sha256": "4b99d6eb7c34b2c4de6f04f9a47503fc247a1e9e4e4bc8b4592feba7b626724a"
+    },
+    {
+      "path": "public/assets/css/checkout.css",
+      "sha256": "f61c8beb0da2fc51f02e45163be53224fccdeaff2b51864313b295a5e3aba923"
+    },
+    {
+      "path": "public/assets/css/app.min.css",
+      "sha256": "e60d503e99db1172bb4d05a2208404f181ae9fd5a986a8fec5255e93ba556777"
+    },
+    {
+      "path": "public/assets/css/parts.css",
+      "sha256": "db7a55f766dea5589ade69985753cc27e8e600da62ed33eb39df1cbcacd21e68"
+    },
+    {
+      "path": "public/assets/css/parts-contact.css",
+      "sha256": "2525368cd833e115a1ceffc8ca1932116653772a03c09c9e903b55216b426920"
+    },
+    {
+      "path": "public/assets/css/cart-modal.css",
+      "sha256": "5fc6ee4deb23e4878771491eaeaafa251b5cb5635991da03105e603dff63c1a7"
+    },
+    {
+      "path": "public/assets/css/language-switch.css",
+      "sha256": "125951bdd31f36b4ba4c9c96eba62c20817c967f1bad322e88542c473d03a9cf"
+    },
+    {
+      "path": "public/.htaccess",
+      "sha256": "c11e5a819fec1198a15df435c5ba23c54d922b32f7ce492d6bb7288f31c55ed6"
+    },
+    {
+      "path": "public/index.php",
+      "sha256": "c61eda6364b1aee728c9dd920b5d72a66e79ba8872f6fdeef3f5efb3a492a0e6"
+    },
+    {
+      "path": "app/Providers/AppServiceProvider.php",
+      "sha256": "caf306ef6a25a547bbb7edd5508a39b51c365083eb6dd58378cf2242018e94c7"
+    },
+    {
+      "path": "app/Console/Commands/ImportNikolaCars.php",
+      "sha256": "0107199d8843819e3141efff2033e1821c9e8c9aec525326c7dfd50375e230d5"
+    },
+    {
+      "path": "app/Http/Middleware/ForceTrailingSlash.php",
+      "sha256": "f541df171f64241e7862927f8815f622f259b02d5d862ae5f1e1938b05e4008b"
+    },
+    {
+      "path": "app/Http/Controllers/LeadController.php",
+      "sha256": "c587f8f3c720773c1799e2c2465bb92fa60aabf3de203d7eb4faf8e7f66e8ab8"
+    },
+    {
+      "path": "app/Http/Controllers/SiteController.php",
+      "sha256": "8094c5f5a4cf5d1317080fe906c104af9ddbef77972b41513336a5b951c47fcd"
+    },
+    {
+      "path": "app/Http/Controllers/PartsController.php",
+      "sha256": "fd8f2998281a3fb521a888b9aa6c64d83e750890f0cfd32c4343fed5de97ce1f"
+    },
+    {
+      "path": "app/Http/Controllers/Controller.php",
+      "sha256": "25d1c1ef8e6cc8a376553faacfba2b07d9dfaee9bdbb84f14f77517580e9deb1"
+    },
+    {
+      "path": "app/Http/Controllers/PartsCallbackController.php",
+      "sha256": "d6600dfd108f871862ba7ed5e97cb621f7fd6ea6487e8c9daab58e210e08a5a1"
+    },
+    {
+      "path": "app/Services/CatalogPath.php",
+      "sha256": "65ba12f1ddf8531b38cbe20f959325cfe659ed656bd787bbb279fe5a6d3e88b6"
+    },
+    {
+      "path": "app/Services/SkladStorefrontClient.php",
+      "sha256": "c40064c0017426e8343521ca8d703b52cbf1e62ef05d31ed1d8adca42cc890de"
+    },
+    {
+      "path": "app/Services/ModelCatalogSeo.php",
+      "sha256": "a27f0b6925f45509b5dc3455d94ff6b1b36d6445312a683de08e8a96df943f91"
+    },
+    {
+      "path": "app/Services/WpBakeryRenderer.php",
+      "sha256": "d8a7f8d920d02394c2257bec476084566bf024058c3b784f583ee02b2c9aaae0"
+    },
+    {
+      "path": "app/Services/StorefrontPhotoFilter.php",
+      "sha256": "b678939475eec5f8a4b30be8e5e6d76786112e4a28c452e2a843fc67c7168428"
+    },
+    {
+      "path": "app/Models/Post.php",
+      "sha256": "365710ea5ee50146530a8e32bed9f06fd677af10e56de134e2aca1221474450c"
+    },
+    {
+      "path": "app/Models/Page.php",
+      "sha256": "d2c1cb2f6cbadcbc5ef88e899e7e0db70ed4303521adf20215449f4d535cb5a6"
+    },
+    {
+      "path": "app/Models/User.php",
+      "sha256": "e0f171d54e3f65fdca8442e730ee7f75a1ed8985ad8f1585682b28d60ee99467"
+    },
+    {
+      "path": "bootstrap/app.php",
+      "sha256": "b262c00f3239e89149768b008bd87ec31f37373b1489a77912738910842d0504"
+    },
+    {
+      "path": "bootstrap/providers.php",
+      "sha256": "2ef405f988a6ef3f5222bfbdd89352a6ad7b2e9e21aa25e236ac5dff58358953"
+    },
+    {
+      "path": "config/services.php",
+      "sha256": "6764fb5e7bfaaf5b9a340c66c18ff71406d8cda060578aa08a1604cba973ae32"
+    },
+    {
+      "path": "config/session.php",
+      "sha256": "f2e75e189021597e29940c0859c00c3088ec591e403768fff5143c5687a80f59"
+    },
+    {
+      "path": "config/queue.php",
+      "sha256": "6101774da7c8b79af46d0028f2b8b31a484c3f7eda10b76e5b27b6093ad364a4"
+    },
+    {
+      "path": "config/app.php",
+      "sha256": "78dcd36b226fd7b24057cb95f567cb6e96561c2406653892d8aef6dcea8461e4"
+    },
+    {
+      "path": "config/cache.php",
+      "sha256": "b8bcf382283330b94c0a602ff06452de819041ea709e28eea5065d51d1d7d085"
+    },
+    {
+      "path": "config/targeted_services.php",
+      "sha256": "75f404ea19dd32431f781e0c59332b01737b13978f410f32abac790701a460df"
+    },
+    {
+      "path": "config/mail.php",
+      "sha256": "825c4b149f2fe412a2e37199794e7c05df7ed86fb51811777faf80238f748aae"
+    },
+    {
+      "path": "config/database.php",
+      "sha256": "4f56083ec3874d216946401fb162b6ef50bc0909d004cd3337e2e33424fc6403"
+    },
+    {
+      "path": "config/filesystems.php",
+      "sha256": "ba7060d7a23e490c3ce830656f6d24ad3ccf5b868e3293f2a12e411959dc5635"
+    },
+    {
+      "path": "config/auth.php",
+      "sha256": "50f8a6fabf848d20ea42a21e01066dd8a75bd822c8251a45f8939616432424dc"
+    },
+    {
+      "path": "config/logging.php",
+      "sha256": "d90f24826a3330437f2f2fc12bb28680abe1281d35d62b082c234f4b69873835"
+    },
+    {
+      "path": "resources/js/bootstrap.js",
+      "sha256": "6fd9fc82e68fa915a882f4e227b9faacbe7bfd66cb953c628840e83bda6b72f4"
+    },
+    {
+      "path": "resources/js/app.js",
+      "sha256": "60e19d11531c1c287408d72d3f353bd91f82f6c9361b890ac6662b41213cd90b"
+    },
+    {
+      "path": "resources/css/app.css",
+      "sha256": "9f49ed837fdc773b89a294d1e86dc68828ef2f774d7e797ba5f89c2a08c84760"
+    },
+    {
+      "path": "resources/views/testimonial.blade.php",
+      "sha256": "c7f160e79660cf2d4b897aaa4c6e29c43172d58a2809ccd329d2c9b4e6daedeb"
+    },
+    {
+      "path": "resources/views/news_index.blade.php",
+      "sha256": "d7abf154b727ad78d0d3262a4051bf487614e106c0d8760173ec120778ea263e"
+    },
+    {
+      "path": "resources/views/services/tesla-service.blade.php",
+      "sha256": "9a4296124e135a018f2a198bf076c223f1c05e7fc3daca7594c0b918f944e592"
+    },
+    {
+      "path": "resources/views/services/repair-tesla-door-handle.blade.php",
+      "sha256": "9d042c33eeaffd306643bb0d8d3fa9d9d16920173d330441ae77e9e4476c1224"
+    },
+    {
+      "path": "resources/views/services/prigon-usa.blade.php",
+      "sha256": "a914a9c6c8956f4f170a5c52889463f0b97b04273c6cbba14aee5bd209d786ec"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-air-strut-repair.blade.php",
+      "sha256": "39407dbcfb5cd98cbd857667421401ec5382f45a11bc2b2271bc5ab9bef213c8"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-steering-rack-repair.blade.php",
+      "sha256": "3732a6f20330f2862d92c86ad92d143622c4edd4e4994395bac76c753c9b979f"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-radar-calibration.blade.php",
+      "sha256": "abedd7ca7e158318a38e9f4c9eba677ac6d3e9cd2b8009f184c1ea9804658184"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-cabin-filter-replacement.blade.php",
+      "sha256": "719715e6fdd5a2970be727d64ccd8d5c1434e3dc32f0484d38094d8e82b1b88e"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-mcu-repair.blade.php",
+      "sha256": "34fc97605829c72fca0199ad4de77df9931bb7c8387ba3b7026cf93938cb87eb"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-charge-port-repair.blade.php",
+      "sha256": "495a00abf5311de89061fa0985ace160f91cace68e7458713761f5e6bbe59689"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-headlight-drl-repair.blade.php",
+      "sha256": "c16f347c863f610825c268cf7c5a747246cdc9f020fc3d7bb42d05d6c059fcde"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-silentblock-repair.blade.php",
+      "sha256": "a75662752ed4a93de0f77e4a0ce4ef91315888c25f79dd16e895bb9593504a9f"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-suspension-repair.blade.php",
+      "sha256": "ea8d5b7ea534e922861b51f322e1762133c0eadfc14b93239035814cff6aec76"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-pyrofuse-replacement.blade.php",
+      "sha256": "8697579e549a6e5c05c6d2d1779943489098fb3ab55be4ae6434c7d5ccb9058f"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-horn-repair.blade.php",
+      "sha256": "9baa3f6ef508cc9d9b804ef9bd69f1f4dc3dab8bd780201605ae0a262090b7f8"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-computer-diagnostics.blade.php",
+      "sha256": "71174cc3144537c1d811d7e1c0b72107bca6a33a63f996d6545f0242c2d70cea"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-window-regulator-repair.blade.php",
+      "sha256": "2554ea71afd03a175c76bcb264ce7bb99a42c0c09ec237ed3629e0338665721c"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-srs-crash.blade.php",
+      "sha256": "4111e1ebd2a765b11cf72ff00b7091a09560f3731a44c2248b88faf904052518"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-drive-unit-oil-repair.blade.php",
+      "sha256": "4849d06c727de42a729e8d885e4d358aa4604948e9c9a2da81085ea76d8092d0"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-battery-crash.blade.php",
+      "sha256": "f974ad949ec60939bf7d465f3819282f40448df92ee718729a5cd1c7743677ff"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-ccs-charge-port-repair.blade.php",
+      "sha256": "287d9aa7c29bcd0bf56a2be4197cdd3129b277508ed488c51e24434eb9d3b63b"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-camera-repair.blade.php",
+      "sha256": "82c54a74ff89ecf2c98836e27f81f32c374c6e3b730a6c064893a8cb144d752d"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-12v-battery-replacement.blade.php",
+      "sha256": "7a8e3f2cedff34fb2844de353cb551e08f7793442b8bec3118ec8115fde6653d"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-camera-calibration.blade.php",
+      "sha256": "7fb987410c4397605935a54e50db62dce76515fe6d4acde1bf2415a855ed45f1"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-sim-card-repair.blade.php",
+      "sha256": "f1a5fd6074bb1a2d42ef89f7b630fcc9953f9bca6890d5e07c1c6184fada9315"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-control-unit-flash.blade.php",
+      "sha256": "eb1c6bbd36b894a1f4c50b1890aadd021baa2d2ebf069f03fefd86ccbe92613e"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-heater-repair.blade.php",
+      "sha256": "07cfc9b2bf6db7a61105c9676ee44591c0b3b8da280b95d6f27438d21a38192e"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-console-display-repair.blade.php",
+      "sha256": "463beccf73496dc7fe3662f89fdd0866d22bc07b21096bffab2ef39b0472fa32"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-modem-repair.blade.php",
+      "sha256": "5cbc9563d37fca489a5129d6959f43adfd69d0a9c7aeae44446fc98a0a22bccc"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-wiper-replacement.blade.php",
+      "sha256": "ae1f32746421b0134b5896588361adfd716a46f38f5c541217cdda5b38927ccb"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-tegra-intel-upgrade.blade.php",
+      "sha256": "d137f22f2c18c538f526e0cdea706d6f82ab1527001137d9d13c77e580682b48"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-panoramic-roof-replacement.blade.php",
+      "sha256": "749695e21181b6ea181d4b4d19061bc24c26e6a0d554bbf35eafb50e3dcfb5a4"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-brake-pads-repair.blade.php",
+      "sha256": "4c0ba76e5d75a58d2fb510aa428c28859b7a07c6dc9a2391fd43817fbfcce77b"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-model-s-battery-fuse.blade.php",
+      "sha256": "7987dd7354cf92049f52143c479417c2a48ec93bdd4f38dc70acaed5e3bb52e3"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-hub-repair.blade.php",
+      "sha256": "6f0d10c1a064aa1d62c06e086eeffdeeb8ccf7938909bd087bf2de63660fa1e3"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-key-flash.blade.php",
+      "sha256": "34d85563905d2db0e57b4f5c4d1e506d6a18ff110762c6af260ceb61ee3f7e90"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-parking-sensor-repair.blade.php",
+      "sha256": "8c168e2016cd3b2adbd970bbc7c65918a15ff84b02ed4f482ae3ad2b2f7bf982"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-windshield-repair.blade.php",
+      "sha256": "42833c8b2acd3bd098de10e935c84c1f551cffa94959c91941fe6985627a454c"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-antifreeze-replacement.blade.php",
+      "sha256": "937cc4a650fbe1828ad53fcfba6c8fa7af64d5a1bc3dc4130d7d9dbaf8e057cf"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-body-crash.blade.php",
+      "sha256": "aa3f1cabaf02cc32821fb1c400f4c5138aa5a2a8dd5489db50e13e7154a79541"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-model-s-contactor-repair.blade.php",
+      "sha256": "fa0e981919e40c8b1c10d8a49add7ab6e8790b599bdb88b0b80249fadf224ee0"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-navigation-firmware.blade.php",
+      "sha256": "42bb3db28e09444e02306829830481d0083f78c91de8ca685abd49c9fbe02182"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-pre-purchase-inspection.blade.php",
+      "sha256": "09606805f6e9a3273fbb2e4afa260fb4545c76e7e1b8e439416cdedaa6b75d8f"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-inverter-repair.blade.php",
+      "sha256": "1b57322bd81260edf75ee02b3666ca941d44d64b210355bd37e1457364492f16"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-processor-repair.blade.php",
+      "sha256": "1e7dcac646853bcf4f74b529b870ac00fb8fc16ed6b267749458ecca91bae37a"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-air-suspension-crash.blade.php",
+      "sha256": "ae150568da219cc7a065ec8d50d65f14453d72650dcf11f0f5721f07227eabe7"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-radiator-repair.blade.php",
+      "sha256": "94d3922bb10fd8411c3fdf0f5c4f4a9a1aeceba3543eb1799895320a69af4b23"
+    },
+    {
+      "path": "resources/views/services/targeted/tesla-control-arm-repair.blade.php",
+      "sha256": "2383a8039782cbf90d64d2ab3b48a12ddd3c0ee12c1ff2c13f76a3d978ddee1e"
+    },
+    {
+      "path": "resources/views/services/tesla-electricmotor-repair.blade.php",
+      "sha256": "d97a38c1f411d545a467d795374cc83c47aa585f1c37e7f20ab81af9e5f7c765"
+    },
+    {
+      "path": "resources/views/services/firmware-auto.blade.php",
+      "sha256": "8b48b5e4697a0563d04c70f49db736c20bcb1b7176628fa8d681a5f40583bf08"
+    },
+    {
+      "path": "resources/views/services/tesla-battery-repair.blade.php",
+      "sha256": "fe278ce95414f80a566f3c0cb1c08696749b0d34d35f7a2b7bc78d3e486d10f3"
+    },
+    {
+      "path": "resources/views/services/vidnovlennya-sertyfikativ-tesla.blade.php",
+      "sha256": "aa76490521cb76ea15c4c71b73dc2cb92ae0c0a209ca4582f44c55294c02e18d"
+    },
+    {
+      "path": "resources/views/services/tesla-subframe-repair.blade.php",
+      "sha256": "1487aaf3d2184bdbfa6728ef7162d4e8daa6b57fca71caff59de9e6ae0dac0e2"
+    },
+    {
+      "path": "resources/views/page.blade.php",
+      "sha256": "dcf5c290148b0326144c73ea182626a0bdcc129e658bf7f163678c6dba5c5fb3"
+    },
+    {
+      "path": "resources/views/contacts.blade.php",
+      "sha256": "a611bb662ccf34781de6edbb1d9da89e49a3cfd75a4d71270f10aaf35f6d4d8c"
+    },
+    {
+      "path": "resources/views/welcome.blade.php",
+      "sha256": "e50e41602994840b788471625fec54a4db6138ec971be05cfdfba40daf906c22"
+    },
+    {
+      "path": "resources/views/sitemap-index.blade.php",
+      "sha256": "82fe9116eedcd377363e4e709560075dcb23e19c226487d15e1b7d1e1950bdc9"
+    },
+    {
+      "path": "resources/views/home.blade.php",
+      "sha256": "434b7ac3a2f8a842ed4f4a4e12df31effab492b77f145bed306a3c1ab3a9abf6"
+    },
+    {
+      "path": "resources/views/partials/footer.blade.php",
+      "sha256": "c1d9434eba611d556a2e10d7f92e03a8cc276c3be0b53499b845ef359d8a3d7d"
+    },
+    {
+      "path": "resources/views/partials/header-cart.blade.php",
+      "sha256": "71cb312f5851bf9064494ef5a528a44c0b026b95ceea5875ab8fe03ec3876bf8"
+    },
+    {
+      "path": "resources/views/partials/analytics.blade.php",
+      "sha256": "5c6ff452331c6234775cd6bf83163cd20cb30c19a5faf0eec83775b58127f692"
+    },
+    {
+      "path": "resources/views/partials/call-tracking.blade.php",
+      "sha256": "9a0c6c0a04513ae8cd66525917ad85cab0cc4b7b4a0d27895fc91b97f7ab904f"
+    },
+    {
+      "path": "resources/views/partials/parts-contact.blade.php",
+      "sha256": "f656247fe8cbd9de74f05c5882f4e6481996a2bc3afd697992fe0d32e285ba4f"
+    },
+    {
+      "path": "resources/views/partials/mobile-menu-phones.blade.php",
+      "sha256": "620daddfb857f27450e21586e2f392eba25c26de6858cd05eb46ccbdc4ecb139"
+    },
+    {
+      "path": "resources/views/partials/parts-dropdown.blade.php",
+      "sha256": "91645c6cb0da091cb4fd04065f2c8df6110f05963c59336d3c7a20edb4d9fc21"
+    },
+    {
+      "path": "resources/views/partials/cart-modal.blade.php",
+      "sha256": "1a820146c0ec45ec8f5a0380b699394e9ec79963f9ebccc533372885a4b2f323"
+    },
+    {
+      "path": "resources/views/layouts/app.blade.php",
+      "sha256": "a46ba526d1b197c3ef6d9e6e5614183155e07d6260c38e2c955bf83679e0995a"
+    },
+    {
+      "path": "resources/views/layouts/parts.blade.php",
+      "sha256": "9883ecd8178d03462b76b998449b7111357255d7f7c835c8d9f6cfcf9f941b63"
+    },
+    {
+      "path": "resources/views/privacy.blade.php",
+      "sha256": "582c0570afeb67a5a1a61922e86169cb9f2632f41099532ec04115bf11b93bd7"
+    },
+    {
+      "path": "resources/views/sitemap.blade.php",
+      "sha256": "db8234b3d48e93fba793fffd069181fabdd13011f5a764dd4dc548baf3bdfd83"
+    },
+    {
+      "path": "resources/views/services_index.blade.php",
+      "sha256": "3fd5d6915457bb99f4065942c95d1bea8e1677fb3d11cf58516a0149dd682a04"
+    },
+    {
+      "path": "resources/views/parts/checkout.blade.php",
+      "sha256": "2c0ed93627d98ff59e08c0cc14541fa1daefb39a0ee16e075405eb55d9aea6b2"
+    },
+    {
+      "path": "resources/views/parts/_recommendation_cards.blade.php",
+      "sha256": "887ad94f44cc17de815d31637b14daf8eb31dd14313192cbb76c916ea66d6c79"
+    },
+    {
+      "path": "resources/views/parts/_model_intro.blade.php",
+      "sha256": "efb0e9c5cde511fc91418d7e16f86b681972ce62fcd312b9aae62b7d24c127e3"
+    },
+    {
+      "path": "resources/views/parts/_product_info.blade.php",
+      "sha256": "a18bcda0f2026fb71c50d49402c2a122954f1b88c6b2de3feac9c3ef3e6d8d00"
+    },
+    {
+      "path": "resources/views/parts/_product_details.blade.php",
+      "sha256": "a4ba1bb4a2735b2c3d3824f927b9b8451680ec6b622ef3e9356bb35704e261dc"
+    },
+    {
+      "path": "resources/views/parts/show.blade.php",
+      "sha256": "9f258df2af6dd21addda104c2dd4747dd4b89ec689095aa052e85d8a45b203a3"
+    },
+    {
+      "path": "resources/views/parts/index.blade.php",
+      "sha256": "b6ef6468ae9e82da764ea3f6d07ad3547a7c907a0111a758b10a3b9f368fb55d"
+    },
+    {
+      "path": "resources/views/parts/_sold_recommendations.blade.php",
+      "sha256": "af67313398308394e5b48cc582fbb546f85b50323e28cb069c96e854f8b6a711"
+    },
+    {
+      "path": "resources/views/parts/_delivery_and_returns.blade.php",
+      "sha256": "32a49a10c4c29820b7fc3560022aa8c9a429404afd9a69aaae37818303dca2ea"
+    },
+    {
+      "path": "resources/views/post.blade.php",
+      "sha256": "177ce96502c704c149d66e99cf8875d94f17d909dd1ebbe531d54f17bc065774"
+    },
+    {
+      "path": "routes/web.php",
+      "sha256": "2f52cbd992fbe6b94250967eb94e61ee4511fd28bb246d280796125964f5fd8e"
+    },
+    {
+      "path": "routes/console.php",
+      "sha256": "9adccc33e7dd400683e434774077c7fdb2f299c5712cedf16a43fdf56f2850fa"
+    },
+    {
+      "path": "composer.json",
+      "sha256": "61b6ba35dda4757989abaae3db646ebd19e42a51f41e2984486317c55808abe1"
+    },
+    {
+      "path": "composer.lock",
+      "sha256": "62ed3ac009f0f31f26db00ce44dcdccd40ce19c954c9fe8a942865e89411d11f"
+    },
+    {
+      "path": "app/Services/CategoryCatalogSeo.php",
+      "sha256": "57be39943c632a40b14675efca4da9f83b0719150d11bdf96167cc6c959b7565"
+    },
+    {
+      "path": "resources/views/parts/_category_intro.blade.php",
+      "sha256": "5cf818cbe92b4c9701fa17e25c09b2cf1bb68607d20ba3a16049ef1cdc440ce9"
+    },
+    {
+      "path": "app/Services/CatalogNavigation.php",
+      "sha256": "69f0a0cc88d1375ed664fa603bd03b6c5492f001e443f62f808c1f5500b6de64"
+    },
+    {
+      "path": "resources/views/parts/_catalog_navigation.blade.php",
+      "sha256": "a818c3e726a216a5382b675ded75139a025a142fdd872a9a74160d55710726d8"
+    },
+    {
+      "path": ".env",
+      "sha256": "79caebc96591b2360327a5e1ca19687db404afeff95d724cb774a3793917d113"
+    },
+    {
+      "path": "bootstrap/cache/config.php",
+      "sha256": null
+    },
+    {
+      "path": "storage/framework/down",
+      "sha256": null
+    },
+    {
+      "path": "vendor/composer/installed.json",
+      "sha256": "74b6638560c1f8e5ca133819ba03c2537e656d47c35f1ff7c3f136bceff39797"
+    },
+    {
+      "path": "vendor/composer/autoload_real.php",
+      "sha256": "3c5b241063c4fdf2f81b106aef08dedd7efa08ead98975053552dba50dbe711c"
+    },
+    {
+      "path": "vendor/composer/autoload_psr4.php",
+      "sha256": "cd8ae97eeee2d30b361649ddb14e3fd7766e4c1e584697dbd8d7b099f625ac8c"
+    }
+  ],
+  "completed_utc": "2026-10-29T19:37:48.116318+00:00"
+}

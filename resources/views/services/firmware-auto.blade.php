@@ -5,13 +5,13 @@
 @endphp
 
 @section('title', $isRu
-  ? 'Прошивка автомобилей Tesla в Киеве 🛠️ NikolaCars — все для авто Tesla'
-  : 'Прошивка автомобілів Тесла в Києві 🛠️ NikolaCars — все для авто Tesla'
+  ? 'Прошивка и настройка Tesla в Киеве | NikolaCars'
+  : 'Прошивка та налаштування Tesla у Києві | NikolaCars'
 )
 
 @section('description', $isRu
-  ? 'Прошивка автомобилей Tesla в Киеве 🚗 Подбор и доставка авто Tesla в Украину под ключ. Обслуживание на нашем СТО, прошивка авто. Ваши желания — наши решения.'
-  : 'Прошивка автомобілів Тесла в Києві 🚗 Підбір та доставка автомобілів Tesla в Україну під ключ. Обслуговування на нашому СТО, Прошивка авто. Ваші бажання — Наші рішення.'
+  ? 'Диагностика и настройка программного обеспечения Tesla в Киеве. Проверяем конфигурацию, согласуем работы и проверяем результат. NikolaCars.'
+  : 'Діагностика та налаштування програмного забезпечення Tesla у Києві. Перевіряємо конфігурацію, погоджуємо роботи та перевіряємо результат. NikolaCars.'
 )
 
 @section('content')
@@ -25,7 +25,7 @@
             {{-- LEFT TEXT --}}
             <div class="service-hero-left">
               <h1 class="service-hero-title">
-                {{ $isRu ? 'Обновление прошивки Tesla' : 'Оновлення прошивки Tesla' }}
+                {{ $isRu ? 'Прошивка и настройка Tesla' : 'Прошивка та налаштування Tesla' }}
               </h1>
               <div class="service-hero-subtitle">
                 {{ $isRu
@@ -99,7 +99,7 @@
 
       <div class="service-article-text">
 
-        <h3>{{ $isRu ? 'Обновление прошивки Tesla' : 'Оновлення прошивки Tesla' }}</h3>
+        <h3>{{ $isRu ? 'Прошивка и настройка Tesla' : 'Прошивка та налаштування Tesla' }}</h3>
 
         <h4>{{ $isRu ? 'Профессиональное обновление, адаптация и настройка ПО Tesla' : 'Професійне оновлення, адаптація та налаштування ПЗ Tesla' }}</h4>
 
@@ -466,8 +466,8 @@
 
       <p>
         {{ $isRu
-          ? 'Мы выполняем полный спектр работ, чтобы ваша Tesla всегда была в отличном техническом состоянии. Профессионализм сотрудников NikolaCars гарантирует безопасную и качественную прошивку автомобиля без рисков для электроники.'
-          : 'Ми виконуємо повний спектр робіт, щоб ваша Tesla завжди була у відмінному технічному стані. Професіоналізм співробітників NikolaCars гарантує безпечну та якісну прошивку автомобіля без ризиків для електроніки.'
+          ? 'Мы выполняем полный спектр работ, чтобы ваша Tesla всегда была в отличном техническом состоянии. Перед работами проверяем конфигурацию и согласуем объём; после — проверяем доступные функции.'
+          : 'Ми виконуємо повний спектр робіт, щоб ваша Tesla завжди була у відмінному технічному стані. Перед роботами перевіряємо конфігурацію та погоджуємо обсяг; після — перевіряємо доступні функції.'
         }}
       </p>
 
@@ -492,6 +492,8 @@
   </div>
 </section>
 
+@include('partials.service-related', ['serviceSlug' => 'firmware-auto'])
+
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', () => {
@@ -499,6 +501,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!form) return;
 
   const submitBtn = form.querySelector('.call-submit');
+  const successMessage = form.querySelector('.call-success');
+  const defaultSuccessMessage = successMessage?.textContent.trim() || '';
   const csrf = form.querySelector('input[name="_token"]')?.value || '';
 
   const phoneInput = document.getElementById('phoneInput');
@@ -577,7 +581,11 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      form.reset();
+      window.ncAnalytics?.lead('service_callback');
+      if (successMessage) {
+        successMessage.textContent = window.ncLeadSuccessMessage(json, defaultSuccessMessage);
+      }
+          form.reset();
       form.classList.add('is-success');
     } catch (err) {
       console.error(err);

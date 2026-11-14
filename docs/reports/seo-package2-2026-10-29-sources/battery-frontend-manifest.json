@@ -1,0 +1,31 @@
+{
+  "status": "prepared; apply ONLY after verified backend normalization deployment",
+  "dependency": "StorefrontCatalogTaxonomy/Query/Service package2",
+  "files": [
+    {
+      "path": "app/Services/CatalogPath.php",
+      "independent_sha256": "62ec932377d4809fcb3b80e10d114070ade7f55ead70d5aab7bea66722e62bc6",
+      "full_battery_candidate_sha256": "65ba12f1ddf8531b38cbe20f959325cfe659ed656bd787bbb279fe5a6d3e88b6"
+    },
+    {
+      "path": "app/Http/Controllers/PartsController.php",
+      "independent_sha256": "6cfa489fed921f8ba897198ec411fc92a702f739ce225a002230e85944fdf51e",
+      "full_battery_candidate_sha256": "1a8ff8bdee58aa815415659aa9f3f1a2e484da14c92619b40486cb8fd52ab26c"
+    },
+    {
+      "path": "app/Http/Controllers/SiteController.php",
+      "independent_sha256": "c6b927878fe0fd9f53330f0465a67e44bd16b28b57821bcb32fa9c9123ba3597",
+      "full_battery_candidate_sha256": "8094c5f5a4cf5d1317080fe906c104af9ddbef77972b41513336a5b951c47fcd"
+    },
+    {
+      "path": "resources/views/parts/show.blade.php",
+      "independent_sha256": "62f0718c4ebcabf97bb7c7510868e1c9ddde2f80284a64fabad50618767ab8a4",
+      "full_battery_candidate_sha256": "9f258df2af6dd21addda104c2dd4747dd4b89ec689095aa052e85d8a45b203a3"
+    },
+    {
+      "path": "resources/views/parts/_model_intro.blade.php",
+      "independent_sha256": "2a5ceaa05b0dc3594a84bcbee418b94cee7f09e8ba0ed12c85e5ec3a895b4032",
+      "full_battery_candidate_sha256": "efb0e9c5cde511fc91418d7e16f86b681972ce62fcd312b9aae62b7d24c127e3"
+    }
+  ]
+}

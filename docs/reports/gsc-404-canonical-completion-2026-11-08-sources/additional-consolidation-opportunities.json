@@ -1,0 +1,321 @@
+[
+  {
+    "row": 65,
+    "group": "canonical",
+    "url": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+    "id": null,
+    "gsc_summary_date": "2026-10-23",
+    "previous_decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages",
+    "category": "current_html_valid_consolidation_unverified",
+    "verdict": "Текущий self-canonical корректен. Исторический кандидат консолидации остаётся предложением: полные parent/leaf наборы обеих локалей в этом этапе не доказаны; не объявлен ошибкой и не изменён.",
+    "primary_check": {
+      "method": "HTTP HTML",
+      "http_status": 200,
+      "observed_utc": "2026-11-08T18:25:48.203Z",
+      "check_date": "2026-11-08",
+      "canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/"
+      ],
+      "location": null,
+      "final_url": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+      "final_dom_error": null,
+      "final_product": null
+    },
+    "candidate_pair": {
+      "model": "",
+      "parent_path": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer",
+      "leaf_path": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer--bortovoi-zariadnyi-modul-cardzer",
+      "full_ua_ru_equivalence_proven": false
+    }
+  },
+  {
+    "row": 67,
+    "group": "canonical",
+    "url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/galma/pedal-galma/pedal-galma/",
+    "id": null,
+    "gsc_summary_date": "2026-10-23",
+    "previous_decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages",
+    "category": "current_html_valid_consolidation_unverified",
+    "verdict": "Текущий self-canonical корректен. Исторический кандидат консолидации остаётся предложением: полные parent/leaf наборы обеих локалей в этом этапе не доказаны; не объявлен ошибкой и не изменён.",
+    "primary_check": {
+      "method": "HTTP HTML",
+      "http_status": 200,
+      "observed_utc": "2026-11-08T18:26:14.896Z",
+      "check_date": "2026-11-08",
+      "canonical": [
+        "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/galma/pedal-galma/pedal-galma/"
+      ],
+      "location": null,
+      "final_url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/galma/pedal-galma/pedal-galma/",
+      "final_dom_error": null,
+      "final_product": null
+    },
+    "candidate_pair": {
+      "model": "model-s-04-2016-01-2021",
+      "parent_path": "galma--pedal-galma",
+      "leaf_path": "galma--pedal-galma--pedal-galma",
+      "full_ua_ru_equivalence_proven": false
+    }
+  },
+  {
+    "row": 74,
+    "group": "canonical",
+    "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/",
+    "id": null,
+    "gsc_summary_date": "2026-10-23",
+    "previous_decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages",
+    "category": "current_html_valid_consolidation_unverified",
+    "verdict": "Текущий self-canonical корректен. Исторический кандидат консолидации остаётся предложением: полные parent/leaf наборы обеих локалей в этом этапе не доказаны; не объявлен ошибкой и не изменён.",
+    "primary_check": {
+      "method": "HTTP HTML",
+      "http_status": 200,
+      "observed_utc": "2026-11-08T18:27:41.929Z",
+      "check_date": "2026-11-08",
+      "canonical": [
+        "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/"
+      ],
+      "location": null,
+      "final_url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/",
+      "final_dom_error": null,
+      "final_product": null
+    },
+    "candidate_pair": {
+      "model": "model-s-02-2012-03-2016",
+      "parent_path": "zovnisnia-furnitura--nakladki-pidkapotnogo-vidsiku",
+      "leaf_path": "zovnisnia-furnitura--nakladki-pidkapotnogo-vidsiku--nakladki-pidkapotnogo-vidsiku",
+      "full_ua_ru_equivalence_proven": false
+    }
+  },
+  {
+    "row": 78,
+    "group": "canonical",
+    "url": "https://nikolacars.kiev.ua/parts/perednii-motor/peredni-pivosi/peredni-pivosi/",
+    "id": null,
+    "gsc_summary_date": "2026-10-23",
+    "previous_decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages",
+    "category": "current_html_valid_consolidation_unverified",
+    "verdict": "Текущий self-canonical корректен. Исторический кандидат консолидации остаётся предложением: полные parent/leaf наборы обеих локалей в этом этапе не доказаны; не объявлен ошибкой и не изменён.",
+    "primary_check": {
+      "method": "IAB rendered DOM",
+      "http_status": null,
+      "observed_utc": null,
+      "check_date": "2026-11-08",
+      "canonical": [
+        "https://nikolacars.kiev.ua/parts/perednii-motor/peredni-pivosi/peredni-pivosi/"
+      ],
+      "location": null,
+      "final_url": "https://nikolacars.kiev.ua/parts/perednii-motor/peredni-pivosi/peredni-pivosi/",
+      "final_dom_error": null,
+      "final_product": null
+    },
+    "candidate_pair": {
+      "model": "",
+      "parent_path": "perednii-motor--peredni-pivosi",
+      "leaf_path": "perednii-motor--peredni-pivosi--peredni-pivosi",
+      "full_ua_ru_equivalence_proven": false
+    }
+  },
+  {
+    "row": 79,
+    "group": "canonical",
+    "url": "https://nikolacars.kiev.ua/parts/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/",
+    "id": null,
+    "gsc_summary_date": "2026-10-23",
+    "previous_decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages",
+    "category": "current_html_valid_consolidation_unverified",
+    "verdict": "Текущий self-canonical корректен. Исторический кандидат консолидации остаётся предложением: полные parent/leaf наборы обеих локалей в этом этапе не доказаны; не объявлен ошибкой и не изменён.",
+    "primary_check": {
+      "method": "IAB rendered DOM",
+      "http_status": null,
+      "observed_utc": null,
+      "check_date": "2026-11-08",
+      "canonical": [
+        "https://nikolacars.kiev.ua/parts/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/"
+      ],
+      "location": null,
+      "final_url": "https://nikolacars.kiev.ua/parts/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/",
+      "final_dom_error": null,
+      "final_product": null
+    },
+    "candidate_pair": {
+      "model": "",
+      "parent_path": "zovnisnia-furnitura--ozdoblennia-otvoru-kriski-bagaznika",
+      "leaf_path": "zovnisnia-furnitura--ozdoblennia-otvoru-kriski-bagaznika--ozdoblennia-otvoru-kriski-bagaznika",
+      "full_ua_ru_equivalence_proven": false
+    }
+  },
+  {
+    "row": 81,
+    "group": "canonical",
+    "url": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/",
+    "id": null,
+    "gsc_summary_date": "2026-10-23",
+    "previous_decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages",
+    "category": "current_html_valid_consolidation_unverified",
+    "verdict": "Текущий self-canonical корректен. Исторический кандидат консолидации остаётся предложением: полные parent/leaf наборы обеих локалей в этом этапе не доказаны; не объявлен ошибкой и не изменён.",
+    "primary_check": {
+      "method": "IAB rendered DOM",
+      "http_status": null,
+      "observed_utc": null,
+      "check_date": "2026-11-08",
+      "canonical": [
+        "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/"
+      ],
+      "location": null,
+      "final_url": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/",
+      "final_dom_error": null,
+      "final_product": null
+    },
+    "candidate_pair": {
+      "model": "model-3-highland-01-2024",
+      "parent_path": "zovnisnia-furnitura--ozdoblennia-otvoru-kriski-bagaznika",
+      "leaf_path": "zovnisnia-furnitura--ozdoblennia-otvoru-kriski-bagaznika--ozdoblennia-otvoru-kriski-bagaznika",
+      "full_ua_ru_equivalence_proven": false
+    }
+  },
+  {
+    "row": 83,
+    "group": "canonical",
+    "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/",
+    "id": null,
+    "gsc_summary_date": "2026-10-23",
+    "previous_decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages",
+    "category": "current_html_valid_consolidation_unverified",
+    "verdict": "Текущий self-canonical корректен. Исторический кандидат консолидации остаётся предложением: полные parent/leaf наборы обеих локалей в этом этапе не доказаны; не объявлен ошибкой и не изменён.",
+    "primary_check": {
+      "method": "IAB rendered DOM",
+      "http_status": null,
+      "observed_utc": null,
+      "check_date": "2026-11-08",
+      "canonical": [
+        "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/"
+      ],
+      "location": null,
+      "final_url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/",
+      "final_dom_error": null,
+      "final_product": null
+    },
+    "candidate_pair": {
+      "model": "model-s-02-2012-03-2016",
+      "parent_path": "vnutrisnje-ozdoblennia--ozdoblennia-steli-salonu",
+      "leaf_path": "vnutrisnje-ozdoblennia--ozdoblennia-steli-salonu--ozdoblennia-steli-salonu",
+      "full_ua_ru_equivalence_proven": false
+    }
+  },
+  {
+    "row": 84,
+    "group": "canonical",
+    "url": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/",
+    "id": null,
+    "gsc_summary_date": "2026-10-23",
+    "previous_decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages",
+    "category": "current_html_valid_consolidation_unverified",
+    "verdict": "Текущий self-canonical корректен. Исторический кандидат консолидации остаётся предложением: полные parent/leaf наборы обеих локалей в этом этапе не доказаны; не объявлен ошибкой и не изменён.",
+    "primary_check": {
+      "method": "IAB rendered DOM",
+      "http_status": null,
+      "observed_utc": null,
+      "check_date": "2026-11-08",
+      "canonical": [
+        "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/"
+      ],
+      "location": null,
+      "final_url": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/",
+      "final_dom_error": null,
+      "final_product": null
+    },
+    "candidate_pair": {
+      "model": "",
+      "parent_path": "vnutrisnje-ozdoblennia--ozdoblennia-steli-salonu",
+      "leaf_path": "vnutrisnje-ozdoblennia--ozdoblennia-steli-salonu--ozdoblennia-steli-salonu",
+      "full_ua_ru_equivalence_proven": false
+    }
+  },
+  {
+    "row": 85,
+    "group": "canonical",
+    "url": "https://nikolacars.kiev.ua/parts/elektrika/datciki-radaru/datciki-radaru/",
+    "id": null,
+    "gsc_summary_date": "2026-10-23",
+    "previous_decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages",
+    "category": "current_html_valid_consolidation_unverified",
+    "verdict": "Текущий self-canonical корректен. Исторический кандидат консолидации остаётся предложением: полные parent/leaf наборы обеих локалей в этом этапе не доказаны; не объявлен ошибкой и не изменён.",
+    "primary_check": {
+      "method": "IAB rendered DOM",
+      "http_status": null,
+      "observed_utc": null,
+      "check_date": "2026-11-08",
+      "canonical": [
+        "https://nikolacars.kiev.ua/parts/elektrika/datciki-radaru/datciki-radaru/"
+      ],
+      "location": null,
+      "final_url": "https://nikolacars.kiev.ua/parts/elektrika/datciki-radaru/datciki-radaru/",
+      "final_dom_error": null,
+      "final_product": null
+    },
+    "candidate_pair": {
+      "model": "",
+      "parent_path": "elektrika--datciki-radaru",
+      "leaf_path": "elektrika--datciki-radaru--datciki-radaru",
+      "full_ua_ru_equivalence_proven": false
+    }
+  },
+  {
+    "row": 86,
+    "group": "canonical",
+    "url": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/elektrika/frontalnaia-kamera/frontalnaia-kamera/",
+    "id": null,
+    "gsc_summary_date": "2026-10-23",
+    "previous_decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages",
+    "category": "current_html_valid_consolidation_unverified",
+    "verdict": "Текущий self-canonical корректен. Исторический кандидат консолидации остаётся предложением: полные parent/leaf наборы обеих локалей в этом этапе не доказаны; не объявлен ошибкой и не изменён.",
+    "primary_check": {
+      "method": "IAB rendered DOM",
+      "http_status": null,
+      "observed_utc": null,
+      "check_date": "2026-11-08",
+      "canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/elektrika/frontalnaia-kamera/frontalnaia-kamera/"
+      ],
+      "location": null,
+      "final_url": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/elektrika/frontalnaia-kamera/frontalnaia-kamera/",
+      "final_dom_error": null,
+      "final_product": null
+    },
+    "candidate_pair": {
+      "model": "model-s-02-2012-03-2016",
+      "parent_path": "elektrika--frontalnaia-kamera",
+      "leaf_path": "elektrika--frontalnaia-kamera--frontalnaia-kamera",
+      "full_ua_ru_equivalence_proven": false
+    }
+  },
+  {
+    "row": 90,
+    "group": "canonical",
+    "url": "https://nikolacars.kiev.ua/parts/diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms/",
+    "id": null,
+    "gsc_summary_date": "2026-10-23",
+    "previous_decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages",
+    "category": "current_html_valid_consolidation_unverified",
+    "verdict": "Текущий self-canonical корректен. Исторический кандидат консолидации остаётся предложением: полные parent/leaf наборы обеих локалей в этом этапе не доказаны; не объявлен ошибкой и не изменён.",
+    "primary_check": {
+      "method": "IAB rendered DOM",
+      "http_status": null,
+      "observed_utc": null,
+      "check_date": "2026-11-08",
+      "canonical": [
+        "https://nikolacars.kiev.ua/parts/diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms/"
+      ],
+      "location": null,
+      "final_url": "https://nikolacars.kiev.ua/parts/diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms/",
+      "final_dom_error": null,
+      "final_product": null
+    },
+    "candidate_pair": {
+      "model": "",
+      "parent_path": "diski-i-sini--sistema-kontroliu-tisku-v-sinax-tpms",
+      "leaf_path": "diski-i-sini--sistema-kontroliu-tisku-v-sinax-tpms--sistema-kontroliu-tisku-v-sinax-tpms",
+      "full_ua_ru_equivalence_proven": false
+    }
+  }
+]

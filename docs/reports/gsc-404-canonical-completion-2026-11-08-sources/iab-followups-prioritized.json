@@ -1,0 +1,266 @@
+{
+  "built_utc": "2026-11-08T18:33:56.638Z",
+  "seen_source_and_extra": 81,
+  "remaining_known": 50,
+  "priority_1": 12,
+  "priority_2": 31,
+  "optional_released_rechecks": 7,
+  "notes": [
+    "After each first-page pair, reject merging immediately when total differs.",
+    "Only nonempty pairs proposed for merging need all pages and both locales.",
+    "Do not crawl all pages of broad legacy category roots.",
+    "Further counterpart/parent URLs must be grounded in observed DOM, not guessed."
+  ],
+  "queue": [
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/pedal-galma/",
+      "priority": 1,
+      "purpose": "Resolve observed source redirect target"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/visokovoltna-batareia/",
+      "priority": 1,
+      "purpose": "Resolve observed source redirect target"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/visokovoltna-batareia/",
+      "priority": 1,
+      "purpose": "Resolve observed source redirect target"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/lead/callback/",
+      "priority": 1,
+      "purpose": "Resolve observed source redirect target"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/1502086-00-b-103760/",
+      "priority": 1,
+      "purpose": "Resolve observed source redirect target"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/1098751-00-c-77120/",
+      "priority": 1,
+      "purpose": "Resolve observed source redirect target"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/1006427-01-a-108973/",
+      "priority": 1,
+      "purpose": "Resolve observed source redirect target"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/contacts/",
+      "priority": 1,
+      "purpose": "Resolve observed source redirect target"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/privacy-policy/",
+      "priority": 1,
+      "purpose": "Resolve observed source redirect target"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/services/tesla-service/",
+      "priority": 1,
+      "purpose": "Resolve observed source redirect target"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/privacy-policy/",
+      "priority": 1,
+      "purpose": "Resolve observed source redirect target"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+      "priority": 1,
+      "purpose": "Resolve observed source redirect target"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/visokovoltna-batareia/vysokovoltnaia-batareia/",
+      "priority": 2,
+      "purpose": "Needed parent/leaf, legacy Google target or observed opposite-locale counterpart"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/",
+      "priority": 2,
+      "purpose": "Needed parent/leaf, legacy Google target or observed opposite-locale counterpart"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/galma/pedal-galma/",
+      "priority": 2,
+      "purpose": "Needed parent/leaf, legacy Google target or observed opposite-locale counterpart"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/diski/",
+      "priority": 2,
+      "purpose": "Needed parent/leaf, legacy Google target or observed opposite-locale counterpart"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-batareia/visokovoltna-batareia/visokovoltna-batareia/",
+      "priority": 2,
+      "purpose": "Needed parent/leaf, legacy Google target or observed opposite-locale counterpart"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/",
+      "priority": 2,
+      "purpose": "Needed parent/leaf, legacy Google target or observed opposite-locale counterpart"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/",
+      "priority": 2,
+      "purpose": "Needed parent/leaf, legacy Google target or observed opposite-locale counterpart"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/visokovoltna-batareia/visokovoltna-batareia/visokovoltna-batareia/",
+      "priority": 2,
+      "purpose": "Needed parent/leaf, legacy Google target or observed opposite-locale counterpart"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/perednii-motor/peredni-pivosi/",
+      "priority": 2,
+      "purpose": "Needed parent/leaf, legacy Google target or observed opposite-locale counterpart"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/",
+      "priority": 2,
+      "purpose": "Needed parent/leaf, legacy Google target or observed opposite-locale counterpart"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/",
+      "priority": 2,
+      "purpose": "Needed parent/leaf, legacy Google target or observed opposite-locale counterpart"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/",
+      "priority": 2,
+      "purpose": "Needed parent/leaf, legacy Google target or observed opposite-locale counterpart"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/",
+      "priority": 2,
+      "purpose": "Needed parent/leaf, legacy Google target or observed opposite-locale counterpart"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/elektrika/datciki-radaru/",
+      "priority": 2,
+      "purpose": "Needed parent/leaf, legacy Google target or observed opposite-locale counterpart"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/elektrika/frontalnaia-kamera/",
+      "priority": 2,
+      "purpose": "Needed parent/leaf, legacy Google target or observed opposite-locale counterpart"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/diski-i-siny/diski/",
+      "priority": 2,
+      "purpose": "Needed parent/leaf, legacy Google target or observed opposite-locale counterpart"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-batareia/visokovoltna-batareia/visokovoltna-batareia/",
+      "priority": 2,
+      "purpose": "Needed parent/leaf, legacy Google target or observed opposite-locale counterpart"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/",
+      "priority": 2,
+      "purpose": "Needed parent/leaf, legacy Google target or observed opposite-locale counterpart"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/category/vnutrisnje-ozdoblennia/",
+      "priority": 2,
+      "purpose": "Needed parent/leaf, legacy Google target or observed opposite-locale counterpart"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/category/komponenti-zakrittia/",
+      "priority": 2,
+      "purpose": "Needed parent/leaf, legacy Google target or observed opposite-locale counterpart"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/panel-priladiv/panel-priladiv/",
+      "priority": 2,
+      "purpose": "Needed parent/leaf, legacy Google target or observed opposite-locale counterpart"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/visokovoltna-batareia/visokovoltna-batareia/",
+      "priority": 2,
+      "purpose": "Needed parent/leaf, legacy Google target or observed opposite-locale counterpart"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/zadnii-motor/zadni-pivosi/zadni-pivosi/",
+      "priority": 2,
+      "purpose": "Needed parent/leaf, legacy Google target or observed opposite-locale counterpart"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/",
+      "priority": 2,
+      "purpose": "Needed parent/leaf, legacy Google target or observed opposite-locale counterpart"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/tormoza/pedal-tormoza/pedal-tormoza/",
+      "priority": 2,
+      "purpose": "Needed parent/leaf, legacy Google target or observed opposite-locale counterpart"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/tormoza/pedal-tormoza/pedal-tormoza/",
+      "priority": 2,
+      "purpose": "Needed parent/leaf, legacy Google target or observed opposite-locale counterpart"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+      "priority": 2,
+      "purpose": "Needed parent/leaf, legacy Google target or observed opposite-locale counterpart"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/vysokovoltnaia-sistema/vysokovoltnye-provoda/vysokovoltnye-provoda/",
+      "priority": 2,
+      "purpose": "Needed parent/leaf, legacy Google target or observed opposite-locale counterpart"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/perednii-motor/perednie-poluosi/perednie-poluosi/",
+      "priority": 2,
+      "purpose": "Needed parent/leaf, legacy Google target or observed opposite-locale counterpart"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/zadnii-motor/zadnie-poluosi/zadnie-poluosi/",
+      "priority": 2,
+      "purpose": "Needed parent/leaf, legacy Google target or observed opposite-locale counterpart"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/naruznaia-furnitura/nakladki-podkapotnogo-otseka/nakladki-podkapotnogo-otseka/",
+      "priority": 2,
+      "purpose": "Needed parent/leaf, legacy Google target or observed opposite-locale counterpart"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/",
+      "priority": 4,
+      "purpose": "Optional current recheck of an already released parent alias"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/",
+      "priority": 4,
+      "purpose": "Optional current recheck of an already released parent alias"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/",
+      "priority": 4,
+      "purpose": "Optional current recheck of an already released parent alias"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/galma/pedal-galma/",
+      "priority": 4,
+      "purpose": "Optional current recheck of an already released parent alias"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-sistema/visokovoltni-provoda/",
+      "priority": 4,
+      "purpose": "Optional current recheck of an already released parent alias"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/perednii-motor/peredni-pivosi/",
+      "priority": 4,
+      "purpose": "Optional current recheck of an already released parent alias"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/zadnii-motor/zadni-pivosi/",
+      "priority": 4,
+      "purpose": "Optional current recheck of an already released parent alias"
+    }
+  ]
+}

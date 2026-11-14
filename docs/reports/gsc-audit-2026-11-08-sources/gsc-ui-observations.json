@@ -1,0 +1,73 @@
+{
+  "checked_date": "2026-11-08",
+  "report_timezone": "Europe/Kyiv",
+  "property": "https://nikolacars.kiev.ua/",
+  "method": "Authenticated Search Console read-only IAB UI observations; selected public pages read from rendered DOM. Summarized observations, not full raw account export.",
+  "external_mutations": [],
+  "performance_date_dialog": {
+    "start": "2026-10-10", "end": "2026-11-06",
+    "previous_start": "2026-09-12", "previous_end": "2026-10-09",
+    "search_type": "web", "average_position_ui": 7.3, "previous_average_position_ui": 7.5
+  },
+  "indexing": {
+    "updated": "2026-10-23", "indexed": 9060, "excluded": 1865,
+    "all_reasons": {"redirect":1221,"discovered_not_indexed":386,"crawled_not_indexed":137,"404":60,"google_canonical_differs":32,"noindex":15,"5xx":13,"alternate_canonical":1},
+    "submitted_excluded":421,
+    "submitted_reasons":{"discovered_not_indexed":386,"crawled_not_indexed":31,"5xx":2,"google_canonical_differs":2,"404":0,"redirect":0}
+  },
+  "sitemaps_gsc": [
+    {"path":"/sitemap.xml","last_read":"2026-11-05","status":"success","urls":7979},
+    {"path":"/sitemaps/pages.xml","last_read":"2026-11-05","status":"success","urls":114},
+    {"path":"/sitemaps/parts-ru.xml","last_read":"2026-11-07","status":"success","urls":3965},
+    {"path":"/sitemaps/parts-uk.xml","last_read":"2026-11-07","status":"success","urls":3900}
+  ],
+  "crawl_overview": {
+    "updated":"2026-11-06","requests_ui_rounded":"23.7k","download_bytes_ui_rounded":"304m","average_response_ms_ui_rounded":1150,
+    "response_percentages_ui":{"200":"91%","301":"7%","404":"2%","5xx":"<1%","unreachable":"<1%"},
+    "purpose_percentages_ui":{"discovery":56,"refresh":44},
+    "host_status":"Past problems; recently successful. Server connection failures acceptable in recent days, elevated in past. DNS and robots failures acceptable.",
+    "response_5xx_ui_total":161,"example_rows":163,
+    "last_nine_examples_ui_date":"2026-11-02","last_nine_examples_ui_time_range":"10:55–12:18",
+    "chart_date_caveat":"Export daily chart assigns latest nine 5xx to 2026-11-01; 2026-11-02 through 2026-11-06 are zero. No timezone transformation assumed."
+  },
+  "enhancements": {
+    "product":{"updated":"2026-11-07","valid":24,"invalid":0,"optional_aggregateRating":24,"optional_review":24},
+    "merchant":{"updated":"2026-11-07","valid":24,"invalid":0,"shippingDetails":3,"hasMerchantReturnPolicy":{"count":3,"validation":"fixed"},"category":{"count":3,"validation":"fixed"},"image":0,"returnMethod":0},
+    "shipping_examples":[
+      {"path":"/ru/parts/1496769-00-j-110960/","last_crawl":"2026-10-07"},
+      {"path":"/ru/parts/1081400-e0-d-113126/","last_crawl":"2026-09-25"},
+      {"path":"/ru/parts/2068789-00-b-99930/","last_crawl":"2026-09-25"}
+    ],
+    "cwv":{"updated":"2026-11-07","mobile":{"good":187,"needs_improvement":0,"poor":0},"desktop":{"good":187,"needs_improvement":0,"poor":0}},
+    "https":{"updated":"2026-11-08","https":186,"non_https":0,"issues_90_days":false},
+    "breadcrumbs_overview":{"valid":62,"invalid":0,"individual_report_date_read":false},
+    "manual_actions":"no problems","security_issues":"no problems"
+  },
+  "url_inspections":[
+    {"path":"/parts/1004424-00-g-102415/","indexed":true,"last_crawl_ui":"2026-11-03 04:38:24","google_canonical":"inspected URL","fetch":"success","crawl_allowed":true,"index_allowed":true,"agent":"smartphone","sitemap_field":"temporary processing error","inspection_id":"15tzqJGehHAQ8DX443Z4CQ"},
+    {"path":"/ru/parts/1004424-00-g-102415/","indexed":true,"last_crawl_ui":"2026-10-31 15:24:56","google_canonical":"inspected URL","fetch":"success","crawl_allowed":true,"index_allowed":true,"agent":"smartphone","sitemap_field":"https://nikolacars.kiev.ua/sitemap.xml","inspection_id":"Y7MyHD2TRIR8zJm7Lk1jIg"},
+    {"path":"/parts/1008471-00-a-113113/","indexed":true,"last_crawl_ui":"2026-11-08 02:31:57","google_canonical":"inspected URL","fetch":"success","crawl_allowed":true,"index_allowed":true,"agent":"smartphone","sitemap_field":"temporary processing error","inspection_id":"2UR9q6GJcDv97MA4F5ig9Q"},
+    {"path":"/ru/parts/1008471-00-a-113113/","indexed":true,"last_crawl_ui":"2026-10-31 15:24:55","google_canonical":"inspected URL","fetch":"success","crawl_allowed":true,"index_allowed":true,"agent":"smartphone","sitemap_field":"https://nikolacars.kiev.ua/sitemap.xml","inspection_id":"15X7BuR-90X2TPGcypHasQ"},
+    {"path":"/ru/parts/1035563-00-c-113524/","indexed":false,"reason":"crawled not indexed","last_crawl_ui":"2026-10-17 19:14:49","google_canonical":"inspected URL","fetch":"success","crawl_allowed":true,"index_allowed":true,"agent":"smartphone","sitemap_field":"temporary processing error","inspection_id":"ANMCrNz5pzx6cVd39l6CQg"},
+    {"path":"/parts/1009621-00-l-113595/","indexed":false,"reason":"URL unknown to Google","last_crawl_ui":null,"sitemap_field":"none","inspection_id":"_g5AD4-Ow-zqS_DUGIB3Kw"}
+  ],
+  "public_page_checks":[
+    {"path":"/parts/1092305-00-b-113791/","rendered":true,"self_canonical":true,"meta_robots":null,"displayed_price_uah":1380,"displayed_stock":1,"http_status_observed":null},
+    {"path":"/ru/parts/1068969-99-e-93053/","rendered":true,"self_canonical":true,"meta_robots":null,"displayed_price_uah":740,"displayed_stock":1,"http_status_observed":null},
+    {"path":"/parts/1009621-00-l-113595/","rendered":true,"price":"on request","displayed_stock":1,"jsonld_types":["WebPage","BreadcrumbList"],"product_offer_present":false,"h1":"Петля капота права після 21 року — Tesla Model X 09.2015-02.2021 — 1009621-00-L","compatibility_requires_factual_review":true}
+  ],
+  "exact_page_query_filters":[
+    {"path":"/ru/services/tesla-inverter-repair/","clicks":1,"previous_clicks":3,"impressions":411,"previous_impressions":215,"position_ui":7.6,"previous_position_ui":7.5,"queries":[
+      {"query":"инвертор тесла","clicks":0,"previous_clicks":1,"impressions":114,"previous_impressions":39},
+      {"query":"тесла инвертор","clicks":0,"previous_clicks":0,"impressions":43,"previous_impressions":17},
+      {"query":"тесла інвертор","clicks":0,"previous_clicks":0,"impressions":35,"previous_impressions":1}
+    ]},
+    {"path":"/services/tesla-navigation-firmware/","clicks":48,"previous_clicks":72,"impressions":725,"previous_impressions":874,"position_ui":7.1,"previous_position_ui":6.9,"queries":[
+      {"query":"кастомні карти тесла","clicks":7,"previous_clicks":6,"impressions":27,"previous_impressions":43},
+      {"query":"навігація тесла в україні","clicks":2,"previous_clicks":0,"impressions":11,"previous_impressions":18},
+      {"query":"редактор конфігурації тесли","clicks":0,"previous_clicks":0,"impressions":17,"previous_impressions":22},
+      {"query":"активація fsd tesla","clicks":0,"previous_clicks":0,"impressions":14,"previous_impressions":0}
+    ]}
+  ],
+  "limitations":["UI times retained as displayed, no unverified timezone conversion","No full catalog inspection","No new indexing or validation requests","No current hosting inode or cron-state read","No current HTTP status separately observed for public pages","General query export is not a page-query join; only exact_page_query_filters entries above are joined"]
+}

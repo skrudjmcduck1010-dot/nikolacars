@@ -1,0 +1,28 @@
+/* Leave room for the online label and keep the launcher above the mobile buy bar. */
+.parts-page .parts-contact-widget{right:30px;bottom:50px;z-index:90}
+.parts-page .parts-contact-widget .contact-panel{width:min(300px,calc(100vw - 32px));bottom:86px;max-height:calc(100dvh - 210px);overflow:auto}
+.parts-page .parts-contact-widget .contact-title,.parts-page .parts-contact-widget .contact-sub{display:block}
+.parts-page .parts-contact-widget .contact-icon{flex-shrink:0;background:#fff;color:#222;border:1px solid #ddd}
+.parts-page .parts-contact-widget .contact-toggle{display:flex;align-items:center;justify-content:center;background:#8b1822;color:#fff}
+.parts-page .parts-contact-widget .contact-toggle:hover{background:#74131c}
+.parts-page .parts-contact-widget .contact-toggle svg{display:block;pointer-events:none}
+.parts-page .parts-contact-widget .parts-contact-online{position:absolute;top:calc(100% + 8px);right:0;display:flex;align-items:center;gap:5px;white-space:nowrap;font-size:12px;font-weight:600;line-height:16px;color:#353a40}
+.parts-page .parts-contact-widget .parts-contact-online[hidden]{display:none}
+.parts-page .parts-contact-widget .parts-contact-online-dot{width:8px;height:8px;flex:none;border-radius:50%;background:#a5e536;box-shadow:0 0 0 2px #fff}
+.parts-page .parts-contact-widget .contact-toggle:focus-visible,.parts-page .parts-contact-widget .contact-item:focus-visible{outline:3px solid #d62828;outline-offset:3px}
+.parts-page .parts-contact-widget .callback-panel{width:min(360px,calc(100vw - 32px));bottom:86px;max-height:calc(100dvh - 210px);overflow:auto;background:#f2f2f2}
+.parts-page .parts-contact-widget .callback-title{display:block;padding-right:26px;color:#e02020}
+.parts-page .parts-contact-widget .callback-input{min-width:0;color:#333}
+.parts-page .parts-contact-widget .callback-phone{background:#fff}
+.parts-page .parts-contact-widget #partsCallbackStatus{margin:14px 0 0;color:#333;font-size:14px;line-height:1.4}
+.parts-page .parts-contact-widget #partsCallbackStatus[data-error]{color:#b21d1d}
+.parts-page .parts-contact-widget .callback-submit:disabled{opacity:.65;cursor:wait}
+@media(max-width:800px){
+  .parts-page .parts-contact-widget{right:16px;bottom:calc(42px + env(safe-area-inset-bottom,0px))}
+  .parts-page .parts-contact-widget .contact-toggle{width:60px;height:60px}
+  .parts-page .parts-contact-widget .contact-panel{bottom:76px;max-height:calc(100dvh - 126px)}
+  .parts-page .parts-contact-widget .callback-panel{bottom:76px;max-height:calc(100dvh - 126px);padding:20px}
+  .parts-page:has(.product-detail:not(.is-sold)) .parts-contact-widget{bottom:calc(144px + env(safe-area-inset-bottom,0px))}
+  .parts-page:has(.product-detail:not(.is-sold)) .parts-contact-widget .contact-panel{max-height:calc(100dvh - 228px)}
+  .parts-page:has(.product-detail:not(.is-sold)) .parts-contact-widget .callback-panel{max-height:calc(100dvh - 228px)}
+}
