@@ -1,0 +1,12 @@
+{
+  "captured_utc": "2026-11-21T15:32:00.482919+00:00",
+  "cutoff_utc": "2026-11-21 15:27:40",
+  "bytes_read": 262144,
+  "last_record": "2026-11-21 15:31:32",
+  "levels": {
+    "ERROR": 0,
+    "CRITICAL": 0,
+    "WARNING": 74
+  },
+  "warehouse_slow_200": 74
+}

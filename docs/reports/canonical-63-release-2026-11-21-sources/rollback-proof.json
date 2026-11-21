@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "sha256": "12f2e9e8750d24bd9cf225339f48781ac19cff4e758e5d3396273059adfca780",
+  "bytes": 4509369,
+  "members": 6029,
+  "gzip_crc": "PASS",
+  "safe_paths_and_no_links": "PASS",
+  "all_member_sha": "PASS",
+  "not_in_git": "Backup bytes remain private; no data/media/environment/session content is in the archive."
+}

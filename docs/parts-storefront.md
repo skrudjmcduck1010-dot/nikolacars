@@ -672,3 +672,12 @@ proxy-проверок, 10 operator tests, audits/encoding/syntax прошли. 
 Данные, настройки и зависимости сайта не менялись; общий кеш не очищался.
 
 Live root IAB after publish: UA/RU81293 open with exact SKU DON4-2353 and quantity1, matching admin. No purchase or stock action. Real written_off UI limitation remains as documented.
+
+
+## 21.11.2026, 17:27 Europe/Kyiv — canonical: разобраны 63 URL, исправления опубликованы
+
+Проверены все 63 адреса из Search Console. Добавлены 82 точечных правила для доказанных дублей по моделям и языкам; сохранены разные по составу разделы. Исправлены раскрытие дочерних веток при коротком canonical и языковые связи Wi-Fi при коллизии двух UA подразделов с одним RU адресом. Выпуск abbef607 включает четыре SEO runtime и отдельно проверенный минимальный security patch Laravel 12.70.2 → 12.71.0; всего десять production-файлов.
+
+Комбинированный кандидат прошёл 14 PHP-регрессий + failure probe, 14 локальных браузерных сценариев и 16 проверок оператора. После выпуска — 63/63 URL и 14/14 браузерных сценариев PASS, полные guards 6029 файлов и независимый readback PASS. ERROR/CRITICAL 0/0 в ограниченном свежем журнале; медленные успешные ответы API остаются отдельным наблюдением. Временные обработчики удалены, проверенный архив и материалы guarded rollback сохранены вне Git. Склад/данные не менялись. Google validation не запускалась; повторный обход и решение Google остаются внешним этапом.
+
+Отчёт: [canonical 63](reports/canonical-63-2026-11-21.md); [выпуск](reports/canonical-63-release-2026-11-21.md).
