@@ -1,0 +1,42 @@
+[
+  {
+    "kind": "highland-wheels",
+    "all_four_full_nonempty_sets_equal": true,
+    "ids": [
+      110102,
+      113027,
+      113254,
+      113255,
+      113364
+    ],
+    "total": 5,
+    "evidence": "sections-current.json",
+    "read_times": [
+      "2026-10-29T16:07:18+00:00",
+      "2026-10-29T16:07:24+00:00",
+      "2026-10-29T16:07:30+00:00",
+      "2026-10-29T16:07:36+00:00"
+    ]
+  },
+  {
+    "kind": "plate-holder",
+    "all_four_full_nonempty_sets_equal": true,
+    "ids": [
+      88624,
+      89291,
+      91263,
+      100515,
+      106955,
+      110632,
+      112099
+    ],
+    "total": 7,
+    "evidence": "sections-current.json",
+    "read_times": [
+      "2026-10-29T16:07:42+00:00",
+      "2026-10-29T16:07:48+00:00",
+      "2026-10-29T16:07:56+00:00",
+      "2026-10-29T16:08:02+00:00"
+    ]
+  }
+]

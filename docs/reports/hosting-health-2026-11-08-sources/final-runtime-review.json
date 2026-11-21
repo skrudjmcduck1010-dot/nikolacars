@@ -1,0 +1,69 @@
+{
+  "reviewed_utc": "2026-11-08T18:53:42.120458+00:00",
+  "reviewer": "release_verifier / hosting_health",
+  "result": "PASS_NO_BLOCKING_FINDINGS",
+  "runtime_scope": [
+    "app/Http/Controllers/PartsController.php",
+    "app/Services/CatalogPath.php"
+  ],
+  "file_sha256": {
+    "app/Http/Controllers/PartsController.php": "8b21a67caf58f1cb9b8fcf7105a2f47b6bd80d6a8364e76372991b4a52fafe1d",
+    "app/Services/CatalogPath.php": "4a5bc0fc6cd10488c09c868b21d2a845c0d78fa77e4944c7a8e587df7e4c3086",
+    "tests/storefront-cache-regression.php": "daa90daeceb4cc9f821788d5c2962fedead81aed33d63dc6f0674b12ae9fff3e",
+    "tests/catalog-tree-regression.php": "8337e811db5bab8603b384eac8a5bf4d8c5f3a2afc8875c60906b4708e3789bc"
+  },
+  "runtime_diff_summary": {
+    "PartsController.php": {
+      "added": 3,
+      "deleted": 0
+    },
+    "CatalogPath.php": {
+      "added": 7,
+      "deleted": 0
+    }
+  },
+  "manual_review_checks": [
+    "PartsController retains the previously reviewed alwaysDefer:true fix, keys and 300/86400 TTL; no additional runtime changes.",
+    "Exactly four new preferred-path mappings: global UA/RU wheels and Model S 2016-2021 UA/RU wheels.",
+    "preferred() uses exact model scope; empty global scope is not a fallback for other models.",
+    "Leaf URLs are fixed points; no mapping chain or loop introduced; old Model Y and battery behavior is retained.",
+    "Controller redirects before upstream reads; locale, model, trailing slash and query are retained.",
+    "Existing canonical/alternate/breadcrumb/navigation consumers use the same preferred-path resolution.",
+    "Reviewed saved public evidence: global parent/leaf both locales page1=24 and page2=5 ordered IDs match; all Model S variants contain product102105.",
+    "Navigation fixture preserves zero available count for sold Model S item, global count11, sibling branches, depth and active state."
+  ],
+  "performed_by_reviewer": {
+    "php_lint_runtime_files": "PASS (both files)",
+    "git_diff_check_reviewed_runtime_and_tests": "PASS",
+    "final_hash_stability_check": "PASS",
+    "complete_suite_rerun": false,
+    "network_calls": 0,
+    "runtime_edits": 0,
+    "deployment": false
+  },
+  "current_author_test_receipt": {
+    "path": ".codex-tmp/compat-regressions/run-c79bff5cc5dc/results.json",
+    "sha256": "3dce443411e099783d244ebb0ac47ff093607e7555bb94f23663efd597fbfdb6",
+    "suites_passed": 13,
+    "failure_probe_passed": true,
+    "catalog_tree_assertions": 495,
+    "cache_assertions": 70,
+    "reviewer_read_results_and_relevant_stdout": true
+  },
+  "evidence_sha256": {
+    "docs/reports/gsc-404-canonical-completion-2026-11-08-sources/iab-observations.json": "07c7943be67141ed65b85b1b88a597f1a18b3a07d15f4522a0f2e109fb568f34",
+    "docs/reports/gsc-404-canonical-completion-2026-11-08-sources/iab-wheel-navigation.json": "df48f14a83c432ddea3c667d0ad727ec4de7cb06acc5cbd72d8c89d55829b0c8",
+    "docs/reports/gsc-404-canonical-completion-2026-11-08-sources/combined-analysis.json": "9380070086c337760fa9f7421df231632085adb19cd72e280d844c49ca442759"
+  },
+  "findings": [],
+  "exclusions": [
+    "unrelated callback controller, JS and Blade changes",
+    "documentation and tests from production payload",
+    "warehouse runtime and all business data"
+  ],
+  "limits": [
+    "Local prepared changes only; review is not deployment authorization.",
+    "Before an authorized release, verify fresh live baseline, exact payload and own-after guarded rollback.",
+    "Historical inventory equality is evidence at observation time, not a promise about future taxonomy changes."
+  ]
+}

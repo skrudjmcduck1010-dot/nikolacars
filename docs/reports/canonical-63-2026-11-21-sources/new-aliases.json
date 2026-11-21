@@ -1,0 +1,412 @@
+[
+  {
+    "model": "model-y-01-2020-01-2025",
+    "alias": "vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv/ozdoblennia-stiiok-a-b-c-i-porogiv",
+    "canonical": "vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv"
+  },
+  {
+    "model": "model-y-01-2020-01-2025",
+    "alias": "vnutrenniaia-otdelka/obsivka-stoek-a-b-c-i-porogov/obsivka-stoek-a-b-c-i-porogov",
+    "canonical": "vnutrenniaia-otdelka/obsivka-stoek-a-b-c-i-porogov"
+  },
+  {
+    "model": "model-y-01-2020-01-2025",
+    "alias": "galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm",
+    "canonical": "galma/elektromexanicnii-pidsiliuvac-galm"
+  },
+  {
+    "model": "model-y-01-2020-01-2025",
+    "alias": "tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov",
+    "canonical": "tormoza/elektromexaniceskii-usilitel-tormozov"
+  },
+  {
+    "model": "model-y-01-2020-01-2025",
+    "alias": "diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms",
+    "canonical": "diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms"
+  },
+  {
+    "model": "model-y-01-2020-01-2025",
+    "alias": "diski-i-siny/sistema-kontrolia-davleniia-v-sinax-tpms/sistema-kontrolia-davleniia-v-sinax-tpms",
+    "canonical": "diski-i-siny/sistema-kontrolia-davleniia-v-sinax-tpms"
+  },
+  {
+    "model": "model-y-01-2020-01-2025",
+    "alias": "visokovoltna-batareia/visokovoltna-batareia",
+    "canonical": "visokovoltna-batareia"
+  },
+  {
+    "model": "model-y-01-2020-01-2025",
+    "alias": "vysokovoltnaia-batareia/vysokovoltnaia-batareia",
+    "canonical": "vysokovoltnaia-batareia"
+  },
+  {
+    "model": "model-y-01-2020-01-2025",
+    "alias": "visokovoltna-batareia/visokovoltna-batareia/visokovoltna-batareia",
+    "canonical": "visokovoltna-batareia"
+  },
+  {
+    "model": "model-y-01-2020-01-2025",
+    "alias": "vysokovoltnaia-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia",
+    "canonical": "vysokovoltnaia-batareia"
+  },
+  {
+    "model": "model-3-06-2017-12-2023",
+    "alias": "perednii-motor/peredni-pivosi/peredni-pivosi",
+    "canonical": "perednii-motor/peredni-pivosi"
+  },
+  {
+    "model": "model-3-06-2017-12-2023",
+    "alias": "perednii-motor/perednie-poluosi/perednie-poluosi",
+    "canonical": "perednii-motor/perednie-poluosi"
+  },
+  {
+    "model": "model-3-06-2017-12-2023",
+    "alias": "elektrika/frontalna-kamera/frontalna-kamera",
+    "canonical": "elektrika/frontalna-kamera"
+  },
+  {
+    "model": "model-3-06-2017-12-2023",
+    "alias": "elektrika/frontalnaia-kamera/frontalnaia-kamera",
+    "canonical": "elektrika/frontalnaia-kamera"
+  },
+  {
+    "model": "model-3-06-2017-12-2023",
+    "alias": "vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv/ozdoblennia-stiiok-a-b-c-i-porogiv",
+    "canonical": "vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv"
+  },
+  {
+    "model": "model-3-06-2017-12-2023",
+    "alias": "vnutrenniaia-otdelka/obsivka-stoek-a-b-c-i-porogov/obsivka-stoek-a-b-c-i-porogov",
+    "canonical": "vnutrenniaia-otdelka/obsivka-stoek-a-b-c-i-porogov"
+  },
+  {
+    "model": "model-3-06-2017-12-2023",
+    "alias": "zovnisnia-furnitura/pidkrilki/pidkrilki",
+    "canonical": "zovnisnia-furnitura/pidkrilki"
+  },
+  {
+    "model": "model-3-06-2017-12-2023",
+    "alias": "naruznaia-furnitura/podkrylki/podkrylki",
+    "canonical": "naruznaia-furnitura/podkrylki"
+  },
+  {
+    "model": "model-3-06-2017-12-2023",
+    "alias": "panel-priladiv/panel-priladiv",
+    "canonical": "panel-priladiv"
+  },
+  {
+    "model": "model-3-06-2017-12-2023",
+    "alias": "pribornaia-panel/panel-pribornaia",
+    "canonical": "pribornaia-panel"
+  },
+  {
+    "model": "model-3-06-2017-12-2023",
+    "alias": "visokovoltna-batareia/visokovoltna-batareia/visokovoltna-batareia",
+    "canonical": "visokovoltna-batareia/visokovoltna-batareia"
+  },
+  {
+    "model": "model-3-06-2017-12-2023",
+    "alias": "vysokovoltnaia-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia",
+    "canonical": "vysokovoltnaia-batareia/vysokovoltnaia-batareia"
+  },
+  {
+    "model": "model-s-02-2012-03-2016",
+    "alias": "panel-priladiv/panel-priladiv",
+    "canonical": "panel-priladiv"
+  },
+  {
+    "model": "model-s-02-2012-03-2016",
+    "alias": "pribornaia-panel/panel-pribornaia",
+    "canonical": "pribornaia-panel"
+  },
+  {
+    "model": "model-s-02-2012-03-2016",
+    "alias": "vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu",
+    "canonical": "vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu"
+  },
+  {
+    "model": "model-s-02-2012-03-2016",
+    "alias": "vnutrenniaia-otdelka/obsivka-potolka-salona/obsivka-potolka-salona",
+    "canonical": "vnutrenniaia-otdelka/obsivka-potolka-salona"
+  },
+  {
+    "model": "model-s-02-2012-03-2016",
+    "alias": "galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm",
+    "canonical": "galma/elektromexanicnii-pidsiliuvac-galm"
+  },
+  {
+    "model": "model-s-02-2012-03-2016",
+    "alias": "tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov",
+    "canonical": "tormoza/elektromexaniceskii-usilitel-tormozov"
+  },
+  {
+    "model": "model-s-02-2012-03-2016",
+    "alias": "zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku",
+    "canonical": "zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku"
+  },
+  {
+    "model": "model-s-02-2012-03-2016",
+    "alias": "naruznaia-furnitura/nakladki-podkapotnogo-otseka/nakladki-podkapotnogo-otseka",
+    "canonical": "naruznaia-furnitura/nakladki-podkapotnogo-otseka"
+  },
+  {
+    "model": "model-s-02-2012-03-2016",
+    "alias": "elektrika/frontalna-kamera/frontalna-kamera",
+    "canonical": "elektrika/frontalna-kamera"
+  },
+  {
+    "model": "model-s-02-2012-03-2016",
+    "alias": "elektrika/frontalnaia-kamera/frontalnaia-kamera",
+    "canonical": "elektrika/frontalnaia-kamera"
+  },
+  {
+    "model": "model-s-02-2012-03-2016",
+    "alias": "visokovoltna-batareia/visokovoltna-batareia",
+    "canonical": "visokovoltna-batareia"
+  },
+  {
+    "model": "model-s-02-2012-03-2016",
+    "alias": "vysokovoltnaia-batareia/vysokovoltnaia-batareia",
+    "canonical": "vysokovoltnaia-batareia"
+  },
+  {
+    "model": "model-s-02-2012-03-2016",
+    "alias": "visokovoltna-batareia/visokovoltna-batareia/visokovoltna-batareia",
+    "canonical": "visokovoltna-batareia"
+  },
+  {
+    "model": "model-s-02-2012-03-2016",
+    "alias": "vysokovoltnaia-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia",
+    "canonical": "vysokovoltnaia-batareia"
+  },
+  {
+    "model": "model-s-04-2016-01-2021",
+    "alias": "rulyovii-mexanizm/verxnia-castina-rulyovoyi-kolonki-i-kermo/verxnia-castina-rulyovoyi-kolonki-i-kermo",
+    "canonical": "rulyovii-mexanizm/verxnia-castina-rulyovoyi-kolonki-i-kermo"
+  },
+  {
+    "model": "model-s-04-2016-01-2021",
+    "alias": "rulevoi-mexanizm/verxniaia-cast-rulevoi-kolonki-i-rul/verxniaia-cast-rulevoi-kolonki-i-rul",
+    "canonical": "rulevoi-mexanizm/verxniaia-cast-rulevoi-kolonki-i-rul"
+  },
+  {
+    "model": "model-s-04-2016-01-2021",
+    "alias": "vnutrisnje-ozdoblennia/ozdoblennia-zadnyogo-bagaznogo-vidsiku/ozdoblennia-zadnyogo-bagaznogo-vidsiku",
+    "canonical": "vnutrisnje-ozdoblennia/ozdoblennia-zadnyogo-bagaznogo-vidsiku"
+  },
+  {
+    "model": "model-s-04-2016-01-2021",
+    "alias": "vnutrenniaia-otdelka/oblicovka-zadnego-bagaznogo-otseka/obsivka-zadnego-bagaznogo-otseka",
+    "canonical": "vnutrenniaia-otdelka/oblicovka-zadnego-bagaznogo-otseka"
+  },
+  {
+    "model": "model-s-04-2016-01-2021",
+    "alias": "galma/pedal-galma/pedal-galma",
+    "canonical": "galma/pedal-galma"
+  },
+  {
+    "model": "model-s-04-2016-01-2021",
+    "alias": "tormoza/pedal-tormoza/pedal-tormoza",
+    "canonical": "tormoza/pedal-tormoza"
+  },
+  {
+    "model": "model-3-highland-01-2024",
+    "alias": "galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm",
+    "canonical": "galma/elektromexanicnii-pidsiliuvac-galm"
+  },
+  {
+    "model": "model-3-highland-01-2024",
+    "alias": "tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov",
+    "canonical": "tormoza/elektromexaniceskii-usilitel-tormozov"
+  },
+  {
+    "model": "model-3-highland-01-2024",
+    "alias": "vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu",
+    "canonical": "vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu"
+  },
+  {
+    "model": "model-3-highland-01-2024",
+    "alias": "vnutrenniaia-otdelka/obsivka-potolka-salona/obsivka-potolka-salona",
+    "canonical": "vnutrenniaia-otdelka/obsivka-potolka-salona"
+  },
+  {
+    "model": "model-3-highland-01-2024",
+    "alias": "elektrika/pedal-akseleratora/pedal-akseleratora",
+    "canonical": "elektrika/pedal-akseleratora"
+  },
+  {
+    "model": "model-3-highland-01-2024",
+    "alias": "elektrika/datciki-radaru/datciki-radaru",
+    "canonical": "elektrika/datciki-radaru"
+  },
+  {
+    "model": "model-3-highland-01-2024",
+    "alias": "elektrika/datciki-radara/datciki-radara",
+    "canonical": "elektrika/datciki-radara"
+  },
+  {
+    "model": "model-3-highland-01-2024",
+    "alias": "zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika",
+    "canonical": "zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika"
+  },
+  {
+    "model": "model-3-highland-01-2024",
+    "alias": "naruznaia-furnitura/obsivka-proema-kryski-bagaznika/obsivka-proema-kryski-bagaznika",
+    "canonical": "naruznaia-furnitura/obsivka-proema-kryski-bagaznika"
+  },
+  {
+    "model": "",
+    "alias": "panel-priladiv/panel-priladiv",
+    "canonical": "panel-priladiv"
+  },
+  {
+    "model": "",
+    "alias": "pribornaia-panel/panel-pribornaia",
+    "canonical": "pribornaia-panel"
+  },
+  {
+    "model": "",
+    "alias": "informaciino-rozvazalna-sistema/kompiuter-avtomobilia/kompiuter-avtomobilia",
+    "canonical": "informaciino-rozvazalna-sistema/kompiuter-avtomobilia"
+  },
+  {
+    "model": "",
+    "alias": "informacionno-razvlekatelnaia-sistema/kompiuter-avtomobilia/kompiuter-avtomobilia",
+    "canonical": "informacionno-razvlekatelnaia-sistema/kompiuter-avtomobilia"
+  },
+  {
+    "model": "",
+    "alias": "zovnisnia-furnitura/pidkrilki/pidkrilki",
+    "canonical": "zovnisnia-furnitura/pidkrilki"
+  },
+  {
+    "model": "",
+    "alias": "naruznaia-furnitura/podkrylki/podkrylki",
+    "canonical": "naruznaia-furnitura/podkrylki"
+  },
+  {
+    "model": "",
+    "alias": "rulyovii-mexanizm/verxnia-castina-rulyovoyi-kolonki-i-kermo/verxnia-castina-rulyovoyi-kolonki-i-kermo",
+    "canonical": "rulyovii-mexanizm/verxnia-castina-rulyovoyi-kolonki-i-kermo"
+  },
+  {
+    "model": "",
+    "alias": "rulevoi-mexanizm/verxniaia-cast-rulevoi-kolonki-i-rul/verxniaia-cast-rulevoi-kolonki-i-rul",
+    "canonical": "rulevoi-mexanizm/verxniaia-cast-rulevoi-kolonki-i-rul"
+  },
+  {
+    "model": "",
+    "alias": "rulyovii-mexanizm/rulyova-reika-i-niznia-castina-rulyovoyi-kolonki/rulyova-reika-i-niznia-castina-rulyovoyi-kolonki",
+    "canonical": "rulyovii-mexanizm/rulyova-reika-i-niznia-castina-rulyovoyi-kolonki"
+  },
+  {
+    "model": "",
+    "alias": "rulevoi-mexanizm/rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki/rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki",
+    "canonical": "rulevoi-mexanizm/rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki"
+  },
+  {
+    "model": "",
+    "alias": "zovnisnia-furnitura/zovnisni-dzerkala/zovnisni-dzerkala",
+    "canonical": "zovnisnia-furnitura/zovnisni-dzerkala"
+  },
+  {
+    "model": "",
+    "alias": "naruznaia-furnitura/naruznye-zerkala/vnesnie-zerkala",
+    "canonical": "naruznaia-furnitura/naruznye-zerkala"
+  },
+  {
+    "model": "",
+    "alias": "galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm",
+    "canonical": "galma/elektromexanicnii-pidsiliuvac-galm"
+  },
+  {
+    "model": "",
+    "alias": "tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov",
+    "canonical": "tormoza/elektromexaniceskii-usilitel-tormozov"
+  },
+  {
+    "model": "",
+    "alias": "visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer",
+    "canonical": "visokovoltna-sistema/bortovii-zariadnii-modul-cardzer"
+  },
+  {
+    "model": "",
+    "alias": "vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer",
+    "canonical": "vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer"
+  },
+  {
+    "model": "",
+    "alias": "perednii-motor/peredni-pivosi/peredni-pivosi",
+    "canonical": "perednii-motor/peredni-pivosi"
+  },
+  {
+    "model": "",
+    "alias": "perednii-motor/perednie-poluosi/perednie-poluosi",
+    "canonical": "perednii-motor/perednie-poluosi"
+  },
+  {
+    "model": "",
+    "alias": "zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika",
+    "canonical": "zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika"
+  },
+  {
+    "model": "",
+    "alias": "naruznaia-furnitura/obsivka-proema-kryski-bagaznika/obsivka-proema-kryski-bagaznika",
+    "canonical": "naruznaia-furnitura/obsivka-proema-kryski-bagaznika"
+  },
+  {
+    "model": "",
+    "alias": "vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu",
+    "canonical": "vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu"
+  },
+  {
+    "model": "",
+    "alias": "vnutrenniaia-otdelka/obsivka-potolka-salona/obsivka-potolka-salona",
+    "canonical": "vnutrenniaia-otdelka/obsivka-potolka-salona"
+  },
+  {
+    "model": "",
+    "alias": "elektrika/datciki-radaru/datciki-radaru",
+    "canonical": "elektrika/datciki-radaru"
+  },
+  {
+    "model": "",
+    "alias": "elektrika/datciki-radara/datciki-radara",
+    "canonical": "elektrika/datciki-radara"
+  },
+  {
+    "model": "",
+    "alias": "diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms",
+    "canonical": "diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms"
+  },
+  {
+    "model": "",
+    "alias": "diski-i-siny/sistema-kontrolia-davleniia-v-sinax-tpms/sistema-kontrolia-davleniia-v-sinax-tpms",
+    "canonical": "diski-i-siny/sistema-kontrolia-davleniia-v-sinax-tpms"
+  },
+  {
+    "model": "",
+    "alias": "informacionno-razvlekatelnaia-sistema/antenna-wi-fi/antenna-wi-fi",
+    "canonical": "informacionno-razvlekatelnaia-sistema/antenna-wi-fi"
+  },
+  {
+    "model": "model-x-09-2015-02-2021",
+    "alias": "zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku",
+    "canonical": "zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku"
+  },
+  {
+    "model": "model-x-09-2015-02-2021",
+    "alias": "naruznaia-furnitura/nakladki-podkapotnogo-otseka/nakladki-podkapotnogo-otseka",
+    "canonical": "naruznaia-furnitura/nakladki-podkapotnogo-otseka"
+  },
+  {
+    "model": "model-x-09-2015-02-2021",
+    "alias": "galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm",
+    "canonical": "galma/elektromexanicnii-pidsiliuvac-galm"
+  },
+  {
+    "model": "model-x-09-2015-02-2021",
+    "alias": "tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov",
+    "canonical": "tormoza/elektromexaniceskii-usilitel-tormozov"
+  }
+]

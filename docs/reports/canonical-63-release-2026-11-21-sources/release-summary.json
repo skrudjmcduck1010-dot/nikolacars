@@ -1,0 +1,121 @@
+{
+  "status": "PUBLISHED_AND_VERIFIED",
+  "runtime_commit": "abbef607c15efb9b15e4e42b990506c54119bfef",
+  "manifest_sha256": "02e8714b6d11c7a6000aa385293212e85aa262d9d6243662619ea5601f88ecbd",
+  "operator_sha256": "373c2bf2594a270e0eb9e9c161af66489711625f943fdcdd6b63e431ffa64b71",
+  "runner_sha256": "df5a2f65cc613ee87f0d06295ca222c8707cef1da27700d80b2f0abd8f2d47fe",
+  "started_utc": "2026-11-21T15:24:32.005575+00:00",
+  "completed_utc": "2026-11-21T15:27:40.238951+00:00",
+  "runtime_payload_files": [
+    {
+      "after_sha256": "457ae7f3c7e87ee3fff6e61120253b6aae1bf0d63f2398a25f6b943a9debe2ac",
+      "before_sha256": "69f0a0cc88d1375ed664fa603bd03b6c5492f001e443f62f808c1f5500b6de64",
+      "bytes": 3345,
+      "order": 1,
+      "path": "app/Services/CatalogNavigation.php"
+    },
+    {
+      "after_sha256": "6d6c3db717fa9453a31cc7da489e9a99df82b5acec903eff0c1cbfc86dbd0418",
+      "before_sha256": "4a5bc0fc6cd10488c09c868b21d2a845c0d78fa77e4944c7a8e587df7e4c3086",
+      "bytes": 17007,
+      "order": 2,
+      "path": "app/Services/CatalogPath.php"
+    },
+    {
+      "after_sha256": "3fe4ce66726e7a3e35b1f4e384c74d4c9e18692ec3741efafb4e5e160217951a",
+      "before_sha256": "e503edb4f68abbc03319a065708b4cb3571f4f991326fa7eda07163b0a9f6ca9",
+      "bytes": 44315,
+      "order": 3,
+      "path": "app/Http/Controllers/PartsController.php"
+    },
+    {
+      "after_sha256": "f317cd6180b521b56c1ab831de730ff540a22f3c0bf3e96bc19f1e3784b4bcc0",
+      "before_sha256": "adecd4ab1785fe3ba2e8eec92b5509ee6595cba135cc50964531e3e7d73effde",
+      "bytes": 10321,
+      "order": 4,
+      "path": "resources/views/layouts/parts.blade.php"
+    },
+    {
+      "after_sha256": "bcab97ac7ad25e3db229534245062214c194cc3ba543605c6bb8119a8b1a0c6d",
+      "before_sha256": "6553ba4d4a62e4b9acf79850ac7893e82c17097a939286b27fc914b830164a12",
+      "bytes": 3368,
+      "order": 5,
+      "path": "vendor/laravel/framework/src/Illuminate/Concurrency/Console/InvokeSerializedClosureCommand.php"
+    },
+    {
+      "after_sha256": "fff80cb90f6233b380e95cdb9526dceab3dd2ad00c562cc75e3664d884f3beef",
+      "before_sha256": "aba45d0d446344d6f98e784af3cc0a9528f4782966f3781f34124d4e0b1c1ff3",
+      "bytes": 4094,
+      "order": 6,
+      "path": "vendor/laravel/framework/src/Illuminate/Concurrency/ProcessDriver.php"
+    },
+    {
+      "after_sha256": "996ff6f92bf41e6b0a0da16c0514d6ddb296175fffe407f7946c28ffdfce3faa",
+      "before_sha256": "a9cbea3dec32e087c88b7d976083800f304ccf8901c4a562d3845f69501d8cf9",
+      "bytes": 47226,
+      "order": 7,
+      "path": "vendor/laravel/framework/src/Illuminate/Foundation/Application.php"
+    },
+    {
+      "after_sha256": "e9cc268eb6b082e9e73ee48cb9d4d3814e77243491d09aa4ca14357c7731bb7d",
+      "before_sha256": "e3cda909a955c65370729e13074a47cde28df7fd21bba399266da3eef909b2b8",
+      "bytes": 233319,
+      "order": 8,
+      "path": "vendor/composer/installed.json"
+    },
+    {
+      "after_sha256": "1df25e5a4367d66c4cbcc0a70a98e2000b283c7f1c008bafcc8c27176f8e37ae",
+      "before_sha256": "35b6483d6395b0d96cfab9dfd0f1848e4f17ca30d13f730d4c16bbf8ad559261",
+      "bytes": 37653,
+      "order": 9,
+      "path": "vendor/composer/installed.php"
+    },
+    {
+      "after_sha256": "25d5593e6ef52059194379a725da2ba39fa9fa0aefa8a01e74b7066b20262c52",
+      "before_sha256": "fc516760a497f844807ded5028868afa9f0420733e7d297450a9c1c9f221ad2b",
+      "bytes": 310524,
+      "order": 10,
+      "path": "composer.lock"
+    }
+  ],
+  "full_source_vendor_guard_files": 6029,
+  "protected_hashes_unchanged": true,
+  "production_packages": 76,
+  "unchanged_other_packages": 75,
+  "production_dependency_delta": {
+    "laravel/framework": [
+      "v12.70.2",
+      "v12.71.0"
+    ]
+  },
+  "already_deployed_baseline_adoption": {
+    "symfony/http-foundation": "v7.4.23",
+    "symfony/http-kernel": "v7.4.23",
+    "symfony/routing": "v7.4.23",
+    "symfony/yaml": "v7.4.23 (dev only)"
+  },
+  "autoload_and_composer_root_identity_unchanged": true,
+  "excluded_windows_bat": 5,
+  "php_regressions": 14,
+  "failure_probe": true,
+  "canonical_assertions": 1660,
+  "combined_fixture_browser_cases": 14,
+  "actual_live_browser_cases": 14,
+  "actual_operator_safety_tests": 16,
+  "full_composer_audit_advisories": 0,
+  "npm_audit_vulnerabilities": 0,
+  "live_url_results": {
+    "checked": 63,
+    "passed": 63,
+    "direct_301_to_200": 41,
+    "self_200": 22
+  },
+  "health_up_http": 200,
+  "mandatory_drain_seconds": 180,
+  "code_opcache_reset": "PASS",
+  "original_public_index_restored": true,
+  "temporary_runner_token_cleanup": "PASS",
+  "rollback_executed": false,
+  "database_business_config_warehouse_mutations": false,
+  "gsc_validation_or_indexing_request": false
+}

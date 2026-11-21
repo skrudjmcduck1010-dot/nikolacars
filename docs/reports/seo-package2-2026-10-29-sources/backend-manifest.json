@@ -1,0 +1,38 @@
+{
+  "status": "READY candidate; deployment blocked pending permitted clean isolation + normal gates",
+  "source": "C:\\Projects\\sklad-zapchastey",
+  "files": [
+    {
+      "path": "app/Services/StorefrontCatalogTaxonomy.php",
+      "sha256": "acc0f710b86fa1edefe000ddacc6b50adfd30fc75f416e83a773287e8475270a",
+      "before_sha256": "410db4364323d0475768a5c02bd19db38702a9c3e8649778ffe4c74b4c81192d",
+      "kind": "runtime"
+    },
+    {
+      "path": "app/Services/StorefrontCatalogQuery.php",
+      "sha256": "1beb88a719f32682fd2f5e3749323746af77d3960de4179c328a73fcd4f66e5b",
+      "before_sha256": "5b1c3e2bf972dee4456984ccd95838013d5ee7d676e4063986eb37e9d5fd8266",
+      "kind": "runtime"
+    },
+    {
+      "path": "app/Services/StorefrontCatalogService.php",
+      "sha256": "f40159194f58393d35a27fe29a0585e614b5fd7ef2ec73d7ebc4ea683e10e22a",
+      "before_sha256": "afe673d4b2323d80db1d01e089e0888e05ec9ef15ce184628d19bb0cf07b698d",
+      "kind": "runtime"
+    },
+    {
+      "path": "tests/Unit/StorefrontCatalogQueryTest.php",
+      "sha256": "b48aa2a743279296ac7b66d34ccb3e56661df9421bd3d3dc075fc79b902b0a25",
+      "before_sha256": "3f9ea61c929eab2e17f05d910bbec92ff8e7e0618bf07fa1dedca8c36f2d652a",
+      "kind": "test"
+    },
+    {
+      "path": "tests/Feature/StorefrontBatteryLocalizationTest.php",
+      "sha256": "e14bb087fec65a7f5ef09777fecabfa1cb45df61fda5e54191dde756f271eb7e",
+      "before_sha256": null,
+      "kind": "test"
+    }
+  ],
+  "verification": "60 tests / 688 assertions; PHPStan 3 runtime files PASS",
+  "rollback_note": "Use verifier fresh live Service snapshot because source baseline differs only by EOL"
+}

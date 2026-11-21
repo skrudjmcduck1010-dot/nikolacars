@@ -1,0 +1,269 @@
+{
+  "source_sha256": "6b600a0bd526cb96e5077b8c362e7abd7bb38073c6f7fdfe021842a1ca99c442",
+  "filter": [
+    [
+      "Ресурс",
+      "Значение"
+    ],
+    [
+      "Тип",
+      "Ошибка сервера (код статуса: 5XX)"
+    ]
+  ],
+  "chart_start": "2026-08-10",
+  "chart_end": "2026-11-06",
+  "daily_rows": 89,
+  "chart_requests": 161,
+  "weighted_response_ms": 17237.180124223603,
+  "nonzero_days": [
+    {
+      "date": "2026-09-15",
+      "requests": 1,
+      "bytes": 3779,
+      "average_response_ms": 22014.0
+    },
+    {
+      "date": "2026-09-17",
+      "requests": 16,
+      "bytes": 60464,
+      "average_response_ms": 19466.0
+    },
+    {
+      "date": "2026-09-18",
+      "requests": 5,
+      "bytes": 18895,
+      "average_response_ms": 20593.0
+    },
+    {
+      "date": "2026-09-19",
+      "requests": 1,
+      "bytes": 1477,
+      "average_response_ms": 562.0
+    },
+    {
+      "date": "2026-09-20",
+      "requests": 2,
+      "bytes": 7558,
+      "average_response_ms": 20588.0
+    },
+    {
+      "date": "2026-09-21",
+      "requests": 3,
+      "bytes": 11337,
+      "average_response_ms": 20535.0
+    },
+    {
+      "date": "2026-09-23",
+      "requests": 50,
+      "bytes": 163106,
+      "average_response_ms": 15566.0
+    },
+    {
+      "date": "2026-09-24",
+      "requests": 6,
+      "bytes": 22674,
+      "average_response_ms": 20628.0
+    },
+    {
+      "date": "2026-09-25",
+      "requests": 9,
+      "bytes": 33953,
+      "average_response_ms": 20568.0
+    },
+    {
+      "date": "2026-09-26",
+      "requests": 13,
+      "bytes": 49127,
+      "average_response_ms": 20579.0
+    },
+    {
+      "date": "2026-09-27",
+      "requests": 3,
+      "bytes": 11337,
+      "average_response_ms": 20704.0
+    },
+    {
+      "date": "2026-09-28",
+      "requests": 4,
+      "bytes": 15116,
+      "average_response_ms": 20829.0
+    },
+    {
+      "date": "2026-09-29",
+      "requests": 13,
+      "bytes": 49127,
+      "average_response_ms": 20609.0
+    },
+    {
+      "date": "2026-09-30",
+      "requests": 6,
+      "bytes": 22674,
+      "average_response_ms": 21007.0
+    },
+    {
+      "date": "2026-10-01",
+      "requests": 7,
+      "bytes": 26453,
+      "average_response_ms": 20565.0
+    },
+    {
+      "date": "2026-10-02",
+      "requests": 3,
+      "bytes": 11337,
+      "average_response_ms": 20862.0
+    },
+    {
+      "date": "2026-10-03",
+      "requests": 3,
+      "bytes": 11279,
+      "average_response_ms": 20586.0
+    },
+    {
+      "date": "2026-10-06",
+      "requests": 1,
+      "bytes": 3779,
+      "average_response_ms": 20571.0
+    },
+    {
+      "date": "2026-10-07",
+      "requests": 3,
+      "bytes": 11336,
+      "average_response_ms": 13851.0
+    },
+    {
+      "date": "2026-10-14",
+      "requests": 1,
+      "bytes": 3779,
+      "average_response_ms": 475.0
+    },
+    {
+      "date": "2026-10-17",
+      "requests": 1,
+      "bytes": 1477,
+      "average_response_ms": 490.0
+    },
+    {
+      "date": "2026-10-19",
+      "requests": 1,
+      "bytes": 3779,
+      "average_response_ms": 458.0
+    },
+    {
+      "date": "2026-11-01",
+      "requests": 9,
+      "bytes": 25709,
+      "average_response_ms": 1052.0
+    }
+  ],
+  "example_rows": 163,
+  "latest_examples": [
+    {
+      "time_ui": "02.11.2026, 12:18",
+      "url": "https://nikolacars.kiev.ua/parts/1092305-00-b-113791/",
+      "status_group": "Ошибка сервера (код статуса: 5XX)"
+    },
+    {
+      "time_ui": "02.11.2026, 11:15",
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/komponenty-zakrytiia/rucki-dverei-vnutrennie/rucka-vnutrenniaia-perednix-dverei-i-zamok/",
+      "status_group": "Ошибка сервера (код статуса: 5XX)"
+    },
+    {
+      "time_ui": "02.11.2026, 11:12",
+      "url": "https://nikolacars.kiev.ua/parts/1014153-2m-13-107106/",
+      "status_group": "Ошибка сервера (код статуса: 5XX)"
+    },
+    {
+      "time_ui": "02.11.2026, 11:12",
+      "url": "https://nikolacars.kiev.ua/ru/parts/1068969-99-e-93053/",
+      "status_group": "Ошибка сервера (код статуса: 5XX)"
+    },
+    {
+      "time_ui": "02.11.2026, 11:11",
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-3-06-2017-12-2023/subcategory/komponenty-zakrytiia--vspomogatelnye-elementy-zakrytiia-i-petli/",
+      "status_group": "Ошибка сервера (код статуса: 5XX)"
+    },
+    {
+      "time_ui": "02.11.2026, 11:10",
+      "url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/",
+      "status_group": "Ошибка сервера (код статуса: 5XX)"
+    },
+    {
+      "time_ui": "02.11.2026, 10:57",
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/krysa/panoramnaia-krysa/privodnoi-motor-i-trosovyi-mexanizm/",
+      "status_group": "Ошибка сервера (код статуса: 5XX)"
+    },
+    {
+      "time_ui": "02.11.2026, 10:56",
+      "url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/sidinnia/peredni-sidinnia-v-zbori-i-osnashhennia/",
+      "status_group": "Ошибка сервера (код статуса: 5XX)"
+    },
+    {
+      "time_ui": "02.11.2026, 10:55",
+      "url": "https://nikolacars.kiev.ua/ru/parts/1518783-00-b-83804/",
+      "status_group": "Ошибка сервера (код статуса: 5XX)"
+    },
+    {
+      "time_ui": "19.10.2026, 17:49",
+      "url": "https://nikolacars.kiev.ua/parts/?page=110",
+      "status_group": "Ошибка сервера (код статуса: 5XX)"
+    },
+    {
+      "time_ui": "18.10.2026, 05:59",
+      "url": "https://nikolacars.kiev.ua/ru/parts/1002485-00-h-107145/",
+      "status_group": "Ошибка сервера (код статуса: 5XX)"
+    },
+    {
+      "time_ui": "16.10.2026, 15:41",
+      "url": "https://nikolacars.kiev.ua/parts/101292/",
+      "status_group": "Ошибка сервера (код статуса: 5XX)"
+    }
+  ],
+  "examples_november_2": [
+    {
+      "time_ui": "02.11.2026, 12:18",
+      "url": "https://nikolacars.kiev.ua/parts/1092305-00-b-113791/",
+      "status_group": "Ошибка сервера (код статуса: 5XX)"
+    },
+    {
+      "time_ui": "02.11.2026, 11:15",
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/komponenty-zakrytiia/rucki-dverei-vnutrennie/rucka-vnutrenniaia-perednix-dverei-i-zamok/",
+      "status_group": "Ошибка сервера (код статуса: 5XX)"
+    },
+    {
+      "time_ui": "02.11.2026, 11:12",
+      "url": "https://nikolacars.kiev.ua/parts/1014153-2m-13-107106/",
+      "status_group": "Ошибка сервера (код статуса: 5XX)"
+    },
+    {
+      "time_ui": "02.11.2026, 11:12",
+      "url": "https://nikolacars.kiev.ua/ru/parts/1068969-99-e-93053/",
+      "status_group": "Ошибка сервера (код статуса: 5XX)"
+    },
+    {
+      "time_ui": "02.11.2026, 11:11",
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-3-06-2017-12-2023/subcategory/komponenty-zakrytiia--vspomogatelnye-elementy-zakrytiia-i-petli/",
+      "status_group": "Ошибка сервера (код статуса: 5XX)"
+    },
+    {
+      "time_ui": "02.11.2026, 11:10",
+      "url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/",
+      "status_group": "Ошибка сервера (код статуса: 5XX)"
+    },
+    {
+      "time_ui": "02.11.2026, 10:57",
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/krysa/panoramnaia-krysa/privodnoi-motor-i-trosovyi-mexanizm/",
+      "status_group": "Ошибка сервера (код статуса: 5XX)"
+    },
+    {
+      "time_ui": "02.11.2026, 10:56",
+      "url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/sidinnia/peredni-sidinnia-v-zbori-i-osnashhennia/",
+      "status_group": "Ошибка сервера (код статуса: 5XX)"
+    },
+    {
+      "time_ui": "02.11.2026, 10:55",
+      "url": "https://nikolacars.kiev.ua/ru/parts/1518783-00-b-83804/",
+      "status_group": "Ошибка сервера (код статуса: 5XX)"
+    }
+  ],
+  "limits": "Example rows are illustrative and must not replace the chart total. HTTP 5XX does not identify a particular 500/502/503 code. UI timestamp timezone has not been confirmed. No server logs inspected in this audit."
+}

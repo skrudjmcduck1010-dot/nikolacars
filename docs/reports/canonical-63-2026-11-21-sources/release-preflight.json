@@ -1,0 +1,23 @@
+{
+  "status": "prepared_for_authorized_scoped_release",
+  "canonical_freeze": "7 unchanged source/test files",
+  "combined_php": {
+    "scripts": 14,
+    "failure_probe": true,
+    "status": "PASS",
+    "evidence": ".codex-tmp/canonical-20261121-release/security-live-candidate/.codex-tmp/compat-regressions/run-afee9002896f/results.json"
+  },
+  "combined_browser": {
+    "cases": 14,
+    "status": "PASS",
+    "evidence": ".codex-tmp/canonical-20261121-release/browser-result-1795273731342/results.json"
+  },
+  "combined_operator_safety_tests": 16,
+  "full_audit_advisories": 0,
+  "production_packages": 76,
+  "unchanged_packages": 75,
+  "runtime_payload_files": 10,
+  "manifest_sha256": "02e8714b6d11c7a6000aa385293212e85aa262d9d6243662619ea5601f88ecbd",
+  "rollback_archive_sha256": "12f2e9e8750d24bd9cf225339f48781ac19cff4e758e5d3396273059adfca780",
+  "rollback_members": 6029
+}

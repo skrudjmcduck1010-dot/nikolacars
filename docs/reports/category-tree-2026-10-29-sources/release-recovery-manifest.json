@@ -1,0 +1,168 @@
+{
+  "items": [
+    {
+      "path": "database-archives/nikolaca_sklad-20261004-235249-pre-release.sql.gz",
+      "bytes": 57263957,
+      "sha256": "2ecc1790d27b503886b22330116aa4e1ba00db267ac0ba3c64206109b8259b25"
+    },
+    {
+      "path": "database-archives/nikolaca_sklad-20261011-175727-pre-release.sql.gz",
+      "bytes": 61749149,
+      "sha256": "7d9684274c40acf35366e367969328e3e30250f2780745423c9cf38107f7b239"
+    },
+    {
+      "path": "database-archives/nikolaca_sklad-20261018-183413-pre-release.sql.gz",
+      "bytes": 63338891,
+      "sha256": "8d14d0894bf31c15685c2d94d89dc7ef0db3d63b4c52d9caabeed637d1e903b9"
+    },
+    {
+      "path": "database-archives/nikolaca_sklad-20261022-141922-pre-release.sql.gz",
+      "bytes": 64026496,
+      "sha256": "f157d6c3dbe038579b388ad993f4f5bd622b22153262f53251b205ffee65d7e8"
+    },
+    {
+      "path": "database-archives/nikolaca_sklad-20261027-085916-pre-release.sql.gz",
+      "bytes": 64611484,
+      "sha256": "60d27047b96f5ac051ed905642e93ab0d2de389f1dc929550c4bb30cac8c2a20"
+    },
+    {
+      "path": "database-archives/nikolaca_sklad-20261027-094731-pre-release.sql.gz",
+      "bytes": 64619551,
+      "sha256": "2afd360587a5e9559e7f083a213e9dabaa0d7f36b00c68ce8c2f98d027038166"
+    },
+    {
+      "path": "database-archives/nikolaca_sklad-20261027-104058-pre-release.sql.gz",
+      "bytes": 64641538,
+      "sha256": "2520f0d5a6c45dbbdc90fbf93ca831f72e85be5cd5b3a13d873c66eb5aeece14"
+    },
+    {
+      "path": "database-archives/nikolaca_sklad-20261027-163123-pre-release.sql.gz",
+      "bytes": 64616461,
+      "sha256": "2a80d5603e49a3385e6552959f480fdd374e32193b6f8dc97156047818279d5c"
+    },
+    {
+      "path": "database-archives/nikolaca_sklad-20261027-215818-pre-release.sql.gz",
+      "bytes": 64692624,
+      "sha256": "65c87bdc89099fc2d844a9539c2da05a1ae8dc5c877e53de0861c9a7292e58f2"
+    },
+    {
+      "path": "database-archives/nikolaca_sklad-20261027-222925-pre-release.sql.gz",
+      "bytes": 64682814,
+      "sha256": "97916970e42150b5b73e268cb8b0f0ed235286e4e85cd5d6640fc7d5648940f6"
+    },
+    {
+      "path": "database-archives/nikolaca_sklad-20261028-155155-pre-release.sql.gz",
+      "bytes": 64911327,
+      "sha256": "42be74f91ea69bb107b5a9758c9e1b2ba23f95f2a125deaf7ab415d77a42eaa9"
+    },
+    {
+      "path": "database-archives/nikolaca_sklad-20261029-191541-pre-release.sql.gz",
+      "bytes": 65142184,
+      "sha256": "877ccb7bab409008cac48b36456da152de83d262797df98aa2a41f214c8f4094"
+    },
+    {
+      "path": "database-archives/nikolaca_sklad-20261029-212952-pre-release.sql.gz",
+      "bytes": 65059259,
+      "sha256": "b1cb885de2122210c475bf678f6f4dc920d82c258f1e822a8ccedf49a2e63f46"
+    },
+    {
+      "path": "wrapper-responses/runner-artisan_release-20261029-213442.txt",
+      "bytes": 1010,
+      "sha256": "f693d87cc799057f36f77f091e03e621ed7cf81397f3d4a4e7c988133ca7ddab"
+    },
+    {
+      "path": "wrapper-responses/runner-backup_database-20261029-212951.txt",
+      "bytes": 292,
+      "sha256": "3e25b74e98283362bb2886c874055a244e06706e295de9e54b035e6fad5b9fc9"
+    },
+    {
+      "path": "wrapper-responses/runner-ping-20261029-212951.txt",
+      "bytes": 170,
+      "sha256": "a75b99ac591b1389c8778eceb9990b45c6044c09f5c2d1639948a373f785820e"
+    },
+    {
+      "path": "wrapper-responses/runner-prepare_release-20261029-213432.txt",
+      "bytes": 318,
+      "sha256": "f91882fced42a5021fed429af7c5fb1fe73d6cd86b4b13f399bce65197a38da2"
+    },
+    {
+      "path": "receipts/wrapper.log",
+      "bytes": 44464,
+      "sha256": "97175bcd698db253b6d5d6962acc139acc9b3e015f6982cefecda394ce42ea02"
+    },
+    {
+      "path": "receipts/wrapper-status.json",
+      "bytes": 133,
+      "sha256": "f887d6a69cd03d1dda614ee54b883875fe1929ad478da67ccebeb69066a70a05"
+    },
+    {
+      "path": "receipts/baseline.json",
+      "bytes": 90788,
+      "sha256": "c712e527ded2d6ff0ece63acba6e0a79ad9a05b260ca2adfe48af10d9e08cc5d"
+    },
+    {
+      "path": "receipts/recheck-guard.json",
+      "bytes": 90970,
+      "sha256": "f0c79c6dda863fa12e61227000d6c1e70b68d5b7a07fb77a93760eea58a8796c"
+    },
+    {
+      "path": "receipts/after-guard.json",
+      "bytes": 91031,
+      "sha256": "0377d2051dd8c8b02c9c9610edb7e2482a3259b8c0e04aeeee7408e06c9130a8"
+    },
+    {
+      "path": "e2e/playwright-report/index.html",
+      "bytes": 728078,
+      "sha256": "a33e53b461fe195727194eb03d7743e7fb7e7780218686ba19adb086aa69e463"
+    },
+    {
+      "path": "e2e/test-results/.last-run.json",
+      "bytes": 45,
+      "sha256": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+    },
+    {
+      "path": "e2e/test-results/catalog-customer-orders-ca-f6e34-idates-the-selected-address-desktop-chromium/courier-cart-desktop.png",
+      "bytes": 46723,
+      "sha256": "7726757de3532822b0279ad7f8e911a1d3b12a6de413e192591277f7139e3414"
+    },
+    {
+      "path": "e2e/test-results/catalog-customer-orders-ca-f6e34-idates-the-selected-address-desktop-chromium/courier-cart-mobile.png",
+      "bytes": 35227,
+      "sha256": "9d30914ae87c0e888a77a3d588e0eb44eb84a7a25091ab1d01b113653e0f8520"
+    },
+    {
+      "path": "e2e/test-results/catalog-stock-writeoff-cat-a8e13-ts-cancel-and-full-writeoff-desktop-chromium/writeoff-desktop.png",
+      "bytes": 133374,
+      "sha256": "9ebbbe2bb1431e39d644cf06066b2bb98e30fb6e67332baa64b258e7082b5173"
+    },
+    {
+      "path": "e2e/test-results/catalog-stock-writeoff-cat-a8e13-ts-cancel-and-full-writeoff-desktop-chromium/writeoff-mobile.png",
+      "bytes": 49322,
+      "sha256": "33863ca841f11e92363e9b5c7f6f376be30f7e6383d7323bf52cd2d07e796ef3"
+    },
+    {
+      "path": "e2e/test-results/mobile-donor-removal-mobil-bd8f6-ithout-increasing-the-total-mobile-chromium/donor-removal-quantity.png",
+      "bytes": 30746,
+      "sha256": "56e20f2250d8a221f8fe82443c5482579a7a43a34b1cdf5d0bf402697f71f87f"
+    },
+    {
+      "path": "e2e/test-results/mobile-quantity-addition-m-24388-ck-placement-when-cancelled-mobile-chromium/addition-current-cell.png",
+      "bytes": 53339,
+      "sha256": "357cf73f3552e77fdcef9d4d5f1f774223fac326c5e97aa702da44b0377e6889"
+    },
+    {
+      "path": "e2e/test-results/mobile-quantity-writeoff-t-41814-history-cancel-never-writes-mobile-chromium/mobile-quantity-writeoff.png",
+      "bytes": 47299,
+      "sha256": "0ef4bebf2af6ee451a553d8b98c9d5f2487293609f2f2ccc2e41d5ac56bacdde"
+    },
+    {
+      "path": "code-20261029-193432.tgz",
+      "bytes": 1814070,
+      "sha256": "2b8c36468a66876a80d068c988adf9b3dcf981a64568ca198145d764a9f5d0d3",
+      "gzip": true,
+      "safe_tar_files": 1138
+    }
+  ],
+  "canonical_archives_untouched": true,
+  "no_secrets_or_runners_committed": true
+}

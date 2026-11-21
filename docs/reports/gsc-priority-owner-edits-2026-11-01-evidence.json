@@ -1,0 +1,844 @@
+{
+  "observedAt": "2026-11-01T17:06:09.361038+00:00",
+  "source": "public HTTPS, read-only, two concurrent requests",
+  "sitemaps": {
+    "uk": {
+      "url": "https://nikolacars.kiev.ua/sitemaps/parts-uk.xml",
+      "http": 200,
+      "count": 3721
+    },
+    "ru": {
+      "url": "https://nikolacars.kiev.ua/sitemaps/parts-ru.xml",
+      "http": 200,
+      "count": 3721
+    }
+  },
+  "results": [
+    {
+      "requestedUrl": "https://nikolacars.kiev.ua/parts/1009621-00-l-113595/",
+      "observedAt": "2026-11-01T17:06:07.823342+00:00",
+      "http": 200,
+      "url": "https://nikolacars.kiev.ua/parts/1009621-00-l-113595/",
+      "redirects": [],
+      "id": 113595,
+      "locale": "uk",
+      "canonical": [
+        "https://nikolacars.kiev.ua/parts/1009621-00-l-113595/"
+      ],
+      "robots": [],
+      "xRobots": null,
+      "hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/1009621-00-l-113595/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/1009621-00-l-113595/",
+        "x-default": "https://nikolacars.kiev.ua/parts/1009621-00-l-113595/"
+      },
+      "title": "Петля капота права після 21 року Tesla Model X 09.2015-02.2021 — 1009621-00-L | NikolaCars — Оригінал",
+      "h1": "Петля капота права після 21 року — Tesla Model X 09.2015-02.2021 — 1009621-00-L",
+      "description": "ОписПетля капота права після 21 року — запчастина для Tesla Model X 09.2015-02.2021. Артикул: 1009621-00-L (100962100L). Категорія: Компоненти закриття / Допоміжні механізми закриття та петлі / Петлі і фурнітура капота. Сумісність: Model X 09.2015-02.2021, Model X Palladium 03.2021-05.2025, Model X 06.2025-, Model X. Стан: вживана. Запчастина є в наявності на складі NikolaCars: 1 шт. Ціну запчастини уточнюйте у менеджера NikolaCars. Перед замовленням звірте артикул і сумісність деталі з вашим автомобілем Tesla.",
+      "productData": {
+        "id": 113595,
+        "name": "Петля капота права після 21 року",
+        "part_number": "1009621-00-L",
+        "price_uah": 0,
+        "quantity": 1,
+        "condition": "Вживана",
+        "condition_label": null,
+        "damage": null,
+        "description": "Петля капота права після 21 року — запчастина для Tesla Model X 09.2015-02.2021. Артикул: 1009621-00-L (100962100L). Категорія: Компоненти закриття / Допоміжні механізми закриття та петлі / Петлі і фурнітура капота. Сумісність: Model X 09.2015-02.2021, Model X Palladium 03.2021-05.2025, Model X 06.2025-, Model X. Стан: вживана.\n\nЗапчастина є в наявності на складі NikolaCars: 1 шт. Ціну запчастини уточнюйте у менеджера NikolaCars. Перед замовленням звірте артикул і сумісність деталі з вашим автомобілем Tesla.",
+        "model": "Model X 09.2015-02.2021",
+        "compatibility": "Model X 09.2015-02.2021, Model X Palladium 03.2021-05.2025, Model X 06.2025-, Model X",
+        "url_slug": "1009621-00-l-113595"
+      },
+      "productSchema": {},
+      "currentUrlInSitemapCount": 1,
+      "originalUrlInSitemapCount": 1
+    },
+    {
+      "requestedUrl": "https://nikolacars.kiev.ua/ru/parts/1009621-00-l-113595/",
+      "observedAt": "2026-11-01T17:06:07.823342+00:00",
+      "http": 200,
+      "url": "https://nikolacars.kiev.ua/ru/parts/1009621-00-l-113595/",
+      "redirects": [],
+      "id": 113595,
+      "locale": "ru",
+      "canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/1009621-00-l-113595/"
+      ],
+      "robots": [],
+      "xRobots": null,
+      "hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/1009621-00-l-113595/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/1009621-00-l-113595/",
+        "x-default": "https://nikolacars.kiev.ua/parts/1009621-00-l-113595/"
+      },
+      "title": "Петля капота правая после 21 года Tesla Model X 09.2015-02.2021 — 1009621-00-L | NikolaCars — Оригинал",
+      "h1": "Петля капота правая после 21 года — Tesla Model X 09.2015-02.2021 — 1009621-00-L",
+      "description": "ОписаниеПетля капота правая после 21 года — запчасть для Tesla Model X 09.2015-02.2021. Артикул: 1009621-00-L (100962100L). Категория: Компоненты закрытия / Вспомогательные элементы закрытия и петли / Петли и фурнитура капота. Совместимость: Model X 09.2015-02.2021, Model X Palladium 03.2021-05.2025, Model X 06.2025-, Model X. Состояние: б/у. Запчасть в наличии на складе NikolaCars: 1 шт. Цену запчасти уточняйте у менеджера NikolaCars. Перед заказом сверьте артикул и совместимость детали с вашим автомобилем Tesla.",
+      "productData": {
+        "id": 113595,
+        "name": "Петля капота правая после 21 года",
+        "part_number": "1009621-00-L",
+        "price_uah": 0,
+        "quantity": 1,
+        "condition": "Б/У",
+        "condition_label": null,
+        "damage": null,
+        "description": "Петля капота правая после 21 года — запчасть для Tesla Model X 09.2015-02.2021. Артикул: 1009621-00-L (100962100L). Категория: Компоненты закрытия / Вспомогательные элементы закрытия и петли / Петли и фурнитура капота. Совместимость: Model X 09.2015-02.2021, Model X Palladium 03.2021-05.2025, Model X 06.2025-, Model X. Состояние: б/у.\n\nЗапчасть в наличии на складе NikolaCars: 1 шт. Цену запчасти уточняйте у менеджера NikolaCars. Перед заказом сверьте артикул и совместимость детали с вашим автомобилем Tesla.",
+        "model": "Model X 09.2015-02.2021",
+        "compatibility": "Model X 09.2015-02.2021, Model X Palladium 03.2021-05.2025, Model X 06.2025-, Model X",
+        "url_slug": "1009621-00-l-113595"
+      },
+      "productSchema": {},
+      "currentUrlInSitemapCount": 1,
+      "originalUrlInSitemapCount": 1
+    },
+    {
+      "requestedUrl": "https://nikolacars.kiev.ua/parts/pbtgf30-106837/",
+      "observedAt": "2026-11-01T17:06:08.020633+00:00",
+      "http": 200,
+      "url": "https://nikolacars.kiev.ua/parts/pbtgf30-106837/",
+      "redirects": [],
+      "id": 106837,
+      "locale": "uk",
+      "canonical": [
+        "https://nikolacars.kiev.ua/parts/pbtgf30-106837/"
+      ],
+      "robots": [],
+      "xRobots": null,
+      "hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/pbtgf30-106837/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/pbtgf30-106837/",
+        "x-default": "https://nikolacars.kiev.ua/parts/pbtgf30-106837/"
+      },
+      "title": "Резистор перемикання печі Tesla Model S 04.2016-01.2021 — PBTGF30 | NikolaCars — Оригінал",
+      "h1": "Резистор перемикання печі — Tesla Model S 04.2016-01.2021 — PBTGF30",
+      "description": "ОписРезистор перемикання печі — запчастина для Tesla Model S 04.2016-01.2021. Артикул: PBTGF30. Категорія: Управління температурним режимом / HVAC - Кліматична система салону / Кліматична установка в зборі і HEPA-фільтр. Стан: вживана. Запчастина є в наявності на складі NikolaCars: 7 шт. Купити запчастину можна за ціною 1 380 грн. Перед замовленням звірте артикул і сумісність деталі з вашим автомобілем Tesla.",
+      "productData": {
+        "id": 106837,
+        "name": "Резистор перемикання печі",
+        "part_number": "PBTGF30",
+        "price_uah": 1380,
+        "quantity": 7,
+        "condition": "Вживана",
+        "condition_label": null,
+        "damage": null,
+        "description": "Резистор перемикання печі — запчастина для Tesla Model S 04.2016-01.2021. Артикул: PBTGF30. Категорія: Управління температурним режимом / HVAC - Кліматична система салону / Кліматична установка в зборі і HEPA-фільтр. Стан: вживана.\n\nЗапчастина є в наявності на складі NikolaCars: 7 шт. Купити запчастину можна за ціною 1 380 грн. Перед замовленням звірте артикул і сумісність деталі з вашим автомобілем Tesla.",
+        "model": "Model S 04.2016-01.2021",
+        "compatibility": "",
+        "url_slug": "pbtgf30-106837"
+      },
+      "productSchema": {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "@id": "https://nikolacars.kiev.ua/parts/pbtgf30-106837/#product",
+        "mainEntityOfPage": {
+          "@id": "https://nikolacars.kiev.ua/parts/pbtgf30-106837/#webpage"
+        },
+        "name": "Резистор перемикання печі Tesla Model S 04.2016-01.2021",
+        "image": [
+          "https://sklad.nikolacars.kiev.ua/storage/product-photos/f437f3b7f17260347d41a6dd4ce43e2fca91509e.jpg",
+          "https://sklad.nikolacars.kiev.ua/storage/product-photos/c429cf69f4bd2a9a4e2f0db119efbc76959efd20.jpg",
+          "https://sklad.nikolacars.kiev.ua/storage/product-photos/91d304fcc8d51f25f57a1ef671f62aaa2f52a020.jpg"
+        ],
+        "description": "Резистор перемикання печі — запчастина для Tesla Model S 04.2016-01.2021. Артикул: PBTGF30. Категорія: Управління температурним режимом / HVAC - Кліматична система салону / Кліматична установка в зборі і HEPA-фільтр. Стан: вживана.\n\nЗапчастина є в наявності на складі NikolaCars: 7 шт. Купити запчастину можна за ціною 1 380 грн. Перед замовленням звірте артикул і сумісність деталі з вашим автомобілем Tesla.",
+        "sku": "RON60-0077",
+        "mpn": "PBTGF30",
+        "brand": {
+          "@type": "Brand",
+          "name": "Tesla"
+        },
+        "category": {
+          "@type": "CategoryCode",
+          "inCodeSet": "https://www.google.com/basepages/producttype/taxonomy-with-ids.en-US.txt",
+          "codeValue": "5613"
+        },
+        "offers": {
+          "@type": "Offer",
+          "url": "https://nikolacars.kiev.ua/parts/pbtgf30-106837/",
+          "priceCurrency": "UAH",
+          "price": "1380.00",
+          "availability": "https://schema.org/InStock",
+          "itemCondition": "https://schema.org/UsedCondition",
+          "seller": {
+            "@type": "Organization",
+            "@id": "https://nikolacars.kiev.ua/#parts-store",
+            "name": "NikolaCars"
+          },
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "hasShippingService": {
+              "@id": "https://nikolacars.kiev.ua/parts/pbtgf30-106837/#delivery-and-returns"
+            }
+          },
+          "hasMerchantReturnPolicy": {
+            "@type": "MerchantReturnPolicy",
+            "applicableCountry": "UA",
+            "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+            "merchantReturnDays": 14,
+            "returnMethod": [
+              "https://schema.org/ReturnByMail",
+              "https://schema.org/ReturnInStore"
+            ],
+            "returnFees": "https://schema.org/ReturnFeesCustomerResponsibility"
+          }
+        }
+      },
+      "currentUrlInSitemapCount": 1,
+      "originalUrlInSitemapCount": 1
+    },
+    {
+      "requestedUrl": "https://nikolacars.kiev.ua/ru/parts/pbtgf30-106837/",
+      "observedAt": "2026-11-01T17:06:08.001392+00:00",
+      "http": 200,
+      "url": "https://nikolacars.kiev.ua/ru/parts/pbtgf30-106837/",
+      "redirects": [],
+      "id": 106837,
+      "locale": "ru",
+      "canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/pbtgf30-106837/"
+      ],
+      "robots": [],
+      "xRobots": null,
+      "hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/pbtgf30-106837/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/pbtgf30-106837/",
+        "x-default": "https://nikolacars.kiev.ua/parts/pbtgf30-106837/"
+      },
+      "title": "Резистор переключения печки Tesla Model S 04.2016-01.2021 — PBTGF30 | NikolaCars — Оригинал",
+      "h1": "Резистор переключения печки — Tesla Model S 04.2016-01.2021 — PBTGF30",
+      "description": "ОписаниеРезистор переключения печки — запчасть для Tesla Model S 04.2016-01.2021. Артикул: PBTGF30. Категория: Управление температурным режимом / HVAC - Кліматическая система салона / Климатическая установка в сборе и HEPA-фильтр. Состояние: б/у. Запчасть в наличии на складе NikolaCars: 7 шт. Купить запчасть можно по цене 1 380 грн. Перед заказом сверьте артикул и совместимость детали с вашим автомобилем Tesla.",
+      "productData": {
+        "id": 106837,
+        "name": "Резистор переключения печки",
+        "part_number": "PBTGF30",
+        "price_uah": 1380,
+        "quantity": 7,
+        "condition": "Б/У",
+        "condition_label": null,
+        "damage": null,
+        "description": "Резистор переключения печки — запчасть для Tesla Model S 04.2016-01.2021. Артикул: PBTGF30. Категория: Управление температурным режимом / HVAC - Кліматическая система салона / Климатическая установка в сборе и HEPA-фильтр. Состояние: б/у.\n\nЗапчасть в наличии на складе NikolaCars: 7 шт. Купить запчасть можно по цене 1 380 грн. Перед заказом сверьте артикул и совместимость детали с вашим автомобилем Tesla.",
+        "model": "Model S 04.2016-01.2021",
+        "compatibility": "",
+        "url_slug": "pbtgf30-106837"
+      },
+      "productSchema": {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "@id": "https://nikolacars.kiev.ua/ru/parts/pbtgf30-106837/#product",
+        "mainEntityOfPage": {
+          "@id": "https://nikolacars.kiev.ua/ru/parts/pbtgf30-106837/#webpage"
+        },
+        "name": "Резистор переключения печки Tesla Model S 04.2016-01.2021",
+        "image": [
+          "https://sklad.nikolacars.kiev.ua/storage/product-photos/f437f3b7f17260347d41a6dd4ce43e2fca91509e.jpg",
+          "https://sklad.nikolacars.kiev.ua/storage/product-photos/c429cf69f4bd2a9a4e2f0db119efbc76959efd20.jpg",
+          "https://sklad.nikolacars.kiev.ua/storage/product-photos/91d304fcc8d51f25f57a1ef671f62aaa2f52a020.jpg"
+        ],
+        "description": "Резистор переключения печки — запчасть для Tesla Model S 04.2016-01.2021. Артикул: PBTGF30. Категория: Управление температурным режимом / HVAC - Кліматическая система салона / Климатическая установка в сборе и HEPA-фильтр. Состояние: б/у.\n\nЗапчасть в наличии на складе NikolaCars: 7 шт. Купить запчасть можно по цене 1 380 грн. Перед заказом сверьте артикул и совместимость детали с вашим автомобилем Tesla.",
+        "sku": "RON60-0077",
+        "mpn": "PBTGF30",
+        "brand": {
+          "@type": "Brand",
+          "name": "Tesla"
+        },
+        "category": {
+          "@type": "CategoryCode",
+          "inCodeSet": "https://www.google.com/basepages/producttype/taxonomy-with-ids.en-US.txt",
+          "codeValue": "5613"
+        },
+        "offers": {
+          "@type": "Offer",
+          "url": "https://nikolacars.kiev.ua/ru/parts/pbtgf30-106837/",
+          "priceCurrency": "UAH",
+          "price": "1380.00",
+          "availability": "https://schema.org/InStock",
+          "itemCondition": "https://schema.org/UsedCondition",
+          "seller": {
+            "@type": "Organization",
+            "@id": "https://nikolacars.kiev.ua/#parts-store",
+            "name": "NikolaCars"
+          },
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "hasShippingService": {
+              "@id": "https://nikolacars.kiev.ua/ru/parts/pbtgf30-106837/#delivery-and-returns"
+            }
+          },
+          "hasMerchantReturnPolicy": {
+            "@type": "MerchantReturnPolicy",
+            "applicableCountry": "UA",
+            "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+            "merchantReturnDays": 14,
+            "returnMethod": [
+              "https://schema.org/ReturnByMail",
+              "https://schema.org/ReturnInStore"
+            ],
+            "returnFees": "https://schema.org/ReturnFeesCustomerResponsibility"
+          }
+        }
+      },
+      "currentUrlInSitemapCount": 1,
+      "originalUrlInSitemapCount": 1
+    },
+    {
+      "requestedUrl": "https://nikolacars.kiev.ua/parts/6006413-00-a-92004/",
+      "observedAt": "2026-11-01T17:06:08.115725+00:00",
+      "http": 200,
+      "url": "https://nikolacars.kiev.ua/parts/6006413-00-a-92004/",
+      "redirects": [],
+      "id": 92004,
+      "locale": "uk",
+      "canonical": [
+        "https://nikolacars.kiev.ua/parts/6006413-00-a-92004/"
+      ],
+      "robots": [],
+      "xRobots": null,
+      "hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/6006413-00-a-92004/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/6006413-00-a-92004/",
+        "x-default": "https://nikolacars.kiev.ua/parts/6006413-00-a-92004/"
+      },
+      "title": "Блок управління пневмо підвіскою Tesla Model S 02.2012-03.2016 — 6006413-00-A | NikolaCars — Оригінал",
+      "h1": "Блок управління пневмо підвіскою — Tesla Model S 02.2012-03.2016 — 6006413-00-A",
+      "description": "ОписБлок управління пневмо підвіскою — запчастина для Tesla Model S 02.2012-03.2016. Артикул: 6006413-00-A (600641300A). Категорія: Підвіска / Система пневматичної підвіски / Модуль управління пневматичної підвіски. Сумісність: Model S 02.2012-03.2016, Model S. Стан: вживана. Колір: зелений. Запчастина є в наявності на складі NikolaCars: 3 шт. Купити запчастину можна за ціною 4 590 грн. Перед замовленням звірте артикул і сумісність деталі з вашим автомобілем Tesla.",
+      "productData": {
+        "id": 92004,
+        "name": "Блок управління пневмо підвіскою",
+        "part_number": "6006413-00-A",
+        "price_uah": 4590,
+        "quantity": 3,
+        "condition": "Вживана",
+        "condition_label": null,
+        "damage": null,
+        "description": "Блок управління пневмо підвіскою — запчастина для Tesla Model S 02.2012-03.2016. Артикул: 6006413-00-A (600641300A). Категорія: Підвіска / Система пневматичної підвіски / Модуль управління пневматичної підвіски. Сумісність: Model S 02.2012-03.2016, Model S. Стан: вживана. Колір: зелений.\n\nЗапчастина є в наявності на складі NikolaCars: 3 шт. Купити запчастину можна за ціною 4 590 грн. Перед замовленням звірте артикул і сумісність деталі з вашим автомобілем Tesla.",
+        "model": "Model S 02.2012-03.2016",
+        "compatibility": "Model S 02.2012-03.2016, Model S",
+        "url_slug": "6006413-00-a-92004"
+      },
+      "productSchema": {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "@id": "https://nikolacars.kiev.ua/parts/6006413-00-a-92004/#product",
+        "mainEntityOfPage": {
+          "@id": "https://nikolacars.kiev.ua/parts/6006413-00-a-92004/#webpage"
+        },
+        "name": "Блок управління пневмо підвіскою Tesla Model S 02.2012-03.2016",
+        "image": [
+          "https://sklad.nikolacars.kiev.ua/storage/product-photos/0a7eacef926ee357ae6b8d099081926c9ce0d525.jpg",
+          "https://sklad.nikolacars.kiev.ua/storage/product-photos/5bf72832b13fdc5233d66af4e9f3f94288a2634f.jpg",
+          "https://sklad.nikolacars.kiev.ua/storage/product-photos/8f81213651a482a06027be375c45cdeb600104c8.jpg"
+        ],
+        "description": "Блок управління пневмо підвіскою — запчастина для Tesla Model S 02.2012-03.2016. Артикул: 6006413-00-A (600641300A). Категорія: Підвіска / Система пневматичної підвіски / Модуль управління пневматичної підвіски. Сумісність: Model S 02.2012-03.2016, Model S. Стан: вживана. Колір: зелений.\n\nЗапчастина є в наявності на складі NikolaCars: 3 шт. Купити запчастину можна за ціною 4 590 грн. Перед замовленням звірте артикул і сумісність деталі з вашим автомобілем Tesla.",
+        "sku": "DON22-0793",
+        "mpn": "6006413-00-A",
+        "brand": {
+          "@type": "Brand",
+          "name": "Tesla"
+        },
+        "category": {
+          "@type": "CategoryCode",
+          "inCodeSet": "https://www.google.com/basepages/producttype/taxonomy-with-ids.en-US.txt",
+          "codeValue": "5613"
+        },
+        "offers": {
+          "@type": "Offer",
+          "url": "https://nikolacars.kiev.ua/parts/6006413-00-a-92004/",
+          "priceCurrency": "UAH",
+          "price": "4590.00",
+          "availability": "https://schema.org/InStock",
+          "itemCondition": "https://schema.org/UsedCondition",
+          "seller": {
+            "@type": "Organization",
+            "@id": "https://nikolacars.kiev.ua/#parts-store",
+            "name": "NikolaCars"
+          },
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "hasShippingService": {
+              "@id": "https://nikolacars.kiev.ua/parts/6006413-00-a-92004/#delivery-and-returns"
+            }
+          },
+          "hasMerchantReturnPolicy": {
+            "@type": "MerchantReturnPolicy",
+            "applicableCountry": "UA",
+            "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+            "merchantReturnDays": 14,
+            "returnMethod": [
+              "https://schema.org/ReturnByMail",
+              "https://schema.org/ReturnInStore"
+            ],
+            "returnFees": "https://schema.org/ReturnFeesCustomerResponsibility"
+          }
+        }
+      },
+      "currentUrlInSitemapCount": 1,
+      "originalUrlInSitemapCount": 1
+    },
+    {
+      "requestedUrl": "https://nikolacars.kiev.ua/ru/parts/6006413-00-a-92004/",
+      "observedAt": "2026-11-01T17:06:08.136726+00:00",
+      "http": 200,
+      "url": "https://nikolacars.kiev.ua/ru/parts/6006413-00-a-92004/",
+      "redirects": [],
+      "id": 92004,
+      "locale": "ru",
+      "canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/6006413-00-a-92004/"
+      ],
+      "robots": [],
+      "xRobots": null,
+      "hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/6006413-00-a-92004/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/6006413-00-a-92004/",
+        "x-default": "https://nikolacars.kiev.ua/parts/6006413-00-a-92004/"
+      },
+      "title": "Блок управления пневмо подвеской Tesla Model S 02.2012-03.2016 — 6006413-00-A | NikolaCars — Оригинал",
+      "h1": "Блок управления пневмо подвеской — Tesla Model S 02.2012-03.2016 — 6006413-00-A",
+      "description": "ОписаниеБлок управления пневмо подвеской — запчасть для Tesla Model S 02.2012-03.2016. Артикул: 6006413-00-A (600641300A). Категория: Подвеска / Система пневматической подвески / Модуль управления пневматической подвески. Совместимость: Model S 02.2012-03.2016, Model S. Состояние: б/у. Цвет: зеленый. Запчасть в наличии на складе NikolaCars: 3 шт. Купить запчасть можно по цене 4 590 грн. Перед заказом сверьте артикул и совместимость детали с вашим автомобилем Tesla.",
+      "productData": {
+        "id": 92004,
+        "name": "Блок управления пневмо подвеской",
+        "part_number": "6006413-00-A",
+        "price_uah": 4590,
+        "quantity": 3,
+        "condition": "Б/У",
+        "condition_label": null,
+        "damage": null,
+        "description": "Блок управления пневмо подвеской — запчасть для Tesla Model S 02.2012-03.2016. Артикул: 6006413-00-A (600641300A). Категория: Подвеска / Система пневматической подвески / Модуль управления пневматической подвески. Совместимость: Model S 02.2012-03.2016, Model S. Состояние: б/у. Цвет: зеленый.\n\nЗапчасть в наличии на складе NikolaCars: 3 шт. Купить запчасть можно по цене 4 590 грн. Перед заказом сверьте артикул и совместимость детали с вашим автомобилем Tesla.",
+        "model": "Model S 02.2012-03.2016",
+        "compatibility": "Model S 02.2012-03.2016, Model S",
+        "url_slug": "6006413-00-a-92004"
+      },
+      "productSchema": {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "@id": "https://nikolacars.kiev.ua/ru/parts/6006413-00-a-92004/#product",
+        "mainEntityOfPage": {
+          "@id": "https://nikolacars.kiev.ua/ru/parts/6006413-00-a-92004/#webpage"
+        },
+        "name": "Блок управления пневмо подвеской Tesla Model S 02.2012-03.2016",
+        "image": [
+          "https://sklad.nikolacars.kiev.ua/storage/product-photos/0a7eacef926ee357ae6b8d099081926c9ce0d525.jpg",
+          "https://sklad.nikolacars.kiev.ua/storage/product-photos/5bf72832b13fdc5233d66af4e9f3f94288a2634f.jpg",
+          "https://sklad.nikolacars.kiev.ua/storage/product-photos/8f81213651a482a06027be375c45cdeb600104c8.jpg"
+        ],
+        "description": "Блок управления пневмо подвеской — запчасть для Tesla Model S 02.2012-03.2016. Артикул: 6006413-00-A (600641300A). Категория: Подвеска / Система пневматической подвески / Модуль управления пневматической подвески. Совместимость: Model S 02.2012-03.2016, Model S. Состояние: б/у. Цвет: зеленый.\n\nЗапчасть в наличии на складе NikolaCars: 3 шт. Купить запчасть можно по цене 4 590 грн. Перед заказом сверьте артикул и совместимость детали с вашим автомобилем Tesla.",
+        "sku": "DON22-0793",
+        "mpn": "6006413-00-A",
+        "brand": {
+          "@type": "Brand",
+          "name": "Tesla"
+        },
+        "category": {
+          "@type": "CategoryCode",
+          "inCodeSet": "https://www.google.com/basepages/producttype/taxonomy-with-ids.en-US.txt",
+          "codeValue": "5613"
+        },
+        "offers": {
+          "@type": "Offer",
+          "url": "https://nikolacars.kiev.ua/ru/parts/6006413-00-a-92004/",
+          "priceCurrency": "UAH",
+          "price": "4590.00",
+          "availability": "https://schema.org/InStock",
+          "itemCondition": "https://schema.org/UsedCondition",
+          "seller": {
+            "@type": "Organization",
+            "@id": "https://nikolacars.kiev.ua/#parts-store",
+            "name": "NikolaCars"
+          },
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "hasShippingService": {
+              "@id": "https://nikolacars.kiev.ua/ru/parts/6006413-00-a-92004/#delivery-and-returns"
+            }
+          },
+          "hasMerchantReturnPolicy": {
+            "@type": "MerchantReturnPolicy",
+            "applicableCountry": "UA",
+            "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+            "merchantReturnDays": 14,
+            "returnMethod": [
+              "https://schema.org/ReturnByMail",
+              "https://schema.org/ReturnInStore"
+            ],
+            "returnFees": "https://schema.org/ReturnFeesCustomerResponsibility"
+          }
+        }
+      },
+      "currentUrlInSitemapCount": 1,
+      "originalUrlInSitemapCount": 1
+    },
+    {
+      "requestedUrl": "https://nikolacars.kiev.ua/parts/1052334-07-g-113539/",
+      "observedAt": "2026-11-01T17:06:08.288930+00:00",
+      "http": 200,
+      "url": "https://nikolacars.kiev.ua/parts/1052334-07-g-113539/",
+      "redirects": [],
+      "id": 113539,
+      "locale": "uk",
+      "canonical": [
+        "https://nikolacars.kiev.ua/parts/1052334-07-g-113539/"
+      ],
+      "robots": [],
+      "xRobots": null,
+      "hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/1052334-07-g-113539/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/1052334-07-g-113539/",
+        "x-default": "https://nikolacars.kiev.ua/parts/1052334-07-g-113539/"
+      },
+      "title": "Обшивка задніх правих дверей нижня Tesla Model X 09.2015-02.2021 — 1052334-07-G | NikolaCars — Оригінал",
+      "h1": "Обшивка задніх правих дверей нижня — Tesla Model X 09.2015-02.2021 — 1052334-07-G",
+      "description": "ОписОбшивка задніх правих дверей нижня — запчастина для Tesla Model X 09.2015-02.2021. Артикул: 1052334-07-G (105233407G). Категорія: Внутрішнє оздоблення / Оздоблення дверей / Оздоблення задніх дверей - верхня частина. Сумісність: Model X 09.2015-02.2021, Tesla. Стан: вживана. Запчастина є в наявності на складі NikolaCars: 1 шт. Купити запчастину можна за ціною 1 110 грн. Перед замовленням звірте артикул і сумісність деталі з вашим автомобілем Tesla.",
+      "productData": {
+        "id": 113539,
+        "name": "Обшивка задніх правих дверей нижня",
+        "part_number": "1052334-07-G",
+        "price_uah": 1110,
+        "quantity": 1,
+        "condition": "Вживана",
+        "condition_label": null,
+        "damage": null,
+        "description": "Обшивка задніх правих дверей нижня — запчастина для Tesla Model X 09.2015-02.2021. Артикул: 1052334-07-G (105233407G). Категорія: Внутрішнє оздоблення / Оздоблення дверей / Оздоблення задніх дверей - верхня частина. Сумісність: Model X 09.2015-02.2021, Tesla. Стан: вживана.\n\nЗапчастина є в наявності на складі NikolaCars: 1 шт. Купити запчастину можна за ціною 1 110 грн. Перед замовленням звірте артикул і сумісність деталі з вашим автомобілем Tesla.",
+        "model": "Model X 09.2015-02.2021",
+        "compatibility": "Model X 09.2015-02.2021, Tesla",
+        "url_slug": "1052334-07-g-113539"
+      },
+      "productSchema": {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "@id": "https://nikolacars.kiev.ua/parts/1052334-07-g-113539/#product",
+        "mainEntityOfPage": {
+          "@id": "https://nikolacars.kiev.ua/parts/1052334-07-g-113539/#webpage"
+        },
+        "name": "Обшивка задніх правих дверей нижня Tesla Model X 09.2015-02.2021",
+        "image": [
+          "https://sklad.nikolacars.kiev.ua/storage/product-photos/fd364fb9ffc1a51747aad8a542739d4c992c17b0.jpg",
+          "https://sklad.nikolacars.kiev.ua/storage/product-photos/2d609442ab6b8a68fa595e2823cacdb7dfd3069b.jpg"
+        ],
+        "description": "Обшивка задніх правих дверей нижня — запчастина для Tesla Model X 09.2015-02.2021. Артикул: 1052334-07-G (105233407G). Категорія: Внутрішнє оздоблення / Оздоблення дверей / Оздоблення задніх дверей - верхня частина. Сумісність: Model X 09.2015-02.2021, Tesla. Стан: вживана.\n\nЗапчастина є в наявності на складі NikolaCars: 1 шт. Купити запчастину можна за ціною 1 110 грн. Перед замовленням звірте артикул і сумісність деталі з вашим автомобілем Tesla.",
+        "sku": "RON64-0054",
+        "mpn": "1052334-07-G",
+        "brand": {
+          "@type": "Brand",
+          "name": "Tesla"
+        },
+        "category": {
+          "@type": "CategoryCode",
+          "inCodeSet": "https://www.google.com/basepages/producttype/taxonomy-with-ids.en-US.txt",
+          "codeValue": "5613"
+        },
+        "offers": {
+          "@type": "Offer",
+          "url": "https://nikolacars.kiev.ua/parts/1052334-07-g-113539/",
+          "priceCurrency": "UAH",
+          "price": "1110.00",
+          "availability": "https://schema.org/InStock",
+          "itemCondition": "https://schema.org/UsedCondition",
+          "seller": {
+            "@type": "Organization",
+            "@id": "https://nikolacars.kiev.ua/#parts-store",
+            "name": "NikolaCars"
+          },
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "hasShippingService": {
+              "@id": "https://nikolacars.kiev.ua/parts/1052334-07-g-113539/#delivery-and-returns"
+            }
+          },
+          "hasMerchantReturnPolicy": {
+            "@type": "MerchantReturnPolicy",
+            "applicableCountry": "UA",
+            "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+            "merchantReturnDays": 14,
+            "returnMethod": [
+              "https://schema.org/ReturnByMail",
+              "https://schema.org/ReturnInStore"
+            ],
+            "returnFees": "https://schema.org/ReturnFeesCustomerResponsibility"
+          }
+        }
+      },
+      "currentUrlInSitemapCount": 1,
+      "originalUrlInSitemapCount": 1
+    },
+    {
+      "requestedUrl": "https://nikolacars.kiev.ua/ru/parts/1052334-07-g-113539/",
+      "observedAt": "2026-11-01T17:06:08.310533+00:00",
+      "http": 200,
+      "url": "https://nikolacars.kiev.ua/ru/parts/1052334-07-g-113539/",
+      "redirects": [],
+      "id": 113539,
+      "locale": "ru",
+      "canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/1052334-07-g-113539/"
+      ],
+      "robots": [],
+      "xRobots": null,
+      "hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/1052334-07-g-113539/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/1052334-07-g-113539/",
+        "x-default": "https://nikolacars.kiev.ua/parts/1052334-07-g-113539/"
+      },
+      "title": "Обшивка задней правой двери нижняя Tesla Model X 09.2015-02.2021 — 1052334-07-G | NikolaCars — Оригинал",
+      "h1": "Обшивка задней правой двери нижняя — Tesla Model X 09.2015-02.2021 — 1052334-07-G",
+      "description": "ОписаниеОбшивка задней правой двери нижняя — запчасть для Tesla Model X 09.2015-02.2021. Артикул: 1052334-07-G (105233407G). Категория: Внутренняя отделка / Обшивка дверей / Обшивка задних дверей - верхняя часть. Совместимость: Model X 09.2015-02.2021, Tesla. Состояние: б/у. Запчасть в наличии на складе NikolaCars: 1 шт. Купить запчасть можно по цене 1 110 грн. Перед заказом сверьте артикул и совместимость детали с вашим автомобилем Tesla.",
+      "productData": {
+        "id": 113539,
+        "name": "Обшивка задней правой двери нижняя",
+        "part_number": "1052334-07-G",
+        "price_uah": 1110,
+        "quantity": 1,
+        "condition": "Б/У",
+        "condition_label": null,
+        "damage": null,
+        "description": "Обшивка задней правой двери нижняя — запчасть для Tesla Model X 09.2015-02.2021. Артикул: 1052334-07-G (105233407G). Категория: Внутренняя отделка / Обшивка дверей / Обшивка задних дверей - верхняя часть. Совместимость: Model X 09.2015-02.2021, Tesla. Состояние: б/у.\n\nЗапчасть в наличии на складе NikolaCars: 1 шт. Купить запчасть можно по цене 1 110 грн. Перед заказом сверьте артикул и совместимость детали с вашим автомобилем Tesla.",
+        "model": "Model X 09.2015-02.2021",
+        "compatibility": "Model X 09.2015-02.2021, Tesla",
+        "url_slug": "1052334-07-g-113539"
+      },
+      "productSchema": {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "@id": "https://nikolacars.kiev.ua/ru/parts/1052334-07-g-113539/#product",
+        "mainEntityOfPage": {
+          "@id": "https://nikolacars.kiev.ua/ru/parts/1052334-07-g-113539/#webpage"
+        },
+        "name": "Обшивка задней правой двери нижняя Tesla Model X 09.2015-02.2021",
+        "image": [
+          "https://sklad.nikolacars.kiev.ua/storage/product-photos/fd364fb9ffc1a51747aad8a542739d4c992c17b0.jpg",
+          "https://sklad.nikolacars.kiev.ua/storage/product-photos/2d609442ab6b8a68fa595e2823cacdb7dfd3069b.jpg"
+        ],
+        "description": "Обшивка задней правой двери нижняя — запчасть для Tesla Model X 09.2015-02.2021. Артикул: 1052334-07-G (105233407G). Категория: Внутренняя отделка / Обшивка дверей / Обшивка задних дверей - верхняя часть. Совместимость: Model X 09.2015-02.2021, Tesla. Состояние: б/у.\n\nЗапчасть в наличии на складе NikolaCars: 1 шт. Купить запчасть можно по цене 1 110 грн. Перед заказом сверьте артикул и совместимость детали с вашим автомобилем Tesla.",
+        "sku": "RON64-0054",
+        "mpn": "1052334-07-G",
+        "brand": {
+          "@type": "Brand",
+          "name": "Tesla"
+        },
+        "category": {
+          "@type": "CategoryCode",
+          "inCodeSet": "https://www.google.com/basepages/producttype/taxonomy-with-ids.en-US.txt",
+          "codeValue": "5613"
+        },
+        "offers": {
+          "@type": "Offer",
+          "url": "https://nikolacars.kiev.ua/ru/parts/1052334-07-g-113539/",
+          "priceCurrency": "UAH",
+          "price": "1110.00",
+          "availability": "https://schema.org/InStock",
+          "itemCondition": "https://schema.org/UsedCondition",
+          "seller": {
+            "@type": "Organization",
+            "@id": "https://nikolacars.kiev.ua/#parts-store",
+            "name": "NikolaCars"
+          },
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "hasShippingService": {
+              "@id": "https://nikolacars.kiev.ua/ru/parts/1052334-07-g-113539/#delivery-and-returns"
+            }
+          },
+          "hasMerchantReturnPolicy": {
+            "@type": "MerchantReturnPolicy",
+            "applicableCountry": "UA",
+            "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+            "merchantReturnDays": 14,
+            "returnMethod": [
+              "https://schema.org/ReturnByMail",
+              "https://schema.org/ReturnInStore"
+            ],
+            "returnFees": "https://schema.org/ReturnFeesCustomerResponsibility"
+          }
+        }
+      },
+      "currentUrlInSitemapCount": 1,
+      "originalUrlInSitemapCount": 1
+    },
+    {
+      "requestedUrl": "https://nikolacars.kiev.ua/parts/1035563-00-c-113524/",
+      "observedAt": "2026-11-01T17:06:08.427740+00:00",
+      "http": 200,
+      "url": "https://nikolacars.kiev.ua/parts/1035563-00-c-113524/",
+      "redirects": [],
+      "id": 113524,
+      "locale": "uk",
+      "canonical": [
+        "https://nikolacars.kiev.ua/parts/1035563-00-c-113524/"
+      ],
+      "robots": [],
+      "xRobots": null,
+      "hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/1035563-00-c-113524/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/1035563-00-c-113524/",
+        "x-default": "https://nikolacars.kiev.ua/parts/1035563-00-c-113524/"
+      },
+      "title": "Накладка торпеди нижня права Tesla Model X 09.2015-02.2021 — 1035563-00-C | NikolaCars — Оригінал",
+      "h1": "Накладка торпеди нижня права — Tesla Model X 09.2015-02.2021 — 1035563-00-C",
+      "description": "ОписНакладка торпеди нижня права — запчастина для Tesla Model X 09.2015-02.2021. Артикул: 1035563-00-C (103556300C). Категорія: Панель приладів / Панель приладів / Панель приладів. Сумісність: Model X 09.2015-02.2021, Model X. Стан: вживана. Запчастина є в наявності на складі NikolaCars: 1 шт. Купити запчастину можна за ціною 370 грн. Перед замовленням звірте артикул і сумісність деталі з вашим автомобілем Tesla.",
+      "productData": {
+        "id": 113524,
+        "name": "Накладка торпеди нижня права",
+        "part_number": "1035563-00-C",
+        "price_uah": 370,
+        "quantity": 1,
+        "condition": "Вживана",
+        "condition_label": null,
+        "damage": null,
+        "description": "Накладка торпеди нижня права — запчастина для Tesla Model X 09.2015-02.2021. Артикул: 1035563-00-C (103556300C). Категорія: Панель приладів / Панель приладів / Панель приладів. Сумісність: Model X 09.2015-02.2021, Model X. Стан: вживана.\n\nЗапчастина є в наявності на складі NikolaCars: 1 шт. Купити запчастину можна за ціною 370 грн. Перед замовленням звірте артикул і сумісність деталі з вашим автомобілем Tesla.",
+        "model": "Model X 09.2015-02.2021",
+        "compatibility": "Model X 09.2015-02.2021, Model X",
+        "url_slug": "1035563-00-c-113524"
+      },
+      "productSchema": {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "@id": "https://nikolacars.kiev.ua/parts/1035563-00-c-113524/#product",
+        "mainEntityOfPage": {
+          "@id": "https://nikolacars.kiev.ua/parts/1035563-00-c-113524/#webpage"
+        },
+        "name": "Накладка торпеди нижня права Tesla Model X 09.2015-02.2021",
+        "image": [
+          "https://sklad.nikolacars.kiev.ua/storage/product-photos/0ef9ce74fa5c61831efd2e6c57837f2840717b0c.jpg",
+          "https://sklad.nikolacars.kiev.ua/storage/product-photos/873c60b16f42de0d43e44a7142ab29446b9ddc6f.jpg"
+        ],
+        "description": "Накладка торпеди нижня права — запчастина для Tesla Model X 09.2015-02.2021. Артикул: 1035563-00-C (103556300C). Категорія: Панель приладів / Панель приладів / Панель приладів. Сумісність: Model X 09.2015-02.2021, Model X. Стан: вживана.\n\nЗапчастина є в наявності на складі NikolaCars: 1 шт. Купити запчастину можна за ціною 370 грн. Перед замовленням звірте артикул і сумісність деталі з вашим автомобілем Tesla.",
+        "sku": "RON64-0039",
+        "mpn": "1035563-00-C",
+        "brand": {
+          "@type": "Brand",
+          "name": "Tesla"
+        },
+        "category": {
+          "@type": "CategoryCode",
+          "inCodeSet": "https://www.google.com/basepages/producttype/taxonomy-with-ids.en-US.txt",
+          "codeValue": "5613"
+        },
+        "offers": {
+          "@type": "Offer",
+          "url": "https://nikolacars.kiev.ua/parts/1035563-00-c-113524/",
+          "priceCurrency": "UAH",
+          "price": "370.00",
+          "availability": "https://schema.org/InStock",
+          "itemCondition": "https://schema.org/UsedCondition",
+          "seller": {
+            "@type": "Organization",
+            "@id": "https://nikolacars.kiev.ua/#parts-store",
+            "name": "NikolaCars"
+          },
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "hasShippingService": {
+              "@id": "https://nikolacars.kiev.ua/parts/1035563-00-c-113524/#delivery-and-returns"
+            }
+          },
+          "hasMerchantReturnPolicy": {
+            "@type": "MerchantReturnPolicy",
+            "applicableCountry": "UA",
+            "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+            "merchantReturnDays": 14,
+            "returnMethod": [
+              "https://schema.org/ReturnByMail",
+              "https://schema.org/ReturnInStore"
+            ],
+            "returnFees": "https://schema.org/ReturnFeesCustomerResponsibility"
+          }
+        }
+      },
+      "currentUrlInSitemapCount": 1,
+      "originalUrlInSitemapCount": 1
+    },
+    {
+      "requestedUrl": "https://nikolacars.kiev.ua/ru/parts/1035563-00-c-113524/",
+      "observedAt": "2026-11-01T17:06:08.431855+00:00",
+      "http": 200,
+      "url": "https://nikolacars.kiev.ua/ru/parts/1035563-00-c-113524/",
+      "redirects": [],
+      "id": 113524,
+      "locale": "ru",
+      "canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/1035563-00-c-113524/"
+      ],
+      "robots": [],
+      "xRobots": null,
+      "hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/1035563-00-c-113524/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/1035563-00-c-113524/",
+        "x-default": "https://nikolacars.kiev.ua/parts/1035563-00-c-113524/"
+      },
+      "title": "Накладка торпеды нижняя правая Tesla Model X 09.2015-02.2021 — 1035563-00-C | NikolaCars — Оригинал",
+      "h1": "Накладка торпеды нижняя правая — Tesla Model X 09.2015-02.2021 — 1035563-00-C",
+      "description": "ОписаниеНакладка торпеды нижняя правая — запчасть для Tesla Model X 09.2015-02.2021. Артикул: 1035563-00-C (103556300C). Категория: Приборная панель / Панель приборная / Приборная панель. Совместимость: Model X 09.2015-02.2021, Model X. Состояние: б/у. Запчасть в наличии на складе NikolaCars: 1 шт. Купить запчасть можно по цене 370 грн. Перед заказом сверьте артикул и совместимость детали с вашим автомобилем Tesla.",
+      "productData": {
+        "id": 113524,
+        "name": "Накладка торпеды нижняя правая",
+        "part_number": "1035563-00-C",
+        "price_uah": 370,
+        "quantity": 1,
+        "condition": "Б/У",
+        "condition_label": null,
+        "damage": null,
+        "description": "Накладка торпеды нижняя правая — запчасть для Tesla Model X 09.2015-02.2021. Артикул: 1035563-00-C (103556300C). Категория: Приборная панель / Панель приборная / Приборная панель. Совместимость: Model X 09.2015-02.2021, Model X. Состояние: б/у.\n\nЗапчасть в наличии на складе NikolaCars: 1 шт. Купить запчасть можно по цене 370 грн. Перед заказом сверьте артикул и совместимость детали с вашим автомобилем Tesla.",
+        "model": "Model X 09.2015-02.2021",
+        "compatibility": "Model X 09.2015-02.2021, Model X",
+        "url_slug": "1035563-00-c-113524"
+      },
+      "productSchema": {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "@id": "https://nikolacars.kiev.ua/ru/parts/1035563-00-c-113524/#product",
+        "mainEntityOfPage": {
+          "@id": "https://nikolacars.kiev.ua/ru/parts/1035563-00-c-113524/#webpage"
+        },
+        "name": "Накладка торпеды нижняя правая Tesla Model X 09.2015-02.2021",
+        "image": [
+          "https://sklad.nikolacars.kiev.ua/storage/product-photos/0ef9ce74fa5c61831efd2e6c57837f2840717b0c.jpg",
+          "https://sklad.nikolacars.kiev.ua/storage/product-photos/873c60b16f42de0d43e44a7142ab29446b9ddc6f.jpg"
+        ],
+        "description": "Накладка торпеды нижняя правая — запчасть для Tesla Model X 09.2015-02.2021. Артикул: 1035563-00-C (103556300C). Категория: Приборная панель / Панель приборная / Приборная панель. Совместимость: Model X 09.2015-02.2021, Model X. Состояние: б/у.\n\nЗапчасть в наличии на складе NikolaCars: 1 шт. Купить запчасть можно по цене 370 грн. Перед заказом сверьте артикул и совместимость детали с вашим автомобилем Tesla.",
+        "sku": "RON64-0039",
+        "mpn": "1035563-00-C",
+        "brand": {
+          "@type": "Brand",
+          "name": "Tesla"
+        },
+        "category": {
+          "@type": "CategoryCode",
+          "inCodeSet": "https://www.google.com/basepages/producttype/taxonomy-with-ids.en-US.txt",
+          "codeValue": "5613"
+        },
+        "offers": {
+          "@type": "Offer",
+          "url": "https://nikolacars.kiev.ua/ru/parts/1035563-00-c-113524/",
+          "priceCurrency": "UAH",
+          "price": "370.00",
+          "availability": "https://schema.org/InStock",
+          "itemCondition": "https://schema.org/UsedCondition",
+          "seller": {
+            "@type": "Organization",
+            "@id": "https://nikolacars.kiev.ua/#parts-store",
+            "name": "NikolaCars"
+          },
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "hasShippingService": {
+              "@id": "https://nikolacars.kiev.ua/ru/parts/1035563-00-c-113524/#delivery-and-returns"
+            }
+          },
+          "hasMerchantReturnPolicy": {
+            "@type": "MerchantReturnPolicy",
+            "applicableCountry": "UA",
+            "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+            "merchantReturnDays": 14,
+            "returnMethod": [
+              "https://schema.org/ReturnByMail",
+              "https://schema.org/ReturnInStore"
+            ],
+            "returnFees": "https://schema.org/ReturnFeesCustomerResponsibility"
+          }
+        }
+      },
+      "currentUrlInSitemapCount": 1,
+      "originalUrlInSitemapCount": 1
+    }
+  ]
+}

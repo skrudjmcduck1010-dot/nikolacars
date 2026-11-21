@@ -1,0 +1,342 @@
+{
+  "status": "PASS",
+  "cases": 24,
+  "results": [
+    {
+      "id": "0-uk",
+      "width": 390,
+      "status": "PASS",
+      "checks": [
+        "heading/title after JS",
+        "no generic SSR/AJAX guidance",
+        "tree retained",
+        "viewport",
+        "AJAX sort",
+        "cart count",
+        "no page errors"
+      ]
+    },
+    {
+      "id": "0-uk",
+      "width": 1440,
+      "status": "PASS",
+      "checks": [
+        "heading/title after JS",
+        "no generic SSR/AJAX guidance",
+        "tree retained",
+        "viewport",
+        "AJAX sort",
+        "cart count",
+        "no page errors"
+      ]
+    },
+    {
+      "id": "0-ru",
+      "width": 390,
+      "status": "PASS",
+      "checks": [
+        "heading/title after JS",
+        "no generic SSR/AJAX guidance",
+        "tree retained",
+        "viewport",
+        "AJAX sort",
+        "cart count",
+        "no page errors"
+      ]
+    },
+    {
+      "id": "0-ru",
+      "width": 1440,
+      "status": "PASS",
+      "checks": [
+        "heading/title after JS",
+        "no generic SSR/AJAX guidance",
+        "tree retained",
+        "viewport",
+        "AJAX sort",
+        "cart count",
+        "no page errors"
+      ]
+    },
+    {
+      "id": "1-uk",
+      "width": 390,
+      "status": "PASS",
+      "checks": [
+        "heading/title after JS",
+        "no generic SSR/AJAX guidance",
+        "tree retained",
+        "viewport",
+        "AJAX sort",
+        "cart count",
+        "no page errors"
+      ]
+    },
+    {
+      "id": "1-uk",
+      "width": 1440,
+      "status": "PASS",
+      "checks": [
+        "heading/title after JS",
+        "no generic SSR/AJAX guidance",
+        "tree retained",
+        "viewport",
+        "AJAX sort",
+        "cart count",
+        "no page errors"
+      ]
+    },
+    {
+      "id": "1-ru",
+      "width": 390,
+      "status": "PASS",
+      "checks": [
+        "heading/title after JS",
+        "no generic SSR/AJAX guidance",
+        "tree retained",
+        "viewport",
+        "AJAX sort",
+        "cart count",
+        "no page errors"
+      ]
+    },
+    {
+      "id": "1-ru",
+      "width": 1440,
+      "status": "PASS",
+      "checks": [
+        "heading/title after JS",
+        "no generic SSR/AJAX guidance",
+        "tree retained",
+        "viewport",
+        "AJAX sort",
+        "cart count",
+        "no page errors"
+      ]
+    },
+    {
+      "id": "2-uk",
+      "width": 390,
+      "status": "PASS",
+      "checks": [
+        "heading/title after JS",
+        "no generic SSR/AJAX guidance",
+        "tree retained",
+        "viewport",
+        "AJAX sort",
+        "cart count",
+        "no page errors"
+      ]
+    },
+    {
+      "id": "2-uk",
+      "width": 1440,
+      "status": "PASS",
+      "checks": [
+        "heading/title after JS",
+        "no generic SSR/AJAX guidance",
+        "tree retained",
+        "viewport",
+        "AJAX sort",
+        "cart count",
+        "no page errors"
+      ]
+    },
+    {
+      "id": "2-ru",
+      "width": 390,
+      "status": "PASS",
+      "checks": [
+        "heading/title after JS",
+        "no generic SSR/AJAX guidance",
+        "tree retained",
+        "viewport",
+        "AJAX sort",
+        "cart count",
+        "no page errors"
+      ]
+    },
+    {
+      "id": "2-ru",
+      "width": 1440,
+      "status": "PASS",
+      "checks": [
+        "heading/title after JS",
+        "no generic SSR/AJAX guidance",
+        "tree retained",
+        "viewport",
+        "AJAX sort",
+        "cart count",
+        "no page errors"
+      ]
+    },
+    {
+      "id": "3-uk",
+      "width": 390,
+      "status": "PASS",
+      "checks": [
+        "heading/title after JS",
+        "no generic SSR/AJAX guidance",
+        "tree retained",
+        "viewport",
+        "AJAX sort",
+        "cart count",
+        "no page errors"
+      ]
+    },
+    {
+      "id": "3-uk",
+      "width": 1440,
+      "status": "PASS",
+      "checks": [
+        "heading/title after JS",
+        "no generic SSR/AJAX guidance",
+        "tree retained",
+        "viewport",
+        "AJAX sort",
+        "cart count",
+        "no page errors"
+      ]
+    },
+    {
+      "id": "3-ru",
+      "width": 390,
+      "status": "PASS",
+      "checks": [
+        "heading/title after JS",
+        "no generic SSR/AJAX guidance",
+        "tree retained",
+        "viewport",
+        "AJAX sort",
+        "cart count",
+        "no page errors"
+      ]
+    },
+    {
+      "id": "3-ru",
+      "width": 1440,
+      "status": "PASS",
+      "checks": [
+        "heading/title after JS",
+        "no generic SSR/AJAX guidance",
+        "tree retained",
+        "viewport",
+        "AJAX sort",
+        "cart count",
+        "no page errors"
+      ]
+    },
+    {
+      "id": "4-uk",
+      "width": 390,
+      "status": "PASS",
+      "checks": [
+        "heading/title after JS",
+        "no generic SSR/AJAX guidance",
+        "tree retained",
+        "viewport",
+        "AJAX sort",
+        "cart count",
+        "no page errors"
+      ]
+    },
+    {
+      "id": "4-uk",
+      "width": 1440,
+      "status": "PASS",
+      "checks": [
+        "heading/title after JS",
+        "no generic SSR/AJAX guidance",
+        "tree retained",
+        "viewport",
+        "AJAX sort",
+        "cart count",
+        "no page errors"
+      ]
+    },
+    {
+      "id": "4-ru",
+      "width": 390,
+      "status": "PASS",
+      "checks": [
+        "heading/title after JS",
+        "no generic SSR/AJAX guidance",
+        "tree retained",
+        "viewport",
+        "AJAX sort",
+        "cart count",
+        "no page errors"
+      ]
+    },
+    {
+      "id": "4-ru",
+      "width": 1440,
+      "status": "PASS",
+      "checks": [
+        "heading/title after JS",
+        "no generic SSR/AJAX guidance",
+        "tree retained",
+        "viewport",
+        "AJAX sort",
+        "cart count",
+        "no page errors"
+      ]
+    },
+    {
+      "id": "5-uk",
+      "width": 390,
+      "status": "PASS",
+      "checks": [
+        "heading/title after JS",
+        "no generic SSR/AJAX guidance",
+        "tree retained",
+        "viewport",
+        "AJAX sort",
+        "cart count",
+        "no page errors"
+      ]
+    },
+    {
+      "id": "5-uk",
+      "width": 1440,
+      "status": "PASS",
+      "checks": [
+        "heading/title after JS",
+        "no generic SSR/AJAX guidance",
+        "tree retained",
+        "viewport",
+        "AJAX sort",
+        "cart count",
+        "no page errors"
+      ]
+    },
+    {
+      "id": "5-ru",
+      "width": 390,
+      "status": "PASS",
+      "checks": [
+        "heading/title after JS",
+        "no generic SSR/AJAX guidance",
+        "tree retained",
+        "viewport",
+        "AJAX sort",
+        "cart count",
+        "no page errors"
+      ]
+    },
+    {
+      "id": "5-ru",
+      "width": 1440,
+      "status": "PASS",
+      "checks": [
+        "heading/title after JS",
+        "no generic SSR/AJAX guidance",
+        "tree retained",
+        "viewport",
+        "AJAX sort",
+        "cart count",
+        "no page errors"
+      ]
+    }
+  ]
+}

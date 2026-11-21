@@ -1,0 +1,2291 @@
+{
+  "project": "NikolaCars website",
+  "built_utc": "2026-11-08T18:55:06.086Z",
+  "timezone": "Europe/Kyiv",
+  "status": "ALL_92_PRIMARY_URLS_CHECKED_LOCAL_FIXES_PREPARED_NOT_DEPLOYED",
+  "source": "GSC Pages summary dated 2026-10-23, full source registry from 2026-11-01",
+  "coverage": {
+    "source_total": 92,
+    "source_http": 74,
+    "source_iab_dom": 18,
+    "source_unchecked": 0,
+    "additional_iab_urls": 22,
+    "observed_redirect_targets": 12,
+    "rendered_regular_targets": 11,
+    "technical_get_not_found_target": 1,
+    "legacy_google_targets": 2,
+    "full_equivalence_groups": 2,
+    "new_alias_mappings_prepared": 4,
+    "additional_consolidation_candidates_not_fully_compared": 11
+  },
+  "counts": {
+    "expected_404_unknown_donor": 29,
+    "expected_404_physical_inspection": 1,
+    "resolved_sold_archive": 5,
+    "expected_404_retired_page": 11,
+    "expected_404_deleted": 2,
+    "resolved_existing_battery_alias": 2,
+    "technical_post_endpoint": 1,
+    "resolved_current_page_or_alias": 5,
+    "expected_404_written_off": 2,
+    "resolved_numeric_in_stock": 1,
+    "resolved_numeric_sold": 1,
+    "previous_fix_current_html_confirmed": 11,
+    "current_html_valid_consolidation_unverified": 11,
+    "local_alias_prepared_full_parity": 4,
+    "battery_levels_preserved": 3,
+    "current_canonical_valid_no_proven_alias": 3
+  },
+  "limitations": [
+    "DOM-only observations do not measure HTTP status.",
+    "Google-selected canonical has not been remeasured for every URL; no GSC indexing or validation was submitted.",
+    "All 92 original URLs checked does not mean every historical parent/leaf candidate was proven equivalent.",
+    "Business conditions of excluded donor/deleted items rely on documented classification; no new warehouse inventory or business writes."
+  ],
+  "rows": [
+    {
+      "row": 1,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/parts/104743/",
+      "id": 104743,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "withhold_donor_unknown_condition",
+      "category": "expected_404_unknown_donor",
+      "verdict": "Сохранить 404 до проверки состояния детали на доноре; не восстанавливать массово.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:02:15.864Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 2,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/6008191-00-d-113659/",
+      "id": 113659,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "withhold_unknown_condition_until_inspected",
+      "category": "expected_404_physical_inspection",
+      "verdict": "113659: сохранить исключение до физического осмотра.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:02:21.055Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 3,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/1108647-00-d-77296/",
+      "id": 77296,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "withhold_donor_unknown_condition",
+      "category": "expected_404_unknown_donor",
+      "verdict": "Сохранить 404 до проверки состояния детали на доноре; не восстанавливать массово.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:02:26.205Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 4,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/parts/104761/",
+      "id": 104761,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "withhold_donor_unknown_condition",
+      "category": "expected_404_unknown_donor",
+      "verdict": "Сохранить 404 до проверки состояния детали на доноре; не восстанавливать массово.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:02:31.347Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 5,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/parts/104127/",
+      "id": 104127,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "withhold_donor_unknown_condition",
+      "category": "expected_404_unknown_donor",
+      "verdict": "Сохранить 404 до проверки состояния детали на доноре; не восстанавливать массово.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:02:36.494Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 6,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/77669/",
+      "id": 77669,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "withhold_donor_unknown_condition",
+      "category": "expected_404_unknown_donor",
+      "verdict": "Сохранить 404 до проверки состояния детали на доноре; не восстанавливать массово.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:02:41.597Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 7,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/104258/",
+      "id": 104258,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "withhold_donor_unknown_condition",
+      "category": "expected_404_unknown_donor",
+      "verdict": "Сохранить 404 до проверки состояния детали на доноре; не восстанавливать массово.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:02:47.083Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 8,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/1007374-00-l-95486/",
+      "id": 95486,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "withhold_donor_unknown_condition",
+      "category": "expected_404_unknown_donor",
+      "verdict": "Сохранить 404 до проверки состояния детали на доноре; не восстанавливать массово.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:02:52.478Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 9,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/1096623-00-h-74856/",
+      "id": 74856,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "owner_confirmed_sto_sold_archive_required_2026_11_02",
+      "category": "resolved_sold_archive",
+      "verdict": "Архив Продано восстановлен 5 ноября, текущая доступность подтверждена; повторное восстановление не требуется.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 200,
+        "observed_utc": "2026-11-08T18:02:57.581Z",
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/parts/1096623-00-h-74856/"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/parts/1096623-00-h-74856/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 10,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/insi-modeli/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "retired_or_unknown_no_matching_successor_found",
+      "category": "expected_404_retired_page",
+      "verdict": "Старый URL без проверенного эквивалента; не перенаправлять на нерелевантный каталог.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:03:02.691Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 11,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/parts/1188711-00-a-89487/",
+      "id": 89487,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "withhold_donor_unknown_condition",
+      "category": "expected_404_unknown_donor",
+      "verdict": "Сохранить 404 до проверки состояния детали на доноре; не восстанавливать массово.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:03:08.395Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 12,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/parts/1108647-00-d-77296/",
+      "id": 77296,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "withhold_donor_unknown_condition",
+      "category": "expected_404_unknown_donor",
+      "verdict": "Сохранить 404 до проверки состояния детали на доноре; не восстанавливать массово.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:03:13.528Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 13,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/1188711-00-a-89487/",
+      "id": 89487,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "withhold_donor_unknown_condition",
+      "category": "expected_404_unknown_donor",
+      "verdict": "Сохранить 404 до проверки состояния детали на доноре; не восстанавливать массово.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:03:18.725Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 14,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/1095858-00-d-101669/",
+      "id": 101669,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "owner_confirmed_sto_sold_archive_required_2026_11_02",
+      "category": "resolved_sold_archive",
+      "verdict": "Архив Продано восстановлен 5 ноября, текущая доступность подтверждена; повторное восстановление не требуется.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 200,
+        "observed_utc": "2026-11-08T18:03:23.887Z",
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/parts/1095858-00-d-101669/"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/parts/1095858-00-d-101669/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 15,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/77296/",
+      "id": 77296,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "withhold_donor_unknown_condition",
+      "category": "expected_404_unknown_donor",
+      "verdict": "Сохранить 404 до проверки состояния детали на доноре; не восстанавливать массово.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:03:29.406Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 16,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/parts/1105324-79-e-92927/",
+      "id": 92927,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "withhold_donor_unknown_condition",
+      "category": "expected_404_unknown_donor",
+      "verdict": "Сохранить 404 до проверки состояния детали на доноре; не восстанавливать массово.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:03:34.486Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 17,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/parts/88146/",
+      "id": 88146,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "withhold_donor_unknown_condition",
+      "category": "expected_404_unknown_donor",
+      "verdict": "Сохранить 404 до проверки состояния детали на доноре; не восстанавливать массово.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:03:39.623Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 18,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/parts/1584721-e0-a-113134/",
+      "id": 113134,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "retired_deleted",
+      "category": "expected_404_deleted",
+      "verdict": "Удалённая деталь; подтверждённого преемника нет, 404 сохранить.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:17:22.727Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 19,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/vysokovoltnaia-batareia/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "battery_alias_released_2026_10_31_one_hop",
+      "category": "resolved_existing_battery_alias",
+      "verdict": "Существующий 301 достигает правильной украинской категории.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 301,
+        "observed_utc": "2026-11-08T18:17:33.88Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": "https://nikolacars.kiev.ua/parts/visokovoltna-batareia/",
+        "final_url": "https://nikolacars.kiev.ua/parts/visokovoltna-batareia/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 20,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/vysokovoltnaia-batareia/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "battery_alias_released_2026_10_31_one_hop",
+      "category": "resolved_existing_battery_alias",
+      "verdict": "Существующий 301 достигает правильной украинской категории.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 301,
+        "observed_utc": "2026-11-08T18:17:44.096Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/visokovoltna-batareia/",
+        "final_url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/visokovoltna-batareia/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 21,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/1584721-e0-a-113134/",
+      "id": 113134,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "retired_deleted",
+      "category": "expected_404_deleted",
+      "verdict": "Удалённая деталь; подтверждённого преемника нет, 404 сохранить.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:17:54.306Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 22,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/1077397-00-g-106946/",
+      "id": 106946,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "withhold_donor_unknown_condition",
+      "category": "expected_404_unknown_donor",
+      "verdict": "Сохранить 404 до проверки состояния детали на доноре; не восстанавливать массово.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:18:04.605Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 23,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/parts/1077397-00-g-106946/",
+      "id": 106946,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "withhold_donor_unknown_condition",
+      "category": "expected_404_unknown_donor",
+      "verdict": "Сохранить 404 до проверки состояния детали на доноре; не восстанавливать массово.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:18:15.048Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 24,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/1044121-00-e-82639/",
+      "id": 82639,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "withhold_donor_unknown_condition",
+      "category": "expected_404_unknown_donor",
+      "verdict": "Сохранить 404 до проверки состояния детали на доноре; не восстанавливать массово.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:18:25.538Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 25,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/lead/callback",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "form_post_only",
+      "category": "technical_post_endpoint",
+      "verdict": "GET ведёт на служебный not-found экран. В коде это POST endpoint; не превращать в индексируемую страницу, POST не отправлялся.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 301,
+        "observed_utc": "2026-11-08T18:18:35.857Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": "https://nikolacars.kiev.ua/lead/callback/",
+        "final_url": "https://nikolacars.kiev.ua/lead/callback/",
+        "final_dom_error": "404\nNOT FOUND",
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 26,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/parts/1095858-00-d-101669/",
+      "id": 101669,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "owner_confirmed_sto_sold_archive_required_2026_11_02",
+      "category": "resolved_sold_archive",
+      "verdict": "Архив Продано восстановлен 5 ноября, текущая доступность подтверждена; повторное восстановление не требуется.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 200,
+        "observed_utc": "2026-11-08T18:18:46.118Z",
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/ru/parts/1095858-00-d-101669/"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/ru/parts/1095858-00-d-101669/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 27,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "historically_resolved_existing_page_or_redirect",
+      "category": "resolved_current_page_or_alias",
+      "verdict": "Текущая страница или конечная цель редиректа корректна.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 200,
+        "observed_utc": "2026-11-08T18:18:57.264Z",
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-batareia/vysokovoltnaia-batareia/"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 28,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/parts/1007374-00-l-108286/",
+      "id": 108286,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "owner_confirmed_sto_sold_archive_required_2026_11_02",
+      "category": "resolved_sold_archive",
+      "verdict": "Архив Продано восстановлен 5 ноября, текущая доступность подтверждена; повторное восстановление не требуется.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 200,
+        "observed_utc": "2026-11-08T18:19:08.747Z",
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/ru/parts/1007374-00-l-108286/"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/ru/parts/1007374-00-l-108286/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 29,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/69395/",
+      "id": 69395,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "withhold_donor_unknown_condition",
+      "category": "expected_404_unknown_donor",
+      "verdict": "Сохранить 404 до проверки состояния детали на доноре; не восстанавливать массово.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:19:20.602Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 30,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/sitemap.rss",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "retired_or_unknown_no_matching_successor_found",
+      "category": "expected_404_retired_page",
+      "verdict": "Старый URL без проверенного эквивалента; не перенаправлять на нерелевантный каталог.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:19:30.858Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 31,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/79034/",
+      "id": 79034,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "withhold_donor_unknown_condition",
+      "category": "expected_404_unknown_donor",
+      "verdict": "Сохранить 404 до проверки состояния детали на доноре; не восстанавливать массово.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:19:41.113Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 32,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/104616/",
+      "id": 104616,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "withhold_donor_unknown_condition",
+      "category": "expected_404_unknown_donor",
+      "verdict": "Сохранить 404 до проверки состояния детали на доноре; не восстанавливать массово.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:19:51.394Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 33,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/103760/",
+      "id": 103760,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "owner_confirmed_sto_sold_archive_required_2026_11_02",
+      "category": "resolved_sold_archive",
+      "verdict": "Архив Продано восстановлен 5 ноября, текущая доступность подтверждена; повторное восстановление не требуется.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 301,
+        "observed_utc": "2026-11-08T18:20:01.682Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": "https://nikolacars.kiev.ua/parts/1502086-00-b-103760/",
+        "final_url": "https://nikolacars.kiev.ua/parts/1502086-00-b-103760/",
+        "final_dom_error": null,
+        "final_product": {
+          "id": 103760,
+          "quantity": 0,
+          "availability_status": "sold",
+          "sold": true
+        }
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 34,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/77751/",
+      "id": 77751,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "retired_written_off",
+      "category": "expected_404_written_off",
+      "verdict": "Списанная деталь; подтверждённого преемника нет, 404 сохранить.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:20:12.431Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 35,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/parts/104246/",
+      "id": 104246,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "withhold_donor_unknown_condition",
+      "category": "expected_404_unknown_donor",
+      "verdict": "Сохранить 404 до проверки состояния детали на доноре; не восстанавливать массово.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:20:22.74Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 36,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/104127/",
+      "id": 104127,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "withhold_donor_unknown_condition",
+      "category": "expected_404_unknown_donor",
+      "verdict": "Сохранить 404 до проверки состояния детали на доноре; не восстанавливать массово.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:20:33.087Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 37,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/103133/",
+      "id": 103133,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "withhold_donor_unknown_condition",
+      "category": "expected_404_unknown_donor",
+      "verdict": "Сохранить 404 до проверки состояния детали на доноре; не восстанавливать массово.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:20:43.5Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 38,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/77878/",
+      "id": 77878,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "withhold_donor_unknown_condition",
+      "category": "expected_404_unknown_donor",
+      "verdict": "Сохранить 404 до проверки состояния детали на доноре; не восстанавливать массово.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:20:53.778Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 39,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/106887/",
+      "id": 106887,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "retired_written_off",
+      "category": "expected_404_written_off",
+      "verdict": "Списанная деталь; подтверждённого преемника нет, 404 сохранить.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:21:04.127Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 40,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/parts/77782/",
+      "id": 77782,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "withhold_donor_unknown_condition",
+      "category": "expected_404_unknown_donor",
+      "verdict": "Сохранить 404 до проверки состояния детали на доноре; не восстанавливать массово.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:21:14.408Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 41,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/77176/",
+      "id": 77176,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "withhold_donor_unknown_condition",
+      "category": "expected_404_unknown_donor",
+      "verdict": "Сохранить 404 до проверки состояния детали на доноре; не восстанавливать массово.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:21:24.971Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 42,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/77631/",
+      "id": 77631,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "withhold_donor_unknown_condition",
+      "category": "expected_404_unknown_donor",
+      "verdict": "Сохранить 404 до проверки состояния детали на доноре; не восстанавливать массово.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:21:35.395Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 43,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/77120/",
+      "id": 77120,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "numeric_alias_of_available_product",
+      "category": "resolved_numeric_in_stock",
+      "verdict": "Числовой адрес ведёт на именованную карточку 77120, in_stock.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 301,
+        "observed_utc": "2026-11-08T18:21:45.934Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": "https://nikolacars.kiev.ua/parts/1098751-00-c-77120/",
+        "final_url": "https://nikolacars.kiev.ua/parts/1098751-00-c-77120/",
+        "final_dom_error": null,
+        "final_product": {
+          "id": 77120,
+          "quantity": 1,
+          "availability_status": "in_stock",
+          "sold": false
+        }
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 44,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/77105/",
+      "id": 77105,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "withhold_donor_unknown_condition",
+      "category": "expected_404_unknown_donor",
+      "verdict": "Сохранить 404 до проверки состояния детали на доноре; не восстанавливать массово.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:21:56.42Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 45,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/parts/104761/",
+      "id": 104761,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "withhold_donor_unknown_condition",
+      "category": "expected_404_unknown_donor",
+      "verdict": "Сохранить 404 до проверки состояния детали на доноре; не восстанавливать массово.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:22:06.968Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 46,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/parts/104741/",
+      "id": 104741,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "withhold_donor_unknown_condition",
+      "category": "expected_404_unknown_donor",
+      "verdict": "Сохранить 404 до проверки состояния детали на доноре; не восстанавливать массово.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:22:17.812Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 47,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/parts/108973/",
+      "id": 108973,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "historically_resolved_numeric_alias_check_availability_or_archive",
+      "category": "resolved_numeric_sold",
+      "verdict": "Числовой адрес ведёт на именованный архив 108973, sold.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 301,
+        "observed_utc": "2026-11-08T18:22:28.389Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": "https://nikolacars.kiev.ua/ru/parts/1006427-01-a-108973/",
+        "final_url": "https://nikolacars.kiev.ua/ru/parts/1006427-01-a-108973/",
+        "final_dom_error": null,
+        "final_product": {
+          "id": 108973,
+          "quantity": 0,
+          "availability_status": "sold",
+          "sold": true
+        }
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 48,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/contacts",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "historically_resolved_existing_page_or_redirect",
+      "category": "resolved_current_page_or_alias",
+      "verdict": "Текущая страница или конечная цель редиректа корректна.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 301,
+        "observed_utc": "2026-11-08T18:22:39.19Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": "https://nikolacars.kiev.ua/contacts/",
+        "final_url": "https://nikolacars.kiev.ua/contacts/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 49,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/all-news/tesla-vypustila-novuyu-model-s-i-model-x-vmesto-rulya-shturval/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "retired_or_unknown_no_matching_successor_found",
+      "category": "expected_404_retired_page",
+      "verdict": "Старый URL без проверенного эквивалента; не перенаправлять на нерелевантный каталог.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:22:49.643Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 50,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/tag/models/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "retired_or_unknown_no_matching_successor_found",
+      "category": "expected_404_retired_page",
+      "verdict": "Старый URL без проверенного эквивалента; не перенаправлять на нерелевантный каталог.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:23:00.1Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 51,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/news/cheap-model/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "retired_or_unknown_no_matching_successor_found",
+      "category": "expected_404_retired_page",
+      "verdict": "Старый URL без проверенного эквивалента; не перенаправлять на нерелевантный каталог.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:23:10.772Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 52,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/ru/privacy-policy/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "historically_resolved_existing_page_or_redirect",
+      "category": "resolved_current_page_or_alias",
+      "verdict": "Текущая страница или конечная цель редиректа корректна.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 301,
+        "observed_utc": "2026-11-08T18:23:21.496Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": "https://nikolacars.kiev.ua/ru/privacy-policy/",
+        "final_url": "https://nikolacars.kiev.ua/ru/privacy-policy/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 53,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/author/val-overchuk/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "retired_or_unknown_no_matching_successor_found",
+      "category": "expected_404_retired_page",
+      "verdict": "Старый URL без проверенного эквивалента; не перенаправлять на нерелевантный каталог.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:23:32.28Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 54,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/services/car-service",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "historically_resolved_existing_page_or_redirect",
+      "category": "resolved_current_page_or_alias",
+      "verdict": "Текущая страница или конечная цель редиректа корректна.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 301,
+        "observed_utc": "2026-11-08T18:23:42.715Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": "https://nikolacars.kiev.ua/services/tesla-service/",
+        "final_url": "https://nikolacars.kiev.ua/services/tesla-service/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 55,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/cars/tesla-model-s-p85d-2015-1/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "retired_or_unknown_no_matching_successor_found",
+      "category": "expected_404_retired_page",
+      "verdict": "Старый URL без проверенного эквивалента; не перенаправлять на нерелевантный каталог.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:23:53.147Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 56,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/cars/tesla-model-s-100d-2018/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "retired_or_unknown_no_matching_successor_found",
+      "category": "expected_404_retired_page",
+      "verdict": "Старый URL без проверенного эквивалента; не перенаправлять на нерелевантный каталог.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:24:03.605Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 57,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/how-it-works/pro-tesla-plaid/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "retired_or_unknown_no_matching_successor_found",
+      "category": "expected_404_retired_page",
+      "verdict": "Старый URL без проверенного эквивалента; не перенаправлять на нерелевантный каталог.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:24:14.077Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 58,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/category/all-news/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "retired_or_unknown_no_matching_successor_found",
+      "category": "expected_404_retired_page",
+      "verdict": "Старый URL без проверенного эквивалента; не перенаправлять на нерелевантный каталог.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:24:24.564Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 59,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/privacy_policy/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "historically_resolved_existing_page_or_redirect",
+      "category": "resolved_current_page_or_alias",
+      "verdict": "Текущая страница или конечная цель редиректа корректна.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 301,
+        "observed_utc": "2026-11-08T18:24:35.024Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": "https://nikolacars.kiev.ua/privacy-policy/",
+        "final_url": "https://nikolacars.kiev.ua/privacy-policy/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 60,
+      "group": "404",
+      "url": "https://nikolacars.kiev.ua/ru/mileage/109-129-km/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "retired_or_unknown_no_matching_successor_found",
+      "category": "expected_404_retired_page",
+      "verdict": "Старый URL без проверенного эквивалента; не перенаправлять на нерелевантный каталог.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 404,
+        "observed_utc": "2026-11-08T18:24:46.682Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": null,
+        "final_url": null,
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 61,
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "existing_redirect_check_destination",
+      "category": "previous_fix_current_html_confirmed",
+      "verdict": "Ранее выпущенное исправление/выбранный leaf подтверждены текущим HTML или конечной целью. Повторный выпуск не требуется.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 301,
+        "observed_utc": "2026-11-08T18:24:58.285Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/pedal-galma/",
+        "final_url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/pedal-galma/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": {
+        "model": "model-3-06-2017-12-2023",
+        "parent_path": "galma--pedal-galma",
+        "leaf_path": "galma--pedal-galma--pedal-galma",
+        "full_ua_ru_equivalence_proven": false
+      }
+    },
+    {
+      "row": 62,
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "previous_release_chose_this_leaf_as_canonical_and_redirects_parent",
+      "category": "previous_fix_current_html_confirmed",
+      "verdict": "Ранее выпущенное исправление/выбранный leaf подтверждены текущим HTML или конечной целью. Повторный выпуск не требуется.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 200,
+        "observed_utc": "2026-11-08T18:25:09.563Z",
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": {
+        "model": "model-s-02-2012-03-2016",
+        "parent_path": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer",
+        "leaf_path": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer--bortovoi-zariadnyi-modul-cardzer",
+        "full_ua_ru_equivalence_proven": false
+      }
+    },
+    {
+      "row": 63,
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/ru/parts/visokovoltna-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "mixed_language_battery_path_already_normalized_in_ru",
+      "category": "previous_fix_current_html_confirmed",
+      "verdict": "Ранее выпущенное исправление/выбранный leaf подтверждены текущим HTML или конечной целью. Повторный выпуск не требуется.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 301,
+        "observed_utc": "2026-11-08T18:25:21.458Z",
+        "check_date": "2026-11-08",
+        "canonical": [],
+        "location": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+        "final_url": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": {
+        "model": "",
+        "parent_path": "visokovoltna-batareia--vysokovoltnaia-batareia",
+        "leaf_path": "visokovoltna-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia",
+        "full_ua_ru_equivalence_proven": false
+      }
+    },
+    {
+      "row": 64,
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/zadnie-poluosi/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "previous_release_chose_this_leaf_as_canonical_and_redirects_parent",
+      "category": "previous_fix_current_html_confirmed",
+      "verdict": "Ранее выпущенное исправление/выбранный leaf подтверждены текущим HTML или конечной целью. Повторный выпуск не требуется.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 200,
+        "observed_utc": "2026-11-08T18:25:32.179Z",
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/zadnie-poluosi/"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/zadnie-poluosi/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": {
+        "model": "",
+        "parent_path": "zadnii-motor--zadnie-poluosi",
+        "leaf_path": "zadnii-motor--zadnie-poluosi--zadnie-poluosi",
+        "full_ua_ru_equivalence_proven": false
+      }
+    },
+    {
+      "row": 65,
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages",
+      "category": "current_html_valid_consolidation_unverified",
+      "verdict": "Текущий self-canonical корректен. Исторический кандидат консолидации остаётся предложением: полные parent/leaf наборы обеих локалей в этом этапе не доказаны; не объявлен ошибкой и не изменён.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 200,
+        "observed_utc": "2026-11-08T18:25:48.203Z",
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": {
+        "model": "",
+        "parent_path": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer",
+        "leaf_path": "vysokovoltnaia-sistema--bortovoi-zariadnyi-modul-cardzer--bortovoi-zariadnyi-modul-cardzer",
+        "full_ua_ru_equivalence_proven": false
+      }
+    },
+    {
+      "row": 66,
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "previous_release_chose_this_leaf_as_canonical_and_redirects_parent",
+      "category": "previous_fix_current_html_confirmed",
+      "verdict": "Ранее выпущенное исправление/выбранный leaf подтверждены текущим HTML или конечной целью. Повторный выпуск не требуется.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 200,
+        "observed_utc": "2026-11-08T18:26:03.463Z",
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": {
+        "model": "model-s-02-2012-03-2016",
+        "parent_path": "visokovoltna-sistema--bortovii-zariadnii-modul-cardzer",
+        "leaf_path": "visokovoltna-sistema--bortovii-zariadnii-modul-cardzer--bortovii-zariadnii-modul-cardzer",
+        "full_ua_ru_equivalence_proven": false
+      }
+    },
+    {
+      "row": 67,
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/galma/pedal-galma/pedal-galma/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages",
+      "category": "current_html_valid_consolidation_unverified",
+      "verdict": "Текущий self-canonical корректен. Исторический кандидат консолидации остаётся предложением: полные parent/leaf наборы обеих локалей в этом этапе не доказаны; не объявлен ошибкой и не изменён.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 200,
+        "observed_utc": "2026-11-08T18:26:14.896Z",
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/galma/pedal-galma/pedal-galma/"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/galma/pedal-galma/pedal-galma/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": {
+        "model": "model-s-04-2016-01-2021",
+        "parent_path": "galma--pedal-galma",
+        "leaf_path": "galma--pedal-galma--pedal-galma",
+        "full_ua_ru_equivalence_proven": false
+      }
+    },
+    {
+      "row": 68,
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "different_or_empty_inventory_in_UA_snapshot_no_merge",
+      "category": "local_alias_prepared_full_parity",
+      "verdict": "Текущий canonical корректен; parent/leaf полностью эквивалентны в UA/RU. Локально подготовлен scoped 301 parent → leaf, публикации нет.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 200,
+        "observed_utc": "2026-11-08T18:26:33.877Z",
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": {
+        "model": "model-s-04-2016-01-2021",
+        "parent_path": "diski-i-sini--diski",
+        "leaf_path": "diski-i-sini--diski--diski",
+        "full_ua_ru_equivalence_proven": true
+      }
+    },
+    {
+      "row": 69,
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/galma/pedal-galma/pedal-galma/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "previous_release_chose_this_leaf_as_canonical_and_redirects_parent",
+      "category": "previous_fix_current_html_confirmed",
+      "verdict": "Ранее выпущенное исправление/выбранный leaf подтверждены текущим HTML или конечной целью. Повторный выпуск не требуется.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 200,
+        "observed_utc": "2026-11-08T18:26:45.874Z",
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/parts/galma/pedal-galma/pedal-galma/"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/parts/galma/pedal-galma/pedal-galma/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": {
+        "model": "",
+        "parent_path": "galma--pedal-galma",
+        "leaf_path": "galma--pedal-galma--pedal-galma",
+        "full_ua_ru_equivalence_proven": false
+      }
+    },
+    {
+      "row": 70,
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-batareia/visokovoltna-batareia/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "preserve_battery_taxonomy_check_real_sets_both_languages",
+      "category": "battery_levels_preserved",
+      "verdict": "Текущий self-canonical корректен; официальные батарейные уровни сохраняются, новых правил слияния нет.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 200,
+        "observed_utc": "2026-11-08T18:26:56.942Z",
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-batareia/visokovoltna-batareia/"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-batareia/visokovoltna-batareia/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": {
+        "model": "model-y-01-2020-01-2025",
+        "parent_path": "visokovoltna-batareia--visokovoltna-batareia",
+        "leaf_path": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia",
+        "full_ua_ru_equivalence_proven": false
+      }
+    },
+    {
+      "row": 71,
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-sistema/visokovoltni-provoda/visokovoltni-provoda/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages",
+      "category": "previous_fix_current_html_confirmed",
+      "verdict": "Ранее выпущенное исправление/выбранный leaf подтверждены текущим HTML или конечной целью. Повторный выпуск не требуется.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 200,
+        "observed_utc": "2026-11-08T18:27:07.616Z",
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-sistema/visokovoltni-provoda/visokovoltni-provoda/"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-sistema/visokovoltni-provoda/visokovoltni-provoda/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": {
+        "model": "model-y-01-2020-01-2025",
+        "parent_path": "visokovoltna-sistema--visokovoltni-provoda",
+        "leaf_path": "visokovoltna-sistema--visokovoltni-provoda--visokovoltni-provoda",
+        "full_ua_ru_equivalence_proven": false
+      }
+    },
+    {
+      "row": 72,
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/perednii-motor/peredni-pivosi/peredni-pivosi/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages",
+      "category": "previous_fix_current_html_confirmed",
+      "verdict": "Ранее выпущенное исправление/выбранный leaf подтверждены текущим HTML или конечной целью. Повторный выпуск не требуется.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 200,
+        "observed_utc": "2026-11-08T18:27:18.482Z",
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/perednii-motor/peredni-pivosi/peredni-pivosi/"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/perednii-motor/peredni-pivosi/peredni-pivosi/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": {
+        "model": "model-y-01-2020-01-2025",
+        "parent_path": "perednii-motor--peredni-pivosi",
+        "leaf_path": "perednii-motor--peredni-pivosi--peredni-pivosi",
+        "full_ua_ru_equivalence_proven": false
+      }
+    },
+    {
+      "row": 73,
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/zadnii-motor/zadni-pivosi/zadni-pivosi/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages",
+      "category": "previous_fix_current_html_confirmed",
+      "verdict": "Ранее выпущенное исправление/выбранный leaf подтверждены текущим HTML или конечной целью. Повторный выпуск не требуется.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 200,
+        "observed_utc": "2026-11-08T18:27:30.544Z",
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/zadnii-motor/zadni-pivosi/zadni-pivosi/"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/zadnii-motor/zadni-pivosi/zadni-pivosi/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": {
+        "model": "model-y-01-2020-01-2025",
+        "parent_path": "zadnii-motor--zadni-pivosi",
+        "leaf_path": "zadnii-motor--zadni-pivosi--zadni-pivosi",
+        "full_ua_ru_equivalence_proven": false
+      }
+    },
+    {
+      "row": 74,
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages",
+      "category": "current_html_valid_consolidation_unverified",
+      "verdict": "Текущий self-canonical корректен. Исторический кандидат консолидации остаётся предложением: полные parent/leaf наборы обеих локалей в этом этапе не доказаны; не объявлен ошибкой и не изменён.",
+      "primary_check": {
+        "method": "HTTP HTML",
+        "http_status": 200,
+        "observed_utc": "2026-11-08T18:27:41.929Z",
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": {
+        "model": "model-s-02-2012-03-2016",
+        "parent_path": "zovnisnia-furnitura--nakladki-pidkapotnogo-vidsiku",
+        "leaf_path": "zovnisnia-furnitura--nakladki-pidkapotnogo-vidsiku--nakladki-pidkapotnogo-vidsiku",
+        "full_ua_ru_equivalence_proven": false
+      }
+    },
+    {
+      "row": 75,
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/panel-priladiv/panel-priladiv/?page=2",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "inspect_current_canonical_and_product_sets",
+      "category": "current_canonical_valid_no_proven_alias",
+      "verdict": "Self-canonical, локаль и номер страницы корректны; сохранённого Google target/доказанной parent-pair нет, новый alias не обоснован.",
+      "primary_check": {
+        "method": "IAB rendered DOM",
+        "http_status": null,
+        "observed_utc": null,
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/panel-priladiv/panel-priladiv/?page=2"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/panel-priladiv/panel-priladiv/?page=2",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 76,
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/diski/?page=2",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages",
+      "category": "local_alias_prepared_full_parity",
+      "verdict": "Текущий canonical корректен; parent/leaf полностью эквивалентны в UA/RU. Локально подготовлен scoped 301 parent → leaf, публикации нет.",
+      "primary_check": {
+        "method": "IAB rendered DOM",
+        "http_status": null,
+        "observed_utc": null,
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/diski/?page=2"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/diski/?page=2",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": {
+        "model": "",
+        "parent_path": "diski-i-sini--diski",
+        "leaf_path": "diski-i-sini--diski--diski",
+        "full_ua_ru_equivalence_proven": true
+      }
+    },
+    {
+      "row": 77,
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/visokovoltna-batareia/visokovoltna-batareia/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "preserve_battery_taxonomy_check_real_sets_both_languages",
+      "category": "battery_levels_preserved",
+      "verdict": "Текущий self-canonical корректен; официальные батарейные уровни сохраняются, новых правил слияния нет.",
+      "primary_check": {
+        "method": "IAB rendered DOM",
+        "http_status": null,
+        "observed_utc": null,
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/visokovoltna-batareia/visokovoltna-batareia/"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/visokovoltna-batareia/visokovoltna-batareia/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": {
+        "model": "model-3-06-2017-12-2023",
+        "parent_path": "visokovoltna-batareia--visokovoltna-batareia",
+        "leaf_path": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia",
+        "full_ua_ru_equivalence_proven": false
+      }
+    },
+    {
+      "row": 78,
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/perednii-motor/peredni-pivosi/peredni-pivosi/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages",
+      "category": "current_html_valid_consolidation_unverified",
+      "verdict": "Текущий self-canonical корректен. Исторический кандидат консолидации остаётся предложением: полные parent/leaf наборы обеих локалей в этом этапе не доказаны; не объявлен ошибкой и не изменён.",
+      "primary_check": {
+        "method": "IAB rendered DOM",
+        "http_status": null,
+        "observed_utc": null,
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/parts/perednii-motor/peredni-pivosi/peredni-pivosi/"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/parts/perednii-motor/peredni-pivosi/peredni-pivosi/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": {
+        "model": "",
+        "parent_path": "perednii-motor--peredni-pivosi",
+        "leaf_path": "perednii-motor--peredni-pivosi--peredni-pivosi",
+        "full_ua_ru_equivalence_proven": false
+      }
+    },
+    {
+      "row": 79,
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages",
+      "category": "current_html_valid_consolidation_unverified",
+      "verdict": "Текущий self-canonical корректен. Исторический кандидат консолидации остаётся предложением: полные parent/leaf наборы обеих локалей в этом этапе не доказаны; не объявлен ошибкой и не изменён.",
+      "primary_check": {
+        "method": "IAB rendered DOM",
+        "http_status": null,
+        "observed_utc": null,
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/parts/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/parts/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": {
+        "model": "",
+        "parent_path": "zovnisnia-furnitura--ozdoblennia-otvoru-kriski-bagaznika",
+        "leaf_path": "zovnisnia-furnitura--ozdoblennia-otvoru-kriski-bagaznika--ozdoblennia-otvoru-kriski-bagaznika",
+        "full_ua_ru_equivalence_proven": false
+      }
+    },
+    {
+      "row": 80,
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-3-highland-01-2024/sidenia/sideniia-2-go-riada-i-osnastka/sideniia-2-go-riada-i-osnastka/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "inspect_current_canonical_and_product_sets",
+      "category": "current_canonical_valid_no_proven_alias",
+      "verdict": "Self-canonical, локаль и номер страницы корректны; сохранённого Google target/доказанной parent-pair нет, новый alias не обоснован.",
+      "primary_check": {
+        "method": "IAB rendered DOM",
+        "http_status": null,
+        "observed_utc": null,
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/ru/parts/model-3-highland-01-2024/sidenia/sideniia-2-go-riada-i-osnastka/sideniia-2-go-riada-i-osnastka/"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/ru/parts/model-3-highland-01-2024/sidenia/sideniia-2-go-riada-i-osnastka/sideniia-2-go-riada-i-osnastka/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 81,
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages",
+      "category": "current_html_valid_consolidation_unverified",
+      "verdict": "Текущий self-canonical корректен. Исторический кандидат консолидации остаётся предложением: полные parent/leaf наборы обеих локалей в этом этапе не доказаны; не объявлен ошибкой и не изменён.",
+      "primary_check": {
+        "method": "IAB rendered DOM",
+        "http_status": null,
+        "observed_utc": null,
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": {
+        "model": "model-3-highland-01-2024",
+        "parent_path": "zovnisnia-furnitura--ozdoblennia-otvoru-kriski-bagaznika",
+        "leaf_path": "zovnisnia-furnitura--ozdoblennia-otvoru-kriski-bagaznika--ozdoblennia-otvoru-kriski-bagaznika",
+        "full_ua_ru_equivalence_proven": false
+      }
+    },
+    {
+      "row": 82,
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/sidinnia/sidinnia-2-go-riadu-i-osnashhennia/sidinnia-2-go-riadu-i-osnashhennia/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "inspect_current_canonical_and_product_sets",
+      "category": "current_canonical_valid_no_proven_alias",
+      "verdict": "Self-canonical, локаль и номер страницы корректны; сохранённого Google target/доказанной parent-pair нет, новый alias не обоснован.",
+      "primary_check": {
+        "method": "IAB rendered DOM",
+        "http_status": null,
+        "observed_utc": null,
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/sidinnia/sidinnia-2-go-riadu-i-osnashhennia/sidinnia-2-go-riadu-i-osnashhennia/"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/sidinnia/sidinnia-2-go-riadu-i-osnashhennia/sidinnia-2-go-riadu-i-osnashhennia/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 83,
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages",
+      "category": "current_html_valid_consolidation_unverified",
+      "verdict": "Текущий self-canonical корректен. Исторический кандидат консолидации остаётся предложением: полные parent/leaf наборы обеих локалей в этом этапе не доказаны; не объявлен ошибкой и не изменён.",
+      "primary_check": {
+        "method": "IAB rendered DOM",
+        "http_status": null,
+        "observed_utc": null,
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": {
+        "model": "model-s-02-2012-03-2016",
+        "parent_path": "vnutrisnje-ozdoblennia--ozdoblennia-steli-salonu",
+        "leaf_path": "vnutrisnje-ozdoblennia--ozdoblennia-steli-salonu--ozdoblennia-steli-salonu",
+        "full_ua_ru_equivalence_proven": false
+      }
+    },
+    {
+      "row": 84,
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages",
+      "category": "current_html_valid_consolidation_unverified",
+      "verdict": "Текущий self-canonical корректен. Исторический кандидат консолидации остаётся предложением: полные parent/leaf наборы обеих локалей в этом этапе не доказаны; не объявлен ошибкой и не изменён.",
+      "primary_check": {
+        "method": "IAB rendered DOM",
+        "http_status": null,
+        "observed_utc": null,
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": {
+        "model": "",
+        "parent_path": "vnutrisnje-ozdoblennia--ozdoblennia-steli-salonu",
+        "leaf_path": "vnutrisnje-ozdoblennia--ozdoblennia-steli-salonu--ozdoblennia-steli-salonu",
+        "full_ua_ru_equivalence_proven": false
+      }
+    },
+    {
+      "row": 85,
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/elektrika/datciki-radaru/datciki-radaru/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages",
+      "category": "current_html_valid_consolidation_unverified",
+      "verdict": "Текущий self-canonical корректен. Исторический кандидат консолидации остаётся предложением: полные parent/leaf наборы обеих локалей в этом этапе не доказаны; не объявлен ошибкой и не изменён.",
+      "primary_check": {
+        "method": "IAB rendered DOM",
+        "http_status": null,
+        "observed_utc": null,
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/parts/elektrika/datciki-radaru/datciki-radaru/"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/parts/elektrika/datciki-radaru/datciki-radaru/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": {
+        "model": "",
+        "parent_path": "elektrika--datciki-radaru",
+        "leaf_path": "elektrika--datciki-radaru--datciki-radaru",
+        "full_ua_ru_equivalence_proven": false
+      }
+    },
+    {
+      "row": 86,
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/elektrika/frontalnaia-kamera/frontalnaia-kamera/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages",
+      "category": "current_html_valid_consolidation_unverified",
+      "verdict": "Текущий self-canonical корректен. Исторический кандидат консолидации остаётся предложением: полные parent/leaf наборы обеих локалей в этом этапе не доказаны; не объявлен ошибкой и не изменён.",
+      "primary_check": {
+        "method": "IAB rendered DOM",
+        "http_status": null,
+        "observed_utc": null,
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/elektrika/frontalnaia-kamera/frontalnaia-kamera/"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/elektrika/frontalnaia-kamera/frontalnaia-kamera/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": {
+        "model": "model-s-02-2012-03-2016",
+        "parent_path": "elektrika--frontalnaia-kamera",
+        "leaf_path": "elektrika--frontalnaia-kamera--frontalnaia-kamera",
+        "full_ua_ru_equivalence_proven": false
+      }
+    },
+    {
+      "row": 87,
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/diski-i-siny/diski/diski/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages",
+      "category": "local_alias_prepared_full_parity",
+      "verdict": "Текущий canonical корректен; parent/leaf полностью эквивалентны в UA/RU. Локально подготовлен scoped 301 parent → leaf, публикации нет.",
+      "primary_check": {
+        "method": "IAB rendered DOM",
+        "http_status": null,
+        "observed_utc": null,
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/diski-i-siny/diski/diski/"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/diski-i-siny/diski/diski/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": {
+        "model": "model-s-04-2016-01-2021",
+        "parent_path": "diski-i-siny--diski",
+        "leaf_path": "diski-i-siny--diski--diski",
+        "full_ua_ru_equivalence_proven": true
+      }
+    },
+    {
+      "row": 88,
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "old_google_category_alias_already_redirects_to_preferred_url",
+      "category": "previous_fix_current_html_confirmed",
+      "verdict": "Ранее выпущенное исправление/выбранный leaf подтверждены текущим HTML или конечной целью. Повторный выпуск не требуется.",
+      "primary_check": {
+        "method": "IAB rendered DOM",
+        "http_status": null,
+        "observed_utc": null,
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    },
+    {
+      "row": 89,
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-batareia/visokovoltna-batareia/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "preserve_battery_taxonomy_check_real_sets_both_languages",
+      "category": "battery_levels_preserved",
+      "verdict": "Текущий self-canonical корректен; официальные батарейные уровни сохраняются, новых правил слияния нет.",
+      "primary_check": {
+        "method": "IAB rendered DOM",
+        "http_status": null,
+        "observed_utc": null,
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-batareia/visokovoltna-batareia/"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-batareia/visokovoltna-batareia/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": {
+        "model": "model-s-02-2012-03-2016",
+        "parent_path": "visokovoltna-batareia--visokovoltna-batareia",
+        "leaf_path": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia",
+        "full_ua_ru_equivalence_proven": false
+      }
+    },
+    {
+      "row": 90,
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages",
+      "category": "current_html_valid_consolidation_unverified",
+      "verdict": "Текущий self-canonical корректен. Исторический кандидат консолидации остаётся предложением: полные parent/leaf наборы обеих локалей в этом этапе не доказаны; не объявлен ошибкой и не изменён.",
+      "primary_check": {
+        "method": "IAB rendered DOM",
+        "http_status": null,
+        "observed_utc": null,
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/parts/diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms/"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/parts/diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": {
+        "model": "",
+        "parent_path": "diski-i-sini--sistema-kontroliu-tisku-v-sinax-tpms",
+        "leaf_path": "diski-i-sini--sistema-kontroliu-tisku-v-sinax-tpms--sistema-kontroliu-tisku-v-sinax-tpms",
+        "full_ua_ru_equivalence_proven": false
+      }
+    },
+    {
+      "row": 91,
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/diski/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "verify_current_full_parent_child_sets_and_taxonomy_both_languages",
+      "category": "local_alias_prepared_full_parity",
+      "verdict": "Текущий canonical корректен; parent/leaf полностью эквивалентны в UA/RU. Локально подготовлен scoped 301 parent → leaf, публикации нет.",
+      "primary_check": {
+        "method": "IAB rendered DOM",
+        "http_status": null,
+        "observed_utc": null,
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/diski/"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/diski/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": {
+        "model": "",
+        "parent_path": "diski-i-sini--diski",
+        "leaf_path": "diski-i-sini--diski--diski",
+        "full_ua_ru_equivalence_proven": true
+      }
+    },
+    {
+      "row": 92,
+      "group": "canonical",
+      "url": "https://nikolacars.kiev.ua/parts/komponenti-zakrittia/",
+      "id": null,
+      "gsc_summary_date": "2026-10-23",
+      "previous_decision": "old_google_category_alias_already_redirects_to_preferred_url",
+      "category": "previous_fix_current_html_confirmed",
+      "verdict": "Ранее выпущенное исправление/выбранный leaf подтверждены текущим HTML или конечной целью. Повторный выпуск не требуется.",
+      "primary_check": {
+        "method": "IAB rendered DOM",
+        "http_status": null,
+        "observed_utc": null,
+        "check_date": "2026-11-08",
+        "canonical": [
+          "https://nikolacars.kiev.ua/parts/komponenti-zakrittia/"
+        ],
+        "location": null,
+        "final_url": "https://nikolacars.kiev.ua/parts/komponenti-zakrittia/",
+        "final_dom_error": null,
+        "final_product": null
+      },
+      "candidate_pair": null
+    }
+  ]
+}

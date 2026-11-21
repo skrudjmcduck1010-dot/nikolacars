@@ -1,0 +1,151 @@
+{
+  "checked_at": "2026-10-29T18:18:21.250794+00:00",
+  "status": "PASS",
+  "backend_original_dirty_files": 33,
+  "backend_unrelated_exact_byte_matches": 31,
+  "backend_task_runtime": "app/Services/StorefrontCatalogQuery.php",
+  "backend_documentation": "docs/agents/catalog_seo.md (append only, original prefix preserved)",
+  "documents": [
+    {
+      "root": "mirror",
+      "path": "C:\\Projects\\nikolacars\\docs\\agents\\catalog_seo.md",
+      "before_sha256": "a8a7716b587e692e44d132bcb3d1b1178d2e45c8e94a6d65aaa93caedd4f00c8",
+      "after_sha256": "afccb658360628a732970b91643f66d7f67b8027a8c2a2e1712595bbd74daa66",
+      "original_prefix_preserved": true
+    },
+    {
+      "root": "backend",
+      "path": "C:\\Projects\\sklad-zapchastey\\docs\\agents\\catalog_seo.md",
+      "before_sha256": "53ddb631815b5aa07b903155900ae60fde83b0723d0211d8ce7d273827a57b39",
+      "after_sha256": "b2b35fdd03f9d14807a4ad24435b0bacb2b214492800da2d13c9194c1cf54b59",
+      "original_prefix_preserved": true
+    }
+  ],
+  "unchanged_files": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "c9542d6a377b07c7a2501549aa04b2a97d1cbb8936066d4d7b28376f823e6d21"
+    },
+    {
+      "path": "app/Services/ProductInventoryService.php",
+      "sha256": "8c2845234fca181e5c4354816ded90766aeb836d16458e58fa0a6c0fc24f0796"
+    },
+    {
+      "path": "app/Services/StorefrontCatalogService.php",
+      "sha256": "f40159194f58393d35a27fe29a0585e614b5fd7ef2ec73d7ebc4ea683e10e22a"
+    },
+    {
+      "path": "app/Services/StorefrontCatalogTaxonomy.php",
+      "sha256": "acc0f710b86fa1edefe000ddacc6b50adfd30fc75f416e83a773287e8475270a"
+    },
+    {
+      "path": "docs/agents/integrations_orders.md",
+      "sha256": "35568c961affe96188ea879501c725bfb40734915f85447bc1e9c10d477067ef"
+    },
+    {
+      "path": "docs/agents/release_verifier.md",
+      "sha256": "fc697f06cd622c3fa04965322702631f02a7985aa62e0c84f3d0fb857ea80ec9"
+    },
+    {
+      "path": "docs/agents/warehouse_sales.md",
+      "sha256": "0babca4bddf20752309ce05a6e48edc76d85987cc80dc28df507d56833d34d1d"
+    },
+    {
+      "path": "docs/avtopro-donor-pilot.md",
+      "sha256": "452c59b7872932ab0981467cba2d5ab2e52a30bef26307f9bc865d109048df58"
+    },
+    {
+      "path": "docs/binotel-call-journal.md",
+      "sha256": "940f3e3e9403de69e079f4b29cc7cc6ed62ddbb1a9d746bd7623af3e95ec30fd"
+    },
+    {
+      "path": "docs/customer-order-call-source.md",
+      "sha256": "f548610a10f3b820b29cba7e96aa6a0a3c20687ffe5e1327e70ba26213639c37"
+    },
+    {
+      "path": "docs/google-ads-merchant.md",
+      "sha256": "cdcb5809826170a96bd64b7bf7e7c73f57894f65dee2d7ce6f7771a59686e1c3"
+    },
+    {
+      "path": "docs/project-map.md",
+      "sha256": "ef24297b26069593ee1d20d949a0e44ff78445dc019f533b4a0242ecc95b7304"
+    },
+    {
+      "path": "docs/storefront-parts-callback.md",
+      "sha256": "99bb72f5c2f8cb5a191fbf86155fb7cd769923952f45bb7724c6d0b9edb6238d"
+    },
+    {
+      "path": "docs/tilda-leads.md",
+      "sha256": "4bacd04ea9dff94baac6dde2a47f57ff5df3a328da775fc4590c5a7de4f223ff"
+    },
+    {
+      "path": "tests/Feature/ProductInventoryServiceTest.php",
+      "sha256": "e32ecfecb63eb75ca98df84909e39e970f8ff2d77f55d54119c3542e6c91c8bc"
+    },
+    {
+      "path": "tests/Unit/StorefrontCatalogQueryTest.php",
+      "sha256": "b48aa2a743279296ac7b66d34ccb3e56661df9421bd3d3dc075fc79b902b0a25"
+    },
+    {
+      "path": "docs/live-recovery-backup.md",
+      "sha256": "b760b8093fbf3d06afeb0be182a20062c1ad6b67df621aa3a95686e7d5b96f54"
+    },
+    {
+      "path": "docs/ria-status-20261022.md",
+      "sha256": "8df713df357d58b81ae1527b81780f3518e8d962dd446f80f6550de1f577320c"
+    },
+    {
+      "path": "scripts/backup-bundle-crypto.php",
+      "sha256": "f7e9621a8ea5861b6152370408e415d1e5a2babcf9a46118fb3d94bfc43da371"
+    },
+    {
+      "path": "scripts/backup-live-chunk-stream.php",
+      "sha256": "cbca80278e4222a643655ea367ec679ce532680d76dcbedaedbd4aeb69880aed"
+    },
+    {
+      "path": "scripts/backup-live-media-chunk-runner.php",
+      "sha256": "06f3d349c7946712be36bd125356db5f4824878bd06a4e3cdc8719108f598239"
+    },
+    {
+      "path": "scripts/backup-live-recovery-runner.php",
+      "sha256": "bfe04d1208b965de7712abb21ec3bc6c5cd30b34dcbd5f35a3027c4c0b6eef37"
+    },
+    {
+      "path": "scripts/backup-live-recovery.py",
+      "sha256": "ce1d719b013d2a74cc88a7f585946150a15a45574463b26e5cdbf5f384066012"
+    },
+    {
+      "path": "scripts/backup-live-settings-runner.php",
+      "sha256": "27ba179ead77d4a3acea74cff54f29eba30ea5f27e724dbab15d73aa1272e11d"
+    },
+    {
+      "path": "scripts/backup_live_https_stream.py",
+      "sha256": "ef5f2f1b3df6b60313fc28c4d9ae4a99eea4e99ff0b20a24337b9226064dc874"
+    },
+    {
+      "path": "scripts/backup_live_media_chunks.py",
+      "sha256": "9aca785616ef5b43a9ddd267bea385a345844f3a122cfe8dd6100d12e38262d8"
+    },
+    {
+      "path": "scripts/backup_live_media_pipeline.py",
+      "sha256": "b0aab3375730522066210e0a6c36772cee161dc2219cbd146107ff5110ed9f85"
+    },
+    {
+      "path": "scripts/backup_live_settings.py",
+      "sha256": "6708fa1048409abafa423f14fab2e9bfdeb414dac44e86919830a78078f90ee9"
+    },
+    {
+      "path": "scripts/backup_snapshot_external_photos.py",
+      "sha256": "94252c555a85babb9d5f83a46d8a79b105466101a9446d65dba9b7c0312691ab"
+    },
+    {
+      "path": "tests/Feature/StorefrontBatteryLocalizationTest.php",
+      "sha256": "e14bb087fec65a7f5ef09777fecabfa1cb45df61fda5e54191dde756f271eb7e"
+    },
+    {
+      "path": "tests/operator/test_live_recovery_backup.py",
+      "sha256": "ef303581e439cba357e72423e8bb8db06c429c21a00e5a3db07034bed8003bed"
+    }
+  ],
+  "all_frozen_runtime_and_test_hashes_match": true
+}

@@ -1,0 +1,95 @@
+{
+  "checked_at": "2026-10-29T18:25:56.518879+00:00",
+  "status": "PASS_TEST_ONLY_LOCAL_NOT_DEPLOYED",
+  "frozen_runtime_manifest_sha256": "cb7f3b2c4590847e7f5d02f45ad6346d31da01eefa1f20dc62f2fd87bd827de1",
+  "runtime_sha_unchanged": [
+    {
+      "root": "frontend",
+      "path": "app/Http/Controllers/PartsController.php",
+      "sha256": "fd8f2998281a3fb521a888b9aa6c64d83e750890f0cfd32c4343fed5de97ce1f"
+    },
+    {
+      "root": "frontend",
+      "path": "app/Services/CategoryCatalogSeo.php",
+      "sha256": "d76e051dd6d04dd072bb490060ae99ac57accaa91d58cc7c49bedbee774d11c1"
+    },
+    {
+      "root": "frontend",
+      "path": "app/Services/CatalogNavigation.php",
+      "sha256": "69f0a0cc88d1375ed664fa603bd03b6c5492f001e443f62f808c1f5500b6de64"
+    },
+    {
+      "root": "frontend",
+      "path": "resources/views/parts/index.blade.php",
+      "sha256": "43a5f7d659a1259ac10793b14fdcd31f193e0c87bf1b483913bb31631f593020"
+    },
+    {
+      "root": "frontend",
+      "path": "resources/views/parts/_catalog_navigation.blade.php",
+      "sha256": "a818c3e726a216a5382b675ded75139a025a142fdd872a9a74160d55710726d8"
+    },
+    {
+      "root": "frontend",
+      "path": "resources/views/layouts/parts.blade.php",
+      "sha256": "9883ecd8178d03462b76b998449b7111357255d7f7c835c8d9f6cfcf9f941b63"
+    },
+    {
+      "root": "frontend",
+      "path": "public/assets/js/parts.js",
+      "sha256": "26df72bbb33e52586818f7fbc6f6855daab8666b6fcb0dc0bb5133a3abf5005e"
+    },
+    {
+      "root": "frontend",
+      "path": "public/assets/css/parts.css",
+      "sha256": "db7a55f766dea5589ade69985753cc27e8e600da62ed33eb39df1cbcacd21e68"
+    },
+    {
+      "root": "backend",
+      "path": "app/Services/StorefrontCatalogQuery.php",
+      "sha256": "3f07ef1947c312c1877c00fe6feda5ca202d6ec82e4e2928b44197d70425d94b"
+    },
+    {
+      "root": "backend",
+      "path": "app/Services/StorefrontCategoryNavigation.php",
+      "sha256": "aaf6dedb66f9ca402cfe8e8082a3fd4f9355b51c39849d971f1f80d3e238cc6f"
+    }
+  ],
+  "test_only_files": [
+    {
+      "path": "tests/fixtures/catalog-tree-rows.json",
+      "before_sha256": "a3723a529117a3413e002ee224ffb4663cffbe50eebd4e96aada5f1e64426987",
+      "sha256": "2b5c1c78b7bff37b36883b44dccdf19dafca1afdbd9e70b6bc7a79076adee8cd",
+      "kind": "test-only"
+    },
+    {
+      "path": "tests/e2e/tree-router.php",
+      "before_sha256": "cd4c3919416f3d42075e2f22fd7578fcfc27b013f52e270bc22f42d858a53d31",
+      "sha256": "5480002298cc82c092583de6df06e5beac05ec471b5a490c2bbd5ee6086600c0",
+      "kind": "test-only"
+    },
+    {
+      "path": "tests/e2e/catalog-tree.cjs",
+      "before_sha256": "09416b3823a91efe5796b0da3d619125bd7a8713ce2fbbd074c8c36906c85d23",
+      "sha256": "0dd9d6ab4f778bfd09657a17c70031dfba95187521152f0e253699cec8dd77b3",
+      "kind": "test-only"
+    }
+  ],
+  "locales": {
+    "uk": 115,
+    "ru": 115
+  },
+  "model_slugs": [
+    "model-3-06-2017-12-2023",
+    "model-3-highland-01-2024",
+    "model-s-02-2012-03-2016",
+    "model-s-04-2016-01-2021",
+    "model-x-09-2015-02-2021",
+    "model-y-01-2020-01-2025"
+  ],
+  "original_model_s_100_rows_per_locale_preserved": true,
+  "synthetic_rows_added_per_locale": 15,
+  "browser_cases": 6,
+  "real_shared_branch_model_transitions": 36,
+  "live_counts_not_used": true,
+  "not_authorization_for_copy_commit_or_deploy": true
+}

@@ -1,0 +1,81 @@
+{
+  "checkedAt": "2026-10-29T18:26:10.377Z",
+  "allModels": {
+    "badge": "Предпросмотр: тестовые товары и остатки",
+    "models": [
+      {
+        "label": "Усі моделі",
+        "url": "/parts/elektrika/elektroprovodka/"
+      },
+      {
+        "label": "Model 306.2017-12.2023\n        2",
+        "url": "/parts/model-3-06-2017-12-2023/elektrika/elektroprovodka/"
+      },
+      {
+        "label": "Model 3 Highland01.2024-\n        2",
+        "url": "/parts/model-3-highland-01-2024/elektrika/elektroprovodka/"
+      },
+      {
+        "label": "Model S02.2012-03.2016\n        2",
+        "url": "/parts/model-s-02-2012-03-2016/elektrika/elektroprovodka/"
+      },
+      {
+        "label": "Model S04.2016-01.2021\n        6",
+        "url": "/parts/model-s-04-2016-01-2021/elektrika/elektroprovodka/"
+      },
+      {
+        "label": "Model X09.2015-02.2021\n        2",
+        "url": "/parts/model-x-09-2015-02-2021/elektrika/elektroprovodka/"
+      },
+      {
+        "label": "Model Y01.2020-01.2025\n        2",
+        "url": "/parts/model-y-01-2020-01-2025/elektrika/elektroprovodka/"
+      }
+    ],
+    "url": "http://127.0.0.1:4336/parts/elektrika/elektroprovodka/"
+  },
+  "modelY": {
+    "current": "⌄\n        Електрика2",
+    "sidebarLinks": [
+      "/parts/model-y-01-2020-01-2025/elektrika/",
+      "/parts/model-y-01-2020-01-2025/elektrika/elektroprovodka/"
+    ],
+    "testBadge": "Предпросмотр: тестовые товары и остатки",
+    "title": "Електрика — Tesla Model Y 01.2020 - 01.2025 — NikolaCars",
+    "url": "http://127.0.0.1:4336/parts/model-y-01-2020-01-2025/elektrika/"
+  },
+  "productionModels": {
+    "checkedAt": "2026-10-29T18:23:32.306Z",
+    "url": "https://nikolacars.kiev.ua/parts/",
+    "models": [
+      {
+        "text": "Усі моделі",
+        "url": "/parts/"
+      },
+      {
+        "text": "Model 306.2017-12.2023\n        877",
+        "url": "/parts/model-3-06-2017-12-2023/"
+      },
+      {
+        "text": "Model 3 Highland01.2024-\n        270",
+        "url": "/parts/model-3-highland-01-2024/"
+      },
+      {
+        "text": "Model S02.2012-03.2016\n        633",
+        "url": "/parts/model-s-02-2012-03-2016/"
+      },
+      {
+        "text": "Model S04.2016-01.2021\n        328",
+        "url": "/parts/model-s-04-2016-01-2021/"
+      },
+      {
+        "text": "Model X09.2015-02.2021\n        117",
+        "url": "/parts/model-x-09-2015-02-2021/"
+      },
+      {
+        "text": "Model Y01.2020-01.2025\n        661",
+        "url": "/parts/model-y-01-2020-01-2025/"
+      }
+    ]
+  }
+}

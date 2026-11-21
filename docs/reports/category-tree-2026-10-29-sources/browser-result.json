@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "cases": 6,
+  "results": [
+    {
+      "locale": "uk",
+      "width": 320,
+      "status": "PASS",
+      "checks": [
+        "label/anchor/sidebar bounds",
+        "single current",
+        "real child/leaf/all navigation",
+        "filter clearing",
+        "ancestors",
+        "leaf arrow",
+        "AJAX counts",
+        "model context",
+        "no JS errors"
+      ]
+    },
+    {
+      "locale": "uk",
+      "width": 390,
+      "status": "PASS",
+      "checks": [
+        "label/anchor/sidebar bounds",
+        "single current",
+        "real child/leaf/all navigation",
+        "filter clearing",
+        "ancestors",
+        "leaf arrow",
+        "AJAX counts",
+        "model context",
+        "no JS errors"
+      ]
+    },
+    {
+      "locale": "uk",
+      "width": 1440,
+      "status": "PASS",
+      "checks": [
+        "label/anchor/sidebar bounds",
+        "single current",
+        "real child/leaf/all navigation",
+        "filter clearing",
+        "ancestors",
+        "leaf arrow",
+        "AJAX counts",
+        "model context",
+        "no JS errors"
+      ]
+    },
+    {
+      "locale": "ru",
+      "width": 320,
+      "status": "PASS",
+      "checks": [
+        "label/anchor/sidebar bounds",
+        "single current",
+        "real child/leaf/all navigation",
+        "filter clearing",
+        "ancestors",
+        "leaf arrow",
+        "AJAX counts",
+        "model context",
+        "no JS errors"
+      ]
+    },
+    {
+      "locale": "ru",
+      "width": 390,
+      "status": "PASS",
+      "checks": [
+        "label/anchor/sidebar bounds",
+        "single current",
+        "real child/leaf/all navigation",
+        "filter clearing",
+        "ancestors",
+        "leaf arrow",
+        "AJAX counts",
+        "model context",
+        "no JS errors"
+      ]
+    },
+    {
+      "locale": "ru",
+      "width": 1440,
+      "status": "PASS",
+      "checks": [
+        "label/anchor/sidebar bounds",
+        "single current",
+        "real child/leaf/all navigation",
+        "filter clearing",
+        "ancestors",
+        "leaf arrow",
+        "AJAX counts",
+        "model context",
+        "no JS errors"
+      ]
+    }
+  ]
+}

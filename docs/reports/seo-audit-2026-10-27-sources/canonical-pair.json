@@ -1,0 +1,116 @@
+[
+  {
+    "url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/",
+    "status": 200,
+    "final": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/",
+    "seconds": 1.89,
+    "title": [
+      "Педаль гальма — Tesla Model 3 06.2017 - 12.2023 — NikolaCars"
+    ],
+    "canonical": [
+      "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/"
+    ],
+    "robots": [],
+    "selection": {
+      "model": "Model 3 06.2017 - 12.2023",
+      "model_slug": "model-3-06-2017-12-2023",
+      "category": "Гальма",
+      "category_slug": "galma",
+      "category_path": "Гальма / Педаль гальма",
+      "category_path_slug": "galma--pedal-galma",
+      "category_breadcrumbs": [
+        {
+          "label": "Гальма",
+          "slug": "galma"
+        },
+        {
+          "label": "Педаль гальма",
+          "slug": "galma--pedal-galma"
+        }
+      ],
+      "category_path_locale_slugs": {
+        "uk": "galma--pedal-galma",
+        "ru": "tormoza--pedal-tormoza"
+      }
+    },
+    "pagination": {
+      "page": 1,
+      "per_page": 24,
+      "total": 2,
+      "last_page": 1
+    },
+    "products": [
+      {
+        "id": 99115,
+        "name": "педаль тормоза",
+        "category_path": "Гальма / Педаль гальма / Педаль гальма",
+        "category_path_slug": "galma--pedal-galma--pedal-galma"
+      },
+      {
+        "id": 100551,
+        "name": "педаль тормоза",
+        "category_path": "Гальма / Педаль гальма / Педаль гальма",
+        "category_path_slug": "galma--pedal-galma--pedal-galma"
+      }
+    ]
+  },
+  {
+    "url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/pedal-galma/",
+    "status": 200,
+    "final": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/pedal-galma/",
+    "seconds": 1.12,
+    "title": [
+      "Педаль гальма — Tesla Model 3 06.2017 - 12.2023 — NikolaCars"
+    ],
+    "canonical": [
+      "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/pedal-galma/"
+    ],
+    "robots": [],
+    "selection": {
+      "model": "Model 3 06.2017 - 12.2023",
+      "model_slug": "model-3-06-2017-12-2023",
+      "category": "Гальма",
+      "category_slug": "galma",
+      "category_path": "Гальма / Педаль гальма / Педаль гальма",
+      "category_path_slug": "galma--pedal-galma--pedal-galma",
+      "category_breadcrumbs": [
+        {
+          "label": "Гальма",
+          "slug": "galma"
+        },
+        {
+          "label": "Педаль гальма",
+          "slug": "galma--pedal-galma"
+        },
+        {
+          "label": "Педаль гальма",
+          "slug": "galma--pedal-galma--pedal-galma"
+        }
+      ],
+      "category_path_locale_slugs": {
+        "uk": "galma--pedal-galma--pedal-galma",
+        "ru": "tormoza--pedal-tormoza--pedal-tormoza"
+      }
+    },
+    "pagination": {
+      "page": 1,
+      "per_page": 24,
+      "total": 2,
+      "last_page": 1
+    },
+    "products": [
+      {
+        "id": 99115,
+        "name": "педаль тормоза",
+        "category_path": "Гальма / Педаль гальма / Педаль гальма",
+        "category_path_slug": "galma--pedal-galma--pedal-galma"
+      },
+      {
+        "id": 100551,
+        "name": "педаль тормоза",
+        "category_path": "Гальма / Педаль гальма / Педаль гальма",
+        "category_path_slug": "galma--pedal-galma--pedal-galma"
+      }
+    ]
+  }
+]

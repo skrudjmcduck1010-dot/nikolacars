@@ -1,0 +1,78 @@
+[
+  {
+    "url": "https://nikolacars.kiev.ua/ru/parts/model-3-06-2017-12-2023/tormoza/pedal-tormoza/",
+    "status": 200,
+    "selection": {
+      "model": "Model 3 06.2017 - 12.2023",
+      "model_slug": "model-3-06-2017-12-2023",
+      "category": "Тормоза",
+      "category_slug": "tormoza",
+      "category_path": "Тормоза / Педаль тормоза",
+      "category_path_slug": "tormoza--pedal-tormoza",
+      "category_breadcrumbs": [
+        {
+          "label": "Тормоза",
+          "slug": "tormoza"
+        },
+        {
+          "label": "Педаль тормоза",
+          "slug": "tormoza--pedal-tormoza"
+        }
+      ],
+      "category_path_locale_slugs": {
+        "uk": "galma--pedal-galma",
+        "ru": "tormoza--pedal-tormoza"
+      }
+    },
+    "pagination": {
+      "page": 1,
+      "per_page": 24,
+      "total": 2,
+      "last_page": 1
+    },
+    "ids": [
+      99115,
+      100551
+    ]
+  },
+  {
+    "url": "https://nikolacars.kiev.ua/ru/parts/model-3-06-2017-12-2023/tormoza/pedal-tormoza/pedal-tormoza/",
+    "status": 200,
+    "selection": {
+      "model": "Model 3 06.2017 - 12.2023",
+      "model_slug": "model-3-06-2017-12-2023",
+      "category": "Тормоза",
+      "category_slug": "tormoza",
+      "category_path": "Тормоза / Педаль тормоза / Педаль тормоза",
+      "category_path_slug": "tormoza--pedal-tormoza--pedal-tormoza",
+      "category_breadcrumbs": [
+        {
+          "label": "Тормоза",
+          "slug": "tormoza"
+        },
+        {
+          "label": "Педаль тормоза",
+          "slug": "tormoza--pedal-tormoza"
+        },
+        {
+          "label": "Педаль тормоза",
+          "slug": "tormoza--pedal-tormoza--pedal-tormoza"
+        }
+      ],
+      "category_path_locale_slugs": {
+        "uk": "galma--pedal-galma--pedal-galma",
+        "ru": "tormoza--pedal-tormoza--pedal-tormoza"
+      }
+    },
+    "pagination": {
+      "page": 1,
+      "per_page": 24,
+      "total": 2,
+      "last_page": 1
+    },
+    "ids": [
+      99115,
+      100551
+    ]
+  }
+]

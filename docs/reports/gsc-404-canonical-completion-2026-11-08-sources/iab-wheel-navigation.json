@@ -1,0 +1,35 @@
+{
+  "source_path": "/parts/diski-i-sini/diski/",
+  "method": "IAB rendered script DOM",
+  "note": "Navigation counts are not pagination totals. Do not compare them interchangeably.",
+  "category_navigation": [
+    {
+      "category_path_slug": "diski-i-sini",
+      "count": 17,
+      "has_children": true,
+      "label": "Диски і шини",
+      "parent_path_slug": ""
+    },
+    {
+      "category_path_slug": "diski-i-sini--diski",
+      "count": 11,
+      "has_children": true,
+      "label": "Диски",
+      "parent_path_slug": "diski-i-sini"
+    },
+    {
+      "category_path_slug": "diski-i-sini--diski--diski",
+      "count": 11,
+      "has_children": false,
+      "label": "Диски",
+      "parent_path_slug": "diski-i-sini--diski"
+    },
+    {
+      "category_path_slug": "diski-i-sini--sistema-kontroliu-tisku-v-sinax-tpms",
+      "count": 6,
+      "has_children": true,
+      "label": "Система контролю тиску в шинах (TPMS)",
+      "parent_path_slug": "diski-i-sini"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "started_utc": "2026-11-08T18:06:28.567Z",
+  "pace_seconds": 5,
+  "redirects_followed": false,
+  "scope_count": 1,
+  "status": "STOPPED_TRANSPORT_OR_PARSE",
+  "rows": [
+    {
+      "url": "https://nikolacars.kiev.ua/ru/parts/1584721-e0-a-113134/",
+      "observed_utc": "2026-11-08T18:06:28.568Z",
+      "error_type": "Error",
+      "error_message": "connect ETIMEDOUT 31.131.22.61:443"
+    }
+  ],
+  "finished_utc": "2026-11-08T18:06:49.614Z"
+}

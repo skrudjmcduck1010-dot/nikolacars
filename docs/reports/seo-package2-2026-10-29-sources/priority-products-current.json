@@ -1,0 +1,1346 @@
+[
+    {
+        "url": "https://nikolacars.kiev.ua/parts/1715102-10-c-113249/",
+        "id": 113249,
+        "historical_impressions_both_locales": 66,
+        "time": "2026-10-29T16:02:56+00:00",
+        "locale": "uk",
+        "status": 200,
+        "data": {
+            "id": 113249,
+            "url_slug": "1715102-10-c-113249",
+            "name": "Лючок порта зарядки",
+            "part_number": "1715102-10-C",
+            "model": "Model 3 Highland 01.2024 -",
+            "model_slug": "model-3-highland-01-2024",
+            "category": "Високовольтна система",
+            "category_slug": "visokovoltna-sistema",
+            "category_path": "Високовольтна система / Вхід зарядної системи / Зарядний порт",
+            "category_path_slug": "visokovoltna-sistema--vxid-zariadnoyi-sistemi--zariadnii-port",
+            "category_breadcrumbs": [
+                {
+                    "label": "Високовольтна система",
+                    "slug": "visokovoltna-sistema"
+                },
+                {
+                    "label": "Вхід зарядної системи",
+                    "slug": "visokovoltna-sistema--vxid-zariadnoyi-sistemi"
+                },
+                {
+                    "label": "Зарядний порт",
+                    "slug": "visokovoltna-sistema--vxid-zariadnoyi-sistemi--zariadnii-port"
+                }
+            ],
+            "price_uah": 9180,
+            "quantity": 1,
+            "image_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/b0a4bd899f03dab22733d11397788bc1be98350c.jpg",
+            "images": [
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/b0a4bd899f03dab22733d11397788bc1be98350c.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/327104cf87a754df3d69f5bbfcd3a0c2ec6ecd21.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/6fe8974d546f8df3e3fc663253b6bb65591c2df7.jpg"
+            ],
+            "condition": "Вживана",
+            "part_origin": "Оригінал",
+            "damage_status": "Без пошкоджень",
+            "image_items": [
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/b0a4bd899f03dab22733d11397788bc1be98350c.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/90479573142ccd168b248db8db96db3e1de810a9.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": [
+                        {
+                            "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-responsive/720/d055890b90b2f4dba7173f50dc56b84a06138b9d.webp",
+                            "width": 720,
+                            "height": 540
+                        },
+                        {
+                            "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-responsive/1200/9c405c9379f25f2c304f2ceea94ed52f598f906c.webp",
+                            "width": 1200,
+                            "height": 900
+                        }
+                    ]
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/327104cf87a754df3d69f5bbfcd3a0c2ec6ecd21.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/0904e8830af40cfb428b8e4894fbdfb9ed5c5a01.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/6fe8974d546f8df3e3fc663253b6bb65591c2df7.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/24299670f5fbd55bb7af953edf7a025a245b9128.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                }
+            ],
+            "availability_status": "in_stock"
+        }
+    },
+    {
+        "url": "https://nikolacars.kiev.ua/parts/1473445-00-b-84167/",
+        "id": 84167,
+        "historical_impressions_both_locales": 31,
+        "time": "2026-10-29T16:03:02+00:00",
+        "locale": "uk",
+        "status": 200,
+        "data": {
+            "id": 84167,
+            "url_slug": "1473445-00-b-84167",
+            "name": "Датчик фронтального удару правий",
+            "part_number": "1473445-00-B",
+            "model": "Model Y 01.2020 - 01.2025",
+            "model_slug": "model-y-01-2020-01-2025",
+            "category": "Безпека і захист",
+            "category_slug": "bezpeka-i-zaxist",
+            "category_path": "Безпека і захист / Датчики / Датчики удару і прискорення",
+            "category_path_slug": "bezpeka-i-zaxist--datciki--datciki-udaru-i-priskorennia",
+            "category_breadcrumbs": [
+                {
+                    "label": "Безпека і захист",
+                    "slug": "bezpeka-i-zaxist"
+                },
+                {
+                    "label": "Датчики",
+                    "slug": "bezpeka-i-zaxist--datciki"
+                },
+                {
+                    "label": "Датчики удару і прискорення",
+                    "slug": "bezpeka-i-zaxist--datciki--datciki-udaru-i-priskorennia"
+                }
+            ],
+            "price_uah": 1150,
+            "quantity": 0,
+            "image_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/80c0519f57758c72f0a2c2b966ed336ad5b5f47b.jpg",
+            "images": [
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/80c0519f57758c72f0a2c2b966ed336ad5b5f47b.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/44905c84e622de960391978a62634e1855565a7d.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/bfdda912b0960a74f4667b50b3754baae082de24.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/tesla-official/part-images/147344500B/1473445-00-B_1.jpeg"
+            ],
+            "condition": "Вживана",
+            "part_origin": "Оригінал",
+            "damage_status": "Без пошкоджень",
+            "image_items": [
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/80c0519f57758c72f0a2c2b966ed336ad5b5f47b.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/33261359345b826ada94c2f36dbcd3001d29e633.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": [
+                        {
+                            "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-responsive/720/6d598a19bcff30369b889d4116d40180e2b6ffbd.webp",
+                            "width": 720,
+                            "height": 960
+                        },
+                        {
+                            "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-responsive/1200/a8c104a999c77b9e0ecf2b7753ae36c4f1deec23.webp",
+                            "width": 1200,
+                            "height": 1600
+                        }
+                    ]
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/44905c84e622de960391978a62634e1855565a7d.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/b926c38898a8a0efed96710c216f2e44eff4f614.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/bfdda912b0960a74f4667b50b3754baae082de24.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/8a3f1d778bc88b8c0e165a8d58c02283b6ad438a.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/tesla-official/part-images/147344500B/1473445-00-B_1.jpeg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/ed1f285c51d513b7839c73d7b5eb6f9bf73abdbe.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                }
+            ],
+            "availability_status": "sold"
+        }
+    },
+    {
+        "url": "https://nikolacars.kiev.ua/ru/parts/1044368-00-f-100488/",
+        "id": 100488,
+        "historical_impressions_both_locales": 27,
+        "time": "2026-10-29T16:03:08+00:00",
+        "locale": "ru",
+        "status": 200,
+        "data": {
+            "id": 100488,
+            "url_slug": "1044368-00-f-100488",
+            "name": "Амортизатор в сборе передний правый DM E3",
+            "part_number": "1044368-00-F",
+            "model": "Model 3 06.2017 - 12.2023",
+            "model_slug": "model-3-06-2017-12-2023",
+            "category": "Подвеска",
+            "category_slug": "podveska",
+            "category_path": "Подвеска / Система пружинной подвески / Передний амортизатор в сборе с пружиной",
+            "category_path_slug": "podveska--sistema-pruzinnoi-podveski--perednii-amortizator-v-sbore-s-pruzinoi",
+            "category_breadcrumbs": [
+                {
+                    "label": "Подвеска",
+                    "slug": "podveska"
+                },
+                {
+                    "label": "Система пружинной подвески",
+                    "slug": "podveska--sistema-pruzinnoi-podveski"
+                },
+                {
+                    "label": "Передний амортизатор в сборе с пружиной",
+                    "slug": "podveska--sistema-pruzinnoi-podveski--perednii-amortizator-v-sbore-s-pruzinoi"
+                }
+            ],
+            "price_uah": 6880,
+            "quantity": 1,
+            "image_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/120ff32d1fa04f5d5de953310a87e4f8add627ae.jpg",
+            "images": [
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/120ff32d1fa04f5d5de953310a87e4f8add627ae.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/7cf9dd1e13a1c70e63d9f5f9a769cdbf71fb9e99.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/ca930fdea572a592f6ec1d45f19764e951c3c84a.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/7afc59692140407873fa267bcaf90ff3e3b475c9.jpg"
+            ],
+            "condition": "Б/У",
+            "part_origin": "Оригинал",
+            "damage_status": "Без повреждений",
+            "image_items": [
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/120ff32d1fa04f5d5de953310a87e4f8add627ae.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/636bf364cca33a0533d20905035d310604d0854f.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": [
+                        {
+                            "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-responsive/720/8b127371cd70d42a6b54829d632bcc668fec53d8.webp",
+                            "width": 720,
+                            "height": 540
+                        },
+                        {
+                            "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-responsive/1200/7c66a09c6932a20559b0a90b979e5a527e57598f.webp",
+                            "width": 1200,
+                            "height": 900
+                        }
+                    ]
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/7cf9dd1e13a1c70e63d9f5f9a769cdbf71fb9e99.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/7e7030f242e4bc43a68904a4561939781c2d2478.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/ca930fdea572a592f6ec1d45f19764e951c3c84a.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/8fa01c76ed1e42a9e78e82ed54c527cc76876d08.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/7afc59692140407873fa267bcaf90ff3e3b475c9.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/057f4147c7013eb29ac9d7923aee6044627dfc0b.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                }
+            ],
+            "availability_status": "in_stock"
+        }
+    },
+    {
+        "url": "https://nikolacars.kiev.ua/ru/parts/1044122-00-f-113316/",
+        "id": 113316,
+        "historical_impressions_both_locales": 20,
+        "time": "2026-10-29T16:03:14+00:00",
+        "locale": "ru",
+        "status": 200,
+        "data": {
+            "id": 113316,
+            "url_slug": "1044122-00-f-113316",
+            "name": "Ступица в сборе с подшипником не приводная заднего и переднего колеса (150мм)",
+            "part_number": "1044122-00-F",
+            "model": "Model 3 Highland 01.2024 -",
+            "model_slug": "model-3-highland-01-2024",
+            "category": "Подвеска",
+            "category_slug": "podveska",
+            "category_path": "Подвеска / Передняя подвеска (включая ступицы) / Передний кулак - ступица с подшипником",
+            "category_path_slug": "podveska--peredniaia-podveska-vkliucaia-stupicy--perednii-kulak-stupica-s-podsipnikom",
+            "category_breadcrumbs": [
+                {
+                    "label": "Подвеска",
+                    "slug": "podveska"
+                },
+                {
+                    "label": "Передняя подвеска (включая ступицы)",
+                    "slug": "podveska--peredniaia-podveska-vkliucaia-stupicy"
+                },
+                {
+                    "label": "Передний кулак - ступица с подшипником",
+                    "slug": "podveska--peredniaia-podveska-vkliucaia-stupicy--perednii-kulak-stupica-s-podsipnikom"
+                }
+            ],
+            "price_uah": 2300,
+            "quantity": 0,
+            "image_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/57a97f8f8dbdfd4fa2d5d419453005450f9015f8.jpg",
+            "images": [
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/57a97f8f8dbdfd4fa2d5d419453005450f9015f8.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/cdcc7404cec1ef0d650f05bff832aff5357cdd68.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/167b171dbde5efbd754c69fa7ed41daf8487d195.jpg"
+            ],
+            "condition": "Б/У",
+            "part_origin": "Оригинал",
+            "damage_status": "Без повреждений",
+            "image_items": [
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/57a97f8f8dbdfd4fa2d5d419453005450f9015f8.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/3742ffc44cf65480c7426b9eaea110c5eb48a80c.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": [
+                        {
+                            "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-responsive/720/fa87aaa78bf29216dd389adbaf1e8d7170d15905.webp",
+                            "width": 720,
+                            "height": 540
+                        },
+                        {
+                            "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-responsive/1200/d91103c9c42952f5b306267ca7815939288dba84.webp",
+                            "width": 1200,
+                            "height": 900
+                        }
+                    ]
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/cdcc7404cec1ef0d650f05bff832aff5357cdd68.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/fa870c913cab94be97459e1c8a6c0b2fbca9b70d.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/167b171dbde5efbd754c69fa7ed41daf8487d195.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/93b71c0e60e2d06017d9efe772b2240ce73260e4.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                }
+            ],
+            "availability_status": "sold"
+        }
+    },
+    {
+        "url": "https://nikolacars.kiev.ua/ru/parts/1988098-00-b-112009/",
+        "id": 112009,
+        "historical_impressions_both_locales": 16,
+        "time": "2026-10-29T16:03:20+00:00",
+        "locale": "ru",
+        "status": 200,
+        "data": {
+            "id": 112009,
+            "url_slug": "1988098-00-b-112009",
+            "name": "Кронштейн амортизатора капота правый",
+            "part_number": "1988098-00-B",
+            "model": "Model 3 Highland 01.2024 -",
+            "model_slug": "model-3-highland-01-2024",
+            "category": "Компоненты закрытия",
+            "category_slug": "komponenty-zakrytiia",
+            "category_path": "Компоненты закрытия / Вспомогательные элементы закрытия и петли / Петли и фурнитура капота",
+            "category_path_slug": "komponenty-zakrytiia--vspomogatelnye-elementy-zakrytiia-i-petli--petli-i-furnitura-kapota",
+            "category_breadcrumbs": [
+                {
+                    "label": "Компоненты закрытия",
+                    "slug": "komponenty-zakrytiia"
+                },
+                {
+                    "label": "Вспомогательные элементы закрытия и петли",
+                    "slug": "komponenty-zakrytiia--vspomogatelnye-elementy-zakrytiia-i-petli"
+                },
+                {
+                    "label": "Петли и фурнитура капота",
+                    "slug": "komponenty-zakrytiia--vspomogatelnye-elementy-zakrytiia-i-petli--petli-i-furnitura-kapota"
+                }
+            ],
+            "price_uah": 460,
+            "quantity": 0,
+            "image_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/bdf890d38697b2a41cb292611c94a5e00d26662a.jpg",
+            "images": [
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/bdf890d38697b2a41cb292611c94a5e00d26662a.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/4622a4cbdb384b09032e37e39bc57fe03e1f3c4a.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/d2dd8e9d20de54c07cb8e849018b2eb0e63368fa.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/27cd228bf137905f9213ac1add0903dd8e97eaf2.jpg"
+            ],
+            "condition": "Б/У",
+            "part_origin": "Оригинал",
+            "damage_status": "Без повреждений",
+            "image_items": [
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/bdf890d38697b2a41cb292611c94a5e00d26662a.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/dc56fa59e9da6721d9fafb13a06abdf926ecd852.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": [
+                        {
+                            "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-responsive/720/99d82550337cdb79c86cd5ea49a03e5ebac491e1.webp",
+                            "width": 720,
+                            "height": 540
+                        },
+                        {
+                            "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-responsive/1200/ff40b731e3224e02e1c1bbd6870424ff6442f11d.webp",
+                            "width": 1200,
+                            "height": 900
+                        }
+                    ]
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/4622a4cbdb384b09032e37e39bc57fe03e1f3c4a.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/b72df38354ed573cd2ed4b6ec128471744a229c8.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/d2dd8e9d20de54c07cb8e849018b2eb0e63368fa.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/35f4db8a6d2deb1927e5457ccaebf65d659d4907.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/27cd228bf137905f9213ac1add0903dd8e97eaf2.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/61692678fb81ce6c74df2e2887b4649cc8b7c4aa.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                }
+            ],
+            "availability_status": "sold"
+        }
+    },
+    {
+        "url": "https://nikolacars.kiev.ua/ru/parts/1084169-00-b-101169/",
+        "id": 101169,
+        "historical_impressions_both_locales": 14,
+        "time": "2026-10-29T16:03:25+00:00",
+        "locale": "ru",
+        "status": 200,
+        "data": {
+            "id": 101169,
+            "url_slug": "1084169-00-b-101169",
+            "name": "Вспомогательный верхний кронштейн передней панели слева",
+            "part_number": "1084169-00-B",
+            "model": "Model 3 06.2017 - 12.2023",
+            "model_slug": "model-3-06-2017-12-2023",
+            "category": "Кузов",
+            "category_slug": "kuzov",
+            "category_path": "Кузов / Бампер и облицовка бампера / Передняя установочная панель",
+            "category_path_slug": "kuzov--bamper-i-oblicovka-bampera--peredniaia-ustanovocnaia-panel",
+            "category_breadcrumbs": [
+                {
+                    "label": "Кузов",
+                    "slug": "kuzov"
+                },
+                {
+                    "label": "Бампер и облицовка бампера",
+                    "slug": "kuzov--bamper-i-oblicovka-bampera"
+                },
+                {
+                    "label": "Передняя установочная панель",
+                    "slug": "kuzov--bamper-i-oblicovka-bampera--peredniaia-ustanovocnaia-panel"
+                }
+            ],
+            "price_uah": 1150,
+            "quantity": 5,
+            "image_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/b7284743693389ebe0c261aa83882e5996e69b61.jpg",
+            "images": [
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/b7284743693389ebe0c261aa83882e5996e69b61.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/6a52cb6aa60d7342e3ae7fdf05e6cd711c1d578e.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/6bb74d5c3fcd6920aadf9c05bd6948e408b853db.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/1597fbd42440f0d214da91ee2c028bdeb2b616b7.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/tesla-official/part-images/108416900B/1084169-00-B_1.jpeg",
+                "https://sklad.nikolacars.kiev.ua/storage/tesla-official/part-images/108416900B/1084169-00-B_2.jpeg",
+                "https://sklad.nikolacars.kiev.ua/storage/tesla-official/part-images/108416900B/1084169-00-B_3.jpeg"
+            ],
+            "condition": "Б/У",
+            "part_origin": "Оригинал",
+            "damage_status": "Без повреждений",
+            "image_items": [
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/b7284743693389ebe0c261aa83882e5996e69b61.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/c6fac98c281929bb0b1effaf33ab068d9e550161.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": [
+                        {
+                            "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-responsive/720/efd22cd0aa849bfac6d5a78d8a7cc5e4fe239924.webp",
+                            "width": 720,
+                            "height": 960
+                        },
+                        {
+                            "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-responsive/1200/fa92764c9ec13f1dfa5b2b9904dfd0e583d60c82.webp",
+                            "width": 1200,
+                            "height": 1600
+                        }
+                    ]
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/6a52cb6aa60d7342e3ae7fdf05e6cd711c1d578e.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/c30d969d82b5bf94c803c01375ad640da660f049.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/6bb74d5c3fcd6920aadf9c05bd6948e408b853db.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/1ebcb8edcf1c3f5bb93bc6b78d998da55816e0ed.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/1597fbd42440f0d214da91ee2c028bdeb2b616b7.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/64aafd64d26f4621b1a7ba840cb4b809c7e8eaae.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/tesla-official/part-images/108416900B/1084169-00-B_1.jpeg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/57ffae080e85cf34c64e434301c6ba7307214629.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/tesla-official/part-images/108416900B/1084169-00-B_2.jpeg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/09ae90b034a95d1c3f1cf312a334e5a5769a8670.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/tesla-official/part-images/108416900B/1084169-00-B_3.jpeg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/4d624078bb642b193951c6556cc08652169286c4.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                }
+            ],
+            "availability_status": "in_stock"
+        }
+    },
+    {
+        "url": "https://nikolacars.kiev.ua/parts/1081694-00-a-100948/",
+        "id": 100948,
+        "historical_impressions_both_locales": 13,
+        "time": "2026-10-29T16:03:31+00:00",
+        "locale": "uk",
+        "status": 200,
+        "data": {
+            "id": 100948,
+            "url_slug": "1081694-00-a-100948",
+            "name": "Накладка стакана стійки передньої підвіски зліва",
+            "part_number": "1081694-00-A",
+            "model": "Model 3 06.2017 - 12.2023",
+            "model_slug": "model-3-06-2017-12-2023",
+            "category": "Зовнішня фурнітура",
+            "category_slug": "zovnisnia-furnitura",
+            "category_path": "Зовнішня фурнітура / Накладки підкапотного відсіку / Накладки підкапотного відсіку",
+            "category_path_slug": "zovnisnia-furnitura--nakladki-pidkapotnogo-vidsiku--nakladki-pidkapotnogo-vidsiku",
+            "category_breadcrumbs": [
+                {
+                    "label": "Зовнішня фурнітура",
+                    "slug": "zovnisnia-furnitura"
+                },
+                {
+                    "label": "Накладки підкапотного відсіку",
+                    "slug": "zovnisnia-furnitura--nakladki-pidkapotnogo-vidsiku"
+                },
+                {
+                    "label": "Накладки підкапотного відсіку",
+                    "slug": "zovnisnia-furnitura--nakladki-pidkapotnogo-vidsiku--nakladki-pidkapotnogo-vidsiku"
+                }
+            ],
+            "price_uah": 230,
+            "quantity": 5,
+            "image_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/fe69bea5a84c2bbefd6d5e0b475a653c6d396672.jpg",
+            "images": [
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/fe69bea5a84c2bbefd6d5e0b475a653c6d396672.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/7b65643827ec67fc5d1ef38806863c54b1aaab4a.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/tesla-official/part-images/108169400A/1081694-00-A_1.jpeg",
+                "https://sklad.nikolacars.kiev.ua/storage/tesla-official/part-images/108169400A/1081694-00-A_2.jpeg",
+                "https://sklad.nikolacars.kiev.ua/storage/tesla-official/part-images/108169400A/1081694-00-A_3.jpeg"
+            ],
+            "condition": "Вживана",
+            "part_origin": "Оригінал",
+            "damage_status": "Без пошкоджень",
+            "image_items": [
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/fe69bea5a84c2bbefd6d5e0b475a653c6d396672.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/bded84175a7fa5b3cd65d5a617aefcdd843091e7.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": [
+                        {
+                            "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-responsive/720/36ced07b137f1a33b281ba3ad54b6ce890c6f9da.webp",
+                            "width": 720,
+                            "height": 960
+                        },
+                        {
+                            "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-responsive/1200/e65367255837b868d53ee30434ccaff469d893ae.webp",
+                            "width": 1200,
+                            "height": 1600
+                        }
+                    ]
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/7b65643827ec67fc5d1ef38806863c54b1aaab4a.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/65c99e24d66bfa5b69aab140bd468f8e5d158ea1.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/tesla-official/part-images/108169400A/1081694-00-A_1.jpeg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/45bdc232838ea0085f53807c45746c856f23fe54.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/tesla-official/part-images/108169400A/1081694-00-A_2.jpeg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/bf1a094ca2e29b402881b4c10b642de209c466e9.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/tesla-official/part-images/108169400A/1081694-00-A_3.jpeg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/02a0fec883fe54ee8aa00e1f106cc856f8ac25c3.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                }
+            ],
+            "availability_status": "in_stock"
+        }
+    },
+    {
+        "url": "https://nikolacars.kiev.ua/parts/1098355-00-b-98621/",
+        "id": 98621,
+        "historical_impressions_both_locales": 12,
+        "time": "2026-10-29T16:03:37+00:00",
+        "locale": "uk",
+        "status": 200,
+        "data": {
+            "id": 98621,
+            "url_slug": "1098355-00-b-98621",
+            "name": "Кронштейн кріплення модуля HOMELINK V OPTION 2",
+            "part_number": "1098355-00-B",
+            "model": "Model 3 06.2017 - 12.2023",
+            "model_slug": "model-3-06-2017-12-2023",
+            "category": "Електрика",
+            "category_slug": "elektrika",
+            "category_path": "Електрика / Електронні модулі управління / Модулі управління",
+            "category_path_slug": "elektrika--elektronni-moduli-upravlinnia--moduli-upravlinnia",
+            "category_breadcrumbs": [
+                {
+                    "label": "Електрика",
+                    "slug": "elektrika"
+                },
+                {
+                    "label": "Електронні модулі управління",
+                    "slug": "elektrika--elektronni-moduli-upravlinnia"
+                },
+                {
+                    "label": "Модулі управління",
+                    "slug": "elektrika--elektronni-moduli-upravlinnia--moduli-upravlinnia"
+                }
+            ],
+            "price_uah": 920,
+            "quantity": 0,
+            "image_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/868e775eab0965e3192fa4173605a301394b5f95.jpg",
+            "images": [
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/868e775eab0965e3192fa4173605a301394b5f95.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/24bfabac8c0c7f285b828feb3f42599188de927e.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/tesla-official/part-images/109835500B/1098355-00-B_1.jpeg",
+                "https://sklad.nikolacars.kiev.ua/storage/tesla-official/part-images/109835500B/1098355-00-B_2.jpeg"
+            ],
+            "condition": "Вживана",
+            "part_origin": "Оригінал",
+            "damage_status": "Без пошкоджень",
+            "image_items": [
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/868e775eab0965e3192fa4173605a301394b5f95.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/818a167c0a2e469d43a067efc496a5db53a45e8e.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": [
+                        {
+                            "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-responsive/720/148a57aab5791bd7ad73f5ffe2769c9984a89f58.webp",
+                            "width": 720,
+                            "height": 540
+                        },
+                        {
+                            "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-responsive/1200/b5389dcc9b509c402343ea64b25a5210092a6533.webp",
+                            "width": 1200,
+                            "height": 900
+                        }
+                    ]
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/24bfabac8c0c7f285b828feb3f42599188de927e.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/9795750edeedf26c7c874c18c218cd25cc5b4d03.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/tesla-official/part-images/109835500B/1098355-00-B_1.jpeg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/e7f3b96c31571eaeea4fae06255ca2178ac01d73.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/tesla-official/part-images/109835500B/1098355-00-B_2.jpeg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/fba51292ad09b936701a854a58726b60feb9ae19.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                }
+            ],
+            "availability_status": "sold"
+        }
+    },
+    {
+        "url": "https://nikolacars.kiev.ua/ru/parts/2288463-00-a-83616/",
+        "id": 83616,
+        "historical_impressions_both_locales": 11,
+        "time": "2026-10-29T16:03:42+00:00",
+        "locale": "ru",
+        "status": 200,
+        "data": {
+            "id": 83616,
+            "url_slug": "2288463-00-a-83616",
+            "name": "Амортизатор задней подвески - Dual Motor SP",
+            "part_number": "2288463-00-A",
+            "model": "Model Y 01.2020 - 01.2025",
+            "model_slug": "model-y-01-2020-01-2025",
+            "category": "Подвеска",
+            "category_slug": "podveska",
+            "category_path": "Подвеска / Система пружинной подвески / Задний амортизатор и пружина",
+            "category_path_slug": "podveska--sistema-pruzinnoi-podveski--zadnii-amortizator-i-pruzina",
+            "category_breadcrumbs": [
+                {
+                    "label": "Подвеска",
+                    "slug": "podveska"
+                },
+                {
+                    "label": "Система пружинной подвески",
+                    "slug": "podveska--sistema-pruzinnoi-podveski"
+                },
+                {
+                    "label": "Задний амортизатор и пружина",
+                    "slug": "podveska--sistema-pruzinnoi-podveski--zadnii-amortizator-i-pruzina"
+                }
+            ],
+            "price_uah": 2760,
+            "quantity": 1,
+            "image_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/cf7fee6563ecb6f2556aadfe00ed340966e1c932.jpg",
+            "images": [
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/cf7fee6563ecb6f2556aadfe00ed340966e1c932.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/c208c3f89e2d75efa8beca900f58a72444afe90f.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/6ee5d7e07f54abc9ac4fdb0fea68fb4b80dbf698.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/bc8d743636b9c8f778bab3be746740bcadd6d88a.jpg"
+            ],
+            "condition": "Б/У",
+            "part_origin": "Оригинал",
+            "damage_status": "Без повреждений",
+            "image_items": [
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/cf7fee6563ecb6f2556aadfe00ed340966e1c932.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/985b37669aa6cf97d85603d0a2212a7ed81ff63f.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": [
+                        {
+                            "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-responsive/720/b4fca4eb1db91dfc61aad63e12faf788e00f7d09.webp",
+                            "width": 720,
+                            "height": 960
+                        },
+                        {
+                            "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-responsive/1200/0c69662d6c7b47cd3b563d73693ea2c316d8ffeb.webp",
+                            "width": 1200,
+                            "height": 1600
+                        }
+                    ]
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/c208c3f89e2d75efa8beca900f58a72444afe90f.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/737e14f4f6a235cdd605cf9569ac625672fdb0a2.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/6ee5d7e07f54abc9ac4fdb0fea68fb4b80dbf698.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/7200d1fa991a7b50ba64fcbba5380d4bcd1168dd.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/bc8d743636b9c8f778bab3be746740bcadd6d88a.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/ccce0fd33fa43c2bb7047f4bbca13a5c09919c69.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                }
+            ],
+            "availability_status": "in_stock"
+        }
+    },
+    {
+        "url": "https://nikolacars.kiev.ua/ru/parts/1188316-00-f-83573/",
+        "id": 83573,
+        "historical_impressions_both_locales": 11,
+        "time": "2026-10-29T16:03:48+00:00",
+        "locale": "ru",
+        "status": 200,
+        "data": {
+            "id": 83573,
+            "url_slug": "1188316-00-f-83573",
+            "name": "Кулак поворотный (цапфа) передний - правая сторона",
+            "part_number": "1188316-00-F",
+            "model": "Model Y 01.2020 - 01.2025",
+            "model_slug": "model-y-01-2020-01-2025",
+            "category": "Подвеска",
+            "category_slug": "podveska",
+            "category_path": "Подвеска / Передняя подвеска (включая ступицы) / Передний кулак - ступица с подшипником",
+            "category_path_slug": "podveska--peredniaia-podveska-vkliucaia-stupicy--perednii-kulak-stupica-s-podsipnikom",
+            "category_breadcrumbs": [
+                {
+                    "label": "Подвеска",
+                    "slug": "podveska"
+                },
+                {
+                    "label": "Передняя подвеска (включая ступицы)",
+                    "slug": "podveska--peredniaia-podveska-vkliucaia-stupicy"
+                },
+                {
+                    "label": "Передний кулак - ступица с подшипником",
+                    "slug": "podveska--peredniaia-podveska-vkliucaia-stupicy--perednii-kulak-stupica-s-podsipnikom"
+                }
+            ],
+            "price_uah": 6880,
+            "quantity": 1,
+            "image_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/1cc163c35ba41336e08ec54cce87dff503bf8a0d.jpg",
+            "images": [
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/1cc163c35ba41336e08ec54cce87dff503bf8a0d.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/6036dc9c4c7611befb24b4054fca53047ce03f5d.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/9502647d6a6d1686f3a0754d3a9dcb2e3c6258ee.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/3f36b1e0a04a4375195a917a0cf8dfa77b148435.jpg"
+            ],
+            "condition": "Б/У",
+            "part_origin": "Оригинал",
+            "damage_status": "Без повреждений",
+            "image_items": [
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/1cc163c35ba41336e08ec54cce87dff503bf8a0d.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/510426cbc50c87c4e7299435a0b91095395030e0.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": [
+                        {
+                            "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-responsive/720/f5f633b4fcb84c1b7df8ad810f21a3b10f1cc76f.webp",
+                            "width": 720,
+                            "height": 333
+                        },
+                        {
+                            "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-responsive/1200/e73ff024d67371b87c65097463d60d8257fceba0.webp",
+                            "width": 1200,
+                            "height": 554
+                        }
+                    ]
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/6036dc9c4c7611befb24b4054fca53047ce03f5d.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/870e9ffcb982562ca820074bbdee466da3165df1.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/9502647d6a6d1686f3a0754d3a9dcb2e3c6258ee.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/d38b02ac5c9f74a2522f41e2daa42f2c4b2373dc.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/3f36b1e0a04a4375195a917a0cf8dfa77b148435.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/81d698bc4b92fda5d77abe03c7fd3d07f229d11e.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                }
+            ],
+            "availability_status": "in_stock"
+        }
+    },
+    {
+        "url": "https://nikolacars.kiev.ua/parts/1487461-00-e-113180/",
+        "id": 113180,
+        "historical_impressions_both_locales": 10,
+        "time": "2026-10-29T16:03:53+00:00",
+        "locale": "uk",
+        "status": 200,
+        "data": {
+            "id": 113180,
+            "url_slug": "1487461-00-e-113180",
+            "name": "Лонжерон (кронштейн) основного підсилювача переднього бампера зліва",
+            "part_number": "1487461-00-E",
+            "model": "Model Y 01.2020 - 01.2025",
+            "model_slug": "model-y-01-2020-01-2025",
+            "category": "Кузов",
+            "category_slug": "kuzov",
+            "category_path": "Кузов / Бампер і облицювання бамперу / Підсилювач переднього бампера",
+            "category_path_slug": "kuzov--bamper-i-obliciuvannia-bamperu--pidsiliuvac-perednyogo-bampera",
+            "category_breadcrumbs": [
+                {
+                    "label": "Кузов",
+                    "slug": "kuzov"
+                },
+                {
+                    "label": "Бампер і облицювання бамперу",
+                    "slug": "kuzov--bamper-i-obliciuvannia-bamperu"
+                },
+                {
+                    "label": "Підсилювач переднього бампера",
+                    "slug": "kuzov--bamper-i-obliciuvannia-bamperu--pidsiliuvac-perednyogo-bampera"
+                }
+            ],
+            "price_uah": 2300,
+            "quantity": 1,
+            "image_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/e18e0998b0637efa8630e3cc433f4dc19eddc13f.jpg",
+            "images": [
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/e18e0998b0637efa8630e3cc433f4dc19eddc13f.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/00c6df3afa539cb686656992c3d85c47dd0e8e2b.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/c3292e06e7414bd32abecad124dbfbcc7f705dc7.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/869d9300baf03a6be62c25bac5b796f59105fdb7.jpg"
+            ],
+            "condition": "Вживана",
+            "part_origin": "Оригінал",
+            "damage_status": "Без пошкоджень",
+            "image_items": [
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/e18e0998b0637efa8630e3cc433f4dc19eddc13f.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/d2da781a1db604daa1c565e60d4f9d30368f8f75.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": [
+                        {
+                            "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-responsive/720/0e2bfed0e6263b01c368922b25f1d1fe99f422ee.webp",
+                            "width": 720,
+                            "height": 960
+                        },
+                        {
+                            "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-responsive/1200/ff04d6a46800fc5c31c105291adb788859ca9820.webp",
+                            "width": 1200,
+                            "height": 1600
+                        }
+                    ]
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/00c6df3afa539cb686656992c3d85c47dd0e8e2b.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/c394b1a5b164b2cdaa807c8c3dee4694d18b2e03.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/c3292e06e7414bd32abecad124dbfbcc7f705dc7.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/4d5d0d3e53b176732a46e53b7a8cfef800ce8860.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/869d9300baf03a6be62c25bac5b796f59105fdb7.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/3a0e6d06d78fd84d2045eae491b1757ff67ae90a.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                }
+            ],
+            "availability_status": "in_stock"
+        }
+    },
+    {
+        "url": "https://nikolacars.kiev.ua/parts/1098793-00-d-100052/",
+        "id": 100052,
+        "historical_impressions_both_locales": 10,
+        "time": "2026-10-29T16:03:59+00:00",
+        "locale": "uk",
+        "status": 200,
+        "data": {
+            "id": 100052,
+            "url_slug": "1098793-00-d-100052",
+            "name": "Петля капота права",
+            "part_number": "1098793-00-D",
+            "model": "Model 3 06.2017 - 12.2023",
+            "model_slug": "model-3-06-2017-12-2023",
+            "category": "Компоненти закриття",
+            "category_slug": "komponenti-zakrittia",
+            "category_path": "Компоненти закриття / Допоміжні механізми закриття та петлі / Петлі і фурнітура капота",
+            "category_path_slug": "komponenti-zakrittia--dopomizni-mexanizmi-zakrittia-ta-petli--petli-i-furnitura-kapota",
+            "category_breadcrumbs": [
+                {
+                    "label": "Компоненти закриття",
+                    "slug": "komponenti-zakrittia"
+                },
+                {
+                    "label": "Допоміжні механізми закриття та петлі",
+                    "slug": "komponenti-zakrittia--dopomizni-mexanizmi-zakrittia-ta-petli"
+                },
+                {
+                    "label": "Петлі і фурнітура капота",
+                    "slug": "komponenti-zakrittia--dopomizni-mexanizmi-zakrittia-ta-petli--petli-i-furnitura-kapota"
+                }
+            ],
+            "price_uah": 1610,
+            "quantity": 3,
+            "image_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/a2485ea0955275855ea79d1b611074d7f361a4c7.jpg",
+            "images": [
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/a2485ea0955275855ea79d1b611074d7f361a4c7.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/074a30e70bc7b174982a18436991b15bbd90b4d6.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/50b4f67cf92c53a304626055a7db86834d4b2816.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/99233f1751873e855f6aca14718b4351199b5865.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/tesla-official/part-images/109879300D/1098793-00-D_1.jpeg",
+                "https://sklad.nikolacars.kiev.ua/storage/tesla-official/part-images/109879300D/1098793-00-D_2.jpeg"
+            ],
+            "condition": "Вживана",
+            "part_origin": "Оригінал",
+            "damage_status": "Без пошкоджень",
+            "image_items": [
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/a2485ea0955275855ea79d1b611074d7f361a4c7.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/7f077b807576422d4eadfae6e04bfddd49e33433.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": [
+                        {
+                            "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-responsive/720/1129475ad132cda44df790cf583d50d744906114.webp",
+                            "width": 720,
+                            "height": 540
+                        },
+                        {
+                            "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-responsive/1200/6e6a09227352cc713c124e6a636e9a2d043986ec.webp",
+                            "width": 1200,
+                            "height": 900
+                        }
+                    ]
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/074a30e70bc7b174982a18436991b15bbd90b4d6.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/b222c50e8f4f2afc65e14cf5436d6a6af389100e.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/50b4f67cf92c53a304626055a7db86834d4b2816.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/2d5bf8fb400c6064809e5f0d43eca3983aaabd48.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/99233f1751873e855f6aca14718b4351199b5865.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/ad520e62fb39dcbc1fb34827392d90814058a0e5.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/tesla-official/part-images/109879300D/1098793-00-D_1.jpeg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/9b3ebeca6b1cc264cbff59b69796a4cbde6f0a1c.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/tesla-official/part-images/109879300D/1098793-00-D_2.jpeg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/86faca34c65de031274a4b4f57bb7c49d55b8659.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                }
+            ],
+            "availability_status": "in_stock"
+        }
+    },
+    {
+        "url": "https://nikolacars.kiev.ua/ru/parts/1098349-00-e-97843/",
+        "id": 97843,
+        "historical_impressions_both_locales": 9,
+        "time": "2026-10-29T16:04:05+00:00",
+        "locale": "ru",
+        "status": 200,
+        "data": {
+            "id": 97843,
+            "url_slug": "1098349-00-e-97843",
+            "name": "Накладка декоративная сиденья пассажира нижняя правая",
+            "part_number": "1098349-00-E",
+            "model": "Model 3 06.2017 - 12.2023",
+            "model_slug": "model-3-06-2017-12-2023",
+            "category": "Сиденья",
+            "category_slug": "sidenia",
+            "category_path": "Сиденья / Накладки, подушки и чехлы передних сидений / Накладки и подушки передних сидений",
+            "category_path_slug": "sidenia--nakladki-poduski-i-cexly-perednix-sidenii--nakladki-i-poduski-perednix-sidenii",
+            "category_breadcrumbs": [
+                {
+                    "label": "Сиденья",
+                    "slug": "sidenia"
+                },
+                {
+                    "label": "Накладки, подушки и чехлы передних сидений",
+                    "slug": "sidenia--nakladki-poduski-i-cexly-perednix-sidenii"
+                },
+                {
+                    "label": "Накладки и подушки передних сидений",
+                    "slug": "sidenia--nakladki-poduski-i-cexly-perednix-sidenii--nakladki-i-poduski-perednix-sidenii"
+                }
+            ],
+            "price_uah": 1380,
+            "quantity": 1,
+            "image_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/de1f96a004d497dca2bae7566318ad23cbb51c12.jpg",
+            "images": [
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/de1f96a004d497dca2bae7566318ad23cbb51c12.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/ca077e1961e35ff54bef41779b4bd269c2631f24.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/78df78b8bfee591fd7f70f61b9f681939e5f86e7.jpg"
+            ],
+            "condition": "Б/У",
+            "part_origin": "Оригинал",
+            "damage_status": "Легкие повреждения",
+            "image_items": [
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/de1f96a004d497dca2bae7566318ad23cbb51c12.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/c15fe4f5b85e965a4af8a0306f8e4c6043032370.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": [
+                        {
+                            "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-responsive/720/a8c2833ba8568c829fddeaeef1a641e82455ff6a.webp",
+                            "width": 720,
+                            "height": 540
+                        },
+                        {
+                            "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-responsive/1200/63114d04a059c22e4af0da464723fc34cdac3e23.webp",
+                            "width": 1200,
+                            "height": 900
+                        }
+                    ]
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/ca077e1961e35ff54bef41779b4bd269c2631f24.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/54bed9bf26adee5b656f4a78da0e5de34dd2a3e7.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/78df78b8bfee591fd7f70f61b9f681939e5f86e7.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/16a899c4fb6b3eb67a3f84c39852116ba4971c4c.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                }
+            ],
+            "availability_status": "in_stock"
+        }
+    },
+    {
+        "url": "https://nikolacars.kiev.ua/ru/parts/1188368-00-f-88594/",
+        "id": 88594,
+        "historical_impressions_both_locales": 9,
+        "time": "2026-10-29T16:04:10+00:00",
+        "locale": "ru",
+        "status": 200,
+        "data": {
+            "id": 88594,
+            "url_slug": "1188368-00-f-88594",
+            "name": "Амортизатор пружинный в сборе передний правый E3 полный привод",
+            "part_number": "1188368-00-F",
+            "model": "Model Y 01.2020 - 01.2025",
+            "model_slug": "model-y-01-2020-01-2025",
+            "category": "Подвеска",
+            "category_slug": "podveska",
+            "category_path": "Подвеска / Система пружинной подвески / Передний амортизатор в сборе с пружиной",
+            "category_path_slug": "podveska--sistema-pruzinnoi-podveski--perednii-amortizator-v-sbore-s-pruzinoi",
+            "category_breadcrumbs": [
+                {
+                    "label": "Подвеска",
+                    "slug": "podveska"
+                },
+                {
+                    "label": "Система пружинной подвески",
+                    "slug": "podveska--sistema-pruzinnoi-podveski"
+                },
+                {
+                    "label": "Передний амортизатор в сборе с пружиной",
+                    "slug": "podveska--sistema-pruzinnoi-podveski--perednii-amortizator-v-sbore-s-pruzinoi"
+                }
+            ],
+            "price_uah": 6880,
+            "quantity": 2,
+            "image_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/7d8c55cb5f824fbc3c0dcac61965bbfd5d7cb88b.jpg",
+            "images": [
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/7d8c55cb5f824fbc3c0dcac61965bbfd5d7cb88b.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/1dfb48278069ae25deac631d1de003cab3e78f2a.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/827c52a1eae8d1fc12fdc711c641c7a5ddea0ea7.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/5d8856a296a0e4416d1ce442d5f0f3f0766ba967.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/tesla-official/part-images/118836800F/1188368-00-F_1.jpeg"
+            ],
+            "condition": "Б/У",
+            "part_origin": "Оригинал",
+            "damage_status": "Без повреждений",
+            "image_items": [
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/7d8c55cb5f824fbc3c0dcac61965bbfd5d7cb88b.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/6ed112ad8edc3ce3687f90dc0e2a9629e7aae47b.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": [
+                        {
+                            "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-responsive/720/d74f7d2b416dfd333cd6e69886f0cdcfe5b19b96.webp",
+                            "width": 720,
+                            "height": 960
+                        },
+                        {
+                            "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-responsive/1200/c4a555949e983ded0dc4ef97314fd56092a63af5.webp",
+                            "width": 1200,
+                            "height": 1600
+                        }
+                    ]
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/1dfb48278069ae25deac631d1de003cab3e78f2a.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/20300e559eb1e12409cf2e2bf44741d39d7ac131.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/827c52a1eae8d1fc12fdc711c641c7a5ddea0ea7.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/daae304b6704622e69cb4a8933520e339abd8ac1.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/5d8856a296a0e4416d1ce442d5f0f3f0766ba967.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/d83bd75a7963a3c880dbe6cce54cfc91d606bf53.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/tesla-official/part-images/118836800F/1188368-00-F_1.jpeg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/39913ef472426e8121d7196ff6dd74bd333a443e.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                }
+            ],
+            "availability_status": "in_stock"
+        }
+    },
+    {
+        "url": "https://nikolacars.kiev.ua/ru/parts/1044123-00-b-113317/",
+        "id": 113317,
+        "historical_impressions_both_locales": 8,
+        "time": "2026-10-29T16:04:16+00:00",
+        "locale": "ru",
+        "status": 200,
+        "data": {
+            "id": 113317,
+            "url_slug": "1044123-00-b-113317",
+            "name": "Подшипник ступицы в сборе приводной - 142мм",
+            "part_number": "1044123-00-B",
+            "model": "Model 3 Highland 01.2024 -",
+            "model_slug": "model-3-highland-01-2024",
+            "category": "Подвеска",
+            "category_slug": "podveska",
+            "category_path": "Подвеска / Передняя подвеска (включая ступицы) / Передний кулак - ступица с подшипником",
+            "category_path_slug": "podveska--peredniaia-podveska-vkliucaia-stupicy--perednii-kulak-stupica-s-podsipnikom",
+            "category_breadcrumbs": [
+                {
+                    "label": "Подвеска",
+                    "slug": "podveska"
+                },
+                {
+                    "label": "Передняя подвеска (включая ступицы)",
+                    "slug": "podveska--peredniaia-podveska-vkliucaia-stupicy"
+                },
+                {
+                    "label": "Передний кулак - ступица с подшипником",
+                    "slug": "podveska--peredniaia-podveska-vkliucaia-stupicy--perednii-kulak-stupica-s-podsipnikom"
+                }
+            ],
+            "price_uah": 2300,
+            "quantity": 4,
+            "image_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/d3083df3c0b1adfe18d93050a4f41211934b2c37.jpg",
+            "images": [
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/d3083df3c0b1adfe18d93050a4f41211934b2c37.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/18ddeab77984aee395707ae6acf65064a751fd37.jpg",
+                "https://sklad.nikolacars.kiev.ua/storage/product-photos/7554596923f69d071598e6e6c1e876e073b69720.jpg"
+            ],
+            "condition": "Б/У",
+            "part_origin": "Оригинал",
+            "damage_status": "Без повреждений",
+            "image_items": [
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/d3083df3c0b1adfe18d93050a4f41211934b2c37.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/0a1c826300ff92eeee074458f42276b562f986f6.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": [
+                        {
+                            "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-responsive/720/4b0d7651b5172436c546314181d1e53949e88f84.webp",
+                            "width": 720,
+                            "height": 540
+                        },
+                        {
+                            "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-responsive/1200/e3a3b1e9c3fef71d4f0f79434a8048cf1ec3c0db.webp",
+                            "width": 1200,
+                            "height": 900
+                        }
+                    ]
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/18ddeab77984aee395707ae6acf65064a751fd37.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/1d550af81c0538ef3acfcd33d7822d20d76df2fb.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                },
+                {
+                    "url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/7554596923f69d071598e6e6c1e876e073b69720.jpg",
+                    "thumbnail_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/storefront-previews/e93c99ebc794d1c643f32c56771cc713b38a1f18.webp",
+                    "thumbnail_width": 360,
+                    "thumbnail_height": 300,
+                    "variants": []
+                }
+            ],
+            "availability_status": "in_stock"
+        }
+    }
+]

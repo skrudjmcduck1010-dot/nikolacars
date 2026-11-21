@@ -1,0 +1,705 @@
+{
+  "observed": "2026-10-31",
+  "timezone": "Europe/Kyiv",
+  "source": "Google Search Console URL Inspection live test rendered HTML. Paths below follow actual hyperlinks between the named pages. Product endpoint responses were checked separately in local replay.",
+  "snapshot": "D production database snapshot 2026-10-31T11:25:37Z (13:25:37 Kyiv), gzip complete 13:26:02; SHA independently verified",
+  "indexReportLastUpdated": "2026-10-23",
+  "livePages": [
+    {
+      "url": "https://nikolacars.kiev.ua/parts/",
+      "canonical": "https://nikolacars.kiev.ua/parts/",
+      "tested": "31.10.2026 13:52 Kyiv"
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/",
+      "canonical": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/",
+      "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:54\""
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/",
+      "canonical": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/",
+      "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:54\""
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/informaciino-rozvazalna-sistema/",
+      "canonical": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/informaciino-rozvazalna-sistema/",
+      "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:54\""
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/komponenti-zakrittia/",
+      "canonical": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/komponenti-zakrittia/",
+      "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:56\""
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/panel-priladiv/",
+      "canonical": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/panel-priladiv/",
+      "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:58\""
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/elektrika/",
+      "canonical": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/elektrika/",
+      "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:56\""
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/",
+      "canonical": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/",
+      "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:57\""
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/",
+      "canonical": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/",
+      "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:56\""
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/?page=2",
+      "canonical": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/?page=2",
+      "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:59\""
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zadnii-motor/",
+      "canonical": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zadnii-motor/",
+      "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:58\""
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-kriski-bagaznika/",
+      "canonical": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-kriski-bagaznika/",
+      "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:59\""
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/elektrika/",
+      "canonical": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/elektrika/",
+      "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:57\""
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/elektrika/?page=2",
+      "canonical": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/elektrika/?page=2",
+      "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:58\""
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/vnutrisnje-ozdoblennia/",
+      "canonical": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/vnutrisnje-ozdoblennia/",
+      "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:59\""
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/vnutrisnje-ozdoblennia/?page=2",
+      "canonical": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/vnutrisnje-ozdoblennia/?page=2",
+      "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:59\""
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/rulyovii-mexanizm/",
+      "canonical": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/rulyovii-mexanizm/",
+      "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:58\""
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-kriski-bagaznika/vnutrisnje-ozdoblennia-zadnyogo-bagaznogo-vidsiku/",
+      "canonical": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-kriski-bagaznika/vnutrisnje-ozdoblennia-zadnyogo-bagaznogo-vidsiku/",
+      "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:54\""
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-kriski-bagaznika/vnutrisnje-ozdoblennia-zadnyogo-bagaznogo-vidsiku/?page=2",
+      "canonical": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-kriski-bagaznika/vnutrisnje-ozdoblennia-zadnyogo-bagaznogo-vidsiku/?page=2",
+      "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:55\""
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-kriski-bagaznika/vnutrisnje-ozdoblennia-zadnyogo-bagaznogo-vidsiku/?page=3",
+      "canonical": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-kriski-bagaznika/vnutrisnje-ozdoblennia-zadnyogo-bagaznogo-vidsiku/?page=3",
+      "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:55\""
+    }
+  ],
+  "products": [
+    {
+      "id": 113428,
+      "url": "https://nikolacars.kiev.ua/parts/1002322-00-c-113428/",
+      "availableAtSnapshot": 1,
+      "referring": [
+        {
+          "page": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/informaciino-rozvazalna-sistema/",
+          "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:54\"",
+          "linkText": "Кронштейн опорний основного монітора"
+        }
+      ],
+      "chainFromCatalog": [
+        "/parts/",
+        "/parts/model-s-02-2012-03-2016/",
+        "/parts/model-s-02-2012-03-2016/informaciino-rozvazalna-sistema/",
+        "/parts/1002322-00-c-113428/"
+      ],
+      "index": {
+        "id": 113428,
+        "url": "https://nikolacars.kiev.ua/parts/1002322-00-c-113428/",
+        "targetMatched": true,
+        "inspection": "https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&id=3tAvTrMdICOz-sN0eyOQ6A",
+        "state": "URL нет в индексе Google",
+        "indexReason": "Эта страница не проиндексирована: URL неизвестен Google",
+        "lastCrawl": "Отсутствует"
+      }
+    },
+    {
+      "id": 107145,
+      "url": "https://nikolacars.kiev.ua/parts/1002485-00-h-107145/",
+      "availableAtSnapshot": 1,
+      "referring": [
+        {
+          "page": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/",
+          "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:56\"",
+          "linkText": "Облицювання стійки A верхнє ліве TEXTILE FOG"
+        }
+      ],
+      "chainFromCatalog": [
+        "/parts/",
+        "/parts/model-s-02-2012-03-2016/",
+        "/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/",
+        "/parts/1002485-00-h-107145/"
+      ],
+      "index": {
+        "id": 107145,
+        "url": "https://nikolacars.kiev.ua/parts/1002485-00-h-107145/",
+        "targetMatched": true,
+        "inspection": "https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&id=9EllZY4KhTDww_zHhx0tVg",
+        "state": "URL нет в индексе Google",
+        "indexReason": "Эта страница не проиндексирована: Обнаружена, не проиндексирована",
+        "lastCrawl": "Отсутствует"
+      }
+    },
+    {
+      "id": 105004,
+      "url": "https://nikolacars.kiev.ua/parts/1004419-00-h-105004/",
+      "availableAtSnapshot": 2,
+      "referring": [
+        {
+          "page": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/elektrika/",
+          "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:56\"",
+          "linkText": "Проводка дверей передньої лівої"
+        }
+      ],
+      "chainFromCatalog": [
+        "/parts/",
+        "/parts/model-s-02-2012-03-2016/",
+        "/parts/model-s-02-2012-03-2016/elektrika/",
+        "/parts/1004419-00-h-105004/"
+      ],
+      "index": {
+        "id": 105004,
+        "url": "https://nikolacars.kiev.ua/parts/1004419-00-h-105004/",
+        "targetMatched": true,
+        "inspection": "https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&id=SHufqyfHaupkMg7u69qkcg",
+        "state": "URL нет в индексе Google",
+        "indexReason": "Эта страница не проиндексирована: URL неизвестен Google",
+        "lastCrawl": "Отсутствует"
+      }
+    },
+    {
+      "id": 91256,
+      "url": "https://nikolacars.kiev.ua/parts/1004419-00-m-91256/",
+      "availableAtSnapshot": 1,
+      "referring": [
+        {
+          "page": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/elektrika/",
+          "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:56\"",
+          "linkText": "Електропроводка двері передньої лівої (З пошкодженням (без однієї фішки на двері))"
+        }
+      ],
+      "chainFromCatalog": [
+        "/parts/",
+        "/parts/model-s-02-2012-03-2016/",
+        "/parts/model-s-02-2012-03-2016/elektrika/",
+        "/parts/1004419-00-m-91256/"
+      ],
+      "index": {
+        "id": 91256,
+        "url": "https://nikolacars.kiev.ua/parts/1004419-00-m-91256/",
+        "targetMatched": true,
+        "inspection": "https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&id=8QZGQ-ZKINj0WR34wJYgfw",
+        "state": "URL нет в индексе Google",
+        "indexReason": "Эта страница не проиндексирована: URL неизвестен Google",
+        "lastCrawl": "Отсутствует"
+      }
+    },
+    {
+      "id": 102415,
+      "url": "https://nikolacars.kiev.ua/parts/1004424-00-g-102415/",
+      "availableAtSnapshot": 4,
+      "referring": [
+        {
+          "page": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/elektrika/",
+          "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:57\"",
+          "linkText": "Електропроводка дверей передньої правої"
+        }
+      ],
+      "chainFromCatalog": [
+        "/parts/",
+        "/parts/model-s-04-2016-01-2021/",
+        "/parts/model-s-04-2016-01-2021/elektrika/",
+        "/parts/1004424-00-g-102415/"
+      ],
+      "index": {
+        "id": 102415,
+        "url": "https://nikolacars.kiev.ua/parts/1004424-00-g-102415/",
+        "targetMatched": true,
+        "inspection": "https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&id=7XecKej8rgG4TPkyJ4lhWQ",
+        "state": "URL нет в индексе Google",
+        "indexReason": "Эта страница не проиндексирована: URL неизвестен Google",
+        "lastCrawl": "Отсутствует"
+      }
+    },
+    {
+      "id": 107282,
+      "url": "https://nikolacars.kiev.ua/parts/1004787-01-c-107282/",
+      "availableAtSnapshot": 1,
+      "referring": [
+        {
+          "page": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/informaciino-rozvazalna-sistema/",
+          "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:54\"",
+          "linkText": "Радіо модуль"
+        }
+      ],
+      "chainFromCatalog": [
+        "/parts/",
+        "/parts/model-s-02-2012-03-2016/",
+        "/parts/model-s-02-2012-03-2016/informaciino-rozvazalna-sistema/",
+        "/parts/1004787-01-c-107282/"
+      ],
+      "index": {
+        "id": 107282,
+        "url": "https://nikolacars.kiev.ua/parts/1004787-01-c-107282/",
+        "targetMatched": true,
+        "inspection": "https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&id=YwVKPJW3G3jm1YWT8CD1qg",
+        "state": "URL нет в индексе Google",
+        "indexReason": "Эта страница не проиндексирована: URL неизвестен Google",
+        "lastCrawl": "Отсутствует"
+      }
+    },
+    {
+      "id": 103566,
+      "url": "https://nikolacars.kiev.ua/parts/1005307-00-a-103566/",
+      "availableAtSnapshot": 16,
+      "referring": [
+        {
+          "page": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/elektrika/?page=2",
+          "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:58\"",
+          "linkText": "Педаль газу"
+        }
+      ],
+      "chainFromCatalog": [
+        "/parts/",
+        "/parts/model-s-04-2016-01-2021/",
+        "/parts/model-s-04-2016-01-2021/elektrika/",
+        "/parts/model-s-04-2016-01-2021/elektrika/?page=2",
+        "/parts/1005307-00-a-103566/"
+      ],
+      "index": {
+        "id": 103566,
+        "url": "https://nikolacars.kiev.ua/parts/1005307-00-a-103566/",
+        "targetMatched": true,
+        "inspection": "https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&id=wgnCanv5wpfHVhtEcTuHgg",
+        "state": "URL нет в индексе Google",
+        "indexReason": "Эта страница не проиндексирована: URL неизвестен Google",
+        "lastCrawl": "Отсутствует"
+      }
+    },
+    {
+      "id": 108705,
+      "url": "https://nikolacars.kiev.ua/parts/1005418-00-c-108705/",
+      "availableAtSnapshot": 1,
+      "referring": [
+        {
+          "page": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/",
+          "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:57\"",
+          "linkText": "Накладка стакану переднього лівого, (гумова)"
+        }
+      ],
+      "chainFromCatalog": [
+        "/parts/",
+        "/parts/model-s-02-2012-03-2016/",
+        "/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/",
+        "/parts/1005418-00-c-108705/"
+      ],
+      "index": {
+        "id": 108705,
+        "url": "https://nikolacars.kiev.ua/parts/1005418-00-c-108705/",
+        "targetMatched": true,
+        "inspection": "https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&id=iE4sGbw_7wwvBtZja5WztA",
+        "state": "URL нет в индексе Google",
+        "indexReason": "Эта страница не проиндексирована: URL неизвестен Google",
+        "lastCrawl": "Отсутствует"
+      }
+    },
+    {
+      "id": 113484,
+      "url": "https://nikolacars.kiev.ua/parts/1005422-00-d-113484/",
+      "availableAtSnapshot": 1,
+      "referring": [
+        {
+          "page": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/komponenti-zakrittia/",
+          "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:56\"",
+          "linkText": "Ущільнювач задні ліві двері"
+        }
+      ],
+      "chainFromCatalog": [
+        "/parts/",
+        "/parts/model-s-02-2012-03-2016/",
+        "/parts/model-s-02-2012-03-2016/komponenti-zakrittia/",
+        "/parts/1005422-00-d-113484/"
+      ],
+      "index": {
+        "id": 113484,
+        "url": "https://nikolacars.kiev.ua/parts/1005422-00-d-113484/",
+        "targetMatched": true,
+        "inspection": "https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&id=h7NGdqB6HSuD2dvm04k9Ew",
+        "state": "URL нет в индексе Google",
+        "indexReason": "Эта страница не проиндексирована: URL неизвестен Google",
+        "lastCrawl": "Отсутствует"
+      }
+    },
+    {
+      "id": 103584,
+      "url": "https://nikolacars.kiev.ua/parts/1005855-00-c-103584/",
+      "availableAtSnapshot": 1,
+      "referring": [
+        {
+          "page": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-kriski-bagaznika/vnutrisnje-ozdoblennia-zadnyogo-bagaznogo-vidsiku/?page=3",
+          "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:55\"",
+          "linkText": "Накладка внутрішні двері передньої правої (метал) REV00"
+        }
+      ],
+      "chainFromCatalog": [
+        "/parts/",
+        "/parts/model-s-02-2012-03-2016/",
+        "/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/",
+        "/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-kriski-bagaznika/",
+        "/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-kriski-bagaznika/vnutrisnje-ozdoblennia-zadnyogo-bagaznogo-vidsiku/",
+        "/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-kriski-bagaznika/vnutrisnje-ozdoblennia-zadnyogo-bagaznogo-vidsiku/?page=3",
+        "/parts/1005855-00-c-103584/"
+      ],
+      "index": {
+        "id": 103584,
+        "url": "https://nikolacars.kiev.ua/parts/1005855-00-c-103584/",
+        "targetMatched": true,
+        "inspection": "https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&id=4n4I9V4O1ryf1Pj8Xo3Jaw",
+        "state": "URL нет в индексе Google",
+        "indexReason": "Эта страница не проиндексирована: URL неизвестен Google",
+        "lastCrawl": "Отсутствует"
+      }
+    },
+    {
+      "id": 103745,
+      "url": "https://nikolacars.kiev.ua/parts/1007325-00-b-103745/",
+      "availableAtSnapshot": 3,
+      "referring": [
+        {
+          "page": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/vnutrisnje-ozdoblennia/?page=2",
+          "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:59\"",
+          "linkText": "Килимок переднього багажника"
+        }
+      ],
+      "chainFromCatalog": [
+        "/parts/",
+        "/parts/model-s-04-2016-01-2021/",
+        "/parts/model-s-04-2016-01-2021/vnutrisnje-ozdoblennia/",
+        "/parts/model-s-04-2016-01-2021/vnutrisnje-ozdoblennia/?page=2",
+        "/parts/1007325-00-b-103745/"
+      ],
+      "index": {
+        "id": 103745,
+        "url": "https://nikolacars.kiev.ua/parts/1007325-00-b-103745/",
+        "targetMatched": true,
+        "inspection": "https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&id=oYmpQIzQICG5f03kaR1yxQ",
+        "state": "URL нет в индексе Google",
+        "indexReason": "Эта страница не проиндексирована: URL неизвестен Google",
+        "lastCrawl": "Отсутствует"
+      }
+    },
+    {
+      "id": 113472,
+      "url": "https://nikolacars.kiev.ua/parts/1007441-00-b-113472/",
+      "availableAtSnapshot": 1,
+      "referring": [
+        {
+          "page": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/",
+          "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:56\"",
+          "linkText": "Облицювання стійки A верхнє праве TEXTILE FOG"
+        }
+      ],
+      "chainFromCatalog": [
+        "/parts/",
+        "/parts/model-s-02-2012-03-2016/",
+        "/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/",
+        "/parts/1007441-00-b-113472/"
+      ],
+      "index": {
+        "id": 113472,
+        "url": "https://nikolacars.kiev.ua/parts/1007441-00-b-113472/",
+        "targetMatched": true,
+        "inspection": "https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&id=F8ln7_xJqLaPK5EqLeQpHA",
+        "state": "URL нет в индексе Google",
+        "indexReason": "Эта страница не проиндексирована: Обнаружена, не проиндексирована",
+        "lastCrawl": "Отсутствует"
+      }
+    },
+    {
+      "id": 108078,
+      "url": "https://nikolacars.kiev.ua/parts/1007511-00-a-108078/",
+      "availableAtSnapshot": 1,
+      "referring": [
+        {
+          "page": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/komponenti-zakrittia/",
+          "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:56\"",
+          "linkText": "Блок управління кришкою багажника"
+        }
+      ],
+      "chainFromCatalog": [
+        "/parts/",
+        "/parts/model-s-02-2012-03-2016/",
+        "/parts/model-s-02-2012-03-2016/komponenti-zakrittia/",
+        "/parts/1007511-00-a-108078/"
+      ],
+      "index": {
+        "id": 108078,
+        "url": "https://nikolacars.kiev.ua/parts/1007511-00-a-108078/",
+        "targetMatched": true,
+        "inspection": "https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&id=tgX9N2jM4WGo5pSXSDWUNw",
+        "state": "URL нет в индексе Google",
+        "indexReason": "Эта страница не проиндексирована: Обнаружена, не проиндексирована",
+        "lastCrawl": "Отсутствует"
+      }
+    },
+    {
+      "id": 107696,
+      "url": "https://nikolacars.kiev.ua/parts/1007566-00-c-107696/",
+      "availableAtSnapshot": 1,
+      "referring": [
+        {
+          "page": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/panel-priladiv/",
+          "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:58\"",
+          "linkText": "Адаптер воздуховода центрального обдування салону"
+        }
+      ],
+      "chainFromCatalog": [
+        "/parts/",
+        "/parts/model-s-02-2012-03-2016/",
+        "/parts/model-s-02-2012-03-2016/panel-priladiv/",
+        "/parts/1007566-00-c-107696/"
+      ],
+      "index": {
+        "id": 107696,
+        "url": "https://nikolacars.kiev.ua/parts/1007566-00-c-107696/",
+        "targetMatched": true,
+        "inspection": "https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&id=ZXKGXWUwH5njhs2mxrKuYg",
+        "state": "URL нет в индексе Google",
+        "indexReason": "Эта страница не проиндексирована: URL неизвестен Google",
+        "lastCrawl": "Отсутствует"
+      }
+    },
+    {
+      "id": 113365,
+      "url": "https://nikolacars.kiev.ua/parts/1007719-01-a-113365/",
+      "availableAtSnapshot": 2,
+      "referring": [
+        {
+          "page": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zadnii-motor/",
+          "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:58\"",
+          "linkText": "Привід (піввісь) задня ліва і права 36мм"
+        }
+      ],
+      "chainFromCatalog": [
+        "/parts/",
+        "/parts/model-s-02-2012-03-2016/",
+        "/parts/model-s-02-2012-03-2016/zadnii-motor/",
+        "/parts/1007719-01-a-113365/"
+      ],
+      "index": {
+        "id": 113365,
+        "url": "https://nikolacars.kiev.ua/parts/1007719-01-a-113365/",
+        "targetMatched": true,
+        "inspection": "https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&id=fCmLXYy3FW4AO1IPsFrgWw",
+        "state": "URL нет в индексе Google",
+        "indexReason": "Эта страница не проиндексирована: URL неизвестен Google",
+        "lastCrawl": "Отсутствует"
+      }
+    },
+    {
+      "id": 113366,
+      "url": "https://nikolacars.kiev.ua/parts/1007831-00-b-113366/",
+      "availableAtSnapshot": 1,
+      "referring": [
+        {
+          "page": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/?page=2",
+          "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:59\"",
+          "linkText": "Накладка центральної панелі водійська ліва (WOOD )"
+        },
+        {
+          "page": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-kriski-bagaznika/",
+          "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:59\"",
+          "linkText": "Накладка центральної панелі водійська ліва (WOOD )"
+        },
+        {
+          "page": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-kriski-bagaznika/vnutrisnje-ozdoblennia-zadnyogo-bagaznogo-vidsiku/",
+          "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:54\"",
+          "linkText": "Накладка центральної панелі водійська ліва (WOOD )"
+        }
+      ],
+      "chainFromCatalog": [
+        "/parts/",
+        "/parts/model-s-02-2012-03-2016/",
+        "/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/",
+        "/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-kriski-bagaznika/",
+        "/parts/1007831-00-b-113366/"
+      ],
+      "index": {
+        "id": 113366,
+        "url": "https://nikolacars.kiev.ua/parts/1007831-00-b-113366/",
+        "targetMatched": true,
+        "inspection": "https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&id=vKPK1vWt8n1XATmU2ELJUQ",
+        "state": "URL нет в индексе Google",
+        "indexReason": "Эта страница не проиндексирована: Обнаружена, не проиндексирована",
+        "lastCrawl": "Отсутствует"
+      }
+    },
+    {
+      "id": 106599,
+      "url": "https://nikolacars.kiev.ua/parts/1008404-00-c-106599/",
+      "availableAtSnapshot": 1,
+      "referring": [
+        {
+          "page": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/",
+          "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:56\"",
+          "linkText": "Кронштейн кріплення ручки дверей внутрішньої заднь"
+        }
+      ],
+      "chainFromCatalog": [
+        "/parts/",
+        "/parts/model-s-02-2012-03-2016/",
+        "/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/",
+        "/parts/1008404-00-c-106599/"
+      ],
+      "index": {
+        "id": 106599,
+        "url": "https://nikolacars.kiev.ua/parts/1008404-00-c-106599/",
+        "targetMatched": true,
+        "inspection": "https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&id=mnCvY8pJfBMYSg_7t8MUPw",
+        "state": "URL нет в индексе Google",
+        "indexReason": "Эта страница не проиндексирована: URL неизвестен Google",
+        "lastCrawl": "Отсутствует"
+      }
+    },
+    {
+      "id": 113113,
+      "url": "https://nikolacars.kiev.ua/parts/1008471-00-a-113113/",
+      "availableAtSnapshot": 3,
+      "referring": [
+        {
+          "page": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/rulyovii-mexanizm/",
+          "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:58\"",
+          "linkText": "Перемикач передач у рульовій колонці"
+        }
+      ],
+      "chainFromCatalog": [
+        "/parts/",
+        "/parts/model-s-04-2016-01-2021/",
+        "/parts/model-s-04-2016-01-2021/rulyovii-mexanizm/",
+        "/parts/1008471-00-a-113113/"
+      ],
+      "index": {
+        "id": 113113,
+        "url": "https://nikolacars.kiev.ua/parts/1008471-00-a-113113/",
+        "targetMatched": true,
+        "inspection": "https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&id=qiKCOXZgvDmfCeMHYwAwNQ",
+        "state": "URL нет в индексе Google",
+        "indexReason": "Эта страница не проиндексирована: Обнаружена, не проиндексирована",
+        "lastCrawl": "Отсутствует"
+      }
+    },
+    {
+      "id": 103646,
+      "url": "https://nikolacars.kiev.ua/parts/1008573-00-e-103646/",
+      "availableAtSnapshot": 1,
+      "referring": [
+        {
+          "page": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-kriski-bagaznika/vnutrisnje-ozdoblennia-zadnyogo-bagaznogo-vidsiku/?page=2",
+          "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:55\"",
+          "linkText": "Пластик передній центральній консолі"
+        }
+      ],
+      "chainFromCatalog": [
+        "/parts/",
+        "/parts/model-s-02-2012-03-2016/",
+        "/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/",
+        "/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-kriski-bagaznika/",
+        "/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-kriski-bagaznika/vnutrisnje-ozdoblennia-zadnyogo-bagaznogo-vidsiku/",
+        "/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-kriski-bagaznika/vnutrisnje-ozdoblennia-zadnyogo-bagaznogo-vidsiku/?page=2",
+        "/parts/1008573-00-e-103646/"
+      ],
+      "index": {
+        "id": 103646,
+        "url": "https://nikolacars.kiev.ua/parts/1008573-00-e-103646/",
+        "targetMatched": true,
+        "inspection": "https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&id=yrwTHX0yUBAaCnzgR3cOiw",
+        "state": "URL нет в индексе Google",
+        "indexReason": "Эта страница не проиндексирована: Обнаружена, не проиндексирована",
+        "lastCrawl": "Отсутствует"
+      }
+    },
+    {
+      "id": 108438,
+      "url": "https://nikolacars.kiev.ua/parts/1009065-00-c-108438/",
+      "availableAtSnapshot": 1,
+      "referring": [
+        {
+          "page": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/?page=2",
+          "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:59\"",
+          "linkText": "Накладка отвору багажника ліва"
+        },
+        {
+          "page": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-kriski-bagaznika/",
+          "tested": "- generic: \"Проверено: 31 окт. 2026 г. , 13:59\"",
+          "linkText": "Накладка отвору багажника ліва"
+        }
+      ],
+      "chainFromCatalog": [
+        "/parts/",
+        "/parts/model-s-02-2012-03-2016/",
+        "/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/",
+        "/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-kriski-bagaznika/",
+        "/parts/1009065-00-c-108438/"
+      ],
+      "index": {
+        "id": 108438,
+        "url": "https://nikolacars.kiev.ua/parts/1009065-00-c-108438/",
+        "targetMatched": true,
+        "inspection": "https://search.google.com/search-console/inspect?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&id=FO27BeYg-kJLE5TkbJ1eMw",
+        "state": "URL нет в индексе Google",
+        "indexReason": "Эта страница не проиндексирована: URL неизвестен Google",
+        "lastCrawl": "Отсутствует"
+      }
+    }
+  ],
+  "modelYPerformance": {
+    "observed": "2026-10-31",
+    "scope": "URL-prefix https://nikolacars.kiev.ua/, Web, all countries, all devices, exact query, Pages",
+    "query": "запчастини tesla model y",
+    "reportURL": "https://search.google.com/search-console/performance/search-analytics?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&num_of_days=28&breakdown=page&query=!%D0%B7%D0%B0%D0%BF%D1%87%D0%B0%D1%81%D1%82%D0%B8%D0%BD%D0%B8%20tesla%20model%20y&metrics=CLICKS%2CIMPRESSIONS%2CPOSITION",
+    "view": [
+      "  - 'button \"Запрос: запчастини tesla model y\"':",
+      "    - generic: \"Запрос: запчастини tesla model y\"",
+      "  - tooltip: \"Запрос: запчастини tesla model y\"",
+      "  - 'button \"Удалить фильтр Запрос: запчастини tesla model y\"':",
+      "  - button \"Всего кликов 0\":",
+      "  - button \"Всего показов 30\":",
+      "  - button \"Средняя позиция 18,5\" [active]:",
+      "    - generic: Диаграмма, показано количество (Всего кликов, Всего показов, Средний CTR и Средняя позиция) с 2 октября 2026 г. по 29 октября 2026 г.",
+      "    - tab \"Страницы\" [selected]:",
+      "        - row \"https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/ 0 30 18,5\":",
+      "    - generic: 1–1 из 1"
+    ]
+  },
+  "modelYIndexedInspection": [
+    {
+      "target": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/",
+      "body": "\n  - generic: check_circle\n  - generic: URL есть в индексе Google\n  - text: При отсутствии запросов на удаление и мер, принятых вручную, страница может появляться в результатах поиска Google с любыми подходящими улучшениями.\n  - link \"Подробнее\":\n    - /url: https://support.google.com/webmasters/answer/9012289#url_on_google\n  - button \"Изучить просканированную страницу\":\n    - generic: Изучить просканированную страницу\n  - generic: Страница изменена?\n  - button \"Запросить индексированиеЗапросить снова\":\n    - generic: Запросить индексирование\n  - button \"Индексирование страниц Эта страница проиндексирована\" [expanded] [active]:\n    - generic: check_circle\n    - generic: Индексирование страниц\n    - generic: Эта страница проиндексирована\n    - generic: \n  - generic: Как обнаружено\n  - generic: Файлы Sitemap\n  - generic: Временная ошибка при обработке\n  - generic: Ссылающаяся страница\n  - generic: https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/rulyovii-mexanizm/rulyova-reika-i-niznia-castina-rulyovoyi-kolonki/\n  - generic: https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/subcategory/komponenty-zakrytiia--vspomogatelnye-elementy-zakrytiia-i-petli--zamok-i-fiksator-perednix-dverei/\n  - generic: Сканирование\n  - generic: Последнее сканирование\n  - generic: 18 окт. 2026 г., 07:45:33\n  - generic: Робот, выполнивший сканирование\n  - generic: Робот Googlebot для смартфонов\n  - generic: Сканирование разрешено?\n  - generic: Да\n  - generic: Получение страницы\n  - generic: Успешно\n  - generic: Индексирование разрешено?\n  - generic: Да\n  - generic: Индексирование\n  - generic: Каноническая страница, выбранная пользователем\n  - generic: https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/\n  - generic: Каноническая страница, выбранная Google\n  - button \"null\":\n    - generic: \n  - generic: Проверенный URL\n  - link \"Ознакомиться с подробной документацией\":\n    - /url: https://support.google.com/webmasters/answer/7440203#submitted_and_indexed\n    - generic: Подробнее...\n  - link \"Открыть отчет\":\n    - /url: ./search-console/index/drilldown?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&item_key=CAMYASAB\n    - generic: Открыть отчет\n  - generic: Улучшения и удобство для пользователей\n  - link \"HTTPS Страница передается через HTTPS\":\n    - /url: ./search-console/inspect/https?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&id=0CtDLjaYfuBygxXtkhWC4g\n    - generic: check_circle\n    - generic: HTTPS\n    - generic: Страница передается через HTTPS\n    - generic: \n- generic: Проверка URL"
+    },
+    {
+      "target": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/",
+      "body": "\n  - generic: check_circle\n  - generic: URL есть в индексе Google\n  - text: При отсутствии запросов на удаление и мер, принятых вручную, страница может появляться в результатах поиска Google с любыми подходящими улучшениями.\n  - link \"Подробнее\":\n    - /url: https://support.google.com/webmasters/answer/9012289#url_on_google\n  - button \"Изучить просканированную страницу\":\n    - generic: Изучить просканированную страницу\n  - generic: Страница изменена?\n  - button \"Запросить индексированиеЗапросить снова\":\n    - generic: Запросить индексирование\n  - button \"Индексирование страниц Эта страница проиндексирована\" [expanded] [active]:\n    - generic: check_circle\n    - generic: Индексирование страниц\n    - generic: Эта страница проиндексирована\n    - generic: \n  - generic: Как обнаружено\n  - generic: Файлы Sitemap\n  - generic: https://nikolacars.kiev.ua/sitemap.xml\n  - generic: Ссылающаяся страница\n  - generic: https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/\n  - generic: https://nikolacars.kiev.ua/ru/parts/1624716-00-a-80180/\n  - generic: https://nikolacars.kiev.ua/ru/parts/1044461-02-e-99122/\n  - generic: Сканирование\n  - generic: Последнее сканирование\n  - generic: 2 окт. 2026 г., 05:12:28\n  - generic: Робот, выполнивший сканирование\n  - generic: Робот Googlebot для смартфонов\n  - generic: Сканирование разрешено?\n  - generic: Да\n  - generic: Получение страницы\n  - generic: Успешно\n  - generic: Индексирование разрешено?\n  - generic: Да\n  - generic: Индексирование\n  - generic: Каноническая страница, выбранная пользователем\n  - generic: https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/\n  - generic: Каноническая страница, выбранная Google\n  - button \"null\":\n    - generic: \n  - generic: Проверенный URL\n  - link \"Ознакомиться с подробной документацией\":\n    - /url: https://support.google.com/webmasters/answer/7440203#submitted_and_indexed\n    - generic: Подробнее...\n  - link \"Открыть отчет\":\n    - /url: ./search-console/index/drilldown?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&item_key=CAMYASAB\n    - generic: Открыть отчет\n  - generic: Улучшения и удобство для пользователей\n  - link \"HTTPS Страница передается через HTTPS\":\n    - /url: ./search-console/inspect/https?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&id=T5O2V5I6_9KH16boBibrsA\n    - generic: check_circle\n    - generic: HTTPS\n    - generic: Страница передается через HTTPS\n    - generic: \n- generic: Проверка URL"
+    }
+  ]
+}

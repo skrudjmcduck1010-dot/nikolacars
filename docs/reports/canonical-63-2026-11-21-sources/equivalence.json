@@ -1,0 +1,6577 @@
+{
+  "method": "PublicfrontendGETAPI,per_page100,orderedfullnonemptysets; complete sourceHTML reused when entirelistingfitsfirstpage",
+  "groups": [
+    {
+      "n": 1,
+      "key": "model-s-04-2016-01-2021|rulyovii-mexanizm/verxnia-castina-rulyovoyi-kolonki-i-kermo|rulyovii-mexanizm/verxnia-castina-rulyovoyi-kolonki-i-kermo/verxnia-castina-rulyovoyi-kolonki-i-kermo",
+      "model": "model-s-04-2016-01-2021",
+      "locales": {
+        "ru": {
+          "parent": "rulevoi-mexanizm/verxniaia-cast-rulevoi-kolonki-i-rul",
+          "child": "rulevoi-mexanizm/verxniaia-cast-rulevoi-kolonki-i-rul/verxniaia-cast-rulevoi-kolonki-i-rul"
+        },
+        "uk": {
+          "parent": "rulyovii-mexanizm/verxnia-castina-rulyovoyi-kolonki-i-kermo",
+          "child": "rulyovii-mexanizm/verxnia-castina-rulyovoyi-kolonki-i-kermo/verxnia-castina-rulyovoyi-kolonki-i-kermo"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "rulyovii-mexanizm/verxnia-castina-rulyovoyi-kolonki-i-kermo",
+            "total": 9,
+            "pages": 1,
+            "ids": [
+              113113,
+              107059,
+              102885,
+              107053,
+              107051,
+              107049,
+              107046,
+              107048,
+              102027
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "rulyovii-mexanizm/verxnia-castina-rulyovoyi-kolonki-i-kermo/verxnia-castina-rulyovoyi-kolonki-i-kermo",
+            "total": 9,
+            "pages": 1,
+            "ids": [
+              113113,
+              107059,
+              102885,
+              107053,
+              107051,
+              107049,
+              107046,
+              107048,
+              102027
+            ],
+            "complete": true
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "rulevoi-mexanizm/verxniaia-cast-rulevoi-kolonki-i-rul",
+            "total": 9,
+            "pages": 1,
+            "ids": [
+              113113,
+              107059,
+              102885,
+              107053,
+              107051,
+              107049,
+              107046,
+              107048,
+              102027
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "rulevoi-mexanizm/verxniaia-cast-rulevoi-kolonki-i-rul/verxniaia-cast-rulevoi-kolonki-i-rul",
+            "total": 9,
+            "pages": 1,
+            "ids": [
+              113113,
+              107059,
+              102885,
+              107053,
+              107051,
+              107049,
+              107046,
+              107048,
+              102027
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 2,
+      "key": "|panel-priladiv|panel-priladiv/panel-priladiv",
+      "model": "",
+      "locales": {
+        "uk": {
+          "parent": "panel-priladiv",
+          "child": "panel-priladiv/panel-priladiv"
+        },
+        "ru": {
+          "parent": "pribornaia-panel",
+          "child": "pribornaia-panel/panel-pribornaia"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "panel-priladiv",
+            "total": 219,
+            "pages": 3,
+            "ids": [
+              107640,
+              98836,
+              107112,
+              84046,
+              97440,
+              79613,
+              113756,
+              113755,
+              113753,
+              113752,
+              113750,
+              113744,
+              113743,
+              40760,
+              100240,
+              92134,
+              95334,
+              106362,
+              113556,
+              113524,
+              113523,
+              113459,
+              108132,
+              113429,
+              107948,
+              108517,
+              107932,
+              107624,
+              107595,
+              107544,
+              107521,
+              113374,
+              113372,
+              112267,
+              112272,
+              112264,
+              113338,
+              113331,
+              113330,
+              113312,
+              112246,
+              112235,
+              112258,
+              113274,
+              112233,
+              112255,
+              113266,
+              113208,
+              113207,
+              107696,
+              108641,
+              91048,
+              100249,
+              80041,
+              88647,
+              80180,
+              107099,
+              79648,
+              107091,
+              79722,
+              106356,
+              106108,
+              105496,
+              106355,
+              107063,
+              105668,
+              107060,
+              107045,
+              95320,
+              92121,
+              92122,
+              106080,
+              107015,
+              105421,
+              101665,
+              106434,
+              82780,
+              103756,
+              103755,
+              103754,
+              103752,
+              103751,
+              103750,
+              91910,
+              103742,
+              103743,
+              103723,
+              95115,
+              102898,
+              103721,
+              103719,
+              102903,
+              103696,
+              95327,
+              91680,
+              84128,
+              102788,
+              92254,
+              95132,
+              102899,
+              103655,
+              103654,
+              102913,
+              95796,
+              102317,
+              102269,
+              103622,
+              92010,
+              95191,
+              103620,
+              91924,
+              95103,
+              103616,
+              103615,
+              103614,
+              95736,
+              103162,
+              92496,
+              103613,
+              102900,
+              95151,
+              91966,
+              95148,
+              102897,
+              102544,
+              95164,
+              102640,
+              89284,
+              84060,
+              101479,
+              75020,
+              84419,
+              93941,
+              97240,
+              98648,
+              100055,
+              90872,
+              83815,
+              90245,
+              93271,
+              96542,
+              97959,
+              99365,
+              100786,
+              87536,
+              88875,
+              90216,
+              93242,
+              96514,
+              97932,
+              83796,
+              99333,
+              100759,
+              93213,
+              98192,
+              100728,
+              101019,
+              99605,
+              97901,
+              99721,
+              96898,
+              93614,
+              90568,
+              98313,
+              101140,
+              93159,
+              97848,
+              90134,
+              96431,
+              100675,
+              84550,
+              94070,
+              97372,
+              88384,
+              98774,
+              83331,
+              103537,
+              100181,
+              89756,
+              101605,
+              90427,
+              96738,
+              100982,
+              99571,
+              93463,
+              89064,
+              90388,
+              93419,
+              96694,
+              99521,
+              100939,
+              90021,
+              93023,
+              96293,
+              97709,
+              99102,
+              100538,
+              101291,
+              86787,
+              89403,
+              84244,
+              99865,
+              82989,
+              90705,
+              85506,
+              97050,
+              76853,
+              88240,
+              92253,
+              91967,
+              84005,
+              79123,
+              75023,
+              101672,
+              80904,
+              76865,
+              77827,
+              58779,
+              100384
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "panel-priladiv/panel-priladiv",
+            "total": 219,
+            "pages": 3,
+            "ids": [
+              107640,
+              98836,
+              107112,
+              84046,
+              97440,
+              79613,
+              113756,
+              113755,
+              113753,
+              113752,
+              113750,
+              113744,
+              113743,
+              40760,
+              100240,
+              92134,
+              95334,
+              106362,
+              113556,
+              113524,
+              113523,
+              113459,
+              108132,
+              113429,
+              107948,
+              108517,
+              107932,
+              107624,
+              107595,
+              107544,
+              107521,
+              113374,
+              113372,
+              112267,
+              112272,
+              112264,
+              113338,
+              113331,
+              113330,
+              113312,
+              112246,
+              112235,
+              112258,
+              113274,
+              112233,
+              112255,
+              113266,
+              113208,
+              113207,
+              107696,
+              108641,
+              91048,
+              100249,
+              80041,
+              88647,
+              80180,
+              107099,
+              79648,
+              107091,
+              79722,
+              106356,
+              106108,
+              105496,
+              106355,
+              107063,
+              105668,
+              107060,
+              107045,
+              95320,
+              92121,
+              92122,
+              106080,
+              107015,
+              105421,
+              101665,
+              106434,
+              82780,
+              103756,
+              103755,
+              103754,
+              103752,
+              103751,
+              103750,
+              91910,
+              103742,
+              103743,
+              103723,
+              95115,
+              102898,
+              103721,
+              103719,
+              102903,
+              103696,
+              95327,
+              91680,
+              84128,
+              102788,
+              92254,
+              95132,
+              102899,
+              103655,
+              103654,
+              102913,
+              95796,
+              102317,
+              102269,
+              103622,
+              92010,
+              95191,
+              103620,
+              91924,
+              95103,
+              103616,
+              103615,
+              103614,
+              95736,
+              103162,
+              92496,
+              103613,
+              102900,
+              95151,
+              91966,
+              95148,
+              102897,
+              102544,
+              95164,
+              102640,
+              89284,
+              84060,
+              101479,
+              75020,
+              84419,
+              93941,
+              97240,
+              98648,
+              100055,
+              90872,
+              83815,
+              90245,
+              93271,
+              96542,
+              97959,
+              99365,
+              100786,
+              87536,
+              88875,
+              90216,
+              93242,
+              96514,
+              97932,
+              83796,
+              99333,
+              100759,
+              93213,
+              98192,
+              100728,
+              101019,
+              99605,
+              97901,
+              99721,
+              96898,
+              93614,
+              90568,
+              98313,
+              101140,
+              93159,
+              97848,
+              90134,
+              96431,
+              100675,
+              84550,
+              94070,
+              97372,
+              88384,
+              98774,
+              83331,
+              103537,
+              100181,
+              89756,
+              101605,
+              90427,
+              96738,
+              100982,
+              99571,
+              93463,
+              89064,
+              90388,
+              93419,
+              96694,
+              99521,
+              100939,
+              90021,
+              93023,
+              96293,
+              97709,
+              99102,
+              100538,
+              101291,
+              86787,
+              89403,
+              84244,
+              99865,
+              82989,
+              90705,
+              85506,
+              97050,
+              76853,
+              88240,
+              92253,
+              91967,
+              84005,
+              79123,
+              75023,
+              101672,
+              80904,
+              76865,
+              77827,
+              58779,
+              100384
+            ],
+            "complete": true
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "pribornaia-panel",
+            "total": 219,
+            "pages": 3,
+            "ids": [
+              107640,
+              98836,
+              107112,
+              84046,
+              97440,
+              79613,
+              113756,
+              113755,
+              113753,
+              113752,
+              113750,
+              113744,
+              113743,
+              40760,
+              100240,
+              92134,
+              95334,
+              106362,
+              113556,
+              113524,
+              113523,
+              113459,
+              108132,
+              113429,
+              107948,
+              108517,
+              107932,
+              107624,
+              107595,
+              107544,
+              107521,
+              113374,
+              113372,
+              112267,
+              112272,
+              112264,
+              113338,
+              113331,
+              113330,
+              113312,
+              112246,
+              112235,
+              112258,
+              113274,
+              112233,
+              112255,
+              113266,
+              113208,
+              113207,
+              107696,
+              108641,
+              91048,
+              100249,
+              80041,
+              88647,
+              80180,
+              107099,
+              79648,
+              107091,
+              79722,
+              106356,
+              106108,
+              105496,
+              106355,
+              107063,
+              105668,
+              107060,
+              107045,
+              95320,
+              92121,
+              92122,
+              106080,
+              107015,
+              105421,
+              101665,
+              106434,
+              82780,
+              103756,
+              103755,
+              103754,
+              103752,
+              103751,
+              103750,
+              91910,
+              103742,
+              103743,
+              103723,
+              95115,
+              102898,
+              103721,
+              103719,
+              102903,
+              103696,
+              95327,
+              91680,
+              84128,
+              102788,
+              92254,
+              95132,
+              102899,
+              103655,
+              103654,
+              102913,
+              95796,
+              102317,
+              102269,
+              103622,
+              92010,
+              95191,
+              103620,
+              91924,
+              95103,
+              103616,
+              103615,
+              103614,
+              95736,
+              103162,
+              92496,
+              103613,
+              102900,
+              95151,
+              91966,
+              95148,
+              102897,
+              102544,
+              95164,
+              102640,
+              89284,
+              84060,
+              101479,
+              75020,
+              84419,
+              93941,
+              97240,
+              98648,
+              100055,
+              90872,
+              83815,
+              90245,
+              93271,
+              96542,
+              97959,
+              99365,
+              100786,
+              87536,
+              88875,
+              90216,
+              93242,
+              96514,
+              97932,
+              83796,
+              99333,
+              100759,
+              93213,
+              98192,
+              100728,
+              101019,
+              99605,
+              97901,
+              99721,
+              96898,
+              93614,
+              90568,
+              98313,
+              101140,
+              93159,
+              97848,
+              90134,
+              96431,
+              100675,
+              84550,
+              94070,
+              97372,
+              88384,
+              98774,
+              83331,
+              103537,
+              100181,
+              89756,
+              101605,
+              90427,
+              96738,
+              100982,
+              99571,
+              93463,
+              89064,
+              90388,
+              93419,
+              96694,
+              99521,
+              100939,
+              90021,
+              93023,
+              96293,
+              97709,
+              99102,
+              100538,
+              101291,
+              86787,
+              89403,
+              84244,
+              99865,
+              82989,
+              90705,
+              85506,
+              97050,
+              76853,
+              88240,
+              92253,
+              91967,
+              84005,
+              79123,
+              75023,
+              101672,
+              80904,
+              76865,
+              77827,
+              58779,
+              100384
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "pribornaia-panel/panel-pribornaia",
+            "total": 219,
+            "pages": 3,
+            "ids": [
+              107640,
+              98836,
+              107112,
+              84046,
+              97440,
+              79613,
+              113756,
+              113755,
+              113753,
+              113752,
+              113750,
+              113744,
+              113743,
+              40760,
+              100240,
+              92134,
+              95334,
+              106362,
+              113556,
+              113524,
+              113523,
+              113459,
+              108132,
+              113429,
+              107948,
+              108517,
+              107932,
+              107624,
+              107595,
+              107544,
+              107521,
+              113374,
+              113372,
+              112267,
+              112272,
+              112264,
+              113338,
+              113331,
+              113330,
+              113312,
+              112246,
+              112235,
+              112258,
+              113274,
+              112233,
+              112255,
+              113266,
+              113208,
+              113207,
+              107696,
+              108641,
+              91048,
+              100249,
+              80041,
+              88647,
+              80180,
+              107099,
+              79648,
+              107091,
+              79722,
+              106356,
+              106108,
+              105496,
+              106355,
+              107063,
+              105668,
+              107060,
+              107045,
+              95320,
+              92121,
+              92122,
+              106080,
+              107015,
+              105421,
+              101665,
+              106434,
+              82780,
+              103756,
+              103755,
+              103754,
+              103752,
+              103751,
+              103750,
+              91910,
+              103742,
+              103743,
+              103723,
+              95115,
+              102898,
+              103721,
+              103719,
+              102903,
+              103696,
+              95327,
+              91680,
+              84128,
+              102788,
+              92254,
+              95132,
+              102899,
+              103655,
+              103654,
+              102913,
+              95796,
+              102317,
+              102269,
+              103622,
+              92010,
+              95191,
+              103620,
+              91924,
+              95103,
+              103616,
+              103615,
+              103614,
+              95736,
+              103162,
+              92496,
+              103613,
+              102900,
+              95151,
+              91966,
+              95148,
+              102897,
+              102544,
+              95164,
+              102640,
+              89284,
+              84060,
+              101479,
+              75020,
+              84419,
+              93941,
+              97240,
+              98648,
+              100055,
+              90872,
+              83815,
+              90245,
+              93271,
+              96542,
+              97959,
+              99365,
+              100786,
+              87536,
+              88875,
+              90216,
+              93242,
+              96514,
+              97932,
+              83796,
+              99333,
+              100759,
+              93213,
+              98192,
+              100728,
+              101019,
+              99605,
+              97901,
+              99721,
+              96898,
+              93614,
+              90568,
+              98313,
+              101140,
+              93159,
+              97848,
+              90134,
+              96431,
+              100675,
+              84550,
+              94070,
+              97372,
+              88384,
+              98774,
+              83331,
+              103537,
+              100181,
+              89756,
+              101605,
+              90427,
+              96738,
+              100982,
+              99571,
+              93463,
+              89064,
+              90388,
+              93419,
+              96694,
+              99521,
+              100939,
+              90021,
+              93023,
+              96293,
+              97709,
+              99102,
+              100538,
+              101291,
+              86787,
+              89403,
+              84244,
+              99865,
+              82989,
+              90705,
+              85506,
+              97050,
+              76853,
+              88240,
+              92253,
+              91967,
+              84005,
+              79123,
+              75023,
+              101672,
+              80904,
+              76865,
+              77827,
+              58779,
+              100384
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 3,
+      "key": "|informaciino-rozvazalna-sistema/kompiuter-avtomobilia|informaciino-rozvazalna-sistema/kompiuter-avtomobilia/kompiuter-avtomobilia",
+      "model": "",
+      "locales": {
+        "uk": {
+          "parent": "informaciino-rozvazalna-sistema/kompiuter-avtomobilia",
+          "child": "informaciino-rozvazalna-sistema/kompiuter-avtomobilia/kompiuter-avtomobilia"
+        },
+        "ru": {
+          "parent": "informacionno-razvlekatelnaia-sistema/kompiuter-avtomobilia",
+          "child": "informacionno-razvlekatelnaia-sistema/kompiuter-avtomobilia/kompiuter-avtomobilia"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "informaciino-rozvazalna-sistema/kompiuter-avtomobilia",
+            "total": 3,
+            "pages": 1,
+            "ids": [
+              40278,
+              113955,
+              85387
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "informaciino-rozvazalna-sistema/kompiuter-avtomobilia/kompiuter-avtomobilia",
+            "total": 3,
+            "pages": 1,
+            "ids": [
+              40278,
+              113955,
+              85387
+            ],
+            "complete": true
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "informacionno-razvlekatelnaia-sistema/kompiuter-avtomobilia",
+            "total": 3,
+            "pages": 1,
+            "ids": [
+              40278,
+              113955,
+              85387
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "informacionno-razvlekatelnaia-sistema/kompiuter-avtomobilia/kompiuter-avtomobilia",
+            "total": 3,
+            "pages": 1,
+            "ids": [
+              40278,
+              113955,
+              85387
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 4,
+      "key": "model-3-06-2017-12-2023|perednii-motor/peredni-pivosi|perednii-motor/peredni-pivosi/peredni-pivosi",
+      "model": "model-3-06-2017-12-2023",
+      "locales": {
+        "uk": {
+          "parent": "perednii-motor/peredni-pivosi",
+          "child": "perednii-motor/peredni-pivosi/peredni-pivosi"
+        },
+        "ru": {
+          "parent": "perednii-motor/perednie-poluosi",
+          "child": "perednii-motor/perednie-poluosi/perednie-poluosi"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "perednii-motor/peredni-pivosi",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              97694,
+              100523
+            ],
+            "complete": true,
+            "fromSource": 5
+          },
+          "child": {
+            "path": "perednii-motor/peredni-pivosi/peredni-pivosi",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              97694,
+              100523
+            ],
+            "complete": true
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "perednii-motor/perednie-poluosi",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              97694,
+              100523
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "perednii-motor/perednie-poluosi/perednie-poluosi",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              97694,
+              100523
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 5,
+      "key": "model-3-06-2017-12-2023|elektrika/frontalna-kamera|elektrika/frontalna-kamera/frontalna-kamera",
+      "model": "model-3-06-2017-12-2023",
+      "locales": {
+        "ru": {
+          "parent": "elektrika/frontalnaia-kamera",
+          "child": "elektrika/frontalnaia-kamera/frontalnaia-kamera"
+        },
+        "uk": {
+          "parent": "elektrika/frontalna-kamera",
+          "child": "elektrika/frontalna-kamera/frontalna-kamera"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "elektrika/frontalna-kamera",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              99012,
+              100449
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "elektrika/frontalna-kamera/frontalna-kamera",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              99012,
+              100449
+            ],
+            "complete": true
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "elektrika/frontalnaia-kamera",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              99012,
+              100449
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "elektrika/frontalnaia-kamera/frontalnaia-kamera",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              99012,
+              100449
+            ],
+            "complete": true,
+            "fromSource": 6
+          }
+        }
+      }
+    },
+    {
+      "n": 6,
+      "key": "|zovnisnia-furnitura/pidkrilki|zovnisnia-furnitura/pidkrilki/pidkrilki",
+      "model": "",
+      "locales": {
+        "ru": {
+          "parent": "naruznaia-furnitura/podkrylki",
+          "child": "naruznaia-furnitura/podkrylki/podkrylki"
+        },
+        "uk": {
+          "parent": "zovnisnia-furnitura/pidkrilki",
+          "child": "zovnisnia-furnitura/pidkrilki/pidkrilki"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "zovnisnia-furnitura/pidkrilki",
+            "total": 30,
+            "pages": 1,
+            "ids": [
+              108549,
+              113422,
+              113421,
+              113401,
+              113400,
+              113398,
+              89448,
+              85948,
+              106903,
+              105746,
+              105518,
+              90663,
+              99819,
+              96842,
+              97002,
+              101244,
+              101083,
+              86709,
+              106923,
+              106922,
+              96180,
+              92919,
+              108525,
+              95193,
+              65532,
+              88701,
+              79592,
+              39523,
+              39522,
+              73584
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "zovnisnia-furnitura/pidkrilki/pidkrilki",
+            "total": 30,
+            "pages": 1,
+            "ids": [
+              108549,
+              113422,
+              113421,
+              113401,
+              113400,
+              113398,
+              89448,
+              85948,
+              106903,
+              105746,
+              105518,
+              90663,
+              99819,
+              96842,
+              97002,
+              101244,
+              101083,
+              86709,
+              106923,
+              106922,
+              96180,
+              92919,
+              108525,
+              95193,
+              65532,
+              88701,
+              79592,
+              39523,
+              39522,
+              73584
+            ],
+            "complete": true
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "naruznaia-furnitura/podkrylki",
+            "total": 30,
+            "pages": 1,
+            "ids": [
+              108549,
+              113422,
+              113421,
+              113401,
+              113400,
+              113398,
+              89448,
+              85948,
+              106903,
+              105746,
+              105518,
+              90663,
+              99819,
+              96842,
+              97002,
+              101244,
+              101083,
+              86709,
+              106923,
+              106922,
+              96180,
+              92919,
+              108525,
+              95193,
+              65532,
+              88701,
+              79592,
+              39523,
+              39522,
+              73584
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "naruznaia-furnitura/podkrylki/podkrylki",
+            "total": 30,
+            "pages": 1,
+            "ids": [
+              108549,
+              113422,
+              113421,
+              113401,
+              113400,
+              113398,
+              89448,
+              85948,
+              106903,
+              105746,
+              105518,
+              90663,
+              99819,
+              96842,
+              97002,
+              101244,
+              101083,
+              86709,
+              106923,
+              106922,
+              96180,
+              92919,
+              108525,
+              95193,
+              65532,
+              88701,
+              79592,
+              39523,
+              39522,
+              73584
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 7,
+      "key": "model-3-highland-01-2024|galma/elektromexanicnii-pidsiliuvac-galm|galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm",
+      "model": "model-3-highland-01-2024",
+      "locales": {
+        "uk": {
+          "parent": "galma/elektromexanicnii-pidsiliuvac-galm",
+          "child": "galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm"
+        },
+        "ru": {
+          "parent": "tormoza/elektromexaniceskii-usilitel-tormozov",
+          "child": "tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "galma/elektromexanicnii-pidsiliuvac-galm",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              113025,
+              113315
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              113025,
+              113315
+            ],
+            "complete": true,
+            "fromSource": 8
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "tormoza/elektromexaniceskii-usilitel-tormozov",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              113025,
+              113315
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              113025,
+              113315
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 8,
+      "key": "|informaciino-rozvazalna-sistema/antena-wi-fi|informaciino-rozvazalna-sistema/antena-wi-fi/antena-wi-fi",
+      "model": "",
+      "locales": {
+        "ru": {
+          "parent": "informacionno-razvlekatelnaia-sistema/antenna-wi-fi",
+          "child": "informacionno-razvlekatelnaia-sistema/antenna-wi-fi/antenna-wi-fi"
+        },
+        "uk": {
+          "parent": "informaciino-rozvazalna-sistema/antena-wi-fi",
+          "child": "informaciino-rozvazalna-sistema/antena-wi-fi/antena-wi-fi"
+        }
+      },
+      "equivalent": false,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "informaciino-rozvazalna-sistema/antena-wi-fi",
+            "total": 10,
+            "pages": 1,
+            "ids": [
+              79026,
+              88552,
+              80816,
+              92939,
+              87326,
+              82160,
+              84685,
+              99013,
+              39596,
+              89937
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "informaciino-rozvazalna-sistema/antena-wi-fi/antena-wi-fi",
+            "total": 7,
+            "pages": 1,
+            "ids": [
+              79026,
+              80816,
+              92939,
+              84685,
+              99013,
+              39596,
+              89937
+            ],
+            "complete": true
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "informacionno-razvlekatelnaia-sistema/antenna-wi-fi",
+            "total": 10,
+            "pages": 1,
+            "ids": [
+              79026,
+              88552,
+              80816,
+              92939,
+              87326,
+              82160,
+              84685,
+              99013,
+              39596,
+              89937
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "informacionno-razvlekatelnaia-sistema/antenna-wi-fi/antenna-wi-fi",
+            "total": 10,
+            "pages": 1,
+            "ids": [
+              79026,
+              88552,
+              80816,
+              92939,
+              87326,
+              82160,
+              84685,
+              99013,
+              39596,
+              89937
+            ],
+            "complete": true,
+            "fromSource": 9
+          }
+        }
+      }
+    },
+    {
+      "n": 9,
+      "key": "model-x-09-2015-02-2021|zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku|zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku",
+      "model": "model-x-09-2015-02-2021",
+      "locales": {
+        "ru": {
+          "parent": "naruznaia-furnitura/nakladki-podkapotnogo-otseka",
+          "child": "naruznaia-furnitura/nakladki-podkapotnogo-otseka/nakladki-podkapotnogo-otseka"
+        },
+        "uk": {
+          "parent": "zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku",
+          "child": "zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku",
+            "total": 1,
+            "pages": 1,
+            "ids": [
+              113489
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku",
+            "total": 1,
+            "pages": 1,
+            "ids": [
+              113489
+            ],
+            "complete": true,
+            "fromSource": 19
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "naruznaia-furnitura/nakladki-podkapotnogo-otseka",
+            "total": 1,
+            "pages": 1,
+            "ids": [
+              113489
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "naruznaia-furnitura/nakladki-podkapotnogo-otseka/nakladki-podkapotnogo-otseka",
+            "total": 1,
+            "pages": 1,
+            "ids": [
+              113489
+            ],
+            "complete": true,
+            "fromSource": 10
+          }
+        }
+      }
+    },
+    {
+      "n": 10,
+      "key": "model-3-06-2017-12-2023|vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv|vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv/ozdoblennia-stiiok-a-b-c-i-porogiv",
+      "model": "model-3-06-2017-12-2023",
+      "locales": {
+        "ru": {
+          "parent": "vnutrenniaia-otdelka/obsivka-stoek-a-b-c-i-porogov",
+          "child": "vnutrenniaia-otdelka/obsivka-stoek-a-b-c-i-porogov/obsivka-stoek-a-b-c-i-porogov"
+        },
+        "uk": {
+          "parent": "vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv",
+          "child": "vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv/ozdoblennia-stiiok-a-b-c-i-porogiv"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv",
+            "total": 141,
+            "pages": 2,
+            "ids": [
+              106956,
+              106950,
+              75130,
+              75135,
+              75126,
+              75127,
+              101399,
+              98568,
+              90806,
+              93864,
+              97160,
+              99981,
+              76908,
+              99982,
+              76909,
+              90807,
+              101400,
+              97161,
+              98569,
+              93865,
+              76907,
+              76904,
+              103543,
+              93094,
+              90074,
+              96363,
+              90073,
+              97781,
+              93093,
+              96362,
+              100608,
+              97780,
+              99168,
+              100607,
+              99169,
+              103545,
+              94096,
+              91014,
+              100211,
+              97401,
+              101634,
+              98802,
+              37645,
+              91015,
+              97402,
+              98803,
+              94097,
+              100212,
+              76915,
+              101635,
+              103542,
+              93920,
+              97218,
+              98626,
+              103541,
+              100035,
+              90854,
+              101457,
+              93919,
+              97217,
+              98625,
+              38131,
+              100034,
+              101456,
+              76917,
+              103539,
+              103538,
+              96193,
+              38130,
+              96194,
+              99008,
+              97614,
+              92933,
+              100444,
+              92932,
+              97613,
+              89931,
+              103536,
+              103535,
+              97385,
+              98786,
+              90999,
+              100195,
+              101617,
+              76921,
+              103534,
+              90998,
+              97384,
+              98785,
+              100194,
+              101616,
+              76920,
+              90921,
+              98699,
+              76910,
+              100104,
+              101531,
+              38134,
+              97294,
+              98700,
+              93993,
+              101532,
+              90922,
+              100105,
+              81849,
+              76911,
+              81425,
+              103533,
+              103532,
+              90529,
+              93564,
+              96850,
+              98263,
+              99676,
+              101090,
+              93565,
+              96851,
+              98264,
+              99677,
+              101091,
+              93330,
+              96600,
+              99434,
+              76922,
+              103529,
+              103528,
+              76916,
+              90348,
+              93374,
+              98064,
+              99477,
+              100891,
+              96644,
+              99478,
+              98065,
+              93375,
+              90349,
+              103527,
+              80964,
+              76905,
+              99007
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv/ozdoblennia-stiiok-a-b-c-i-porogiv",
+            "total": 141,
+            "pages": 2,
+            "ids": [
+              106956,
+              106950,
+              75130,
+              75135,
+              75126,
+              75127,
+              101399,
+              98568,
+              90806,
+              93864,
+              97160,
+              99981,
+              76908,
+              99982,
+              76909,
+              90807,
+              101400,
+              97161,
+              98569,
+              93865,
+              76907,
+              76904,
+              103543,
+              93094,
+              90074,
+              96363,
+              90073,
+              97781,
+              93093,
+              96362,
+              100608,
+              97780,
+              99168,
+              100607,
+              99169,
+              103545,
+              94096,
+              91014,
+              100211,
+              97401,
+              101634,
+              98802,
+              37645,
+              91015,
+              97402,
+              98803,
+              94097,
+              100212,
+              76915,
+              101635,
+              103542,
+              93920,
+              97218,
+              98626,
+              103541,
+              100035,
+              90854,
+              101457,
+              93919,
+              97217,
+              98625,
+              38131,
+              100034,
+              101456,
+              76917,
+              103539,
+              103538,
+              96193,
+              38130,
+              96194,
+              99008,
+              97614,
+              92933,
+              100444,
+              92932,
+              97613,
+              89931,
+              103536,
+              103535,
+              97385,
+              98786,
+              90999,
+              100195,
+              101617,
+              76921,
+              103534,
+              90998,
+              97384,
+              98785,
+              100194,
+              101616,
+              76920,
+              90921,
+              98699,
+              76910,
+              100104,
+              101531,
+              38134,
+              97294,
+              98700,
+              93993,
+              101532,
+              90922,
+              100105,
+              81849,
+              76911,
+              81425,
+              103533,
+              103532,
+              90529,
+              93564,
+              96850,
+              98263,
+              99676,
+              101090,
+              93565,
+              96851,
+              98264,
+              99677,
+              101091,
+              93330,
+              96600,
+              99434,
+              76922,
+              103529,
+              103528,
+              76916,
+              90348,
+              93374,
+              98064,
+              99477,
+              100891,
+              96644,
+              99478,
+              98065,
+              93375,
+              90349,
+              103527,
+              80964,
+              76905,
+              99007
+            ],
+            "complete": true
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "vnutrenniaia-otdelka/obsivka-stoek-a-b-c-i-porogov",
+            "total": 141,
+            "pages": 2,
+            "ids": [
+              106956,
+              106950,
+              75130,
+              75135,
+              75126,
+              75127,
+              101399,
+              98568,
+              90806,
+              93864,
+              97160,
+              99981,
+              76908,
+              99982,
+              76909,
+              90807,
+              101400,
+              97161,
+              98569,
+              93865,
+              76907,
+              76904,
+              103543,
+              93094,
+              90074,
+              96363,
+              90073,
+              97781,
+              93093,
+              96362,
+              100608,
+              97780,
+              99168,
+              100607,
+              99169,
+              103545,
+              94096,
+              91014,
+              100211,
+              97401,
+              101634,
+              98802,
+              37645,
+              91015,
+              97402,
+              98803,
+              94097,
+              100212,
+              76915,
+              101635,
+              103542,
+              93920,
+              97218,
+              98626,
+              103541,
+              100035,
+              90854,
+              101457,
+              93919,
+              97217,
+              98625,
+              38131,
+              100034,
+              101456,
+              76917,
+              103539,
+              103538,
+              96193,
+              38130,
+              96194,
+              99008,
+              97614,
+              92933,
+              100444,
+              92932,
+              97613,
+              89931,
+              103536,
+              103535,
+              97385,
+              98786,
+              90999,
+              100195,
+              101617,
+              76921,
+              103534,
+              90998,
+              97384,
+              98785,
+              100194,
+              101616,
+              76920,
+              90921,
+              98699,
+              76910,
+              100104,
+              101531,
+              38134,
+              97294,
+              98700,
+              93993,
+              101532,
+              90922,
+              100105,
+              81849,
+              76911,
+              81425,
+              103533,
+              103532,
+              90529,
+              93564,
+              96850,
+              98263,
+              99676,
+              101090,
+              93565,
+              96851,
+              98264,
+              99677,
+              101091,
+              93330,
+              96600,
+              99434,
+              76922,
+              103529,
+              103528,
+              76916,
+              90348,
+              93374,
+              98064,
+              99477,
+              100891,
+              96644,
+              99478,
+              98065,
+              93375,
+              90349,
+              103527,
+              80964,
+              76905,
+              99007
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "vnutrenniaia-otdelka/obsivka-stoek-a-b-c-i-porogov/obsivka-stoek-a-b-c-i-porogov",
+            "total": 141,
+            "pages": 2,
+            "ids": [
+              106956,
+              106950,
+              75130,
+              75135,
+              75126,
+              75127,
+              101399,
+              98568,
+              90806,
+              93864,
+              97160,
+              99981,
+              76908,
+              99982,
+              76909,
+              90807,
+              101400,
+              97161,
+              98569,
+              93865,
+              76907,
+              76904,
+              103543,
+              93094,
+              90074,
+              96363,
+              90073,
+              97781,
+              93093,
+              96362,
+              100608,
+              97780,
+              99168,
+              100607,
+              99169,
+              103545,
+              94096,
+              91014,
+              100211,
+              97401,
+              101634,
+              98802,
+              37645,
+              91015,
+              97402,
+              98803,
+              94097,
+              100212,
+              76915,
+              101635,
+              103542,
+              93920,
+              97218,
+              98626,
+              103541,
+              100035,
+              90854,
+              101457,
+              93919,
+              97217,
+              98625,
+              38131,
+              100034,
+              101456,
+              76917,
+              103539,
+              103538,
+              96193,
+              38130,
+              96194,
+              99008,
+              97614,
+              92933,
+              100444,
+              92932,
+              97613,
+              89931,
+              103536,
+              103535,
+              97385,
+              98786,
+              90999,
+              100195,
+              101617,
+              76921,
+              103534,
+              90998,
+              97384,
+              98785,
+              100194,
+              101616,
+              76920,
+              90921,
+              98699,
+              76910,
+              100104,
+              101531,
+              38134,
+              97294,
+              98700,
+              93993,
+              101532,
+              90922,
+              100105,
+              81849,
+              76911,
+              81425,
+              103533,
+              103532,
+              90529,
+              93564,
+              96850,
+              98263,
+              99676,
+              101090,
+              93565,
+              96851,
+              98264,
+              99677,
+              101091,
+              93330,
+              96600,
+              99434,
+              76922,
+              103529,
+              103528,
+              76916,
+              90348,
+              93374,
+              98064,
+              99477,
+              100891,
+              96644,
+              99478,
+              98065,
+              93375,
+              90349,
+              103527,
+              80964,
+              76905,
+              99007
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 11,
+      "key": "model-y-01-2020-01-2025|vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv|vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv/ozdoblennia-stiiok-a-b-c-i-porogiv",
+      "model": "model-y-01-2020-01-2025",
+      "locales": {
+        "uk": {
+          "parent": "vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv",
+          "child": "vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv/ozdoblennia-stiiok-a-b-c-i-porogiv"
+        },
+        "ru": {
+          "parent": "vnutrenniaia-otdelka/obsivka-stoek-a-b-c-i-porogov",
+          "child": "vnutrenniaia-otdelka/obsivka-stoek-a-b-c-i-porogov/obsivka-stoek-a-b-c-i-porogov"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv",
+            "total": 81,
+            "pages": 1,
+            "ids": [
+              39816,
+              113773,
+              113772,
+              113751,
+              39567,
+              39815,
+              39809,
+              74420,
+              40016,
+              74421,
+              113710,
+              113701,
+              88826,
+              40018,
+              80209,
+              79679,
+              79680,
+              107087,
+              107086,
+              79020,
+              79175,
+              79021,
+              79176,
+              88292,
+              83790,
+              86019,
+              88547,
+              87215,
+              83501,
+              88548,
+              86612,
+              84087,
+              87866,
+              89219,
+              84088,
+              87867,
+              85333,
+              86613,
+              86441,
+              87670,
+              83915,
+              85134,
+              82612,
+              82613,
+              89588,
+              86950,
+              88225,
+              86949,
+              88224,
+              89587,
+              84573,
+              74390,
+              85875,
+              88410,
+              83359,
+              84572,
+              85874,
+              88409,
+              89786,
+              89787,
+              83655,
+              83654,
+              84836,
+              87376,
+              82314,
+              88706,
+              87377,
+              88707,
+              88970,
+              87626,
+              87214,
+              86020,
+              83500,
+              79442,
+              87669,
+              84403,
+              84469,
+              88293,
+              84837,
+              79481,
+              82808
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv/ozdoblennia-stiiok-a-b-c-i-porogiv",
+            "total": 81,
+            "pages": 1,
+            "ids": [
+              39816,
+              113773,
+              113772,
+              113751,
+              39567,
+              39815,
+              39809,
+              74420,
+              40016,
+              74421,
+              113710,
+              113701,
+              88826,
+              40018,
+              80209,
+              79679,
+              79680,
+              107087,
+              107086,
+              79020,
+              79175,
+              79021,
+              79176,
+              88292,
+              83790,
+              86019,
+              88547,
+              87215,
+              83501,
+              88548,
+              86612,
+              84087,
+              87866,
+              89219,
+              84088,
+              87867,
+              85333,
+              86613,
+              86441,
+              87670,
+              83915,
+              85134,
+              82612,
+              82613,
+              89588,
+              86950,
+              88225,
+              86949,
+              88224,
+              89587,
+              84573,
+              74390,
+              85875,
+              88410,
+              83359,
+              84572,
+              85874,
+              88409,
+              89786,
+              89787,
+              83655,
+              83654,
+              84836,
+              87376,
+              82314,
+              88706,
+              87377,
+              88707,
+              88970,
+              87626,
+              87214,
+              86020,
+              83500,
+              79442,
+              87669,
+              84403,
+              84469,
+              88293,
+              84837,
+              79481,
+              82808
+            ],
+            "complete": true
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "vnutrenniaia-otdelka/obsivka-stoek-a-b-c-i-porogov",
+            "total": 81,
+            "pages": 1,
+            "ids": [
+              39816,
+              113773,
+              113772,
+              113751,
+              39567,
+              39815,
+              39809,
+              74420,
+              40016,
+              74421,
+              113710,
+              113701,
+              88826,
+              40018,
+              80209,
+              79679,
+              79680,
+              107087,
+              107086,
+              79020,
+              79175,
+              79021,
+              79176,
+              88292,
+              83790,
+              86019,
+              88547,
+              87215,
+              83501,
+              88548,
+              86612,
+              84087,
+              87866,
+              89219,
+              84088,
+              87867,
+              85333,
+              86613,
+              86441,
+              87670,
+              83915,
+              85134,
+              82612,
+              82613,
+              89588,
+              86950,
+              88225,
+              86949,
+              88224,
+              89587,
+              84573,
+              74390,
+              85875,
+              88410,
+              83359,
+              84572,
+              85874,
+              88409,
+              89786,
+              89787,
+              83655,
+              83654,
+              84836,
+              87376,
+              82314,
+              88706,
+              87377,
+              88707,
+              88970,
+              87626,
+              87214,
+              86020,
+              83500,
+              79442,
+              87669,
+              84403,
+              84469,
+              88293,
+              84837,
+              79481,
+              82808
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "vnutrenniaia-otdelka/obsivka-stoek-a-b-c-i-porogov/obsivka-stoek-a-b-c-i-porogov",
+            "total": 81,
+            "pages": 1,
+            "ids": [
+              39816,
+              113773,
+              113772,
+              113751,
+              39567,
+              39815,
+              39809,
+              74420,
+              40016,
+              74421,
+              113710,
+              113701,
+              88826,
+              40018,
+              80209,
+              79679,
+              79680,
+              107087,
+              107086,
+              79020,
+              79175,
+              79021,
+              79176,
+              88292,
+              83790,
+              86019,
+              88547,
+              87215,
+              83501,
+              88548,
+              86612,
+              84087,
+              87866,
+              89219,
+              84088,
+              87867,
+              85333,
+              86613,
+              86441,
+              87670,
+              83915,
+              85134,
+              82612,
+              82613,
+              89588,
+              86950,
+              88225,
+              86949,
+              88224,
+              89587,
+              84573,
+              74390,
+              85875,
+              88410,
+              83359,
+              84572,
+              85874,
+              88409,
+              89786,
+              89787,
+              83655,
+              83654,
+              84836,
+              87376,
+              82314,
+              88706,
+              87377,
+              88707,
+              88970,
+              87626,
+              87214,
+              86020,
+              83500,
+              79442,
+              87669,
+              84403,
+              84469,
+              88293,
+              84837,
+              79481,
+              82808
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 12,
+      "key": "model-s-02-2012-03-2016|panel-priladiv|panel-priladiv/panel-priladiv",
+      "model": "model-s-02-2012-03-2016",
+      "locales": {
+        "uk": {
+          "parent": "panel-priladiv",
+          "child": "panel-priladiv/panel-priladiv"
+        },
+        "ru": {
+          "parent": "pribornaia-panel",
+          "child": "pribornaia-panel/panel-pribornaia"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "panel-priladiv",
+            "total": 62,
+            "pages": 1,
+            "ids": [
+              107640,
+              92134,
+              95334,
+              106362,
+              113459,
+              108132,
+              113429,
+              107948,
+              108517,
+              107932,
+              107624,
+              107595,
+              107544,
+              107521,
+              113374,
+              113372,
+              107696,
+              108641,
+              106356,
+              106108,
+              105496,
+              106355,
+              107063,
+              105668,
+              107060,
+              95320,
+              92121,
+              92122,
+              106080,
+              107015,
+              105421,
+              106434,
+              103756,
+              103755,
+              103754,
+              103750,
+              91910,
+              103743,
+              103723,
+              95115,
+              103721,
+              103719,
+              103696,
+              95327,
+              91680,
+              92254,
+              95132,
+              103655,
+              103654,
+              95796,
+              92010,
+              95191,
+              91924,
+              95103,
+              95736,
+              92496,
+              95151,
+              91966,
+              95148,
+              95164,
+              92253,
+              91967
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "panel-priladiv/panel-priladiv",
+            "total": 62,
+            "pages": 1,
+            "ids": [
+              107640,
+              92134,
+              95334,
+              106362,
+              113459,
+              108132,
+              113429,
+              107948,
+              108517,
+              107932,
+              107624,
+              107595,
+              107544,
+              107521,
+              113374,
+              113372,
+              107696,
+              108641,
+              106356,
+              106108,
+              105496,
+              106355,
+              107063,
+              105668,
+              107060,
+              95320,
+              92121,
+              92122,
+              106080,
+              107015,
+              105421,
+              106434,
+              103756,
+              103755,
+              103754,
+              103750,
+              91910,
+              103743,
+              103723,
+              95115,
+              103721,
+              103719,
+              103696,
+              95327,
+              91680,
+              92254,
+              95132,
+              103655,
+              103654,
+              95796,
+              92010,
+              95191,
+              91924,
+              95103,
+              95736,
+              92496,
+              95151,
+              91966,
+              95148,
+              95164,
+              92253,
+              91967
+            ],
+            "complete": true
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "pribornaia-panel",
+            "total": 62,
+            "pages": 1,
+            "ids": [
+              107640,
+              92134,
+              95334,
+              106362,
+              113459,
+              108132,
+              113429,
+              107948,
+              108517,
+              107932,
+              107624,
+              107595,
+              107544,
+              107521,
+              113374,
+              113372,
+              107696,
+              108641,
+              106356,
+              106108,
+              105496,
+              106355,
+              107063,
+              105668,
+              107060,
+              95320,
+              92121,
+              92122,
+              106080,
+              107015,
+              105421,
+              106434,
+              103756,
+              103755,
+              103754,
+              103750,
+              91910,
+              103743,
+              103723,
+              95115,
+              103721,
+              103719,
+              103696,
+              95327,
+              91680,
+              92254,
+              95132,
+              103655,
+              103654,
+              95796,
+              92010,
+              95191,
+              91924,
+              95103,
+              95736,
+              92496,
+              95151,
+              91966,
+              95148,
+              95164,
+              92253,
+              91967
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "pribornaia-panel/panel-pribornaia",
+            "total": 62,
+            "pages": 1,
+            "ids": [
+              107640,
+              92134,
+              95334,
+              106362,
+              113459,
+              108132,
+              113429,
+              107948,
+              108517,
+              107932,
+              107624,
+              107595,
+              107544,
+              107521,
+              113374,
+              113372,
+              107696,
+              108641,
+              106356,
+              106108,
+              105496,
+              106355,
+              107063,
+              105668,
+              107060,
+              95320,
+              92121,
+              92122,
+              106080,
+              107015,
+              105421,
+              106434,
+              103756,
+              103755,
+              103754,
+              103750,
+              91910,
+              103743,
+              103723,
+              95115,
+              103721,
+              103719,
+              103696,
+              95327,
+              91680,
+              92254,
+              95132,
+              103655,
+              103654,
+              95796,
+              92010,
+              95191,
+              91924,
+              95103,
+              95736,
+              92496,
+              95151,
+              91966,
+              95148,
+              95164,
+              92253,
+              91967
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 13,
+      "key": "|rulyovii-mexanizm/verxnia-castina-rulyovoyi-kolonki-i-kermo|rulyovii-mexanizm/verxnia-castina-rulyovoyi-kolonki-i-kermo/verxnia-castina-rulyovoyi-kolonki-i-kermo",
+      "model": "",
+      "locales": {
+        "uk": {
+          "parent": "rulyovii-mexanizm/verxnia-castina-rulyovoyi-kolonki-i-kermo",
+          "child": "rulyovii-mexanizm/verxnia-castina-rulyovoyi-kolonki-i-kermo/verxnia-castina-rulyovoyi-kolonki-i-kermo"
+        },
+        "ru": {
+          "parent": "rulevoi-mexanizm/verxniaia-cast-rulevoi-kolonki-i-rul",
+          "child": "rulevoi-mexanizm/verxniaia-cast-rulevoi-kolonki-i-rul/verxniaia-cast-rulevoi-kolonki-i-rul"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "rulyovii-mexanizm/verxnia-castina-rulyovoyi-kolonki-i-kermo",
+            "total": 47,
+            "pages": 1,
+            "ids": [
+              40289,
+              113749,
+              113747,
+              113746,
+              108250,
+              112989,
+              113300,
+              113294,
+              112997,
+              112998,
+              113001,
+              113113,
+              107098,
+              107097,
+              92245,
+              107059,
+              102885,
+              107053,
+              107051,
+              107049,
+              107046,
+              107048,
+              100647,
+              101292,
+              103558,
+              93661,
+              96945,
+              85425,
+              86701,
+              87961,
+              89314,
+              82904,
+              99768,
+              98358,
+              101186,
+              77128,
+              113449,
+              113295,
+              84818,
+              84170,
+              107092,
+              113748,
+              88685,
+              77630,
+              102027,
+              79159,
+              41110
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "rulyovii-mexanizm/verxnia-castina-rulyovoyi-kolonki-i-kermo/verxnia-castina-rulyovoyi-kolonki-i-kermo",
+            "total": 47,
+            "pages": 1,
+            "ids": [
+              40289,
+              113749,
+              113747,
+              113746,
+              108250,
+              112989,
+              113300,
+              113294,
+              112997,
+              112998,
+              113001,
+              113113,
+              107098,
+              107097,
+              92245,
+              107059,
+              102885,
+              107053,
+              107051,
+              107049,
+              107046,
+              107048,
+              100647,
+              101292,
+              103558,
+              93661,
+              96945,
+              85425,
+              86701,
+              87961,
+              89314,
+              82904,
+              99768,
+              98358,
+              101186,
+              77128,
+              113449,
+              113295,
+              84818,
+              84170,
+              107092,
+              113748,
+              88685,
+              77630,
+              102027,
+              79159,
+              41110
+            ],
+            "complete": true
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "rulevoi-mexanizm/verxniaia-cast-rulevoi-kolonki-i-rul",
+            "total": 47,
+            "pages": 1,
+            "ids": [
+              40289,
+              113749,
+              113747,
+              113746,
+              108250,
+              112989,
+              113300,
+              113294,
+              112997,
+              112998,
+              113001,
+              113113,
+              107098,
+              107097,
+              92245,
+              107059,
+              102885,
+              107053,
+              107051,
+              107049,
+              107046,
+              107048,
+              100647,
+              101292,
+              103558,
+              93661,
+              96945,
+              85425,
+              86701,
+              87961,
+              89314,
+              82904,
+              99768,
+              98358,
+              101186,
+              77128,
+              113449,
+              113295,
+              84818,
+              84170,
+              107092,
+              113748,
+              88685,
+              77630,
+              102027,
+              79159,
+              41110
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "rulevoi-mexanizm/verxniaia-cast-rulevoi-kolonki-i-rul/verxniaia-cast-rulevoi-kolonki-i-rul",
+            "total": 47,
+            "pages": 1,
+            "ids": [
+              40289,
+              113749,
+              113747,
+              113746,
+              108250,
+              112989,
+              113300,
+              113294,
+              112997,
+              112998,
+              113001,
+              113113,
+              107098,
+              107097,
+              92245,
+              107059,
+              102885,
+              107053,
+              107051,
+              107049,
+              107046,
+              107048,
+              100647,
+              101292,
+              103558,
+              93661,
+              96945,
+              85425,
+              86701,
+              87961,
+              89314,
+              82904,
+              99768,
+              98358,
+              101186,
+              77128,
+              113449,
+              113295,
+              84818,
+              84170,
+              107092,
+              113748,
+              88685,
+              77630,
+              102027,
+              79159,
+              41110
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 14,
+      "key": "model-3-highland-01-2024|vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu|vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu",
+      "model": "model-3-highland-01-2024",
+      "locales": {
+        "uk": {
+          "parent": "vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu",
+          "child": "vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu"
+        },
+        "ru": {
+          "parent": "vnutrenniaia-otdelka/obsivka-potolka-salona",
+          "child": "vnutrenniaia-otdelka/obsivka-potolka-salona/obsivka-potolka-salona"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              113479,
+              112389
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              113479,
+              112389
+            ],
+            "complete": true,
+            "fromSource": 16
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "vnutrenniaia-otdelka/obsivka-potolka-salona",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              113479,
+              112389
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "vnutrenniaia-otdelka/obsivka-potolka-salona/obsivka-potolka-salona",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              113479,
+              112389
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 15,
+      "key": "|rulyovii-mexanizm/rulyova-reika-i-niznia-castina-rulyovoyi-kolonki|rulyovii-mexanizm/rulyova-reika-i-niznia-castina-rulyovoyi-kolonki/rulyova-reika-i-niznia-castina-rulyovoyi-kolonki",
+      "model": "",
+      "locales": {
+        "ru": {
+          "parent": "rulevoi-mexanizm/rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki",
+          "child": "rulevoi-mexanizm/rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki/rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki"
+        },
+        "uk": {
+          "parent": "rulyovii-mexanizm/rulyova-reika-i-niznia-castina-rulyovoyi-kolonki",
+          "child": "rulyovii-mexanizm/rulyova-reika-i-niznia-castina-rulyovoyi-kolonki/rulyova-reika-i-niznia-castina-rulyovoyi-kolonki"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "rulyovii-mexanizm/rulyova-reika-i-niznia-castina-rulyovoyi-kolonki",
+            "total": 4,
+            "pages": 1,
+            "ids": [
+              113826,
+              113612,
+              80943,
+              79158
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "rulyovii-mexanizm/rulyova-reika-i-niznia-castina-rulyovoyi-kolonki/rulyova-reika-i-niznia-castina-rulyovoyi-kolonki",
+            "total": 4,
+            "pages": 1,
+            "ids": [
+              113826,
+              113612,
+              80943,
+              79158
+            ],
+            "complete": true
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "rulevoi-mexanizm/rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki",
+            "total": 4,
+            "pages": 1,
+            "ids": [
+              113826,
+              113612,
+              80943,
+              79158
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "rulevoi-mexanizm/rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki/rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki",
+            "total": 4,
+            "pages": 1,
+            "ids": [
+              113826,
+              113612,
+              80943,
+              79158
+            ],
+            "complete": true,
+            "fromSource": 17
+          }
+        }
+      }
+    },
+    {
+      "n": 16,
+      "key": "|zovnisnia-furnitura/zovnisni-dzerkala|zovnisnia-furnitura/zovnisni-dzerkala/zovnisni-dzerkala",
+      "model": "",
+      "locales": {
+        "uk": {
+          "parent": "zovnisnia-furnitura/zovnisni-dzerkala",
+          "child": "zovnisnia-furnitura/zovnisni-dzerkala/zovnisni-dzerkala"
+        },
+        "ru": {
+          "parent": "naruznaia-furnitura/naruznye-zerkala",
+          "child": "naruznaia-furnitura/naruznye-zerkala/vnesnie-zerkala"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "zovnisnia-furnitura/zovnisni-dzerkala",
+            "total": 32,
+            "pages": 1,
+            "ids": [
+              40313,
+              112085,
+              113164,
+              83939,
+              107076,
+              107071,
+              107070,
+              95259,
+              107069,
+              107068,
+              102689,
+              40314,
+              86073,
+              84736,
+              86466,
+              79510,
+              100915,
+              82641,
+              74902,
+              81259,
+              103680,
+              103672,
+              96670,
+              88608,
+              80861,
+              77811,
+              113451,
+              85164,
+              83358,
+              112091,
+              83555,
+              77040
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "zovnisnia-furnitura/zovnisni-dzerkala/zovnisni-dzerkala",
+            "total": 32,
+            "pages": 1,
+            "ids": [
+              40313,
+              112085,
+              113164,
+              83939,
+              107076,
+              107071,
+              107070,
+              95259,
+              107069,
+              107068,
+              102689,
+              40314,
+              86073,
+              84736,
+              86466,
+              79510,
+              100915,
+              82641,
+              74902,
+              81259,
+              103680,
+              103672,
+              96670,
+              88608,
+              80861,
+              77811,
+              113451,
+              85164,
+              83358,
+              112091,
+              83555,
+              77040
+            ],
+            "complete": true
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "naruznaia-furnitura/naruznye-zerkala",
+            "total": 32,
+            "pages": 1,
+            "ids": [
+              40313,
+              112085,
+              113164,
+              83939,
+              107076,
+              107071,
+              107070,
+              95259,
+              107069,
+              107068,
+              102689,
+              40314,
+              86073,
+              84736,
+              86466,
+              79510,
+              100915,
+              82641,
+              74902,
+              81259,
+              103680,
+              103672,
+              96670,
+              88608,
+              80861,
+              77811,
+              113451,
+              85164,
+              83358,
+              112091,
+              83555,
+              77040
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "naruznaia-furnitura/naruznye-zerkala/vnesnie-zerkala",
+            "total": 32,
+            "pages": 1,
+            "ids": [
+              40313,
+              112085,
+              113164,
+              83939,
+              107076,
+              107071,
+              107070,
+              95259,
+              107069,
+              107068,
+              102689,
+              40314,
+              86073,
+              84736,
+              86466,
+              79510,
+              100915,
+              82641,
+              74902,
+              81259,
+              103680,
+              103672,
+              96670,
+              88608,
+              80861,
+              77811,
+              113451,
+              85164,
+              83358,
+              112091,
+              83555,
+              77040
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 17,
+      "key": "model-s-02-2012-03-2016|vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu|vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu",
+      "model": "model-s-02-2012-03-2016",
+      "locales": {
+        "ru": {
+          "parent": "vnutrenniaia-otdelka/obsivka-potolka-salona",
+          "child": "vnutrenniaia-otdelka/obsivka-potolka-salona/obsivka-potolka-salona"
+        },
+        "uk": {
+          "parent": "vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu",
+          "child": "vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu",
+            "total": 6,
+            "pages": 1,
+            "ids": [
+              113469,
+              113458,
+              105454,
+              103676,
+              92041,
+              108972
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu",
+            "total": 6,
+            "pages": 1,
+            "ids": [
+              113469,
+              113458,
+              105454,
+              103676,
+              92041,
+              108972
+            ],
+            "complete": true,
+            "fromSource": 54
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "vnutrenniaia-otdelka/obsivka-potolka-salona",
+            "total": 6,
+            "pages": 1,
+            "ids": [
+              113469,
+              113458,
+              105454,
+              103676,
+              92041,
+              108972
+            ],
+            "complete": true,
+            "fromSource": 20
+          },
+          "child": {
+            "path": "vnutrenniaia-otdelka/obsivka-potolka-salona/obsivka-potolka-salona",
+            "total": 6,
+            "pages": 1,
+            "ids": [
+              113469,
+              113458,
+              105454,
+              103676,
+              92041,
+              108972
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 18,
+      "key": "model-3-highland-01-2024|elektrika/pedal-akseleratora|elektrika/pedal-akseleratora/pedal-akseleratora",
+      "model": "model-3-highland-01-2024",
+      "locales": {
+        "uk": {
+          "parent": "elektrika/pedal-akseleratora",
+          "child": "elektrika/pedal-akseleratora/pedal-akseleratora"
+        },
+        "ru": {
+          "parent": "elektrika/pedal-akseleratora",
+          "child": "elektrika/pedal-akseleratora/pedal-akseleratora"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "elektrika/pedal-akseleratora",
+            "total": 1,
+            "pages": 1,
+            "ids": [
+              113332
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "elektrika/pedal-akseleratora/pedal-akseleratora",
+            "total": 1,
+            "pages": 1,
+            "ids": [
+              113332
+            ],
+            "complete": true,
+            "fromSource": 21
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "elektrika/pedal-akseleratora",
+            "total": 1,
+            "pages": 1,
+            "ids": [
+              113332
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "elektrika/pedal-akseleratora/pedal-akseleratora",
+            "total": 1,
+            "pages": 1,
+            "ids": [
+              113332
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 19,
+      "key": "model-s-02-2012-03-2016|galma/elektromexanicnii-pidsiliuvac-galm|galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm",
+      "model": "model-s-02-2012-03-2016",
+      "locales": {
+        "ru": {
+          "parent": "tormoza/elektromexaniceskii-usilitel-tormozov",
+          "child": "tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov"
+        },
+        "uk": {
+          "parent": "galma/elektromexanicnii-pidsiliuvac-galm",
+          "child": "galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "galma/elektromexanicnii-pidsiliuvac-galm",
+            "total": 4,
+            "pages": 1,
+            "ids": [
+              91319,
+              105911,
+              94380,
+              113462
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm",
+            "total": 4,
+            "pages": 1,
+            "ids": [
+              91319,
+              105911,
+              94380,
+              113462
+            ],
+            "complete": true
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "tormoza/elektromexaniceskii-usilitel-tormozov",
+            "total": 4,
+            "pages": 1,
+            "ids": [
+              91319,
+              105911,
+              94380,
+              113462
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov",
+            "total": 4,
+            "pages": 1,
+            "ids": [
+              91319,
+              105911,
+              94380,
+              113462
+            ],
+            "complete": true,
+            "fromSource": 22
+          }
+        }
+      }
+    },
+    {
+      "n": 20,
+      "key": "model-3-06-2017-12-2023|zovnisnia-furnitura/pidkrilki|zovnisnia-furnitura/pidkrilki/pidkrilki",
+      "model": "model-3-06-2017-12-2023",
+      "locales": {
+        "uk": {
+          "parent": "zovnisnia-furnitura/pidkrilki",
+          "child": "zovnisnia-furnitura/pidkrilki/pidkrilki"
+        },
+        "ru": {
+          "parent": "naruznaia-furnitura/podkrylki",
+          "child": "naruznaia-furnitura/podkrylki/podkrylki"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "zovnisnia-furnitura/pidkrilki",
+            "total": 8,
+            "pages": 1,
+            "ids": [
+              90663,
+              99819,
+              96842,
+              97002,
+              101244,
+              101083,
+              39523,
+              39522
+            ],
+            "complete": true,
+            "fromSource": 23
+          },
+          "child": {
+            "path": "zovnisnia-furnitura/pidkrilki/pidkrilki",
+            "total": 8,
+            "pages": 1,
+            "ids": [
+              90663,
+              99819,
+              96842,
+              97002,
+              101244,
+              101083,
+              39523,
+              39522
+            ],
+            "complete": true
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "naruznaia-furnitura/podkrylki",
+            "total": 8,
+            "pages": 1,
+            "ids": [
+              90663,
+              99819,
+              96842,
+              97002,
+              101244,
+              101083,
+              39523,
+              39522
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "naruznaia-furnitura/podkrylki/podkrylki",
+            "total": 8,
+            "pages": 1,
+            "ids": [
+              90663,
+              99819,
+              96842,
+              97002,
+              101244,
+              101083,
+              39523,
+              39522
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 21,
+      "key": "model-3-highland-01-2024|elektrika/datciki-radaru|elektrika/datciki-radaru/datciki-radaru",
+      "model": "model-3-highland-01-2024",
+      "locales": {
+        "uk": {
+          "parent": "elektrika/datciki-radaru",
+          "child": "elektrika/datciki-radaru/datciki-radaru"
+        },
+        "ru": {
+          "parent": "elektrika/datciki-radara",
+          "child": "elektrika/datciki-radara/datciki-radara"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "elektrika/datciki-radaru",
+            "total": 1,
+            "pages": 1,
+            "ids": [
+              113288
+            ],
+            "complete": true,
+            "fromSource": 25
+          },
+          "child": {
+            "path": "elektrika/datciki-radaru/datciki-radaru",
+            "total": 1,
+            "pages": 1,
+            "ids": [
+              113288
+            ],
+            "complete": true
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "elektrika/datciki-radara",
+            "total": 1,
+            "pages": 1,
+            "ids": [
+              113288
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "elektrika/datciki-radara/datciki-radara",
+            "total": 1,
+            "pages": 1,
+            "ids": [
+              113288
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 22,
+      "key": "model-s-04-2016-01-2021|vnutrisnje-ozdoblennia/ozdoblennia-zadnyogo-bagaznogo-vidsiku|vnutrisnje-ozdoblennia/ozdoblennia-zadnyogo-bagaznogo-vidsiku/ozdoblennia-zadnyogo-bagaznogo-vidsiku",
+      "model": "model-s-04-2016-01-2021",
+      "locales": {
+        "uk": {
+          "parent": "vnutrisnje-ozdoblennia/ozdoblennia-zadnyogo-bagaznogo-vidsiku",
+          "child": "vnutrisnje-ozdoblennia/ozdoblennia-zadnyogo-bagaznogo-vidsiku/ozdoblennia-zadnyogo-bagaznogo-vidsiku"
+        },
+        "ru": {
+          "parent": "vnutrenniaia-otdelka/oblicovka-zadnego-bagaznogo-otseka",
+          "child": "vnutrenniaia-otdelka/oblicovka-zadnego-bagaznogo-otseka/obsivka-zadnego-bagaznogo-otseka"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "vnutrisnje-ozdoblennia/ozdoblennia-zadnyogo-bagaznogo-vidsiku",
+            "total": 1,
+            "pages": 1,
+            "ids": [
+              113815
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "vnutrisnje-ozdoblennia/ozdoblennia-zadnyogo-bagaznogo-vidsiku/ozdoblennia-zadnyogo-bagaznogo-vidsiku",
+            "total": 1,
+            "pages": 1,
+            "ids": [
+              113815
+            ],
+            "complete": true,
+            "fromSource": 27
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "vnutrenniaia-otdelka/oblicovka-zadnego-bagaznogo-otseka",
+            "total": 1,
+            "pages": 1,
+            "ids": [
+              113815
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "vnutrenniaia-otdelka/oblicovka-zadnego-bagaznogo-otseka/obsivka-zadnego-bagaznogo-otseka",
+            "total": 1,
+            "pages": 1,
+            "ids": [
+              113815
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 23,
+      "key": "model-y-01-2020-01-2025|galma/elektromexanicnii-pidsiliuvac-galm|galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm",
+      "model": "model-y-01-2020-01-2025",
+      "locales": {
+        "uk": {
+          "parent": "galma/elektromexanicnii-pidsiliuvac-galm",
+          "child": "galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm"
+        },
+        "ru": {
+          "parent": "tormoza/elektromexaniceskii-usilitel-tormozov",
+          "child": "tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "galma/elektromexanicnii-pidsiliuvac-galm",
+            "total": 8,
+            "pages": 1,
+            "ids": [
+              89110,
+              84707,
+              86047,
+              39962,
+              87248,
+              79052,
+              88581,
+              83531
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm",
+            "total": 8,
+            "pages": 1,
+            "ids": [
+              89110,
+              84707,
+              86047,
+              39962,
+              87248,
+              79052,
+              88581,
+              83531
+            ],
+            "complete": true,
+            "fromSource": 28
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "tormoza/elektromexaniceskii-usilitel-tormozov",
+            "total": 8,
+            "pages": 1,
+            "ids": [
+              89110,
+              84707,
+              86047,
+              39962,
+              87248,
+              79052,
+              88581,
+              83531
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov",
+            "total": 8,
+            "pages": 1,
+            "ids": [
+              89110,
+              84707,
+              86047,
+              39962,
+              87248,
+              79052,
+              88581,
+              83531
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 24,
+      "key": "model-x-09-2015-02-2021|galma/elektromexanicnii-pidsiliuvac-galm|galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm",
+      "model": "model-x-09-2015-02-2021",
+      "locales": {
+        "ru": {
+          "parent": "tormoza/elektromexaniceskii-usilitel-tormozov",
+          "child": "tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov"
+        },
+        "uk": {
+          "parent": "galma/elektromexanicnii-pidsiliuvac-galm",
+          "child": "galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "galma/elektromexanicnii-pidsiliuvac-galm",
+            "total": 1,
+            "pages": 1,
+            "ids": [
+              113876
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm",
+            "total": 1,
+            "pages": 1,
+            "ids": [
+              113876
+            ],
+            "complete": true
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "tormoza/elektromexaniceskii-usilitel-tormozov",
+            "total": 1,
+            "pages": 1,
+            "ids": [
+              113876
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov",
+            "total": 1,
+            "pages": 1,
+            "ids": [
+              113876
+            ],
+            "complete": true,
+            "fromSource": 29
+          }
+        }
+      }
+    },
+    {
+      "n": 25,
+      "key": "|galma/elektromexanicnii-pidsiliuvac-galm|galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm",
+      "model": "",
+      "locales": {
+        "ru": {
+          "parent": "tormoza/elektromexaniceskii-usilitel-tormozov",
+          "child": "tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov"
+        },
+        "uk": {
+          "parent": "galma/elektromexanicnii-pidsiliuvac-galm",
+          "child": "galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "galma/elektromexanicnii-pidsiliuvac-galm",
+            "total": 27,
+            "pages": 1,
+            "ids": [
+              89110,
+              113025,
+              113919,
+              76597,
+              80846,
+              92968,
+              84707,
+              86047,
+              96231,
+              97651,
+              99043,
+              39962,
+              113879,
+              91319,
+              100481,
+              105911,
+              113878,
+              113877,
+              94380,
+              101916,
+              113876,
+              87248,
+              79052,
+              88581,
+              83531,
+              113462,
+              113315
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm",
+            "total": 27,
+            "pages": 1,
+            "ids": [
+              89110,
+              113025,
+              113919,
+              76597,
+              80846,
+              92968,
+              84707,
+              86047,
+              96231,
+              97651,
+              99043,
+              39962,
+              113879,
+              91319,
+              100481,
+              105911,
+              113878,
+              113877,
+              94380,
+              101916,
+              113876,
+              87248,
+              79052,
+              88581,
+              83531,
+              113462,
+              113315
+            ],
+            "complete": true
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "tormoza/elektromexaniceskii-usilitel-tormozov",
+            "total": 27,
+            "pages": 1,
+            "ids": [
+              89110,
+              113025,
+              113919,
+              76597,
+              80846,
+              92968,
+              84707,
+              86047,
+              96231,
+              97651,
+              99043,
+              39962,
+              113879,
+              91319,
+              100481,
+              105911,
+              113878,
+              113877,
+              94380,
+              101916,
+              113876,
+              87248,
+              79052,
+              88581,
+              83531,
+              113462,
+              113315
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov",
+            "total": 27,
+            "pages": 1,
+            "ids": [
+              89110,
+              113025,
+              113919,
+              76597,
+              80846,
+              92968,
+              84707,
+              86047,
+              96231,
+              97651,
+              99043,
+              39962,
+              113879,
+              91319,
+              100481,
+              105911,
+              113878,
+              113877,
+              94380,
+              101916,
+              113876,
+              87248,
+              79052,
+              88581,
+              83531,
+              113462,
+              113315
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 26,
+      "key": "model-y-01-2020-01-2025|diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms|diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms",
+      "model": "model-y-01-2020-01-2025",
+      "locales": {
+        "uk": {
+          "parent": "diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms",
+          "child": "diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms"
+        },
+        "ru": {
+          "parent": "diski-i-siny/sistema-kontrolia-davleniia-v-sinax-tpms",
+          "child": "diski-i-siny/sistema-kontrolia-davleniia-v-sinax-tpms/sistema-kontrolia-davleniia-v-sinax-tpms"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms",
+            "total": 1,
+            "pages": 1,
+            "ids": [
+              86154
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms",
+            "total": 1,
+            "pages": 1,
+            "ids": [
+              86154
+            ],
+            "complete": true,
+            "fromSource": 31
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "diski-i-siny/sistema-kontrolia-davleniia-v-sinax-tpms",
+            "total": 1,
+            "pages": 1,
+            "ids": [
+              86154
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "diski-i-siny/sistema-kontrolia-davleniia-v-sinax-tpms/sistema-kontrolia-davleniia-v-sinax-tpms",
+            "total": 1,
+            "pages": 1,
+            "ids": [
+              86154
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 27,
+      "key": "|zadnii-motor/zadni-pivosi|zadnii-motor/zadni-pivosi/zadni-pivosi",
+      "model": "",
+      "locales": {
+        "ru": {
+          "parent": "zadnii-motor/zadnie-poluosi",
+          "child": "zadnii-motor/zadnie-poluosi/zadnie-poluosi"
+        },
+        "uk": {
+          "parent": "zadnii-motor/zadni-pivosi",
+          "child": "zadnii-motor/zadni-pivosi/zadni-pivosi"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "zadnii-motor/zadni-pivosi",
+            "total": 23,
+            "pages": 1,
+            "ids": [
+              93010,
+              113365,
+              113216,
+              107311,
+              94483,
+              113162,
+              113161,
+              113160,
+              79108,
+              113159,
+              87303,
+              40464,
+              83586,
+              82239,
+              99091,
+              84764,
+              88635,
+              97695,
+              100524,
+              76562,
+              80889,
+              96279,
+              86097
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "zadnii-motor/zadni-pivosi/zadni-pivosi",
+            "total": 23,
+            "pages": 1,
+            "ids": [
+              93010,
+              113365,
+              113216,
+              107311,
+              94483,
+              113162,
+              113161,
+              113160,
+              79108,
+              113159,
+              87303,
+              40464,
+              83586,
+              82239,
+              99091,
+              84764,
+              88635,
+              97695,
+              100524,
+              76562,
+              80889,
+              96279,
+              86097
+            ],
+            "complete": true
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "zadnii-motor/zadnie-poluosi",
+            "total": 23,
+            "pages": 1,
+            "ids": [
+              93010,
+              113365,
+              113216,
+              107311,
+              94483,
+              113162,
+              113161,
+              113160,
+              79108,
+              113159,
+              87303,
+              40464,
+              83586,
+              82239,
+              99091,
+              84764,
+              88635,
+              97695,
+              100524,
+              76562,
+              80889,
+              96279,
+              86097
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "zadnii-motor/zadnie-poluosi/zadnie-poluosi",
+            "total": 23,
+            "pages": 1,
+            "ids": [
+              93010,
+              113365,
+              113216,
+              107311,
+              94483,
+              113162,
+              113161,
+              113160,
+              79108,
+              113159,
+              87303,
+              40464,
+              83586,
+              82239,
+              99091,
+              84764,
+              88635,
+              97695,
+              100524,
+              76562,
+              80889,
+              96279,
+              86097
+            ],
+            "complete": true,
+            "fromSource": 35
+          }
+        }
+      }
+    },
+    {
+      "n": 28,
+      "key": "|visokovoltna-sistema/bortovii-zariadnii-modul-cardzer|visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer",
+      "model": "",
+      "locales": {
+        "ru": {
+          "parent": "vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer",
+          "child": "vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer"
+        },
+        "uk": {
+          "parent": "visokovoltna-sistema/bortovii-zariadnii-modul-cardzer",
+          "child": "visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "visokovoltna-sistema/bortovii-zariadnii-modul-cardzer",
+            "total": 5,
+            "pages": 1,
+            "ids": [
+              114063,
+              114042,
+              114041,
+              108597,
+              113433
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer",
+            "total": 5,
+            "pages": 1,
+            "ids": [
+              114063,
+              114042,
+              114041,
+              108597,
+              113433
+            ],
+            "complete": true
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer",
+            "total": 5,
+            "pages": 1,
+            "ids": [
+              114063,
+              114042,
+              114041,
+              108597,
+              113433
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer",
+            "total": 5,
+            "pages": 1,
+            "ids": [
+              114063,
+              114042,
+              114041,
+              108597,
+              113433
+            ],
+            "complete": true,
+            "fromSource": 36
+          }
+        }
+      }
+    },
+    {
+      "n": 29,
+      "key": "model-s-02-2012-03-2016|visokovoltna-sistema/bortovii-zariadnii-modul-cardzer|visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer",
+      "model": "model-s-02-2012-03-2016",
+      "locales": {
+        "uk": {
+          "parent": "visokovoltna-sistema/bortovii-zariadnii-modul-cardzer",
+          "child": "visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer"
+        },
+        "ru": {
+          "parent": "vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer",
+          "child": "vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "visokovoltna-sistema/bortovii-zariadnii-modul-cardzer",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              108597,
+              113433
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              108597,
+              113433
+            ],
+            "complete": true,
+            "fromSource": 37
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              108597,
+              113433
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              108597,
+              113433
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 30,
+      "key": "model-s-04-2016-01-2021|galma/pedal-galma|galma/pedal-galma/pedal-galma",
+      "model": "model-s-04-2016-01-2021",
+      "locales": {
+        "uk": {
+          "parent": "galma/pedal-galma",
+          "child": "galma/pedal-galma/pedal-galma"
+        },
+        "ru": {
+          "parent": "tormoza/pedal-tormoza",
+          "child": "tormoza/pedal-tormoza/pedal-tormoza"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "galma/pedal-galma",
+            "total": 1,
+            "pages": 1,
+            "ids": [
+              101899
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "galma/pedal-galma/pedal-galma",
+            "total": 1,
+            "pages": 1,
+            "ids": [
+              101899
+            ],
+            "complete": true,
+            "fromSource": 38
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "tormoza/pedal-tormoza",
+            "total": 1,
+            "pages": 1,
+            "ids": [
+              101899
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "tormoza/pedal-tormoza/pedal-tormoza",
+            "total": 1,
+            "pages": 1,
+            "ids": [
+              101899
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 31,
+      "key": "|galma/pedal-galma|galma/pedal-galma/pedal-galma",
+      "model": "",
+      "locales": {
+        "uk": {
+          "parent": "galma/pedal-galma",
+          "child": "galma/pedal-galma/pedal-galma"
+        },
+        "ru": {
+          "parent": "tormoza/pedal-tormoza",
+          "child": "tormoza/pedal-tormoza/pedal-tormoza"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "galma/pedal-galma",
+            "total": 9,
+            "pages": 1,
+            "ids": [
+              74350,
+              113334,
+              106344,
+              106892,
+              88660,
+              101899,
+              99115,
+              100551,
+              108105
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "galma/pedal-galma/pedal-galma",
+            "total": 9,
+            "pages": 1,
+            "ids": [
+              74350,
+              113334,
+              106344,
+              106892,
+              88660,
+              101899,
+              99115,
+              100551,
+              108105
+            ],
+            "complete": true,
+            "fromSource": 40
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "tormoza/pedal-tormoza",
+            "total": 9,
+            "pages": 1,
+            "ids": [
+              74350,
+              113334,
+              106344,
+              106892,
+              88660,
+              101899,
+              99115,
+              100551,
+              108105
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "tormoza/pedal-tormoza/pedal-tormoza",
+            "total": 9,
+            "pages": 1,
+            "ids": [
+              74350,
+              113334,
+              106344,
+              106892,
+              88660,
+              101899,
+              99115,
+              100551,
+              108105
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 32,
+      "key": "model-y-01-2020-01-2025|visokovoltna-batareia/visokovoltna-batareia|visokovoltna-batareia/visokovoltna-batareia/visokovoltna-batareia",
+      "model": "model-y-01-2020-01-2025",
+      "locales": {
+        "uk": {
+          "parent": "visokovoltna-batareia/visokovoltna-batareia",
+          "child": "visokovoltna-batareia/visokovoltna-batareia/visokovoltna-batareia"
+        },
+        "ru": {
+          "parent": "vysokovoltnaia-batareia/vysokovoltnaia-batareia",
+          "child": "vysokovoltnaia-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "visokovoltna-batareia/visokovoltna-batareia",
+            "total": 3,
+            "pages": 1,
+            "ids": [
+              114040,
+              65734,
+              39792
+            ],
+            "complete": true,
+            "fromSource": 41
+          },
+          "child": {
+            "path": "visokovoltna-batareia/visokovoltna-batareia/visokovoltna-batareia",
+            "total": 3,
+            "pages": 1,
+            "ids": [
+              114040,
+              65734,
+              39792
+            ],
+            "complete": true
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "vysokovoltnaia-batareia/vysokovoltnaia-batareia",
+            "total": 3,
+            "pages": 1,
+            "ids": [
+              114040,
+              65734,
+              39792
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "vysokovoltnaia-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia",
+            "total": 3,
+            "pages": 1,
+            "ids": [
+              114040,
+              65734,
+              39792
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 33,
+      "key": "model-y-01-2020-01-2025|visokovoltna-sistema/visokovoltni-provoda|visokovoltna-sistema/visokovoltni-provoda/visokovoltni-provoda",
+      "model": "model-y-01-2020-01-2025",
+      "locales": {
+        "uk": {
+          "parent": "visokovoltna-sistema/visokovoltni-provoda",
+          "child": "visokovoltna-sistema/visokovoltni-provoda/visokovoltni-provoda"
+        },
+        "ru": {
+          "parent": "vysokovoltnaia-sistema/vysokovoltnye-provoda",
+          "child": "vysokovoltnaia-sistema/vysokovoltnye-provoda/vysokovoltnye-provoda"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "visokovoltna-sistema/visokovoltni-provoda",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              84592,
+              89810
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "visokovoltna-sistema/visokovoltni-provoda/visokovoltni-provoda",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              84592,
+              89810
+            ],
+            "complete": true,
+            "fromSource": 42
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "vysokovoltnaia-sistema/vysokovoltnye-provoda",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              84592,
+              89810
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "vysokovoltnaia-sistema/vysokovoltnye-provoda/vysokovoltnye-provoda",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              84592,
+              89810
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 34,
+      "key": "model-y-01-2020-01-2025|perednii-motor/peredni-pivosi|perednii-motor/peredni-pivosi/peredni-pivosi",
+      "model": "model-y-01-2020-01-2025",
+      "locales": {
+        "uk": {
+          "parent": "perednii-motor/peredni-pivosi",
+          "child": "perednii-motor/peredni-pivosi/peredni-pivosi"
+        },
+        "ru": {
+          "parent": "perednii-motor/perednie-poluosi",
+          "child": "perednii-motor/perednie-poluosi/perednie-poluosi"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "perednii-motor/peredni-pivosi",
+            "total": 6,
+            "pages": 1,
+            "ids": [
+              113158,
+              83585,
+              82238,
+              84763,
+              103741,
+              88634
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "perednii-motor/peredni-pivosi/peredni-pivosi",
+            "total": 6,
+            "pages": 1,
+            "ids": [
+              113158,
+              83585,
+              82238,
+              84763,
+              103741,
+              88634
+            ],
+            "complete": true,
+            "fromSource": 43
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "perednii-motor/perednie-poluosi",
+            "total": 6,
+            "pages": 1,
+            "ids": [
+              113158,
+              83585,
+              82238,
+              84763,
+              103741,
+              88634
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "perednii-motor/perednie-poluosi/perednie-poluosi",
+            "total": 6,
+            "pages": 1,
+            "ids": [
+              113158,
+              83585,
+              82238,
+              84763,
+              103741,
+              88634
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 35,
+      "key": "model-y-01-2020-01-2025|zadnii-motor/zadni-pivosi|zadnii-motor/zadni-pivosi/zadni-pivosi",
+      "model": "model-y-01-2020-01-2025",
+      "locales": {
+        "uk": {
+          "parent": "zadnii-motor/zadni-pivosi",
+          "child": "zadnii-motor/zadni-pivosi/zadni-pivosi"
+        },
+        "ru": {
+          "parent": "zadnii-motor/zadnie-poluosi",
+          "child": "zadnii-motor/zadnie-poluosi/zadnie-poluosi"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "zadnii-motor/zadni-pivosi",
+            "total": 12,
+            "pages": 1,
+            "ids": [
+              113162,
+              113161,
+              113160,
+              79108,
+              113159,
+              87303,
+              40464,
+              83586,
+              82239,
+              84764,
+              88635,
+              86097
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "zadnii-motor/zadni-pivosi/zadni-pivosi",
+            "total": 12,
+            "pages": 1,
+            "ids": [
+              113162,
+              113161,
+              113160,
+              79108,
+              113159,
+              87303,
+              40464,
+              83586,
+              82239,
+              84764,
+              88635,
+              86097
+            ],
+            "complete": true,
+            "fromSource": 44
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "zadnii-motor/zadnie-poluosi",
+            "total": 12,
+            "pages": 1,
+            "ids": [
+              113162,
+              113161,
+              113160,
+              79108,
+              113159,
+              87303,
+              40464,
+              83586,
+              82239,
+              84764,
+              88635,
+              86097
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "zadnii-motor/zadnie-poluosi/zadnie-poluosi",
+            "total": 12,
+            "pages": 1,
+            "ids": [
+              113162,
+              113161,
+              113160,
+              79108,
+              113159,
+              87303,
+              40464,
+              83586,
+              82239,
+              84764,
+              88635,
+              86097
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 36,
+      "key": "model-s-02-2012-03-2016|zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku|zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku",
+      "model": "model-s-02-2012-03-2016",
+      "locales": {
+        "uk": {
+          "parent": "zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku",
+          "child": "zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku"
+        },
+        "ru": {
+          "parent": "naruznaia-furnitura/nakladki-podkapotnogo-otseka",
+          "child": "naruznaia-furnitura/nakladki-podkapotnogo-otseka/nakladki-podkapotnogo-otseka"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku",
+            "total": 14,
+            "pages": 1,
+            "ids": [
+              108705,
+              108706,
+              108752,
+              105828,
+              92865,
+              105860,
+              105861,
+              96125,
+              92596,
+              95847,
+              103706,
+              103690,
+              108977,
+              92736
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku",
+            "total": 14,
+            "pages": 1,
+            "ids": [
+              108705,
+              108706,
+              108752,
+              105828,
+              92865,
+              105860,
+              105861,
+              96125,
+              92596,
+              95847,
+              103706,
+              103690,
+              108977,
+              92736
+            ],
+            "complete": true,
+            "fromSource": 45
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "naruznaia-furnitura/nakladki-podkapotnogo-otseka",
+            "total": 14,
+            "pages": 1,
+            "ids": [
+              108705,
+              108706,
+              108752,
+              105828,
+              92865,
+              105860,
+              105861,
+              96125,
+              92596,
+              95847,
+              103706,
+              103690,
+              108977,
+              92736
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "naruznaia-furnitura/nakladki-podkapotnogo-otseka/nakladki-podkapotnogo-otseka",
+            "total": 14,
+            "pages": 1,
+            "ids": [
+              108705,
+              108706,
+              108752,
+              105828,
+              92865,
+              105860,
+              105861,
+              96125,
+              92596,
+              95847,
+              103706,
+              103690,
+              108977,
+              92736
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 37,
+      "key": "model-3-06-2017-12-2023|panel-priladiv|panel-priladiv/panel-priladiv",
+      "model": "model-3-06-2017-12-2023",
+      "locales": {
+        "uk": {
+          "parent": "panel-priladiv",
+          "child": "panel-priladiv/panel-priladiv"
+        },
+        "ru": {
+          "parent": "pribornaia-panel",
+          "child": "pribornaia-panel/panel-pribornaia"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "panel-priladiv",
+            "total": 87,
+            "pages": 1,
+            "ids": [
+              98836,
+              107112,
+              97440,
+              100240,
+              91048,
+              100249,
+              101665,
+              101479,
+              75020,
+              93941,
+              97240,
+              98648,
+              100055,
+              90872,
+              90245,
+              93271,
+              96542,
+              97959,
+              99365,
+              100786,
+              87536,
+              88875,
+              90216,
+              93242,
+              96514,
+              97932,
+              99333,
+              100759,
+              93213,
+              98192,
+              100728,
+              101019,
+              99605,
+              97901,
+              99721,
+              96898,
+              93614,
+              90568,
+              98313,
+              101140,
+              93159,
+              97848,
+              90134,
+              96431,
+              100675,
+              94070,
+              97372,
+              88384,
+              98774,
+              83331,
+              103537,
+              100181,
+              89756,
+              101605,
+              90427,
+              96738,
+              100982,
+              99571,
+              93463,
+              89064,
+              90388,
+              93419,
+              96694,
+              99521,
+              100939,
+              90021,
+              93023,
+              96293,
+              97709,
+              99102,
+              100538,
+              101291,
+              86787,
+              89403,
+              99865,
+              82989,
+              90705,
+              85506,
+              97050,
+              76853,
+              88240,
+              75023,
+              101672,
+              80904,
+              76865,
+              77827,
+              100384
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "panel-priladiv/panel-priladiv",
+            "total": 87,
+            "pages": 1,
+            "ids": [
+              98836,
+              107112,
+              97440,
+              100240,
+              91048,
+              100249,
+              101665,
+              101479,
+              75020,
+              93941,
+              97240,
+              98648,
+              100055,
+              90872,
+              90245,
+              93271,
+              96542,
+              97959,
+              99365,
+              100786,
+              87536,
+              88875,
+              90216,
+              93242,
+              96514,
+              97932,
+              99333,
+              100759,
+              93213,
+              98192,
+              100728,
+              101019,
+              99605,
+              97901,
+              99721,
+              96898,
+              93614,
+              90568,
+              98313,
+              101140,
+              93159,
+              97848,
+              90134,
+              96431,
+              100675,
+              94070,
+              97372,
+              88384,
+              98774,
+              83331,
+              103537,
+              100181,
+              89756,
+              101605,
+              90427,
+              96738,
+              100982,
+              99571,
+              93463,
+              89064,
+              90388,
+              93419,
+              96694,
+              99521,
+              100939,
+              90021,
+              93023,
+              96293,
+              97709,
+              99102,
+              100538,
+              101291,
+              86787,
+              89403,
+              99865,
+              82989,
+              90705,
+              85506,
+              97050,
+              76853,
+              88240,
+              75023,
+              101672,
+              80904,
+              76865,
+              77827,
+              100384
+            ],
+            "complete": true
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "pribornaia-panel",
+            "total": 87,
+            "pages": 1,
+            "ids": [
+              98836,
+              107112,
+              97440,
+              100240,
+              91048,
+              100249,
+              101665,
+              101479,
+              75020,
+              93941,
+              97240,
+              98648,
+              100055,
+              90872,
+              90245,
+              93271,
+              96542,
+              97959,
+              99365,
+              100786,
+              87536,
+              88875,
+              90216,
+              93242,
+              96514,
+              97932,
+              99333,
+              100759,
+              93213,
+              98192,
+              100728,
+              101019,
+              99605,
+              97901,
+              99721,
+              96898,
+              93614,
+              90568,
+              98313,
+              101140,
+              93159,
+              97848,
+              90134,
+              96431,
+              100675,
+              94070,
+              97372,
+              88384,
+              98774,
+              83331,
+              103537,
+              100181,
+              89756,
+              101605,
+              90427,
+              96738,
+              100982,
+              99571,
+              93463,
+              89064,
+              90388,
+              93419,
+              96694,
+              99521,
+              100939,
+              90021,
+              93023,
+              96293,
+              97709,
+              99102,
+              100538,
+              101291,
+              86787,
+              89403,
+              99865,
+              82989,
+              90705,
+              85506,
+              97050,
+              76853,
+              88240,
+              75023,
+              101672,
+              80904,
+              76865,
+              77827,
+              100384
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "pribornaia-panel/panel-pribornaia",
+            "total": 87,
+            "pages": 1,
+            "ids": [
+              98836,
+              107112,
+              97440,
+              100240,
+              91048,
+              100249,
+              101665,
+              101479,
+              75020,
+              93941,
+              97240,
+              98648,
+              100055,
+              90872,
+              90245,
+              93271,
+              96542,
+              97959,
+              99365,
+              100786,
+              87536,
+              88875,
+              90216,
+              93242,
+              96514,
+              97932,
+              99333,
+              100759,
+              93213,
+              98192,
+              100728,
+              101019,
+              99605,
+              97901,
+              99721,
+              96898,
+              93614,
+              90568,
+              98313,
+              101140,
+              93159,
+              97848,
+              90134,
+              96431,
+              100675,
+              94070,
+              97372,
+              88384,
+              98774,
+              83331,
+              103537,
+              100181,
+              89756,
+              101605,
+              90427,
+              96738,
+              100982,
+              99571,
+              93463,
+              89064,
+              90388,
+              93419,
+              96694,
+              99521,
+              100939,
+              90021,
+              93023,
+              96293,
+              97709,
+              99102,
+              100538,
+              101291,
+              86787,
+              89403,
+              99865,
+              82989,
+              90705,
+              85506,
+              97050,
+              76853,
+              88240,
+              75023,
+              101672,
+              80904,
+              76865,
+              77827,
+              100384
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 38,
+      "key": "|diski-i-sini/diski|diski-i-sini/diski/diski",
+      "model": "",
+      "locales": {
+        "uk": {
+          "parent": "diski-i-sini/diski",
+          "child": "diski-i-sini/diski/diski"
+        },
+        "ru": {
+          "parent": "diski-i-siny/diski",
+          "child": "diski-i-siny/diski/diski"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "diski-i-sini/diski",
+            "total": 33,
+            "pages": 1,
+            "ids": [
+              113364,
+              110102,
+              113254,
+              113027,
+              113153,
+              113152,
+              79775,
+              106954,
+              113255,
+              113151,
+              113149,
+              113148,
+              113147,
+              113144,
+              113143,
+              87970,
+              86708,
+              85432,
+              84177,
+              82913,
+              81825,
+              76566,
+              41441,
+              82308,
+              75775,
+              83649,
+              77531,
+              111638,
+              102105,
+              73500,
+              41434,
+              75772,
+              79169
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "diski-i-sini/diski/diski",
+            "total": 33,
+            "pages": 1,
+            "ids": [
+              113364,
+              110102,
+              113254,
+              113027,
+              113153,
+              113152,
+              79775,
+              106954,
+              113255,
+              113151,
+              113149,
+              113148,
+              113147,
+              113144,
+              113143,
+              87970,
+              86708,
+              85432,
+              84177,
+              82913,
+              81825,
+              76566,
+              41441,
+              82308,
+              75775,
+              83649,
+              77531,
+              111638,
+              102105,
+              73500,
+              41434,
+              75772,
+              79169
+            ],
+            "complete": true
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "diski-i-siny/diski",
+            "total": 33,
+            "pages": 1,
+            "ids": [
+              113364,
+              110102,
+              113254,
+              113027,
+              113153,
+              113152,
+              79775,
+              106954,
+              113255,
+              113151,
+              113149,
+              113148,
+              113147,
+              113144,
+              113143,
+              87970,
+              86708,
+              85432,
+              84177,
+              82913,
+              81825,
+              76566,
+              41441,
+              82308,
+              75775,
+              83649,
+              77531,
+              111638,
+              102105,
+              73500,
+              41434,
+              75772,
+              79169
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "diski-i-siny/diski/diski",
+            "total": 33,
+            "pages": 1,
+            "ids": [
+              113364,
+              110102,
+              113254,
+              113027,
+              113153,
+              113152,
+              79775,
+              106954,
+              113255,
+              113151,
+              113149,
+              113148,
+              113147,
+              113144,
+              113143,
+              87970,
+              86708,
+              85432,
+              84177,
+              82913,
+              81825,
+              76566,
+              41441,
+              82308,
+              75775,
+              83649,
+              77531,
+              111638,
+              102105,
+              73500,
+              41434,
+              75772,
+              79169
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 39,
+      "key": "model-3-06-2017-12-2023|visokovoltna-batareia/visokovoltna-batareia|visokovoltna-batareia/visokovoltna-batareia/visokovoltna-batareia",
+      "model": "model-3-06-2017-12-2023",
+      "locales": {
+        "uk": {
+          "parent": "visokovoltna-batareia/visokovoltna-batareia",
+          "child": "visokovoltna-batareia/visokovoltna-batareia/visokovoltna-batareia"
+        },
+        "ru": {
+          "parent": "vysokovoltnaia-batareia/vysokovoltnaia-batareia",
+          "child": "vysokovoltnaia-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "visokovoltna-batareia/visokovoltna-batareia",
+            "total": 3,
+            "pages": 1,
+            "ids": [
+              75221,
+              80841,
+              114037
+            ],
+            "complete": true,
+            "fromSource": 48
+          },
+          "child": {
+            "path": "visokovoltna-batareia/visokovoltna-batareia/visokovoltna-batareia",
+            "total": 3,
+            "pages": 1,
+            "ids": [
+              75221,
+              80841,
+              114037
+            ],
+            "complete": true
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "vysokovoltnaia-batareia/vysokovoltnaia-batareia",
+            "total": 3,
+            "pages": 1,
+            "ids": [
+              75221,
+              80841,
+              114037
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "vysokovoltnaia-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia",
+            "total": 3,
+            "pages": 1,
+            "ids": [
+              75221,
+              80841,
+              114037
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 40,
+      "key": "|perednii-motor/peredni-pivosi|perednii-motor/peredni-pivosi/peredni-pivosi",
+      "model": "",
+      "locales": {
+        "uk": {
+          "parent": "perednii-motor/peredni-pivosi",
+          "child": "perednii-motor/peredni-pivosi/peredni-pivosi"
+        },
+        "ru": {
+          "parent": "perednii-motor/perednie-poluosi",
+          "child": "perednii-motor/perednie-poluosi/perednie-poluosi"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "perednii-motor/peredni-pivosi",
+            "total": 10,
+            "pages": 1,
+            "ids": [
+              94395,
+              113158,
+              83585,
+              97694,
+              113191,
+              100523,
+              82238,
+              84763,
+              103741,
+              88634
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "perednii-motor/peredni-pivosi/peredni-pivosi",
+            "total": 10,
+            "pages": 1,
+            "ids": [
+              94395,
+              113158,
+              83585,
+              97694,
+              113191,
+              100523,
+              82238,
+              84763,
+              103741,
+              88634
+            ],
+            "complete": true,
+            "fromSource": 49
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "perednii-motor/perednie-poluosi",
+            "total": 10,
+            "pages": 1,
+            "ids": [
+              94395,
+              113158,
+              83585,
+              97694,
+              113191,
+              100523,
+              82238,
+              84763,
+              103741,
+              88634
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "perednii-motor/perednie-poluosi/perednie-poluosi",
+            "total": 10,
+            "pages": 1,
+            "ids": [
+              94395,
+              113158,
+              83585,
+              97694,
+              113191,
+              100523,
+              82238,
+              84763,
+              103741,
+              88634
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 41,
+      "key": "|zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika|zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika",
+      "model": "",
+      "locales": {
+        "uk": {
+          "parent": "zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika",
+          "child": "zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika"
+        },
+        "ru": {
+          "parent": "naruznaia-furnitura/obsivka-proema-kryski-bagaznika",
+          "child": "naruznaia-furnitura/obsivka-proema-kryski-bagaznika/obsivka-proema-kryski-bagaznika"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              112134,
+              112135
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              112134,
+              112135
+            ],
+            "complete": true,
+            "fromSource": 50
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "naruznaia-furnitura/obsivka-proema-kryski-bagaznika",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              112134,
+              112135
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "naruznaia-furnitura/obsivka-proema-kryski-bagaznika/obsivka-proema-kryski-bagaznika",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              112134,
+              112135
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 42,
+      "key": "model-3-highland-01-2024|sidinnia/sidinnia-2-go-riadu-i-osnashhennia|sidinnia/sidinnia-2-go-riadu-i-osnashhennia/sidinnia-2-go-riadu-i-osnashhennia",
+      "model": "model-3-highland-01-2024",
+      "locales": {
+        "ru": {
+          "parent": "sidenia/sideniia-2-go-riada-i-osnastka",
+          "child": "sidenia/sideniia-2-go-riada-i-osnastka/sideniia-2-go-riada-i-osnastka"
+        },
+        "uk": {
+          "parent": "sidinnia/sidinnia-2-go-riadu-i-osnashhennia",
+          "child": "sidinnia/sidinnia-2-go-riadu-i-osnashhennia/sidinnia-2-go-riadu-i-osnashhennia"
+        }
+      },
+      "equivalent": false,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "sidinnia/sidinnia-2-go-riadu-i-osnashhennia",
+            "total": 5,
+            "pages": 1,
+            "ids": [
+              113359,
+              113228,
+              113227,
+              113273,
+              113272
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "sidinnia/sidinnia-2-go-riadu-i-osnashhennia/sidinnia-2-go-riadu-i-osnashhennia",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              113228,
+              113227
+            ],
+            "complete": true,
+            "fromSource": 53
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "sidenia/sideniia-2-go-riada-i-osnastka",
+            "total": 5,
+            "pages": 1,
+            "ids": [
+              113359,
+              113228,
+              113227,
+              113273,
+              113272
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "sidenia/sideniia-2-go-riada-i-osnastka/sideniia-2-go-riada-i-osnastka",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              113228,
+              113227
+            ],
+            "complete": true,
+            "fromSource": 51
+          }
+        }
+      }
+    },
+    {
+      "n": 43,
+      "key": "model-3-highland-01-2024|zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika|zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika",
+      "model": "model-3-highland-01-2024",
+      "locales": {
+        "uk": {
+          "parent": "zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika",
+          "child": "zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika"
+        },
+        "ru": {
+          "parent": "naruznaia-furnitura/obsivka-proema-kryski-bagaznika",
+          "child": "naruznaia-furnitura/obsivka-proema-kryski-bagaznika/obsivka-proema-kryski-bagaznika"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              112134,
+              112135
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              112134,
+              112135
+            ],
+            "complete": true,
+            "fromSource": 52
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "naruznaia-furnitura/obsivka-proema-kryski-bagaznika",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              112134,
+              112135
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "naruznaia-furnitura/obsivka-proema-kryski-bagaznika/obsivka-proema-kryski-bagaznika",
+            "total": 2,
+            "pages": 1,
+            "ids": [
+              112134,
+              112135
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 44,
+      "key": "|vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu|vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu",
+      "model": "",
+      "locales": {
+        "uk": {
+          "parent": "vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu",
+          "child": "vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu"
+        },
+        "ru": {
+          "parent": "vnutrenniaia-otdelka/obsivka-potolka-salona",
+          "child": "vnutrenniaia-otdelka/obsivka-potolka-salona/obsivka-potolka-salona"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu",
+            "total": 26,
+            "pages": 1,
+            "ids": [
+              40422,
+              113625,
+              113627,
+              88041,
+              79841,
+              113479,
+              113469,
+              113458,
+              112389,
+              105454,
+              103677,
+              103676,
+              92041,
+              82225,
+              82693,
+              77786,
+              81724,
+              90697,
+              98570,
+              97162,
+              99983,
+              101401,
+              86778,
+              89396,
+              108972,
+              40413
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu",
+            "total": 26,
+            "pages": 1,
+            "ids": [
+              40422,
+              113625,
+              113627,
+              88041,
+              79841,
+              113479,
+              113469,
+              113458,
+              112389,
+              105454,
+              103677,
+              103676,
+              92041,
+              82225,
+              82693,
+              77786,
+              81724,
+              90697,
+              98570,
+              97162,
+              99983,
+              101401,
+              86778,
+              89396,
+              108972,
+              40413
+            ],
+            "complete": true
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "vnutrenniaia-otdelka/obsivka-potolka-salona",
+            "total": 26,
+            "pages": 1,
+            "ids": [
+              40422,
+              113625,
+              113627,
+              88041,
+              79841,
+              113479,
+              113469,
+              113458,
+              112389,
+              105454,
+              103677,
+              103676,
+              92041,
+              82225,
+              82693,
+              77786,
+              81724,
+              90697,
+              98570,
+              97162,
+              99983,
+              101401,
+              86778,
+              89396,
+              108972,
+              40413
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "vnutrenniaia-otdelka/obsivka-potolka-salona/obsivka-potolka-salona",
+            "total": 26,
+            "pages": 1,
+            "ids": [
+              40422,
+              113625,
+              113627,
+              88041,
+              79841,
+              113479,
+              113469,
+              113458,
+              112389,
+              105454,
+              103677,
+              103676,
+              92041,
+              82225,
+              82693,
+              77786,
+              81724,
+              90697,
+              98570,
+              97162,
+              99983,
+              101401,
+              86778,
+              89396,
+              108972,
+              40413
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 45,
+      "key": "|elektrika/datciki-radaru|elektrika/datciki-radaru/datciki-radaru",
+      "model": "",
+      "locales": {
+        "uk": {
+          "parent": "elektrika/datciki-radaru",
+          "child": "elektrika/datciki-radaru/datciki-radaru"
+        },
+        "ru": {
+          "parent": "elektrika/datciki-radara",
+          "child": "elektrika/datciki-radara/datciki-radara"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "elektrika/datciki-radaru",
+            "total": 9,
+            "pages": 1,
+            "ids": [
+              99485,
+              91781,
+              89234,
+              96309,
+              113288,
+              95294,
+              79057,
+              86625,
+              80916
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "elektrika/datciki-radaru/datciki-radaru",
+            "total": 9,
+            "pages": 1,
+            "ids": [
+              99485,
+              91781,
+              89234,
+              96309,
+              113288,
+              95294,
+              79057,
+              86625,
+              80916
+            ],
+            "complete": true,
+            "fromSource": 56
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "elektrika/datciki-radara",
+            "total": 9,
+            "pages": 1,
+            "ids": [
+              99485,
+              91781,
+              89234,
+              96309,
+              113288,
+              95294,
+              79057,
+              86625,
+              80916
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "elektrika/datciki-radara/datciki-radara",
+            "total": 9,
+            "pages": 1,
+            "ids": [
+              99485,
+              91781,
+              89234,
+              96309,
+              113288,
+              95294,
+              79057,
+              86625,
+              80916
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 46,
+      "key": "model-s-02-2012-03-2016|elektrika/frontalna-kamera|elektrika/frontalna-kamera/frontalna-kamera",
+      "model": "model-s-02-2012-03-2016",
+      "locales": {
+        "ru": {
+          "parent": "elektrika/frontalnaia-kamera",
+          "child": "elektrika/frontalnaia-kamera/frontalnaia-kamera"
+        },
+        "uk": {
+          "parent": "elektrika/frontalna-kamera",
+          "child": "elektrika/frontalna-kamera/frontalna-kamera"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "elektrika/frontalna-kamera",
+            "total": 3,
+            "pages": 1,
+            "ids": [
+              113457,
+              94448,
+              105918
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "elektrika/frontalna-kamera/frontalna-kamera",
+            "total": 3,
+            "pages": 1,
+            "ids": [
+              113457,
+              94448,
+              105918
+            ],
+            "complete": true
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "elektrika/frontalnaia-kamera",
+            "total": 3,
+            "pages": 1,
+            "ids": [
+              113457,
+              94448,
+              105918
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "elektrika/frontalnaia-kamera/frontalnaia-kamera",
+            "total": 3,
+            "pages": 1,
+            "ids": [
+              113457,
+              94448,
+              105918
+            ],
+            "complete": true,
+            "fromSource": 57
+          }
+        }
+      }
+    },
+    {
+      "n": 47,
+      "key": "model-s-04-2016-01-2021|diski-i-sini/diski|diski-i-sini/diski/diski",
+      "model": "model-s-04-2016-01-2021",
+      "locales": {
+        "ru": {
+          "parent": "diski-i-siny/diski",
+          "child": "diski-i-siny/diski/diski"
+        },
+        "uk": {
+          "parent": "diski-i-sini/diski",
+          "child": "diski-i-sini/diski/diski"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "diski-i-sini/diski",
+            "total": 1,
+            "pages": 1,
+            "ids": [
+              102105
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "diski-i-sini/diski/diski",
+            "total": 1,
+            "pages": 1,
+            "ids": [
+              102105
+            ],
+            "complete": true
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "diski-i-siny/diski",
+            "total": 1,
+            "pages": 1,
+            "ids": [
+              102105
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "diski-i-siny/diski/diski",
+            "total": 1,
+            "pages": 1,
+            "ids": [
+              102105
+            ],
+            "complete": true,
+            "fromSource": 58
+          }
+        }
+      }
+    },
+    {
+      "n": 48,
+      "key": "model-s-02-2012-03-2016|visokovoltna-batareia/visokovoltna-batareia|visokovoltna-batareia/visokovoltna-batareia/visokovoltna-batareia",
+      "model": "model-s-02-2012-03-2016",
+      "locales": {
+        "uk": {
+          "parent": "visokovoltna-batareia/visokovoltna-batareia",
+          "child": "visokovoltna-batareia/visokovoltna-batareia/visokovoltna-batareia"
+        },
+        "ru": {
+          "parent": "vysokovoltnaia-batareia/vysokovoltnaia-batareia",
+          "child": "vysokovoltnaia-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "visokovoltna-batareia/visokovoltna-batareia",
+            "total": 3,
+            "pages": 1,
+            "ids": [
+              108527,
+              106657,
+              107692
+            ],
+            "complete": true,
+            "fromSource": 60
+          },
+          "child": {
+            "path": "visokovoltna-batareia/visokovoltna-batareia/visokovoltna-batareia",
+            "total": 3,
+            "pages": 1,
+            "ids": [
+              108527,
+              106657,
+              107692
+            ],
+            "complete": true
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "vysokovoltnaia-batareia/vysokovoltnaia-batareia",
+            "total": 3,
+            "pages": 1,
+            "ids": [
+              108527,
+              106657,
+              107692
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "vysokovoltnaia-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia",
+            "total": 3,
+            "pages": 1,
+            "ids": [
+              108527,
+              106657,
+              107692
+            ],
+            "complete": true
+          }
+        }
+      }
+    },
+    {
+      "n": 49,
+      "key": "|diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms|diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms",
+      "model": "",
+      "locales": {
+        "uk": {
+          "parent": "diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms",
+          "child": "diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms"
+        },
+        "ru": {
+          "parent": "diski-i-siny/sistema-kontrolia-davleniia-v-sinax-tpms",
+          "child": "diski-i-siny/sistema-kontrolia-davleniia-v-sinax-tpms/sistema-kontrolia-davleniia-v-sinax-tpms"
+        }
+      },
+      "equivalent": true,
+      "inventories": {
+        "uk": {
+          "parent": {
+            "path": "diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms",
+            "total": 8,
+            "pages": 1,
+            "ids": [
+              108107,
+              106995,
+              95298,
+              102749,
+              80949,
+              100592,
+              86154,
+              75783
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms",
+            "total": 8,
+            "pages": 1,
+            "ids": [
+              108107,
+              106995,
+              95298,
+              102749,
+              80949,
+              100592,
+              86154,
+              75783
+            ],
+            "complete": true,
+            "fromSource": 61
+          }
+        },
+        "ru": {
+          "parent": {
+            "path": "diski-i-siny/sistema-kontrolia-davleniia-v-sinax-tpms",
+            "total": 8,
+            "pages": 1,
+            "ids": [
+              108107,
+              106995,
+              95298,
+              102749,
+              80949,
+              100592,
+              86154,
+              75783
+            ],
+            "complete": true
+          },
+          "child": {
+            "path": "diski-i-siny/sistema-kontrolia-davleniia-v-sinax-tpms/sistema-kontrolia-davleniia-v-sinax-tpms",
+            "total": 8,
+            "pages": 1,
+            "ids": [
+              108107,
+              106995,
+              95298,
+              102749,
+              80949,
+              100592,
+              86154,
+              75783
+            ],
+            "complete": true
+          }
+        }
+      }
+    }
+  ]
+}

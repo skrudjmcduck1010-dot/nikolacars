@@ -1,0 +1,172 @@
+{
+  "status": "PASS",
+  "cases": 14,
+  "results": [
+    {
+      "id": "panel-uk-390",
+      "status": "PASS",
+      "checks": [
+        "alias redirect and tracking query",
+        "page-two canonical",
+        "one root and reachable third level",
+        "AJAX sort retains third level",
+        "third-level navigation",
+        "locale switch",
+        "viewport",
+        "no JS errors"
+      ]
+    },
+    {
+      "id": "panel-ru-390",
+      "status": "PASS",
+      "checks": [
+        "alias redirect and tracking query",
+        "page-two canonical",
+        "one root and reachable third level",
+        "AJAX sort retains third level",
+        "third-level navigation",
+        "locale switch",
+        "viewport",
+        "no JS errors"
+      ]
+    },
+    {
+      "id": "wifi-0-390",
+      "status": "PASS",
+      "checks": [
+        "exact inventory",
+        "canonical destination",
+        "equivalent alternates only",
+        "UA self and x-default",
+        "no JS errors"
+      ]
+    },
+    {
+      "id": "wifi-1-390",
+      "status": "PASS",
+      "checks": [
+        "exact inventory",
+        "canonical destination",
+        "equivalent alternates only",
+        "UA self and x-default",
+        "no JS errors"
+      ]
+    },
+    {
+      "id": "wifi-2-390",
+      "status": "PASS",
+      "checks": [
+        "exact inventory",
+        "canonical destination",
+        "equivalent alternates only",
+        "UA self and x-default",
+        "no JS errors"
+      ]
+    },
+    {
+      "id": "wifi-3-390",
+      "status": "PASS",
+      "checks": [
+        "exact inventory",
+        "canonical destination",
+        "equivalent alternates only",
+        "UA self and x-default",
+        "no JS errors"
+      ]
+    },
+    {
+      "id": "wifi-4-390",
+      "status": "PASS",
+      "checks": [
+        "exact inventory",
+        "canonical destination",
+        "equivalent alternates only",
+        "UA self and x-default",
+        "no JS errors"
+      ]
+    },
+    {
+      "id": "panel-uk-1440",
+      "status": "PASS",
+      "checks": [
+        "alias redirect and tracking query",
+        "page-two canonical",
+        "one root and reachable third level",
+        "AJAX sort retains third level",
+        "third-level navigation",
+        "locale switch",
+        "viewport",
+        "no JS errors"
+      ]
+    },
+    {
+      "id": "panel-ru-1440",
+      "status": "PASS",
+      "checks": [
+        "alias redirect and tracking query",
+        "page-two canonical",
+        "one root and reachable third level",
+        "AJAX sort retains third level",
+        "third-level navigation",
+        "locale switch",
+        "viewport",
+        "no JS errors"
+      ]
+    },
+    {
+      "id": "wifi-0-1440",
+      "status": "PASS",
+      "checks": [
+        "exact inventory",
+        "canonical destination",
+        "equivalent alternates only",
+        "UA self and x-default",
+        "no JS errors"
+      ]
+    },
+    {
+      "id": "wifi-1-1440",
+      "status": "PASS",
+      "checks": [
+        "exact inventory",
+        "canonical destination",
+        "equivalent alternates only",
+        "UA self and x-default",
+        "no JS errors"
+      ]
+    },
+    {
+      "id": "wifi-2-1440",
+      "status": "PASS",
+      "checks": [
+        "exact inventory",
+        "canonical destination",
+        "equivalent alternates only",
+        "UA self and x-default",
+        "no JS errors"
+      ]
+    },
+    {
+      "id": "wifi-3-1440",
+      "status": "PASS",
+      "checks": [
+        "exact inventory",
+        "canonical destination",
+        "equivalent alternates only",
+        "UA self and x-default",
+        "no JS errors"
+      ]
+    },
+    {
+      "id": "wifi-4-1440",
+      "status": "PASS",
+      "checks": [
+        "exact inventory",
+        "canonical destination",
+        "equivalent alternates only",
+        "UA self and x-default",
+        "no JS errors"
+      ]
+    }
+  ]
+}

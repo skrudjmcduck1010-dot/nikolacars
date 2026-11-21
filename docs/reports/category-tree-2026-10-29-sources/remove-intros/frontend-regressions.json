@@ -1,0 +1,93 @@
+{
+    "passed": true,
+    "results": [
+        {
+            "file": "__failure_probe__",
+            "exit_code": 1,
+            "completed": false,
+            "passed": true,
+            "stdout": "C:\\Users\\user\\OneDrive\\Documents\\ChatGPT\\nikolacars\/.codex-tmp\/compat-regressions\/run-064e920d0bc9\/case-0\/stdout.log",
+            "stderr": "C:\\Users\\user\\OneDrive\\Documents\\ChatGPT\\nikolacars\/.codex-tmp\/compat-regressions\/run-064e920d0bc9\/case-0\/stderr.log"
+        },
+        {
+            "file": "category-levels-regression.php",
+            "exit_code": 0,
+            "completed": true,
+            "passed": true,
+            "stdout": "C:\\Users\\user\\OneDrive\\Documents\\ChatGPT\\nikolacars\/.codex-tmp\/compat-regressions\/run-064e920d0bc9\/case-1\/stdout.log",
+            "stderr": "C:\\Users\\user\\OneDrive\\Documents\\ChatGPT\\nikolacars\/.codex-tmp\/compat-regressions\/run-064e920d0bc9\/case-1\/stderr.log"
+        },
+        {
+            "file": "diagnostics-page-regression.php",
+            "exit_code": 0,
+            "completed": true,
+            "passed": true,
+            "stdout": "C:\\Users\\user\\OneDrive\\Documents\\ChatGPT\\nikolacars\/.codex-tmp\/compat-regressions\/run-064e920d0bc9\/case-2\/stdout.log",
+            "stderr": "C:\\Users\\user\\OneDrive\\Documents\\ChatGPT\\nikolacars\/.codex-tmp\/compat-regressions\/run-064e920d0bc9\/case-2\/stderr.log"
+        },
+        {
+            "file": "front-controller-regression.php",
+            "exit_code": 0,
+            "completed": true,
+            "passed": true,
+            "stdout": "C:\\Users\\user\\OneDrive\\Documents\\ChatGPT\\nikolacars\/.codex-tmp\/compat-regressions\/run-064e920d0bc9\/case-3\/stdout.log",
+            "stderr": "C:\\Users\\user\\OneDrive\\Documents\\ChatGPT\\nikolacars\/.codex-tmp\/compat-regressions\/run-064e920d0bc9\/case-3\/stderr.log"
+        },
+        {
+            "file": "home-service-regression.php",
+            "exit_code": 0,
+            "completed": true,
+            "passed": true,
+            "stdout": "C:\\Users\\user\\OneDrive\\Documents\\ChatGPT\\nikolacars\/.codex-tmp\/compat-regressions\/run-064e920d0bc9\/case-4\/stdout.log",
+            "stderr": "C:\\Users\\user\\OneDrive\\Documents\\ChatGPT\\nikolacars\/.codex-tmp\/compat-regressions\/run-064e920d0bc9\/case-4\/stderr.log"
+        },
+        {
+            "file": "language-switch-regression.php",
+            "exit_code": 0,
+            "completed": true,
+            "passed": true,
+            "stdout": "C:\\Users\\user\\OneDrive\\Documents\\ChatGPT\\nikolacars\/.codex-tmp\/compat-regressions\/run-064e920d0bc9\/case-5\/stdout.log",
+            "stderr": "C:\\Users\\user\\OneDrive\\Documents\\ChatGPT\\nikolacars\/.codex-tmp\/compat-regressions\/run-064e920d0bc9\/case-5\/stderr.log"
+        },
+        {
+            "file": "merchant-policy-regression.php",
+            "exit_code": 0,
+            "completed": true,
+            "passed": true,
+            "stdout": "C:\\Users\\user\\OneDrive\\Documents\\ChatGPT\\nikolacars\/.codex-tmp\/compat-regressions\/run-064e920d0bc9\/case-6\/stdout.log",
+            "stderr": "C:\\Users\\user\\OneDrive\\Documents\\ChatGPT\\nikolacars\/.codex-tmp\/compat-regressions\/run-064e920d0bc9\/case-6\/stderr.log"
+        },
+        {
+            "file": "product-delivery-layout-regression.php",
+            "exit_code": 0,
+            "completed": true,
+            "passed": true,
+            "stdout": "C:\\Users\\user\\OneDrive\\Documents\\ChatGPT\\nikolacars\/.codex-tmp\/compat-regressions\/run-064e920d0bc9\/case-7\/stdout.log",
+            "stderr": "C:\\Users\\user\\OneDrive\\Documents\\ChatGPT\\nikolacars\/.codex-tmp\/compat-regressions\/run-064e920d0bc9\/case-7\/stderr.log"
+        },
+        {
+            "file": "service-page-regression.php",
+            "exit_code": 0,
+            "completed": true,
+            "passed": true,
+            "stdout": "C:\\Users\\user\\OneDrive\\Documents\\ChatGPT\\nikolacars\/.codex-tmp\/compat-regressions\/run-064e920d0bc9\/case-8\/stdout.log",
+            "stderr": "C:\\Users\\user\\OneDrive\\Documents\\ChatGPT\\nikolacars\/.codex-tmp\/compat-regressions\/run-064e920d0bc9\/case-8\/stderr.log"
+        },
+        {
+            "file": "storefront-cache-regression.php",
+            "exit_code": 0,
+            "completed": true,
+            "passed": true,
+            "stdout": "C:\\Users\\user\\OneDrive\\Documents\\ChatGPT\\nikolacars\/.codex-tmp\/compat-regressions\/run-064e920d0bc9\/case-9\/stdout.log",
+            "stderr": "C:\\Users\\user\\OneDrive\\Documents\\ChatGPT\\nikolacars\/.codex-tmp\/compat-regressions\/run-064e920d0bc9\/case-9\/stderr.log"
+        },
+        {
+            "file": "catalog-tree-regression.php",
+            "exit_code": 0,
+            "completed": true,
+            "passed": true,
+            "stdout": "C:\\Users\\user\\OneDrive\\Documents\\ChatGPT\\nikolacars\/.codex-tmp\/compat-regressions\/run-064e920d0bc9\/case-10\/stdout.log",
+            "stderr": "C:\\Users\\user\\OneDrive\\Documents\\ChatGPT\\nikolacars\/.codex-tmp\/compat-regressions\/run-064e920d0bc9\/case-10\/stderr.log"
+        }
+    ]
+}

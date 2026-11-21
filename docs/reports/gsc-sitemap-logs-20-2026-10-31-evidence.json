@@ -1,0 +1,2427 @@
+{
+  "date": "2026-10-31",
+  "site": "https://nikolacars.kiev.ua/",
+  "sitemapReading": {
+    "url": "https://nikolacars.kiev.ua/sitemap.xml",
+    "child": [
+      "https://nikolacars.kiev.ua/sitemaps/pages.xml",
+      "https://nikolacars.kiev.ua/sitemaps/parts-uk.xml",
+      "https://nikolacars.kiev.ua/sitemaps/parts-ru.xml"
+    ],
+    "observed": "2026-10-31T12:05:50.464Z"
+  },
+  "currentTestForHistorical503": {
+    "url": "https://nikolacars.kiev.ua/ru/parts/1002485-00-h-107145/",
+    "observed": "2026-10-31T12:10:45.444Z",
+    "scope": "Google URL Inspection – Live test initiated by audit, not a scheduled search crawl",
+    "view": [
+      "  - generic: \"Проверено: 31 окт. 2026 г. , 14:09\"",
+      "  - generic: URL доступен Google",
+      "  - button \"Доступность страницы Эту страницу можно проиндексировать\" [expanded] [active]:",
+      "    - generic: Эту страницу можно проиндексировать",
+      "  - generic: Сканирование разрешено?",
+      "  - generic: Да",
+      "  - generic: Получение страницы",
+      "  - generic: Успешно",
+      "  - generic: Индексирование разрешено?",
+      "  - generic: Да"
+    ]
+  },
+  "scope": "Origin HTTP/HTTPS archives and saved current logs only. Updated October files cover the former missing day up to HTTPS 2026-10-31T14:01:31+02:00 and HTTP 13:35:06+02:00. HTTPS current starts 14:02:40: 69 seconds without source overlap remain unverified. Source min/max timestamps do not prove uninterrupted logging. No CDN logs examined.",
+  "originArchives": [
+    {
+      "source": "FTPS logs/nikolacars.kiev.ua-Oct-2026.gz",
+      "sha256": "8b8a99d1c9259c07546350324afe35c2b6f2173a69530bd24ad8f33cd2d2f880",
+      "rows": 707,
+      "from": "2026-09-30T15:59:14+03:00",
+      "to": "2026-10-30T12:25:50+02:00"
+    },
+    {
+      "source": "FTPS logs/nikolacars.kiev.ua-ssl_log-Oct-2026.gz",
+      "sha256": "36a1c9622aeef543e7597d0481d212d920729e1782f85a5b2a8d807f3e14ae82",
+      "rows": 152828,
+      "from": "2026-09-30T15:19:56+03:00",
+      "to": "2026-10-30T14:06:05+02:00"
+    }
+  ],
+  "items": [
+    {
+      "id": 113428,
+      "ua": "https://nikolacars.kiev.ua/parts/1002322-00-c-113428/",
+      "ru": "https://nikolacars.kiev.ua/ru/parts/1002322-00-c-113428/",
+      "declaredLastmod": {
+        "ua": "2026-10-30",
+        "ru": "2026-10-31"
+      },
+      "alreadyPresentOn": "2026-10-26",
+      "uaBot": 0,
+      "ruBot": 1,
+      "uaEvents": [],
+      "ruEvents": [
+        {
+          "count": 1,
+          "path_kind": "canonical_path",
+          "method": "GET",
+          "status": 200,
+          "role": "other_google_agent",
+          "google_agent": "GoogleOther",
+          "query_present": false,
+          "scheme": "https",
+          "host_from_request": "vhost log, www not distinguished",
+          "timestamp": "2026-10-17T17:49:13+03:00",
+          "proof": "published common-crawlers CIDR"
+        },
+        {
+          "count": 1,
+          "path_kind": "canonical_path",
+          "method": "GET",
+          "status": 200,
+          "role": "ordinary_googlebot",
+          "google_agent": "Googlebot Smartphone",
+          "query_present": false,
+          "scheme": "https",
+          "host_from_request": "vhost log, www not distinguished",
+          "timestamp": "2026-10-17T17:56:50+03:00",
+          "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+        }
+      ],
+      "indexUA": "URL нет в индексе Google"
+    },
+    {
+      "id": 107145,
+      "ua": "https://nikolacars.kiev.ua/parts/1002485-00-h-107145/",
+      "ru": "https://nikolacars.kiev.ua/ru/parts/1002485-00-h-107145/",
+      "declaredLastmod": {
+        "ua": "2026-10-30",
+        "ru": "2026-10-31"
+      },
+      "alreadyPresentOn": "2026-10-26",
+      "uaBot": 0,
+      "ruBot": 1,
+      "uaEvents": [],
+      "ruEvents": [
+        {
+          "count": 1,
+          "path_kind": "canonical_path",
+          "method": "GET",
+          "status": 200,
+          "role": "other_google_agent",
+          "google_agent": "GoogleOther",
+          "query_present": false,
+          "scheme": "https",
+          "host_from_request": "vhost log, www not distinguished",
+          "timestamp": "2026-10-18T02:56:57+03:00",
+          "proof": "published common-crawlers CIDR"
+        },
+        {
+          "count": 1,
+          "path_kind": "canonical_path",
+          "method": "GET",
+          "status": 503,
+          "role": "ordinary_googlebot",
+          "google_agent": "Googlebot Smartphone",
+          "query_present": false,
+          "scheme": "https",
+          "host_from_request": "vhost log, www not distinguished",
+          "timestamp": "2026-10-18T05:59:39+03:00",
+          "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+        }
+      ],
+      "indexUA": "URL нет в индексе Google"
+    },
+    {
+      "id": 105004,
+      "ua": "https://nikolacars.kiev.ua/parts/1004419-00-h-105004/",
+      "ru": "https://nikolacars.kiev.ua/ru/parts/1004419-00-h-105004/",
+      "declaredLastmod": {
+        "ua": "2026-10-30",
+        "ru": "2026-10-31"
+      },
+      "alreadyPresentOn": "2026-10-26",
+      "uaBot": 0,
+      "ruBot": 0,
+      "uaEvents": [],
+      "ruEvents": [],
+      "indexUA": "URL нет в индексе Google"
+    },
+    {
+      "id": 91256,
+      "ua": "https://nikolacars.kiev.ua/parts/1004419-00-m-91256/",
+      "ru": "https://nikolacars.kiev.ua/ru/parts/1004419-00-m-91256/",
+      "declaredLastmod": {
+        "ua": "2026-10-30",
+        "ru": "2026-10-31"
+      },
+      "alreadyPresentOn": "2026-10-26",
+      "uaBot": 0,
+      "ruBot": 0,
+      "uaEvents": [],
+      "ruEvents": [],
+      "indexUA": "URL нет в индексе Google"
+    },
+    {
+      "id": 102415,
+      "ua": "https://nikolacars.kiev.ua/parts/1004424-00-g-102415/",
+      "ru": "https://nikolacars.kiev.ua/ru/parts/1004424-00-g-102415/",
+      "declaredLastmod": {
+        "ua": "2026-10-30",
+        "ru": "2026-10-31"
+      },
+      "alreadyPresentOn": "2026-10-26",
+      "uaBot": 0,
+      "ruBot": 0,
+      "uaEvents": [],
+      "ruEvents": [],
+      "indexUA": "URL нет в индексе Google"
+    },
+    {
+      "id": 107282,
+      "ua": "https://nikolacars.kiev.ua/parts/1004787-01-c-107282/",
+      "ru": "https://nikolacars.kiev.ua/ru/parts/1004787-01-c-107282/",
+      "declaredLastmod": {
+        "ua": "2026-10-30",
+        "ru": "2026-10-31"
+      },
+      "alreadyPresentOn": "2026-10-26",
+      "uaBot": 0,
+      "ruBot": 2,
+      "uaEvents": [],
+      "ruEvents": [
+        {
+          "count": 1,
+          "path_kind": "canonical_path",
+          "method": "GET",
+          "status": 200,
+          "role": "other_google_agent",
+          "google_agent": "GoogleOther",
+          "query_present": false,
+          "scheme": "https",
+          "host_from_request": "vhost log, www not distinguished",
+          "timestamp": "2026-10-17T15:07:07+03:00",
+          "proof": "published common-crawlers CIDR"
+        },
+        {
+          "count": 1,
+          "path_kind": "canonical_path",
+          "method": "GET",
+          "status": 200,
+          "role": "ordinary_googlebot",
+          "google_agent": "Googlebot Smartphone",
+          "query_present": false,
+          "scheme": "https",
+          "host_from_request": "vhost log, www not distinguished",
+          "timestamp": "2026-10-17T15:13:02+03:00",
+          "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+        },
+        {
+          "count": 1,
+          "path_kind": "canonical_path",
+          "method": "GET",
+          "status": 200,
+          "role": "ordinary_googlebot",
+          "google_agent": "Googlebot Smartphone",
+          "query_present": false,
+          "scheme": "https",
+          "host_from_request": "vhost log, www not distinguished",
+          "timestamp": "2026-10-22T23:33:57+03:00",
+          "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+        }
+      ],
+      "indexUA": "URL нет в индексе Google"
+    },
+    {
+      "id": 103566,
+      "ua": "https://nikolacars.kiev.ua/parts/1005307-00-a-103566/",
+      "ru": "https://nikolacars.kiev.ua/ru/parts/1005307-00-a-103566/",
+      "declaredLastmod": {
+        "ua": "2026-10-30",
+        "ru": "2026-10-31"
+      },
+      "alreadyPresentOn": "2026-10-26",
+      "uaBot": 0,
+      "ruBot": 1,
+      "uaEvents": [],
+      "ruEvents": [
+        {
+          "count": 1,
+          "path_kind": "canonical_path",
+          "method": "GET",
+          "status": 200,
+          "role": "ordinary_googlebot",
+          "google_agent": "Googlebot Smartphone",
+          "query_present": false,
+          "scheme": "https",
+          "host_from_request": "vhost log, www not distinguished",
+          "timestamp": "2026-10-16T06:36:44+03:00",
+          "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+        }
+      ],
+      "indexUA": "URL нет в индексе Google"
+    },
+    {
+      "id": 108705,
+      "ua": "https://nikolacars.kiev.ua/parts/1005418-00-c-108705/",
+      "ru": "https://nikolacars.kiev.ua/ru/parts/1005418-00-c-108705/",
+      "declaredLastmod": {
+        "ua": "2026-10-30",
+        "ru": "2026-10-31"
+      },
+      "alreadyPresentOn": "2026-10-26",
+      "uaBot": 0,
+      "ruBot": 3,
+      "uaEvents": [],
+      "ruEvents": [
+        {
+          "count": 1,
+          "path_kind": "canonical_path",
+          "method": "GET",
+          "status": 200,
+          "role": "other_google_agent",
+          "google_agent": "GoogleOther",
+          "query_present": false,
+          "scheme": "https",
+          "host_from_request": "vhost log, www not distinguished",
+          "timestamp": "2026-10-17T02:35:27+03:00",
+          "proof": "published common-crawlers CIDR"
+        },
+        {
+          "count": 1,
+          "path_kind": "canonical_path",
+          "method": "GET",
+          "status": 200,
+          "role": "ordinary_googlebot",
+          "google_agent": "Googlebot Smartphone",
+          "query_present": false,
+          "scheme": "https",
+          "host_from_request": "vhost log, www not distinguished",
+          "timestamp": "2026-10-17T02:36:40+03:00",
+          "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+        },
+        {
+          "count": 1,
+          "path_kind": "canonical_path",
+          "method": "GET",
+          "status": 200,
+          "role": "ordinary_googlebot",
+          "google_agent": "Googlebot Smartphone",
+          "query_present": false,
+          "scheme": "https",
+          "host_from_request": "vhost log, www not distinguished",
+          "timestamp": "2026-10-17T16:02:19+03:00",
+          "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+        },
+        {
+          "count": 1,
+          "path_kind": "canonical_path",
+          "method": "GET",
+          "status": 200,
+          "role": "ordinary_googlebot",
+          "google_agent": "Googlebot Smartphone",
+          "query_present": false,
+          "scheme": "https",
+          "host_from_request": "vhost log, www not distinguished",
+          "timestamp": "2026-10-22T23:30:39+03:00",
+          "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+        }
+      ],
+      "indexUA": "URL нет в индексе Google"
+    },
+    {
+      "id": 113484,
+      "ua": "https://nikolacars.kiev.ua/parts/1005422-00-d-113484/",
+      "ru": "https://nikolacars.kiev.ua/ru/parts/1005422-00-d-113484/",
+      "declaredLastmod": {
+        "ua": "2026-10-30",
+        "ru": "2026-10-31"
+      },
+      "alreadyPresentOn": "2026-10-26",
+      "uaBot": 0,
+      "ruBot": 1,
+      "uaEvents": [],
+      "ruEvents": [
+        {
+          "count": 1,
+          "path_kind": "canonical_path",
+          "method": "GET",
+          "status": 200,
+          "role": "other_google_agent",
+          "google_agent": "GoogleOther",
+          "query_present": false,
+          "scheme": "https",
+          "host_from_request": "vhost log, www not distinguished",
+          "timestamp": "2026-10-17T21:14:15+03:00",
+          "proof": "published common-crawlers CIDR"
+        },
+        {
+          "count": 1,
+          "path_kind": "canonical_path",
+          "method": "GET",
+          "status": 200,
+          "role": "ordinary_googlebot",
+          "google_agent": "Googlebot Smartphone",
+          "query_present": false,
+          "scheme": "https",
+          "host_from_request": "vhost log, www not distinguished",
+          "timestamp": "2026-10-17T21:20:49+03:00",
+          "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+        }
+      ],
+      "indexUA": "URL нет в индексе Google"
+    },
+    {
+      "id": 103584,
+      "ua": "https://nikolacars.kiev.ua/parts/1005855-00-c-103584/",
+      "ru": "https://nikolacars.kiev.ua/ru/parts/1005855-00-c-103584/",
+      "declaredLastmod": {
+        "ua": "2026-10-30",
+        "ru": "2026-10-31"
+      },
+      "alreadyPresentOn": "2026-10-26",
+      "uaBot": 0,
+      "ruBot": 0,
+      "uaEvents": [],
+      "ruEvents": [],
+      "indexUA": "URL нет в индексе Google"
+    },
+    {
+      "id": 103745,
+      "ua": "https://nikolacars.kiev.ua/parts/1007325-00-b-103745/",
+      "ru": "https://nikolacars.kiev.ua/ru/parts/1007325-00-b-103745/",
+      "declaredLastmod": {
+        "ua": "2026-10-30",
+        "ru": "2026-10-31"
+      },
+      "alreadyPresentOn": "2026-10-26",
+      "uaBot": 0,
+      "ruBot": 0,
+      "uaEvents": [],
+      "ruEvents": [],
+      "indexUA": "URL нет в индексе Google"
+    },
+    {
+      "id": 113472,
+      "ua": "https://nikolacars.kiev.ua/parts/1007441-00-b-113472/",
+      "ru": "https://nikolacars.kiev.ua/ru/parts/1007441-00-b-113472/",
+      "declaredLastmod": {
+        "ua": "2026-10-30",
+        "ru": "2026-10-31"
+      },
+      "alreadyPresentOn": "2026-10-26",
+      "uaBot": 1,
+      "ruBot": 1,
+      "uaEvents": [
+        {
+          "count": 1,
+          "path_kind": "canonical_path",
+          "method": "GET",
+          "status": 200,
+          "role": "ordinary_googlebot",
+          "google_agent": "Googlebot Smartphone",
+          "query_present": false,
+          "scheme": "https",
+          "host_from_request": "vhost log, www not distinguished",
+          "timestamp": "2026-10-18T19:35:44+03:00",
+          "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+        },
+        {
+          "count": 1,
+          "path_kind": "canonical_path",
+          "method": "GET",
+          "status": 200,
+          "role": "other_google_agent",
+          "google_agent": "AdsBot-Google-Mobile",
+          "query_present": false,
+          "scheme": "https",
+          "host_from_request": "vhost log, www not distinguished",
+          "timestamp": "2026-10-19T11:55:04+03:00",
+          "proof": "published special-crawlers CIDR"
+        }
+      ],
+      "ruEvents": [
+        {
+          "count": 1,
+          "path_kind": "canonical_path",
+          "method": "GET",
+          "status": 200,
+          "role": "other_google_agent",
+          "google_agent": "GoogleOther",
+          "query_present": false,
+          "scheme": "https",
+          "host_from_request": "vhost log, www not distinguished",
+          "timestamp": "2026-10-17T21:20:39+03:00",
+          "proof": "published common-crawlers CIDR"
+        },
+        {
+          "count": 1,
+          "path_kind": "canonical_path",
+          "method": "GET",
+          "status": 200,
+          "role": "ordinary_googlebot",
+          "google_agent": "Googlebot Smartphone",
+          "query_present": false,
+          "scheme": "https",
+          "host_from_request": "vhost log, www not distinguished",
+          "timestamp": "2026-10-17T21:31:32+03:00",
+          "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+        }
+      ],
+      "indexUA": "URL нет в индексе Google"
+    },
+    {
+      "id": 108078,
+      "ua": "https://nikolacars.kiev.ua/parts/1007511-00-a-108078/",
+      "ru": "https://nikolacars.kiev.ua/ru/parts/1007511-00-a-108078/",
+      "declaredLastmod": {
+        "ua": "2026-10-30",
+        "ru": "2026-10-31"
+      },
+      "alreadyPresentOn": "2026-10-26",
+      "uaBot": 0,
+      "ruBot": 1,
+      "uaEvents": [],
+      "ruEvents": [
+        {
+          "count": 1,
+          "path_kind": "canonical_path",
+          "method": "GET",
+          "status": 200,
+          "role": "other_google_agent",
+          "google_agent": "GoogleOther",
+          "query_present": false,
+          "scheme": "https",
+          "host_from_request": "vhost log, www not distinguished",
+          "timestamp": "2026-10-17T16:12:11+03:00",
+          "proof": "published common-crawlers CIDR"
+        },
+        {
+          "count": 1,
+          "path_kind": "canonical_path",
+          "method": "GET",
+          "status": 200,
+          "role": "ordinary_googlebot",
+          "google_agent": "Googlebot Smartphone",
+          "query_present": false,
+          "scheme": "https",
+          "host_from_request": "vhost log, www not distinguished",
+          "timestamp": "2026-10-17T16:17:30+03:00",
+          "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+        }
+      ],
+      "indexUA": "URL нет в индексе Google"
+    },
+    {
+      "id": 107696,
+      "ua": "https://nikolacars.kiev.ua/parts/1007566-00-c-107696/",
+      "ru": "https://nikolacars.kiev.ua/ru/parts/1007566-00-c-107696/",
+      "declaredLastmod": {
+        "ua": "2026-10-30",
+        "ru": "2026-10-31"
+      },
+      "alreadyPresentOn": "2026-10-26",
+      "uaBot": 0,
+      "ruBot": 0,
+      "uaEvents": [],
+      "ruEvents": [],
+      "indexUA": "URL нет в индексе Google"
+    },
+    {
+      "id": 113365,
+      "ua": "https://nikolacars.kiev.ua/parts/1007719-01-a-113365/",
+      "ru": "https://nikolacars.kiev.ua/ru/parts/1007719-01-a-113365/",
+      "declaredLastmod": {
+        "ua": "2026-10-30",
+        "ru": "2026-10-31"
+      },
+      "alreadyPresentOn": "2026-10-26",
+      "uaBot": 0,
+      "ruBot": 3,
+      "uaEvents": [],
+      "ruEvents": [
+        {
+          "count": 1,
+          "path_kind": "canonical_path",
+          "method": "GET",
+          "status": 200,
+          "role": "other_google_agent",
+          "google_agent": "GoogleOther",
+          "query_present": false,
+          "scheme": "https",
+          "host_from_request": "vhost log, www not distinguished",
+          "timestamp": "2026-10-16T13:09:44+03:00",
+          "proof": "published common-crawlers CIDR"
+        },
+        {
+          "count": 1,
+          "path_kind": "canonical_path",
+          "method": "GET",
+          "status": 200,
+          "role": "ordinary_googlebot",
+          "google_agent": "Googlebot Smartphone",
+          "query_present": false,
+          "scheme": "https",
+          "host_from_request": "vhost log, www not distinguished",
+          "timestamp": "2026-10-16T16:10:29+03:00",
+          "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+        },
+        {
+          "count": 1,
+          "path_kind": "canonical_path",
+          "method": "GET",
+          "status": 200,
+          "role": "ordinary_googlebot",
+          "google_agent": "Googlebot Smartphone",
+          "query_present": false,
+          "scheme": "https",
+          "host_from_request": "vhost log, www not distinguished",
+          "timestamp": "2026-10-17T06:25:55+03:00",
+          "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+        },
+        {
+          "count": 1,
+          "path_kind": "canonical_path",
+          "method": "GET",
+          "status": 200,
+          "role": "ordinary_googlebot",
+          "google_agent": "Googlebot Smartphone",
+          "query_present": false,
+          "scheme": "https",
+          "host_from_request": "vhost log, www not distinguished",
+          "timestamp": "2026-10-22T23:22:15+03:00",
+          "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+        }
+      ],
+      "indexUA": "URL нет в индексе Google"
+    },
+    {
+      "id": 113366,
+      "ua": "https://nikolacars.kiev.ua/parts/1007831-00-b-113366/",
+      "ru": "https://nikolacars.kiev.ua/ru/parts/1007831-00-b-113366/",
+      "declaredLastmod": {
+        "ua": "2026-10-30",
+        "ru": "2026-10-31"
+      },
+      "alreadyPresentOn": "2026-10-26",
+      "uaBot": 0,
+      "ruBot": 1,
+      "uaEvents": [],
+      "ruEvents": [
+        {
+          "count": 1,
+          "path_kind": "canonical_path",
+          "method": "GET",
+          "status": 200,
+          "role": "other_google_agent",
+          "google_agent": "GoogleOther",
+          "query_present": false,
+          "scheme": "https",
+          "host_from_request": "vhost log, www not distinguished",
+          "timestamp": "2026-10-16T12:34:59+03:00",
+          "proof": "published common-crawlers CIDR"
+        },
+        {
+          "count": 1,
+          "path_kind": "canonical_path",
+          "method": "GET",
+          "status": 200,
+          "role": "ordinary_googlebot",
+          "google_agent": "Googlebot Smartphone",
+          "query_present": false,
+          "scheme": "https",
+          "host_from_request": "vhost log, www not distinguished",
+          "timestamp": "2026-10-16T15:18:02+03:00",
+          "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+        }
+      ],
+      "indexUA": "URL нет в индексе Google"
+    },
+    {
+      "id": 106599,
+      "ua": "https://nikolacars.kiev.ua/parts/1008404-00-c-106599/",
+      "ru": "https://nikolacars.kiev.ua/ru/parts/1008404-00-c-106599/",
+      "declaredLastmod": {
+        "ua": "2026-10-30",
+        "ru": "2026-10-31"
+      },
+      "alreadyPresentOn": "2026-10-26",
+      "uaBot": 0,
+      "ruBot": 1,
+      "uaEvents": [],
+      "ruEvents": [
+        {
+          "count": 1,
+          "path_kind": "canonical_path",
+          "method": "GET",
+          "status": 200,
+          "role": "other_google_agent",
+          "google_agent": "GoogleOther",
+          "query_present": false,
+          "scheme": "https",
+          "host_from_request": "vhost log, www not distinguished",
+          "timestamp": "2026-10-17T14:25:41+03:00",
+          "proof": "published common-crawlers CIDR"
+        },
+        {
+          "count": 1,
+          "path_kind": "canonical_path",
+          "method": "GET",
+          "status": 200,
+          "role": "ordinary_googlebot",
+          "google_agent": "Googlebot Smartphone",
+          "query_present": false,
+          "scheme": "https",
+          "host_from_request": "vhost log, www not distinguished",
+          "timestamp": "2026-10-17T14:32:01+03:00",
+          "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+        }
+      ],
+      "indexUA": "URL нет в индексе Google"
+    },
+    {
+      "id": 113113,
+      "ua": "https://nikolacars.kiev.ua/parts/1008471-00-a-113113/",
+      "ru": "https://nikolacars.kiev.ua/ru/parts/1008471-00-a-113113/",
+      "declaredLastmod": {
+        "ua": "2026-10-30",
+        "ru": "2026-10-31"
+      },
+      "alreadyPresentOn": "2026-10-26",
+      "uaBot": 0,
+      "ruBot": 0,
+      "uaEvents": [],
+      "ruEvents": [],
+      "indexUA": "URL нет в индексе Google"
+    },
+    {
+      "id": 103646,
+      "ua": "https://nikolacars.kiev.ua/parts/1008573-00-e-103646/",
+      "ru": "https://nikolacars.kiev.ua/ru/parts/1008573-00-e-103646/",
+      "declaredLastmod": {
+        "ua": "2026-10-30",
+        "ru": "2026-10-31"
+      },
+      "alreadyPresentOn": "2026-10-26",
+      "uaBot": 0,
+      "ruBot": 0,
+      "uaEvents": [],
+      "ruEvents": [],
+      "indexUA": "URL нет в индексе Google"
+    },
+    {
+      "id": 108438,
+      "ua": "https://nikolacars.kiev.ua/parts/1009065-00-c-108438/",
+      "ru": "https://nikolacars.kiev.ua/ru/parts/1009065-00-c-108438/",
+      "declaredLastmod": {
+        "ua": "2026-10-30",
+        "ru": "2026-10-31"
+      },
+      "alreadyPresentOn": "2026-10-26",
+      "uaBot": 0,
+      "ruBot": 1,
+      "uaEvents": [],
+      "ruEvents": [
+        {
+          "count": 1,
+          "path_kind": "canonical_path",
+          "method": "GET",
+          "status": 200,
+          "role": "other_google_agent",
+          "google_agent": "GoogleOther",
+          "query_present": false,
+          "scheme": "https",
+          "host_from_request": "vhost log, www not distinguished",
+          "timestamp": "2026-10-16T11:32:32+03:00",
+          "proof": "published common-crawlers CIDR"
+        },
+        {
+          "count": 1,
+          "path_kind": "canonical_path",
+          "method": "GET",
+          "status": 200,
+          "role": "ordinary_googlebot",
+          "google_agent": "Googlebot Smartphone",
+          "query_present": false,
+          "scheme": "https",
+          "host_from_request": "vhost log, www not distinguished",
+          "timestamp": "2026-10-16T16:07:41+03:00",
+          "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+        }
+      ],
+      "indexUA": "URL нет в индексе Google"
+    }
+  ],
+  "currentPanelEvidence": {
+    "asOf": "2026-10-31T14:17:04+02:00",
+    "windows": {
+      "http": {
+        "old_last": "2026-10-30T12:25:50+02:00",
+        "new_earliest": "2026-09-30T15:59:14+03:00",
+        "new_latest": "2026-10-30T12:25:50+02:00",
+        "separations_between_recorded_intervals": []
+      },
+      "https": {
+        "old_last": "2026-10-30T14:06:05+02:00",
+        "new_earliest": "2026-09-30T15:19:56+03:00",
+        "new_latest": "2026-10-31T14:17:04+02:00",
+        "separations_between_recorded_intervals": [
+          {
+            "previous_last_record": "2026-10-30T14:06:05+02:00",
+            "next_first_record": "2026-10-31T14:02:40+02:00",
+            "seconds": 86195
+          }
+        ]
+      }
+    },
+    "summary": {
+      "uk": {
+        "ids_with_verified_crawl": 1,
+        "total_verified_crawls": 1,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "new_inspection_events_after": 0,
+        "all_client_requests_after": 0
+      },
+      "ru": {
+        "ids_with_verified_crawl": 12,
+        "total_verified_crawls": 17,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "new_inspection_events_after": 2,
+        "all_client_requests_after": 3
+      }
+    },
+    "sources": [
+      {
+        "source": "panel-current-http.gz",
+        "scheme": "http",
+        "bytes": 39,
+        "sha256": "25e3395320bdf4c9d522139e8f50ad799d044f9d5a5485d598ce91119183551f",
+        "start": null,
+        "end": null,
+        "rows": 0
+      },
+      {
+        "source": "panel-archive-http.gz",
+        "scheme": "http",
+        "bytes": 29736,
+        "sha256": "8b8a99d1c9259c07546350324afe35c2b6f2173a69530bd24ad8f33cd2d2f880",
+        "start": "2026-09-30T15:59:14+03:00",
+        "end": "2026-10-30T12:25:50+02:00",
+        "rows": 707
+      },
+      {
+        "source": "panel-final-https.gz",
+        "scheme": "https",
+        "bytes": 2325,
+        "sha256": "2f20fb504c81b080c600a34789025c7b91d32189424f7b1708240715e90aaf20",
+        "start": "2026-10-31T14:02:40+02:00",
+        "end": "2026-10-31T14:17:04+02:00",
+        "rows": 64
+      },
+      {
+        "source": "panel-current-https.gz",
+        "scheme": "https",
+        "bytes": 1955,
+        "sha256": "4c3729720ddaaa8c4395e985954bb14d27f27e250816defd8ba700f695450fca",
+        "start": "2026-10-31T14:02:40+02:00",
+        "end": "2026-10-31T14:12:27+02:00",
+        "rows": 52
+      },
+      {
+        "source": "panel-archive-https.gz",
+        "scheme": "https",
+        "bytes": 3662544,
+        "sha256": "36a1c9622aeef543e7597d0481d212d920729e1782f85a5b2a8d807f3e14ae82",
+        "start": "2026-09-30T15:19:56+03:00",
+        "end": "2026-10-30T14:06:05+02:00",
+        "rows": 152828
+      }
+    ],
+    "additionalGoogleEvents": [
+      {
+        "locale": "ru",
+        "id": "107145",
+        "timestamp": "2026-10-31T14:09:48+02:00",
+        "role": "inspection_tool",
+        "product": "Google-InspectionTool",
+        "variant": "canonical_path",
+        "method": "GET",
+        "http_status": 200,
+        "count": 1
+      },
+      {
+        "locale": "ru",
+        "id": "107145",
+        "timestamp": "2026-10-31T14:09:48+02:00",
+        "role": "inspection_tool",
+        "product": "Google-InspectionTool",
+        "variant": "canonical_path",
+        "method": "GET",
+        "http_status": 200,
+        "count": 1
+      }
+    ],
+    "gapCheck": "Both .bkup targets reported File not found in cPanel File Manager. The October 31 02:09 Home Directory backup contained zero records under logs/. The Visitors page reported starting October 31 at 14:02."
+  },
+  "latestRecheck": {
+    "observed_utc": "2026-10-31T18:28:54.738417+00:00",
+    "snapshot": ".codex-tmp/gsc-sitemap-logs-20-20261031/archive-rechecks/20261031T182838589835Z",
+    "archives": {
+      "http": {
+        "path": "logs/nikolacars.kiev.ua-Oct-2026.gz",
+        "bytes": 30598,
+        "mdtm_utc": "20261031165005",
+        "sha256": "93a6e2b7e2d408a9a0ec777654a575b710d20d6d88e9ed73a37e87f4a890df02",
+        "rows": 720,
+        "start": "2026-09-30T15:59:14+03:00",
+        "end": "2026-10-31T13:35:06+02:00",
+        "rows_without_timestamp": 0,
+        "rows_after_old_cutoff": 13,
+        "observed_local_hours_after_cutoff": [
+          "2026-10-30T19",
+          "2026-10-30T20",
+          "2026-10-31T00",
+          "2026-10-31T02",
+          "2026-10-31T03",
+          "2026-10-31T05",
+          "2026-10-31T06",
+          "2026-10-31T08",
+          "2026-10-31T09",
+          "2026-10-31T13"
+        ],
+        "rows_by_local_date": {
+          "2026-09-30": 7,
+          "2026-10-01": 19,
+          "2026-10-02": 26,
+          "2026-10-03": 16,
+          "2026-10-04": 32,
+          "2026-10-05": 21,
+          "2026-10-06": 27,
+          "2026-10-07": 22,
+          "2026-10-08": 23,
+          "2026-10-09": 27,
+          "2026-10-10": 29,
+          "2026-10-11": 21,
+          "2026-10-12": 86,
+          "2026-10-13": 15,
+          "2026-10-14": 22,
+          "2026-10-15": 19,
+          "2026-10-16": 26,
+          "2026-10-17": 18,
+          "2026-10-18": 14,
+          "2026-10-19": 11,
+          "2026-10-20": 28,
+          "2026-10-21": 13,
+          "2026-10-22": 25,
+          "2026-10-23": 27,
+          "2026-10-24": 32,
+          "2026-10-25": 13,
+          "2026-10-26": 12,
+          "2026-10-27": 32,
+          "2026-10-28": 10,
+          "2026-10-29": 22,
+          "2026-10-30": 14,
+          "2026-10-31": 11
+        },
+        "previous": {
+          "bytes": 29736,
+          "mdtm_utc": "20261030174742",
+          "sha256": "8b8a99d1c9259c07546350324afe35c2b6f2173a69530bd24ad8f33cd2d2f880",
+          "end": "2026-10-30T12:25:50+02:00"
+        },
+        "same_bytes": false,
+        "gzip_crc_eof": true,
+        "metadata_stable_during_download": true
+      },
+      "https": {
+        "path": "logs/nikolacars.kiev.ua-ssl_log-Oct-2026.gz",
+        "bytes": 3832098,
+        "mdtm_utc": "20261031165005",
+        "sha256": "ec7fe2e80c4117f8bb35df923b959df3de1ad7314a7ccd6e0cfdd493af526db0",
+        "rows": 159988,
+        "start": "2026-09-30T15:19:56+03:00",
+        "end": "2026-10-31T14:01:31+02:00",
+        "rows_without_timestamp": 0,
+        "rows_after_old_cutoff": 7160,
+        "observed_local_hours_after_cutoff": [
+          "2026-10-30T14",
+          "2026-10-30T15",
+          "2026-10-30T16",
+          "2026-10-30T17",
+          "2026-10-30T18",
+          "2026-10-30T19",
+          "2026-10-30T20",
+          "2026-10-30T21",
+          "2026-10-30T22",
+          "2026-10-30T23",
+          "2026-10-31T00",
+          "2026-10-31T01",
+          "2026-10-31T02",
+          "2026-10-31T03",
+          "2026-10-31T04",
+          "2026-10-31T05",
+          "2026-10-31T06",
+          "2026-10-31T07",
+          "2026-10-31T08",
+          "2026-10-31T09",
+          "2026-10-31T10",
+          "2026-10-31T11",
+          "2026-10-31T12",
+          "2026-10-31T13",
+          "2026-10-31T14"
+        ],
+        "rows_by_local_date": {
+          "2026-09-30": 4374,
+          "2026-10-01": 3774,
+          "2026-10-02": 4562,
+          "2026-10-03": 3292,
+          "2026-10-04": 3356,
+          "2026-10-05": 3848,
+          "2026-10-06": 4685,
+          "2026-10-07": 6469,
+          "2026-10-08": 10868,
+          "2026-10-09": 7278,
+          "2026-10-10": 3055,
+          "2026-10-11": 5381,
+          "2026-10-12": 5198,
+          "2026-10-13": 3981,
+          "2026-10-14": 4456,
+          "2026-10-15": 5113,
+          "2026-10-16": 5420,
+          "2026-10-17": 4264,
+          "2026-10-18": 7872,
+          "2026-10-19": 4423,
+          "2026-10-20": 3887,
+          "2026-10-21": 3454,
+          "2026-10-22": 3646,
+          "2026-10-23": 4233,
+          "2026-10-24": 5285,
+          "2026-10-25": 4019,
+          "2026-10-26": 3958,
+          "2026-10-27": 8929,
+          "2026-10-28": 5163,
+          "2026-10-29": 5992,
+          "2026-10-30": 5069,
+          "2026-10-31": 4684
+        },
+        "previous": {
+          "bytes": 3662544,
+          "mdtm_utc": "20261030174742",
+          "sha256": "36a1c9622aeef543e7597d0481d212d920729e1782f85a5b2a8d807f3e14ae82",
+          "end": "2026-10-30T14:06:05+02:00"
+        },
+        "same_bytes": false,
+        "gzip_crc_eof": true,
+        "metadata_stable_during_download": true
+      }
+    },
+    "additional_sources": {
+      "logs/nikolacars.kiev.ua.bkup": {
+        "response": "550"
+      },
+      "logs/nikolacars.kiev.ua-ssl_log.bkup": {
+        "response": "550"
+      },
+      "access-logs/nikolacars.kiev.ua": {
+        "response": "550"
+      },
+      "access-logs/nikolacars.kiev.ua-ssl_log": {
+        "response": "550"
+      },
+      "logs/nikolacars.kiev.ua-Nov-2026.gz": {
+        "response": "550"
+      },
+      "logs/nikolacars.kiev.ua-ssl_log-Nov-2026.gz": {
+        "response": "550"
+      }
+    },
+    "overview": {
+      "uk": {
+        "ids_with_verified_crawl": 1,
+        "total_verified_crawls": 1,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "new_inspection_events_after": 0,
+        "all_client_requests_after": 9
+      },
+      "ru": {
+        "ids_with_verified_crawl": 12,
+        "total_verified_crawls": 17,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "new_inspection_events_after": 2,
+        "all_client_requests_after": 11
+      }
+    },
+    "windows": {
+      "http": {
+        "old_last": "2026-10-30T12:25:50+02:00",
+        "new_earliest": "2026-09-30T15:59:14+03:00",
+        "new_latest": "2026-10-31T13:35:06+02:00",
+        "separations_between_recorded_intervals": []
+      },
+      "https": {
+        "old_last": "2026-10-30T14:06:05+02:00",
+        "new_earliest": "2026-09-30T15:19:56+03:00",
+        "new_latest": "2026-10-31T14:17:04+02:00",
+        "separations_between_recorded_intervals": [
+          {
+            "previous_last_record": "2026-10-31T14:01:31+02:00",
+            "next_first_record": "2026-10-31T14:02:40+02:00",
+            "seconds": 69
+          }
+        ]
+      }
+    },
+    "products": [
+      {
+        "locale": "uk",
+        "id": "113428",
+        "canonical": "https://nikolacars.kiev.ua/parts/1002322-00-c-113428/",
+        "archived_crawls": 0,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 0,
+        "after_all_clients": 2,
+        "after_variants": {
+          "canonical_path": 2
+        },
+        "after_methods": {
+          "GET": 2
+        },
+        "after_roles": {
+          "other_client": 2
+        },
+        "archived_events": [],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "uk",
+        "id": "107145",
+        "canonical": "https://nikolacars.kiev.ua/parts/1002485-00-h-107145/",
+        "archived_crawls": 0,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 0,
+        "after_all_clients": 1,
+        "after_variants": {
+          "canonical_path": 1
+        },
+        "after_methods": {
+          "GET": 1
+        },
+        "after_roles": {
+          "other_client": 1
+        },
+        "archived_events": [],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "uk",
+        "id": "105004",
+        "canonical": "https://nikolacars.kiev.ua/parts/1004419-00-h-105004/",
+        "archived_crawls": 0,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 0,
+        "after_all_clients": 0,
+        "after_variants": {},
+        "after_methods": {},
+        "after_roles": {},
+        "archived_events": [],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "uk",
+        "id": "91256",
+        "canonical": "https://nikolacars.kiev.ua/parts/1004419-00-m-91256/",
+        "archived_crawls": 0,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 0,
+        "after_all_clients": 0,
+        "after_variants": {},
+        "after_methods": {},
+        "after_roles": {},
+        "archived_events": [],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "uk",
+        "id": "102415",
+        "canonical": "https://nikolacars.kiev.ua/parts/1004424-00-g-102415/",
+        "archived_crawls": 0,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 0,
+        "after_all_clients": 0,
+        "after_variants": {},
+        "after_methods": {},
+        "after_roles": {},
+        "archived_events": [],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "uk",
+        "id": "107282",
+        "canonical": "https://nikolacars.kiev.ua/parts/1004787-01-c-107282/",
+        "archived_crawls": 0,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 0,
+        "after_all_clients": 1,
+        "after_variants": {
+          "canonical_path": 1
+        },
+        "after_methods": {
+          "GET": 1
+        },
+        "after_roles": {
+          "other_client": 1
+        },
+        "archived_events": [],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "uk",
+        "id": "103566",
+        "canonical": "https://nikolacars.kiev.ua/parts/1005307-00-a-103566/",
+        "archived_crawls": 0,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 0,
+        "after_all_clients": 1,
+        "after_variants": {
+          "canonical_path": 1
+        },
+        "after_methods": {
+          "GET": 1
+        },
+        "after_roles": {
+          "other_client": 1
+        },
+        "archived_events": [],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "uk",
+        "id": "108705",
+        "canonical": "https://nikolacars.kiev.ua/parts/1005418-00-c-108705/",
+        "archived_crawls": 0,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 0,
+        "after_all_clients": 1,
+        "after_variants": {
+          "canonical_path": 1
+        },
+        "after_methods": {
+          "GET": 1
+        },
+        "after_roles": {
+          "other_client": 1
+        },
+        "archived_events": [],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "uk",
+        "id": "113484",
+        "canonical": "https://nikolacars.kiev.ua/parts/1005422-00-d-113484/",
+        "archived_crawls": 0,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 0,
+        "after_all_clients": 0,
+        "after_variants": {},
+        "after_methods": {},
+        "after_roles": {},
+        "archived_events": [],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "uk",
+        "id": "103584",
+        "canonical": "https://nikolacars.kiev.ua/parts/1005855-00-c-103584/",
+        "archived_crawls": 0,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 0,
+        "after_all_clients": 0,
+        "after_variants": {},
+        "after_methods": {},
+        "after_roles": {},
+        "archived_events": [],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "uk",
+        "id": "103745",
+        "canonical": "https://nikolacars.kiev.ua/parts/1007325-00-b-103745/",
+        "archived_crawls": 0,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 0,
+        "after_all_clients": 1,
+        "after_variants": {
+          "canonical_path": 1
+        },
+        "after_methods": {
+          "GET": 1
+        },
+        "after_roles": {
+          "other_client": 1
+        },
+        "archived_events": [],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "uk",
+        "id": "113472",
+        "canonical": "https://nikolacars.kiev.ua/parts/1007441-00-b-113472/",
+        "archived_crawls": 1,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 1,
+        "after_all_clients": 1,
+        "after_variants": {
+          "canonical_path": 1
+        },
+        "after_methods": {
+          "GET": 1
+        },
+        "after_roles": {
+          "other_client": 1
+        },
+        "archived_events": [
+          {
+            "count": 1,
+            "path_kind": "canonical_path",
+            "method": "GET",
+            "status": 200,
+            "role": "ordinary_googlebot",
+            "google_agent": "Googlebot Smartphone",
+            "query_present": false,
+            "scheme": "https",
+            "host_from_request": "vhost log, www not distinguished",
+            "timestamp": "2026-10-18T19:35:44+03:00",
+            "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+          },
+          {
+            "count": 1,
+            "path_kind": "canonical_path",
+            "method": "GET",
+            "status": 200,
+            "role": "other_google_agent",
+            "google_agent": "AdsBot-Google-Mobile",
+            "query_present": false,
+            "scheme": "https",
+            "host_from_request": "vhost log, www not distinguished",
+            "timestamp": "2026-10-19T11:55:04+03:00",
+            "proof": "published special-crawlers CIDR"
+          }
+        ],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "uk",
+        "id": "108078",
+        "canonical": "https://nikolacars.kiev.ua/parts/1007511-00-a-108078/",
+        "archived_crawls": 0,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 0,
+        "after_all_clients": 1,
+        "after_variants": {
+          "canonical_path": 1
+        },
+        "after_methods": {
+          "GET": 1
+        },
+        "after_roles": {
+          "other_client": 1
+        },
+        "archived_events": [],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "uk",
+        "id": "107696",
+        "canonical": "https://nikolacars.kiev.ua/parts/1007566-00-c-107696/",
+        "archived_crawls": 0,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 0,
+        "after_all_clients": 0,
+        "after_variants": {},
+        "after_methods": {},
+        "after_roles": {},
+        "archived_events": [],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "uk",
+        "id": "113365",
+        "canonical": "https://nikolacars.kiev.ua/parts/1007719-01-a-113365/",
+        "archived_crawls": 0,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 0,
+        "after_all_clients": 0,
+        "after_variants": {},
+        "after_methods": {},
+        "after_roles": {},
+        "archived_events": [],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "uk",
+        "id": "113366",
+        "canonical": "https://nikolacars.kiev.ua/parts/1007831-00-b-113366/",
+        "archived_crawls": 0,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 0,
+        "after_all_clients": 0,
+        "after_variants": {},
+        "after_methods": {},
+        "after_roles": {},
+        "archived_events": [],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "uk",
+        "id": "106599",
+        "canonical": "https://nikolacars.kiev.ua/parts/1008404-00-c-106599/",
+        "archived_crawls": 0,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 0,
+        "after_all_clients": 0,
+        "after_variants": {},
+        "after_methods": {},
+        "after_roles": {},
+        "archived_events": [],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "uk",
+        "id": "113113",
+        "canonical": "https://nikolacars.kiev.ua/parts/1008471-00-a-113113/",
+        "archived_crawls": 0,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 0,
+        "after_all_clients": 0,
+        "after_variants": {},
+        "after_methods": {},
+        "after_roles": {},
+        "archived_events": [],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "uk",
+        "id": "103646",
+        "canonical": "https://nikolacars.kiev.ua/parts/1008573-00-e-103646/",
+        "archived_crawls": 0,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 0,
+        "after_all_clients": 0,
+        "after_variants": {},
+        "after_methods": {},
+        "after_roles": {},
+        "archived_events": [],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "uk",
+        "id": "108438",
+        "canonical": "https://nikolacars.kiev.ua/parts/1009065-00-c-108438/",
+        "archived_crawls": 0,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 0,
+        "after_all_clients": 0,
+        "after_variants": {},
+        "after_methods": {},
+        "after_roles": {},
+        "archived_events": [],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "ru",
+        "id": "113428",
+        "canonical": "https://nikolacars.kiev.ua/ru/parts/1002322-00-c-113428/",
+        "archived_crawls": 1,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 1,
+        "after_all_clients": 1,
+        "after_variants": {
+          "canonical_path": 1
+        },
+        "after_methods": {
+          "GET": 1
+        },
+        "after_roles": {
+          "other_client": 1
+        },
+        "archived_events": [
+          {
+            "count": 1,
+            "path_kind": "canonical_path",
+            "method": "GET",
+            "status": 200,
+            "role": "other_google_agent",
+            "google_agent": "GoogleOther",
+            "query_present": false,
+            "scheme": "https",
+            "host_from_request": "vhost log, www not distinguished",
+            "timestamp": "2026-10-17T17:49:13+03:00",
+            "proof": "published common-crawlers CIDR"
+          },
+          {
+            "count": 1,
+            "path_kind": "canonical_path",
+            "method": "GET",
+            "status": 200,
+            "role": "ordinary_googlebot",
+            "google_agent": "Googlebot Smartphone",
+            "query_present": false,
+            "scheme": "https",
+            "host_from_request": "vhost log, www not distinguished",
+            "timestamp": "2026-10-17T17:56:50+03:00",
+            "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+          }
+        ],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "ru",
+        "id": "107145",
+        "canonical": "https://nikolacars.kiev.ua/ru/parts/1002485-00-h-107145/",
+        "archived_crawls": 1,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 1,
+        "after_all_clients": 4,
+        "after_variants": {
+          "canonical_path": 4
+        },
+        "after_methods": {
+          "GET": 4
+        },
+        "after_roles": {
+          "other_client": 2,
+          "inspection_tool": 2
+        },
+        "archived_events": [
+          {
+            "count": 1,
+            "path_kind": "canonical_path",
+            "method": "GET",
+            "status": 200,
+            "role": "other_google_agent",
+            "google_agent": "GoogleOther",
+            "query_present": false,
+            "scheme": "https",
+            "host_from_request": "vhost log, www not distinguished",
+            "timestamp": "2026-10-18T02:56:57+03:00",
+            "proof": "published common-crawlers CIDR"
+          },
+          {
+            "count": 1,
+            "path_kind": "canonical_path",
+            "method": "GET",
+            "status": 503,
+            "role": "ordinary_googlebot",
+            "google_agent": "Googlebot Smartphone",
+            "query_present": false,
+            "scheme": "https",
+            "host_from_request": "vhost log, www not distinguished",
+            "timestamp": "2026-10-18T05:59:39+03:00",
+            "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+          }
+        ],
+        "after_google_events": [
+          {
+            "locale": "ru",
+            "id": "107145",
+            "variant": "canonical_path",
+            "method": "GET",
+            "timestamp": "2026-10-31T14:09:48+02:00",
+            "scheme": "https",
+            "host": "unspecified in vhost record",
+            "http_status": 200,
+            "query_present": false,
+            "role": "inspection_tool",
+            "product": "Google-InspectionTool",
+            "published_ranges": [
+              "common-crawlers"
+            ],
+            "ptr_and_forward_suffix": ".googlebot.com",
+            "older_window": false,
+            "count": 1
+          },
+          {
+            "locale": "ru",
+            "id": "107145",
+            "variant": "canonical_path",
+            "method": "GET",
+            "timestamp": "2026-10-31T14:09:48+02:00",
+            "scheme": "https",
+            "host": "unspecified in vhost record",
+            "http_status": 200,
+            "query_present": false,
+            "role": "inspection_tool",
+            "product": "Google-InspectionTool",
+            "published_ranges": [
+              "common-crawlers"
+            ],
+            "ptr_and_forward_suffix": ".googlebot.com",
+            "older_window": false,
+            "count": 1
+          }
+        ],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "ru",
+        "id": "105004",
+        "canonical": "https://nikolacars.kiev.ua/ru/parts/1004419-00-h-105004/",
+        "archived_crawls": 0,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 0,
+        "after_all_clients": 0,
+        "after_variants": {},
+        "after_methods": {},
+        "after_roles": {},
+        "archived_events": [],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "ru",
+        "id": "91256",
+        "canonical": "https://nikolacars.kiev.ua/ru/parts/1004419-00-m-91256/",
+        "archived_crawls": 0,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 0,
+        "after_all_clients": 0,
+        "after_variants": {},
+        "after_methods": {},
+        "after_roles": {},
+        "archived_events": [],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "ru",
+        "id": "102415",
+        "canonical": "https://nikolacars.kiev.ua/ru/parts/1004424-00-g-102415/",
+        "archived_crawls": 0,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 0,
+        "after_all_clients": 0,
+        "after_variants": {},
+        "after_methods": {},
+        "after_roles": {},
+        "archived_events": [],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "ru",
+        "id": "107282",
+        "canonical": "https://nikolacars.kiev.ua/ru/parts/1004787-01-c-107282/",
+        "archived_crawls": 2,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 2,
+        "after_all_clients": 1,
+        "after_variants": {
+          "canonical_path": 1
+        },
+        "after_methods": {
+          "GET": 1
+        },
+        "after_roles": {
+          "other_client": 1
+        },
+        "archived_events": [
+          {
+            "count": 1,
+            "path_kind": "canonical_path",
+            "method": "GET",
+            "status": 200,
+            "role": "other_google_agent",
+            "google_agent": "GoogleOther",
+            "query_present": false,
+            "scheme": "https",
+            "host_from_request": "vhost log, www not distinguished",
+            "timestamp": "2026-10-17T15:07:07+03:00",
+            "proof": "published common-crawlers CIDR"
+          },
+          {
+            "count": 1,
+            "path_kind": "canonical_path",
+            "method": "GET",
+            "status": 200,
+            "role": "ordinary_googlebot",
+            "google_agent": "Googlebot Smartphone",
+            "query_present": false,
+            "scheme": "https",
+            "host_from_request": "vhost log, www not distinguished",
+            "timestamp": "2026-10-17T15:13:02+03:00",
+            "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+          },
+          {
+            "count": 1,
+            "path_kind": "canonical_path",
+            "method": "GET",
+            "status": 200,
+            "role": "ordinary_googlebot",
+            "google_agent": "Googlebot Smartphone",
+            "query_present": false,
+            "scheme": "https",
+            "host_from_request": "vhost log, www not distinguished",
+            "timestamp": "2026-10-22T23:33:57+03:00",
+            "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+          }
+        ],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "ru",
+        "id": "103566",
+        "canonical": "https://nikolacars.kiev.ua/ru/parts/1005307-00-a-103566/",
+        "archived_crawls": 1,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 1,
+        "after_all_clients": 0,
+        "after_variants": {},
+        "after_methods": {},
+        "after_roles": {},
+        "archived_events": [
+          {
+            "count": 1,
+            "path_kind": "canonical_path",
+            "method": "GET",
+            "status": 200,
+            "role": "ordinary_googlebot",
+            "google_agent": "Googlebot Smartphone",
+            "query_present": false,
+            "scheme": "https",
+            "host_from_request": "vhost log, www not distinguished",
+            "timestamp": "2026-10-16T06:36:44+03:00",
+            "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+          }
+        ],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "ru",
+        "id": "108705",
+        "canonical": "https://nikolacars.kiev.ua/ru/parts/1005418-00-c-108705/",
+        "archived_crawls": 3,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 3,
+        "after_all_clients": 1,
+        "after_variants": {
+          "canonical_path": 1
+        },
+        "after_methods": {
+          "GET": 1
+        },
+        "after_roles": {
+          "other_client": 1
+        },
+        "archived_events": [
+          {
+            "count": 1,
+            "path_kind": "canonical_path",
+            "method": "GET",
+            "status": 200,
+            "role": "other_google_agent",
+            "google_agent": "GoogleOther",
+            "query_present": false,
+            "scheme": "https",
+            "host_from_request": "vhost log, www not distinguished",
+            "timestamp": "2026-10-17T02:35:27+03:00",
+            "proof": "published common-crawlers CIDR"
+          },
+          {
+            "count": 1,
+            "path_kind": "canonical_path",
+            "method": "GET",
+            "status": 200,
+            "role": "ordinary_googlebot",
+            "google_agent": "Googlebot Smartphone",
+            "query_present": false,
+            "scheme": "https",
+            "host_from_request": "vhost log, www not distinguished",
+            "timestamp": "2026-10-17T02:36:40+03:00",
+            "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+          },
+          {
+            "count": 1,
+            "path_kind": "canonical_path",
+            "method": "GET",
+            "status": 200,
+            "role": "ordinary_googlebot",
+            "google_agent": "Googlebot Smartphone",
+            "query_present": false,
+            "scheme": "https",
+            "host_from_request": "vhost log, www not distinguished",
+            "timestamp": "2026-10-17T16:02:19+03:00",
+            "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+          },
+          {
+            "count": 1,
+            "path_kind": "canonical_path",
+            "method": "GET",
+            "status": 200,
+            "role": "ordinary_googlebot",
+            "google_agent": "Googlebot Smartphone",
+            "query_present": false,
+            "scheme": "https",
+            "host_from_request": "vhost log, www not distinguished",
+            "timestamp": "2026-10-22T23:30:39+03:00",
+            "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+          }
+        ],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "ru",
+        "id": "113484",
+        "canonical": "https://nikolacars.kiev.ua/ru/parts/1005422-00-d-113484/",
+        "archived_crawls": 1,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 1,
+        "after_all_clients": 0,
+        "after_variants": {},
+        "after_methods": {},
+        "after_roles": {},
+        "archived_events": [
+          {
+            "count": 1,
+            "path_kind": "canonical_path",
+            "method": "GET",
+            "status": 200,
+            "role": "other_google_agent",
+            "google_agent": "GoogleOther",
+            "query_present": false,
+            "scheme": "https",
+            "host_from_request": "vhost log, www not distinguished",
+            "timestamp": "2026-10-17T21:14:15+03:00",
+            "proof": "published common-crawlers CIDR"
+          },
+          {
+            "count": 1,
+            "path_kind": "canonical_path",
+            "method": "GET",
+            "status": 200,
+            "role": "ordinary_googlebot",
+            "google_agent": "Googlebot Smartphone",
+            "query_present": false,
+            "scheme": "https",
+            "host_from_request": "vhost log, www not distinguished",
+            "timestamp": "2026-10-17T21:20:49+03:00",
+            "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+          }
+        ],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "ru",
+        "id": "103584",
+        "canonical": "https://nikolacars.kiev.ua/ru/parts/1005855-00-c-103584/",
+        "archived_crawls": 0,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 0,
+        "after_all_clients": 0,
+        "after_variants": {},
+        "after_methods": {},
+        "after_roles": {},
+        "archived_events": [],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "ru",
+        "id": "103745",
+        "canonical": "https://nikolacars.kiev.ua/ru/parts/1007325-00-b-103745/",
+        "archived_crawls": 0,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 0,
+        "after_all_clients": 0,
+        "after_variants": {},
+        "after_methods": {},
+        "after_roles": {},
+        "archived_events": [],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "ru",
+        "id": "113472",
+        "canonical": "https://nikolacars.kiev.ua/ru/parts/1007441-00-b-113472/",
+        "archived_crawls": 1,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 1,
+        "after_all_clients": 2,
+        "after_variants": {
+          "canonical_path": 2
+        },
+        "after_methods": {
+          "GET": 2
+        },
+        "after_roles": {
+          "other_client": 2
+        },
+        "archived_events": [
+          {
+            "count": 1,
+            "path_kind": "canonical_path",
+            "method": "GET",
+            "status": 200,
+            "role": "other_google_agent",
+            "google_agent": "GoogleOther",
+            "query_present": false,
+            "scheme": "https",
+            "host_from_request": "vhost log, www not distinguished",
+            "timestamp": "2026-10-17T21:20:39+03:00",
+            "proof": "published common-crawlers CIDR"
+          },
+          {
+            "count": 1,
+            "path_kind": "canonical_path",
+            "method": "GET",
+            "status": 200,
+            "role": "ordinary_googlebot",
+            "google_agent": "Googlebot Smartphone",
+            "query_present": false,
+            "scheme": "https",
+            "host_from_request": "vhost log, www not distinguished",
+            "timestamp": "2026-10-17T21:31:32+03:00",
+            "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+          }
+        ],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "ru",
+        "id": "108078",
+        "canonical": "https://nikolacars.kiev.ua/ru/parts/1007511-00-a-108078/",
+        "archived_crawls": 1,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 1,
+        "after_all_clients": 1,
+        "after_variants": {
+          "canonical_path": 1
+        },
+        "after_methods": {
+          "GET": 1
+        },
+        "after_roles": {
+          "other_client": 1
+        },
+        "archived_events": [
+          {
+            "count": 1,
+            "path_kind": "canonical_path",
+            "method": "GET",
+            "status": 200,
+            "role": "other_google_agent",
+            "google_agent": "GoogleOther",
+            "query_present": false,
+            "scheme": "https",
+            "host_from_request": "vhost log, www not distinguished",
+            "timestamp": "2026-10-17T16:12:11+03:00",
+            "proof": "published common-crawlers CIDR"
+          },
+          {
+            "count": 1,
+            "path_kind": "canonical_path",
+            "method": "GET",
+            "status": 200,
+            "role": "ordinary_googlebot",
+            "google_agent": "Googlebot Smartphone",
+            "query_present": false,
+            "scheme": "https",
+            "host_from_request": "vhost log, www not distinguished",
+            "timestamp": "2026-10-17T16:17:30+03:00",
+            "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+          }
+        ],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "ru",
+        "id": "107696",
+        "canonical": "https://nikolacars.kiev.ua/ru/parts/1007566-00-c-107696/",
+        "archived_crawls": 0,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 0,
+        "after_all_clients": 0,
+        "after_variants": {},
+        "after_methods": {},
+        "after_roles": {},
+        "archived_events": [],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "ru",
+        "id": "113365",
+        "canonical": "https://nikolacars.kiev.ua/ru/parts/1007719-01-a-113365/",
+        "archived_crawls": 3,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 3,
+        "after_all_clients": 0,
+        "after_variants": {},
+        "after_methods": {},
+        "after_roles": {},
+        "archived_events": [
+          {
+            "count": 1,
+            "path_kind": "canonical_path",
+            "method": "GET",
+            "status": 200,
+            "role": "other_google_agent",
+            "google_agent": "GoogleOther",
+            "query_present": false,
+            "scheme": "https",
+            "host_from_request": "vhost log, www not distinguished",
+            "timestamp": "2026-10-16T13:09:44+03:00",
+            "proof": "published common-crawlers CIDR"
+          },
+          {
+            "count": 1,
+            "path_kind": "canonical_path",
+            "method": "GET",
+            "status": 200,
+            "role": "ordinary_googlebot",
+            "google_agent": "Googlebot Smartphone",
+            "query_present": false,
+            "scheme": "https",
+            "host_from_request": "vhost log, www not distinguished",
+            "timestamp": "2026-10-16T16:10:29+03:00",
+            "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+          },
+          {
+            "count": 1,
+            "path_kind": "canonical_path",
+            "method": "GET",
+            "status": 200,
+            "role": "ordinary_googlebot",
+            "google_agent": "Googlebot Smartphone",
+            "query_present": false,
+            "scheme": "https",
+            "host_from_request": "vhost log, www not distinguished",
+            "timestamp": "2026-10-17T06:25:55+03:00",
+            "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+          },
+          {
+            "count": 1,
+            "path_kind": "canonical_path",
+            "method": "GET",
+            "status": 200,
+            "role": "ordinary_googlebot",
+            "google_agent": "Googlebot Smartphone",
+            "query_present": false,
+            "scheme": "https",
+            "host_from_request": "vhost log, www not distinguished",
+            "timestamp": "2026-10-22T23:22:15+03:00",
+            "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+          }
+        ],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "ru",
+        "id": "113366",
+        "canonical": "https://nikolacars.kiev.ua/ru/parts/1007831-00-b-113366/",
+        "archived_crawls": 1,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 1,
+        "after_all_clients": 0,
+        "after_variants": {},
+        "after_methods": {},
+        "after_roles": {},
+        "archived_events": [
+          {
+            "count": 1,
+            "path_kind": "canonical_path",
+            "method": "GET",
+            "status": 200,
+            "role": "other_google_agent",
+            "google_agent": "GoogleOther",
+            "query_present": false,
+            "scheme": "https",
+            "host_from_request": "vhost log, www not distinguished",
+            "timestamp": "2026-10-16T12:34:59+03:00",
+            "proof": "published common-crawlers CIDR"
+          },
+          {
+            "count": 1,
+            "path_kind": "canonical_path",
+            "method": "GET",
+            "status": 200,
+            "role": "ordinary_googlebot",
+            "google_agent": "Googlebot Smartphone",
+            "query_present": false,
+            "scheme": "https",
+            "host_from_request": "vhost log, www not distinguished",
+            "timestamp": "2026-10-16T15:18:02+03:00",
+            "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+          }
+        ],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "ru",
+        "id": "106599",
+        "canonical": "https://nikolacars.kiev.ua/ru/parts/1008404-00-c-106599/",
+        "archived_crawls": 1,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 1,
+        "after_all_clients": 0,
+        "after_variants": {},
+        "after_methods": {},
+        "after_roles": {},
+        "archived_events": [
+          {
+            "count": 1,
+            "path_kind": "canonical_path",
+            "method": "GET",
+            "status": 200,
+            "role": "other_google_agent",
+            "google_agent": "GoogleOther",
+            "query_present": false,
+            "scheme": "https",
+            "host_from_request": "vhost log, www not distinguished",
+            "timestamp": "2026-10-17T14:25:41+03:00",
+            "proof": "published common-crawlers CIDR"
+          },
+          {
+            "count": 1,
+            "path_kind": "canonical_path",
+            "method": "GET",
+            "status": 200,
+            "role": "ordinary_googlebot",
+            "google_agent": "Googlebot Smartphone",
+            "query_present": false,
+            "scheme": "https",
+            "host_from_request": "vhost log, www not distinguished",
+            "timestamp": "2026-10-17T14:32:01+03:00",
+            "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+          }
+        ],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "ru",
+        "id": "113113",
+        "canonical": "https://nikolacars.kiev.ua/ru/parts/1008471-00-a-113113/",
+        "archived_crawls": 0,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 0,
+        "after_all_clients": 0,
+        "after_variants": {},
+        "after_methods": {},
+        "after_roles": {},
+        "archived_events": [],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "ru",
+        "id": "103646",
+        "canonical": "https://nikolacars.kiev.ua/ru/parts/1008573-00-e-103646/",
+        "archived_crawls": 0,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 0,
+        "after_all_clients": 0,
+        "after_variants": {},
+        "after_methods": {},
+        "after_roles": {},
+        "archived_events": [],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      },
+      {
+        "locale": "ru",
+        "id": "108438",
+        "canonical": "https://nikolacars.kiev.ua/ru/parts/1009065-00-c-108438/",
+        "archived_crawls": 1,
+        "additional_crawls_after": 0,
+        "additional_crawls_in_overlap": 0,
+        "cumulative_crawls": 1,
+        "after_all_clients": 1,
+        "after_variants": {
+          "canonical_path": 1
+        },
+        "after_methods": {
+          "GET": 1
+        },
+        "after_roles": {
+          "other_client": 1
+        },
+        "archived_events": [
+          {
+            "count": 1,
+            "path_kind": "canonical_path",
+            "method": "GET",
+            "status": 200,
+            "role": "other_google_agent",
+            "google_agent": "GoogleOther",
+            "query_present": false,
+            "scheme": "https",
+            "host_from_request": "vhost log, www not distinguished",
+            "timestamp": "2026-10-16T11:32:32+03:00",
+            "proof": "published common-crawlers CIDR"
+          },
+          {
+            "count": 1,
+            "path_kind": "canonical_path",
+            "method": "GET",
+            "status": 200,
+            "role": "ordinary_googlebot",
+            "google_agent": "Googlebot Smartphone",
+            "query_present": false,
+            "scheme": "https",
+            "host_from_request": "vhost log, www not distinguished",
+            "timestamp": "2026-10-16T16:07:41+03:00",
+            "proof": "common-crawlers CIDR; googlebot.com PTR and matching forward DNS"
+          }
+        ],
+        "after_google_events": [],
+        "additional_google_events_in_overlap": []
+      }
+    ],
+    "deduplication": "Current inputs use a scoped full-record digest and scheme, max multiplicity across sources. For closed archive periods, all-client totals use only later timestamps; newly observed Google overlaps are compared by full sanitized event metadata and kept only if not already counted. Source date boundaries are observations, not a guarantee of continuous logging. CDN/Host headers outside the available logs remain unobserved.",
+    "ru107145_natural_googlebot_return_after_503_found": false,
+    "conclusion": "No additional verified ordinary Googlebot visits in newly recovered records. Existing counts unchanged: UA 1 request/1 product, RU 17 requests/12 products. Manual inspection and advertising robots excluded.",
+    "remaining": {
+      "https": {
+        "from": "2026-10-31T14:01:31+02:00",
+        "to": "2026-10-31T14:02:40+02:00",
+        "seconds": 69,
+        "meaning": "No overlapping log source; not proof requests were lost."
+      },
+      "http": {
+        "last_record": "2026-10-31T13:35:06+02:00",
+        "later_coverage": "No timestamp in empty current file; upper boundary undetermined."
+      }
+    },
+    "automation_status": "STOPPED; automation googlebot-20-nikolacars deleted by coordinator 2026-11-03",
+    "independent_verification": {
+      "path": ".codex-tmp/gsc-sitemap-logs-20-20261031/archive-rechecks/20261031T182838589835Z/independent-verification.json",
+      "sha256": "8317933f78c38df8f80e5f5f42ce47b79f92cf869abd3aaf8eeda4fb0101aefc"
+    }
+  },
+  "finalResult": {
+    "checked_utc": "2026-11-03T11:29:20.127484+00:00",
+    "timezone": "Europe/Kyiv",
+    "status": "COMPLETE_WITH_EXPLICIT_COVERAGE_LIMITATIONS",
+    "scope_end": "2026-10-31T14:17:04+02:00",
+    "metadata_receipt": ".codex-tmp/gsc-sitemap-logs-20-20261031/archive-rechecks/20261103T112918891842Z/bounded-check.json",
+    "target_verification_receipt": ".codex-tmp/gsc-sitemap-logs-20-20261031/archive-rechecks/20261103T112918891842Z/target-interval-verification.json",
+    "downloaded_bytes": 309659,
+    "sources": {
+      "logs/nikolacars.kiev.ua-Oct-2026.gz": {
+        "bytes": 30598,
+        "mdtm_utc": "20261031165005",
+        "unchanged_metadata": true,
+        "previous_sha256": "93a6e2b7e2d408a9a0ec777654a575b710d20d6d88e9ed73a37e87f4a890df02",
+        "start": "2026-09-30T15:59:14+03:00",
+        "end": "2026-10-31T13:35:06+02:00",
+        "downloaded": false,
+        "comparison_basis": "size_and_mdtm",
+        "byte_identity_reverified": false
+      },
+      "logs/nikolacars.kiev.ua-ssl_log-Oct-2026.gz": {
+        "bytes": 3832098,
+        "mdtm_utc": "20261031165005",
+        "unchanged_metadata": true,
+        "previous_sha256": "ec7fe2e80c4117f8bb35df923b959df3de1ad7314a7ccd6e0cfdd493af526db0",
+        "start": "2026-09-30T15:19:56+03:00",
+        "end": "2026-10-31T14:01:31+02:00",
+        "downloaded": false,
+        "comparison_basis": "size_and_mdtm",
+        "byte_identity_reverified": false
+      },
+      "logs/nikolacars.kiev.ua.bkup": {
+        "response": "550"
+      },
+      "logs/nikolacars.kiev.ua-ssl_log.bkup": {
+        "response": "550"
+      },
+      "access-logs/nikolacars.kiev.ua": {
+        "response": "550"
+      },
+      "access-logs/nikolacars.kiev.ua-ssl_log": {
+        "response": "550"
+      },
+      "logs/nikolacars.kiev.ua-Nov-2026.gz": {
+        "bytes": 2035,
+        "mdtm_utc": "20261102161029",
+        "downloaded": true,
+        "snapshot": "extra-nikolacars.kiev.ua-Nov-2026.gz",
+        "sha256": "be41a95e01414467801a42f6e89506163e6ef21c06b52c3c22fffbc76f92774a",
+        "rows": 43,
+        "start": "2026-10-31T14:46:07+02:00",
+        "end": "2026-11-02T12:57:30+02:00",
+        "rows_before_current_https_start": 0,
+        "gzip_crc_eof": true
+      },
+      "logs/nikolacars.kiev.ua-ssl_log-Nov-2026.gz": {
+        "bytes": 307624,
+        "mdtm_utc": "20261102161029",
+        "downloaded": true,
+        "snapshot": "extra-nikolacars.kiev.ua-ssl_log-Nov-2026.gz",
+        "sha256": "812fda520dd49b4ed107ead5454a94cd43d1d207deae7615cd664021cbfa3a92",
+        "rows": 13254,
+        "start": "2026-10-31T14:02:40+02:00",
+        "end": "2026-11-02T14:20:46+02:00",
+        "rows_before_current_https_start": 0,
+        "gzip_crc_eof": true
+      }
+    },
+    "target_interval_verification": {
+      "scope_end": "2026-10-31T14:17:04+02:00",
+      "sources": {
+        "http": {
+          "rows_within_original_saved_context": 0,
+          "target_request_rows_within_context": 0,
+          "rows_strictly_in_residual_gap": 0,
+          "saved_current_rows": 0,
+          "saved_current_rows_preserved_with_multiplicity": true,
+          "missing_current_rows": 0,
+          "current_snapshot_sha256": "25e3395320bdf4c9d522139e8f50ad799d044f9d5a5485d598ce91119183551f",
+          "current_empty_proves_no_traffic": false
+        },
+        "https": {
+          "rows_within_original_saved_context": 64,
+          "target_request_rows_within_context": 3,
+          "rows_strictly_in_residual_gap": 0,
+          "saved_current_rows": 64,
+          "saved_current_rows_preserved_with_multiplicity": true,
+          "missing_current_rows": 0,
+          "current_snapshot_sha256": "2f20fb504c81b080c600a34789025c7b91d32189424f7b1708240715e90aaf20",
+          "current_empty_proves_no_traffic": false
+        }
+      },
+      "verified_ordinary_target_events": [],
+      "non_search_target_events": [
+        {
+          "id": "107145",
+          "language": "RU",
+          "timestamp": "2026-10-31T14:09:48+02:00",
+          "http_status": "200",
+          "agent": "Google-InspectionTool",
+          "role": "inspection_tool",
+          "url_variant": "canonical_path",
+          "query_present": false,
+          "scheme": "https"
+        },
+        {
+          "id": "107145",
+          "language": "RU",
+          "timestamp": "2026-10-31T14:09:48+02:00",
+          "http_status": "200",
+          "agent": "Google-InspectionTool",
+          "role": "inspection_tool",
+          "url_variant": "canonical_path",
+          "query_present": false,
+          "scheme": "https"
+        }
+      ],
+      "original_gap_target_events": [],
+      "conclusion": "New November snapshots preserve all saved current rows and add no earlier records. No verified ordinary Googlebot target events in original context; manual inspection remains separate. Expanded dates after context excluded."
+    },
+    "ordinary_googlebot_cumulative": {
+      "UA": {
+        "requests": 1,
+        "products": 1
+      },
+      "RU": {
+        "requests": 17,
+        "products": 12
+      }
+    },
+    "ru107145_natural_googlebot_return_after_503_found_in_examined_historical_scope": false,
+    "remaining": {
+      "https": {
+        "from": "2026-10-31T14:01:31+02:00",
+        "to": "2026-10-31T14:02:40+02:00",
+        "seconds": 69,
+        "meaning": "No overlapping log source; not proof requests were lost."
+      },
+      "http": {
+        "last_record": "2026-10-31T13:35:06+02:00",
+        "later_coverage": "No timestamp in empty current file; upper boundary undetermined."
+      }
+    },
+    "scope_limit": "No later November monitoring; missing records are not proof of no crawling. Archived October SHA/date bounds are prior evidence, not freshly rehashed on final metadata-only comparison.",
+    "last_full_october_content_check_utc": "2026-11-02T10:58:08.992853+00:00",
+    "hosting_request_needed": {
+      "send_status": "NOT_SENT",
+      "vhost": "nikolacars.kiev.ua including www alias",
+      "timezone": "Europe/Kyiv / UTC+02:00",
+      "https_interval": "2026-10-31 14:01:31–14:02:40",
+      "http_interval": "2026-10-31 13:35:06–14:46:07",
+      "additional": "Full access records from active, rotated and backup sources, exact rotation/archive assembly boundaries, and confirmation of continuous logging versus missing records."
+    },
+    "production_mutations": false,
+    "automation_status": "STOPPED_DELETED_BY_COORDINATOR_2026-11-03"
+  }
+}

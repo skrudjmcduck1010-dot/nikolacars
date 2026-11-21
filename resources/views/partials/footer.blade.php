@@ -84,7 +84,6 @@
     <a href="{{ $isRu ? '/ru/services/vidnovlennya-sertyfikativ-tesla/' : '/services/vidnovlennya-sertyfikativ-tesla/' }}">» {{ $isRu ? 'Восстановление сертификатов' : 'Відновлення сертифікатів' }}</a>
     <a href="{{ $isRu ? '/ru/services/firmware-auto/' : '/services/firmware-auto/' }}">» {{ $isRu ? 'Прошивка авто' : 'Прошивка авто' }}</a>
     <a href="{{ $isRu ? '/ru/testimonial/' : '/testimonial/' }}">» {{ $isRu ? 'Отзывы' : 'Відгуки' }}</a>
-    <a href="{{ $isRu ? '/ru/news/' : '/news/' }}">» {{ $isRu ? 'Новости' : 'Новини' }}</a>
 
     {{-- Privacy Policy --}}
     <a href="{{ $isRu ? '/ru/privacy-policy/' : '/privacy-policy/' }}">

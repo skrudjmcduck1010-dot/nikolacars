@@ -1,0 +1,1283 @@
+[
+  {
+    "time": "2026-10-29T15:57:39+00:00",
+    "query": {
+      "locale": "uk",
+      "category_path_slug": "visokovoltna-batareia--visokovoltna-batareia",
+      "per_page": 100,
+      "page": 1,
+      "sort": "newest"
+    },
+    "status": 200,
+    "data": {
+      "models": [
+        {
+          "value": "Model 3 06.2017 - 12.2023",
+          "label": "Model 3 06.2017 - 12.2023",
+          "slug": "model-3-06-2017-12-2023",
+          "count": 2
+        },
+        {
+          "value": "Model 3 Highland 01.2024 -",
+          "label": "Model 3 Highland 01.2024 -",
+          "slug": "model-3-highland-01-2024",
+          "count": 3
+        },
+        {
+          "value": "Model S 02.2012-03.2016",
+          "label": "Model S 02.2012-03.2016",
+          "slug": "model-s-02-2012-03-2016",
+          "count": 2
+        }
+      ],
+      "categories": [
+        {
+          "value": "Безпека і захист",
+          "label": "Безпека і захист",
+          "slug": "bezpeka-i-zaxist",
+          "count": 116
+        },
+        {
+          "value": "Високовольтна батарея",
+          "label": "Високовольтна батарея",
+          "slug": "visokovoltna-batareia",
+          "count": 7
+        },
+        {
+          "value": "Високовольтна система",
+          "label": "Високовольтна система",
+          "slug": "visokovoltna-sistema",
+          "count": 26
+        },
+        {
+          "value": "Внутрішнє оздоблення",
+          "label": "Внутрішнє оздоблення",
+          "slug": "vnutrisnje-ozdoblennia",
+          "count": 759
+        },
+        {
+          "value": "Гальма",
+          "label": "Гальма",
+          "slug": "galma",
+          "count": 60
+        },
+        {
+          "value": "Диски і шини",
+          "label": "Диски і шини",
+          "slug": "diski-i-sini",
+          "count": 21
+        },
+        {
+          "value": "Електрика",
+          "label": "Електрика",
+          "slug": "elektrika",
+          "count": 329
+        },
+        {
+          "value": "Задній мотор",
+          "label": "Задній мотор",
+          "slug": "zadnii-motor",
+          "count": 31
+        },
+        {
+          "value": "Зовнішня фурнітура",
+          "label": "Зовнішня фурнітура",
+          "slug": "zovnisnia-furnitura",
+          "count": 198
+        },
+        {
+          "value": "Інформаційно-розважальна система",
+          "label": "Інформаційно-розважальна система",
+          "slug": "informaciino-rozvazalna-sistema",
+          "count": 83
+        },
+        {
+          "value": "Компоненти закриття",
+          "label": "Компоненти закриття",
+          "slug": "komponenti-zakrittia",
+          "count": 453
+        },
+        {
+          "value": "Криша",
+          "label": "Криша",
+          "slug": "krisa",
+          "count": 10
+        },
+        {
+          "value": "Кузов",
+          "label": "Кузов",
+          "slug": "kuzov",
+          "count": 170
+        },
+        {
+          "value": "Не визначено",
+          "label": "Не визначено",
+          "slug": "ne-viznaceno",
+          "count": 19
+        },
+        {
+          "value": "Панель приладів",
+          "label": "Панель приладів",
+          "slug": "panel-priladiv",
+          "count": 204
+        },
+        {
+          "value": "Передній мотор",
+          "label": "Передній мотор",
+          "slug": "perednii-motor",
+          "count": 13
+        },
+        {
+          "value": "Підвіска",
+          "label": "Підвіска",
+          "slug": "pidviska",
+          "count": 102
+        },
+        {
+          "value": "Рульовий механізм",
+          "label": "Рульовий механізм",
+          "slug": "rulyovii-mexanizm",
+          "count": 38
+        },
+        {
+          "value": "Сидіння",
+          "label": "Сидіння",
+          "slug": "sidinnia",
+          "count": 70
+        },
+        {
+          "value": "Управління температурним режимом",
+          "label": "Управління температурним режимом",
+          "slug": "upravlinnia-temperaturnim-rezimom",
+          "count": 169
+        },
+        {
+          "value": "Ходова - шассі",
+          "label": "Ходова - шассі",
+          "slug": "xodova-sassi",
+          "count": 8
+        }
+      ],
+      "selection": {
+        "model": "",
+        "model_slug": "",
+        "category": "Високовольтна батарея",
+        "category_slug": "visokovoltna-batareia",
+        "category_path": "Високовольтна батарея / Високовольтна батарея",
+        "category_path_slug": "visokovoltna-batareia--visokovoltna-batareia",
+        "category_breadcrumbs": [
+          {
+            "label": "Високовольтна батарея",
+            "slug": "visokovoltna-batareia"
+          },
+          {
+            "label": "Високовольтна батарея",
+            "slug": "visokovoltna-batareia--visokovoltna-batareia"
+          }
+        ],
+        "category_path_locale_slugs": {
+          "uk": "visokovoltna-batareia--visokovoltna-batareia",
+          "ru": "vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+        }
+      },
+      "products": [
+        {
+          "id": 108527,
+          "url_slug": "1003117-00-e-108527",
+          "name": "Клапан перепускний (на основній батареї)",
+          "part_number": "1003117-00-E",
+          "model": "Model S 02.2012-03.2016",
+          "model_slug": "model-s-02-2012-03-2016",
+          "category": "Високовольтна батарея",
+          "category_slug": "visokovoltna-batareia",
+          "category_path": "Високовольтна батарея / Високовольтна батарея / Високовольтна батарея",
+          "category_path_slug": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia",
+          "category_breadcrumbs": [
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia"
+            },
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia--visokovoltna-batareia"
+            },
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia"
+            }
+          ],
+          "price_uah": 690,
+          "quantity": 1,
+          "image_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/bdd1615406cf3472549663f4479a4469bb46126f.jpg",
+          "images": [
+            "https://sklad.nikolacars.kiev.ua/storage/product-photos/bdd1615406cf3472549663f4479a4469bb46126f.jpg",
+            "https://sklad.nikolacars.kiev.ua/storage/product-photos/1b4d071bb1a11266ab031b0531ca543b24f16fa0.jpg",
+            "https://sklad.nikolacars.kiev.ua/storage/product-photos/0323fc3a72723246e78d87290e13a90fe412d7b6.jpg"
+          ]
+        },
+        {
+          "id": 112402,
+          "url_slug": "1100055-01-d-112402",
+          "name": "Кронштейн передній захисного щита акумулятора",
+          "part_number": "1100055-01-D",
+          "model": "Model 3 Highland 01.2024 -",
+          "model_slug": "model-3-highland-01-2024",
+          "category": "Високовольтна батарея",
+          "category_slug": "visokovoltna-batareia",
+          "category_path": "Високовольтна батарея / Високовольтна батарея / Високовольтна батарея",
+          "category_path_slug": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia",
+          "category_breadcrumbs": [
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia"
+            },
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia--visokovoltna-batareia"
+            },
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia"
+            }
+          ],
+          "price_uah": 460,
+          "quantity": 1,
+          "image_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/2e8462f3b67c888c8703e25f9d15117814844e16.jpg",
+          "images": [
+            "https://sklad.nikolacars.kiev.ua/storage/product-photos/2e8462f3b67c888c8703e25f9d15117814844e16.jpg",
+            "https://sklad.nikolacars.kiev.ua/storage/product-photos/022241b4c96b87e373b6abcbec18f65e29c43e30.jpg",
+            "https://sklad.nikolacars.kiev.ua/storage/tesla-official/part-images/110005501D/1100055-01-D_1.jpeg"
+          ]
+        },
+        {
+          "id": 110960,
+          "url_slug": "1496769-00-j-110960",
+          "name": "Високовольтна акумуляторна батарея",
+          "part_number": "1496769-00-J",
+          "model": "Model 3 Highland 01.2024 -",
+          "model_slug": "model-3-highland-01-2024",
+          "category": "Високовольтна батарея",
+          "category_slug": "visokovoltna-batareia",
+          "category_path": "Високовольтна батарея / Високовольтна батарея / Високовольтна батарея",
+          "category_path_slug": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia",
+          "category_breadcrumbs": [
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia"
+            },
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia--visokovoltna-batareia"
+            },
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia"
+            }
+          ],
+          "price_uah": 321100,
+          "quantity": 1,
+          "image_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/f8e16a629bd85bf2541af7d8a711fa045ff3a691.webp",
+          "images": [
+            "https://sklad.nikolacars.kiev.ua/storage/product-photos/f8e16a629bd85bf2541af7d8a711fa045ff3a691.webp"
+          ]
+        },
+        {
+          "id": 113256,
+          "url_slug": "1666968-00-e-113256",
+          "name": "Основна батарея 60 kWh LFP RWD",
+          "part_number": "1666968-00-E",
+          "model": "Model 3 Highland 01.2024 -",
+          "model_slug": "model-3-highland-01-2024",
+          "category": "Високовольтна батарея",
+          "category_slug": "visokovoltna-batareia",
+          "category_path": "Високовольтна батарея / Високовольтна батарея / Високовольтна батарея",
+          "category_path_slug": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia",
+          "category_breadcrumbs": [
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia"
+            },
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia--visokovoltna-batareia"
+            },
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia"
+            }
+          ],
+          "price_uah": 321100,
+          "quantity": 1,
+          "image_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/f8e16a629bd85bf2541af7d8a711fa045ff3a691.webp",
+          "images": [
+            "https://sklad.nikolacars.kiev.ua/storage/product-photos/f8e16a629bd85bf2541af7d8a711fa045ff3a691.webp"
+          ]
+        },
+        {
+          "id": 75221,
+          "url_slug": "1104422-10-k-75221",
+          "name": "Батарея основна LONG RANGE 75kWh",
+          "part_number": "1104422-10-K",
+          "model": "Model 3 06.2017 - 12.2023",
+          "model_slug": "model-3-06-2017-12-2023",
+          "category": "Високовольтна батарея",
+          "category_slug": "visokovoltna-batareia",
+          "category_path": "Високовольтна батарея / Високовольтна батарея / Високовольтна батарея",
+          "category_path_slug": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia",
+          "category_breadcrumbs": [
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia"
+            },
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia--visokovoltna-batareia"
+            },
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia"
+            }
+          ],
+          "price_uah": 183500,
+          "quantity": 1,
+          "image_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/f8e16a629bd85bf2541af7d8a711fa045ff3a691.webp",
+          "images": [
+            "https://sklad.nikolacars.kiev.ua/storage/product-photos/f8e16a629bd85bf2541af7d8a711fa045ff3a691.webp"
+          ]
+        },
+        {
+          "id": 80841,
+          "url_slug": "1104428-00-m-80841",
+          "name": "Батарея у зборі 52 kWh, RWD",
+          "part_number": "1104428-00-M",
+          "model": "Model 3 06.2017 - 12.2023",
+          "model_slug": "model-3-06-2017-12-2023",
+          "category": "Високовольтна батарея",
+          "category_slug": "visokovoltna-batareia",
+          "category_path": "Високовольтна батарея / Високовольтна батарея / Високовольтна батарея",
+          "category_path_slug": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia",
+          "category_breadcrumbs": [
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia"
+            },
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia--visokovoltna-batareia"
+            },
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia"
+            }
+          ],
+          "price_uah": 137600,
+          "quantity": 1,
+          "image_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/f8e16a629bd85bf2541af7d8a711fa045ff3a691.webp",
+          "images": [
+            "https://sklad.nikolacars.kiev.ua/storage/product-photos/f8e16a629bd85bf2541af7d8a711fa045ff3a691.webp"
+          ]
+        },
+        {
+          "id": 106657,
+          "url_slug": "1009181-00-a-106657",
+          "name": "Кришка-фіксатор високовольтної батареї",
+          "part_number": "1009181-00-A",
+          "model": "Model S 02.2012-03.2016",
+          "model_slug": "model-s-02-2012-03-2016",
+          "category": "Високовольтна батарея",
+          "category_slug": "visokovoltna-batareia",
+          "category_path": "Високовольтна батарея / Високовольтна батарея / Високовольтна батарея",
+          "category_path_slug": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia",
+          "category_breadcrumbs": [
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia"
+            },
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia--visokovoltna-batareia"
+            },
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia"
+            }
+          ],
+          "price_uah": 690,
+          "quantity": 1,
+          "image_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/cbbf20365176497bf6674b1eafc917dddefd6010.jpg",
+          "images": [
+            "https://sklad.nikolacars.kiev.ua/storage/product-photos/cbbf20365176497bf6674b1eafc917dddefd6010.jpg",
+            "https://sklad.nikolacars.kiev.ua/storage/product-photos/e1424e4dae54bc8627ae7dba0859ff0aa8786a07.jpg",
+            "https://sklad.nikolacars.kiev.ua/storage/tesla-official/part-images/100918100A/1009181-00-A_1.jpeg"
+          ]
+        },
+        {
+          "id": 107692,
+          "url_slug": "1003311-00-b-107692",
+          "name": "Кріплення фіксатор швидко знімача низьковольтного розєма батареї",
+          "part_number": "1003311-00-B",
+          "model": "Model S 02.2012-03.2016",
+          "model_slug": "model-s-02-2012-03-2016",
+          "category": "Високовольтна батарея",
+          "category_slug": "visokovoltna-batareia",
+          "category_path": "Високовольтна батарея / Високовольтна батарея / Високовольтна батарея",
+          "category_path_slug": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia",
+          "category_breadcrumbs": [
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia"
+            },
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia--visokovoltna-batareia"
+            },
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia"
+            }
+          ],
+          "price_uah": 1380,
+          "quantity": 0,
+          "image_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/ead89328450d8dbb0d7d076a7a60f6cb09744a5a.jpg",
+          "images": [
+            "https://sklad.nikolacars.kiev.ua/storage/product-photos/ead89328450d8dbb0d7d076a7a60f6cb09744a5a.jpg",
+            "https://sklad.nikolacars.kiev.ua/storage/product-photos/ff07daad26f51910d57b71f590e88319e73819da.jpg"
+          ],
+          "availability_status": "sold"
+        },
+        {
+          "id": 112426,
+          "url_slug": "1496769-00-j-112426",
+          "name": "Високовольтна акумуляторна батарея",
+          "part_number": "1496769-00-J",
+          "model": "Model 3 Highland 01.2024 -",
+          "model_slug": "model-3-highland-01-2024",
+          "category": "Високовольтна батарея",
+          "category_slug": "visokovoltna-batareia",
+          "category_path": "Високовольтна батарея / Високовольтна батарея / Високовольтна батарея",
+          "category_path_slug": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia",
+          "category_breadcrumbs": [
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia"
+            },
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia--visokovoltna-batareia"
+            },
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia"
+            }
+          ],
+          "price_uah": 266000,
+          "quantity": 0,
+          "image_url": null,
+          "images": [],
+          "availability_status": "sold"
+        },
+        {
+          "id": 65734,
+          "url_slug": "1104428-00-w-65734",
+          "name": "Батарея у зборі (55 kWh E1, RWD, 1 - PHASE )",
+          "part_number": "1104428-00-W",
+          "model": "Model Y 01.2020 - 01.2025",
+          "model_slug": "model-y-01-2020-01-2025",
+          "category": "Високовольтна батарея",
+          "category_slug": "visokovoltna-batareia",
+          "category_path": "Високовольтна батарея / Високовольтна батарея / Високовольтна батарея",
+          "category_path_slug": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia",
+          "category_breadcrumbs": [
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia"
+            },
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia--visokovoltna-batareia"
+            },
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia"
+            }
+          ],
+          "price_uah": 130800,
+          "quantity": 0,
+          "image_url": null,
+          "images": [],
+          "availability_status": "sold"
+        },
+        {
+          "id": 39792,
+          "url_slug": "1104428-00-w-39792",
+          "name": "Батарея у зборі (55 kWh E1, RWD, 1 - PHASE )",
+          "part_number": "1104428-00-W",
+          "model": "Model Y 01.2020 - 01.2025",
+          "model_slug": "model-y-01-2020-01-2025",
+          "category": "Високовольтна батарея",
+          "category_slug": "visokovoltna-batareia",
+          "category_path": "Високовольтна батарея / Високовольтна батарея / Високовольтна батарея",
+          "category_path_slug": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia",
+          "category_breadcrumbs": [
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia"
+            },
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia--visokovoltna-batareia"
+            },
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia--visokovoltna-batareia--visokovoltna-batareia"
+            }
+          ],
+          "price_uah": 128500,
+          "quantity": 0,
+          "image_url": null,
+          "images": [],
+          "availability_status": "sold"
+        }
+      ],
+      "pagination": {
+        "page": 1,
+        "per_page": 100,
+        "total": 11,
+        "last_page": 1
+      }
+    }
+  },
+  {
+    "time": "2026-10-29T15:57:45+00:00",
+    "query": {
+      "locale": "ru",
+      "category_path_slug": "visokovoltna-batareia--vysokovoltnaia-batareia",
+      "per_page": 100,
+      "page": 1,
+      "sort": "newest"
+    },
+    "status": 200,
+    "data": {
+      "models": [
+        {
+          "value": "Model S 02.2012-03.2016",
+          "label": "Model S 02.2012-03.2016",
+          "slug": "model-s-02-2012-03-2016",
+          "count": 2
+        }
+      ],
+      "categories": [
+        {
+          "value": "Безопасность и защита",
+          "label": "Безопасность и защита",
+          "slug": "bezopasnost-i-zashhita",
+          "count": 116
+        },
+        {
+          "value": "Високовольтна батарея",
+          "label": "Високовольтна батарея",
+          "slug": "visokovoltna-batareia",
+          "count": 2
+        },
+        {
+          "value": "Внутренняя отделка",
+          "label": "Внутренняя отделка",
+          "slug": "vnutrenniaia-otdelka",
+          "count": 759
+        },
+        {
+          "value": "Высоковольтная батарея",
+          "label": "Высоковольтная батарея",
+          "slug": "vysokovoltnaia-batareia",
+          "count": 5
+        },
+        {
+          "value": "Высоковольтная система",
+          "label": "Высоковольтная система",
+          "slug": "vysokovoltnaia-sistema",
+          "count": 26
+        },
+        {
+          "value": "Диски и шины",
+          "label": "Диски и шины",
+          "slug": "diski-i-siny",
+          "count": 21
+        },
+        {
+          "value": "Задний мотор",
+          "label": "Задний мотор",
+          "slug": "zadnii-motor",
+          "count": 31
+        },
+        {
+          "value": "Информационно-развлекательная система",
+          "label": "Информационно-развлекательная система",
+          "slug": "informacionno-razvlekatelnaia-sistema",
+          "count": 83
+        },
+        {
+          "value": "Компоненты закрытия",
+          "label": "Компоненты закрытия",
+          "slug": "komponenty-zakrytiia",
+          "count": 453
+        },
+        {
+          "value": "Крыша",
+          "label": "Крыша",
+          "slug": "krysa",
+          "count": 10
+        },
+        {
+          "value": "Кузов",
+          "label": "Кузов",
+          "slug": "kuzov",
+          "count": 170
+        },
+        {
+          "value": "Наружная фурнитура",
+          "label": "Наружная фурнитура",
+          "slug": "naruznaia-furnitura",
+          "count": 198
+        },
+        {
+          "value": "Не определено",
+          "label": "Не определено",
+          "slug": "ne-opredeleno",
+          "count": 19
+        },
+        {
+          "value": "Передний мотор",
+          "label": "Передний мотор",
+          "slug": "perednii-motor",
+          "count": 13
+        },
+        {
+          "value": "Подвеска",
+          "label": "Подвеска",
+          "slug": "podveska",
+          "count": 102
+        },
+        {
+          "value": "Приборная панель",
+          "label": "Приборная панель",
+          "slug": "pribornaia-panel",
+          "count": 204
+        },
+        {
+          "value": "Рулевой механизм",
+          "label": "Рулевой механизм",
+          "slug": "rulevoi-mexanizm",
+          "count": 38
+        },
+        {
+          "value": "Сиденья",
+          "label": "Сиденья",
+          "slug": "sidenia",
+          "count": 70
+        },
+        {
+          "value": "Тормоза",
+          "label": "Тормоза",
+          "slug": "tormoza",
+          "count": 60
+        },
+        {
+          "value": "Управление температурным режимом",
+          "label": "Управление температурным режимом",
+          "slug": "upravlenie-temperaturnym-rezimom",
+          "count": 169
+        },
+        {
+          "value": "Ходовая - шасси",
+          "label": "Ходовая - шасси",
+          "slug": "xodovaia-sassi",
+          "count": 8
+        },
+        {
+          "value": "Электрика",
+          "label": "Электрика",
+          "slug": "elektrika",
+          "count": 329
+        }
+      ],
+      "selection": {
+        "model": "",
+        "model_slug": "",
+        "category": "Високовольтна батарея",
+        "category_slug": "visokovoltna-batareia",
+        "category_path": "Високовольтна батарея / Высоковольтная батарея",
+        "category_path_slug": "visokovoltna-batareia--vysokovoltnaia-batareia",
+        "category_breadcrumbs": [
+          {
+            "label": "Високовольтна батарея",
+            "slug": "visokovoltna-batareia"
+          },
+          {
+            "label": "Высоковольтная батарея",
+            "slug": "visokovoltna-batareia--vysokovoltnaia-batareia"
+          }
+        ],
+        "category_path_locale_slugs": {
+          "uk": "visokovoltna-batareia--visokovoltna-batareia",
+          "ru": "visokovoltna-batareia--vysokovoltnaia-batareia"
+        }
+      },
+      "products": [
+        {
+          "id": 108527,
+          "url_slug": "1003117-00-e-108527",
+          "name": "Переходник охладителя батареи бинокль в сборе",
+          "part_number": "1003117-00-E",
+          "model": "Model S 02.2012-03.2016",
+          "model_slug": "model-s-02-2012-03-2016",
+          "category": "Високовольтна батарея",
+          "category_slug": "visokovoltna-batareia",
+          "category_path": "Високовольтна батарея / Высоковольтная батарея / Высоковольтная батарея",
+          "category_path_slug": "visokovoltna-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia",
+          "category_breadcrumbs": [
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia"
+            },
+            {
+              "label": "Высоковольтная батарея",
+              "slug": "visokovoltna-batareia--vysokovoltnaia-batareia"
+            },
+            {
+              "label": "Высоковольтная батарея",
+              "slug": "visokovoltna-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+            }
+          ],
+          "price_uah": 690,
+          "quantity": 1,
+          "image_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/bdd1615406cf3472549663f4479a4469bb46126f.jpg",
+          "images": [
+            "https://sklad.nikolacars.kiev.ua/storage/product-photos/bdd1615406cf3472549663f4479a4469bb46126f.jpg",
+            "https://sklad.nikolacars.kiev.ua/storage/product-photos/1b4d071bb1a11266ab031b0531ca543b24f16fa0.jpg",
+            "https://sklad.nikolacars.kiev.ua/storage/product-photos/0323fc3a72723246e78d87290e13a90fe412d7b6.jpg"
+          ]
+        },
+        {
+          "id": 106657,
+          "url_slug": "1009181-00-a-106657",
+          "name": "Крышка-фиксатор высоковольтной батареи",
+          "part_number": "1009181-00-A",
+          "model": "Model S 02.2012-03.2016",
+          "model_slug": "model-s-02-2012-03-2016",
+          "category": "Високовольтна батарея",
+          "category_slug": "visokovoltna-batareia",
+          "category_path": "Високовольтна батарея / Высоковольтная батарея / Высоковольтная батарея",
+          "category_path_slug": "visokovoltna-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia",
+          "category_breadcrumbs": [
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia"
+            },
+            {
+              "label": "Высоковольтная батарея",
+              "slug": "visokovoltna-batareia--vysokovoltnaia-batareia"
+            },
+            {
+              "label": "Высоковольтная батарея",
+              "slug": "visokovoltna-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+            }
+          ],
+          "price_uah": 690,
+          "quantity": 1,
+          "image_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/cbbf20365176497bf6674b1eafc917dddefd6010.jpg",
+          "images": [
+            "https://sklad.nikolacars.kiev.ua/storage/product-photos/cbbf20365176497bf6674b1eafc917dddefd6010.jpg",
+            "https://sklad.nikolacars.kiev.ua/storage/product-photos/e1424e4dae54bc8627ae7dba0859ff0aa8786a07.jpg",
+            "https://sklad.nikolacars.kiev.ua/storage/tesla-official/part-images/100918100A/1009181-00-A_1.jpeg"
+          ]
+        },
+        {
+          "id": 107692,
+          "url_slug": "1003311-00-b-107692",
+          "name": "Крышка-фиксатор низковольтного разъема высоковольтной батареи в сборе",
+          "part_number": "1003311-00-B",
+          "model": "Model S 02.2012-03.2016",
+          "model_slug": "model-s-02-2012-03-2016",
+          "category": "Високовольтна батарея",
+          "category_slug": "visokovoltna-batareia",
+          "category_path": "Високовольтна батарея / Высоковольтная батарея / Высоковольтная батарея",
+          "category_path_slug": "visokovoltna-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia",
+          "category_breadcrumbs": [
+            {
+              "label": "Високовольтна батарея",
+              "slug": "visokovoltna-batareia"
+            },
+            {
+              "label": "Высоковольтная батарея",
+              "slug": "visokovoltna-batareia--vysokovoltnaia-batareia"
+            },
+            {
+              "label": "Высоковольтная батарея",
+              "slug": "visokovoltna-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+            }
+          ],
+          "price_uah": 1380,
+          "quantity": 0,
+          "image_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/ead89328450d8dbb0d7d076a7a60f6cb09744a5a.jpg",
+          "images": [
+            "https://sklad.nikolacars.kiev.ua/storage/product-photos/ead89328450d8dbb0d7d076a7a60f6cb09744a5a.jpg",
+            "https://sklad.nikolacars.kiev.ua/storage/product-photos/ff07daad26f51910d57b71f590e88319e73819da.jpg"
+          ],
+          "availability_status": "sold"
+        }
+      ],
+      "pagination": {
+        "page": 1,
+        "per_page": 100,
+        "total": 3,
+        "last_page": 1
+      }
+    }
+  },
+  {
+    "time": "2026-10-29T15:57:52+00:00",
+    "query": {
+      "locale": "ru",
+      "category_path_slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia",
+      "per_page": 100,
+      "page": 1,
+      "sort": "newest"
+    },
+    "status": 200,
+    "data": {
+      "models": [
+        {
+          "value": "Model 3 06.2017 - 12.2023",
+          "label": "Model 3 06.2017 - 12.2023",
+          "slug": "model-3-06-2017-12-2023",
+          "count": 2
+        },
+        {
+          "value": "Model 3 Highland 01.2024 -",
+          "label": "Model 3 Highland 01.2024 -",
+          "slug": "model-3-highland-01-2024",
+          "count": 3
+        }
+      ],
+      "categories": [
+        {
+          "value": "Безопасность и защита",
+          "label": "Безопасность и защита",
+          "slug": "bezopasnost-i-zashhita",
+          "count": 116
+        },
+        {
+          "value": "Високовольтна батарея",
+          "label": "Високовольтна батарея",
+          "slug": "visokovoltna-batareia",
+          "count": 2
+        },
+        {
+          "value": "Внутренняя отделка",
+          "label": "Внутренняя отделка",
+          "slug": "vnutrenniaia-otdelka",
+          "count": 759
+        },
+        {
+          "value": "Высоковольтная батарея",
+          "label": "Высоковольтная батарея",
+          "slug": "vysokovoltnaia-batareia",
+          "count": 5
+        },
+        {
+          "value": "Высоковольтная система",
+          "label": "Высоковольтная система",
+          "slug": "vysokovoltnaia-sistema",
+          "count": 26
+        },
+        {
+          "value": "Диски и шины",
+          "label": "Диски и шины",
+          "slug": "diski-i-siny",
+          "count": 21
+        },
+        {
+          "value": "Задний мотор",
+          "label": "Задний мотор",
+          "slug": "zadnii-motor",
+          "count": 31
+        },
+        {
+          "value": "Информационно-развлекательная система",
+          "label": "Информационно-развлекательная система",
+          "slug": "informacionno-razvlekatelnaia-sistema",
+          "count": 83
+        },
+        {
+          "value": "Компоненты закрытия",
+          "label": "Компоненты закрытия",
+          "slug": "komponenty-zakrytiia",
+          "count": 453
+        },
+        {
+          "value": "Крыша",
+          "label": "Крыша",
+          "slug": "krysa",
+          "count": 10
+        },
+        {
+          "value": "Кузов",
+          "label": "Кузов",
+          "slug": "kuzov",
+          "count": 170
+        },
+        {
+          "value": "Наружная фурнитура",
+          "label": "Наружная фурнитура",
+          "slug": "naruznaia-furnitura",
+          "count": 198
+        },
+        {
+          "value": "Не определено",
+          "label": "Не определено",
+          "slug": "ne-opredeleno",
+          "count": 19
+        },
+        {
+          "value": "Передний мотор",
+          "label": "Передний мотор",
+          "slug": "perednii-motor",
+          "count": 13
+        },
+        {
+          "value": "Подвеска",
+          "label": "Подвеска",
+          "slug": "podveska",
+          "count": 102
+        },
+        {
+          "value": "Приборная панель",
+          "label": "Приборная панель",
+          "slug": "pribornaia-panel",
+          "count": 204
+        },
+        {
+          "value": "Рулевой механизм",
+          "label": "Рулевой механизм",
+          "slug": "rulevoi-mexanizm",
+          "count": 38
+        },
+        {
+          "value": "Сиденья",
+          "label": "Сиденья",
+          "slug": "sidenia",
+          "count": 70
+        },
+        {
+          "value": "Тормоза",
+          "label": "Тормоза",
+          "slug": "tormoza",
+          "count": 60
+        },
+        {
+          "value": "Управление температурным режимом",
+          "label": "Управление температурным режимом",
+          "slug": "upravlenie-temperaturnym-rezimom",
+          "count": 169
+        },
+        {
+          "value": "Ходовая - шасси",
+          "label": "Ходовая - шасси",
+          "slug": "xodovaia-sassi",
+          "count": 8
+        },
+        {
+          "value": "Электрика",
+          "label": "Электрика",
+          "slug": "elektrika",
+          "count": 329
+        }
+      ],
+      "selection": {
+        "model": "",
+        "model_slug": "",
+        "category": "Высоковольтная батарея",
+        "category_slug": "vysokovoltnaia-batareia",
+        "category_path": "Высоковольтная батарея / Высоковольтная батарея",
+        "category_path_slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia",
+        "category_breadcrumbs": [
+          {
+            "label": "Высоковольтная батарея",
+            "slug": "vysokovoltnaia-batareia"
+          },
+          {
+            "label": "Высоковольтная батарея",
+            "slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+          }
+        ],
+        "category_path_locale_slugs": {
+          "uk": "visokovoltna-batareia--visokovoltna-batareia",
+          "ru": "vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+        }
+      },
+      "products": [
+        {
+          "id": 112402,
+          "url_slug": "1100055-01-d-112402",
+          "name": "Кронштейн передний щита защитного аккумулятора",
+          "part_number": "1100055-01-D",
+          "model": "Model 3 Highland 01.2024 -",
+          "model_slug": "model-3-highland-01-2024",
+          "category": "Высоковольтная батарея",
+          "category_slug": "vysokovoltnaia-batareia",
+          "category_path": "Высоковольтная батарея / Высоковольтная батарея / Высоковольтная батарея",
+          "category_path_slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia",
+          "category_breadcrumbs": [
+            {
+              "label": "Высоковольтная батарея",
+              "slug": "vysokovoltnaia-batareia"
+            },
+            {
+              "label": "Высоковольтная батарея",
+              "slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+            },
+            {
+              "label": "Высоковольтная батарея",
+              "slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+            }
+          ],
+          "price_uah": 460,
+          "quantity": 1,
+          "image_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/2e8462f3b67c888c8703e25f9d15117814844e16.jpg",
+          "images": [
+            "https://sklad.nikolacars.kiev.ua/storage/product-photos/2e8462f3b67c888c8703e25f9d15117814844e16.jpg",
+            "https://sklad.nikolacars.kiev.ua/storage/product-photos/022241b4c96b87e373b6abcbec18f65e29c43e30.jpg",
+            "https://sklad.nikolacars.kiev.ua/storage/tesla-official/part-images/110005501D/1100055-01-D_1.jpeg"
+          ]
+        },
+        {
+          "id": 110960,
+          "url_slug": "1496769-00-j-110960",
+          "name": "Высоковольтная батарея",
+          "part_number": "1496769-00-J",
+          "model": "Model 3 Highland 01.2024 -",
+          "model_slug": "model-3-highland-01-2024",
+          "category": "Высоковольтная батарея",
+          "category_slug": "vysokovoltnaia-batareia",
+          "category_path": "Высоковольтная батарея / Высоковольтная батарея / Высоковольтная батарея",
+          "category_path_slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia",
+          "category_breadcrumbs": [
+            {
+              "label": "Высоковольтная батарея",
+              "slug": "vysokovoltnaia-batareia"
+            },
+            {
+              "label": "Высоковольтная батарея",
+              "slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+            },
+            {
+              "label": "Высоковольтная батарея",
+              "slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+            }
+          ],
+          "price_uah": 321100,
+          "quantity": 1,
+          "image_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/f8e16a629bd85bf2541af7d8a711fa045ff3a691.webp",
+          "images": [
+            "https://sklad.nikolacars.kiev.ua/storage/product-photos/f8e16a629bd85bf2541af7d8a711fa045ff3a691.webp"
+          ]
+        },
+        {
+          "id": 113256,
+          "url_slug": "1666968-00-e-113256",
+          "name": "Основная батарея 60 kWh LFP RWD",
+          "part_number": "1666968-00-E",
+          "model": "Model 3 Highland 01.2024 -",
+          "model_slug": "model-3-highland-01-2024",
+          "category": "Высоковольтная батарея",
+          "category_slug": "vysokovoltnaia-batareia",
+          "category_path": "Высоковольтная батарея / Высоковольтная батарея / Высоковольтная батарея",
+          "category_path_slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia",
+          "category_breadcrumbs": [
+            {
+              "label": "Высоковольтная батарея",
+              "slug": "vysokovoltnaia-batareia"
+            },
+            {
+              "label": "Высоковольтная батарея",
+              "slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+            },
+            {
+              "label": "Высоковольтная батарея",
+              "slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+            }
+          ],
+          "price_uah": 321100,
+          "quantity": 1,
+          "image_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/f8e16a629bd85bf2541af7d8a711fa045ff3a691.webp",
+          "images": [
+            "https://sklad.nikolacars.kiev.ua/storage/product-photos/f8e16a629bd85bf2541af7d8a711fa045ff3a691.webp"
+          ]
+        },
+        {
+          "id": 75221,
+          "url_slug": "1104422-10-k-75221",
+          "name": "Основная батарея LONG RANGE 75kWh",
+          "part_number": "1104422-10-K",
+          "model": "Model 3 06.2017 - 12.2023",
+          "model_slug": "model-3-06-2017-12-2023",
+          "category": "Высоковольтная батарея",
+          "category_slug": "vysokovoltnaia-batareia",
+          "category_path": "Высоковольтная батарея / Высоковольтная батарея / Высоковольтная батарея",
+          "category_path_slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia",
+          "category_breadcrumbs": [
+            {
+              "label": "Высоковольтная батарея",
+              "slug": "vysokovoltnaia-batareia"
+            },
+            {
+              "label": "Высоковольтная батарея",
+              "slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+            },
+            {
+              "label": "Высоковольтная батарея",
+              "slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+            }
+          ],
+          "price_uah": 183500,
+          "quantity": 1,
+          "image_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/f8e16a629bd85bf2541af7d8a711fa045ff3a691.webp",
+          "images": [
+            "https://sklad.nikolacars.kiev.ua/storage/product-photos/f8e16a629bd85bf2541af7d8a711fa045ff3a691.webp"
+          ]
+        },
+        {
+          "id": 80841,
+          "url_slug": "1104428-00-m-80841",
+          "name": "Батарея в сборе 52 kWh, RWD",
+          "part_number": "1104428-00-M",
+          "model": "Model 3 06.2017 - 12.2023",
+          "model_slug": "model-3-06-2017-12-2023",
+          "category": "Высоковольтная батарея",
+          "category_slug": "vysokovoltnaia-batareia",
+          "category_path": "Высоковольтная батарея / Высоковольтная батарея / Высоковольтная батарея",
+          "category_path_slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia",
+          "category_breadcrumbs": [
+            {
+              "label": "Высоковольтная батарея",
+              "slug": "vysokovoltnaia-batareia"
+            },
+            {
+              "label": "Высоковольтная батарея",
+              "slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+            },
+            {
+              "label": "Высоковольтная батарея",
+              "slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+            }
+          ],
+          "price_uah": 137600,
+          "quantity": 1,
+          "image_url": "https://sklad.nikolacars.kiev.ua/storage/product-photos/f8e16a629bd85bf2541af7d8a711fa045ff3a691.webp",
+          "images": [
+            "https://sklad.nikolacars.kiev.ua/storage/product-photos/f8e16a629bd85bf2541af7d8a711fa045ff3a691.webp"
+          ]
+        },
+        {
+          "id": 112426,
+          "url_slug": "1496769-00-j-112426",
+          "name": "Высоковольтная батарея",
+          "part_number": "1496769-00-J",
+          "model": "Model 3 Highland 01.2024 -",
+          "model_slug": "model-3-highland-01-2024",
+          "category": "Высоковольтная батарея",
+          "category_slug": "vysokovoltnaia-batareia",
+          "category_path": "Высоковольтная батарея / Высоковольтная батарея / Высоковольтная батарея",
+          "category_path_slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia",
+          "category_breadcrumbs": [
+            {
+              "label": "Высоковольтная батарея",
+              "slug": "vysokovoltnaia-batareia"
+            },
+            {
+              "label": "Высоковольтная батарея",
+              "slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+            },
+            {
+              "label": "Высоковольтная батарея",
+              "slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+            }
+          ],
+          "price_uah": 266000,
+          "quantity": 0,
+          "image_url": null,
+          "images": [],
+          "availability_status": "sold"
+        },
+        {
+          "id": 65734,
+          "url_slug": "1104428-00-w-65734",
+          "name": "Батарея в сборе (55 kWh E1,RWD,1-PHASE )",
+          "part_number": "1104428-00-W",
+          "model": "Model Y 01.2020 - 01.2025",
+          "model_slug": "model-y-01-2020-01-2025",
+          "category": "Высоковольтная батарея",
+          "category_slug": "vysokovoltnaia-batareia",
+          "category_path": "Высоковольтная батарея / Высоковольтная батарея / Высоковольтная батарея",
+          "category_path_slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia",
+          "category_breadcrumbs": [
+            {
+              "label": "Высоковольтная батарея",
+              "slug": "vysokovoltnaia-batareia"
+            },
+            {
+              "label": "Высоковольтная батарея",
+              "slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+            },
+            {
+              "label": "Высоковольтная батарея",
+              "slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+            }
+          ],
+          "price_uah": 130800,
+          "quantity": 0,
+          "image_url": null,
+          "images": [],
+          "availability_status": "sold"
+        },
+        {
+          "id": 39792,
+          "url_slug": "1104428-00-w-39792",
+          "name": "Батарея в сборе (55 kWh E1,RWD,1-PHASE )",
+          "part_number": "1104428-00-W",
+          "model": "Model Y 01.2020 - 01.2025",
+          "model_slug": "model-y-01-2020-01-2025",
+          "category": "Высоковольтная батарея",
+          "category_slug": "vysokovoltnaia-batareia",
+          "category_path": "Высоковольтная батарея / Высоковольтная батарея / Высоковольтная батарея",
+          "category_path_slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia",
+          "category_breadcrumbs": [
+            {
+              "label": "Высоковольтная батарея",
+              "slug": "vysokovoltnaia-batareia"
+            },
+            {
+              "label": "Высоковольтная батарея",
+              "slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+            },
+            {
+              "label": "Высоковольтная батарея",
+              "slug": "vysokovoltnaia-batareia--vysokovoltnaia-batareia--vysokovoltnaia-batareia"
+            }
+          ],
+          "price_uah": 128500,
+          "quantity": 0,
+          "image_url": null,
+          "images": [],
+          "availability_status": "sold"
+        }
+      ],
+      "pagination": {
+        "page": 1,
+        "per_page": 100,
+        "total": 8,
+        "last_page": 1
+      }
+    }
+  }
+]

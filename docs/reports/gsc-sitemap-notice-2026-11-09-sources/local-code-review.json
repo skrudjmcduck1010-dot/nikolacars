@@ -1,0 +1,64 @@
+{
+  "project": "nikolacars",
+  "checked_date": "2026-11-09",
+  "timezone": "Europe/Kyiv",
+  "method": "local read-only source, Git diff and release documentation; no new HTTP or FTPS",
+  "git": {
+    "branch": "codex/parts-storefront",
+    "head": "eadfd4825768f3586553f448876ad19b59fe05f9",
+    "prepared_fixes_uncommitted": true
+  },
+  "prepared_2026_11_08": {
+    "status": "LOCAL_NOT_DEPLOYED_ACCORDING_TO_CURRENT_DOCS_AND_GIT",
+    "runtime_files": [
+      "app/Http/Controllers/PartsController.php",
+      "app/Services/CatalogPath.php"
+    ],
+    "changes": [
+      "Cache::flexible alwaysDefer true for recovery after cached upstream 404/410/422",
+      "Four UA/RU wheel parent-to-leaf mappings in global and Model S 2016-2021 scopes"
+    ],
+    "prior_test_receipt": ".codex-tmp/compat-regressions/run-c79bff5cc5dc/results.json",
+    "tests_rerun_this_task": false,
+    "limitation": "No fresh live source hashes in this task. Uncommitted Git status alone does not prove live status; release reports explicitly say these changes are not published."
+  },
+  "sitemap_code": {
+    "file": "app/Http/Controllers/SiteController.php",
+    "index": "https://nikolacars.kiev.ua/sitemap.xml",
+    "children": [
+      "https://nikolacars.kiev.ua/sitemaps/pages.xml",
+      "https://nikolacars.kiev.ua/sitemaps/parts-uk.xml",
+      "https://nikolacars.kiev.ua/sitemaps/parts-ru.xml"
+    ],
+    "parts_generation": "Product id/url_slug plus root/model/root-category/model-root-category paths from upstream SEO index; deep category_path_sections deliberately excluded",
+    "per_loc_http_check": false,
+    "parts_xml_cache_fresh_seconds": 3600,
+    "parts_xml_cache_total_seconds": 604800,
+    "seo_index_cache_seconds": 3600,
+    "seo_index_stale_fallback_seconds": 604800,
+    "new_wheel_alias_paths_emitted": false,
+    "limitation": "Source review cannot certify current HTTP status of every sitemap loc. No current warehouse API or business-data reads performed."
+  },
+  "previously_verified_submitted_urls": [
+    {
+      "url": "https://nikolacars.kiev.ua/parts/1096623-00-h-74856/",
+      "restored_archive_date": "2026-11-05",
+      "prior_http_status": 200,
+      "prior_http_observed_utc": "2026-11-08T18:02:57.581Z",
+      "source_registry_row": 9
+    },
+    {
+      "url": "https://nikolacars.kiev.ua/parts/1095858-00-d-101669/",
+      "restored_archive_date": "2026-11-05",
+      "prior_http_status": 200,
+      "prior_http_observed_utc": "2026-11-08T18:03:23.887Z",
+      "source_registry_row": 14
+    }
+  ],
+  "sources": [
+    "docs/agents/release_verifier.md: 05.11.2026 проверка карточек после backend-выпуска",
+    "docs/reports/gsc-404-canonical-completion-2026-11-08.md",
+    "docs/reports/gsc-404-canonical-completion-2026-11-08-sources/url-registry.json",
+    "docs/reports/negative-cache-recovery-2026-11-08.md"
+  ]
+}

@@ -1,0 +1,427 @@
+{
+  "passed": true,
+  "count": 105,
+  "failed": [],
+  "checks": [
+    {
+      "passed": true,
+      "label": "/services/tesla-processor-repair/one H1/title/description"
+    },
+    {
+      "passed": true,
+      "label": "/services/tesla-processor-repair/canonical/hreflang stable"
+    },
+    {
+      "passed": true,
+      "label": "/services/tesla-processor-repair/prior topical links retained"
+    },
+    {
+      "passed": true,
+      "label": "/services/tesla-processor-repair/board/processor repair"
+    },
+    {
+      "passed": true,
+      "label": "/services/tesla-processor-repair/MCU and upgrade distinction"
+    },
+    {
+      "passed": true,
+      "label": "/services/tesla-processor-repair/no invented eMMC claim"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-processor-repair/one H1/title/description"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-processor-repair/canonical/hreflang stable"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-processor-repair/prior topical links retained"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-processor-repair/board/processor repair"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-processor-repair/MCU and upgrade distinction"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-processor-repair/no invented eMMC claim"
+    },
+    {
+      "passed": true,
+      "label": "/services/tesla-srs-crash/one H1/title/description"
+    },
+    {
+      "passed": true,
+      "label": "/services/tesla-srs-crash/canonical/hreflang stable"
+    },
+    {
+      "passed": true,
+      "label": "/services/tesla-srs-crash/prior topical links retained"
+    },
+    {
+      "passed": true,
+      "label": "/services/tesla-srs-crash/explicit blocking-removal intent"
+    },
+    {
+      "passed": true,
+      "label": "/services/tesla-srs-crash/after restoration"
+    },
+    {
+      "passed": true,
+      "label": "/services/tesla-srs-crash/damaged components"
+    },
+    {
+      "passed": true,
+      "label": "/services/tesla-srs-crash/no substitution of safety repair"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-srs-crash/one H1/title/description"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-srs-crash/canonical/hreflang stable"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-srs-crash/prior topical links retained"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-srs-crash/explicit blocking-removal intent"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-srs-crash/after restoration"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-srs-crash/damaged components"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-srs-crash/no substitution of safety repair"
+    },
+    {
+      "passed": true,
+      "label": "/services/tesla-body-crash/one H1/title/description"
+    },
+    {
+      "passed": true,
+      "label": "/services/tesla-body-crash/canonical/hreflang stable"
+    },
+    {
+      "passed": true,
+      "label": "/services/tesla-body-crash/prior topical links retained"
+    },
+    {
+      "passed": true,
+      "label": "/services/tesla-body-crash/explicit blocking-removal intent"
+    },
+    {
+      "passed": true,
+      "label": "/services/tesla-body-crash/after restoration"
+    },
+    {
+      "passed": true,
+      "label": "/services/tesla-body-crash/damaged components"
+    },
+    {
+      "passed": true,
+      "label": "/services/tesla-body-crash/no substitution of safety repair"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-body-crash/one H1/title/description"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-body-crash/canonical/hreflang stable"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-body-crash/prior topical links retained"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-body-crash/explicit blocking-removal intent"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-body-crash/after restoration"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-body-crash/damaged components"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-body-crash/no substitution of safety repair"
+    },
+    {
+      "passed": true,
+      "label": "/services/tesla-battery-crash/one H1/title/description"
+    },
+    {
+      "passed": true,
+      "label": "/services/tesla-battery-crash/canonical/hreflang stable"
+    },
+    {
+      "passed": true,
+      "label": "/services/tesla-battery-crash/prior topical links retained"
+    },
+    {
+      "passed": true,
+      "label": "/services/tesla-battery-crash/explicit blocking-removal intent"
+    },
+    {
+      "passed": true,
+      "label": "/services/tesla-battery-crash/after restoration"
+    },
+    {
+      "passed": true,
+      "label": "/services/tesla-battery-crash/damaged components"
+    },
+    {
+      "passed": true,
+      "label": "/services/tesla-battery-crash/no substitution of safety repair"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-battery-crash/one H1/title/description"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-battery-crash/canonical/hreflang stable"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-battery-crash/prior topical links retained"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-battery-crash/explicit blocking-removal intent"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-battery-crash/after restoration"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-battery-crash/damaged components"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-battery-crash/no substitution of safety repair"
+    },
+    {
+      "passed": true,
+      "label": "/services/tesla-air-suspension-crash/one H1/title/description"
+    },
+    {
+      "passed": true,
+      "label": "/services/tesla-air-suspension-crash/canonical/hreflang stable"
+    },
+    {
+      "passed": true,
+      "label": "/services/tesla-air-suspension-crash/prior topical links retained"
+    },
+    {
+      "passed": true,
+      "label": "/services/tesla-air-suspension-crash/explicit blocking-removal intent"
+    },
+    {
+      "passed": true,
+      "label": "/services/tesla-air-suspension-crash/after restoration"
+    },
+    {
+      "passed": true,
+      "label": "/services/tesla-air-suspension-crash/damaged components"
+    },
+    {
+      "passed": true,
+      "label": "/services/tesla-air-suspension-crash/no substitution of safety repair"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-air-suspension-crash/one H1/title/description"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-air-suspension-crash/canonical/hreflang stable"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-air-suspension-crash/prior topical links retained"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-air-suspension-crash/explicit blocking-removal intent"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-air-suspension-crash/after restoration"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-air-suspension-crash/damaged components"
+    },
+    {
+      "passed": true,
+      "label": "/ru/services/tesla-air-suspension-crash/no substitution of safety repair"
+    },
+    {
+      "passed": true,
+      "label": "tesla-srs-crashukcard/H1 aligned"
+    },
+    {
+      "passed": true,
+      "label": "tesla-srs-crashrucard/H1 aligned"
+    },
+    {
+      "passed": true,
+      "label": "tesla-body-crashukcard/H1 aligned"
+    },
+    {
+      "passed": true,
+      "label": "tesla-body-crashrucard/H1 aligned"
+    },
+    {
+      "passed": true,
+      "label": "tesla-battery-crashukcard/H1 aligned"
+    },
+    {
+      "passed": true,
+      "label": "tesla-battery-crashrucard/H1 aligned"
+    },
+    {
+      "passed": true,
+      "label": "tesla-air-suspension-crashukcard/H1 aligned"
+    },
+    {
+      "passed": true,
+      "label": "tesla-air-suspension-crashrucard/H1 aligned"
+    },
+    {
+      "passed": true,
+      "label": "tesla-processor-repairukcard/H1 aligned"
+    },
+    {
+      "passed": true,
+      "label": "tesla-processor-repairrucard/H1 aligned"
+    },
+    {
+      "passed": true,
+      "label": "config/service_content.phpfrozen SHA"
+    },
+    {
+      "passed": true,
+      "label": "config/targeted_services.phpfrozen SHA"
+    },
+    {
+      "passed": true,
+      "label": "resources/views/services_index.blade.phpfrozen SHA"
+    },
+    {
+      "passed": true,
+      "label": "resources/views/home.blade.phpfrozen SHA"
+    },
+    {
+      "passed": true,
+      "label": "resources/views/services/tesla-service.blade.phpfrozen SHA"
+    },
+    {
+      "passed": true,
+      "label": "resources/views/services/targeted/tesla-camera-calibration.blade.phpfrozen SHA"
+    },
+    {
+      "passed": true,
+      "label": "resources/views/services/targeted/tesla-ccs-charge-port-repair.blade.phpfrozen SHA"
+    },
+    {
+      "passed": true,
+      "label": "resources/views/services/targeted/tesla-charge-port-repair.blade.phpfrozen SHA"
+    },
+    {
+      "passed": true,
+      "label": "resources/views/services/targeted/tesla-hub-repair.blade.phpfrozen SHA"
+    },
+    {
+      "passed": true,
+      "label": "resources/views/services/targeted/tesla-tegra-intel-upgrade.blade.phpfrozen SHA"
+    },
+    {
+      "passed": true,
+      "label": "resources/views/services/targeted/tesla-drive-unit-oil-repair.blade.phpfrozen SHA"
+    },
+    {
+      "passed": true,
+      "label": "resources/views/services/firmware-auto.blade.phpfrozen SHA"
+    },
+    {
+      "passed": true,
+      "label": "resources/views/services/prigon-usa.blade.phpfrozen SHA"
+    },
+    {
+      "passed": true,
+      "label": "resources/views/services/targeted/tesla-12v-battery-replacement.blade.phpfrozen SHA"
+    },
+    {
+      "passed": true,
+      "label": "resources/views/services/targeted/tesla-model-s-battery-fuse.blade.phpfrozen SHA"
+    },
+    {
+      "passed": true,
+      "label": "resources/views/services/tesla-electricmotor-repair.blade.phpfrozen SHA"
+    },
+    {
+      "passed": true,
+      "label": "resources/views/services/tesla-battery-repair.blade.phpfrozen SHA"
+    },
+    {
+      "passed": true,
+      "label": "resources/views/services/repair-tesla-door-handle.blade.phpfrozen SHA"
+    },
+    {
+      "passed": true,
+      "label": "resources/views/services/tesla-subframe-repair.blade.phpfrozen SHA"
+    },
+    {
+      "passed": true,
+      "label": "resources/views/services/vidnovlennya-sertyfikativ-tesla.blade.phpfrozen SHA"
+    },
+    {
+      "passed": true,
+      "label": "resources/views/partials/service-related.blade.phpfrozen SHA"
+    },
+    {
+      "passed": true,
+      "label": "routes/web.phpfrozen SHA"
+    },
+    {
+      "passed": true,
+      "label": "resources/views/services/targeted/tesla-srs-crash.blade.phpfrozen SHA"
+    },
+    {
+      "passed": true,
+      "label": "resources/views/services/targeted/tesla-body-crash.blade.phpfrozen SHA"
+    },
+    {
+      "passed": true,
+      "label": "resources/views/services/targeted/tesla-battery-crash.blade.phpfrozen SHA"
+    },
+    {
+      "passed": true,
+      "label": "resources/views/services/targeted/tesla-air-suspension-crash.blade.phpfrozen SHA"
+    },
+    {
+      "passed": true,
+      "label": "resources/views/services/targeted/tesla-processor-repair.blade.phpfrozen SHA"
+    }
+  ]
+}

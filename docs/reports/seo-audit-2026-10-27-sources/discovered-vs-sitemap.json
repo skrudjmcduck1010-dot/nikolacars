@@ -1,0 +1,16 @@
+{
+  "count": 386,
+  "present_exact": 385,
+  "absent_exact": 1,
+  "absent_but_id_present": 0,
+  "missing_examples": [
+    "https://nikolacars.kiev.ua/parts/1120990-00-h-99123/"
+  ],
+  "present_examples": [
+    "https://nikolacars.kiev.ua/parts/1002322-00-c-113428/",
+    "https://nikolacars.kiev.ua/parts/1002405-02-e-91967/",
+    "https://nikolacars.kiev.ua/parts/1002485-00-h-107145/",
+    "https://nikolacars.kiev.ua/parts/1004419-00-h-105004/",
+    "https://nikolacars.kiev.ua/parts/1004419-00-m-91256/"
+  ]
+}

@@ -1,0 +1,410 @@
+[
+  {
+    "url": "https://nikolacars.kiev.ua/parts/1758309-20-a-112759/",
+    "final": "https://nikolacars.kiev.ua/parts/1758309-20-a-112759/",
+    "status": 200,
+    "bytes": 57387,
+    "seconds": 0.19,
+    "title": [
+      "Блок керування Bluetooth 315MHz Tesla Model 3 Highland 01.2024 - — 1758309-20-A | NikolaCars — Оригінал"
+    ],
+    "h1": [
+      "Блок керування Bluetooth 315MHz — Tesla Model 3 Highland 01.2024 - — 1758309-20-A"
+    ],
+    "meta": [
+      "<meta name=\"description\" content=\"Блок керування Bluetooth 315MHz Tesla Model 3 Highland 01.2024 -, артикул 1758309-20-A — 2 300 грн. В наявності у NikolaCars, Київ.\">",
+      "<meta property=\"og:image\" content=\"https://sklad.nikolacars.kiev.ua/storage/product-photos/fa6a16125f07850690d5478c4eda2a5fef560467.jpg\">"
+    ],
+    "canonical": [
+      "<link rel=\"canonical\" href=\"https://nikolacars.kiev.ua/parts/1758309-20-a-112759/\">"
+    ],
+    "schemas": [
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "@id": "https://nikolacars.kiev.ua/parts/1758309-20-a-112759/#product",
+        "mainEntityOfPage": {
+          "@id": "https://nikolacars.kiev.ua/parts/1758309-20-a-112759/#webpage"
+        },
+        "name": "Блок керування Bluetooth 315MHz Tesla Model 3 Highland 01.2024 -",
+        "image": [
+          "https://sklad.nikolacars.kiev.ua/storage/product-photos/fa6a16125f07850690d5478c4eda2a5fef560467.jpg",
+          "https://sklad.nikolacars.kiev.ua/storage/product-photos/cc87445f6a8a49707158f334717f85c2c4d64116.jpg",
+          "https://sklad.nikolacars.kiev.ua/storage/product-photos/bb13068ae0f7e78b8cc8ba59765957835b61ad94.jpg"
+        ],
+        "description": "Блок керування Bluetooth 315MHz — запчастина для Tesla Model 3 Highland 01.2024 -. Артикул: 1758309-20-A (175830920A). Категорія: Електрика / Безключовий доступ і безпека / Антени безключового доступу. Сумісність: Model 3 Highland 01.2024 -, Model 3. Стан: вживана. Колір: білий.\n\nЗапчастина є в наявності на складі NikolaCars: 1 шт. Купити запчастину можна за ціною 2 300 грн. Перед замовленням звірте артикул і сумісність деталі з вашим автомобілем Tesla.",
+        "sku": "DON75-1112",
+        "mpn": "1758309-20-A",
+        "brand": {
+          "@type": "Brand",
+          "name": "Tesla"
+        },
+        "category": {
+          "@type": "CategoryCode",
+          "inCodeSet": "https://www.google.com/basepages/producttype/taxonomy-with-ids.en-US.txt",
+          "codeValue": "5613"
+        },
+        "offers": {
+          "@type": "Offer",
+          "url": "https://nikolacars.kiev.ua/parts/1758309-20-a-112759/",
+          "priceCurrency": "UAH",
+          "price": "2300.00",
+          "availability": "https://schema.org/InStock",
+          "itemCondition": "https://schema.org/UsedCondition",
+          "seller": {
+            "@type": "Organization",
+            "@id": "https://nikolacars.kiev.ua/#parts-store",
+            "name": "NikolaCars"
+          },
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "hasShippingService": {
+              "@id": "https://nikolacars.kiev.ua/parts/1758309-20-a-112759/#delivery-and-returns"
+            }
+          },
+          "hasMerchantReturnPolicy": {
+            "@type": "MerchantReturnPolicy",
+            "applicableCountry": "UA",
+            "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+            "merchantReturnDays": 14,
+            "returnMethod": [
+              "https://schema.org/ReturnByMail",
+              "https://schema.org/ReturnInStore"
+            ],
+            "returnFees": "https://schema.org/ReturnFeesCustomerResponsibility"
+          }
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": "https://nikolacars.kiev.ua/parts/1758309-20-a-112759/#webpage",
+        "url": "https://nikolacars.kiev.ua/parts/1758309-20-a-112759/",
+        "primaryImageOfPage": "https://sklad.nikolacars.kiev.ua/storage/product-photos/fa6a16125f07850690d5478c4eda2a5fef560467.jpg",
+        "mainEntity": {
+          "@id": "https://nikolacars.kiev.ua/parts/1758309-20-a-112759/#product"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "@id": "https://nikolacars.kiev.ua/#parts-store",
+        "name": "NikolaCars",
+        "url": "https://nikolacars.kiev.ua",
+        "hasShippingService": {
+          "@type": "ShippingService",
+          "@id": "https://nikolacars.kiev.ua/parts/1758309-20-a-112759/#delivery-and-returns",
+          "name": "Нова пошта по Україні",
+          "description": "Доставку оплачує клієнт за тарифами Нової пошти; вартість залежить від ваги, габаритів і способу отримання. Підготовка замовлення — від 1 до 16 годин без урахування вихідних, обробка та відправлення — з понеділка по п’ятницю. Замовлення поза робочим часом обробляємо з 10:00 наступного робочого дня. Орієнтовна доставка — 1–3 дні після відправлення.",
+          "handlingTime": {
+            "@type": "ServicePeriod",
+            "businessDays": [
+              "https://schema.org/Monday",
+              "https://schema.org/Tuesday",
+              "https://schema.org/Wednesday",
+              "https://schema.org/Thursday",
+              "https://schema.org/Friday"
+            ],
+            "cutoffTime": "18:00:00+02:00",
+            "duration": {
+              "@type": "QuantitativeValue",
+              "minValue": 0,
+              "maxValue": 1,
+              "unitCode": "DAY"
+            }
+          },
+          "shippingConditions": {
+            "@type": "ShippingConditions",
+            "shippingDestination": {
+              "@type": "DefinedRegion",
+              "addressCountry": "UA"
+            },
+            "transitTime": {
+              "@type": "ServicePeriod",
+              "duration": {
+                "@type": "QuantitativeValue",
+                "minValue": 1,
+                "maxValue": 3,
+                "unitCode": "DAY"
+              }
+            }
+          }
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Запчастини Tesla",
+            "item": "https://nikolacars.kiev.ua/parts/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Model 3 Highland 01.2024 -",
+            "item": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Електрика",
+            "item": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/elektrika/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Безключовий доступ і безпека",
+            "item": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/elektrika/bezkliucovii-dostup-i-bezpeka/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "name": "Антени безключового доступу",
+            "item": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/elektrika/bezkliucovii-dostup-i-bezpeka/anteni-bezkliucovogo-dostupu/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 6,
+            "name": "Блок керування Bluetooth 315MHz",
+            "item": "https://nikolacars.kiev.ua/parts/1758309-20-a-112759/"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://nikolacars.kiev.ua/ru/parts/1495864-20-c-73833/",
+    "final": "https://nikolacars.kiev.ua/ru/parts/1495864-20-c-73833/",
+    "status": 200,
+    "bytes": 67903,
+    "seconds": 0.19,
+    "title": [
+      "Повторитель поворота с камерой в переднем крыле левая сторона Tesla Model Y 01.2020 - 01.2025 — 1495864-20-C | NikolaCars — Оригинал"
+    ],
+    "h1": [
+      "Повторитель поворота с камерой в переднем крыле левая сторона — Tesla Model Y 01.2020 - 01.2025 — 1495864-20-C"
+    ],
+    "meta": [
+      "<meta name=\"description\" content=\"Повторитель поворота с камерой в переднем крыле левая сторона Tesla Model Y 01.2020 - 01.2025, артикул 1495864-20-C — 4 130 грн. Запчасть продана.\">",
+      "<meta property=\"og:image\" content=\"https://images.prom.ua/6854644431_kamera-z-povtoryuvachem.jpg\">"
+    ],
+    "canonical": [
+      "<link rel=\"canonical\" href=\"https://nikolacars.kiev.ua/ru/parts/1495864-20-c-73833/\">"
+    ],
+    "schemas": [
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "@id": "https://nikolacars.kiev.ua/ru/parts/1495864-20-c-73833/#product",
+        "mainEntityOfPage": {
+          "@id": "https://nikolacars.kiev.ua/ru/parts/1495864-20-c-73833/#webpage"
+        },
+        "name": "Повторитель поворота с камерой в переднем крыле левая сторона Tesla Model Y 01.2020 - 01.2025",
+        "image": [
+          "https://images.prom.ua/6854644431_kamera-z-povtoryuvachem.jpg"
+        ],
+        "description": "Повторитель поворота с камерой в переднем крыле левая сторона — запчасть для Tesla Model Y 01.2020 - 01.2025. Артикул: 1495864-20-C (149586420C). Категория: Электрика / Внешний свет / Переднее освещение (кроме основных фар). Совместимость: Model 3 06.2017 - 12.2023, Model Y 01.2020 - 01.2025, Model 3. Состояние: б/у.\n\nЭта запчасть продана. Посмотрите похожие запчасти в каталоге. Последняя указанная цена — 4 130 грн. Перед заказом сверьте артикул и совместимость детали с вашим автомобилем Tesla.",
+        "sku": "NC-247",
+        "mpn": "1495864-20-C",
+        "brand": {
+          "@type": "Brand",
+          "name": "Tesla"
+        },
+        "category": {
+          "@type": "CategoryCode",
+          "inCodeSet": "https://www.google.com/basepages/producttype/taxonomy-with-ids.en-US.txt",
+          "codeValue": "5613"
+        },
+        "offers": {
+          "@type": "Offer",
+          "url": "https://nikolacars.kiev.ua/ru/parts/1495864-20-c-73833/",
+          "priceCurrency": "UAH",
+          "price": "4130.00",
+          "availability": "https://schema.org/SoldOut",
+          "itemCondition": "https://schema.org/UsedCondition",
+          "seller": {
+            "@type": "Organization",
+            "@id": "https://nikolacars.kiev.ua/#parts-store",
+            "name": "NikolaCars"
+          },
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "hasShippingService": {
+              "@id": "https://nikolacars.kiev.ua/ru/parts/1495864-20-c-73833/#delivery-and-returns"
+            }
+          },
+          "hasMerchantReturnPolicy": {
+            "@type": "MerchantReturnPolicy",
+            "applicableCountry": "UA",
+            "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+            "merchantReturnDays": 14,
+            "returnMethod": [
+              "https://schema.org/ReturnByMail",
+              "https://schema.org/ReturnInStore"
+            ],
+            "returnFees": "https://schema.org/ReturnFeesCustomerResponsibility"
+          }
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": "https://nikolacars.kiev.ua/ru/parts/1495864-20-c-73833/#webpage",
+        "url": "https://nikolacars.kiev.ua/ru/parts/1495864-20-c-73833/",
+        "primaryImageOfPage": "https://images.prom.ua/6854644431_kamera-z-povtoryuvachem.jpg",
+        "mainEntity": {
+          "@id": "https://nikolacars.kiev.ua/ru/parts/1495864-20-c-73833/#product"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "@id": "https://nikolacars.kiev.ua/#parts-store",
+        "name": "NikolaCars",
+        "url": "https://nikolacars.kiev.ua",
+        "hasShippingService": {
+          "@type": "ShippingService",
+          "@id": "https://nikolacars.kiev.ua/ru/parts/1495864-20-c-73833/#delivery-and-returns",
+          "name": "Новая почта по Украине",
+          "description": "Доставку оплачивает клиент по тарифам Новой почты; стоимость зависит от веса, габаритов и способа получения. Подготовка заказа — от 1 до 16 часов без учёта выходных, обработка и отправка — с понедельника по пятницу. Заказы вне рабочего времени обрабатываем с 10:00 следующего рабочего дня. Ориентировочная доставка — 1–3 дня после отправки.",
+          "handlingTime": {
+            "@type": "ServicePeriod",
+            "businessDays": [
+              "https://schema.org/Monday",
+              "https://schema.org/Tuesday",
+              "https://schema.org/Wednesday",
+              "https://schema.org/Thursday",
+              "https://schema.org/Friday"
+            ],
+            "cutoffTime": "18:00:00+02:00",
+            "duration": {
+              "@type": "QuantitativeValue",
+              "minValue": 0,
+              "maxValue": 1,
+              "unitCode": "DAY"
+            }
+          },
+          "shippingConditions": {
+            "@type": "ShippingConditions",
+            "shippingDestination": {
+              "@type": "DefinedRegion",
+              "addressCountry": "UA"
+            },
+            "transitTime": {
+              "@type": "ServicePeriod",
+              "duration": {
+                "@type": "QuantitativeValue",
+                "minValue": 1,
+                "maxValue": 3,
+                "unitCode": "DAY"
+              }
+            }
+          }
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Запчасти Tesla",
+            "item": "https://nikolacars.kiev.ua/ru/parts/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Model Y 01.2020 - 01.2025",
+            "item": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Электрика",
+            "item": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/elektrika/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Внешний свет",
+            "item": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/elektrika/vnesnii-svet/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "name": "Переднее освещение (кроме основных фар)",
+            "item": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/elektrika/vnesnii-svet/perednee-osveshhenie-krome-osnovnyx-far/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 6,
+            "name": "Повторитель поворота с камерой в переднем крыле левая сторона",
+            "item": "https://nikolacars.kiev.ua/ru/parts/1495864-20-c-73833/"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://nikolacars.kiev.ua/parts/?q=1081038-01-E",
+    "final": "https://nikolacars.kiev.ua/parts/?q=1081038-01-E",
+    "status": 200,
+    "bytes": 43484,
+    "seconds": 1.08,
+    "title": [
+      "Запчастини Tesla — NikolaCars"
+    ],
+    "h1": [
+      "Запчастини Tesla"
+    ],
+    "meta": [
+      "<meta name=\"description\" content=\"Оригінальні запчастини Tesla в наявності у Києві.\">",
+      "<meta name=\"robots\" content=\"noindex, follow\">"
+    ],
+    "canonical": [
+      "<link rel=\"canonical\" href=\"https://nikolacars.kiev.ua/parts/\">"
+    ],
+    "schemas": []
+  },
+  {
+    "url": "https://nikolacars.kiev.ua/parts/?sort=price_asc",
+    "final": "https://nikolacars.kiev.ua/parts/?sort=price_asc",
+    "status": 200,
+    "bytes": 151392,
+    "seconds": 1.27,
+    "title": [
+      "Запчастини Tesla — NikolaCars"
+    ],
+    "h1": [
+      "Запчастини Tesla"
+    ],
+    "meta": [
+      "<meta name=\"description\" content=\"Оригінальні запчастини Tesla в наявності у Києві.\">",
+      "<meta name=\"robots\" content=\"noindex, follow\">"
+    ],
+    "canonical": [
+      "<link rel=\"canonical\" href=\"https://nikolacars.kiev.ua/parts/\">"
+    ],
+    "schemas": []
+  },
+  {
+    "url": "https://nikolacars.kiev.ua/parts/?page=99999",
+    "final": "https://nikolacars.kiev.ua/parts/?page=99999",
+    "status": 404,
+    "bytes": 6659,
+    "seconds": 2.03,
+    "title": [
+      "Not Found"
+    ],
+    "h1": [
+      "\n                        404                    "
+    ],
+    "meta": [],
+    "canonical": [],
+    "schemas": []
+  }
+]

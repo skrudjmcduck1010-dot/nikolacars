@@ -1,0 +1,171 @@
+{
+  "checked_date": "2026-11-09",
+  "user_time_zone": "Europe/Kiev",
+  "method": "Authorized GSC and public DOM/XML via IAB",
+  "notification": {
+    "date": "2026-11-09",
+    "title": "Новые причины препятствуют индексированию страниц, указанных в файле Sitemap, с сайта https://nikolacars.kiev.ua/",
+    "reason": "Не найдено (404)"
+  },
+  "gsc_pages": {
+    "last_updated": "2026-11-06",
+    "all_indexed": 10041,
+    "all_excluded": 1986,
+    "all_reasons": {
+      "redirect": 1244,
+      "not_found": 57,
+      "different_canonical": 37,
+      "noindex": 17,
+      "alternate": 1,
+      "crawled_not_indexed": 88,
+      "server_error": 12,
+      "discovered_not_indexed": 530
+    },
+    "submitted_excluded": 563,
+    "submitted_indexed_ui": "7,28 тыс.",
+    "submitted_reasons": {
+      "server_error": 2,
+      "not_found": 2,
+      "discovered_not_indexed": 530,
+      "crawled_not_indexed": 27,
+      "different_canonical": 2,
+      "redirect": 0
+    }
+  },
+  "submitted_404": {
+    "url": "https://search.google.com/search-console/index/drilldown?resource_id=https%3A%2F%2Fnikolacars.kiev.ua%2F&item_key=CAIYDSAC",
+    "filter": "Все отправленные страницы",
+    "total": 2,
+    "examples_range": "1–2 из 2",
+    "group_detection_date_ui": "2026-02-17",
+    "group_detection_date_is_not_notification_date": true,
+    "rows": [
+      {
+        "id": 74856,
+        "path": "/parts/1096623-00-h-74856/",
+        "name": "Склопідйомник задній правий",
+        "last_crawl": "2026-10-18 08:09:32",
+        "live_test": "2026-11-09 11:18:46",
+        "url": "https://nikolacars.kiev.ua/parts/1096623-00-h-74856/",
+        "stored_index": {
+          "verdict": "URL нет в индексе Google",
+          "reason": "Не найдено (404)",
+          "last_crawl_ui": "2026-10-18 08:09:32",
+          "sitemap_ui": "Временная ошибка при обработке"
+        },
+        "public_dom": {
+          "rendered": true,
+          "http_status_not_observed": true,
+          "availability_status": "sold",
+          "quantity": 0,
+          "sold_marker": true,
+          "canonical": [
+            "https://nikolacars.kiev.ua/parts/1096623-00-h-74856/"
+          ],
+          "hreflang": {
+            "uk-UA": "https://nikolacars.kiev.ua/parts/1096623-00-h-74856/",
+            "ru-UA": "https://nikolacars.kiev.ua/ru/parts/1096623-00-h-74856/",
+            "x-default": "https://nikolacars.kiev.ua/parts/1096623-00-h-74856/"
+          },
+          "robots_meta": []
+        },
+        "google_live_test": {
+          "time_ui": "2026-11-09 11:18:46",
+          "time_zone_not_independently_confirmed": true,
+          "verdict": "URL доступен Google",
+          "indexability": "Эту страницу можно проиндексировать",
+          "crawl_allowed": true,
+          "fetch": "Успешно",
+          "indexing_allowed": true,
+          "user_canonical": "https://nikolacars.kiev.ua/parts/1096623-00-h-74856/",
+          "crawler": "Google Inspection Tool на смартфоне",
+          "google_selected_canonical": "Эти данные станут доступны после индексирования"
+        }
+      },
+      {
+        "id": 101669,
+        "path": "/parts/1095858-00-d-101669/",
+        "name": "Накладка петлі замку капота",
+        "last_crawl": "2026-10-17 09:22:45",
+        "live_test": "2026-11-09 11:21:56",
+        "url": "https://nikolacars.kiev.ua/parts/1095858-00-d-101669/",
+        "stored_index": {
+          "verdict": "URL нет в индексе Google",
+          "reason": "Не найдено (404)",
+          "last_crawl_ui": "2026-10-17 09:22:45",
+          "sitemap_ui": "Временная ошибка при обработке"
+        },
+        "public_dom": {
+          "rendered": true,
+          "http_status_not_observed": true,
+          "availability_status": "sold",
+          "quantity": 0,
+          "sold_marker": true,
+          "canonical": [
+            "https://nikolacars.kiev.ua/parts/1095858-00-d-101669/"
+          ],
+          "hreflang": {
+            "uk-UA": "https://nikolacars.kiev.ua/parts/1095858-00-d-101669/",
+            "ru-UA": "https://nikolacars.kiev.ua/ru/parts/1095858-00-d-101669/",
+            "x-default": "https://nikolacars.kiev.ua/parts/1095858-00-d-101669/"
+          },
+          "robots_meta": []
+        },
+        "google_live_test": {
+          "time_ui": "2026-11-09 11:21:56",
+          "time_zone_not_independently_confirmed": true,
+          "verdict": "URL доступен Google",
+          "indexability": "Эту страницу можно проиндексировать",
+          "crawl_allowed": true,
+          "fetch": "Успешно",
+          "indexing_allowed": true,
+          "user_canonical": "https://nikolacars.kiev.ua/parts/1095858-00-d-101669/",
+          "crawler": "Google Inspection Tool на смартфоне",
+          "google_selected_canonical": "Эти данные станут доступны после индексирования"
+        }
+      }
+    ]
+  },
+  "sitemap": {
+    "url": "https://nikolacars.kiev.ua/sitemaps/parts-uk.xml",
+    "page_url_count": 3965,
+    "unique_page_url_count": 3965,
+    "namespace_filter": "http://www.sitemaps.org/schemas/sitemap/0.9; parent=url",
+    "image_loc_excluded": true,
+    "matching": [
+      {
+        "url": "https://nikolacars.kiev.ua/parts/1096623-00-h-74856/",
+        "lastmod": "2026-11-09"
+      },
+      {
+        "url": "https://nikolacars.kiev.ua/parts/1095858-00-d-101669/",
+        "lastmod": "2026-11-09"
+      }
+    ]
+  },
+  "actions": {
+    "live_tests": 2,
+    "indexing_requests": 0,
+    "issue_validation_started": true,
+    "sitemap_submission": false,
+    "deploy": false,
+    "business_writes": false
+  },
+  "validation_followup": {
+    "date_ui": "2026-11-09",
+    "authorization": "User replied давай to the proposed issue validation",
+    "group": "submitted_404",
+    "affected_pages": 2,
+    "product_ids": [74856, 101669],
+    "action": "ПРОВЕРИТЬ ИСПРАВЛЕНИЕ",
+    "observed_result": "Результат проверки: начато",
+    "observed_start_date": "09.11.2026",
+    "screenshot": "validation-started.jpg",
+    "completion_or_indexing_not_confirmed": true
+  },
+  "limits": [
+    "Successful live tests confirm current crawl access and technical indexability, not actual indexing or Google canonical selection.",
+    "The report retains October crawl observations; notification date is not a newly proven site outage.",
+    "No raw HTTP client or full site recrawl used."
+  ]
+}
