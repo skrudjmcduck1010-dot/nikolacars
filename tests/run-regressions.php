@@ -10,6 +10,7 @@ $scripts = [
     'storefront-cache-regression.php',
     'expired-storefront-cache-regression.php',
     'catalog-tree-regression.php',
+    'catalog-canonical-regression.php',
     'ua-battery-alias-regression.php',
 ];
 $sentinel = '__NC_REGRESSION_COMPLETED__';

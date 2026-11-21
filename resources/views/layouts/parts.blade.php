@@ -19,7 +19,7 @@
   @if($seoNoindex ?? false)<meta name="robots" content="noindex, follow">@endif
   <link rel="canonical" href="https://nikolacars.kiev.ua{{ $locale === 'ru' ? $seoRuPath : $seoUaPath }}{{ $seoPageQuery }}">
   <link rel="alternate" hreflang="uk-UA" href="https://nikolacars.kiev.ua{{ $seoUaPath }}{{ $seoPageQuery }}">
-  <link rel="alternate" hreflang="ru-UA" href="https://nikolacars.kiev.ua{{ $seoRuPath }}{{ $seoPageQuery }}">
+  @if($seoRuAlternate ?? true)<link rel="alternate" hreflang="ru-UA" href="https://nikolacars.kiev.ua{{ $seoRuPath }}{{ $seoPageQuery }}">@endif
   <link rel="alternate" hreflang="x-default" href="https://nikolacars.kiev.ua{{ $seoUaPath }}{{ $seoPageQuery }}">
   @foreach(($seoStructuredData ?? []) as $schema)
     <script type="application/ld+json">{!! json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}</script>

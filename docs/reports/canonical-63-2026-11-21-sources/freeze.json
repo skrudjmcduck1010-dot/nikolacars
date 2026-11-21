@@ -1,0 +1,30 @@
+[
+  {
+    "path": "app/Http/Controllers/PartsController.php",
+    "sha256": "3fe4ce66726e7a3e35b1f4e384c74d4c9e18692ec3741efafb4e5e160217951a"
+  },
+  {
+    "path": "app/Services/CatalogPath.php",
+    "sha256": "6d6c3db717fa9453a31cc7da489e9a99df82b5acec903eff0c1cbfc86dbd0418"
+  },
+  {
+    "path": "app/Services/CatalogNavigation.php",
+    "sha256": "457ae7f3c7e87ee3fff6e61120253b6aae1bf0d63f2398a25f6b943a9debe2ac"
+  },
+  {
+    "path": "resources/views/layouts/parts.blade.php",
+    "sha256": "93797d08439bba16cb6258cae57b2b816d5d6937444070966102892d0786812e"
+  },
+  {
+    "path": "tests/catalog-canonical-regression.php",
+    "sha256": "bb5bc06ec1ce53b86ae84925fcf2c3635dde2886f7c845f97c354392c21af535"
+  },
+  {
+    "path": "tests/fixtures/canonical-reviewed-20261121.json",
+    "sha256": "4a68206f2e1a46083865b24161c81865ef7dbafdac83c2a24bb63ffc7d0e8b44"
+  },
+  {
+    "path": "tests/run-regressions.php",
+    "sha256": "707079f9b58cbd0b5c95b041e0c6bdb5d62f97e2245c59a18bffecca8b07c60b"
+  }
+]

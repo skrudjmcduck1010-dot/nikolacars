@@ -19,6 +19,7 @@ final class CatalogNavigation
         $items = [];
         $byUrl = [];
         $byPath = [];
+        $merged = [];
         foreach ($nodes as $node) {
             $path = CatalogPath::localized((string) ($node['category_path_slug'] ?? ''), $locale);
             $label = trim((string) ($node['label'] ?? ''));
@@ -32,7 +33,7 @@ final class CatalogNavigation
                 $index = $byUrl[$url];
                 $items[$index]['active'] = $items[$index]['active'] || $active;
                 $items[$index]['ancestor'] = !$items[$index]['active'] && ($items[$index]['ancestor'] || $ancestor);
-                $items[$index]['has_children'] = (bool) ($node['has_children'] ?? false);
+                $merged[$index] = true;
                 $byPath[$path] = $index;
                 continue;
             }
@@ -44,6 +45,19 @@ final class CatalogNavigation
             ];
             $byUrl[$url] = $index;
             $byPath[$path] = $index;
+        }
+
+        // A merged alias can represent either a leaf or an intermediate level.
+        // Its arrow follows remaining distinct links, not whichever alias was last.
+        // Unexpanded rows retain the upstream flag: their children are not loaded.
+        foreach (array_keys($merged) as $index) {
+            $items[$index]['has_children'] = false;
+            foreach ($items as $otherIndex => $item) {
+                if ($otherIndex !== $index && str_starts_with($item['url'], $items[$index]['url'])) {
+                    $items[$index]['has_children'] = true;
+                    break;
+                }
+            }
         }
 
         return $items;

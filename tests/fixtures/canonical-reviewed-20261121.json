@@ -1,0 +1,576 @@
+[
+  {
+    "model": "model-s-04-2016-01-2021",
+    "locale": "uk",
+    "parent": "rulyovii-mexanizm/verxnia-castina-rulyovoyi-kolonki-i-kermo",
+    "child": "rulyovii-mexanizm/verxnia-castina-rulyovoyi-kolonki-i-kermo/verxnia-castina-rulyovoyi-kolonki-i-kermo",
+    "total": 9
+  },
+  {
+    "model": "model-s-04-2016-01-2021",
+    "locale": "ru",
+    "parent": "rulevoi-mexanizm/verxniaia-cast-rulevoi-kolonki-i-rul",
+    "child": "rulevoi-mexanizm/verxniaia-cast-rulevoi-kolonki-i-rul/verxniaia-cast-rulevoi-kolonki-i-rul",
+    "total": 9
+  },
+  {
+    "model": "",
+    "locale": "uk",
+    "parent": "panel-priladiv",
+    "child": "panel-priladiv/panel-priladiv",
+    "total": 219
+  },
+  {
+    "model": "",
+    "locale": "ru",
+    "parent": "pribornaia-panel",
+    "child": "pribornaia-panel/panel-pribornaia",
+    "total": 219
+  },
+  {
+    "model": "",
+    "locale": "uk",
+    "parent": "informaciino-rozvazalna-sistema/kompiuter-avtomobilia",
+    "child": "informaciino-rozvazalna-sistema/kompiuter-avtomobilia/kompiuter-avtomobilia",
+    "total": 3
+  },
+  {
+    "model": "",
+    "locale": "ru",
+    "parent": "informacionno-razvlekatelnaia-sistema/kompiuter-avtomobilia",
+    "child": "informacionno-razvlekatelnaia-sistema/kompiuter-avtomobilia/kompiuter-avtomobilia",
+    "total": 3
+  },
+  {
+    "model": "model-3-06-2017-12-2023",
+    "locale": "uk",
+    "parent": "perednii-motor/peredni-pivosi",
+    "child": "perednii-motor/peredni-pivosi/peredni-pivosi",
+    "total": 2
+  },
+  {
+    "model": "model-3-06-2017-12-2023",
+    "locale": "ru",
+    "parent": "perednii-motor/perednie-poluosi",
+    "child": "perednii-motor/perednie-poluosi/perednie-poluosi",
+    "total": 2
+  },
+  {
+    "model": "model-3-06-2017-12-2023",
+    "locale": "uk",
+    "parent": "elektrika/frontalna-kamera",
+    "child": "elektrika/frontalna-kamera/frontalna-kamera",
+    "total": 2
+  },
+  {
+    "model": "model-3-06-2017-12-2023",
+    "locale": "ru",
+    "parent": "elektrika/frontalnaia-kamera",
+    "child": "elektrika/frontalnaia-kamera/frontalnaia-kamera",
+    "total": 2
+  },
+  {
+    "model": "",
+    "locale": "uk",
+    "parent": "zovnisnia-furnitura/pidkrilki",
+    "child": "zovnisnia-furnitura/pidkrilki/pidkrilki",
+    "total": 30
+  },
+  {
+    "model": "",
+    "locale": "ru",
+    "parent": "naruznaia-furnitura/podkrylki",
+    "child": "naruznaia-furnitura/podkrylki/podkrylki",
+    "total": 30
+  },
+  {
+    "model": "model-3-highland-01-2024",
+    "locale": "uk",
+    "parent": "galma/elektromexanicnii-pidsiliuvac-galm",
+    "child": "galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm",
+    "total": 2
+  },
+  {
+    "model": "model-3-highland-01-2024",
+    "locale": "ru",
+    "parent": "tormoza/elektromexaniceskii-usilitel-tormozov",
+    "child": "tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov",
+    "total": 2
+  },
+  {
+    "model": "model-x-09-2015-02-2021",
+    "locale": "uk",
+    "parent": "zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku",
+    "child": "zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku",
+    "total": 1
+  },
+  {
+    "model": "model-x-09-2015-02-2021",
+    "locale": "ru",
+    "parent": "naruznaia-furnitura/nakladki-podkapotnogo-otseka",
+    "child": "naruznaia-furnitura/nakladki-podkapotnogo-otseka/nakladki-podkapotnogo-otseka",
+    "total": 1
+  },
+  {
+    "model": "model-3-06-2017-12-2023",
+    "locale": "uk",
+    "parent": "vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv",
+    "child": "vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv/ozdoblennia-stiiok-a-b-c-i-porogiv",
+    "total": 141
+  },
+  {
+    "model": "model-3-06-2017-12-2023",
+    "locale": "ru",
+    "parent": "vnutrenniaia-otdelka/obsivka-stoek-a-b-c-i-porogov",
+    "child": "vnutrenniaia-otdelka/obsivka-stoek-a-b-c-i-porogov/obsivka-stoek-a-b-c-i-porogov",
+    "total": 141
+  },
+  {
+    "model": "model-y-01-2020-01-2025",
+    "locale": "uk",
+    "parent": "vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv",
+    "child": "vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv/ozdoblennia-stiiok-a-b-c-i-porogiv",
+    "total": 81
+  },
+  {
+    "model": "model-y-01-2020-01-2025",
+    "locale": "ru",
+    "parent": "vnutrenniaia-otdelka/obsivka-stoek-a-b-c-i-porogov",
+    "child": "vnutrenniaia-otdelka/obsivka-stoek-a-b-c-i-porogov/obsivka-stoek-a-b-c-i-porogov",
+    "total": 81
+  },
+  {
+    "model": "model-s-02-2012-03-2016",
+    "locale": "uk",
+    "parent": "panel-priladiv",
+    "child": "panel-priladiv/panel-priladiv",
+    "total": 62
+  },
+  {
+    "model": "model-s-02-2012-03-2016",
+    "locale": "ru",
+    "parent": "pribornaia-panel",
+    "child": "pribornaia-panel/panel-pribornaia",
+    "total": 62
+  },
+  {
+    "model": "",
+    "locale": "uk",
+    "parent": "rulyovii-mexanizm/verxnia-castina-rulyovoyi-kolonki-i-kermo",
+    "child": "rulyovii-mexanizm/verxnia-castina-rulyovoyi-kolonki-i-kermo/verxnia-castina-rulyovoyi-kolonki-i-kermo",
+    "total": 47
+  },
+  {
+    "model": "",
+    "locale": "ru",
+    "parent": "rulevoi-mexanizm/verxniaia-cast-rulevoi-kolonki-i-rul",
+    "child": "rulevoi-mexanizm/verxniaia-cast-rulevoi-kolonki-i-rul/verxniaia-cast-rulevoi-kolonki-i-rul",
+    "total": 47
+  },
+  {
+    "model": "model-3-highland-01-2024",
+    "locale": "uk",
+    "parent": "vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu",
+    "child": "vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu",
+    "total": 2
+  },
+  {
+    "model": "model-3-highland-01-2024",
+    "locale": "ru",
+    "parent": "vnutrenniaia-otdelka/obsivka-potolka-salona",
+    "child": "vnutrenniaia-otdelka/obsivka-potolka-salona/obsivka-potolka-salona",
+    "total": 2
+  },
+  {
+    "model": "",
+    "locale": "uk",
+    "parent": "rulyovii-mexanizm/rulyova-reika-i-niznia-castina-rulyovoyi-kolonki",
+    "child": "rulyovii-mexanizm/rulyova-reika-i-niznia-castina-rulyovoyi-kolonki/rulyova-reika-i-niznia-castina-rulyovoyi-kolonki",
+    "total": 4
+  },
+  {
+    "model": "",
+    "locale": "ru",
+    "parent": "rulevoi-mexanizm/rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki",
+    "child": "rulevoi-mexanizm/rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki/rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki",
+    "total": 4
+  },
+  {
+    "model": "",
+    "locale": "uk",
+    "parent": "zovnisnia-furnitura/zovnisni-dzerkala",
+    "child": "zovnisnia-furnitura/zovnisni-dzerkala/zovnisni-dzerkala",
+    "total": 32
+  },
+  {
+    "model": "",
+    "locale": "ru",
+    "parent": "naruznaia-furnitura/naruznye-zerkala",
+    "child": "naruznaia-furnitura/naruznye-zerkala/vnesnie-zerkala",
+    "total": 32
+  },
+  {
+    "model": "model-s-02-2012-03-2016",
+    "locale": "uk",
+    "parent": "vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu",
+    "child": "vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu",
+    "total": 6
+  },
+  {
+    "model": "model-s-02-2012-03-2016",
+    "locale": "ru",
+    "parent": "vnutrenniaia-otdelka/obsivka-potolka-salona",
+    "child": "vnutrenniaia-otdelka/obsivka-potolka-salona/obsivka-potolka-salona",
+    "total": 6
+  },
+  {
+    "model": "model-3-highland-01-2024",
+    "locale": "uk",
+    "parent": "elektrika/pedal-akseleratora",
+    "child": "elektrika/pedal-akseleratora/pedal-akseleratora",
+    "total": 1
+  },
+  {
+    "model": "model-3-highland-01-2024",
+    "locale": "ru",
+    "parent": "elektrika/pedal-akseleratora",
+    "child": "elektrika/pedal-akseleratora/pedal-akseleratora",
+    "total": 1
+  },
+  {
+    "model": "model-s-02-2012-03-2016",
+    "locale": "uk",
+    "parent": "galma/elektromexanicnii-pidsiliuvac-galm",
+    "child": "galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm",
+    "total": 4
+  },
+  {
+    "model": "model-s-02-2012-03-2016",
+    "locale": "ru",
+    "parent": "tormoza/elektromexaniceskii-usilitel-tormozov",
+    "child": "tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov",
+    "total": 4
+  },
+  {
+    "model": "model-3-06-2017-12-2023",
+    "locale": "uk",
+    "parent": "zovnisnia-furnitura/pidkrilki",
+    "child": "zovnisnia-furnitura/pidkrilki/pidkrilki",
+    "total": 8
+  },
+  {
+    "model": "model-3-06-2017-12-2023",
+    "locale": "ru",
+    "parent": "naruznaia-furnitura/podkrylki",
+    "child": "naruznaia-furnitura/podkrylki/podkrylki",
+    "total": 8
+  },
+  {
+    "model": "model-3-highland-01-2024",
+    "locale": "uk",
+    "parent": "elektrika/datciki-radaru",
+    "child": "elektrika/datciki-radaru/datciki-radaru",
+    "total": 1
+  },
+  {
+    "model": "model-3-highland-01-2024",
+    "locale": "ru",
+    "parent": "elektrika/datciki-radara",
+    "child": "elektrika/datciki-radara/datciki-radara",
+    "total": 1
+  },
+  {
+    "model": "model-s-04-2016-01-2021",
+    "locale": "uk",
+    "parent": "vnutrisnje-ozdoblennia/ozdoblennia-zadnyogo-bagaznogo-vidsiku",
+    "child": "vnutrisnje-ozdoblennia/ozdoblennia-zadnyogo-bagaznogo-vidsiku/ozdoblennia-zadnyogo-bagaznogo-vidsiku",
+    "total": 1
+  },
+  {
+    "model": "model-s-04-2016-01-2021",
+    "locale": "ru",
+    "parent": "vnutrenniaia-otdelka/oblicovka-zadnego-bagaznogo-otseka",
+    "child": "vnutrenniaia-otdelka/oblicovka-zadnego-bagaznogo-otseka/obsivka-zadnego-bagaznogo-otseka",
+    "total": 1
+  },
+  {
+    "model": "model-y-01-2020-01-2025",
+    "locale": "uk",
+    "parent": "galma/elektromexanicnii-pidsiliuvac-galm",
+    "child": "galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm",
+    "total": 8
+  },
+  {
+    "model": "model-y-01-2020-01-2025",
+    "locale": "ru",
+    "parent": "tormoza/elektromexaniceskii-usilitel-tormozov",
+    "child": "tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov",
+    "total": 8
+  },
+  {
+    "model": "model-x-09-2015-02-2021",
+    "locale": "uk",
+    "parent": "galma/elektromexanicnii-pidsiliuvac-galm",
+    "child": "galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm",
+    "total": 1
+  },
+  {
+    "model": "model-x-09-2015-02-2021",
+    "locale": "ru",
+    "parent": "tormoza/elektromexaniceskii-usilitel-tormozov",
+    "child": "tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov",
+    "total": 1
+  },
+  {
+    "model": "",
+    "locale": "uk",
+    "parent": "galma/elektromexanicnii-pidsiliuvac-galm",
+    "child": "galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm",
+    "total": 27
+  },
+  {
+    "model": "",
+    "locale": "ru",
+    "parent": "tormoza/elektromexaniceskii-usilitel-tormozov",
+    "child": "tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov",
+    "total": 27
+  },
+  {
+    "model": "model-y-01-2020-01-2025",
+    "locale": "uk",
+    "parent": "diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms",
+    "child": "diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms",
+    "total": 1
+  },
+  {
+    "model": "model-y-01-2020-01-2025",
+    "locale": "ru",
+    "parent": "diski-i-siny/sistema-kontrolia-davleniia-v-sinax-tpms",
+    "child": "diski-i-siny/sistema-kontrolia-davleniia-v-sinax-tpms/sistema-kontrolia-davleniia-v-sinax-tpms",
+    "total": 1
+  },
+  {
+    "model": "",
+    "locale": "uk",
+    "parent": "visokovoltna-sistema/bortovii-zariadnii-modul-cardzer",
+    "child": "visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer",
+    "total": 5
+  },
+  {
+    "model": "",
+    "locale": "ru",
+    "parent": "vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer",
+    "child": "vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer",
+    "total": 5
+  },
+  {
+    "model": "model-s-04-2016-01-2021",
+    "locale": "uk",
+    "parent": "galma/pedal-galma",
+    "child": "galma/pedal-galma/pedal-galma",
+    "total": 1
+  },
+  {
+    "model": "model-s-04-2016-01-2021",
+    "locale": "ru",
+    "parent": "tormoza/pedal-tormoza",
+    "child": "tormoza/pedal-tormoza/pedal-tormoza",
+    "total": 1
+  },
+  {
+    "model": "model-y-01-2020-01-2025",
+    "locale": "uk",
+    "parent": "visokovoltna-batareia",
+    "child": "visokovoltna-batareia/visokovoltna-batareia",
+    "total": 3
+  },
+  {
+    "model": "model-y-01-2020-01-2025",
+    "locale": "ru",
+    "parent": "vysokovoltnaia-batareia",
+    "child": "vysokovoltnaia-batareia/vysokovoltnaia-batareia",
+    "total": 3
+  },
+  {
+    "model": "model-y-01-2020-01-2025",
+    "locale": "uk",
+    "parent": "visokovoltna-batareia",
+    "child": "visokovoltna-batareia/visokovoltna-batareia/visokovoltna-batareia",
+    "total": 3
+  },
+  {
+    "model": "model-y-01-2020-01-2025",
+    "locale": "ru",
+    "parent": "vysokovoltnaia-batareia",
+    "child": "vysokovoltnaia-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia",
+    "total": 3
+  },
+  {
+    "model": "model-s-02-2012-03-2016",
+    "locale": "uk",
+    "parent": "zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku",
+    "child": "zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku",
+    "total": 14
+  },
+  {
+    "model": "model-s-02-2012-03-2016",
+    "locale": "ru",
+    "parent": "naruznaia-furnitura/nakladki-podkapotnogo-otseka",
+    "child": "naruznaia-furnitura/nakladki-podkapotnogo-otseka/nakladki-podkapotnogo-otseka",
+    "total": 14
+  },
+  {
+    "model": "model-3-06-2017-12-2023",
+    "locale": "uk",
+    "parent": "panel-priladiv",
+    "child": "panel-priladiv/panel-priladiv",
+    "total": 87
+  },
+  {
+    "model": "model-3-06-2017-12-2023",
+    "locale": "ru",
+    "parent": "pribornaia-panel",
+    "child": "pribornaia-panel/panel-pribornaia",
+    "total": 87
+  },
+  {
+    "model": "model-3-06-2017-12-2023",
+    "locale": "uk",
+    "parent": "visokovoltna-batareia/visokovoltna-batareia",
+    "child": "visokovoltna-batareia/visokovoltna-batareia/visokovoltna-batareia",
+    "total": 3
+  },
+  {
+    "model": "model-3-06-2017-12-2023",
+    "locale": "ru",
+    "parent": "vysokovoltnaia-batareia/vysokovoltnaia-batareia",
+    "child": "vysokovoltnaia-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia",
+    "total": 3
+  },
+  {
+    "model": "",
+    "locale": "uk",
+    "parent": "perednii-motor/peredni-pivosi",
+    "child": "perednii-motor/peredni-pivosi/peredni-pivosi",
+    "total": 10
+  },
+  {
+    "model": "",
+    "locale": "ru",
+    "parent": "perednii-motor/perednie-poluosi",
+    "child": "perednii-motor/perednie-poluosi/perednie-poluosi",
+    "total": 10
+  },
+  {
+    "model": "",
+    "locale": "uk",
+    "parent": "zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika",
+    "child": "zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika",
+    "total": 2
+  },
+  {
+    "model": "",
+    "locale": "ru",
+    "parent": "naruznaia-furnitura/obsivka-proema-kryski-bagaznika",
+    "child": "naruznaia-furnitura/obsivka-proema-kryski-bagaznika/obsivka-proema-kryski-bagaznika",
+    "total": 2
+  },
+  {
+    "model": "model-3-highland-01-2024",
+    "locale": "uk",
+    "parent": "zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika",
+    "child": "zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika",
+    "total": 2
+  },
+  {
+    "model": "model-3-highland-01-2024",
+    "locale": "ru",
+    "parent": "naruznaia-furnitura/obsivka-proema-kryski-bagaznika",
+    "child": "naruznaia-furnitura/obsivka-proema-kryski-bagaznika/obsivka-proema-kryski-bagaznika",
+    "total": 2
+  },
+  {
+    "model": "",
+    "locale": "uk",
+    "parent": "vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu",
+    "child": "vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu",
+    "total": 26
+  },
+  {
+    "model": "",
+    "locale": "ru",
+    "parent": "vnutrenniaia-otdelka/obsivka-potolka-salona",
+    "child": "vnutrenniaia-otdelka/obsivka-potolka-salona/obsivka-potolka-salona",
+    "total": 26
+  },
+  {
+    "model": "",
+    "locale": "uk",
+    "parent": "elektrika/datciki-radaru",
+    "child": "elektrika/datciki-radaru/datciki-radaru",
+    "total": 9
+  },
+  {
+    "model": "",
+    "locale": "ru",
+    "parent": "elektrika/datciki-radara",
+    "child": "elektrika/datciki-radara/datciki-radara",
+    "total": 9
+  },
+  {
+    "model": "model-s-02-2012-03-2016",
+    "locale": "uk",
+    "parent": "elektrika/frontalna-kamera",
+    "child": "elektrika/frontalna-kamera/frontalna-kamera",
+    "total": 3
+  },
+  {
+    "model": "model-s-02-2012-03-2016",
+    "locale": "ru",
+    "parent": "elektrika/frontalnaia-kamera",
+    "child": "elektrika/frontalnaia-kamera/frontalnaia-kamera",
+    "total": 3
+  },
+  {
+    "model": "model-s-02-2012-03-2016",
+    "locale": "uk",
+    "parent": "visokovoltna-batareia",
+    "child": "visokovoltna-batareia/visokovoltna-batareia",
+    "total": 3
+  },
+  {
+    "model": "model-s-02-2012-03-2016",
+    "locale": "ru",
+    "parent": "vysokovoltnaia-batareia",
+    "child": "vysokovoltnaia-batareia/vysokovoltnaia-batareia",
+    "total": 3
+  },
+  {
+    "model": "model-s-02-2012-03-2016",
+    "locale": "uk",
+    "parent": "visokovoltna-batareia",
+    "child": "visokovoltna-batareia/visokovoltna-batareia/visokovoltna-batareia",
+    "total": 3
+  },
+  {
+    "model": "model-s-02-2012-03-2016",
+    "locale": "ru",
+    "parent": "vysokovoltnaia-batareia",
+    "child": "vysokovoltnaia-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia",
+    "total": 3
+  },
+  {
+    "model": "",
+    "locale": "uk",
+    "parent": "diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms",
+    "child": "diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms",
+    "total": 8
+  },
+  {
+    "model": "",
+    "locale": "ru",
+    "parent": "diski-i-siny/sistema-kontrolia-davleniia-v-sinax-tpms",
+    "child": "diski-i-siny/sistema-kontrolia-davleniia-v-sinax-tpms/sistema-kontrolia-davleniia-v-sinax-tpms",
+    "total": 8
+  }
+]

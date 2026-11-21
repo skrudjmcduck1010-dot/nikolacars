@@ -162,6 +162,7 @@ class PartsController extends Controller
             'page' => $page,
             'per_page' => 24,
         ], fn (mixed $value): bool => $value !== '');
+        $catalogQuery = CatalogPath::expandedCatalogQuery($catalogQuery);
 
         try {
             $initialCatalog = $this->cachedStorefrontPayload(
@@ -269,7 +270,9 @@ class PartsController extends Controller
             $modelSlug,
             $categorySlug,
             (array) ($selection['category_path_locale_slugs'] ?? []),
+            $locale,
         );
+        $seoRuAlternate = CatalogPath::hasEquivalentRussianAlternate($categoryPathSlug, $locale, $modelSlug);
 
         if (($categorySlug !== '' || $categoryPathSlug !== '')
             && '/'.trim($request->path(), '/').'/' !== $localeUrls[$locale]) {
@@ -290,14 +293,16 @@ class PartsController extends Controller
             'seoNoindex',
             'seoPage',
             'localeUrls',
+            'seoRuAlternate',
             'modelLanding',
             'catalogLanding',
         ));
     }
 
     /** @return array{uk: string, ru: string} */
-    private function partsLocaleUrls(string $modelSlug, string $categorySlug, array $categoryPathLocaleSlugs = []): array
+    private function partsLocaleUrls(string $modelSlug, string $categorySlug, array $categoryPathLocaleSlugs = [], string $currentLocale = 'uk'): array
     {
+        $categoryPathLocaleSlugs = CatalogPath::equivalentLocalePaths($categoryPathLocaleSlugs, $currentLocale, $modelSlug);
         $categorySlugs = ['uk' => $categorySlug, 'ru' => $categorySlug];
         foreach (self::CATEGORY_LOCALE_SLUGS as $localizedSlugs) {
             if (in_array($categorySlug, $localizedSlugs, true)) {
@@ -332,6 +337,7 @@ class PartsController extends Controller
     public function catalog(Request $request, SkladStorefrontClient $client, string $locale = 'uk'): JsonResponse
     {
         $query = $request->query() + ['locale' => $locale];
+        $query = CatalogPath::expandedCatalogQuery($query);
         ksort($query);
         $cacheKey = 'storefront:ajax-catalog:v3:'.sha1(json_encode($query, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
         try {

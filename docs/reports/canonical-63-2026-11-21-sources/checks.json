@@ -1,0 +1,99 @@
+{
+  "checked_utc": "2026-11-21T15:04:08.9704009Z",
+  "passed": true,
+  "tests": [
+    {
+      "passed": true,
+      "file": "__failure_probe__",
+      "exit_code": 1,
+      "completed": false
+    },
+    {
+      "passed": true,
+      "file": "category-levels-regression.php",
+      "exit_code": 0,
+      "completed": true
+    },
+    {
+      "passed": true,
+      "file": "diagnostics-page-regression.php",
+      "exit_code": 0,
+      "completed": true
+    },
+    {
+      "passed": true,
+      "file": "front-controller-regression.php",
+      "exit_code": 0,
+      "completed": true
+    },
+    {
+      "passed": true,
+      "file": "home-service-regression.php",
+      "exit_code": 0,
+      "completed": true
+    },
+    {
+      "passed": true,
+      "file": "language-switch-regression.php",
+      "exit_code": 0,
+      "completed": true
+    },
+    {
+      "passed": true,
+      "file": "merchant-policy-regression.php",
+      "exit_code": 0,
+      "completed": true
+    },
+    {
+      "passed": true,
+      "file": "product-delivery-layout-regression.php",
+      "exit_code": 0,
+      "completed": true
+    },
+    {
+      "passed": true,
+      "file": "product-fitment-regression.php",
+      "exit_code": 0,
+      "completed": true
+    },
+    {
+      "passed": true,
+      "file": "service-page-regression.php",
+      "exit_code": 0,
+      "completed": true
+    },
+    {
+      "passed": true,
+      "file": "storefront-cache-regression.php",
+      "exit_code": 0,
+      "completed": true
+    },
+    {
+      "passed": true,
+      "file": "expired-storefront-cache-regression.php",
+      "exit_code": 0,
+      "completed": true
+    },
+    {
+      "passed": true,
+      "file": "catalog-tree-regression.php",
+      "exit_code": 0,
+      "completed": true
+    },
+    {
+      "passed": true,
+      "file": "catalog-canonical-regression.php",
+      "exit_code": 0,
+      "completed": true
+    },
+    {
+      "passed": true,
+      "file": "ua-battery-alias-regression.php",
+      "exit_code": 0,
+      "completed": true
+    }
+  ],
+  "canonical_output": "PASS canonical consolidation: 1660 assertions\n__NC_REGRESSION_COMPLETED__\n",
+  "frozen_sha_unchanged": true,
+  "regression_evidence": ".codex-tmp/compat-regressions/run-f202e2ab4f4e/results.json"
+}

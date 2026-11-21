@@ -1,0 +1,1386 @@
+{
+  "date": "2026-11-21",
+  "timezone": "Europe/Kyiv",
+  "gsc_summary_updated": "2026-11-16",
+  "status": "LOCAL_VERIFIED_RELEASE_PENDING",
+  "counts": {
+    "new_scoped_redirect": 37,
+    "canonical_target_of_new_consolidation": 8,
+    "wifi_ru_duplicate_and_hreflang_repaired": 1,
+    "already_redirected": 3,
+    "existing_consistent_consolidation": 9,
+    "distinct_battery_root_preserved": 1,
+    "distinct_inventory_preserved": 2,
+    "historical_category_alias": 2
+  },
+  "rows": [
+    {
+      "n": 1,
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/rulevoi-mexanizm/verxniaia-cast-rulevoi-kolonki-i-rul/verxniaia-cast-rulevoi-kolonki-i-rul/",
+      "locale": "ru",
+      "model": "model-s-04-2016-01-2021",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/rulevoi-mexanizm/verxniaia-cast-rulevoi-kolonki-i-rul/verxniaia-cast-rulevoi-kolonki-i-rul/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/rulyovii-mexanizm/verxnia-castina-rulyovoyi-kolonki-i-kermo/verxnia-castina-rulyovoyi-kolonki-i-kermo/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/rulevoi-mexanizm/verxniaia-cast-rulevoi-kolonki-i-rul/verxniaia-cast-rulevoi-kolonki-i-rul/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/rulyovii-mexanizm/verxnia-castina-rulyovoyi-kolonki-i-kermo/verxnia-castina-rulyovoyi-kolonki-i-kermo/"
+      },
+      "selected_path": "rulevoi-mexanizm/verxniaia-cast-rulevoi-kolonki-i-rul/verxniaia-cast-rulevoi-kolonki-i-rul",
+      "total": 9,
+      "observed_utc": "2026-11-21T14:45:41.685Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/ru/parts/model-s-04-2016-01-2021/rulevoi-mexanizm/verxniaia-cast-rulevoi-kolonki-i-rul/",
+      "note": ""
+    },
+    {
+      "n": 2,
+      "url": "https://nikolacars.kiev.ua/parts/panel-priladiv/panel-priladiv/?page=10",
+      "locale": "uk",
+      "model": "",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/panel-priladiv/panel-priladiv/?page=10"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/panel-priladiv/panel-priladiv/?page=10",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/pribornaia-panel/panel-pribornaia/?page=10",
+        "x-default": "https://nikolacars.kiev.ua/parts/panel-priladiv/panel-priladiv/?page=10"
+      },
+      "selected_path": "panel-priladiv/panel-priladiv",
+      "total": 219,
+      "observed_utc": "2026-11-21T14:45:49.46Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/parts/panel-priladiv/?page=10",
+      "note": ""
+    },
+    {
+      "n": 3,
+      "url": "https://nikolacars.kiev.ua/parts/panel-priladiv/panel-priladiv/?page=6",
+      "locale": "uk",
+      "model": "",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/panel-priladiv/panel-priladiv/?page=6"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/panel-priladiv/panel-priladiv/?page=6",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/pribornaia-panel/panel-pribornaia/?page=6",
+        "x-default": "https://nikolacars.kiev.ua/parts/panel-priladiv/panel-priladiv/?page=6"
+      },
+      "selected_path": "panel-priladiv/panel-priladiv",
+      "total": 219,
+      "observed_utc": "2026-11-21T14:45:52.151Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/parts/panel-priladiv/?page=6",
+      "note": ""
+    },
+    {
+      "n": 4,
+      "url": "https://nikolacars.kiev.ua/parts/informaciino-rozvazalna-sistema/kompiuter-avtomobilia/kompiuter-avtomobilia/",
+      "locale": "uk",
+      "model": "",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/informaciino-rozvazalna-sistema/kompiuter-avtomobilia/kompiuter-avtomobilia/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/informaciino-rozvazalna-sistema/kompiuter-avtomobilia/kompiuter-avtomobilia/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/informacionno-razvlekatelnaia-sistema/kompiuter-avtomobilia/kompiuter-avtomobilia/",
+        "x-default": "https://nikolacars.kiev.ua/parts/informaciino-rozvazalna-sistema/kompiuter-avtomobilia/kompiuter-avtomobilia/"
+      },
+      "selected_path": "informaciino-rozvazalna-sistema/kompiuter-avtomobilia/kompiuter-avtomobilia",
+      "total": 3,
+      "observed_utc": "2026-11-21T14:45:57.113Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/parts/informaciino-rozvazalna-sistema/kompiuter-avtomobilia/",
+      "note": ""
+    },
+    {
+      "n": 5,
+      "url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/perednii-motor/peredni-pivosi/",
+      "locale": "uk",
+      "model": "model-3-06-2017-12-2023",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/perednii-motor/peredni-pivosi/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/perednii-motor/peredni-pivosi/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-3-06-2017-12-2023/perednii-motor/perednie-poluosi/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/perednii-motor/peredni-pivosi/"
+      },
+      "selected_path": "perednii-motor/peredni-pivosi",
+      "total": 2,
+      "observed_utc": "2026-11-21T14:46:01.211Z",
+      "decision": "canonical_target_of_new_consolidation",
+      "prepared_target": "/parts/model-3-06-2017-12-2023/perednii-motor/peredni-pivosi/",
+      "note": ""
+    },
+    {
+      "n": 6,
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-3-06-2017-12-2023/elektrika/frontalnaia-kamera/frontalnaia-kamera/",
+      "locale": "ru",
+      "model": "model-3-06-2017-12-2023",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/model-3-06-2017-12-2023/elektrika/frontalnaia-kamera/frontalnaia-kamera/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/elektrika/frontalna-kamera/frontalna-kamera/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-3-06-2017-12-2023/elektrika/frontalnaia-kamera/frontalnaia-kamera/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/elektrika/frontalna-kamera/frontalna-kamera/"
+      },
+      "selected_path": "elektrika/frontalnaia-kamera/frontalnaia-kamera",
+      "total": 2,
+      "observed_utc": "2026-11-21T14:46:05.026Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/ru/parts/model-3-06-2017-12-2023/elektrika/frontalnaia-kamera/",
+      "note": ""
+    },
+    {
+      "n": 7,
+      "url": "https://nikolacars.kiev.ua/ru/parts/naruznaia-furnitura/podkrylki/?page=2",
+      "locale": "ru",
+      "model": "",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/naruznaia-furnitura/podkrylki/?page=2"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/zovnisnia-furnitura/pidkrilki/?page=2",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/naruznaia-furnitura/podkrylki/?page=2",
+        "x-default": "https://nikolacars.kiev.ua/parts/zovnisnia-furnitura/pidkrilki/?page=2"
+      },
+      "selected_path": "naruznaia-furnitura/podkrylki",
+      "total": 30,
+      "observed_utc": "2026-11-21T14:46:11.342Z",
+      "decision": "canonical_target_of_new_consolidation",
+      "prepared_target": "/ru/parts/naruznaia-furnitura/podkrylki/?page=2",
+      "note": ""
+    },
+    {
+      "n": 8,
+      "url": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm/",
+      "locale": "uk",
+      "model": "model-3-highland-01-2024",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-3-highland-01-2024/tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm/"
+      },
+      "selected_path": "galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm",
+      "total": 2,
+      "observed_utc": "2026-11-21T14:46:16.438Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/parts/model-3-highland-01-2024/galma/elektromexanicnii-pidsiliuvac-galm/",
+      "note": ""
+    },
+    {
+      "n": 9,
+      "url": "https://nikolacars.kiev.ua/ru/parts/informacionno-razvlekatelnaia-sistema/antenna-wi-fi/antenna-wi-fi/",
+      "locale": "ru",
+      "model": "",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/informacionno-razvlekatelnaia-sistema/antenna-wi-fi/antenna-wi-fi/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/informaciino-rozvazalna-sistema/antena-wi-fi/antena-wi-fi/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/informacionno-razvlekatelnaia-sistema/antenna-wi-fi/antenna-wi-fi/",
+        "x-default": "https://nikolacars.kiev.ua/parts/informaciino-rozvazalna-sistema/antena-wi-fi/antena-wi-fi/"
+      },
+      "selected_path": "informacionno-razvlekatelnaia-sistema/antenna-wi-fi/antenna-wi-fi",
+      "total": 10,
+      "observed_utc": "2026-11-21T14:46:20.681Z",
+      "decision": "wifi_ru_duplicate_and_hreflang_repaired",
+      "prepared_target": "/ru/parts/informacionno-razvlekatelnaia-sistema/antenna-wi-fi/",
+      "note": "RU10=10; distinct UA7+3 remain separate, false RUalternate omitted."
+    },
+    {
+      "n": 10,
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-x-09-2015-02-2021/naruznaia-furnitura/nakladki-podkapotnogo-otseka/nakladki-podkapotnogo-otseka/",
+      "locale": "ru",
+      "model": "model-x-09-2015-02-2021",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/model-x-09-2015-02-2021/naruznaia-furnitura/nakladki-podkapotnogo-otseka/nakladki-podkapotnogo-otseka/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-x-09-2015-02-2021/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-x-09-2015-02-2021/naruznaia-furnitura/nakladki-podkapotnogo-otseka/nakladki-podkapotnogo-otseka/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-x-09-2015-02-2021/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/"
+      },
+      "selected_path": "naruznaia-furnitura/nakladki-podkapotnogo-otseka/nakladki-podkapotnogo-otseka",
+      "total": 1,
+      "observed_utc": "2026-11-21T14:46:23.294Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/ru/parts/model-x-09-2015-02-2021/naruznaia-furnitura/nakladki-podkapotnogo-otseka/",
+      "note": ""
+    },
+    {
+      "n": 11,
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-3-06-2017-12-2023/vnutrenniaia-otdelka/obsivka-stoek-a-b-c-i-porogov/obsivka-stoek-a-b-c-i-porogov/?page=6",
+      "locale": "ru",
+      "model": "model-3-06-2017-12-2023",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/model-3-06-2017-12-2023/vnutrenniaia-otdelka/obsivka-stoek-a-b-c-i-porogov/obsivka-stoek-a-b-c-i-porogov/?page=6"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv/ozdoblennia-stiiok-a-b-c-i-porogiv/?page=6",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-3-06-2017-12-2023/vnutrenniaia-otdelka/obsivka-stoek-a-b-c-i-porogov/obsivka-stoek-a-b-c-i-porogov/?page=6",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv/ozdoblennia-stiiok-a-b-c-i-porogiv/?page=6"
+      },
+      "selected_path": "vnutrenniaia-otdelka/obsivka-stoek-a-b-c-i-porogov/obsivka-stoek-a-b-c-i-porogov",
+      "total": 141,
+      "observed_utc": "2026-11-21T14:46:27.437Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/ru/parts/model-3-06-2017-12-2023/vnutrenniaia-otdelka/obsivka-stoek-a-b-c-i-porogov/?page=6",
+      "note": ""
+    },
+    {
+      "n": 12,
+      "url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv/ozdoblennia-stiiok-a-b-c-i-porogiv/?page=2",
+      "locale": "uk",
+      "model": "model-y-01-2020-01-2025",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv/ozdoblennia-stiiok-a-b-c-i-porogiv/?page=2"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv/ozdoblennia-stiiok-a-b-c-i-porogiv/?page=2",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/vnutrenniaia-otdelka/obsivka-stoek-a-b-c-i-porogov/obsivka-stoek-a-b-c-i-porogov/?page=2",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv/ozdoblennia-stiiok-a-b-c-i-porogiv/?page=2"
+      },
+      "selected_path": "vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv/ozdoblennia-stiiok-a-b-c-i-porogiv",
+      "total": 81,
+      "observed_utc": "2026-11-21T14:46:30.114Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/parts/model-y-01-2020-01-2025/vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv/?page=2",
+      "note": ""
+    },
+    {
+      "n": 13,
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/panel-priladiv/?page=3",
+      "locale": "uk",
+      "model": "model-s-02-2012-03-2016",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/panel-priladiv/?page=3"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/panel-priladiv/?page=3",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/pribornaia-panel/?page=3",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/panel-priladiv/?page=3"
+      },
+      "selected_path": "panel-priladiv",
+      "total": 62,
+      "observed_utc": "2026-11-21T14:46:35.126Z",
+      "decision": "canonical_target_of_new_consolidation",
+      "prepared_target": "/parts/model-s-02-2012-03-2016/panel-priladiv/?page=3",
+      "note": ""
+    },
+    {
+      "n": 14,
+      "url": "https://nikolacars.kiev.ua/parts/rulyovii-mexanizm/verxnia-castina-rulyovoyi-kolonki-i-kermo/verxnia-castina-rulyovoyi-kolonki-i-kermo/?page=2",
+      "locale": "uk",
+      "model": "",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/rulyovii-mexanizm/verxnia-castina-rulyovoyi-kolonki-i-kermo/verxnia-castina-rulyovoyi-kolonki-i-kermo/?page=2"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/rulyovii-mexanizm/verxnia-castina-rulyovoyi-kolonki-i-kermo/verxnia-castina-rulyovoyi-kolonki-i-kermo/?page=2",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/rulevoi-mexanizm/verxniaia-cast-rulevoi-kolonki-i-rul/verxniaia-cast-rulevoi-kolonki-i-rul/?page=2",
+        "x-default": "https://nikolacars.kiev.ua/parts/rulyovii-mexanizm/verxnia-castina-rulyovoyi-kolonki-i-kermo/verxnia-castina-rulyovoyi-kolonki-i-kermo/?page=2"
+      },
+      "selected_path": "rulyovii-mexanizm/verxnia-castina-rulyovoyi-kolonki-i-kermo/verxnia-castina-rulyovoyi-kolonki-i-kermo",
+      "total": 47,
+      "observed_utc": "2026-11-21T14:46:38.975Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/parts/rulyovii-mexanizm/verxnia-castina-rulyovoyi-kolonki-i-kermo/?page=2",
+      "note": ""
+    },
+    {
+      "n": 15,
+      "url": "https://nikolacars.kiev.ua/parts/panel-priladiv/panel-priladiv/?page=9",
+      "locale": "uk",
+      "model": "",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/panel-priladiv/panel-priladiv/?page=9"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/panel-priladiv/panel-priladiv/?page=9",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/pribornaia-panel/panel-pribornaia/?page=9",
+        "x-default": "https://nikolacars.kiev.ua/parts/panel-priladiv/panel-priladiv/?page=9"
+      },
+      "selected_path": "panel-priladiv/panel-priladiv",
+      "total": 219,
+      "observed_utc": "2026-11-21T14:46:43.365Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/parts/panel-priladiv/?page=9",
+      "note": ""
+    },
+    {
+      "n": 16,
+      "url": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/",
+      "locale": "uk",
+      "model": "model-3-highland-01-2024",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-3-highland-01-2024/vnutrenniaia-otdelka/obsivka-potolka-salona/obsivka-potolka-salona/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/"
+      },
+      "selected_path": "vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu",
+      "total": 2,
+      "observed_utc": "2026-11-21T14:46:47.767Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/parts/model-3-highland-01-2024/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/",
+      "note": ""
+    },
+    {
+      "n": 17,
+      "url": "https://nikolacars.kiev.ua/ru/parts/rulevoi-mexanizm/rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki/rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki/",
+      "locale": "ru",
+      "model": "",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/rulevoi-mexanizm/rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki/rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/rulyovii-mexanizm/rulyova-reika-i-niznia-castina-rulyovoyi-kolonki/rulyova-reika-i-niznia-castina-rulyovoyi-kolonki/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/rulevoi-mexanizm/rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki/rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki/",
+        "x-default": "https://nikolacars.kiev.ua/parts/rulyovii-mexanizm/rulyova-reika-i-niznia-castina-rulyovoyi-kolonki/rulyova-reika-i-niznia-castina-rulyovoyi-kolonki/"
+      },
+      "selected_path": "rulevoi-mexanizm/rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki/rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki",
+      "total": 4,
+      "observed_utc": "2026-11-21T14:46:51.945Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/ru/parts/rulevoi-mexanizm/rulevaia-reika-i-nizniaia-cast-rulevoi-kolonki/",
+      "note": ""
+    },
+    {
+      "n": 18,
+      "url": "https://nikolacars.kiev.ua/parts/zovnisnia-furnitura/zovnisni-dzerkala/zovnisni-dzerkala/?page=2",
+      "locale": "uk",
+      "model": "",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/zovnisnia-furnitura/zovnisni-dzerkala/zovnisni-dzerkala/?page=2"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/zovnisnia-furnitura/zovnisni-dzerkala/zovnisni-dzerkala/?page=2",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/naruznaia-furnitura/naruznye-zerkala/vnesnie-zerkala/?page=2",
+        "x-default": "https://nikolacars.kiev.ua/parts/zovnisnia-furnitura/zovnisni-dzerkala/zovnisni-dzerkala/?page=2"
+      },
+      "selected_path": "zovnisnia-furnitura/zovnisni-dzerkala/zovnisni-dzerkala",
+      "total": 32,
+      "observed_utc": "2026-11-21T14:46:56.29Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/parts/zovnisnia-furnitura/zovnisni-dzerkala/?page=2",
+      "note": ""
+    },
+    {
+      "n": 19,
+      "url": "https://nikolacars.kiev.ua/parts/model-x-09-2015-02-2021/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/",
+      "locale": "uk",
+      "model": "model-x-09-2015-02-2021",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/model-x-09-2015-02-2021/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-x-09-2015-02-2021/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-x-09-2015-02-2021/naruznaia-furnitura/nakladki-podkapotnogo-otseka/nakladki-podkapotnogo-otseka/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-x-09-2015-02-2021/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/"
+      },
+      "selected_path": "zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku",
+      "total": 1,
+      "observed_utc": "2026-11-21T14:47:02.67Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/parts/model-x-09-2015-02-2021/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/",
+      "note": ""
+    },
+    {
+      "n": 20,
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vnutrenniaia-otdelka/obsivka-potolka-salona/",
+      "locale": "ru",
+      "model": "model-s-02-2012-03-2016",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vnutrenniaia-otdelka/obsivka-potolka-salona/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vnutrenniaia-otdelka/obsivka-potolka-salona/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/"
+      },
+      "selected_path": "vnutrenniaia-otdelka/obsivka-potolka-salona",
+      "total": 6,
+      "observed_utc": "2026-11-21T14:47:05.264Z",
+      "decision": "canonical_target_of_new_consolidation",
+      "prepared_target": "/ru/parts/model-s-02-2012-03-2016/vnutrenniaia-otdelka/obsivka-potolka-salona/",
+      "note": ""
+    },
+    {
+      "n": 21,
+      "url": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/elektrika/pedal-akseleratora/pedal-akseleratora/",
+      "locale": "uk",
+      "model": "model-3-highland-01-2024",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/elektrika/pedal-akseleratora/pedal-akseleratora/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/elektrika/pedal-akseleratora/pedal-akseleratora/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-3-highland-01-2024/elektrika/pedal-akseleratora/pedal-akseleratora/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/elektrika/pedal-akseleratora/pedal-akseleratora/"
+      },
+      "selected_path": "elektrika/pedal-akseleratora/pedal-akseleratora",
+      "total": 1,
+      "observed_utc": "2026-11-21T14:47:16.061Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/parts/model-3-highland-01-2024/elektrika/pedal-akseleratora/",
+      "note": ""
+    },
+    {
+      "n": 22,
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov/",
+      "locale": "ru",
+      "model": "model-s-02-2012-03-2016",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm/"
+      },
+      "selected_path": "tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov",
+      "total": 4,
+      "observed_utc": "2026-11-21T14:47:24.14Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/ru/parts/model-s-02-2012-03-2016/tormoza/elektromexaniceskii-usilitel-tormozov/",
+      "note": ""
+    },
+    {
+      "n": 23,
+      "url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/zovnisnia-furnitura/pidkrilki/",
+      "locale": "uk",
+      "model": "model-3-06-2017-12-2023",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/zovnisnia-furnitura/pidkrilki/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/zovnisnia-furnitura/pidkrilki/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-3-06-2017-12-2023/naruznaia-furnitura/podkrylki/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/zovnisnia-furnitura/pidkrilki/"
+      },
+      "selected_path": "zovnisnia-furnitura/pidkrilki",
+      "total": 8,
+      "observed_utc": "2026-11-21T14:47:32.843Z",
+      "decision": "canonical_target_of_new_consolidation",
+      "prepared_target": "/parts/model-3-06-2017-12-2023/zovnisnia-furnitura/pidkrilki/",
+      "note": ""
+    },
+    {
+      "n": 24,
+      "url": "https://nikolacars.kiev.ua/parts/zovnisnia-furnitura/pidkrilki/?page=2",
+      "locale": "uk",
+      "model": "",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/zovnisnia-furnitura/pidkrilki/?page=2"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/zovnisnia-furnitura/pidkrilki/?page=2",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/naruznaia-furnitura/podkrylki/?page=2",
+        "x-default": "https://nikolacars.kiev.ua/parts/zovnisnia-furnitura/pidkrilki/?page=2"
+      },
+      "selected_path": "zovnisnia-furnitura/pidkrilki",
+      "total": 30,
+      "observed_utc": "2026-11-21T14:47:46.65Z",
+      "decision": "canonical_target_of_new_consolidation",
+      "prepared_target": "/parts/zovnisnia-furnitura/pidkrilki/?page=2",
+      "note": ""
+    },
+    {
+      "n": 25,
+      "url": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/elektrika/datciki-radaru/",
+      "locale": "uk",
+      "model": "model-3-highland-01-2024",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/elektrika/datciki-radaru/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/elektrika/datciki-radaru/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-3-highland-01-2024/elektrika/datciki-radara/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/elektrika/datciki-radaru/"
+      },
+      "selected_path": "elektrika/datciki-radaru",
+      "total": 1,
+      "observed_utc": "2026-11-21T14:47:59.053Z",
+      "decision": "canonical_target_of_new_consolidation",
+      "prepared_target": "/parts/model-3-highland-01-2024/elektrika/datciki-radaru/",
+      "note": ""
+    },
+    {
+      "n": 26,
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/vnutrenniaia-otdelka/obsivka-stoek-a-b-c-i-porogov/?page=2",
+      "locale": "ru",
+      "model": "model-y-01-2020-01-2025",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/vnutrenniaia-otdelka/obsivka-stoek-a-b-c-i-porogov/?page=2"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv/?page=2",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/vnutrenniaia-otdelka/obsivka-stoek-a-b-c-i-porogov/?page=2",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv/?page=2"
+      },
+      "selected_path": "vnutrenniaia-otdelka/obsivka-stoek-a-b-c-i-porogov",
+      "total": 81,
+      "observed_utc": "2026-11-21T14:48:01.653Z",
+      "decision": "canonical_target_of_new_consolidation",
+      "prepared_target": "/ru/parts/model-y-01-2020-01-2025/vnutrenniaia-otdelka/obsivka-stoek-a-b-c-i-porogov/?page=2",
+      "note": ""
+    },
+    {
+      "n": 27,
+      "url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/vnutrisnje-ozdoblennia/ozdoblennia-zadnyogo-bagaznogo-vidsiku/ozdoblennia-zadnyogo-bagaznogo-vidsiku/",
+      "locale": "uk",
+      "model": "model-s-04-2016-01-2021",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/vnutrisnje-ozdoblennia/ozdoblennia-zadnyogo-bagaznogo-vidsiku/ozdoblennia-zadnyogo-bagaznogo-vidsiku/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/vnutrisnje-ozdoblennia/ozdoblennia-zadnyogo-bagaznogo-vidsiku/ozdoblennia-zadnyogo-bagaznogo-vidsiku/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/vnutrenniaia-otdelka/oblicovka-zadnego-bagaznogo-otseka/obsivka-zadnego-bagaznogo-otseka/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/vnutrisnje-ozdoblennia/ozdoblennia-zadnyogo-bagaznogo-vidsiku/ozdoblennia-zadnyogo-bagaznogo-vidsiku/"
+      },
+      "selected_path": "vnutrisnje-ozdoblennia/ozdoblennia-zadnyogo-bagaznogo-vidsiku/ozdoblennia-zadnyogo-bagaznogo-vidsiku",
+      "total": 1,
+      "observed_utc": "2026-11-21T14:48:06.961Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/parts/model-s-04-2016-01-2021/vnutrisnje-ozdoblennia/ozdoblennia-zadnyogo-bagaznogo-vidsiku/",
+      "note": ""
+    },
+    {
+      "n": 28,
+      "url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm/",
+      "locale": "uk",
+      "model": "model-y-01-2020-01-2025",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm/"
+      },
+      "selected_path": "galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm",
+      "total": 8,
+      "observed_utc": "2026-11-21T14:48:15.953Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/parts/model-y-01-2020-01-2025/galma/elektromexanicnii-pidsiliuvac-galm/",
+      "note": ""
+    },
+    {
+      "n": 29,
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-x-09-2015-02-2021/tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov/",
+      "locale": "ru",
+      "model": "model-x-09-2015-02-2021",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/model-x-09-2015-02-2021/tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-x-09-2015-02-2021/galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-x-09-2015-02-2021/tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-x-09-2015-02-2021/galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm/"
+      },
+      "selected_path": "tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov",
+      "total": 1,
+      "observed_utc": "2026-11-21T14:48:18.659Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/ru/parts/model-x-09-2015-02-2021/tormoza/elektromexaniceskii-usilitel-tormozov/",
+      "note": ""
+    },
+    {
+      "n": 30,
+      "url": "https://nikolacars.kiev.ua/ru/parts/tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov/",
+      "locale": "ru",
+      "model": "",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov/",
+        "x-default": "https://nikolacars.kiev.ua/parts/galma/elektromexanicnii-pidsiliuvac-galm/elektromexanicnii-pidsiliuvac-galm/"
+      },
+      "selected_path": "tormoza/elektromexaniceskii-usilitel-tormozov/elektromexaniceskii-usilitel-tormozov",
+      "total": 27,
+      "observed_utc": "2026-11-21T14:48:25.329Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/ru/parts/tormoza/elektromexaniceskii-usilitel-tormozov/",
+      "note": ""
+    },
+    {
+      "n": 31,
+      "url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms/",
+      "locale": "uk",
+      "model": "model-y-01-2020-01-2025",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/diski-i-siny/sistema-kontrolia-davleniia-v-sinax-tpms/sistema-kontrolia-davleniia-v-sinax-tpms/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms/"
+      },
+      "selected_path": "diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms",
+      "total": 1,
+      "observed_utc": "2026-11-21T14:48:35.066Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/parts/model-y-01-2020-01-2025/diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/",
+      "note": ""
+    },
+    {
+      "n": 32,
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-3-06-2017-12-2023/vnutrenniaia-otdelka/obsivka-stoek-a-b-c-i-porogov/obsivka-stoek-a-b-c-i-porogov/?page=5",
+      "locale": "ru",
+      "model": "model-3-06-2017-12-2023",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/model-3-06-2017-12-2023/vnutrenniaia-otdelka/obsivka-stoek-a-b-c-i-porogov/obsivka-stoek-a-b-c-i-porogov/?page=5"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv/ozdoblennia-stiiok-a-b-c-i-porogiv/?page=5",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-3-06-2017-12-2023/vnutrenniaia-otdelka/obsivka-stoek-a-b-c-i-porogov/obsivka-stoek-a-b-c-i-porogov/?page=5",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/vnutrisnje-ozdoblennia/ozdoblennia-stiiok-a-b-c-i-porogiv/ozdoblennia-stiiok-a-b-c-i-porogiv/?page=5"
+      },
+      "selected_path": "vnutrenniaia-otdelka/obsivka-stoek-a-b-c-i-porogov/obsivka-stoek-a-b-c-i-porogov",
+      "total": 141,
+      "observed_utc": "2026-11-21T14:48:41.459Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/ru/parts/model-3-06-2017-12-2023/vnutrenniaia-otdelka/obsivka-stoek-a-b-c-i-porogov/?page=5",
+      "note": ""
+    },
+    {
+      "n": 33,
+      "url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/",
+      "locale": "uk",
+      "model": "",
+      "current_http": 301,
+      "current_location": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/pedal-galma/",
+      "current_canonical": [],
+      "current_hreflang": {},
+      "selected_path": "",
+      "total": null,
+      "observed_utc": "2026-11-21T14:48:45.58Z",
+      "decision": "already_redirected",
+      "prepared_target": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/galma/pedal-galma/pedal-galma/",
+      "note": "Existing direct redirect; final target read separately: HTTP200/self-canonical."
+    },
+    {
+      "n": 34,
+      "url": "https://nikolacars.kiev.ua/ru/parts/visokovoltna-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+      "locale": "ru",
+      "model": "",
+      "current_http": 301,
+      "current_location": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+      "current_canonical": [],
+      "current_hreflang": {},
+      "selected_path": "",
+      "total": null,
+      "observed_utc": "2026-11-21T14:48:48.152Z",
+      "decision": "already_redirected",
+      "prepared_target": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-batareia/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+      "note": "Existing direct redirect; final target read separately: HTTP200/self-canonical."
+    },
+    {
+      "n": 35,
+      "url": "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/zadnie-poluosi/",
+      "locale": "ru",
+      "model": "",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/zadnie-poluosi/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/zadnii-motor/zadni-pivosi/zadni-pivosi/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/zadnii-motor/zadnie-poluosi/zadnie-poluosi/",
+        "x-default": "https://nikolacars.kiev.ua/parts/zadnii-motor/zadni-pivosi/zadni-pivosi/"
+      },
+      "selected_path": "zadnii-motor/zadnie-poluosi/zadnie-poluosi",
+      "total": 23,
+      "observed_utc": "2026-11-21T14:48:50.733Z",
+      "decision": "existing_consistent_consolidation",
+      "prepared_target": null,
+      "note": "Existing preferred direction retained; no inverse mapping introduced."
+    },
+    {
+      "n": 36,
+      "url": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+      "locale": "ru",
+      "model": "",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+        "x-default": "https://nikolacars.kiev.ua/parts/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/"
+      },
+      "selected_path": "vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer",
+      "total": 5,
+      "observed_utc": "2026-11-21T14:48:57.349Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/ru/parts/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/",
+      "note": ""
+    },
+    {
+      "n": 37,
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/",
+      "locale": "uk",
+      "model": "model-s-02-2012-03-2016",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-sistema/bortovoi-zariadnyi-modul-cardzer/bortovoi-zariadnyi-modul-cardzer/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer/"
+      },
+      "selected_path": "visokovoltna-sistema/bortovii-zariadnii-modul-cardzer/bortovii-zariadnii-modul-cardzer",
+      "total": 2,
+      "observed_utc": "2026-11-21T14:49:03.156Z",
+      "decision": "existing_consistent_consolidation",
+      "prepared_target": null,
+      "note": "Existing preferred direction retained; no inverse mapping introduced."
+    },
+    {
+      "n": 38,
+      "url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/galma/pedal-galma/pedal-galma/",
+      "locale": "uk",
+      "model": "model-s-04-2016-01-2021",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/galma/pedal-galma/pedal-galma/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/galma/pedal-galma/pedal-galma/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/tormoza/pedal-tormoza/pedal-tormoza/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/galma/pedal-galma/pedal-galma/"
+      },
+      "selected_path": "galma/pedal-galma/pedal-galma",
+      "total": 1,
+      "observed_utc": "2026-11-21T14:49:09.943Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/parts/model-s-04-2016-01-2021/galma/pedal-galma/",
+      "note": ""
+    },
+    {
+      "n": 39,
+      "url": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/",
+      "locale": "uk",
+      "model": "",
+      "current_http": 301,
+      "current_location": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/diski/",
+      "current_canonical": [],
+      "current_hreflang": {},
+      "selected_path": "",
+      "total": null,
+      "observed_utc": "2026-11-21T14:49:20.25Z",
+      "decision": "already_redirected",
+      "prepared_target": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/diski/",
+      "note": "Existing direct redirect; final target read separately: HTTP200/self-canonical."
+    },
+    {
+      "n": 40,
+      "url": "https://nikolacars.kiev.ua/parts/galma/pedal-galma/pedal-galma/",
+      "locale": "uk",
+      "model": "",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/galma/pedal-galma/pedal-galma/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/galma/pedal-galma/pedal-galma/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/tormoza/pedal-tormoza/pedal-tormoza/",
+        "x-default": "https://nikolacars.kiev.ua/parts/galma/pedal-galma/pedal-galma/"
+      },
+      "selected_path": "galma/pedal-galma/pedal-galma",
+      "total": 9,
+      "observed_utc": "2026-11-21T14:49:22.826Z",
+      "decision": "existing_consistent_consolidation",
+      "prepared_target": null,
+      "note": "Existing preferred direction retained; no inverse mapping introduced."
+    },
+    {
+      "n": 41,
+      "url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-batareia/visokovoltna-batareia/",
+      "locale": "uk",
+      "model": "model-y-01-2020-01-2025",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-batareia/visokovoltna-batareia/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-batareia/visokovoltna-batareia/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-batareia/visokovoltna-batareia/"
+      },
+      "selected_path": "visokovoltna-batareia/visokovoltna-batareia",
+      "total": 3,
+      "observed_utc": "2026-11-21T14:49:25.458Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/parts/model-y-01-2020-01-2025/visokovoltna-batareia/",
+      "note": ""
+    },
+    {
+      "n": 42,
+      "url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-sistema/visokovoltni-provoda/visokovoltni-provoda/",
+      "locale": "uk",
+      "model": "model-y-01-2020-01-2025",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-sistema/visokovoltni-provoda/visokovoltni-provoda/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-sistema/visokovoltni-provoda/visokovoltni-provoda/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/vysokovoltnaia-sistema/vysokovoltnye-provoda/vysokovoltnye-provoda/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/visokovoltna-sistema/visokovoltni-provoda/visokovoltni-provoda/"
+      },
+      "selected_path": "visokovoltna-sistema/visokovoltni-provoda/visokovoltni-provoda",
+      "total": 2,
+      "observed_utc": "2026-11-21T14:49:34.555Z",
+      "decision": "existing_consistent_consolidation",
+      "prepared_target": null,
+      "note": "Existing preferred direction retained; no inverse mapping introduced."
+    },
+    {
+      "n": 43,
+      "url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/perednii-motor/peredni-pivosi/peredni-pivosi/",
+      "locale": "uk",
+      "model": "model-y-01-2020-01-2025",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/perednii-motor/peredni-pivosi/peredni-pivosi/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/perednii-motor/peredni-pivosi/peredni-pivosi/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/perednii-motor/perednie-poluosi/perednie-poluosi/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/perednii-motor/peredni-pivosi/peredni-pivosi/"
+      },
+      "selected_path": "perednii-motor/peredni-pivosi/peredni-pivosi",
+      "total": 6,
+      "observed_utc": "2026-11-21T14:49:41.329Z",
+      "decision": "existing_consistent_consolidation",
+      "prepared_target": null,
+      "note": "Existing preferred direction retained; no inverse mapping introduced."
+    },
+    {
+      "n": 44,
+      "url": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/zadnii-motor/zadni-pivosi/zadni-pivosi/",
+      "locale": "uk",
+      "model": "model-y-01-2020-01-2025",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/zadnii-motor/zadni-pivosi/zadni-pivosi/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/zadnii-motor/zadni-pivosi/zadni-pivosi/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-y-01-2020-01-2025/zadnii-motor/zadnie-poluosi/zadnie-poluosi/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-y-01-2020-01-2025/zadnii-motor/zadni-pivosi/zadni-pivosi/"
+      },
+      "selected_path": "zadnii-motor/zadni-pivosi/zadni-pivosi",
+      "total": 12,
+      "observed_utc": "2026-11-21T14:49:47.449Z",
+      "decision": "existing_consistent_consolidation",
+      "prepared_target": null,
+      "note": "Existing preferred direction retained; no inverse mapping introduced."
+    },
+    {
+      "n": 45,
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/",
+      "locale": "uk",
+      "model": "model-s-02-2012-03-2016",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/naruznaia-furnitura/nakladki-podkapotnogo-otseka/nakladki-podkapotnogo-otseka/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku/"
+      },
+      "selected_path": "zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/nakladki-pidkapotnogo-vidsiku",
+      "total": 14,
+      "observed_utc": "2026-11-21T14:49:50.063Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/parts/model-s-02-2012-03-2016/zovnisnia-furnitura/nakladki-pidkapotnogo-vidsiku/",
+      "note": ""
+    },
+    {
+      "n": 46,
+      "url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/panel-priladiv/panel-priladiv/?page=2",
+      "locale": "uk",
+      "model": "model-3-06-2017-12-2023",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/panel-priladiv/panel-priladiv/?page=2"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/panel-priladiv/panel-priladiv/?page=2",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-3-06-2017-12-2023/pribornaia-panel/panel-pribornaia/?page=2",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/panel-priladiv/panel-priladiv/?page=2"
+      },
+      "selected_path": "panel-priladiv/panel-priladiv",
+      "total": 87,
+      "observed_utc": "2026-11-21T14:49:54.571Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/parts/model-3-06-2017-12-2023/panel-priladiv/?page=2",
+      "note": ""
+    },
+    {
+      "n": 47,
+      "url": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/diski/?page=2",
+      "locale": "uk",
+      "model": "",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/diski/?page=2"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/diski/?page=2",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/diski-i-siny/diski/diski/?page=2",
+        "x-default": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/diski/?page=2"
+      },
+      "selected_path": "diski-i-sini/diski/diski",
+      "total": 33,
+      "observed_utc": "2026-11-21T14:49:59.5Z",
+      "decision": "existing_consistent_consolidation",
+      "prepared_target": null,
+      "note": "Existing preferred direction retained; no inverse mapping introduced."
+    },
+    {
+      "n": 48,
+      "url": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/visokovoltna-batareia/visokovoltna-batareia/",
+      "locale": "uk",
+      "model": "model-3-06-2017-12-2023",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/visokovoltna-batareia/visokovoltna-batareia/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/visokovoltna-batareia/visokovoltna-batareia/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-3-06-2017-12-2023/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-3-06-2017-12-2023/visokovoltna-batareia/visokovoltna-batareia/"
+      },
+      "selected_path": "visokovoltna-batareia/visokovoltna-batareia",
+      "total": 3,
+      "observed_utc": "2026-11-21T14:50:03.671Z",
+      "decision": "distinct_battery_root_preserved",
+      "prepared_target": null,
+      "note": "Model3 root4 differs from inner3. Inner thirdlevel redirects to this secondlevel; broadroot remains separate."
+    },
+    {
+      "n": 49,
+      "url": "https://nikolacars.kiev.ua/parts/perednii-motor/peredni-pivosi/peredni-pivosi/",
+      "locale": "uk",
+      "model": "",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/perednii-motor/peredni-pivosi/peredni-pivosi/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/perednii-motor/peredni-pivosi/peredni-pivosi/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/perednii-motor/perednie-poluosi/perednie-poluosi/",
+        "x-default": "https://nikolacars.kiev.ua/parts/perednii-motor/peredni-pivosi/peredni-pivosi/"
+      },
+      "selected_path": "perednii-motor/peredni-pivosi/peredni-pivosi",
+      "total": 10,
+      "observed_utc": "2026-11-21T14:50:06.274Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/parts/perednii-motor/peredni-pivosi/",
+      "note": ""
+    },
+    {
+      "n": 50,
+      "url": "https://nikolacars.kiev.ua/parts/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/",
+      "locale": "uk",
+      "model": "",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/naruznaia-furnitura/obsivka-proema-kryski-bagaznika/obsivka-proema-kryski-bagaznika/",
+        "x-default": "https://nikolacars.kiev.ua/parts/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/"
+      },
+      "selected_path": "zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika",
+      "total": 2,
+      "observed_utc": "2026-11-21T14:50:09.923Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/parts/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/",
+      "note": ""
+    },
+    {
+      "n": 51,
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-3-highland-01-2024/sidenia/sideniia-2-go-riada-i-osnastka/sideniia-2-go-riada-i-osnastka/",
+      "locale": "ru",
+      "model": "model-3-highland-01-2024",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/model-3-highland-01-2024/sidenia/sideniia-2-go-riada-i-osnastka/sideniia-2-go-riada-i-osnastka/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/sidinnia/sidinnia-2-go-riadu-i-osnashhennia/sidinnia-2-go-riadu-i-osnashhennia/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-3-highland-01-2024/sidenia/sideniia-2-go-riada-i-osnastka/sideniia-2-go-riada-i-osnastka/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/sidinnia/sidinnia-2-go-riadu-i-osnashhennia/sidinnia-2-go-riadu-i-osnashhennia/"
+      },
+      "selected_path": "sidenia/sideniia-2-go-riada-i-osnastka/sideniia-2-go-riada-i-osnastka",
+      "total": 2,
+      "observed_utc": "2026-11-21T14:50:14.688Z",
+      "decision": "distinct_inventory_preserved",
+      "prepared_target": null,
+      "note": "Parent5/leaf2 in both locales. RUInspection03October is internally stale: reason conflict but Googlecanonical=usercanonical. No consolidation."
+    },
+    {
+      "n": 52,
+      "url": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/",
+      "locale": "uk",
+      "model": "model-3-highland-01-2024",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-3-highland-01-2024/naruznaia-furnitura/obsivka-proema-kryski-bagaznika/obsivka-proema-kryski-bagaznika/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika/"
+      },
+      "selected_path": "zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/ozdoblennia-otvoru-kriski-bagaznika",
+      "total": 2,
+      "observed_utc": "2026-11-21T14:50:17.38Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/parts/model-3-highland-01-2024/zovnisnia-furnitura/ozdoblennia-otvoru-kriski-bagaznika/",
+      "note": ""
+    },
+    {
+      "n": 53,
+      "url": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/sidinnia/sidinnia-2-go-riadu-i-osnashhennia/sidinnia-2-go-riadu-i-osnashhennia/",
+      "locale": "uk",
+      "model": "model-3-highland-01-2024",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/sidinnia/sidinnia-2-go-riadu-i-osnashhennia/sidinnia-2-go-riadu-i-osnashhennia/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/sidinnia/sidinnia-2-go-riadu-i-osnashhennia/sidinnia-2-go-riadu-i-osnashhennia/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-3-highland-01-2024/sidenia/sideniia-2-go-riada-i-osnastka/sideniia-2-go-riada-i-osnastka/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-3-highland-01-2024/sidinnia/sidinnia-2-go-riadu-i-osnashhennia/sidinnia-2-go-riadu-i-osnashhennia/"
+      },
+      "selected_path": "sidinnia/sidinnia-2-go-riadu-i-osnashhennia/sidinnia-2-go-riadu-i-osnashhennia",
+      "total": 2,
+      "observed_utc": "2026-11-21T14:50:25.665Z",
+      "decision": "distinct_inventory_preserved",
+      "prepared_target": null,
+      "note": "Parent5/leaf2 in both locales. RUInspection03October is internally stale: reason conflict but Googlecanonical=usercanonical. No consolidation."
+    },
+    {
+      "n": 54,
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/",
+      "locale": "uk",
+      "model": "model-s-02-2012-03-2016",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vnutrenniaia-otdelka/obsivka-potolka-salona/obsivka-potolka-salona/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/"
+      },
+      "selected_path": "vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu",
+      "total": 6,
+      "observed_utc": "2026-11-21T14:50:28.247Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/parts/model-s-02-2012-03-2016/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/",
+      "note": ""
+    },
+    {
+      "n": 55,
+      "url": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/",
+      "locale": "uk",
+      "model": "",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/vnutrenniaia-otdelka/obsivka-potolka-salona/obsivka-potolka-salona/",
+        "x-default": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu/"
+      },
+      "selected_path": "vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/ozdoblennia-steli-salonu",
+      "total": 26,
+      "observed_utc": "2026-11-21T14:50:30.9Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/parts/vnutrisnje-ozdoblennia/ozdoblennia-steli-salonu/",
+      "note": ""
+    },
+    {
+      "n": 56,
+      "url": "https://nikolacars.kiev.ua/parts/elektrika/datciki-radaru/datciki-radaru/",
+      "locale": "uk",
+      "model": "",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/elektrika/datciki-radaru/datciki-radaru/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/elektrika/datciki-radaru/datciki-radaru/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/elektrika/datciki-radara/datciki-radara/",
+        "x-default": "https://nikolacars.kiev.ua/parts/elektrika/datciki-radaru/datciki-radaru/"
+      },
+      "selected_path": "elektrika/datciki-radaru/datciki-radaru",
+      "total": 9,
+      "observed_utc": "2026-11-21T14:50:37.301Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/parts/elektrika/datciki-radaru/",
+      "note": ""
+    },
+    {
+      "n": 57,
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/elektrika/frontalnaia-kamera/frontalnaia-kamera/",
+      "locale": "ru",
+      "model": "model-s-02-2012-03-2016",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/elektrika/frontalnaia-kamera/frontalnaia-kamera/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/elektrika/frontalna-kamera/frontalna-kamera/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/elektrika/frontalnaia-kamera/frontalnaia-kamera/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/elektrika/frontalna-kamera/frontalna-kamera/"
+      },
+      "selected_path": "elektrika/frontalnaia-kamera/frontalnaia-kamera",
+      "total": 3,
+      "observed_utc": "2026-11-21T14:50:43.186Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/ru/parts/model-s-02-2012-03-2016/elektrika/frontalnaia-kamera/",
+      "note": ""
+    },
+    {
+      "n": 58,
+      "url": "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/diski-i-siny/diski/diski/",
+      "locale": "ru",
+      "model": "model-s-04-2016-01-2021",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/diski-i-siny/diski/diski/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/diski/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-s-04-2016-01-2021/diski-i-siny/diski/diski/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-s-04-2016-01-2021/diski-i-sini/diski/diski/"
+      },
+      "selected_path": "diski-i-siny/diski/diski",
+      "total": 1,
+      "observed_utc": "2026-11-21T14:50:48.659Z",
+      "decision": "existing_consistent_consolidation",
+      "prepared_target": null,
+      "note": "Existing preferred direction retained; no inverse mapping introduced."
+    },
+    {
+      "n": 59,
+      "url": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/",
+      "locale": "uk",
+      "model": "",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/vnutrenniaia-otdelka/",
+        "x-default": "https://nikolacars.kiev.ua/parts/vnutrisnje-ozdoblennia/"
+      },
+      "selected_path": "vnutrisnje-ozdoblennia",
+      "total": 895,
+      "observed_utc": "2026-11-21T14:50:55.665Z",
+      "decision": "historical_category_alias",
+      "prepared_target": null,
+      "note": "Google stored /category/ URL in September; it currently returns301 to this200 self-canonical URL."
+    },
+    {
+      "n": 60,
+      "url": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-batareia/visokovoltna-batareia/",
+      "locale": "uk",
+      "model": "model-s-02-2012-03-2016",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-batareia/visokovoltna-batareia/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-batareia/visokovoltna-batareia/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/model-s-02-2012-03-2016/vysokovoltnaia-batareia/vysokovoltnaia-batareia/",
+        "x-default": "https://nikolacars.kiev.ua/parts/model-s-02-2012-03-2016/visokovoltna-batareia/visokovoltna-batareia/"
+      },
+      "selected_path": "visokovoltna-batareia/visokovoltna-batareia",
+      "total": 3,
+      "observed_utc": "2026-11-21T14:50:58.282Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/parts/model-s-02-2012-03-2016/visokovoltna-batareia/",
+      "note": ""
+    },
+    {
+      "n": 61,
+      "url": "https://nikolacars.kiev.ua/parts/diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms/",
+      "locale": "uk",
+      "model": "",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/diski-i-siny/sistema-kontrolia-davleniia-v-sinax-tpms/sistema-kontrolia-davleniia-v-sinax-tpms/",
+        "x-default": "https://nikolacars.kiev.ua/parts/diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms/"
+      },
+      "selected_path": "diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/sistema-kontroliu-tisku-v-sinax-tpms",
+      "total": 8,
+      "observed_utc": "2026-11-21T14:51:02.646Z",
+      "decision": "new_scoped_redirect",
+      "prepared_target": "/parts/diski-i-sini/sistema-kontroliu-tisku-v-sinax-tpms/",
+      "note": ""
+    },
+    {
+      "n": 62,
+      "url": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/diski/",
+      "locale": "uk",
+      "model": "",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/diski/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/diski/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/diski-i-siny/diski/diski/",
+        "x-default": "https://nikolacars.kiev.ua/parts/diski-i-sini/diski/diski/"
+      },
+      "selected_path": "diski-i-sini/diski/diski",
+      "total": 33,
+      "observed_utc": "2026-11-21T14:51:07.708Z",
+      "decision": "existing_consistent_consolidation",
+      "prepared_target": null,
+      "note": "Existing preferred direction retained; no inverse mapping introduced."
+    },
+    {
+      "n": 63,
+      "url": "https://nikolacars.kiev.ua/parts/komponenti-zakrittia/",
+      "locale": "uk",
+      "model": "",
+      "current_http": 200,
+      "current_location": null,
+      "current_canonical": [
+        "https://nikolacars.kiev.ua/parts/komponenti-zakrittia/"
+      ],
+      "current_hreflang": {
+        "uk-UA": "https://nikolacars.kiev.ua/parts/komponenti-zakrittia/",
+        "ru-UA": "https://nikolacars.kiev.ua/ru/parts/komponenty-zakrytiia/",
+        "x-default": "https://nikolacars.kiev.ua/parts/komponenti-zakrittia/"
+      },
+      "selected_path": "komponenti-zakrittia",
+      "total": 564,
+      "observed_utc": "2026-11-21T14:51:15.072Z",
+      "decision": "historical_category_alias",
+      "prepared_target": null,
+      "note": "Google stored /category/ URL in September; it currently returns301 to this200 self-canonical URL."
+    }
+  ]
+}
