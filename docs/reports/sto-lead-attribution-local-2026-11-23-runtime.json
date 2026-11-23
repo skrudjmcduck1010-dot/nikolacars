@@ -1,0 +1,123 @@
+{
+  "status": "local_review_candidate_not_release_authorization",
+  "date": "2026-11-23",
+  "application": "nikolacars.kiev.ua",
+  "runtime_count": 21,
+  "runtime": [
+    {
+      "path": "app/Http/Controllers/LeadController.php",
+      "sha256": "108714d21b97dd4e20387e08ceb5101ac3fa770751d1ad454d482cadbb1171d6",
+      "bytes": 7387
+    },
+    {
+      "path": "app/Services/StoLeadSubmission.php",
+      "sha256": "1a56bdc5156b70c8940096eb43b9e7492bb0150cb2bcc7f9db0daefecdb50aa9",
+      "bytes": 5504
+    },
+    {
+      "path": "public/assets/js/analytics.js",
+      "sha256": "27dfa727fd27a78153d649cf4d949239b0db2a48bff29b5b054aaeb1f51f1af5",
+      "bytes": 3912
+    },
+    {
+      "path": "public/assets/js/lead-request.js",
+      "sha256": "266f319f502fa7bfa11ceef13a75600b6022f5c42cfd693ec7aa416769e93a4b",
+      "bytes": 2338
+    },
+    {
+      "path": "public/assets/js/checkout.js",
+      "sha256": "ab31ba5c09f5885ada0ab45c25548170beea13695db0355aac67b08bbe36ed71",
+      "bytes": 6485
+    },
+    {
+      "path": "public/assets/js/parts.js",
+      "sha256": "50f5858e95158d2f05d1a816e23ae1125a251f269d6ddd470117fe107e5bf221",
+      "bytes": 28534
+    },
+    {
+      "path": "resources/views/home.blade.php",
+      "sha256": "54451d40fe1dc019d1dd8ff6dc41bcefd7c6107a80f8c4546fe3b0a34490673a",
+      "bytes": 39056
+    },
+    {
+      "path": "resources/views/contacts.blade.php",
+      "sha256": "ed4c3cf7640fead81d54df7f58c3b30cf06bad6ccc02c3bf1b7c4743e6777e53",
+      "bytes": 11482
+    },
+    {
+      "path": "resources/views/layouts/app.blade.php",
+      "sha256": "1aa43429dd0fc1d39ea8b817c2a048a8053b23a9ca20cb77bf0e570f0669b6fb",
+      "bytes": 20571
+    },
+    {
+      "path": "resources/views/partials/analytics.blade.php",
+      "sha256": "e1658ebf3ca4f88a0a124aa0c9a70be76efee0842ba4072578740ea1888c143c",
+      "bytes": 469
+    },
+    {
+      "path": "resources/views/parts/checkout.blade.php",
+      "sha256": "27702d901f31098298e91557e34a1c03765b7d00bccc0232c4b7f07fc6466956",
+      "bytes": 5509
+    },
+    {
+      "path": "resources/views/parts/index.blade.php",
+      "sha256": "82ec3f399ef6b8297c7a5f9ddbc526be39e7e927d14cc6f00b24539387efa376",
+      "bytes": 19089
+    },
+    {
+      "path": "resources/views/services/firmware-auto.blade.php",
+      "sha256": "f30e67a2c557b645561f8a0d058419e05f7aad526526116a230b6fefff3e371e",
+      "bytes": 47099
+    },
+    {
+      "path": "resources/views/services/prigon-usa.blade.php",
+      "sha256": "8d4982b187d0d941fd72320b521fc94d7a8e8a5a0d61a56a9fc1ea57ab78f543",
+      "bytes": 55822
+    },
+    {
+      "path": "resources/views/services/repair-tesla-door-handle.blade.php",
+      "sha256": "a7556cf434964eaaca93d1f16e841b62a7ccca8714aa6e38431c795ccc33abf8",
+      "bytes": 45769
+    },
+    {
+      "path": "resources/views/services/tesla-battery-repair.blade.php",
+      "sha256": "dab08a842190eca897f522a4bec8be5a1c380915ce12b9f6a96cb086f30dcb2d",
+      "bytes": 67363
+    },
+    {
+      "path": "resources/views/services/tesla-electricmotor-repair.blade.php",
+      "sha256": "a7fed8e34e4ad14deb5ad9cf5494abc85ca77c6fdc1dd354cc340099bd8770a8",
+      "bytes": 51331
+    },
+    {
+      "path": "resources/views/services/tesla-service.blade.php",
+      "sha256": "e2efaa11c24d966520dc93cdf82b9bbc5f89cf7a3e2efdd9095516ae8dfd0ed9",
+      "bytes": 56348
+    },
+    {
+      "path": "resources/views/services/tesla-subframe-repair.blade.php",
+      "sha256": "5f28b75b16af19e1d9a6e6a88b3c8bbb977c87531fb5a965ca6e5789c7726e4d",
+      "bytes": 46075
+    },
+    {
+      "path": "resources/views/services/vidnovlennya-sertyfikativ-tesla.blade.php",
+      "sha256": "2a2c45ab2b2b9a926772a67b344bf5315a60ea68b66d0bf9723e3f1e375e42ee",
+      "bytes": 42705
+    },
+    {
+      "path": "routes/web.php",
+      "sha256": "91383373512b36bb8182c8eff5f87a7722e48c41d4b73068b65030a6dfa953f6",
+      "bytes": 20058
+    }
+  ],
+  "unchanged_dependencies_to_guard": [
+    "config/service_content.php",
+    "app/Services/SkladStorefrontClient.php"
+  ],
+  "checks": [
+    "PHP 15 regressions + failure probe PASS",
+    "Final targeted delivery suite 26 assertions + failure probe PASS",
+    "Browser 50/50 desktop/mobile PASS"
+  ],
+  "private_runtime_state": "storage/app/private/sto-lead-submissions — preserve; never publish into Git or purge"
+}

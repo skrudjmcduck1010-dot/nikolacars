@@ -7,4 +7,5 @@
     gtag('config', 'G-5GRKRBQXET');
   </script>
 
-<script src="{{ asset('assets/js/analytics.js') }}?v=20260920-2" defer></script>
+<script src="{{ asset('assets/js/lead-request.js') }}?v=20261123-1" defer></script>
+<script src="{{ asset('assets/js/analytics.js') }}?v=20261123-1" defer></script>

@@ -266,5 +266,5 @@ window.initialPartsCatalog = @json($initialCatalog);
 window.partsPreferredCategoryPaths = @json(\App\Services\CatalogPath::preferredPaths());
 window.partsModelLanding = @json($catalogLanding ?? $modelLanding ?? null);
 </script>
-<script src="{{ asset('assets/js/parts.js') }}?v=20261112-ad-click" defer></script>
+<script src="{{ asset('assets/js/parts.js') }}?v=20261123-lead-id" defer></script>
 @endpush

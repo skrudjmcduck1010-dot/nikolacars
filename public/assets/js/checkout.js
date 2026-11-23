@@ -62,15 +62,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (afterHoursNotice) afterHoursNotice.hidden = true;
     const submit = $('.checkout-submit', form); submit.disabled = true;
     const data = Object.fromEntries(new FormData(form).entries());
-    data.request_id = crypto.randomUUID();
     data.items = cart.map(item => ({ product_id: item.id, quantity: item.quantity }));
     const attribution = window.ncPartsAttribution?.();
     if (attribution) data.attribution = attribution;
+    data.request_id = await window.ncLeadRequest?.requestId('parts_order', data) || crypto.randomUUID();
     try {
       const response = await fetch(root.dataset.orderUrl, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json', 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').content }, body: JSON.stringify(data) });
       const result = await response.json();
       if (!response.ok) throw new Error(result.message || Object.values(result.errors || {}).flat()[0] || t.orderError);
-      window.ncAnalytics?.lead('parts_order');
+      window.ncLeadRequest?.complete('parts_order', { ok: true });
+      window.ncAnalytics?.lead('parts_order', { request_id: data.request_id, crm_saved: true });
       cart = []; saveCart(); form.reset();
       if (afterHoursNotice) afterHoursNotice.hidden = result.after_hours !== true;
       $('[data-success-text]').textContent = t.success.replace(':number', result.number); $('[data-success]').hidden = false; $('[data-page-empty]').hidden = true;

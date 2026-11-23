@@ -235,17 +235,18 @@
       }
 
       try {
-        const res = await fetch(form.action, {
+        const res = await (window.ncLeadRequest?.post ?? fetch)(form.action, {
           method: 'POST',
           headers: { 'X-Requested-With': 'XMLHttpRequest' },
           body: new FormData(form),
-        });
+        }, 'contacts_callback');
 
         const json = await res.json().catch(() => null);
 
         if (res.ok && json && (json.ok === true || json.success === true)) {
           if (status) status.textContent = window.ncLeadSuccessMessage(json, t('✅ Отправлено! Мы свяжемся с вами.', '✅ Надіслано! Ми зв’яжемося з вами.'));
-          window.ncAnalytics?.lead('contacts_callback');
+          window.ncLeadRequest?.complete('contacts_callback', json);
+          window.ncAnalytics?.lead('contacts_callback', json);
           form.reset();
           if (phoneInput) phoneInput.value = '+380';
         } else {

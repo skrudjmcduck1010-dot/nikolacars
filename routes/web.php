@@ -114,7 +114,7 @@ Route::get('/ru/', function (SkladStorefrontClient $client) use ($loadFeaturedPa
     return view('home', compact('locale', 'pathNoLocale', 'services', 'featuredParts'));
 });
 
-Route::post('/lead/callback', [LeadController::class, 'callback'])->name('lead.callback');
+Route::post('/lead/callback', [LeadController::class, 'callback'])->middleware('throttle:10,1')->name('lead.callback');
 Route::post('/parts/api/callback', PartsCallbackController::class)->middleware('throttle:10,1')->name('parts.callback');
 Route::get('/sitemap.xml', [SiteController::class, 'sitemap'])->name('sitemap');
 Route::get('/sitemaps/pages.xml', [SiteController::class, 'sitemapPages'])->name('sitemap.pages');

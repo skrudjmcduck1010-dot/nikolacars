@@ -619,14 +619,14 @@ document.addEventListener('DOMContentLoaded', () => {
       fd.set('utm', collectUtm());
 
       try {
-        const res = await fetch(form.action, {
+        const res = await (window.ncLeadRequest?.post ?? fetch)(form.action, {
           method: 'POST',
           headers: {
             'X-CSRF-TOKEN': csrf,
             'Accept': 'application/json'
           },
           body: fd
-        });
+        }, 'home_callback');
 
         const json = await res.json().catch(() => ({}));
 
@@ -636,7 +636,8 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
 
-        window.ncAnalytics?.lead('home_callback');
+        window.ncLeadRequest?.complete('home_callback', json);
+        window.ncAnalytics?.lead('home_callback', json);
         if (successMessage) {
           successMessage.textContent = window.ncLeadSuccessMessage(json, successMessage.dataset.defaultMessage);
         }

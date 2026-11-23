@@ -12,6 +12,7 @@ $scripts = [
     'catalog-tree-regression.php',
     'catalog-canonical-regression.php',
     'ua-battery-alias-regression.php',
+    'sto-lead-submission-regression.php',
 ];
 $sentinel = '__NC_REGRESSION_COMPLETED__';
 if (($argv[1] ?? '') === '--child') {
@@ -50,7 +51,12 @@ if (!mkdir($run, 0777, true)) {
 }
 $results = [];
 $failed = false;
-foreach (array_merge(['__failure_probe__'], $scripts) as $index => $script) {
+$selected = $scripts;
+if (($argv[1] ?? '') === '--only') {
+    if (! in_array($argv[2] ?? '', $scripts, true)) throw new RuntimeException('Unknown regression selection.');
+    $selected = [$argv[2]];
+}
+foreach (array_merge(['__failure_probe__'], $selected) as $index => $script) {
     $relative = '.codex-tmp/compat-regressions/'.basename($run).'/case-'.$index;
     $runtime = $root.'/'.$relative;
     foreach (['bootstrap', 'storage/logs', 'storage/framework/views', 'storage/framework/cache/data', 'storage/framework/sessions'] as $directory) {

@@ -7,6 +7,18 @@
       }
     } catch (_) { /* Analytics must never interrupt a customer action. */ }
   };
+  const emitLeadOnce = (name, params) => {
+    // Claim before enqueueing. A lost analytics hit is safer than a duplicate conversion.
+    // Refuse unidentifiable/unstorable events rather than sending customer data or duplicate hits.
+    if (!/^[0-9a-f]{8}-[0-9a-f-]{27}$/i.test(params.request_id || '')) return;
+    try {
+      if (typeof window.gtag !== 'function') return;
+      const key = 'nc-lead-event-v1:' + name + ':' + params.request_id;
+      if (sessionStorage.getItem(key)) return;
+      sessionStorage.setItem(key, 'claimed');
+      send(name, params);
+    } catch (_) { /* Storage/analytics must never block intake. */ }
+  };
   const item = product => ({
     item_id: String(product.id),
     item_name: String(product.name || '').slice(0, 100),
@@ -15,7 +27,22 @@
     quantity: 1
   });
   window.ncAnalytics = {
-    lead: formId => send('generate_lead', { form_id: formId, lead_source: 'website' }),
+    lead: (formId, result = {}) => {
+      const business = formId === 'parts_order' ? 'parts'
+        : ['sto', 'import', 'general'].includes(result.business_unit) ? result.business_unit : 'general';
+      const params = { form_id: formId, lead_source: 'website', business_unit: business,
+        request_id: result.request_id, delivery_status: result.crm_saved === true ? 'crm' : 'accepted' };
+      // Keep the existing imported action during migration. Never make both events primary.
+      if (!result.request_id) {
+        // Compatibility with stale form JS. It cannot supply a safe reconciliation identity.
+        send('generate_lead', { form_id: formId, lead_source: 'website', business_unit: business });
+        return;
+      }
+      emitLeadOnce('generate_lead', params);
+      if (business === 'parts' || (business === 'sto' && result.crm_saved === true)) {
+        emitLeadOnce(business === 'parts' ? 'parts_generate_lead' : 'sto_generate_lead', params);
+      }
+    },
     addToCart: product => send('add_to_cart', {
       currency: 'UAH', value: Number(product.price_uah) || 0, items: [item(product)]
     }),

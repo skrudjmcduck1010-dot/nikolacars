@@ -382,14 +382,14 @@ document.addEventListener('DOMContentLoaded', function(){
     fd.append('utm', utmPairs.join('&'));
 
     try {
-      const res = await fetch(leadUrl, {
+      const res = await (window.ncLeadRequest?.post ?? fetch)(leadUrl, {
         method: 'POST',
         headers: {
           'X-CSRF-TOKEN': csrf,
           'Accept': 'application/json'
         },
         body: fd
-      });
+      }, 'callback_widget');
 
       const json = await res.json().catch(() => ({}));
       if (!res.ok || !json.ok) {
@@ -398,7 +398,8 @@ document.addEventListener('DOMContentLoaded', function(){
         return;
       }
 
-      window.ncAnalytics?.lead('callback_widget');
+      window.ncLeadRequest?.complete('callback_widget', json);
+      window.ncAnalytics?.lead('callback_widget', json);
       phoneInput.value = '';
       alert(window.ncLeadSuccessMessage(json, i18n.thanks));
       closeAll();
