@@ -1,5 +1,23 @@
 # Проверка и выпуск NikolaCars
 
+## 23.11.2026, 13:46 Europe/Kyiv — аналитика СТО и защита повторов опубликованы
+
+По явному разрешению владельца выпущен сайт, runtime `02274095d316314402ff5c478ad9c0a9672ecd84`
+из task-only pushed ветки.21runtime: отдельная CRM-confirmed STO цель, стабильный
+request_id, независимый CRM/Telegram успех и durable дедупликация. Старое событие
+сохранено; Ads/склад/бизнес-данные не менялись. Новая цель не активирована в Ads.
+15PHP+failureprobe,10operator tests, ранее50browser; audits0. Fresh baseline,
+26-file verified rollback archive; promotion21/21, independent35/35, GET17/17 PASS.
+Bounded262144blog ERROR/CRITICAL/WARNING0/0/0. Canonical46WIP сохранены.
+Нет config/routes cache; storage metadata совместимы, но live PHP write/flock и
+доставка реальной заявки не тестировались. Исполняемых web runners не было.
+Rollback старого callback требует сначала закрыть intake/503 и дренировать запросы;
+не удалять ledger и не открывать небезопасный старый обработчик автоматически.
+[Подробности, ограничения и план](../reports/sto-lead-attribution-release-2026-11-23.md).
+Private receipts `.codex-tmp/sto-lead-release-20261123/`.
+Статус: опубликовано/read-only проверено; следующий шаг — сверка настоящего
+нового обращения, затем отдельно разрешённая миграция цели Ads без двойного учёта.
+
 ## 13.11.2026 20:06 Europe/Kyiv — проверка общего Git checkpoint
 
 По прямому поручению владельца проверены все накопленные tracked/untracked
