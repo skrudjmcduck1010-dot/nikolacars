@@ -7,17 +7,22 @@
       }
     } catch (_) { /* Analytics must never interrupt a customer action. */ }
   };
-  const emitLeadOnce = (name, params) => {
-    // Claim before enqueueing. A lost analytics hit is safer than a duplicate conversion.
-    // Refuse unidentifiable/unstorable events rather than sending customer data or duplicate hits.
+  const documentLeadClaims = new Set();
+  const emitLeadOnce = (name, params, allowDocumentFallback = false) => {
+    // Claim before enqueueing; storage retains cross-reload protection when available.
+    // Only CRM-confirmed STO may fall back to this document when storage is denied.
     if (!/^[0-9a-f]{8}-[0-9a-f-]{27}$/i.test(params.request_id || '')) return;
+    if (typeof window.gtag !== 'function') return;
+    const key = 'nc-lead-event-v1:' + name + ':' + params.request_id;
+    if (documentLeadClaims.has(key)) return;
     try {
-      if (typeof window.gtag !== 'function') return;
-      const key = 'nc-lead-event-v1:' + name + ':' + params.request_id;
       if (sessionStorage.getItem(key)) return;
       sessionStorage.setItem(key, 'claimed');
-      send(name, params);
-    } catch (_) { /* Storage/analytics must never block intake. */ }
+    } catch (_) {
+      if (!allowDocumentFallback) return;
+    }
+    documentLeadClaims.add(key);
+    send(name, params);
   };
   const item = product => ({
     item_id: String(product.id),
@@ -38,9 +43,10 @@
         send('generate_lead', { form_id: formId, lead_source: 'website', business_unit: business });
         return;
       }
-      emitLeadOnce('generate_lead', params);
+      const confirmedSto = business === 'sto' && result.crm_saved === true;
+      emitLeadOnce('generate_lead', params, confirmedSto);
       if (business === 'parts' || (business === 'sto' && result.crm_saved === true)) {
-        emitLeadOnce(business === 'parts' ? 'parts_generate_lead' : 'sto_generate_lead', params);
+        emitLeadOnce(business === 'parts' ? 'parts_generate_lead' : 'sto_generate_lead', params, confirmedSto);
       }
     },
     addToCart: product => send('add_to_cart', {
@@ -74,6 +80,12 @@
       const params = { contact_method: method };
       if (product?.id) params.item_id = String(product.id);
       send(method === 'phone' ? 'click_phone' : method === 'email' ? 'click_email' : 'click_messenger', params);
+      if (method === 'phone' && link.dataset.phoneBusinessUnit === 'sto') {
+        const placement = link.hasAttribute('data-header-phone') ? 'mobile_header'
+          : link.hasAttribute('data-menu-phone') ? 'mobile_menu'
+          : link.closest('footer') ? 'footer' : link.closest('.topbar') ? 'topbar' : 'other';
+        send('sto_click_phone', { contact_method: 'phone', business_unit: 'sto', phone_placement: placement });
+      }
     });
   });
 })();

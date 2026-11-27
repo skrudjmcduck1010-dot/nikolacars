@@ -8,4 +8,4 @@
   </script>
 
 <script src="{{ asset('assets/js/lead-request.js') }}?v=20261123-1" defer></script>
-<script src="{{ asset('assets/js/analytics.js') }}?v=20261123-1" defer></script>
+<script src="{{ asset('assets/js/analytics.js') }}?v=20261127-2" defer></script>

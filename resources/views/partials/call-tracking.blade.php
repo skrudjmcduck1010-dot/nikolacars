@@ -1,5 +1,10 @@
 @php
   $callTrackingHost = strtolower(request()->getHost());
+  $phoneContextPath = preg_replace('~^/(?:ru|ua)/~', '/', '/'.ltrim(request()->path(), '/'));
+  $isStoPhoneContext = in_array($callTrackingHost, ['nikolacars.kiev.ua', 'www.nikolacars.kiev.ua'], true)
+    && preg_match('~^/services/([a-z0-9-]+)/?$~', $phoneContextPath, $phoneContextMatch)
+    && $phoneContextMatch[1] !== 'prigon-tesla-usa'
+    && array_key_exists($phoneContextMatch[1], config('service_content', []));
   $callTrackingUsesDisassemblyNumbers = in_array($callTrackingHost, [
     'nikolacars.com.ua',
     'www.nikolacars.com.ua',
@@ -15,6 +20,12 @@
 <script>
 (function () {
   const usesDisassemblyNumbers = {{ $callTrackingUsesDisassemblyNumbers ? 'true' : 'false' }};
+  // Establish role from the original STO destination before the Binotel widget changes it.
+  if ({{ $isStoPhoneContext ? 'true' : 'false' }}) {
+    document.querySelectorAll('a[href="tel:+380975120255"]').forEach(function (link) {
+      link.dataset.phoneBusinessUnit = 'sto';
+    });
+  }
   if (!usesDisassemblyNumbers) return;
 
   const partsPhoneHref = 'tel:+380990698380';

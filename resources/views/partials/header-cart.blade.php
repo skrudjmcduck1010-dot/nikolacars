@@ -27,18 +27,26 @@ document.addEventListener('DOMContentLoaded', () => {
   const phone = document.querySelector('[data-header-phone]');
   const firstPhone = document.querySelector('.topbar a[href^="tel:"]');
   const contactPhones = document.querySelectorAll('.topbar a[href^="tel:"]');
+  const copyPhoneRole = (target, source) => {
+    if (source.dataset.phoneBusinessUnit === 'sto') target.dataset.phoneBusinessUnit = 'sto';
+    else delete target.dataset.phoneBusinessUnit;
+  };
   document.querySelectorAll('[data-menu-phone]').forEach(menuPhone => {
     const source = contactPhones[Number(menuPhone.dataset.menuPhone)];
     if (!source) return;
     const updateMenuPhone = () => {
       menuPhone.setAttribute('href', source.getAttribute('href'));
+      copyPhoneRole(menuPhone, source);
       menuPhone.querySelector('[data-menu-phone-label]').textContent = source.textContent.replace(/[^\d+()\s-]/g, '').trim();
     };
     updateMenuPhone();
     new MutationObserver(updateMenuPhone).observe(source, { attributes: true, attributeFilter: ['href'], childList: true, characterData: true, subtree: true });
   });
   if (phone && firstPhone) {
-    const updatePhone = () => phone.setAttribute('href', firstPhone.getAttribute('href'));
+    const updatePhone = () => {
+      phone.setAttribute('href', firstPhone.getAttribute('href'));
+      copyPhoneRole(phone, firstPhone);
+    };
     updatePhone();
     new MutationObserver(updatePhone).observe(firstPhone, { attributes: true, attributeFilter: ['href'] });
   }
